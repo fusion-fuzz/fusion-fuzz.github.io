@@ -1,0 +1,222 @@
+*Fusion-Fuzz Bug Report*
+
+**ID:** `244bb393` &nbsp;·&nbsp; **Signature:** `SUMMARY: AddressSanitizer: heap-use-after-free /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/dom/php_dom.c:322:18 in php_dom_object_get_data` &nbsp;·&nbsp; **RC:** `1`
+
+The following code:
+
+```php
+<?php
+try {
+$doc = new DOMDocument;
+$doc->loadXML(<<<'XML'
+<!DOCTYPE books [
+<!NOTATION myNotation SYSTEM "test.dtd">
+]>
+<container/>
+XML);
+$notation = $doc->doctype->notations[0];
+$doc->removeChild($doc->doctype);
+var_dump(get_defined_vars());
+} catch (\Throwable $_ffl_e) {}
+```
+
+*(minimized 26→13 lines, 50.0% reduction, 2026-05-05 13:40 UTC)*
+
+
+
+Resulted in this output:
+
+```
+=================================================================
+==369011==ERROR: AddressSanitizer: heap-use-after-free on address 0x60c000028540 at pc 0x0000010d47ef bp 0x7ffee6739010 sp 0x7ffee6739008
+READ of size 8 at 0x60c000028540 thread T0
+    #0 0x10d47ee in php_dom_object_get_data /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/dom/php_dom.c:322:18
+    #1 0x112e9ff in php_dom_create_object /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/dom/php_dom.c:1648:23
+    #2 0x106ff78 in dom_node_parent_get /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/dom/node.c:258:2
+    #3 0x106fc3e in dom_node_parent_node_read /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/dom/node.c:269:9
+    #4 0x113d0fb in dom_get_debug_info_helper /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/dom/php_dom.c:528:7
+    #5 0x10e56fc in dom_get_debug_info /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/dom/php_dom.c:551:9
+    #6 0x6499b2a in zend_std_get_properties_for /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_object_handlers.c:2596:10
+    #7 0x649a841 in zend_get_properties_for /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_object_handlers.c:2645:9
+    #8 0x43ea42d in php_var_dump /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/standard/var.c:182:11
+    #9 0x43ec47e in php_array_element_dump /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/standard/var.c:49:2
+    #10 0x43e9166 in php_var_dump /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/standard/var.c:156:5
+    #11 0x43eea7a in zif_var_dump /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/standard/var.c:248:3
+    #12 0x5d853ce in ZEND_DO_ICALL_SPEC_RETVAL_UNUSED_HANDLER /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:1317:2
+    #13 0x591663b in execute_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:110168:12
+    #14 0x5918bcc in zend_execute /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:115586:2
+    #15 0x6611e09 in zend_execute_script /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend.c:1971:3
+    #16 0x4e8794a in php_execute_script_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:2646:13
+    #17 0x4e88e88 in php_execute_script /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:2686:9
+    #18 0x66261e9 in do_cli /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:947:5
+    #19 0x66206bf in main /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:1370:18
+    #20 0x7fcb4f7b6d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #21 0x7fcb4f7b6e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #22 0x6058b4 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x6058b4)
+
+0x60c000028540 is located 0 bytes inside of 128-byte region [0x60c000028540,0x60c0000285c0)
+freed by thread T0 here:
+    #0 0x680512 in free (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x680512)
+    #1 0x8c5b76 in php_libxml_node_free /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/libxml/libxml.c:277:4
+    #2 0x8d899c in php_libxml_node_free_resource /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/libxml/libxml.c:1448:5
+    #3 0x8d8bb1 in php_libxml_node_decrement_resource /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/libxml/libxml.c:1462:4
+    #4 0x10e43ac in dom_objects_free_storage /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/dom/php_dom.c:1496:4
+    #5 0x64a4831 in zend_objects_store_del /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_objects_API.c:193:4
+    #6 0x65b6f57 in rc_dtor_func /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_variables.c:56:2
+    #7 0x5f7fd6e in i_zval_ptr_dtor /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_variables.h:44:4
+    #8 0x5b6212d in ZEND_DO_FCALL_SPEC_RETVAL_UNUSED_HANDLER /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:2051:4
+    #9 0x591663b in execute_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:110168:12
+    #10 0x5918bcc in zend_execute /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:115586:2
+    #11 0x6611e09 in zend_execute_script /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend.c:1971:3
+    #12 0x4e8794a in php_execute_script_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:2646:13
+    #13 0x4e88e88 in php_execute_script /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:2686:9
+    #14 0x66261e9 in do_cli /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:947:5
+    #15 0x66206bf in main /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:1370:18
+    #16 0x7fcb4f7b6d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+previously allocated by thread T0 here:
+    #0 0x68077d in malloc (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x68077d)
+    #1 0x7fcb500d001c in xmlCreateIntSubset (/lib/x86_64-linux-gnu/libxml2.so.2+0x6201c)
+
+SUMMARY: AddressSanitizer: heap-use-after-free /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/dom/php_dom.c:322:18 in php_dom_object_get_data
+Shadow bytes around the buggy address:
+  0x0c187fffd050: 00 00 00 00 00 00 00 fa fa fa fa fa fa fa fa fa
+  0x0c187fffd060: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fa
+  0x0c187fffd070: fa fa fa fa fa fa fa fa 00 00 00 00 00 00 00 00
+  0x0c187fffd080: 00 00 00 00 00 00 00 04 fa fa fa fa fa fa fa fa
+  0x0c187fffd090: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 05 fa
+=>0x0c187fffd0a0: fa fa fa fa fa fa fa fa[fd]fd fd fd fd fd fd fd
+  0x0c187fffd0b0: fd fd fd fd fd fd fd fd fa fa fa fa fa fa fa fa
+  0x0c187fffd0c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fa
+  0x0c187fffd0d0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c187fffd0e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c187fffd0f0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==369011==ABORTING
+string(10) "myNotation"
+string(0) ""
+string(8) "test.dtd"
+string(10) "myNotation"
+string(0) ""
+string(8) "test.dtd"
+string(10) "myNotation"
+string(0) ""
+string(8) "test.dtd"
+
+Warning: Undefined variable $doc in /home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/244bb393.php on line 17
+array(10) {
+  ["argv"]=>
+  array(1) {
+    [0]=>
+    string(68) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/244bb393.php"
+  }
+  ["argc"]=>
+  int(1)
+  ["_GET"]=>
+  array(0) {
+  }
+  ["_POST"]=>
+  array(0) {
+  }
+  ["_COOKIE"]=>
+  array(0) {
+  }
+  ["_FILES"]=>
+  array(0) {
+  }
+  ["_SERVER"]=>
+  array(26) {
+    ["LESSOPEN"]=>
+    string(22) "| /usr/bin/lesspipe %s"
+    ["TMUX"]=>
+    string(27) "/tmp/tmux-1000/default,33,0"
+    ["HOSTNAME"]=>
+    string(12) "7b7a888bd6f5"
+    ["SHLVL"]=>
+    string(1) "2"
+    ["HOME"]=>
+    string(10) "/home/fuzz"
+    ["OLDPWD"]=>
+    string(39) "/home/fuzz/WorkSpace/fusion-fuzz/output"
+    ["TERM_PROGRAM_VERSION"]=>
+    string(4) "3.2a"
+    ["LC_CTYPE"]=>
+    string(7) "C.UTF-8"
+    ["_"]=>
+    string(16) "/usr/bin/python3"
+    ["TERM"]=>
+    string(6) "screen"
+    ["PATH"]=>
+    string(60) "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    ["LS_COLORS"]=>
+    string(1508) "rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:"
+    ["TERM_PROGRAM"]=>
+    string(4) "tmux"
+    ["SHELL"]=>
+    string(7) "/bin/sh"
+    ["LESSCLOSE"]=>
+    string(23) "/usr/bin/lesspipe %s %s"
+    ["PWD"]=>
+    string(55) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared"
+    ["TMUX_PANE"]=>
+    string(2) "%0"
+    ["PHP_SELF"]=>
+    string(68) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/244bb393.php"
+    ["SCRIPT_NAME"]=>
+    string(68) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/244bb393.php"
+    ["SCRIPT_FILENAME"]=>
+    string(68) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/244bb393.php"
+    ["PATH_TRANSLATED"]=>
+    string(68) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/244bb393.php"
+    ["DOCUMENT_ROOT"]=>
+    string(0) ""
+    ["REQUEST_TIME_FLOAT"]=>
+    float(1777645154.181044)
+    ["REQUEST_TIME"]=>
+    int(1777645154)
+    ["argv"]=>
+    array(1) {
+      [0]=>
+      string(68) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/244bb393.php"
+    }
+    ["argc"]=>
+    int(1)
+  }
+  ["notation"]=>
+```
+
+To reproduce:
+
+```
+#!/bin/bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php -d disable_functions=pcntl_fork,pcntl_exec,pcntl_alarm,pcntl_wait,pcntl_waitpid,pcntl_signal,pcntl_wexitstatus,pcntl_wifexited,pcntl_wifsignaled,posix_kill,posix_mkfifo,posix_setuid,posix_setgid,posix_setsid,system,exec,shell_exec,passthru,proc_open,popen -d include_path=".:/home/fuzz/WorkSpace/fusion-fuzz/projects/php/phpt_deps" -d date.timezone=UTC -d max_execution_time=2 -d opcache.enable=1 -d opcache.enable_cli=1 -d opcache.jit=1254 "$SCRIPT_DIR/test.php"
+```
+
+### Parents
+
+| Label | ID | Source |
+|-------|----|--------|
+| `a` | `3976c353` | Project seed (`Delayed freeing notation declaration`) |
+| `b` | `6d495787` | Project seed (`Bug #53879 (DateTime::createFromFormat() fails to parse cookie expiration date)`) |
+
+*This report is automatically generated by [Fusion-Fuzz](https://github.com/0599jiangyc/FusionFuzzLoop)*
