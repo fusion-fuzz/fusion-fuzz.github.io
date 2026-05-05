@@ -233,6 +233,10 @@ def parse_bug(project, issue_id, bug_dir):
     ext       = os.path.splitext(repr_file)[1].lower() if repr_file else ""
     repr_code = _extract_file_section(repr_raw, ext)
 
+    # Original file (separate from minimized when both exist)
+    orig_ext  = os.path.splitext(test_file)[1].lower() if test_file else ""
+    orig_code = _extract_file_section(test_raw, orig_ext) if test_file and min_file else ""
+
     # Parents
     pa_file, pa_raw = _find_file(bug_dir, ["parent_a."])
     pb_file, pb_raw = _find_file(bug_dir, ["parent_b."])
@@ -256,6 +260,9 @@ def parse_bug(project, issue_id, bug_dir):
         "language":     EXT_LANG.get(ext, "text"),
         "repr_file":    repr_file or "test",
         "repr_code":    repr_code,
+        "orig_file":    test_file or "",
+        "orig_code":    orig_code,
+        "orig_language": EXT_LANG.get(orig_ext, "text"),
         "pa_code":      pa_code,
         "pb_code":      pb_code,
         "pa_file":      pa_file,
@@ -360,6 +367,8 @@ def _render_bug(i, bug):
     date      = _he(bug["date"])
     lang      = bug["language"]
     repr_code = bug["repr_code"]
+    orig_code = bug["orig_code"]
+    orig_file = bug["orig_file"]
     pa_code   = bug["pa_code"]
     pb_code   = bug["pb_code"]
     output    = _he(smart_truncate(bug["output"]))
@@ -386,6 +395,22 @@ def _render_bug(i, bug):
     tab_label = repr_file
     if is_min:
         tab_label += " (minimized)"
+
+    # ── Original pane (shown only when a separate minimized file exists) ──
+    orig_tab_html = ""
+    orig_pane_html = ""
+    if is_min and orig_code:
+        if pa_code or pb_code:
+            orig_pane_content = (_attr_legend(pa_code, pb_code)
+                                 + _attr_block(orig_code, pa_code, pb_code))
+        else:
+            olang = bug["orig_language"]
+            orig_pane_content = (f'<pre class="code-block lang-{olang}">'
+                                 f'<code>{_he(orig_code)}</code></pre>')
+        orig_tab_html  = (f'<button class="tab" onclick="switchTab({i},\'orig\',this)">'
+                          f'{_he(orig_file)} (original)</button>')
+        orig_pane_html = (f'<div class="tab-pane" id="pane-orig-{i}" hidden>'
+                          f'{orig_pane_content}</div>')
 
     # ── Output pane ───────────────────────────────────────────────────────
     output_pane = (f'<pre class="code-block"><code>{output}</code></pre>'
@@ -440,11 +465,13 @@ def _render_bug(i, bug):
     <div class="issue-detail" id="detail-{i}" hidden>
       <div class="detail-tabs">
         <button class="tab active" onclick="switchTab({i},'repr',this)">{_he(tab_label)}</button>
+        {orig_tab_html}
         <button class="tab" onclick="switchTab({i},'output',this)">Output</button>
         <button class="tab" onclick="switchTab({i},'parents',this)">{_he(parents_label)}</button>
       </div>
       {cmd_bar}
       <div class="tab-pane" id="pane-repr-{i}">{repr_pane}</div>
+      {orig_pane_html}
       <div class="tab-pane" id="pane-output-{i}" hidden>{output_pane}</div>
       <div class="tab-pane" id="pane-parents-{i}" hidden>{parents_pane}</div>
     </div>
