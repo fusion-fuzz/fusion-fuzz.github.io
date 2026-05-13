@@ -74,6 +74,7 @@ EXT_LANG = {
     ".js":   "javascript",
     ".lean": "lean",
     ".sql":  "sql",
+    ".md":   "markdown",
 }
 
 CRASH_ANCHORS = [
@@ -247,6 +248,14 @@ def parse_bug(project, issue_id, bug_dir):
     repr_raw  = min_raw  if min_file else test_raw
     ext       = os.path.splitext(repr_file)[1].lower() if repr_file else ""
     repr_code = _extract_file_section(repr_raw, ext)
+
+    # Fall back to README.md so every bug has something to display
+    if not repr_code:
+        readme_raw = _read(os.path.join(bug_dir, "README.md"))
+        if readme_raw:
+            repr_file = "README.md"
+            repr_code = readme_raw.strip()
+            ext       = ".md"
 
     # Original file (separate from minimized when both exist)
     orig_ext  = os.path.splitext(test_file)[1].lower() if test_file else ""
