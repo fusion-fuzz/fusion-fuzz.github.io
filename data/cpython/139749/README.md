@@ -1,0 +1,82 @@
+# memory leak after ValueError in JIT
+
+**Issue:** [https://github.com/python/cpython/issues/139749](https://github.com/python/cpython/issues/139749) &nbsp;·&nbsp; **State:** `closed` &nbsp;·&nbsp; **Created:** `2025-10-08T06:53:15Z`
+
+**Labels:** `type-bug`, `interpreter-core`, `topic-JIT`
+
+## Description
+
+# Bug report
+
+### Bug description:
+
+```python
+def test_in_table_c8_with_characters():
+    for cp in range(128, 999999999999):
+        ch = chr(cp)
+test_in_table_c8_with_characters()
+```
+
+config: `--enable-experimental-jit=yes --with-address-sanitizer`
+
+```
+Traceback (most recent call last):
+  File "/home/fuzz/WorkSpace/flowfusion-cpython/leak_pocs/976/./min.py", line 4, in <module>
+    test_in_table_c8_with_characters()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/fuzz/WorkSpace/flowfusion-cpython/leak_pocs/976/./min.py", line 3, in test_in_table_c8_with_characters
+    ch = chr(cp)
+ValueError: chr() arg not in range(0x110000)
+
+=================================================================
+==1588536==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 976 byte(s) in 1 object(s) allocated from:
+    #0 0x78749dd8f9c7 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0x58cde3b0f6b7 in _PyObject_MallocWithType ../Include/internal/pycore_object_alloc.h:46
+    #2 0x58cde3b0f6b7 in gc_alloc ../Python/gc.c:2327
+    #3 0x58cde3b0f6b7 in _PyObject_GC_NewVar ../Python/gc.c:2369
+    #4 0x58cde3bede54 in make_executor_from_uops ../Python/optimizer.c:1120
+    #5 0x58cde3bede54 in uop_optimize ../Python/optimizer.c:1341
+    #6 0x58cde3bede54 in _PyOptimizer_Optimize ../Python/optimizer.c:136
+    #7 0x58cde35b7940 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:7656
+    #8 0x58cde3a79686 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #9 0x58cde3a79686 in _PyEval_Vector ../Python/ceval.c:1997
+    #10 0x58cde3a79686 in PyEval_EvalCode ../Python/ceval.c:880
+    #11 0x58cde3c36b0e in run_eval_code_obj ../Python/pythonrun.c:1365
+    #12 0x58cde3c36b0e in run_mod ../Python/pythonrun.c:1459
+    #13 0x58cde3c3b7b7 in pyrun_file ../Python/pythonrun.c:1293
+    #14 0x58cde3c3b7b7 in _PyRun_SimpleFileObject ../Python/pythonrun.c:521
+    #15 0x58cde3c3c2dc in _PyRun_AnyFileObject ../Python/pythonrun.c:81
+    #16 0x58cde3cb8bdc in pymain_run_file_obj ../Modules/main.c:410
+    #17 0x58cde3cb8bdc in pymain_run_file ../Modules/main.c:429
+    #18 0x58cde3cb8bdc in pymain_run_python ../Modules/main.c:691
+    #19 0x58cde3cba4be in Py_RunMain ../Modules/main.c:772
+    #20 0x58cde3cba4be in pymain_main ../Modules/main.c:802
+    #21 0x58cde3cba4be in Py_BytesMain ../Modules/main.c:826
+    #22 0x78749d9c11c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 282c2c16e7b6600b0b22ea0c99010d2795752b5f)
+    #23 0x78749d9c128a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 282c2c16e7b6600b0b22ea0c99010d2795752b5f)
+    #24 0x58cde35dcf54 in _start (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x218f54) (BuildId: 3087b1f6c97d85c049f8eaa36e3ac5b15eccf317)
+
+SUMMARY: AddressSanitizer: 976 byte(s) leaked in 1 allocation(s).
+```
+
+
+### CPython versions tested on:
+
+CPython main branch
+
+### Operating systems tested on:
+
+Linux
+
+---
+
+### Parents
+
+| Label | ID | Source |
+|-------|----|--------|
+| `a` | `` | `` |
+| `b` | `` | `` |
+
+*Program: (to be filled)*

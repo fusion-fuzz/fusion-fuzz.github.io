@@ -1,0 +1,101 @@
+# python crash at ffi call
+
+**Issue:** [https://github.com/python/cpython/issues/140408](https://github.com/python/cpython/issues/140408) &nbsp;·&nbsp; **State:** `closed` &nbsp;·&nbsp; **Created:** `2025-10-21T10:20:02Z`
+
+**Labels:** `type-crash`
+
+## Description
+
+# Crash report
+
+### What happened?
+
+```python
+import unittest
+from ctypes import CDLL, POINTER, sizeof, c_byte, c_short, c_int, c_long, c_char, c_wchar, c_char_p
+from test.support import import_helper
+_ctypes_test = import_helper.import_module('_ctypes_test')
+class SlicesTestCase(unittest.TestCase):
+        dll = CDLL(_ctypes_test.__file__)
+        s = None
+        class allocated_c_char_p(c_char_p):
+            pass
+        def errcheck(result, func, args):
+            return retval
+        try:
+            res = dll.my_strdup(s)
+        finally:
+            del dll.my_strdup.errcheck
+if __name__ == '__main__':
+    def __init__(self, addr, handler, poll_interval=0.5, log=False, sslctx=None):
+        super(DelegatingHTTPRequestHandler, self).log_message(format, *args)
+```
+
+```
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==391683==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x7f684967d91c bp 0x7ffe655598b0 sp 0x7ffe65559038 T0)
+==391683==The signal is caused by a READ memory access.
+==391683==Hint: address points to the zero page.
+    #0 0x7f684967d91c in __strlen_evex ../sysdeps/x86_64/multiarch/strlen-evex-base.S:81
+    #1 0x7f684985a826 in strlen ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:389
+    #2 0x7f68449b4e92 in my_strdup ../Modules/_ctypes/_ctypes_test.c:541
+    #3 0x7f6848b10b15  (/lib/x86_64-linux-gnu/libffi.so.8+0x7b15) (BuildId: c9149b6e99105aa4321ddd4a10ee4b90de7b7d49)
+    #4 0x7f6848b0d3ee  (/lib/x86_64-linux-gnu/libffi.so.8+0x43ee) (BuildId: c9149b6e99105aa4321ddd4a10ee4b90de7b7d49)
+    #5 0x7f6848b100bd in ffi_call (/lib/x86_64-linux-gnu/libffi.so.8+0x70bd) (BuildId: c9149b6e99105aa4321ddd4a10ee4b90de7b7d49)
+    #6 0x7f684581c8d0 in _call_function_pointer ../Modules/_ctypes/callproc.c:945
+    #7 0x7f684581c8d0 in _ctypes_callproc ../Modules/_ctypes/callproc.c:1311
+    #8 0x7f684580e646 in PyCFuncPtr_call ../Modules/_ctypes/_ctypes.c:4685
+    #9 0x5dc53d7dc78d in _PyObject_MakeTpCall ../Objects/call.c:242
+    #10 0x5dc53d680b82 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:1620
+    #11 0x5dc53db5cbb5 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #12 0x5dc53db5cbb5 in _PyEval_Vector ../Python/ceval.c:2001
+    #13 0x5dc53db48a48 in builtin___build_class__ ../Python/bltinmodule.c:205
+    #14 0x5dc53d7de1a7 in _PyObject_VectorcallTstate ../Include/internal/pycore_call.h:169
+    #15 0x5dc53d7de1a7 in PyObject_Vectorcall ../Objects/call.c:327
+    #16 0x5dc53d680b82 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:1620
+    #17 0x5dc53db5c3e6 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #18 0x5dc53db5c3e6 in _PyEval_Vector ../Python/ceval.c:2001
+    #19 0x5dc53db5c3e6 in PyEval_EvalCode ../Python/ceval.c:884
+    #20 0x5dc53dca1cce in run_eval_code_obj ../Python/pythonrun.c:1365
+    #21 0x5dc53dca1cce in run_mod ../Python/pythonrun.c:1459
+    #22 0x5dc53dca6977 in pyrun_file ../Python/pythonrun.c:1293
+    #23 0x5dc53dca6977 in _PyRun_SimpleFileObject ../Python/pythonrun.c:521
+    #24 0x5dc53dca749c in _PyRun_AnyFileObject ../Python/pythonrun.c:81
+    #25 0x5dc53dd1a7fc in pymain_run_file_obj ../Modules/main.c:410
+    #26 0x5dc53dd1a7fc in pymain_run_file ../Modules/main.c:429
+    #27 0x5dc53dd1a7fc in pymain_run_python ../Modules/main.c:691
+    #28 0x5dc53dd1c0de in Py_RunMain ../Modules/main.c:772
+    #29 0x5dc53dd1c0de in pymain_main ../Modules/main.c:802
+    #30 0x5dc53dd1c0de in Py_BytesMain ../Modules/main.c:826
+    #31 0x7f684950c1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #32 0x7f684950c28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #33 0x5dc53d6b6524 in _start (/home/fuzz/WorkSpace/flowfusion-cpython/cpython-normal/build/python+0x20e524) (BuildId: b922665a0e7afc8ee52df7c3eac25a643025109e)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV ../sysdeps/x86_64/multiarch/strlen-evex-base.S:81 in __strlen_evex
+==391683==ABORTING
+```
+
+### CPython versions tested on:
+
+CPython main branch
+
+### Operating systems tested on:
+
+Linux
+
+### Output from running 'python -VV' on the command line:
+
+_No response_
+
+---
+
+### Parents
+
+| Label | ID | Source |
+|-------|----|--------|
+| `a` | `` | `` |
+| `b` | `` | `` |
+
+*Program: (to be filled)*

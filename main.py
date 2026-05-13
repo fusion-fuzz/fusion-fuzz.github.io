@@ -202,14 +202,29 @@ def _parse_readme(bug_dir):
                 result["return_code"] = int(m.group(1))
             except ValueError:
                 result["return_code"] = m.group(1)
-    # Date from mtime of README.md
-    for name in ("README.md", "report.md"):
-        p = os.path.join(bug_dir, name)
-        if os.path.exists(p):
-            result["date"] = datetime.fromtimestamp(
-                os.path.getmtime(p), tz=timezone.utc
-            ).strftime("%Y-%m-%d")
-            break
+        # H1 heading as fallback signature (used by GitHub-issue-style READMEs)
+        if result["signature"] is None:
+            m = re.match(r"^#\s+(.+)", text, re.MULTILINE)
+            if m:
+                result["signature"] = m.group(1).strip()
+        # Explicit date field wins over mtime — stable across re-runs and edits.
+        # Accepts: **Date:** `YYYY-MM-DD`  OR  **Created:** `YYYY-MM-DDThh:mm:ssZ`
+        m = re.search(r"\*\*(?:Date|Created):\*\*\s*`([^`]+)`", text)
+        if m:
+            raw = m.group(1).strip()
+            # Accept ISO timestamp or plain date
+            date_m = re.match(r"(\d{4}-\d{2}-\d{2})", raw)
+            if date_m:
+                result["date"] = date_m.group(1)
+    # Fall back to mtime only when no explicit date is embedded in the file
+    if result["date"] is None:
+        for name in ("README.md", "report.md"):
+            p = os.path.join(bug_dir, name)
+            if os.path.exists(p):
+                result["date"] = datetime.fromtimestamp(
+                    os.path.getmtime(p), tz=timezone.utc
+                ).strftime("%Y-%m-%d")
+                break
     # Reproduce command from test.sh / reproduce.sh
     sh = (_read(os.path.join(bug_dir, "test.sh")) or
           _read(os.path.join(bug_dir, "reproduce.sh")))
@@ -290,11 +305,11 @@ def scan(data_dir):
                 print(f"  [{project}#{issue_id}] {bug['signature'][:72]}")
             except Exception as e:
                 print(f"  ERROR [{project}/{issue_id}]: {e}", file=sys.stderr)
-    # Sort: numeric issue IDs descending (newest first), then lexically
+    # Sort: date descending (latest first), then numeric issue ID descending
     bugs.sort(key=lambda b: (
-        -int(b["issue_id"]) if b["issue_id"].isdigit() else 0,
-        b["issue_id"],
-    ))
+        b["date"] or "0000-00-00",
+        int(b["issue_id"]) if b["issue_id"].isdigit() else 0,
+    ), reverse=True)
     return bugs
 
 # ---------------------------------------------------------------------------

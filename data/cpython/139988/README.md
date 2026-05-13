@@ -1,0 +1,156 @@
+# Leak with a Union object when an argument is not a type
+
+**Issue:** [https://github.com/python/cpython/issues/139988](https://github.com/python/cpython/issues/139988) &nbsp;·&nbsp; **State:** `closed` &nbsp;·&nbsp; **Created:** `2025-10-12T08:18:43Z`
+
+**Labels:** `type-bug`, `interpreter-core`, `topic-typing`, `3.14`, `3.15`
+
+## Description
+
+# Bug report
+
+### Bug description:
+
+```python
+import configparser
+parser = configparser.RawConfigParser()
+parser.add_section('section1')
+item = parser.popitem()
+try:
+    parser.popitem()
+except KeyError:
+    pass
+else:
+    raise AssertionError('Expected KeyError when popping from empty RawConfigParser')
+fusion = item
+from typing import get_args, Union, Tuple, List, Dict, Optional
+def test_get_args_with_union():
+    args = get_args(Union[int, fusion, float])
+if __name__ == '__main__':
+    test_get_args_with_union()
+```
+
+config: JIT + ASan
+
+```
+=================================================================
+==2112963==ERROR: LeakSanitizer: detected memory leaks
+
+Indirect leak of 216 byte(s) in 1 object(s) allocated from:
+    #0 0x7b52b2b599c7 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0x59285bc4e94e in _PyObject_MallocWithType ../Include/internal/pycore_object_alloc.h:46
+    #2 0x59285bc4e94e in _PyType_AllocNoTrack ../Objects/typeobject.c:2504
+    #3 0x59285bc4ebb4 in PyType_GenericAlloc ../Objects/typeobject.c:2535
+    #4 0x59285bc24529 in make_new_set ../Objects/setobject.c:1143
+    #5 0x59285bc24529 in PySet_New ../Objects/setobject.c:2707
+    #6 0x59285bd4d54c in unionbuilder_init ../Objects/unionobject.c:149
+    #7 0x59285bd4d54c in _Py_union_from_tuple ../Objects/unionobject.c:472
+    #8 0x59285baa9bfd in _PyObject_VectorcallTstate ../Include/internal/pycore_call.h:169
+    #9 0x59285baa9bfd in PyObject_CallOneArg ../Objects/call.c:395
+    #10 0x59285ba59f4d in PyObject_GetItem ../Objects/abstract.c:195
+    #11 0x59285b951a6e in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:62
+    #12 0x59285be28c46 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #13 0x59285be28c46 in _PyEval_Vector ../Python/ceval.c:2001
+    #14 0x59285be28c46 in PyEval_EvalCode ../Python/ceval.c:884
+    #15 0x59285bfe610e in run_eval_code_obj ../Python/pythonrun.c:1365
+    #16 0x59285bfe610e in run_mod ../Python/pythonrun.c:1459
+    #17 0x59285bfeadb7 in pyrun_file ../Python/pythonrun.c:1293
+    #18 0x59285bfeadb7 in _PyRun_SimpleFileObject ../Python/pythonrun.c:521
+    #19 0x59285bfeb8dc in _PyRun_AnyFileObject ../Python/pythonrun.c:81
+    #20 0x59285c05edcc in pymain_run_file_obj ../Modules/main.c:410
+    #21 0x59285c05edcc in pymain_run_file ../Modules/main.c:429
+    #22 0x59285c05edcc in pymain_run_python ../Modules/main.c:691
+    #23 0x59285c0606ae in Py_RunMain ../Modules/main.c:772
+    #24 0x59285c0606ae in pymain_main ../Modules/main.c:802
+    #25 0x59285c0606ae in Py_BytesMain ../Modules/main.c:826
+    #26 0x7b52b278b1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #27 0x7b52b278b28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #28 0x59285b981f54 in _start (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x218f54) (BuildId: a569f1efe408b28a2bc68e798e293a8d652aaa81)
+
+Indirect leak of 56 byte(s) in 1 object(s) allocated from:
+    #0 0x7b52b2b599c7 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0x59285bc4e94e in _PyObject_MallocWithType ../Include/internal/pycore_object_alloc.h:46
+    #2 0x59285bc4e94e in _PyType_AllocNoTrack ../Objects/typeobject.c:2504
+    #3 0x59285bc4ebb4 in PyType_GenericAlloc ../Objects/typeobject.c:2535
+    #4 0x59285bb3ada6 in list_vectorcall ../Objects/listobject.c:3515
+    #5 0x59285baa98b7 in _PyObject_VectorcallTstate ../Include/internal/pycore_call.h:169
+    #6 0x59285baa98b7 in PyObject_Vectorcall ../Objects/call.c:327
+    #7 0x59285b94ba52 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:1620
+    #8 0x59285be28c46 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #9 0x59285be28c46 in _PyEval_Vector ../Python/ceval.c:2001
+    #10 0x59285be28c46 in PyEval_EvalCode ../Python/ceval.c:884
+    #11 0x59285bfe610e in run_eval_code_obj ../Python/pythonrun.c:1365
+    #12 0x59285bfe610e in run_mod ../Python/pythonrun.c:1459
+    #13 0x59285bfeadb7 in pyrun_file ../Python/pythonrun.c:1293
+    #14 0x59285bfeadb7 in _PyRun_SimpleFileObject ../Python/pythonrun.c:521
+    #15 0x59285bfeb8dc in _PyRun_AnyFileObject ../Python/pythonrun.c:81
+    #16 0x59285c05edcc in pymain_run_file_obj ../Modules/main.c:410
+    #17 0x59285c05edcc in pymain_run_file ../Modules/main.c:429
+    #18 0x59285c05edcc in pymain_run_python ../Modules/main.c:691
+    #19 0x59285c0606ae in Py_RunMain ../Modules/main.c:772
+    #20 0x59285c0606ae in pymain_main ../Modules/main.c:802
+    #21 0x59285c0606ae in Py_BytesMain ../Modules/main.c:826
+    #22 0x7b52b278b1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #23 0x7b52b278b28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #24 0x59285b981f54 in _start (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x218f54) (BuildId: a569f1efe408b28a2bc68e798e293a8d652aaa81)
+
+Indirect leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7b52b2b58778 in realloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:85
+    #1 0x59285bb3ebbd in list_resize ../Objects/listobject.c:174
+    #2 0x59285bb3ebbd in _PyList_AppendTakeRefListResize ../Objects/listobject.c:524
+    #3 0x59285bb3ebbd in _PyList_AppendTakeRef ../Include/internal/pycore_list.h:51
+    #4 0x59285bb3ebbd in PyList_Append ../Objects/listobject.c:538
+    #5 0x59285bd4b1f5 in unionbuilder_add_single_unchecked ../Objects/unionobject.c:204
+    #6 0x59285bd4d9aa in unionbuilder_add_single ../Objects/unionobject.c:222
+    #7 0x59285bd4d9aa in unionbuilder_add_tuple ../Objects/unionobject.c:236
+    #8 0x59285bd4d9aa in _Py_union_from_tuple ../Objects/unionobject.c:476
+    #9 0x59285baa9bfd in _PyObject_VectorcallTstate ../Include/internal/pycore_call.h:169
+    #10 0x59285baa9bfd in PyObject_CallOneArg ../Objects/call.c:395
+    #11 0x59285ba59f4d in PyObject_GetItem ../Objects/abstract.c:195
+    #12 0x59285b951a6e in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:62
+    #13 0x59285be28c46 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #14 0x59285be28c46 in _PyEval_Vector ../Python/ceval.c:2001
+    #15 0x59285be28c46 in PyEval_EvalCode ../Python/ceval.c:884
+    #16 0x59285bfe610e in run_eval_code_obj ../Python/pythonrun.c:1365
+    #17 0x59285bfe610e in run_mod ../Python/pythonrun.c:1459
+    #18 0x59285bfeadb7 in pyrun_file ../Python/pythonrun.c:1293
+    #19 0x59285bfeadb7 in _PyRun_SimpleFileObject ../Python/pythonrun.c:521
+    #20 0x59285bfeb8dc in _PyRun_AnyFileObject ../Python/pythonrun.c:81
+    #21 0x59285c05edcc in pymain_run_file_obj ../Modules/main.c:410
+    #22 0x59285c05edcc in pymain_run_file ../Modules/main.c:429
+    #23 0x59285c05edcc in pymain_run_python ../Modules/main.c:691
+    #24 0x59285c0606ae in Py_RunMain ../Modules/main.c:772
+    #25 0x59285c0606ae in pymain_main ../Modules/main.c:802
+    #26 0x59285c0606ae in Py_BytesMain ../Modules/main.c:826
+    #27 0x7b52b278b1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #28 0x7b52b278b28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #29 0x59285b981f54 in _start (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x218f54) (BuildId: a569f1efe408b28a2bc68e798e293a8d652aaa81)
+
+SUMMARY: AddressSanitizer: 304 byte(s) leaked in 3 allocation(s).
+```
+
+
+### CPython versions tested on:
+
+CPython main branch
+
+### Operating systems tested on:
+
+Linux
+
+<!-- gh-linked-prs -->
+### Linked PRs
+* gh-139990
+* gh-139993
+<!-- /gh-linked-prs -->
+
+
+---
+
+### Parents
+
+| Label | ID | Source |
+|-------|----|--------|
+| `a` | `` | `` |
+| `b` | `` | `` |
+
+*Program: (to be filled)*

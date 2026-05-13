@@ -1,0 +1,95 @@
+# Assertion 'probable_callable != NULL' in optimize_uops when sys.settrace is set and cleared before a type-unstable method call loop crosses the JIT threshold
+
+**Issue:** [https://github.com/python/cpython/issues/148716](https://github.com/python/cpython/issues/148716) &nbsp;·&nbsp; **State:** `closed` &nbsp;·&nbsp; **Created:** `2026-04-18T09:59:50Z`
+
+**Labels:** `interpreter-core`, `type-crash`, `topic-JIT`
+
+## Description
+
+# Crash report
+
+### What happened?
+
+**Description**
+
+CPython's JIT optimizer crashes with an assertion failure `probable_callable != NULL` in `optimize_uops` (`Python/optimizer_cases.c.h:4307`) when a tracing function is installed and immediately removed via `sys.settrace`, followed by a loop that calls a method on type-unstable objects enough times to cross the JIT compilation threshold. The optimizer fails to find a non-null callable when processing a `CALL` uop whose receiver type varies across iterations, causing the assertion to fire.
+
+**Reproducer**
+
+```python
+import sys
+
+D = True
+A = True
+
+class Tracer:
+    def trace(self, frame, event, arg):
+        return self.trace
+
+sys.settrace(Tracer().trace)
+sys.settrace(None)
+
+class Cls:
+    def __init__(self, val):
+        self.val = val
+    def method(self, x):
+        return self.val
+
+for i in range(200):
+    try:
+        o = Cls(D) if i % 3 == 0 else (int(A or 0) if i % 3 == 1 else str(A or ''))
+        o.method(D) if hasattr(o, 'method') else str(o)
+    except Exception:
+        pass
+```
+
+**Command**
+
+```
+PYTHON_JIT=1 python reproduce.py
+```
+
+**Expected behavior**
+
+The JIT optimizer should handle the case where no single callable type can be determined for a polymorphic call site, and should either bail out of optimization or emit a safe fallback. It should not crash with an assertion failure.
+
+**Actual behavior**
+
+```
+python: ../Python/optimizer_cases.c.h:4307:
+  int optimize_uops(...):
+  Assertion `probable_callable != NULL' failed.
+Aborted (core dumped)
+```
+
+**Root cause**
+
+The loop calls `o.method(D)` where `o` alternates between a `Cls` instance, an `int`, and a `str` across iterations. After enough iterations to trigger JIT compilation, `optimize_uops` processes the `CALL` uop for this call site and attempts to determine the most likely callable via `probable_callable`. Because the receiver type is not stable across iterations, `probable_callable` remains `NULL` — but the optimizer unconditionally dereferences it without a null guard, triggering the assertion. The prior `sys.settrace` install-and-clear sequence appears to affect the interpreter's specialization state in a way that causes the JIT to attempt optimization of this polymorphic call site rather than bailing out early.
+
+**Environment**
+
+- CPython debug build
+- Crash site: `Python/optimizer_cases.c.h:4307` (`optimize_uops`)
+
+### CPython versions tested on:
+
+CPython main branch
+
+### Operating systems tested on:
+
+_No response_
+
+### Output from running 'python -VV' on the command line:
+
+_No response_
+
+---
+
+### Parents
+
+| Label | ID | Source |
+|-------|----|--------|
+| `a` | `` | `` |
+| `b` | `` | `` |
+
+*Program: (to be filled)*

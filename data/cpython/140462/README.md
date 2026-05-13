@@ -1,0 +1,151 @@
+# SEGV due to `ncurses` allowing sizes to be excessively large
+
+**Issue:** [https://github.com/python/cpython/issues/140462](https://github.com/python/cpython/issues/140462) &nbsp;·&nbsp; **State:** `closed` &nbsp;·&nbsp; **Created:** `2025-10-22T15:42:55Z`
+
+**Labels:** `extension-modules`, `type-crash`
+
+## Description
+
+# Crash report
+
+### What happened?
+
+```python
+import sys
+import unittest
+import curses
+
+class TestCurses(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        stdout_fd = sys.__stdout__.fileno()
+        curses.setupterm(fd=stdout_fd)
+
+    def setUp(self):
+        self.stdscr = curses.initscr()
+
+    def test_refresh_control(self):
+        stdscr = self.stdscr
+        stdscr.refresh()
+        win = stdscr.subwin(10, 15, 2147483647, 5)
+
+if __name__ == "__main__":
+    unittest.main()
+```
+
+```
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==1994945==ERROR: AddressSanitizer: SEGV on unknown address 0x51780015e770 (pc 0x7bccfc9f3740 bp 0x7ffcbb061dd0 sp 0x7ffcbb061da0 T0)
+==1994945==The signal is caused by a READ memory access.
+    #0 0x7bccfc9f3740 in derwin (/lib/x86_64-linux-gnu/libncursesw.so.6+0x19740) (BuildId: 84ef32c373c2b5b3c25dc788a1bcbbd3750cf9d1)
+    #1 0x7bccfca35997 in _curses_window_subwin_impl ../Modules/_cursesmodule.c:2745
+    #2 0x7bccfca35997 in _curses_window_subwin ../Modules/clinic/_cursesmodule.c.h:1666
+    #3 0x5f4b8a4c687e in method_vectorcall_VARARGS ../Objects/descrobject.c:325
+    #4 0x5f4b8a49bee7 in _PyObject_VectorcallTstate ../Include/internal/pycore_call.h:169
+    #5 0x5f4b8a49bee7 in PyObject_Vectorcall ../Objects/call.c:327
+    #6 0x5f4b8a33dad2 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:1620
+    #7 0x5f4b8a820b55 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #8 0x5f4b8a820b55 in _PyEval_Vector ../Python/ceval.c:2001
+    #9 0x5f4b8a4a5d90 in _PyObject_VectorcallTstate ../Include/internal/pycore_call.h:169
+    #10 0x5f4b8a4a5d90 in method_vectorcall ../Objects/classobject.c:95
+    #11 0x5f4b8a4a0ffe in _PyVectorcall_Call ../Objects/call.c:273
+    #12 0x5f4b8a4a0ffe in _PyObject_Call ../Objects/call.c:348
+    #13 0x5f4b8a4a0ffe in PyObject_Call ../Objects/call.c:373
+    #14 0x5f4b8a340eb7 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:2616
+    #15 0x5f4b8a820b55 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #16 0x5f4b8a820b55 in _PyEval_Vector ../Python/ceval.c:2001
+    #17 0x5f4b8a49f623 in _PyObject_VectorcallDictTstate ../Objects/call.c:135
+    #18 0x5f4b8a49fcdc in _PyObject_Call_Prepend ../Objects/call.c:504
+    #19 0x5f4b8a660444 in call_method ../Objects/typeobject.c:3077
+    #20 0x5f4b8a660444 in slot_tp_call ../Objects/typeobject.c:10606
+    #21 0x5f4b8a49a4cd in _PyObject_MakeTpCall ../Objects/call.c:242
+    #22 0x5f4b8a33e7ac in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:4021
+    #23 0x5f4b8a820b55 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #24 0x5f4b8a820b55 in _PyEval_Vector ../Python/ceval.c:2001
+    #25 0x5f4b8a4a5d90 in _PyObject_VectorcallTstate ../Include/internal/pycore_call.h:169
+    #26 0x5f4b8a4a5d90 in method_vectorcall ../Objects/classobject.c:95
+    #27 0x5f4b8a4a0ffe in _PyVectorcall_Call ../Objects/call.c:273
+    #28 0x5f4b8a4a0ffe in _PyObject_Call ../Objects/call.c:348
+    #29 0x5f4b8a4a0ffe in PyObject_Call ../Objects/call.c:373
+    #30 0x5f4b8a340eb7 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:2616
+    #31 0x5f4b8a820b55 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #32 0x5f4b8a820b55 in _PyEval_Vector ../Python/ceval.c:2001
+    #33 0x5f4b8a49f623 in _PyObject_VectorcallDictTstate ../Objects/call.c:135
+    #34 0x5f4b8a49fcdc in _PyObject_Call_Prepend ../Objects/call.c:504
+    #35 0x5f4b8a660444 in call_method ../Objects/typeobject.c:3077
+    #36 0x5f4b8a660444 in slot_tp_call ../Objects/typeobject.c:10606
+    #37 0x5f4b8a49a4cd in _PyObject_MakeTpCall ../Objects/call.c:242
+    #38 0x5f4b8a33e7ac in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:4021
+    #39 0x5f4b8a820b55 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #40 0x5f4b8a820b55 in _PyEval_Vector ../Python/ceval.c:2001
+    #41 0x5f4b8a4a5d90 in _PyObject_VectorcallTstate ../Include/internal/pycore_call.h:169
+    #42 0x5f4b8a4a5d90 in method_vectorcall ../Objects/classobject.c:95
+    #43 0x5f4b8a4a0ffe in _PyVectorcall_Call ../Objects/call.c:273
+    #44 0x5f4b8a4a0ffe in _PyObject_Call ../Objects/call.c:348
+    #45 0x5f4b8a4a0ffe in PyObject_Call ../Objects/call.c:373
+    #46 0x5f4b8a340eb7 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:2616
+    #47 0x5f4b8a820b55 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #48 0x5f4b8a820b55 in _PyEval_Vector ../Python/ceval.c:2001
+    #49 0x5f4b8a49f623 in _PyObject_VectorcallDictTstate ../Objects/call.c:135
+    #50 0x5f4b8a49fcdc in _PyObject_Call_Prepend ../Objects/call.c:504
+    #51 0x5f4b8a660444 in call_method ../Objects/typeobject.c:3077
+    #52 0x5f4b8a660444 in slot_tp_call ../Objects/typeobject.c:10606
+    #53 0x5f4b8a49a4cd in _PyObject_MakeTpCall ../Objects/call.c:242
+    #54 0x5f4b8a33dad2 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:1620
+    #55 0x5f4b8a820b55 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #56 0x5f4b8a820b55 in _PyEval_Vector ../Python/ceval.c:2001
+    #57 0x5f4b8a49f623 in _PyObject_VectorcallDictTstate ../Objects/call.c:135
+    #58 0x5f4b8a49fcdc in _PyObject_Call_Prepend ../Objects/call.c:504
+    #59 0x5f4b8a64cc50 in call_method ../Objects/typeobject.c:3077
+    #60 0x5f4b8a64cc50 in slot_tp_init ../Objects/typeobject.c:10835
+    #61 0x5f4b8a63e9d7 in type_call ../Objects/typeobject.c:2461
+    #62 0x5f4b8a49a4cd in _PyObject_MakeTpCall ../Objects/call.c:242
+    #63 0x5f4b8a359a18 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:1620
+    #64 0x5f4b8a820386 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #65 0x5f4b8a820386 in _PyEval_Vector ../Python/ceval.c:2001
+    #66 0x5f4b8a820386 in PyEval_EvalCode ../Python/ceval.c:884
+    #67 0x5f4b8a9def0e in run_eval_code_obj ../Python/pythonrun.c:1365
+    #68 0x5f4b8a9def0e in run_mod ../Python/pythonrun.c:1459
+    #69 0x5f4b8a9e3bb7 in pyrun_file ../Python/pythonrun.c:1293
+    #70 0x5f4b8a9e3bb7 in _PyRun_SimpleFileObject ../Python/pythonrun.c:521
+    #71 0x5f4b8a9e46dc in _PyRun_AnyFileObject ../Python/pythonrun.c:81
+    #72 0x5f4b8aa57afc in pymain_run_file_obj ../Modules/main.c:410
+    #73 0x5f4b8aa57afc in pymain_run_file ../Modules/main.c:429
+    #74 0x5f4b8aa57afc in pymain_run_python ../Modules/main.c:691
+    #75 0x5f4b8aa593de in Py_RunMain ../Modules/main.c:772
+    #76 0x5f4b8aa593de in pymain_main ../Modules/main.c:802
+    #77 0x5f4b8aa593de in Py_BytesMain ../Modules/main.c:826
+    #78 0x7bcd00f401c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #79 0x7bcd00f4028a in __libc_start_main_impl ../csu/libc-start.c:360
+    #80 0x5f4b8a373fa4 in _start (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x21afa4) (BuildId: f28384d3eff6aa8d5f0c5730194edf28c0f6b3bd)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV (/lib/x86_64-linux-gnu/libncursesw.so.6+0x19740) (BuildId: 84ef32c373c2b5b3c25dc788a1bcbbd3750cf9d1) in derwin
+==1994945==ABORTING
+```
+
+
+### CPython versions tested on:
+
+3.15
+
+### Operating systems tested on:
+
+Linux
+
+### Output from running 'python -VV' on the command line:
+
+_No response_
+
+---
+
+### Parents
+
+| Label | ID | Source |
+|-------|----|--------|
+| `a` | `` | `` |
+| `b` | `` | `` |
+
+*Program: (to be filled)*

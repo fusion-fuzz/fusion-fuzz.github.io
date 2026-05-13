@@ -1,0 +1,99 @@
+# memory leak `WARNING: invalid path to external symbolizer`
+
+**Issue:** [https://github.com/python/cpython/issues/142917](https://github.com/python/cpython/issues/142917) &nbsp;·&nbsp; **State:** `open` &nbsp;·&nbsp; **Created:** `2025-12-18T04:15:58Z`
+
+**Labels:** `type-bug`, `interpreter-core`
+
+## Description
+
+# Bug report
+
+### Bug description:
+
+```python
+import unittest
+from test import support
+import operator
+
+class MiscTest(unittest.TestCase):
+    @support.infinite_recursion(None)
+    def test_recursion(self):
+        from collections import UserList
+        a = UserList()
+        b = UserList()
+        a.append(b)
+        b.append(a)
+        self.assertRaises(RecursionError, operator.eq, a, b)
+        self.assertRaises(RecursionError, operator.ne, a, b)
+        self.assertRaises(RecursionError, operator.lt, a, b)
+        self.assertRaises(RecursionError, operator.le, a, b)
+        self.assertRaises(RecursionError, operator.gt, a, b)
+
+if __name__ == "__main__":
+    unittest.main(verbosity=0)
+```
+
+```
+----------------------------------------------------------------------
+Ran 1 test in 0.052s
+
+OK
+==1752373==WARNING: invalid path to external symbolizer!
+==1752373==WARNING: Failed to use and restart external symbolizer!
+
+=================================================================
+==1752373==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 1320 byte(s) in 1 object(s) allocated from:
+    #0 0x5b779218fc38  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x380c38) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #1 0x5b77925029c1  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x6f39c1) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #2 0x5b779282c120  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0xa1d120) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #3 0x5b7792c8f6fc  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0xe806fc) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #4 0x5b779278c703  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x97d703) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #5 0x5b779274b200  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x93c200) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #6 0x5b7792726897  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x917897) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #7 0x5b779239594f  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x58694f) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #8 0x5b779273fc0c  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x930c0c) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #9 0x5b7792726897  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x917897) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #10 0x5b77923a246f  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x59346f) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #11 0x5b779239f8b6  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x5908b6) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #12 0x5b7792398119  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x589119) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #13 0x5b7792751c67  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x942c67) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #14 0x5b7792726897  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x917897) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #15 0x5b7792395e41  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x586e41) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #16 0x5b77923990d5  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x58a0d5) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #17 0x5b77925688d2  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x7598d2) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #18 0x5b779239644a  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x58744a) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #19 0x5b7792726e00  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x917e00) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #20 0x5b779274c076  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x93d076) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #21 0x5b7792726897  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x917897) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #22 0x5b77923a246f  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x59346f) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #23 0x5b779239f8b6  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x5908b6) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #24 0x5b7792398119  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x589119) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #25 0x5b7792751c67  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x942c67) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #26 0x5b7792726897  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x917897) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #27 0x5b7792395e41  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x586e41) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #28 0x5b77923990d5  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x58a0d5) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+    #29 0x5b77925688d2  (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x7598d2) (BuildId: e6730b26ad863336dbcafc01d00da0f25ad00b6d)
+
+SUMMARY: AddressSanitizer: 1320 byte(s) leaked in 1 allocation(s).
+```
+
+### CPython versions tested on:
+
+CPython main branch
+
+### Operating systems tested on:
+
+Linux
+
+---
+
+### Parents
+
+| Label | ID | Source |
+|-------|----|--------|
+| `a` | `` | `` |
+| `b` | `` | `` |
+
+*Program: (to be filled)*

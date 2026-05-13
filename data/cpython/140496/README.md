@@ -1,0 +1,172 @@
+# cpython crash (heap-use-after-free) _Py_IsImmortal Include/internal/pycore_stackref.h
+
+**Issue:** [https://github.com/python/cpython/issues/140496](https://github.com/python/cpython/issues/140496) &nbsp;·&nbsp; **State:** `closed` &nbsp;·&nbsp; **Created:** `2025-10-23T07:46:50Z`
+
+**Labels:** N/A
+
+## Description
+
+# Crash report
+
+### What happened?
+
+```python
+import gc
+thingy = object()
+class A(object):
+    def f(self):
+        return 1
+    x = thingy
+r = gc.get_referrers(thingy)
+if "__module__" in r[0]:
+    dct = r[0]
+else:
+    dct = r[1]
+a = A()
+for i in range(10):
+    a.f()
+dct["f"] = lambda self: 2
+print(a.f())
+```
+
+```
+=================================================================
+==343376==ERROR: AddressSanitizer: heap-use-after-free on address 0x50f000035750 at pc 0x5e5c1b39ca4f bp 0x7ffcd57cda90 sp 0x7ffcd57cda80
+READ of size 4 at 0x50f000035750 thread T0
+    #0 0x5e5c1b39ca4e in _Py_IsImmortal ../Include/refcount.h:129
+    #1 0x5e5c1b39ca4e in _PyStackRef_FromPyObjectNew ../Include/internal/pycore_stackref.h:632
+    #2 0x5e5c1b39ca4e in _PyType_LookupStackRefAndVersion ../Objects/typeobject.c:6133
+    #3 0x5e5c1b3170a1 in _PyObject_GetMethodStackRef ../Objects/object.c:1713
+    #4 0x5e5c1b09e1a4 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:7844
+    #5 0x5e5c1b572386 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #6 0x5e5c1b572386 in _PyEval_Vector ../Python/ceval.c:2001
+    #7 0x5e5c1b572386 in PyEval_EvalCode ../Python/ceval.c:884
+    #8 0x5e5c1b730f0e in run_eval_code_obj ../Python/pythonrun.c:1365
+    #9 0x5e5c1b730f0e in run_mod ../Python/pythonrun.c:1459
+    #10 0x5e5c1b735bb7 in pyrun_file ../Python/pythonrun.c:1293
+    #11 0x5e5c1b735bb7 in _PyRun_SimpleFileObject ../Python/pythonrun.c:521
+    #12 0x5e5c1b7366dc in _PyRun_AnyFileObject ../Python/pythonrun.c:81
+    #13 0x5e5c1b7a9afc in pymain_run_file_obj ../Modules/main.c:410
+    #14 0x5e5c1b7a9afc in pymain_run_file ../Modules/main.c:429
+    #15 0x5e5c1b7a9afc in pymain_run_python ../Modules/main.c:691
+    #16 0x5e5c1b7ab3de in Py_RunMain ../Modules/main.c:772
+    #17 0x5e5c1b7ab3de in pymain_main ../Modules/main.c:802
+    #18 0x5e5c1b7ab3de in Py_BytesMain ../Modules/main.c:826
+    #19 0x738ce35451c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 282c2c16e7b6600b0b22ea0c99010d2795752b5f)
+    #20 0x738ce354528a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 282c2c16e7b6600b0b22ea0c99010d2795752b5f)
+    #21 0x5e5c1b0c5fa4 in _start (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x21afa4) (BuildId: f28384d3eff6aa8d5f0c5730194edf28c0f6b3bd)
+
+0x50f000035750 is located 16 bytes inside of 168-byte region [0x50f000035740,0x50f0000357e8)
+freed by thread T0 here:
+    #0 0x738ce39124d8 in free ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:52
+    #1 0x5e5c1b30ed51 in _Py_Dealloc ../Objects/object.c:3200
+    #2 0x5e5c1b2c3a24 in Py_DECREF ../Include/refcount.h:420
+    #3 0x5e5c1b2c3a24 in Py_XDECREF ../Include/refcount.h:513
+    #4 0x5e5c1b2c3a24 in insertdict ../Objects/dictobject.c:1927
+    #5 0x5e5c1b0aab58 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:11245
+    #6 0x5e5c1b572386 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #7 0x5e5c1b572386 in _PyEval_Vector ../Python/ceval.c:2001
+    #8 0x5e5c1b572386 in PyEval_EvalCode ../Python/ceval.c:884
+    #9 0x5e5c1b730f0e in run_eval_code_obj ../Python/pythonrun.c:1365
+    #10 0x5e5c1b730f0e in run_mod ../Python/pythonrun.c:1459
+    #11 0x5e5c1b735bb7 in pyrun_file ../Python/pythonrun.c:1293
+    #12 0x5e5c1b735bb7 in _PyRun_SimpleFileObject ../Python/pythonrun.c:521
+    #13 0x5e5c1b7366dc in _PyRun_AnyFileObject ../Python/pythonrun.c:81
+    #14 0x5e5c1b7a9afc in pymain_run_file_obj ../Modules/main.c:410
+    #15 0x5e5c1b7a9afc in pymain_run_file ../Modules/main.c:429
+    #16 0x5e5c1b7a9afc in pymain_run_python ../Modules/main.c:691
+    #17 0x5e5c1b7ab3de in Py_RunMain ../Modules/main.c:772
+    #18 0x5e5c1b7ab3de in pymain_main ../Modules/main.c:802
+    #19 0x5e5c1b7ab3de in Py_BytesMain ../Modules/main.c:826
+    #20 0x738ce35451c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 282c2c16e7b6600b0b22ea0c99010d2795752b5f)
+    #21 0x738ce354528a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 282c2c16e7b6600b0b22ea0c99010d2795752b5f)
+    #22 0x5e5c1b0c5fa4 in _start (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x21afa4) (BuildId: f28384d3eff6aa8d5f0c5730194edf28c0f6b3bd)
+
+previously allocated by thread T0 here:
+    #0 0x738ce39139c7 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0x5e5c1b609026 in _PyObject_MallocWithType ../Include/internal/pycore_object_alloc.h:46
+    #2 0x5e5c1b609026 in gc_alloc ../Python/gc.c:2343
+    #3 0x5e5c1b609026 in _PyObject_GC_New ../Python/gc.c:2363
+    #4 0x5e5c1b26d657 in PyFunction_NewWithQualName ../Objects/funcobject.c:194
+    #5 0x5e5c1b09af6b in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:9736
+    #6 0x5e5c1b572b55 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #7 0x5e5c1b572b55 in _PyEval_Vector ../Python/ceval.c:2001
+    #8 0x5e5c1b55e9e8 in builtin___build_class__ ../Python/bltinmodule.c:205
+    #9 0x5e5c1b1edee7 in _PyObject_VectorcallTstate ../Include/internal/pycore_call.h:169
+    #10 0x5e5c1b1edee7 in PyObject_Vectorcall ../Objects/call.c:327
+    #11 0x5e5c1b08fad2 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:1620
+    #12 0x5e5c1b572386 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #13 0x5e5c1b572386 in _PyEval_Vector ../Python/ceval.c:2001
+    #14 0x5e5c1b572386 in PyEval_EvalCode ../Python/ceval.c:884
+    #15 0x5e5c1b730f0e in run_eval_code_obj ../Python/pythonrun.c:1365
+    #16 0x5e5c1b730f0e in run_mod ../Python/pythonrun.c:1459
+    #17 0x5e5c1b735bb7 in pyrun_file ../Python/pythonrun.c:1293
+    #18 0x5e5c1b735bb7 in _PyRun_SimpleFileObject ../Python/pythonrun.c:521
+    #19 0x5e5c1b7366dc in _PyRun_AnyFileObject ../Python/pythonrun.c:81
+    #20 0x5e5c1b7a9afc in pymain_run_file_obj ../Modules/main.c:410
+    #21 0x5e5c1b7a9afc in pymain_run_file ../Modules/main.c:429
+    #22 0x5e5c1b7a9afc in pymain_run_python ../Modules/main.c:691
+    #23 0x5e5c1b7ab3de in Py_RunMain ../Modules/main.c:772
+    #24 0x5e5c1b7ab3de in pymain_main ../Modules/main.c:802
+    #25 0x5e5c1b7ab3de in Py_BytesMain ../Modules/main.c:826
+    #26 0x738ce35451c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 282c2c16e7b6600b0b22ea0c99010d2795752b5f)
+    #27 0x738ce354528a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 282c2c16e7b6600b0b22ea0c99010d2795752b5f)
+    #28 0x5e5c1b0c5fa4 in _start (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x21afa4) (BuildId: f28384d3eff6aa8d5f0c5730194edf28c0f6b3bd)
+
+SUMMARY: AddressSanitizer: heap-use-after-free ../Include/refcount.h:129 in _Py_IsImmortal
+Shadow bytes around the buggy address:
+  0x50f000035480: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x50f000035500: 00 00 00 fa fa fa fa fa fa fa fa fa fd fd fd fd
+  0x50f000035580: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x50f000035600: fd fa fa fa fa fa fa fa fa fa fd fd fd fd fd fd
+  0x50f000035680: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fa
+=>0x50f000035700: fa fa fa fa fa fa fa fa fd fd[fd]fd fd fd fd fd
+  0x50f000035780: fd fd fd fd fd fd fd fd fd fd fd fd fd fa fa fa
+  0x50f000035800: fa fa fa fa fa fa 00 00 00 00 00 00 00 00 00 00
+  0x50f000035880: 00 00 00 00 00 00 00 00 00 00 00 fa fa fa fa fa
+  0x50f000035900: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x50f000035980: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==343376==ABORTING
+```
+
+### CPython versions tested on:
+
+CPython main branch
+
+### Operating systems tested on:
+
+Linux
+
+### Output from running 'python -VV' on the command line:
+
+_No response_
+
+---
+
+### Parents
+
+| Label | ID | Source |
+|-------|----|--------|
+| `a` | `` | `` |
+| `b` | `` | `` |
+
+*Program: (to be filled)*

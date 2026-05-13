@@ -1,0 +1,98 @@
+# memory leak in email message make mixed with long boundary
+
+**Issue:** [https://github.com/python/cpython/issues/139827](https://github.com/python/cpython/issues/139827) &nbsp;·&nbsp; **State:** `closed` &nbsp;·&nbsp; **Created:** `2025-10-09T07:39:31Z`
+
+**Labels:** `type-bug`
+
+## Description
+
+# Bug report
+
+### Bug description:
+
+```python
+from email.message import MIMEPart
+part = MIMEPart()
+boundary = 'a'*5000
+part.make_mixed(boundary)
+print(part)
+```
+
+config: JIT + ASan
+
+```
+=================================================================
+==799314==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 2008 byte(s) in 1 object(s) allocated from:
+    #0 0x79df4acac9c7 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0x55ec64b4a6b7 in _PyObject_MallocWithType ../Include/internal/pycore_object_alloc.h:46
+    #2 0x55ec64b4a6b7 in gc_alloc ../Python/gc.c:2327
+    #3 0x55ec64b4a6b7 in _PyObject_GC_NewVar ../Python/gc.c:2369
+    #4 0x55ec64c28e54 in make_executor_from_uops ../Python/optimizer.c:1120
+    #5 0x55ec64c28e54 in uop_optimize ../Python/optimizer.c:1341
+    #6 0x55ec64c28e54 in _PyOptimizer_Optimize ../Python/optimizer.c:136
+    #7 0x55ec645f2940 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:7656
+    #8 0x55ec64ab4e55 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #9 0x55ec64ab4e55 in _PyEval_Vector ../Python/ceval.c:1997
+    #10 0x55ec64742fa3 in _PyObject_VectorcallDictTstate ../Objects/call.c:135
+    #11 0x55ec6474365c in _PyObject_Call_Prepend ../Objects/call.c:504
+    #12 0x55ec648cc280 in slot_tp_new ../Objects/typeobject.c:10853
+    #13 0x55ec648dc148 in type_call ../Objects/typeobject.c:2448
+    #14 0x55ec6473de4d in _PyObject_MakeTpCall ../Objects/call.c:242
+    #15 0x55ec645e272c in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:4021
+    #16 0x55ec64ab4e55 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #17 0x55ec64ab4e55 in _PyEval_Vector ../Python/ceval.c:1997
+    #18 0x55ec64742fa3 in _PyObject_VectorcallDictTstate ../Objects/call.c:135
+    #19 0x55ec6474365c in _PyObject_Call_Prepend ../Objects/call.c:504
+    #20 0x55ec648fa114 in call_method ../Objects/typeobject.c:3076
+    #21 0x55ec648fa114 in slot_tp_call ../Objects/typeobject.c:10599
+    #22 0x55ec6473de4d in _PyObject_MakeTpCall ../Objects/call.c:242
+    #23 0x55ec645e272c in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:4021
+    #24 0x55ec64ab4e55 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #25 0x55ec64ab4e55 in _PyEval_Vector ../Python/ceval.c:1997
+    #26 0x55ec648fe657 in _PyObject_VectorcallTstate ../Include/internal/pycore_call.h:169
+    #27 0x55ec648fe657 in vectorcall_unbound ../Objects/typeobject.c:3033
+    #28 0x55ec648fe657 in vectorcall_method ../Objects/typeobject.c:3104
+    #29 0x55ec648fe657 in slot_mp_ass_subscript ../Objects/typeobject.c:10386
+    #30 0x55ec645fcae8 in _PyEval_EvalFrameDefault ../Python/generated_cases.c.h:11245
+    #31 0x55ec64ab4686 in _PyEval_EvalFrame ../Include/internal/pycore_ceval.h:121
+    #32 0x55ec64ab4686 in _PyEval_Vector ../Python/ceval.c:1997
+    #33 0x55ec64ab4686 in PyEval_EvalCode ../Python/ceval.c:880
+    #34 0x55ec64c71b0e in run_eval_code_obj ../Python/pythonrun.c:1365
+    #35 0x55ec64c71b0e in run_mod ../Python/pythonrun.c:1459
+    #36 0x55ec64c767b7 in pyrun_file ../Python/pythonrun.c:1293
+    #37 0x55ec64c767b7 in _PyRun_SimpleFileObject ../Python/pythonrun.c:521
+    #38 0x55ec64c772dc in _PyRun_AnyFileObject ../Python/pythonrun.c:81
+    #39 0x55ec64cf3bdc in pymain_run_file_obj ../Modules/main.c:410
+    #40 0x55ec64cf3bdc in pymain_run_file ../Modules/main.c:429
+    #41 0x55ec64cf3bdc in pymain_run_python ../Modules/main.c:691
+    #42 0x55ec64cf54be in Py_RunMain ../Modules/main.c:772
+    #43 0x55ec64cf54be in pymain_main ../Modules/main.c:802
+    #44 0x55ec64cf54be in Py_BytesMain ../Modules/main.c:826
+    #45 0x79df4a8de1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #46 0x79df4a8de28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #47 0x55ec64617f54 in _start (/home/fuzz/WorkSpace/flowfusion-cpython/cpython/build/python+0x218f54) (BuildId: 3087b1f6c97d85c049f8eaa36e3ac5b15eccf317)
+
+SUMMARY: AddressSanitizer: 2008 byte(s) leaked in 1 allocation(s).
+```
+
+
+### CPython versions tested on:
+
+CPython main branch
+
+### Operating systems tested on:
+
+Linux
+
+---
+
+### Parents
+
+| Label | ID | Source |
+|-------|----|--------|
+| `a` | `` | `` |
+| `b` | `` | `` |
+
+*Program: (to be filled)*
