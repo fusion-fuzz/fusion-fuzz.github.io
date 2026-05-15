@@ -3,6 +3,7 @@ render_with_liquid: false
 ---
 
 **Date:** `2026-04-14`
+**Date:** `2026-04-14`
 # [[Swift][SILGen] Assertion "Illegal convention for non-address types" in getFunctionArgOwnership when compiling a function parameter with a @propertyWrapper that has a projectedValue](https://github.com/swiftlang/swift/issues/88455)
 
 **Description**
