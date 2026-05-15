@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 *Fusion-Fuzz Bug Report*
 
 **ID:** `d52f65f9` &nbsp;·&nbsp; **Signature:** `Assertion failed: (isConcrete()), function getConcrete at ProtocolConformanceRef.h:127.` &nbsp;·&nbsp; **RC:** `134`

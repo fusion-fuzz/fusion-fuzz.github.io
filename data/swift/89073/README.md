@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 *Fusion-Fuzz Bug Report*
 
 **ID:** `f1b72f43` &nbsp;·&nbsp; **Signature:** `Assertion failed: (Context.SourceMgr.hasIDEInspectionTargetBuffer() || Context.LangOpts.IsForSourceKit || Context.TypeCheckerOpts.EnableLazyTypecheck || inSecondaryScriptFile() && "Querying VarDecl's type before type-checking parent stmt"), function evaluate at TypeCheckDecl.cpp:2766.` &nbsp;·&nbsp; **RC:** `134`

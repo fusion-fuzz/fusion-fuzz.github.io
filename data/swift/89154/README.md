@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 *Fusion-Fuzz Bug Report*
 
 **ID:** `d0a70f40` &nbsp;·&nbsp; **Signature:** `Assertion failed: (std::find(conformsTo.begin(), conformsTo.end(), symbol.getProtocol()) != conformsTo.end()), function getTypeForSymbolRange at InterfaceType.cpp:365.` &nbsp;·&nbsp; **RC:** `139`
