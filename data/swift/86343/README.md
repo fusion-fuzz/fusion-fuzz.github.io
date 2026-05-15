@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # [Fatal error: Double value cannot be converted to Int because it is either infinite or NaN at Swift/IntegerTypes.swift:8835](https://github.com/swiftlang/swift/issues/86343)
 
 ### Description

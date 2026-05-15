@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # [swiftc crash `GenericSignatureImpl::getReducedTypeParameter`](https://github.com/swiftlang/swift/issues/84897)
 
 ### Description

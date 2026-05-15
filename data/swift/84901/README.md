@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # [swiftc crash `swift::ast_scope::NodeAdder::visitBraceStmt`](https://github.com/swiftlang/swift/issues/84901)
 
 ### Description

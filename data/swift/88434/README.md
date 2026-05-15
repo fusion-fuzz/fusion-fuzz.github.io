@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # [[Swift] Crash in PackConformance::getAssociatedConformance → PackType::get when type-checking variadic generic call with deeply nested associated type pack expansion in presence of ambiguous type name](https://github.com/swiftlang/swift/issues/88434)
 
 ### Description

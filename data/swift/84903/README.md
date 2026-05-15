@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # [Assertion failed ParseDecl.cpp:9084](https://github.com/swiftlang/swift/issues/84903)
 
 ### Description

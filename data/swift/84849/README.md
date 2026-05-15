@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # [swiftc crash bad pointer dereference when typealias nonexisting one](https://github.com/swiftlang/swift/issues/84849)
 
 ### Description

@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # [Foundation/NSCoder.swift:743: Fatal error: There was a decoding error and the decoding failure policy is .raiseException.](https://github.com/swiftlang/swift/issues/86344)
 
 ### Description

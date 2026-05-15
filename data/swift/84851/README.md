@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # [Infinite recursion in TypeBase::isBindableToSuperclassOf()](https://github.com/swiftlang/swift/issues/84851)
 
 ### Description

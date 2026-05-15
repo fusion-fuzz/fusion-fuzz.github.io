@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # [swiftc crash with unclosed bracket](https://github.com/swiftlang/swift/issues/84900)
 
 ### Description

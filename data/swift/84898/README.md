@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # [swiftc crash `evaluateFreestandingMacro`](https://github.com/swiftlang/swift/issues/84898)
 
 ### Description

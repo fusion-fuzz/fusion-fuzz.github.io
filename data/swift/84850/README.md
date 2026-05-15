@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # [swiftc crash when ArgumentMismatchFailure](https://github.com/swiftlang/swift/issues/84850)
 
 ### Description

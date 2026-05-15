@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # [Crash due to integer overflow](https://github.com/swiftlang/swift/issues/86345)
 
 ### Description

@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # [[Swift] Assertion "Expected type to have been set!" in ConstraintSystem::getType when type-checking a call through a function-value binding that shadows an overloaded @preconcurrency @MainActor function](https://github.com/swiftlang/swift/issues/88454)
 
 **Description**
