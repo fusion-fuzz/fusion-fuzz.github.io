@@ -1,4 +1,4 @@
-{%- raw -%}
+{% raw %}
 # [mlir] null pointer UBSan alert in mlir/lib/IR/Diagnostics.cpp
 
 **Issue:** [https://github.com/llvm/llvm-project/issues/163343](https://github.com/llvm/llvm-project/issues/163343) &nbsp;·&nbsp; **State:** `closed` &nbsp;·&nbsp; **Created:** `2025-10-14T08:47:17Z`
@@ -40,4 +40,4 @@ SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior /home/phpfuzz/WorkSpace/
 | `b` | `` | `` |
 
 *Program: (to be filled)*
-{%- endraw -%}
+{% endraw %}
