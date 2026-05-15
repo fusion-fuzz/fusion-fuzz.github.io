@@ -1,7 +1,4 @@
----
-render_with_liquid: false
----
-
+{%- raw -%}
 # [swiftc crash `evaluateFreestandingMacro`](https://github.com/swiftlang/swift/issues/84898)
 
 ### Description
@@ -224,3 +221,4 @@ docker run --rm -v "$PWD":/work -w /work swift:latest bash -lc 'swiftc -c test.s
 ### Additional information
 
 _No response_
+{%- endraw -%}
