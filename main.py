@@ -205,9 +205,12 @@ def _parse_readme(bug_dir):
                 result["return_code"] = m.group(1)
         # H1 heading as fallback signature (used by GitHub-issue-style READMEs)
         if result["signature"] is None:
-            m = re.match(r"^#\s+(.+)", text, re.MULTILINE)
+            m = re.search(r"^#\s+(.+)", text, re.MULTILINE)
             if m:
-                result["signature"] = m.group(1).strip()
+                sig = m.group(1).strip()
+                # Strip markdown link syntax: [text](url) → text
+                sig = re.sub(r"^\[(.+)\]\([^)]*\)$", r"\1", sig)
+                result["signature"] = sig
         # Explicit date field wins over mtime — stable across re-runs and edits.
         # Accepts: **Date:** `YYYY-MM-DD`  OR  **Created:** `YYYY-MM-DDThh:mm:ssZ`
         m = re.search(r"\*\*(?:Date|Created):\*\*\s*`([^`]+)`", text)
