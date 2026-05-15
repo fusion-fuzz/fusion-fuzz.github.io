@@ -2,6 +2,7 @@
 render_with_liquid: false
 ---
 
+**Date:** `2026-01-07`
 # [Fatal error: Double value cannot be converted to Int because it is either infinite or NaN at Swift/IntegerTypes.swift:8835](https://github.com/swiftlang/swift/issues/86343)
 
 ### Description

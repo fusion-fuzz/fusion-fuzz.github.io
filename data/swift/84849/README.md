@@ -2,6 +2,7 @@
 render_with_liquid: false
 ---
 
+**Date:** `2025-10-13`
 # [swiftc crash bad pointer dereference when typealias nonexisting one](https://github.com/swiftlang/swift/issues/84849)
 
 ### Description

@@ -2,6 +2,7 @@
 render_with_liquid: false
 ---
 
+**Date:** `2025-10-13`
 # [Infinite recursion in TypeBase::isBindableToSuperclassOf()](https://github.com/swiftlang/swift/issues/84851)
 
 ### Description

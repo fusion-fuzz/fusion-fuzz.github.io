@@ -1,3 +1,5 @@
+**Date:** `2025-10-15`
+
 {% raw %}
 # [swiftc crash `evaluateFreestandingMacro`](https://github.com/swiftlang/swift/issues/84898)
 

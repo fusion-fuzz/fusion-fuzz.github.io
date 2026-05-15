@@ -2,6 +2,7 @@
 render_with_liquid: false
 ---
 
+**Date:** `2026-01-12`
 # [Assertion failed in `SILBuilder::insertImpl` via `emitMarkFunctionEscape` when defining struct after top-level terminator](https://github.com/swiftlang/swift/issues/86489)
 
 ### Description

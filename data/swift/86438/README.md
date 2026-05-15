@@ -2,6 +2,7 @@
 render_with_liquid: false
 ---
 
+**Date:** `2026-01-10`
 # [Crash: swift-frontend crash in ConstraintSystem::getConstraintLocator (via FoldingSetBase::FindNodeOrInsertPos) when type-checking OptionalTryExpr](https://github.com/swiftlang/swift/issues/86438)
 
 ### Description

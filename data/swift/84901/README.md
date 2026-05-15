@@ -2,6 +2,7 @@
 render_with_liquid: false
 ---
 
+**Date:** `2025-10-15`
 # [swiftc crash `swift::ast_scope::NodeAdder::visitBraceStmt`](https://github.com/swiftlang/swift/issues/84901)
 
 ### Description

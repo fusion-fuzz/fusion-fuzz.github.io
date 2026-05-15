@@ -2,6 +2,7 @@
 render_with_liquid: false
 ---
 
+**Date:** `2025-10-15`
 # [swiftc crash `swift::Parser::parseExternAttribute`](https://github.com/swiftlang/swift/issues/84902)
 
 ### Description

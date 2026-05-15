@@ -2,6 +2,7 @@
 render_with_liquid: false
 ---
 
+**Date:** `2026-04-14`
 # [[Swift] Assertion "Expected non-null node" in ConstraintSystem::getType when type-checking a @Sendable closure calling an overloaded @preconcurrency @MainActor function shadowed by a global var binding](https://github.com/swiftlang/swift/issues/88456)
 
 **Description**

@@ -2,6 +2,7 @@
 render_with_liquid: false
 ---
 
+**Date:** `2025-10-13`
 # [swiftc crash when ArgumentMismatchFailure](https://github.com/swiftlang/swift/issues/84850)
 
 ### Description
