@@ -1,79 +1,70 @@
 --TEST--
-Fused ebf67e14 + 4580ecd9
+Fused 88751d8d + c40230c2
 --INI--
-opcache.enable=1
-opcache.enable_cli=1
-opcache.file_update_protection=0
-;opcache.jit_debug=257
-precision=14
-opcache.enable=1
-opcache.enable_cli=1
-opcache.jit=1205
+error_reporting=0
 --FILE--
 <?php
-declare(strict_types=1);
 try {
-$nan = NAN;
-$inf = INF;
-$ninf = -INF;
-$values = [0, 1, -1, PHP_INT_MAX, PHP_INT_MIN, 1.0, 1.5, $nan, $inf, $ninf, "0", "1", "-1", "1e309", "foo", "", null, true, false, [], [1, 2], ["a" => 1], " 42 ", "042", "0x10"];
-foreach ($values as $v) {
-    is_nan(is_float($v) ? $v : (float)$v);
-    is_finite(is_float($v) ? $v : (float)$v);
-    gettype($v);
-    settype($v, 'string');
-    settype($v, 'array');
-    settype($v, 'object');
+interface Catchable
+{
 }
-$a = ["x" => 1, "y" => [2, 3], "z" => ["k" => "v"]];
-$b = $a;
-$b["y"][1] = 99;
-$b["z"]["k"] = "w";
-$c = $a;
-$c[] = 4;
-unset($c["x"]);
-$e = enum_exists('UnitEnum') ? UnitEnum::cases() : [];
-$map = [];
-foreach ($e as $case) {
-    $map[$case->name] = $case->name;
-}
-$nested = ["a" => ["b" => ["c" => 1]]];
-$ref = &$nested["a"]["b"];
-$ref["d"] = 2;
-$s = "abc";
-for ($i = 0; $i < 3; $i++) {
-    $s .= $i;
-    $s = substr($s, 0, strlen($s));
-}
-$x = 0;
-while ($x < 5) {
-    if ($x === 2) {
-        $x++;
-        continue;
+class MyException extends Exception implements Catchable
+{
+    function __construct($errstr, $errno, $errfile, $errline)
+    {
+        parent::__construct($errstr, $errno);
+        $this->file = $errfile;
+        $this->line = $errline;
     }
-    if ($x === 4) {
-        break;
-    }
-    $x++;
 }
-try {
-    throw new ArgumentException("value");
-} catch (Throwable $t) {
+function Error2Exception($errno, $errstr, $errfile, $errline)
+{
+    throw new MyException($errstr, $errno, $errfile, $errline);
 }
-echo "";
-function foo() {
-    $a = array();  // [rc1, array]
-    $a = 1;        // [rc1, long, reg]
-    $x = $a;
-    var_dump($x);
+$err_msg = 'no exception';
+set_error_handler('Error2Exception');
+try
+{
+    $con = fopen('/tmp/a_file_that_does_not_exist','r');
 }
-foo();
+catch (Catchable $e)
+{
+    echo "Catchable\n";
+}
+catch (Exception $e)
+{
+    echo "Exception\n";
+}
+$fusion = $e;
+$nan = fdiv(0, 0);
+var_dump($nan);
+function implicit_to_bool(bool $v) {
+    var_dump($v);
+}
+function implicit_to_string(string $fusion) {
+    var_dump($v);
+}
+implicit_to_bool($nan);
+implicit_to_string($nan);
+var_dump((int) $nan);
+var_dump((bool) $nan);
+var_dump((string) $nan);
+var_dump((array) $nan);
+var_dump((object) $nan);
+$types = [
+    'null',
+    'bool',
+    'int',
+    'string',
+    'array',
+    'object',
+];
+foreach ($types as $type) {
+    $nan = fdiv(0, 0);
+    settype($nan, $type);
+    var_dump($nan);
+}
 var_dump(get_defined_vars());
-try { imagearc($fusion,$x,$fusion,$fusion,$fusion,$x,$a,$fusion); } catch (\Throwable $e) {};
-try { imagearc($x,$a,$a,$a,$x,$fusion,$fusion,$x); } catch (\Throwable $e) {};
-try { imagearc($a,$fusion,$a,$a,$fusion,$x,$x,$fusion); } catch (\Throwable $e) {};
-try { imagearc($fusion,$x,$x,$a,$fusion,$fusion,$a,$fusion); } catch (\Throwable $e) {};
-try { imagearc($x,$fusion,$fusion,$a,$fusion,$fusion,$a,$x); } catch (\Throwable $e) {};
 } catch (\Throwable $_ffl_e) {}
 --EXPECT--
 this is a flowfusion test

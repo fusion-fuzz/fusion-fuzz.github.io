@@ -1,82 +1,82 @@
 *Fusion-Fuzz Bug Report*
 
-**ID:** `71eadbc1` &nbsp;·&nbsp; **Signature:** `Assertion:addr != 0` &nbsp;·&nbsp; **RC:** `134`
+**ID:** `f4f7a056` &nbsp;·&nbsp; **Signature:** `Assertion:!(((zend_executor_globals *) (((char*) _tsrm_ls_cache)+(executor_globals_offset)))->exception)` &nbsp;·&nbsp; **RC:** `134`
 
 The following code:
 
 ```php
 <?php
-declare(strict_types=1);
 try {
-$nan = NAN;
-$inf = INF;
-$ninf = -INF;
-$values = [0, 1, -1, PHP_INT_MAX, PHP_INT_MIN, 1.0, 1.5, $nan, $inf, $ninf, "0", "1", "-1", "1e309", "foo", "", null, true, false, [], [1, 2], ["a" => 1], " 42 ", "042", "0x10"];
-foreach ($values as $v) {
-    is_nan(is_float($v) ? $v : (float)$v);
-    is_finite(is_float($v) ? $v : (float)$v);
-    gettype($v);
-    settype($v, 'string');
-    settype($v, 'array');
-    settype($v, 'object');
+interface Catchable
+{
 }
-$a = ["x" => 1, "y" => [2, 3], "z" => ["k" => "v"]];
-$b = $a;
-$b["y"][1] = 99;
-$b["z"]["k"] = "w";
-$c = $a;
-$c[] = 4;
-unset($c["x"]);
-$e = enum_exists('UnitEnum') ? UnitEnum::cases() : [];
-$map = [];
-foreach ($e as $case) {
-    $map[$case->name] = $case->name;
-}
-$nested = ["a" => ["b" => ["c" => 1]]];
-$ref = &$nested["a"]["b"];
-$ref["d"] = 2;
-$s = "abc";
-for ($i = 0; $i < 3; $i++) {
-    $s .= $i;
-    $s = substr($s, 0, strlen($s));
-}
-$x = 0;
-while ($x < 5) {
-    if ($x === 2) {
-        $x++;
-        continue;
+class MyException extends Exception implements Catchable
+{
+    function __construct($errstr, $errno, $errfile, $errline)
+    {
+        parent::__construct($errstr, $errno);
+        $this->file = $errfile;
+        $this->line = $errline;
     }
-    if ($x === 4) {
-        break;
-    }
-    $x++;
 }
-try {
-    throw new ArgumentException("value");
-} catch (Throwable $t) {
+function Error2Exception($errno, $errstr, $errfile, $errline)
+{
+    throw new MyException($errstr, $errno, $errfile, $errline);
 }
-echo "";
-function foo() {
-    $a = array();  // [rc1, array]
-    $a = 1;        // [rc1, long, reg]
-    $x = $a;
-    var_dump($x);
+$err_msg = 'no exception';
+set_error_handler('Error2Exception');
+try
+{
+    $con = fopen('/tmp/a_file_that_does_not_exist','r');
 }
-foo();
+catch (Catchable $e)
+{
+    echo "Catchable\n";
+}
+catch (Exception $e)
+{
+    echo "Exception\n";
+}
+$fusion = $e;
+$nan = fdiv(0, 0);
+var_dump($nan);
+function implicit_to_bool(bool $v) {
+    var_dump($v);
+}
+function implicit_to_string(string $fusion) {
+    var_dump($v);
+}
+implicit_to_bool($nan);
+implicit_to_string($nan);
+var_dump((int) $nan);
+var_dump((bool) $nan);
+var_dump((string) $nan);
+var_dump((array) $nan);
+var_dump((object) $nan);
+$types = [
+    'null',
+    'bool',
+    'int',
+    'string',
+    'array',
+    'object',
+];
+foreach ($types as $type) {
+    $nan = fdiv(0, 0);
+    settype($nan, $type);
+    var_dump($nan);
+}
 var_dump(get_defined_vars());
-try { imagearc($fusion,$x,$fusion,$fusion,$fusion,$x,$a,$fusion); } catch (\Throwable $e) {};
-try { imagearc($x,$a,$a,$a,$x,$fusion,$fusion,$x); } catch (\Throwable $e) {};
-try { imagearc($a,$fusion,$a,$a,$fusion,$x,$x,$fusion); } catch (\Throwable $e) {};
-try { imagearc($fusion,$x,$x,$a,$fusion,$fusion,$a,$fusion); } catch (\Throwable $e) {};
-try { imagearc($x,$fusion,$fusion,$a,$fusion,$fusion,$a,$x); } catch (\Throwable $e) {};
 } catch (\Throwable $_ffl_e) {}
 ```
 
 Resulted in this output:
 
 ```
-php: ext/opcache/jit/zend_jit_ir.c:554: ir_ref jit_CONST_FUNC_PROTO(zend_jit_ctx *, uintptr_t, ir_ref): Assertion `addr != 0' failed.
+php: Zend/zend_vm_execute.h:2817: const zend_op *zend_verify_recv_arg_type_helper_SPEC(zend_execute_data *, const zend_op *, zval *): Assertion `!(((zend_executor_globals *) (((char*) _tsrm_ls_cache)+(executor_globals_offset)))->exception)' failed.
 Aborted (core dumped)
+Catchable
+float(NAN)
 ```
 
 To reproduce:
@@ -84,14 +84,14 @@ To reproduce:
 ```
 #!/bin/bash
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php -d disable_functions=pcntl_fork,pcntl_exec,pcntl_alarm,pcntl_wait,pcntl_waitpid,pcntl_signal,pcntl_wexitstatus,pcntl_wifexited,pcntl_wifsignaled,posix_kill,posix_mkfifo,posix_setuid,posix_setgid,posix_setsid,system,exec,shell_exec,passthru,proc_open,popen,chmod,chown,chgrp,chdir,chroot,mkdir,rmdir,rename,unlink,link,symlink,copy,fsockopen,pfsockopen -d open_basedir="/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared:/home/fuzz/WorkSpace/fusion-fuzz/projects/php/phpt_deps" -d allow_url_fopen=0 -d allow_url_include=0 -d include_path=".:/home/fuzz/WorkSpace/fusion-fuzz/projects/php/phpt_deps" -d opcache.enable=1 -d opcache.enable_cli=1 -d opcache.file_update_protection=0 -d precision=14 -d opcache.enable=1 -d opcache.enable_cli=1 -d opcache.jit=1205 "$SCRIPT_DIR/test.php"
+/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php -d disable_functions=pcntl_fork,pcntl_exec,pcntl_alarm,pcntl_wait,pcntl_waitpid,pcntl_signal,pcntl_wexitstatus,pcntl_wifexited,pcntl_wifsignaled,posix_kill,posix_mkfifo,posix_setuid,posix_setgid,posix_setsid,system,exec,shell_exec,passthru,proc_open,popen,chmod,chown,chgrp,chdir,chroot,mkdir,rmdir,rename,unlink,link,symlink,copy,fsockopen,pfsockopen -d open_basedir="/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared:/home/fuzz/WorkSpace/fusion-fuzz/projects/php/phpt_deps" -d allow_url_fopen=0 -d allow_url_include=0 -d include_path=".:/home/fuzz/WorkSpace/fusion-fuzz/projects/php/phpt_deps" -d error_reporting=0 "$SCRIPT_DIR/test.php"
 ```
 
 ### Parents
 
 | Label | ID | Source |
 |-------|----|--------|
-| `a` | `ebf67e14` | Bug corpus (project: `inferredbugs-csharp`, name: `cscs/107/file_before.txt`) |
-| `b` | `4580ecd9` | Project seed (`JIT ASSIGN: 003`) |
+| `a` | `88751d8d` | Project seed (`Catch Interfaces`) |
+| `b` | `c40230c2` | Project seed (`NAN coerced to other types`) |
 
 *This report is automatically generated by [Fusion-Fuzz](https://github.com/0599jiangyc/FusionFuzzLoop)*
