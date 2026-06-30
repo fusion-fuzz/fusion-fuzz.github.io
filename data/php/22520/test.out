@@ -1,0 +1,7 @@
+php: /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_lazy_objects.c:164: void zend_lazy_object_del_info(const zend_object *): Assertion `res == SUCCESS' failed.
+Aborted (core dumped)
+
+Fatal error: Allowed memory size of 2097152 bytes exhausted at /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_lazy_objects.c:362 (tried to allocate 96 bytes) in /home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/9a5b1dde.php on line 9
+Stack trace:
+#0 /home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/9a5b1dde.php(9): ReflectionClass->newLazyGhost(Object(Closure))
+#1 {main}

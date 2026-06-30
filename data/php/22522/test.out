@@ -1,0 +1,302 @@
+=================================================================
+==2473811==ERROR: AddressSanitizer: attempting double-free on 0x6020012dd6f0 in thread T0:
+    #0 0x680542 in free (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x680542)
+    #1 0x7f7189bee6bd in xmlFreeDoc (/lib/x86_64-linux-gnu/libxml2.so.2+0x646bd)
+    #2 0x8daea9 in php_libxml_decrement_doc_ref_directly /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/libxml/libxml.c:1395:4
+    #3 0x8db5b7 in php_libxml_decrement_doc_ref /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/libxml/libxml.c:1415:18
+    #4 0x10efe16 in dom_objects_free_storage /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/dom/php_dom.c:1499:4
+    #5 0x6540ab2 in zend_objects_store_free_object_storage /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_objects_API.c:118:6
+    #6 0x593478b in zend_shutdown_executor_values /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_execute_API.c:431:2
+    #7 0x5935ebe in shutdown_executor /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_execute_API.c:452:2
+    #8 0x669eebb in zend_deactivate /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend.c:1355:2
+    #9 0x4ef9e5c in php_request_shutdown /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:2035:2
+    #10 0x66ca766 in do_cli /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:1166:3
+    #11 0x66bf82f in main /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:1370:18
+    #12 0x7f71892d2d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #13 0x7f71892d2e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #14 0x6058e4 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x6058e4)
+
+0x6020012dd6f0 is located 0 bytes inside of 6-byte region [0x6020012dd6f0,0x6020012dd6f6)
+freed by thread T0 here:
+    #0 0x680542 in free (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x680542)
+    #1 0x7f7189bee1b7 in xmlFreeNodeList (/lib/x86_64-linux-gnu/libxml2.so.2+0x641b7)
+
+previously allocated by thread T0 here:
+    #0 0x6807ad in malloc (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x6807ad)
+    #1 0x7f7189c6d892 in xmlStrdup (/lib/x86_64-linux-gnu/libxml2.so.2+0xe3892)
+
+SUMMARY: AddressSanitizer: double-free (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x680542) in free
+==2473811==ABORTING
+
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+prefix: string(1) "c"
+namespaceURI: 
+=== c:child ===
+[... 81,953 more lines truncated after crash report ...]
