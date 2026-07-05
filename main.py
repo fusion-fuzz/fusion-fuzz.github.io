@@ -187,45 +187,9 @@ def _extract_file_section(content, ext):
 # Parsing
 # ---------------------------------------------------------------------------
 
-def _parse_parents_table(text):
-    """Extract per-parent (id, source, project) from the '### Parents'
-    markdown table in a bug README, e.g.:
-
-        | `a` | `a0af5a02` | Bug corpus (project: `php`, name: `bug29038.phpt`) |
-        | `b` | `5665bab7` | Project seed |
-
-    'Bug corpus (project: `X`, ...)' means the parent was pulled in from
-    project X's corpus (possibly a different project than the bug itself —
-    this is how cross-project fusion shows up). 'Project seed' means the
-    parent came from the bug's own project; project is left None so the
-    caller can fill it in with the bug's project.
-    """
-    result = {"a": None, "b": None}
-    if not text:
-        return result
-    m = re.search(r"###\s*Parents\s*\n(.*?)(?=\n###|\n---|\n\*This report|\n\*Program|\Z)",
-                  text, re.DOTALL)
-    if not m:
-        return result
-    table = m.group(1)
-    for row in re.finditer(r"^\|\s*`([ab])`\s*\|\s*`([^`]*)`\s*\|\s*(.*?)\s*\|\s*$",
-                            table, re.MULTILINE):
-        label, pid, source = row.groups()
-        pid, source = pid.strip(), source.strip()
-        if not pid:
-            continue
-        project = None
-        pm = re.search(r"Bug corpus\s*\(project:\s*`([^`]+)`", source)
-        if pm:
-            project = pm.group(1)
-        result[label] = {"id": pid, "source": source, "project": project}
-    return result
-
-
 def _parse_readme(bug_dir):
     """Extract signature, return_code, date, reproduce_command from README.md."""
-    result = {"signature": None, "return_code": None, "date": None, "command": "",
-              "parents": {"a": None, "b": None}}
+    result = {"signature": None, "return_code": None, "date": None, "command": ""}
     text = _read(os.path.join(bug_dir, "README.md")) \
         or _read(os.path.join(bug_dir, "report.md"))
     if text:
@@ -256,7 +220,6 @@ def _parse_readme(bug_dir):
             date_m = re.match(r"(\d{4}-\d{2}-\d{2})", raw)
             if date_m:
                 result["date"] = date_m.group(1)
-        result["parents"] = _parse_parents_table(text)
     # Fall back to mtime only when no explicit date is embedded in the file
     if result["date"] is None:
         for name in ("README.md", "report.md"):
@@ -309,14 +272,6 @@ def parse_bug(project, issue_id, bug_dir):
     pa_code = _extract_file_section(pa_raw, pa_ext) if pa_raw else ""
     pb_code = _extract_file_section(pb_raw, pb_ext) if pb_raw else ""
 
-    # Parent origin projects, from the README's "### Parents" table.
-    # "Project seed" parents have no explicit project — they came from the
-    # bug's own project's seed corpus, so default to that.
-    pa_meta = meta["parents"]["a"]
-    pb_meta = meta["parents"]["b"]
-    pa_project = (pa_meta and (pa_meta["project"] or project)) if pa_code else None
-    pb_project = (pb_meta and (pb_meta["project"] or project)) if pb_code else None
-
     # Output
     raw_out = _read(os.path.join(bug_dir, "test.out")).rstrip("\n")
     output  = smart_truncate(raw_out) if raw_out else ""
@@ -339,8 +294,6 @@ def parse_bug(project, issue_id, bug_dir):
         "pb_code":      pb_code,
         "pa_file":      pa_file,
         "pb_file":      pb_file,
-        "pa_project":   pa_project,
-        "pb_project":   pb_project,
         "output":       output,
         "is_minimized": bool(min_file),
     }
@@ -379,31 +332,18 @@ def _line_set(txt):
     return {l.strip() for l in (txt or "").splitlines() if l.strip()}
 
 
-def _proj_badge(project, cls="proj-badge"):
-    """Small colored chip naming the origin project of a parent, e.g. `php`
-    for a same-project seed or `go` when the parent was pulled in from
-    another project's corpus (cross-project fusion)."""
-    if not project:
-        return ""
-    color = _project_color(project)
-    return (f'<span class="{cls}" style="color:{color};border-color:{color}44;'
-            f'background:{color}14">{_he(project)}</span>')
-
-
-def _attr_legend(pa, pb, pa_project=None, pb_project=None):
+def _attr_legend(pa, pb):
     if not pa and not pb:
         return ""
     items = []
     if pa:
         items.append('<span class="attr-leg-item">'
                      '<span class="attr-pin pin-a">A</span>'
-                     '<span class="attr-leg-name">parent_a</span>'
-                     + _proj_badge(pa_project, "leg-proj-badge") + '</span>')
+                     '<span class="attr-leg-name">parent_a</span></span>')
     if pb:
         items.append('<span class="attr-leg-item">'
                      '<span class="attr-pin pin-b">B</span>'
-                     '<span class="attr-leg-name">parent_b</span>'
-                     + _proj_badge(pb_project, "leg-proj-badge") + '</span>')
+                     '<span class="attr-leg-name">parent_b</span></span>')
     if pa and pb:
         items.append('<span class="attr-leg-item">'
                      '<span class="attr-pin pin-both">A·B</span>'
@@ -458,8 +398,6 @@ def _render_bug(i, bug):
     orig_file = bug["orig_file"]
     pa_code   = bug["pa_code"]
     pb_code   = bug["pb_code"]
-    pa_project = bug.get("pa_project")
-    pb_project = bug.get("pb_project")
     output    = _he(smart_truncate(bug["output"]))
     cmd       = _he(bug["command"])
     is_min    = bug["is_minimized"]
@@ -476,8 +414,7 @@ def _render_bug(i, bug):
 
     # ── Reproducer pane (minimized with attribution) ──────────────────────
     if pa_code or pb_code:
-        repr_pane = (_attr_legend(pa_code, pb_code, pa_project, pb_project)
-                    + _attr_block(repr_code, pa_code, pb_code))
+        repr_pane = _attr_legend(pa_code, pb_code) + _attr_block(repr_code, pa_code, pb_code)
     else:
         repr_pane = (f'<pre class="code-block lang-{lang}">'
                      f'<code>{_he(repr_code)}</code></pre>')
@@ -491,7 +428,7 @@ def _render_bug(i, bug):
     orig_pane_html = ""
     if is_min and orig_code:
         if pa_code or pb_code:
-            orig_pane_content = (_attr_legend(pa_code, pb_code, pa_project, pb_project)
+            orig_pane_content = (_attr_legend(pa_code, pb_code)
                                  + _attr_block(orig_code, pa_code, pb_code))
         else:
             olang = bug["orig_language"]
@@ -508,8 +445,8 @@ def _render_bug(i, bug):
 
     # ── Parents pane ──────────────────────────────────────────────────────
     parent_entries = ""
-    for label, code, fname, pproj in [("parent_a", pa_code, bug.get("pa_file"), pa_project),
-                                       ("parent_b", pb_code, bug.get("pb_file"), pb_project)]:
+    for label, code, fname in [("parent_a", pa_code, bug.get("pa_file")),
+                                ("parent_b", pb_code, bug.get("pb_file"))]:
         if not code:
             continue
         ext = os.path.splitext(fname)[1].lower() if fname else ""
@@ -518,7 +455,6 @@ def _render_bug(i, bug):
             f'<div class="parent-entry">'
             f'<div class="parent-meta">'
             f'<span class="parent-lbl">{label}</span>'
-            + _proj_badge(pproj, "parent-project") +
             f'<span class="parent-pid">{_he(fname or "")}</span>'
             f'</div>'
             f'<pre class="code-block lang-{plang}"><code>{_he(code)}</code></pre>'
@@ -754,11 +690,6 @@ body { font-family: var(--font); font-size: 14px; background: var(--bg); color: 
 .parent-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
 .parent-lbl { font-weight: 600; font-size: 12px; color: var(--blue); font-family: var(--mono); }
 .parent-pid { font-size: 12px; color: var(--text-3); font-family: var(--mono); }
-.proj-badge {
-  font-size: 10.5px; font-weight: 600; padding: 1px 8px;
-  border-radius: 10px; border: 1px solid;
-  text-transform: uppercase; letter-spacing: .3px; white-space: nowrap;
-}
 
 /* ── Per-line attribution view ───────────────────────────────────────── */
 .attr-legend {
