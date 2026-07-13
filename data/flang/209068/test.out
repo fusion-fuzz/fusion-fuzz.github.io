@@ -1,0 +1,41 @@
+
+fatal internal error: no case at flang/lib/Parser/preprocessor.cpp(1212)
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /usr/lib/llvm-22/bin/flang -fc1 -triple x86_64-pc-linux-gnu -emit-llvm -ffree-form -fimplicit-none -falternative-parameter-statement -mrelocation-model pic -pic-level 2 -pic-is-pie -target-cpu x86-64 -std=f2018 -debug-info-kind=standalone -resource-dir /usr/lib/llvm-22/lib/clang/22 -mframe-pointer=none -O1 -o /dev/null -x f95 /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpgjroj_iv/c8f666e6.F90
+ #0 0x00007f4b8795fd5f llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc7d5f)
+ #1 0x00007f4b8795d5d7 llvm::sys::RunSignalHandlers() (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc55d7)
+ #2 0x00007f4b87960b2a (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc8b2a)
+ #3 0x00007f4b82634330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f4b8268db2c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9eb2c)
+ #5 0x00007f4b8263427e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f4b826178ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000055fe4716f61c (/usr/lib/llvm-22/bin/flang+0x2b2061c)
+ #8 0x000055fe46e4b79e (/usr/lib/llvm-22/bin/flang+0x27fc79e)
+ #9 0x000055fe46e4841e Fortran::parser::Preprocessor::IsIfPredicateTrue(Fortran::parser::TokenSequence const&, unsigned long, unsigned long, Fortran::parser::Prescanner&) (/usr/lib/llvm-22/bin/flang+0x27f941e)
+#10 0x000055fe46e45650 Fortran::parser::Preprocessor::Directive(Fortran::parser::TokenSequence const&, Fortran::parser::Prescanner&) (/usr/lib/llvm-22/bin/flang+0x27f6650)
+#11 0x000055fe46e57d18 Fortran::parser::Prescanner::SkipCommentLine(bool) (/usr/lib/llvm-22/bin/flang+0x2808d18)
+#12 0x000055fe46e58f29 Fortran::parser::Prescanner::FreeFormContinuation() (/usr/lib/llvm-22/bin/flang+0x2809f29)
+#13 0x000055fe46e544a5 Fortran::parser::Prescanner::SkipToNextSignificantCharacter() (/usr/lib/llvm-22/bin/flang+0x28054a5)
+#14 0x000055fe46e528e8 Fortran::parser::Prescanner::NextToken(Fortran::parser::TokenSequence&) (/usr/lib/llvm-22/bin/flang+0x28038e8)
+#15 0x000055fe46e4f6eb Fortran::parser::Prescanner::Statement() (/usr/lib/llvm-22/bin/flang+0x28006eb)
+#16 0x000055fe46e4e5f8 Fortran::parser::Prescanner::Prescan(Fortran::common::Interval<Fortran::parser::Provenance>) (/usr/lib/llvm-22/bin/flang+0x27ff5f8)
+#17 0x000055fe46e3c052 Fortran::parser::Parsing::Prescan(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> const&, Fortran::parser::Options) (/usr/lib/llvm-22/bin/flang+0x27ed052)
+#18 0x000055fe45219732 Fortran::frontend::FrontendAction::runPrescan() (/usr/lib/llvm-22/bin/flang+0xbca732)
+#19 0x000055fe4521e7b5 Fortran::frontend::CodeGenAction::beginSourceFileAction() (/usr/lib/llvm-22/bin/flang+0xbcf7b5)
+#20 0x000055fe45218f9e Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) (/usr/lib/llvm-22/bin/flang+0xbc9f9e)
+#21 0x000055fe45200e7f Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) (/usr/lib/llvm-22/bin/flang+0xbb1e7f)
+#22 0x000055fe4521dba0 Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) (/usr/lib/llvm-22/bin/flang+0xbceba0)
+#23 0x000055fe451fed34 fc1_main(llvm::ArrayRef<char const*>, char const*) (/usr/lib/llvm-22/bin/flang+0xbafd34)
+#24 0x000055fe451fdfa4 main (/usr/lib/llvm-22/bin/flang+0xbaefa4)
+#25 0x00007f4b826191ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#26 0x00007f4b8261928b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#27 0x000055fe451fcf45 _start (/usr/lib/llvm-22/bin/flang+0xbadf45)
+flang-22: error: unable to execute command: Aborted (core dumped)
+flang-22: error: flang frontend command failed due to signal (use -v to see invocation)
+Ubuntu flang version 22.1.8 (++20260613092238+e80beda6e255-1~exp1~20260613092253.78)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/llvm-22/bin
+flang-22: error: unable to execute command: Aborted (core dumped)
+flang-22: note: diagnostic msg: Error generating preprocessed source(s).

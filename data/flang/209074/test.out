@@ -1,0 +1,45 @@
+
+fatal internal error: No error was reported but setting error on: s (Subroutine): Subprogram (int_ptr_kind,INTEGER(8) n)
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /usr/lib/llvm-22/bin/flang -fc1 -triple x86_64-pc-linux-gnu -emit-llvm -ffree-form -fimplicit-none -falternative-parameter-statement -fdefault-real-8 -mrelocation-model pic -pic-level 2 -pic-is-pie -target-cpu x86-64 -resource-dir /usr/lib/llvm-22/lib/clang/22 -mframe-pointer=none -O1 -o /dev/null -x f95 /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpmr7anlhq/c5861f1a.f90
+ #0 0x00007f9bfbf4ed5f llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc7d5f)
+ #1 0x00007f9bfbf4c5d7 llvm::sys::RunSignalHandlers() (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc55d7)
+ #2 0x00007f9bfbf4fb2a (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc8b2a)
+ #3 0x00007f9bf6c23330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f9bf6c7cb2c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9eb2c)
+ #5 0x00007f9bf6c2327e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f9bf6c068ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00005560ff48b61c (/usr/lib/llvm-22/bin/flang+0x2b2061c)
+ #8 0x00005560fdde438a (/usr/lib/llvm-22/bin/flang+0x147938a)
+ #9 0x00005560fdf19b1f Fortran::semantics::CheckHelper::CheckSubprogram(Fortran::semantics::Symbol const&, Fortran::semantics::SubprogramDetails const&) (/usr/lib/llvm-22/bin/flang+0x15aeb1f)
+#10 0x00005560fdf0efb7 Fortran::semantics::CheckHelper::Check(Fortran::semantics::Symbol const&) (/usr/lib/llvm-22/bin/flang+0x15a3fb7)
+#11 0x00005560fdf1f96c Fortran::semantics::CheckHelper::Check(Fortran::semantics::Scope const&) (/usr/lib/llvm-22/bin/flang+0x15b496c)
+#12 0x00005560fdf25da9 Fortran::semantics::CheckDeclarations(Fortran::semantics::SemanticsContext&) (/usr/lib/llvm-22/bin/flang+0x15bada9)
+#13 0x00005560fdde6034 Fortran::semantics::Semantics::Perform() (/usr/lib/llvm-22/bin/flang+0x147b034)
+#14 0x00005560fd53591e Fortran::frontend::FrontendAction::runSemanticChecks() (/usr/lib/llvm-22/bin/flang+0xbca91e)
+#15 0x00005560fd53a7da Fortran::frontend::CodeGenAction::beginSourceFileAction() (/usr/lib/llvm-22/bin/flang+0xbcf7da)
+#16 0x00005560fd534f9e Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) (/usr/lib/llvm-22/bin/flang+0xbc9f9e)
+#17 0x00005560fd51ce7f Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) (/usr/lib/llvm-22/bin/flang+0xbb1e7f)
+#18 0x00005560fd539ba0 Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) (/usr/lib/llvm-22/bin/flang+0xbceba0)
+#19 0x00005560fd51ad34 fc1_main(llvm::ArrayRef<char const*>, char const*) (/usr/lib/llvm-22/bin/flang+0xbafd34)
+#20 0x00005560fd519fa4 main (/usr/lib/llvm-22/bin/flang+0xbaefa4)
+#21 0x00007f9bf6c081ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#22 0x00007f9bf6c0828b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#23 0x00005560fd518f45 _start (/usr/lib/llvm-22/bin/flang+0xbadf45)
+flang-22: error: unable to execute command: Aborted (core dumped)
+flang-22: error: flang frontend command failed due to signal (use -v to see invocation)
+Ubuntu flang version 22.1.8 (++20260613092238+e80beda6e255-1~exp1~20260613092253.78)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/llvm-22/bin
+flang-22: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING FILES TO THE BUG REPORT:
+Preprocessed source(s) and associated run script(s) are located at:
+flang-22: note: diagnostic msg: /tmp/c5861f1a-d1cfde
+flang-22: note: diagnostic msg: /tmp/c5861f1a-d1cfde.sh
+flang-22: note: diagnostic msg: 
+
+********************
