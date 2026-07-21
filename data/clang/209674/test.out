@@ -1,0 +1,96 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpp3cjjpq8/3f8b9a62.mm:109:13: error: synthesized property 'frame' must either be named the same as a compatible instance variable or must explicitly name an instance variable
+  109 | @synthesize frame;
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpp3cjjpq8/3f8b9a62.mm:91:12: warning: class 'I' defined without specifying a base class [-Wobjc-root-class]
+   91 | @interface I {
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpp3cjjpq8/3f8b9a62.mm:91:13: note: add a super class to fix this problem
+   91 | @interface I {
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpp3cjjpq8/3f8b9a62.mm:181:2: error: expected an Objective-C directive after '@'
+  181 | @ffl_fusion
+      |  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpp3cjjpq8/3f8b9a62.mm:187:6: warning: function definition inside an Objective-C container is deprecated [-Wfunction-def-in-objc-container]
+  187 | void testB0(B *b) {
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpp3cjjpq8/3f8b9a62.mm:188:12: error: use of undeclared identifier 'b_makeInt'
+  188 |   b.b0 = { b_makeInt() };
+      |            ^~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpp3cjjpq8/3f8b9a62.mm:190:6: warning: function definition inside an Objective-C container is deprecated [-Wfunction-def-in-objc-container]
+  190 | void testB1(B *b) {
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpp3cjjpq8/3f8b9a62.mm:191:13: error: use of undeclared identifier 'b_makeInt'
+  191 |   b.b1 += { b_makeInt() };
+      |             ^~~~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/Expr.cpp:5066: clang::BinaryOperator::BinaryOperator(const clang::ASTContext&, clang::Expr*, clang::Expr*, clang::BinaryOperator::Opcode, clang::QualType, clang::ExprValueKind, clang::ExprObjectKind, clang::SourceLocation, clang::FPOptionsOverride): Assertion `!isCompoundAssignmentOp() && "Use CompoundAssignOperator for compound assignments"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Oz -std=c++14 /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpp3cjjpq8/3f8b9a62.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpp3cjjpq8/3f8b9a62.mm:191:26: current parser token ';'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpp3cjjpq8/3f8b9a62.mm:190:19: parsing function body 'testB1'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpp3cjjpq8/3f8b9a62.mm:190:19: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055ae397640f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055ae39760dcc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055ae39761678 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055ae396a3f88
+4  libc.so.6 0x00007fbd306ed520
+5  libc.so.6 0x00007fbd307419fc pthread_kill + 300
+6  libc.so.6 0x00007fbd306ed476 raise + 22
+7  libc.so.6 0x00007fbd306d37f3 abort + 211
+8  libc.so.6 0x00007fbd306d371b
+9  libc.so.6 0x00007fbd306e4e96
+10 clang++   0x000055ae3d2bfb5b clang::BinaryOperator::BinaryOperator(clang::ASTContext const&, clang::Expr*, clang::Expr*, clang::BinaryOperatorKind, clang::QualType, clang::ExprValueKind, clang::ExprObjectKind, clang::SourceLocation, clang::FPOptionsOverride) + 795
+11 clang++   0x000055ae3d2ca2ee clang::BinaryOperator::Create(clang::ASTContext const&, clang::Expr*, clang::Expr*, clang::BinaryOperatorKind, clang::QualType, clang::ExprValueKind, clang::ExprObjectKind, clang::SourceLocation, clang::FPOptionsOverride) + 126
+12 clang++   0x000055ae3c88703a clang::SemaPseudoObject::checkAssignment(clang::Scope*, clang::SourceLocation, clang::BinaryOperatorKind, clang::Expr*, clang::Expr*) + 154
+13 clang++   0x000055ae3c4ae111 clang::Sema::ActOnBinOp(clang::Scope*, clang::SourceLocation, clang::tok::TokenKind, clang::Expr*, clang::Expr*) + 209
+14 clang++   0x000055ae3bf76dd4 clang::Parser::ParseRHSOfBinaryExpression(clang::ActionResult<clang::Expr*, true>, clang::prec::Level) + 772
+15 clang++   0x000055ae3bf79d7d clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+16 clang++   0x000055ae3c009f81 clang::Parser::ParseExprStatement(clang::Parser::ParsedStmtContext) + 81
+17 clang++   0x000055ae3c001b7b clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 5547
+18 clang++   0x000055ae3c00254b clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+19 clang++   0x000055ae3c00a7f7 clang::Parser::ParseCompoundStatementBody(bool) + 1639
+20 clang++   0x000055ae3c00b04f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+21 clang++   0x000055ae3befe32f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+22 clang++   0x000055ae3bf47eb4 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+23 clang++   0x000055ae3bef715c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+24 clang++   0x000055ae3bef7809 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 665
+25 clang++   0x000055ae3bfb4ba0 clang::Parser::ParseObjCInterfaceDeclList(clang::tok::ObjCKeywordKind, clang::Decl*) + 480
+26 clang++   0x000055ae3bfb6686 clang::Parser::ParseObjCAtInterfaceDeclaration(clang::SourceLocation, clang::ParsedAttributes&) + 1254
+27 clang++   0x000055ae3bfb7445 clang::Parser::ParseObjCAtDirectives(clang::ParsedAttributes&, clang::ParsedAttributes&) + 1317
+28 clang++   0x000055ae3bf03e70 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2720
+29 clang++   0x000055ae3bf047df clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+30 clang++   0x000055ae3bee170a clang::ParseAST(clang::Sema&, bool, bool) + 586
+31 clang++   0x000055ae3a45a071 clang::FrontendAction::Execute() + 65
+32 clang++   0x000055ae3a3e3c65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+33 clang++   0x000055ae3a535ea3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+34 clang++   0x000055ae38138c96 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7046
+35 clang++   0x000055ae3812ea2a
+36 clang++   0x000055ae3812ebbf
+37 clang++   0x000055ae3a16b35d
+38 clang++   0x000055ae396a43a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+39 clang++   0x000055ae3a16c1b3
+40 clang++   0x000055ae3a121987 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+41 clang++   0x000055ae3a1261e0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+42 clang++   0x000055ae3a133e44 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+43 clang++   0x000055ae381342d3 clang_main(int, char**, llvm::ToolContext const&) + 7267
+44 clang++   0x000055ae380867a1 main + 113
+45 libc.so.6 0x00007fbd306d4d90
+46 libc.so.6 0x00007fbd306d4e40 __libc_start_main + 128
+47 clang++   0x000055ae3812e055 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git aefba88f46a6e55645c848f58f6ba56944d5ae62)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/3f8b9a62-327326.mm
+clang++: note: diagnostic msg: /tmp/3f8b9a62-327326.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

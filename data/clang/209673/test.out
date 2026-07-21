@@ -1,0 +1,131 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:64:10: error: value of type 'FourFloats' (vector of 4 'float' values) is not contextually convertible to 'bool'
+   64 |   (void)(four_floats ? 1 : 1); // expected-error {{is not contextually convertible to 'bool'}}}
+      |          ^~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:65:10: error: value of type 'TwoDoubles' (vector of 2 'double' values) is not contextually convertible to 'bool'
+   65 |   (void)(two_doubles ? 1 : 1); // expected-error {{is not contextually convertible to 'bool'}}}
+      |          ^~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:70:34: error: GNU vector conditional operand cannot be a throw expression
+   70 |   (void)(four_ints ? four_ints : throw 1); // expected-error {{GNU vector conditional operand cannot be a throw expression}}
+      |                                  ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:71:22: error: GNU vector conditional operand cannot be a throw expression
+   71 |   (void)(four_ints ? throw 1 : four_ints); // expected-error {{GNU vector conditional operand cannot be a throw expression}}
+      |                      ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:72:23: error: GNU vector conditional operand cannot be a throw expression
+   72 |   (void)(four_ints ?: throw 1);            // expected-error {{GNU vector conditional operand cannot be a throw expression}}
+      |                       ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:73:22: error: GNU vector conditional operand cannot be void
+   73 |   (void)(four_ints ? (void)1 : four_ints); // expected-error {{GNU vector conditional operand cannot be void}}
+      |                      ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:74:23: error: GNU vector conditional operand cannot be void
+   74 |   (void)(four_ints ?: (void)1);            // expected-error {{GNU vector conditional operand cannot be void}}
+      |                       ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:77:20: error: vector condition type 'FourInts' (vector of 4 'int' values) and result type 'TwoLongLong' (vector of 2 'long long' values) do not have the same number of elements
+   77 |   (void)(four_ints ? two_ll : two_ll);             // expected-error {{vector condition type 'FourInts' (vector of 4 'int' values) and result type 'TwoLongLong' (vector of 2 'long long' values) do not have the same number of elements}}
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:78:20: error: vector condition type 'FourInts' (vector of 4 'int' values) and result type 'FourLongLong' (vector of 4 'long long' values) do not have elements of the same size
+   78 |   (void)(four_ints ? four_ll : four_ll);           // expected-error {{vector condition type 'FourInts' (vector of 4 'int' values) and result type 'FourLongLong' (vector of 4 'long long' values) do not have elements of the same size}}
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:79:20: error: vector condition type 'FourInts' (vector of 4 'int' values) and result type 'TwoDoubles' (vector of 2 'double' values) do not have the same number of elements
+   79 |   (void)(four_ints ? two_doubles : two_doubles);   // expected-error {{vector condition type 'FourInts' (vector of 4 'int' values) and result type 'TwoDoubles' (vector of 2 'double' values) do not have the same number of elements}}
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:80:20: error: vector condition type 'FourInts' (vector of 4 'int' values) and result type 'FourDoubles' (vector of 4 'double' values) do not have elements of the same size
+   80 |   (void)(four_ints ? four_doubles : four_doubles); // expected-error {{vector condition type 'FourInts' (vector of 4 'int' values) and result type 'FourDoubles' (vector of 4 'double' values) do not have elements of the same size}}
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:81:20: error: vector operands to the vector conditional must be the same type ('FourInts' (vector of 4 'int' values) and 'TwoInts' (vector of 2 'int' values))}
+   81 |   (void)(four_ints ?: two_ints);                   // expected-error {{vector operands to the vector conditional must be the same type ('FourInts' (vector of 4 'int' values) and 'TwoInts' (vector of 2 'int' values)}}
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:82:20: error: vector operands to the vector conditional must be the same type ('FourInts' (vector of 4 'int' values) and 'FourDoubles' (vector of 4 'double' values))}
+   82 |   (void)(four_ints ?: four_doubles);               // expected-error {{vector operands to the vector conditional must be the same type ('FourInts' (vector of 4 'int' values) and 'FourDoubles' (vector of 4 'double' values)}}
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:85:20: error: vector condition type 'FourInts' (vector of 4 'int' values) and result type 'double __attribute__((ext_vector_type(4)))' (vector of 4 'double' values) do not have elements of the same size
+   85 |   (void)(four_ints ? 3.0f : 3.0); // expected-error {{vector condition type 'FourInts' (vector of 4 'int' values) and result type 'double __attribute__((ext_vector_type(4)))' (vector of 4 'double' values) do not have elements of the same size}}
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:86:20: error: vector condition type 'FourInts' (vector of 4 'int' values) and result type 'long long __attribute__((ext_vector_type(4)))' (vector of 4 'long long' values) do not have elements of the same size
+   86 |   (void)(four_ints ? 5ll : 5);    // expected-error {{vector condition type 'FourInts' (vector of 4 'int' values) and result type 'long long __attribute__((ext_vector_type(4)))' (vector of 4 'long long' values) do not have elements of the same size}}
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:87:20: error: cannot convert between vector values of different size ('FourInts' (vector of 4 'int' values) and 'double')
+   87 |   (void)(four_ints ?: 3.0);       // expected-error {{annot convert between vector values of different size ('FourInts' (vector of 4 'int' values) and 'double')}}
+      |          ~~~~~~~~~ ^  ~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:94:20: error: enumeration type 'E' is not allowed in a vector conditional
+   94 |   (void)(four_ints ? e : e);                          // expected-error {{enumeration type 'E' is not allowed in a vector conditional}}
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:95:20: error: enumeration type 'SE' is not allowed in a vector conditional
+   95 |   (void)(four_ints ? se : se);                        // expected-error {{enumeration type 'SE' is not allowed in a vector conditional}}
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:96:22: error: vector condition type 'FourShorts' (vector of 4 'short' values) and result type 'int __attribute__((ext_vector_type(4)))' (vector of 4 'int' values) do not have elements of the same size
+   96 |   (void)(four_shorts ? (short)5 : (unsigned short)5); // expected-error {{vector condition type 'FourShorts' (vector of 4 'short' values) and result type 'int __attribute__((ext_vector_type(4)))' (vector of 4 'int' values) do not have elements of the same size}}
+      |                      ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaExprCXX.cpp:5890: clang::QualType clang::Sema::CheckVectorConditionalTypes(clang::ExprResult&, clang::ExprResult&, clang::ExprResult&, clang::SourceLocation): Assertion `!ResultType.isNull() && (ResultType->isVectorType() || ResultType->isSizelessVectorType()) && (!CondType->isExtVectorType() || ResultType->isExtVectorType()) && "Result should have been a vector type"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Oz /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:207:38: current parser token ')'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:202:25: parsing function body 'mix_vector_types'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppakziuce/1efde3ba.cpp:202:25: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000560cb35690f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000560cb3565dcc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000560cb3566678 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000560cb34a8f88
+4  libc.so.6 0x00007f4bdf23c520
+5  libc.so.6 0x00007f4bdf2909fc pthread_kill + 300
+6  libc.so.6 0x00007f4bdf23c476 raise + 22
+7  libc.so.6 0x00007f4bdf2227f3 abort + 211
+8  libc.so.6 0x00007f4bdf22271b
+9  libc.so.6 0x00007f4bdf233e96
+10 clang++   0x0000560cb6361d4a clang::Sema::CheckVectorConditionalTypes(clang::ActionResult<clang::Expr*, true>&, clang::ActionResult<clang::Expr*, true>&, clang::ActionResult<clang::Expr*, true>&, clang::SourceLocation) + 2218
+11 clang++   0x0000560cb6381b69 clang::Sema::CXXCheckConditionalOperands(clang::ActionResult<clang::Expr*, true>&, clang::ActionResult<clang::Expr*, true>&, clang::ActionResult<clang::Expr*, true>&, clang::ExprValueKind&, clang::ExprObjectKind&, clang::SourceLocation) + 1273
+12 clang++   0x0000560cb62ad390 clang::Sema::ActOnConditionalOp(clang::SourceLocation, clang::SourceLocation, clang::Expr*, clang::Expr*, clang::Expr*) + 192
+13 clang++   0x0000560cb5d7c527 clang::Parser::ParseRHSOfBinaryExpression(clang::ActionResult<clang::Expr*, true>, clang::prec::Level) + 2647
+14 clang++   0x0000560cb5d7ed7d clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+15 clang++   0x0000560cb5d82f7d clang::Parser::ParseParenExpression(clang::ParenParseOption&, bool, clang::ParenExprKind, clang::TypoCorrectionTypeBehavior, clang::OpaquePtr<clang::QualType>&, clang::SourceLocation&) + 1661
+16 clang++   0x0000560cb5d78f91 clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 2161
+17 clang++   0x0000560cb5d7aa7b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+18 clang++   0x0000560cb5d7ab1d clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 61
+19 clang++   0x0000560cb5d7ed7d clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+20 clang++   0x0000560cb5e0ef81 clang::Parser::ParseExprStatement(clang::Parser::ParsedStmtContext) + 81
+21 clang++   0x0000560cb5e06b7b clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 5547
+22 clang++   0x0000560cb5e0754b clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+23 clang++   0x0000560cb5e0f7f7 clang::Parser::ParseCompoundStatementBody(bool) + 1639
+24 clang++   0x0000560cb5e1004f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+25 clang++   0x0000560cb5d0332f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+26 clang++   0x0000560cb5d4ceb4 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+27 clang++   0x0000560cb5cfc15c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+28 clang++   0x0000560cb5cfc92f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 959
+29 clang++   0x0000560cb5d087a1 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 977
+30 clang++   0x0000560cb5d097df clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+31 clang++   0x0000560cb5ce670a clang::ParseAST(clang::Sema&, bool, bool) + 586
+32 clang++   0x0000560cb425f071 clang::FrontendAction::Execute() + 65
+33 clang++   0x0000560cb41e8c65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+34 clang++   0x0000560cb433aea3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+35 clang++   0x0000560cb1f3dc96 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7046
+36 clang++   0x0000560cb1f33a2a
+37 clang++   0x0000560cb1f33bbf
+38 clang++   0x0000560cb3f7035d
+39 clang++   0x0000560cb34a93a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+40 clang++   0x0000560cb3f711b3
+41 clang++   0x0000560cb3f26987 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+42 clang++   0x0000560cb3f2b1e0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+43 clang++   0x0000560cb3f38e44 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+44 clang++   0x0000560cb1f392d3 clang_main(int, char**, llvm::ToolContext const&) + 7267
+45 clang++   0x0000560cb1e8b7a1 main + 113
+46 libc.so.6 0x00007f4bdf223d90
+47 libc.so.6 0x00007f4bdf223e40 __libc_start_main + 128
+48 clang++   0x0000560cb1f33055 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git aefba88f46a6e55645c848f58f6ba56944d5ae62)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/1efde3ba-8a69f3.cpp
+clang++: note: diagnostic msg: /tmp/1efde3ba-8a69f3.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

@@ -1,0 +1,88 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm:1:1: error: '@end' must appear in an Objective-C context
+    1 | @end
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm:2:1: error: '@end' must appear in an Objective-C context
+    2 | @end
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm:8:32: error: expected a type
+    8 | - (NSArray *)objectsAtIndexes:(NSIndexSet *)iset {
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm:19:5: error: unknown type name 'NSUInteger'
+   19 |     NSUInteger location;
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm:20:5: error: unknown type name 'NSUInteger'
+   20 |     NSUInteger length;
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm:11:50: warning: instance method '-rangeAtIndex:' not found (return type defaults to 'id') [-Wobjc-method-access]
+   11 |     NSRange __riscv_vwmaccsu_vx_i32mf2_m = [iset rangeAtIndex:ridx];
+      |                                                  ^~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm:11:13: error: no viable conversion from 'id' to 'NSRange' (aka 'struct _NSRange')
+   11 |     NSRange __riscv_vwmaccsu_vx_i32mf2_m = [iset rangeAtIndex:ridx];
+      |             ^                              ~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm:18:16: note: candidate constructor (the implicit copy constructor) not viable: no known conversion from 'id' to 'const _NSRange &' for 1st argument
+   18 | typedef struct _NSRange {
+      |                ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm:18:16: note: candidate constructor (the implicit move constructor) not viable: no known conversion from 'id' to '_NSRange &&' for 1st argument
+   18 | typedef struct _NSRange {
+      |                ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm:4:12: warning: class 'NSArray' defined without specifying a base class [-Wobjc-root-class]
+    4 | @interface NSArray
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm:4:19: note: add a super class to fix this problem
+    4 | @interface NSArray
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm:24:1: error: missing '@end'
+   24 | @interface NSIndexSet
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm:7:1: note: implementation started here
+    7 | @implementation NSArray
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm:34:10: fatal error: 'riscv_vector.h' file not found
+   34 | #include <riscv_vector.h>
+      |          ^~~~~~~~~~~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Parse/ParseObjc.cpp:2039: clang::Parser::ObjCImplParsingDataRAII::~ObjCImplParsingDataRAII(): Assertion `LateParsedObjCMethods.empty()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -Oz -Wextra -ffp-contract=fast -funroll-loops /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5mi7mrcd/b720683b.mm
+1.	<eof> parser at end of file
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000559bee7130f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000559bee70fdcc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000559bee710678 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000559bee652f88
+4  libc.so.6 0x00007fb18c7d4520
+5  libc.so.6 0x00007fb18c8289fc pthread_kill + 300
+6  libc.so.6 0x00007fb18c7d4476 raise + 22
+7  libc.so.6 0x00007fb18c7ba7f3 abort + 211
+8  libc.so.6 0x00007fb18c7ba71b
+9  libc.so.6 0x00007fb18c7cbe96
+10 clang++   0x0000559bf0f5a2ce clang::Parser::ObjCImplParsingDataRAII::~ObjCImplParsingDataRAII() + 1566
+11 clang++   0x0000559bf0f5e1a8 clang::Parser::ParseObjCAtImplementationDeclaration(clang::SourceLocation, clang::ParsedAttributes&) + 1064
+12 clang++   0x0000559bf0eb2e70 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2720
+13 clang++   0x0000559bf0eb37df clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+14 clang++   0x0000559bf0e9070a clang::ParseAST(clang::Sema&, bool, bool) + 586
+15 clang++   0x0000559bef409071 clang::FrontendAction::Execute() + 65
+16 clang++   0x0000559bef392c65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+17 clang++   0x0000559bef4e4ea3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+18 clang++   0x0000559bed0e7c96 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7046
+19 clang++   0x0000559bed0dda2a
+20 clang++   0x0000559bed0ddbbf
+21 clang++   0x0000559bef11a35d
+22 clang++   0x0000559bee6533a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+23 clang++   0x0000559bef11b1b3
+24 clang++   0x0000559bef0d0987 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+25 clang++   0x0000559bef0d51e0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+26 clang++   0x0000559bef0e2e44 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+27 clang++   0x0000559bed0e32d3 clang_main(int, char**, llvm::ToolContext const&) + 7267
+28 clang++   0x0000559bed0357a1 main + 113
+29 libc.so.6 0x00007fb18c7bbd90
+30 libc.so.6 0x00007fb18c7bbe40 __libc_start_main + 128
+31 clang++   0x0000559bed0dd055 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git aefba88f46a6e55645c848f58f6ba56944d5ae62)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: Error generating preprocessed source(s).
+Aborted (core dumped)
