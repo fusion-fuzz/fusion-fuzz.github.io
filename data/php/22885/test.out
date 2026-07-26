@@ -1,0 +1,59 @@
+=================================================================
+==2168622==ERROR: AddressSanitizer: global-buffer-overflow on address 0x000009800036 at pc 0x00000061c056 bp 0x7ffe7b996ff0 sp 0x7ffe7b996798
+READ of size 10 at 0x000009800036 thread T0
+    #0 0x61c055 in MemcmpInterceptorCommon(void*, int (*)(void const*, void const*, unsigned long), void const*, void const*, unsigned long) (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x61c055)
+    #1 0x61c54a in memcmp (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x61c54a)
+    #2 0x7fabe3c7c09e in zip_file_set_comment (/lib/x86_64-linux-gnu/libzip.so.4+0x709e)
+    #3 0x48e650e in php_zip_set_file_comment /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/zip/php_zip.c:78:9
+    #4 0x48e729b in zim_ZipArchive_setCommentIndex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/zip/php_zip.c:2248:2
+    #5 0x5d047c1 in ZEND_DO_FCALL_SPEC_RETVAL_USED_HANDLER /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:2152:4
+    #6 0x5abdaba in execute_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:110493:12
+    #7 0x5abfba8 in zend_execute /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:115931:2
+    #8 0x66eb2dc in zend_execute_script /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend.c:1977:3
+    #9 0x5024f1d in php_execute_script_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:2631:13
+    #10 0x5026198 in php_execute_script /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:2671:9
+    #11 0x66fe7a2 in do_cli /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:947:5
+    #12 0x66f8f86 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:1368:18
+    #13 0x7fabe3a53d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #14 0x7fabe3a53e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #15 0x605b04 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x605b04)
+
+Address 0x000009800036 is a wild pointer.
+SUMMARY: AddressSanitizer: global-buffer-overflow (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x61c055) in MemcmpInterceptorCommon(void*, int (*)(void const*, void const*, unsigned long), void const*, void const*, unsigned long)
+Shadow bytes around the buggy address:
+  0x0000812f7fb0: f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9
+  0x0000812f7fc0: f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9
+  0x0000812f7fd0: f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9
+  0x0000812f7fe0: f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9
+  0x0000812f7ff0: f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9
+=>0x0000812f8000: f9 f9 f9 f9 f9 f9[f9]f9 f9 f9 f9 f9 f9 f9 f9 f9
+  0x0000812f8010: f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9
+  0x0000812f8020: f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9
+  0x0000812f8030: f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9
+  0x0000812f8040: f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9
+  0x0000812f8050: f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==2168622==ABORTING
+
+Warning: include(): Failed to open stream: No such file or directory in /home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/c56a8915.php on line 6
+
+Warning: include(): Failed opening '/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/utils.inc' for inclusion (include_path='.:/home/fuzz/WorkSpace/fusion-fuzz/projects/php/phpt_deps') in /home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/c56a8915.php on line 6
