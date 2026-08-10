@@ -1,0 +1,61 @@
+
+fatal internal error: nullptr dereference at flang/lib/Evaluate/fold-logical.cpp(433)
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /usr/lib/llvm-22/bin/flang -fc1 -triple x86_64-pc-linux-gnu -S -ffree-form -fdefault-integer-8 -fbackslash -mrelocation-model pic -pic-level 2 -pic-is-pie -target-cpu x86-64 -vectorize-loops -vectorize-slp -fversion-loops-for-stride -std=f2018 -resource-dir /usr/lib/llvm-22/lib/clang/22 -mframe-pointer=none -O3 -o /dev/null -x f95 /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpv23tm_jv/271be1ac.F90
+ #0 0x00007fb2c2ea2d5f llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc7d5f)
+ #1 0x00007fb2c2ea05d7 llvm::sys::RunSignalHandlers() (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc55d7)
+ #2 0x00007fb2c2ea3b2a (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc8b2a)
+ #3 0x00007fb2bdb77330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007fb2bdbd0b2c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9eb2c)
+ #5 0x00007fb2bdb7727e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007fb2bdb5a8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00005603c1f4061c (/usr/lib/llvm-22/bin/flang+0x2b2061c)
+ #8 0x00005603c1796cec (/usr/lib/llvm-22/bin/flang+0x2376cec)
+ #9 0x00005603c181334d (/usr/lib/llvm-22/bin/flang+0x23f334d)
+#10 0x00005603c180da95 Fortran::evaluate::Expr<Fortran::evaluate::Type<(Fortran::common::TypeCategory)5, 8>> Fortran::evaluate::FoldIntrinsicFunction<8>(Fortran::evaluate::FoldingContext&, Fortran::evaluate::FunctionRef<Fortran::evaluate::Type<(Fortran::common::TypeCategory)5, 8>>&&) (/usr/lib/llvm-22/bin/flang+0x23eda95)
+#11 0x00005603c1807617 Fortran::evaluate::Expr<Fortran::evaluate::Type<(Fortran::common::TypeCategory)5, 8>> Fortran::evaluate::FoldOperation<Fortran::evaluate::Type<(Fortran::common::TypeCategory)5, 8>>(Fortran::evaluate::FoldingContext&, Fortran::evaluate::FunctionRef<Fortran::evaluate::Type<(Fortran::common::TypeCategory)5, 8>>&&) (/usr/lib/llvm-22/bin/flang+0x23e7617)
+#12 0x00005603c1801b0b (/usr/lib/llvm-22/bin/flang+0x23e1b0b)
+#13 0x00005603c181d79b (/usr/lib/llvm-22/bin/flang+0x23fd79b)
+#14 0x00005603c1757666 Fortran::evaluate::ExpressionBase<Fortran::evaluate::SomeKind<(Fortran::common::TypeCategory)5>>::Rewrite(Fortran::evaluate::FoldingContext&, Fortran::evaluate::Expr<Fortran::evaluate::SomeKind<(Fortran::common::TypeCategory)5>>&&) (/usr/lib/llvm-22/bin/flang+0x2337666)
+#15 0x00005603c141e335 (/usr/lib/llvm-22/bin/flang+0x1ffe335)
+#16 0x00005603c141e0dd (/usr/lib/llvm-22/bin/flang+0x1ffe0dd)
+#17 0x00005603c140ea56 Fortran::evaluate::ExpressionBase<Fortran::evaluate::SomeType>::Rewrite(Fortran::evaluate::FoldingContext&, Fortran::evaluate::Expr<Fortran::evaluate::SomeType>&&) (/usr/lib/llvm-22/bin/flang+0x1feea56)
+#18 0x00005603c065e532 std::optional<Fortran::evaluate::Expr<Fortran::evaluate::SomeType>> Fortran::evaluate::ExpressionAnalyzer::ExprOrVariable<Fortran::parser::Expr>(Fortran::parser::Expr const&, Fortran::parser::CharBlock) (/usr/lib/llvm-22/bin/flang+0x123e532)
+#19 0x00005603c065ddb5 Fortran::evaluate::ExpressionAnalyzer::IterativelyAnalyzeSubexpressions(Fortran::parser::Expr const&) (/usr/lib/llvm-22/bin/flang+0x123ddb5)
+#20 0x00005603c0643f93 Fortran::evaluate::ExpressionAnalyzer::Analyze(Fortran::parser::Expr const&) (/usr/lib/llvm-22/bin/flang+0x1223f93)
+#21 0x00005603c066a7c9 (/usr/lib/llvm-22/bin/flang+0x124a7c9)
+#22 0x00005603c0679428 (/usr/lib/llvm-22/bin/flang+0x1259428)
+#23 0x00005603c066d426 (/usr/lib/llvm-22/bin/flang+0x124d426)
+#24 0x00005603c0669c7e (/usr/lib/llvm-22/bin/flang+0x1249c7e)
+#25 0x00005603c066d3fa (/usr/lib/llvm-22/bin/flang+0x124d3fa)
+#26 0x00005603c0669c7e (/usr/lib/llvm-22/bin/flang+0x1249c7e)
+#27 0x00005603c06c5ff5 (/usr/lib/llvm-22/bin/flang+0x12a5ff5)
+#28 0x00005603c06673b7 Fortran::semantics::ExprChecker::Walk(Fortran::parser::Program const&) (/usr/lib/llvm-22/bin/flang+0x12473b7)
+#29 0x00005603c089b051 Fortran::semantics::Semantics::Perform() (/usr/lib/llvm-22/bin/flang+0x147b051)
+#30 0x00005603bffea91e Fortran::frontend::FrontendAction::runSemanticChecks() (/usr/lib/llvm-22/bin/flang+0xbca91e)
+#31 0x00005603bffef7da Fortran::frontend::CodeGenAction::beginSourceFileAction() (/usr/lib/llvm-22/bin/flang+0xbcf7da)
+#32 0x00005603bffe9f9e Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) (/usr/lib/llvm-22/bin/flang+0xbc9f9e)
+#33 0x00005603bffd1e7f Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) (/usr/lib/llvm-22/bin/flang+0xbb1e7f)
+#34 0x00005603bffeeba0 Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) (/usr/lib/llvm-22/bin/flang+0xbceba0)
+#35 0x00005603bffcfd34 fc1_main(llvm::ArrayRef<char const*>, char const*) (/usr/lib/llvm-22/bin/flang+0xbafd34)
+#36 0x00005603bffcefa4 main (/usr/lib/llvm-22/bin/flang+0xbaefa4)
+#37 0x00007fb2bdb5c1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#38 0x00007fb2bdb5c28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#39 0x00005603bffcdf45 _start (/usr/lib/llvm-22/bin/flang+0xbadf45)
+flang-22: error: unable to execute command: Aborted (core dumped)
+flang-22: error: flang frontend command failed due to signal (use -v to see invocation)
+Ubuntu flang version 22.1.8 (++20260613092238+e80beda6e255-1~exp1~20260613092253.78)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/llvm-22/bin
+flang-22: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING FILES TO THE BUG REPORT:
+Preprocessed source(s) and associated run script(s) are located at:
+flang-22: note: diagnostic msg: /tmp/271be1ac-745d84
+flang-22: note: diagnostic msg: /tmp/271be1ac-745d84.sh
+flang-22: note: diagnostic msg: 
+
+********************
