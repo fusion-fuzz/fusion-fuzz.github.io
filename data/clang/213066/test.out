@@ -1,0 +1,136 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:1:1: error: '@end' must appear in an Objective-C context
+    1 | @end
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:3:35: error: cannot find interface declaration for 'AtomicInheritanceSuper', superclass of 'AtomicInheritanceSub'
+    3 | @interface AtomicInheritanceSub : AtomicInheritanceSuper
+      | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:4:22: error: unknown type name 'A'
+    4 | @property (readonly) A *property;
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:8:36: error: cannot find interface declaration for 'AtomicInheritanceSuper3', superclass of 'AtomicInheritanceSub3'; did you mean 'AtomicInheritanceSub'?
+    8 | @interface AtomicInheritanceSub3 : AtomicInheritanceSuper3
+      |                                    ^~~~~~~~~~~~~~~~~~~~~~~
+      |                                    AtomicInheritanceSub
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:3:12: note: 'AtomicInheritanceSub' declared here
+    3 | @interface AtomicInheritanceSub : AtomicInheritanceSuper
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:9:22: error: unknown type name 'A'
+    9 | @property (readonly) A *property;
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:12:12: error: cannot find interface declaration for 'ReadonlyAtomic'
+   12 | @interface ReadonlyAtomic ()
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:13:23: error: unknown type name 'A'
+   13 | @property (readwrite) A *property;
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:12:12: error: class extension has no primary class
+   12 | @interface ReadonlyAtomic ()
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:17:33: error: unknown type name 'A'
+   17 | @property (readonly, nonatomic) A *property;
+      |                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:21:36: error: cannot find interface declaration for 'AtomicInheritanceSuper4', superclass of 'AtomicInheritanceSub4'
+   21 | @interface AtomicInheritanceSub4 : AtomicInheritanceSuper4
+      | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:22:42: error: unknown type name 'A'
+   22 | @property (nonatomic, readwrite, retain) A *property;
+      |                                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:22:1: error: property with 'retain (or strong)' attribute must be of object type
+   22 | @property (nonatomic, readwrite, retain) A *property;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:26:12: error: cannot find interface declaration for 'AtomicInheritanceSuper3'; did you mean 'AtomicInheritanceSub3'?
+   26 | @interface AtomicInheritanceSuper3()
+      |            ^~~~~~~~~~~~~~~~~~~~~~~
+      |            AtomicInheritanceSub3
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:8:12: note: 'AtomicInheritanceSub3' declared here
+    8 | @interface AtomicInheritanceSub3 : AtomicInheritanceSuper3
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:27:40: error: unknown type name 'A'
+   27 | @property (nonatomic,readwrite,retain) A *property;
+      |                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:27:1: error: property with 'retain (or strong)' attribute must be of object type
+   27 | @property (nonatomic,readwrite,retain) A *property;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:30:12: error: cannot find interface declaration for 'AtomicInheritanceSuper'
+   30 | @interface AtomicInheritanceSuper()
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:31:40: error: unknown type name 'A'
+   31 | @property (nonatomic,readwrite,retain) A *property;
+      |                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:30:12: error: class extension has no primary class
+   30 | @interface AtomicInheritanceSuper()
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:36:22: error: unknown type name 'A'
+   36 | @property (readonly) A *property;
+      |                      ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+clang: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/Expr.cpp:1853: bool clang::CastExpr::CastConsistency() const: Assertion `getType()->isObjCObjectPointerType() == getSubExpr()->getType()->isObjCObjectPointerType()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -S -o /dev/null -O0 -fno-objc-arc -fstrict-enums /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:77:16: current parser token '('
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:74:12: parsing function body 'main'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpow8hmjzv/08f47c39.m:74:12: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x0000556ce0d900f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x0000556ce0d8cdcc llvm::sys::RunSignalHandlers() + 76
+2  clang     0x0000556ce0d8d678 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x0000556ce0ccff88
+4  libc.so.6 0x00007f9165055520
+5  libc.so.6 0x00007f91650a99fc pthread_kill + 300
+6  libc.so.6 0x00007f9165055476 raise + 22
+7  libc.so.6 0x00007f916503b7f3 abort + 211
+8  libc.so.6 0x00007f916503b71b
+9  libc.so.6 0x00007f916504ce96
+10 clang     0x0000556ce48db738 clang::CastExpr::CastConsistency() const + 2024
+11 clang     0x0000556ce48f82b4 clang::ImplicitCastExpr::Create(clang::ASTContext const&, clang::QualType, clang::CastKind, clang::Expr*, llvm::SmallVector<clang::CXXBaseSpecifier*, 4u> const*, clang::ExprValueKind, clang::FPOptionsOverride) + 212
+12 clang     0x0000556ce36be30f clang::Sema::ImpCastExprToType(clang::Expr*, clang::QualType, clang::CastKind, clang::ExprValueKind, llvm::SmallVector<clang::CXXBaseSpecifier*, 4u> const*, clang::CheckedConversionKind) + 1055
+13 clang     0x0000556ce3bac8f8
+14 clang     0x0000556ce3bb1122
+15 clang     0x0000556ce3bb5a88 clang::Sema::BuildMemberReferenceExpr(clang::Expr*, clang::QualType, clang::SourceLocation, bool, clang::CXXScopeSpec&, clang::SourceLocation, clang::NamedDecl*, clang::DeclarationNameInfo const&, clang::TemplateArgumentListInfo const*, clang::Scope const*, clang::Sema::ActOnMemberAccessExtraArgs*) + 344
+16 clang     0x0000556ce3bb5ed0 clang::Sema::ActOnMemberAccessExpr(clang::Scope*, clang::Expr*, clang::SourceLocation, clang::tok::TokenKind, clang::CXXScopeSpec&, clang::SourceLocation, clang::UnqualifiedId&, clang::Decl*) + 448
+17 clang     0x0000556ce35a68b4 clang::Parser::ParsePostfixExpressionSuffix(clang::ActionResult<clang::Expr*, true>) + 2852
+18 clang     0x0000556ce359f9d3 clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 691
+19 clang     0x0000556ce35a1a7b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+20 clang     0x0000556ce35a1b1d clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 61
+21 clang     0x0000556ce35a5d7d clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+22 clang     0x0000556ce3635f81 clang::Parser::ParseExprStatement(clang::Parser::ParsedStmtContext) + 81
+23 clang     0x0000556ce362db7b clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 5547
+24 clang     0x0000556ce362e54b clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+25 clang     0x0000556ce36367f7 clang::Parser::ParseCompoundStatementBody(bool) + 1639
+26 clang     0x0000556ce363704f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+27 clang     0x0000556ce352a32f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+28 clang     0x0000556ce3573eb4 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+29 clang     0x0000556ce352315c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+30 clang     0x0000556ce3523809 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 665
+31 clang     0x0000556ce35e0ba0 clang::Parser::ParseObjCInterfaceDeclList(clang::tok::ObjCKeywordKind, clang::Decl*) + 480
+32 clang     0x0000556ce35e2686 clang::Parser::ParseObjCAtInterfaceDeclaration(clang::SourceLocation, clang::ParsedAttributes&) + 1254
+33 clang     0x0000556ce35e3445 clang::Parser::ParseObjCAtDirectives(clang::ParsedAttributes&, clang::ParsedAttributes&) + 1317
+34 clang     0x0000556ce352fe70 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2720
+35 clang     0x0000556ce35307df clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+36 clang     0x0000556ce350d70a clang::ParseAST(clang::Sema&, bool, bool) + 586
+37 clang     0x0000556ce1a86071 clang::FrontendAction::Execute() + 65
+38 clang     0x0000556ce1a0fc65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+39 clang     0x0000556ce1b61ea3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+40 clang     0x0000556cdf764c96 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7046
+41 clang     0x0000556cdf75aa2a
+42 clang     0x0000556cdf75abbf
+43 clang     0x0000556ce179735d
+44 clang     0x0000556ce0cd03a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+45 clang     0x0000556ce17981b3
+46 clang     0x0000556ce174d987 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+47 clang     0x0000556ce17521e0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+48 clang     0x0000556ce175fe44 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+49 clang     0x0000556cdf7602d3 clang_main(int, char**, llvm::ToolContext const&) + 7267
+50 clang     0x0000556cdf6b27a1 main + 113
+51 libc.so.6 0x00007f916503cd90
+52 libc.so.6 0x00007f916503ce40 __libc_start_main + 128
+53 clang     0x0000556cdf75a055 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git aefba88f46a6e55645c848f58f6ba56944d5ae62)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: Error generating preprocessed source(s).
+Aborted (core dumped)

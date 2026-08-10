@@ -1,0 +1,73 @@
+While building module 'A' imported from /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptnu0g8uw/f0c20094.cpp:5:
+In file included from A.map:40:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptnu0g8uw/A_ffl.map:5:16: warning: inline function 'operator+' is not defined [-Wundefined-inline]
+    5 |   friend A_ffl operator+(const A_ffl&, const A_ffl&) { return {}; }
+      |                ^
+A.map:46:5: note: used here
+   46 |   a + a;
+      |     ^
+While building module 'A' imported from /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptnu0g8uw/f0c20094.cpp:5:
+In file included from A.map:40:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptnu0g8uw/A_ffl.map:6:37: warning: inline function 'func_1_ffl<int>' is not defined [-Wundefined-inline]
+    6 |   template<typename T2> friend void func_1_ffl(const A_ffl&, const T2 &) {}
+      |                                     ^
+A.map:47:3: note: used here
+   47 |   func_1_ffl(a, 0);
+      |   ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Serialization/ASTWriter.cpp:7183: void clang::ASTWriter::associateDeclWithFile(const clang::Decl*, clang::LocalDeclID): Assertion `IsSLocAffecting[FID.ID]' failed.
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/include/llvm/Bitstream/BitstreamWriter.h:168: llvm::BitstreamWriter::~BitstreamWriter(): Assertion `BlockScope.empty() && CurAbbrevs.empty() && "Block imbalance"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O0 -std=c++20 /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptnu0g8uw/f0c20094.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptnu0g8uw/f0c20094.cpp:57:2: current parser token 'pragma'
+2.	Building module 'B' as '/tmp/B-0d0627.pcm'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000056029670f0f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000056029670bdcc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000056029670c678 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000056029664ef88
+4  libc.so.6 0x00007f654c915520
+5  libc.so.6 0x00007f654c9699fc pthread_kill + 300
+6  libc.so.6 0x00007f654c915476 raise + 22
+7  libc.so.6 0x00007f654c8fb7f3 abort + 211
+8  libc.so.6 0x00007f654c8fb71b
+9  libc.so.6 0x00007f654c90ce96
+10 clang++   0x00005602976965c2 clang::PCHGenerator::~PCHGenerator() + 1554
+11 clang++   0x00005602976965fd clang::PCHGenerator::~PCHGenerator() + 13
+12 clang++   0x000056029744e6a3 clang::MultiplexConsumer::~MultiplexConsumer() + 99
+13 clang++   0x000056029744e6fd clang::MultiplexConsumer::~MultiplexConsumer() + 13
+14 clang++   0x000056029737ab79 clang::CompilerInstance::compileModule(clang::SourceLocation, llvm::StringRef, llvm::StringRef, clang::CompilerInstance&) + 1305
+15 clang++   0x000056029738f867 clang::CompilerInstance::createModuleFromSource(clang::SourceLocation, llvm::StringRef, llvm::StringRef) + 1575
+16 clang++   0x000056029a9c4485 clang::Preprocessor::HandlePragmaDirective(clang::PragmaIntroducer) + 101
+17 clang++   0x000056029a999c2a clang::Preprocessor::HandleDirective(clang::Token&) + 1898
+18 clang++   0x000056029a92be60 clang::Lexer::LexTokenInternal(clang::Token&) + 1312
+19 clang++   0x000056029a92e04e clang::Lexer::Lex(clang::Token&) + 174
+20 clang++   0x000056029a9dd2cc clang::Preprocessor::Lex(clang::Token&) + 60
+21 clang++   0x0000560298ea0370
+22 clang++   0x0000560298e8c6b0 clang::ParseAST(clang::Sema&, bool, bool) + 496
+23 clang++   0x0000560297405071 clang::FrontendAction::Execute() + 65
+24 clang++   0x000056029738ec65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+25 clang++   0x00005602974e0ea3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+26 clang++   0x00005602950e3c96 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7046
+27 clang++   0x00005602950d9a2a
+28 clang++   0x00005602950d9bbf
+29 clang++   0x000056029711635d
+30 clang++   0x000056029664f3a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+31 clang++   0x00005602971171b3
+32 clang++   0x00005602970cc987 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+33 clang++   0x00005602970d11e0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+34 clang++   0x00005602970dee44 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+35 clang++   0x00005602950df2d3 clang_main(int, char**, llvm::ToolContext const&) + 7267
+36 clang++   0x00005602950317a1 main + 113
+37 libc.so.6 0x00007f654c8fcd90
+38 libc.so.6 0x00007f654c8fce40 __libc_start_main + 128
+39 clang++   0x00005602950d9055 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git aefba88f46a6e55645c848f58f6ba56944d5ae62)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: error: unable to execute command: Aborted (core dumped)
+clang++: note: diagnostic msg: Error generating preprocessed source(s).
+Aborted (core dumped)

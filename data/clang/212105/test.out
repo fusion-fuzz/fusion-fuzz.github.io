@@ -1,0 +1,104 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:352:8: warning: builtin '__builtin_elementwise_max' is deprecated [-Wdeprecated-builtins]
+  352 |   f1 = __builtin_elementwise_max(f1, f2);
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:357:8: warning: builtin '__builtin_elementwise_max' is deprecated [-Wdeprecated-builtins]
+  357 |   d1 = __builtin_elementwise_max(d1, d2);
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:361:8: warning: builtin '__builtin_elementwise_max' is deprecated [-Wdeprecated-builtins]
+  361 |   d1 = __builtin_elementwise_max(20.0, d2);
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:366:9: warning: builtin '__builtin_elementwise_max' is deprecated [-Wdeprecated-builtins]
+  366 |   vf1 = __builtin_elementwise_max(vf1, vf2);
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:410:9: warning: builtin '__builtin_elementwise_max' is deprecated [-Wdeprecated-builtins]
+  410 |   vf1 = __builtin_elementwise_max(cvf1, vf2);
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:415:9: warning: builtin '__builtin_elementwise_max' is deprecated [-Wdeprecated-builtins]
+  415 |   vf1 = __builtin_elementwise_max(vf2, cvf1);
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:436:8: warning: builtin '__builtin_elementwise_min' is deprecated [-Wdeprecated-builtins]
+  436 |   f1 = __builtin_elementwise_min(f1, f2);
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:441:8: warning: builtin '__builtin_elementwise_min' is deprecated [-Wdeprecated-builtins]
+  441 |   d1 = __builtin_elementwise_min(d1, d2);
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:445:8: warning: builtin '__builtin_elementwise_min' is deprecated [-Wdeprecated-builtins]
+  445 |   d1 = __builtin_elementwise_min(d1, 2.0);
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:450:9: warning: builtin '__builtin_elementwise_min' is deprecated [-Wdeprecated-builtins]
+  450 |   vf1 = __builtin_elementwise_min(vf1, vf2);
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:501:9: warning: builtin '__builtin_elementwise_min' is deprecated [-Wdeprecated-builtins]
+  501 |   vf1 = __builtin_elementwise_min(cvf1, vf2);
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:506:9: warning: builtin '__builtin_elementwise_min' is deprecated [-Wdeprecated-builtins]
+  506 |   vf1 = __builtin_elementwise_min(vf2, cvf1);
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:1142:58: warning: AVX vector argument of type 'double3' (vector of 3 'double' values) without 'avx' enabled changes the ABI [-Wpsabi]
+ 1142 |                                   double2 v2f64, double3 v3f64,
+      |                                                          ^
+clang: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/IR/Instructions.cpp:1232: void llvm::CondBrInst::AssertOK(): Assertion `getCondition()->getType()->isIntegerTy(1) && "May only branch on boolean predicates!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -c -o /dev/null -O0 -fsanitize=undefined -fno-inline -ffp-contract=fast /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:1447:1: current parser token 'void'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:1399:6: LLVM IR generation of declaration 'test_builtin_elementwise_clzg'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfgy_d3_w/38538121.c:1399:6: Generating code for declaration 'test_builtin_elementwise_clzg'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x0000560df13520f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x0000560df134edcc llvm::sys::RunSignalHandlers() + 76
+2  clang     0x0000560df134f678 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x0000560df1291f88
+4  libc.so.6 0x00007f7994248520
+5  libc.so.6 0x00007f799429c9fc pthread_kill + 300
+6  libc.so.6 0x00007f7994248476 raise + 22
+7  libc.so.6 0x00007f799422e7f3 abort + 211
+8  libc.so.6 0x00007f799422e71b
+9  libc.so.6 0x00007f799423fe96
+10 clang     0x0000560df0cf7950 llvm::CondBrInst::CondBrInst(llvm::Value*, llvm::BasicBlock*, llvm::BasicBlock*, llvm::InsertPosition) + 160
+11 clang     0x0000560df167d28a clang::CodeGen::CodeGenFunction::EmitCheck(llvm::ArrayRef<std::pair<llvm::Value*, clang::SanitizerKind::SanitizerOrdinal>>, SanitizerHandler, llvm::ArrayRef<llvm::Constant*>, llvm::ArrayRef<llvm::Value*>, clang::CodeGen::TrapReason const*) + 1802
+12 clang     0x0000560df1b761c4 clang::CodeGen::CodeGenFunction::EmitCheckedArgForBuiltin(clang::Expr const*, clang::CodeGen::CodeGenFunction::BuiltinCheckKind) + 420
+13 clang     0x0000560df1b820f4 clang::CodeGen::CodeGenFunction::EmitBuiltinExpr(clang::GlobalDecl, unsigned int, clang::CallExpr const*, clang::CodeGen::ReturnValueSlot) + 8644
+14 clang     0x0000560df16a28bb clang::CodeGen::CodeGenFunction::EmitCallExpr(clang::CallExpr const*, clang::CodeGen::ReturnValueSlot, llvm::CallBase**) + 859
+15 clang     0x0000560df17143b4
+16 clang     0x0000560df170b4bb
+17 clang     0x0000560df1716e7b
+18 clang     0x0000560df170f06d clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 141
+19 clang     0x0000560df16758de clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) + 238
+20 clang     0x0000560df169c39a clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) + 282
+21 clang     0x0000560df1842d34 clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 388
+22 clang     0x0000560df184afac clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+23 clang     0x0000560df18b4e71 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) + 177
+24 clang     0x0000560df18cbe24 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 1444
+25 clang     0x0000560df1934e8a clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 2106
+26 clang     0x0000560df192e944 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 580
+27 clang     0x0000560df192f343 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 2403
+28 clang     0x0000560df193a715
+29 clang     0x0000560df1cdecb1
+30 clang     0x0000560df1cce481 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+31 clang     0x0000560df3acf6f4 clang::ParseAST(clang::Sema&, bool, bool) + 564
+32 clang     0x0000560df2048071 clang::FrontendAction::Execute() + 65
+33 clang     0x0000560df1fd1c65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+34 clang     0x0000560df2123ea3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+35 clang     0x0000560defd26c96 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7046
+36 clang     0x0000560defd1ca2a
+37 clang     0x0000560defd1cbbf
+38 clang     0x0000560df1d5935d
+39 clang     0x0000560df12923a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+40 clang     0x0000560df1d5a1b3
+41 clang     0x0000560df1d0f987 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+42 clang     0x0000560df1d141e0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+43 clang     0x0000560df1d21e44 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+44 clang     0x0000560defd222d3 clang_main(int, char**, llvm::ToolContext const&) + 7267
+45 clang     0x0000560defc747a1 main + 113
+46 libc.so.6 0x00007f799422fd90
+47 libc.so.6 0x00007f799422fe40 __libc_start_main + 128
+48 clang     0x0000560defd1c055 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git aefba88f46a6e55645c848f58f6ba56944d5ae62)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: Error generating preprocessed source(s).
+Aborted (core dumped)
