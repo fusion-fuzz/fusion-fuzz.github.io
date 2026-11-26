@@ -1,0 +1,14 @@
+$ g++ -c -o /dev/null t.cc
+t.cc: In function 'void foo()':
+t.cc:3:6: error: statement marked for throw, but doesn't
+    3 | void foo ()
+      |      ^~~
+__builtin_unreachable trap ();
+during GIMPLE pass: optimized
+t.cc:3:6: internal compiler error: verify_gimple failed
+0x18f754e verify_gimple_in_cfg(function*, bool, bool)
+	gcc/tree-cfg.cc:5642
+0x17457fa execute_function_todo
+	gcc/passes.cc:2100
+0x1745f8b execute_todo
+	gcc/passes.cc:2152

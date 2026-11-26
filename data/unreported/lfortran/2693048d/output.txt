@@ -1,0 +1,8 @@
+$ lfortran --implicit-typing -c repro.f90 -o /dev/null
+src/libasr/asr_utils.h:6221:35: runtime error: reference binding to null pointer of type 'const struct ttype_t'
+    #0 in ASRUtils::check_equal_type(ttype_t*, ttype_t*, expr_t*, expr_t*, bool) src/libasr/asr_utils.h:6221
+    #1 in BodyVisitor::create_statement_function(AST::Assignment_t const&) src/lfortran/semantics/ast_body_visitor.cpp:6931
+    #2 in BodyVisitor::visit_Assignment(AST::Assignment_t const&) src/lfortran/semantics/ast_body_visitor.cpp:7112
+    #3 in visit_decl_stmt_t<BodyVisitor> src/lfortran/ast.h:4722
+    #5 in BodyVisitor::transform_stmts(...) src/lfortran/semantics/ast_body_visitor.cpp:434
+src/libasr/asr.h:32:31: runtime error: member access within null pointer of type 'const struct ttype_t'

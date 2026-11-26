@@ -1,0 +1,24 @@
+t.cc: In function 'void f()':
+t.cc:5:9: internal compiler error: tree check: expected tree that contains 'decl minimal' structure, have 'addr_expr' in gimplify_scan_omp_clauses, at gimplify.cc:14544
+    5 | #pragma omp parallel private(r)
+      |         ^~~
+0x3008bdb internal_error(char const*, ...)
+	gcc/diagnostic-global-context.cc:787
+0xaed89f tree_contains_struct_check_failed(tree_node const*, tree_node_structure_enum, char const*, int, char const*)
+	gcc/tree.cc:9568
+0x9cb597 contains_struct_check(tree_node*, tree_node_structure_enum, char const*, int, char const*)
+	gcc/tree.h:4209
+0x9cb597 gimplify_scan_omp_clauses
+	gcc/gimplify.cc:14544
+0x14d842e gimplify_omp_parallel
+	gcc/gimplify.cc:16805
+0x14d842e gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	gcc/gimplify.cc:21046
+0x14da85a gimplify_stmt(tree_node**, gimple**)
+	gcc/gimplify.cc:8592
+0x14dbf34 gimplify_bind_expr
+	gcc/gimplify.cc:1569
+0x14f88d6 gimplify_body(tree_node*, bool)
+	gcc/gimplify.cc:21854
+0x14f8d9c gimplify_function_tree(tree_node*)
+	gcc/gimplify.cc:22063

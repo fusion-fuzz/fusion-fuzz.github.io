@@ -1,0 +1,23 @@
+$ go build -gcflags=-B .
+# x
+./main.go:5:1: internal compiler error: 'main': mem2reg sees a load from an auto variable before any store
+
+goroutine 33 [running]:
+runtime/debug.Stack()
+	src/runtime/debug/stack.go:26 +0x5e
+cmd/compile/internal/base.FatalfAt(...)
+	src/cmd/compile/internal/base/print.go:237 +0x18b
+cmd/compile/internal/base.Fatalf(...)
+	src/cmd/compile/internal/base/print.go:202
+cmd/compile/internal/ssagen.(*ssafn).Fatalf(...)
+	src/cmd/compile/internal/ssagen/ssa.go:8118 +0x185
+cmd/compile/internal/ssa.(*Func).FatalfWithPos(...)
+	src/cmd/compile/internal/ssa/func.go:818 +0x190
+cmd/compile/internal/ssa.(*Func).Fatalf(...)
+	src/cmd/compile/internal/ssa/func.go:808
+cmd/compile/internal/ssacompile.mem2reg(...)
+	src/cmd/compile/internal/ssacompile/mem2reg.go:417 +0xaff
+cmd/compile/internal/ssacompile.Compiler.Compile(...)
+	src/cmd/compile/internal/ssacompile/compile.go:112 +0xa6d
+cmd/compile/internal/ssagen.buildssa(...)
+	src/cmd/compile/internal/ssagen/ssa.go:606 +0x2f4e

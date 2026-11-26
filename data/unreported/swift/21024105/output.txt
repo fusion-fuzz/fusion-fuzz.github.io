@@ -1,0 +1,198 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpknai9j79/21024105.swift:28:12: warning: unrecognized platform name 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+ 26 | func takeNonSendable<T>(_ ns: T) {}
+ 27 | 
+ 28 | @available(SwiftStdlib 5.1, *)
+    |            `- warning: unrecognized platform name 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+ 29 | func takeSendable<T : Sendable>(_ s: T) {}
+ 30 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpknai9j79/21024105.swift:36:12: warning: unrecognized platform name 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+ 34 | }
+ 35 | 
+ 36 | @available(SwiftStdlib 5.1, *)
+    |            `- warning: unrecognized platform name 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+ 37 | struct SendableType: Sendable {}
+ 38 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpknai9j79/21024105.swift:48:12: warning: unrecognized platform name 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+ 46 | 
+ 47 | 
+ 48 | @available(SwiftStdlib 5.1, *)
+    |            `- warning: unrecognized platform name 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+ 49 | @MainActor
+ 50 | enum MainActorEnumWithPayloads {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpknai9j79/21024105.swift:89:12: warning: unrecognized platform name 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+ 87 | ////////////////////////////////////////////////////
+ 88 | 
+ 89 | @available(SwiftStdlib 5.1, *)
+    |            `- warning: unrecognized platform name 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+ 90 | @MainActor
+ 91 | enum MainActorEnumWithPayloads_NC: ~Copyable {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpknai9j79/21024105.swift:130:12: warning: unrecognized platform name 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+128 | ////////////////////////////////////////////////////
+129 | 
+130 | @available(SwiftStdlib 5.1, *)
+    |            `- warning: unrecognized platform name 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+131 | @MainActor
+132 | enum MainActorEnumWithPayloads_AO<T> {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpknai9j79/21024105.swift:212:12: warning: unrecognized platform name 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+210 | ////////////////////////////////////////////////////
+211 | 
+212 | @available(SwiftStdlib 5.1, *)
+    |            `- warning: unrecognized platform name 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+213 | @MainActor
+214 | enum MainActorEnumWithPayloads_AO_NC<T>: ~Copyable {
+
+Abort: function decomposeTermIntoConformanceRuleLeftHandSides at MinimalConformances.cpp:185
+Term does not conform to protocol: τ_0_0.[P:T].[Q]
+Rewrite system: {
+- [Q].[Q] => [Q] [permanent]
+- [Q].U => [Q:U] [permanent]
+- [Q].[Copyable] => [Q] [explicit]
+- [Q].[Escapable] => [Q] [explicit]
+- [Q:U].[Copyable] => [Q:U] [explicit]
+- [Q:U].[Escapable] => [Q:U] [explicit]
+- [Q].[Q:U] => [Q:U]
+- [Copyable].[Copyable] => [Copyable] [permanent]
+- [Escapable].[Escapable] => [Escapable] [permanent]
+- τ_0_1.[Q] => τ_0_1 [explicit]
+- τ_0_0.[P:T].[Q:U].[concrete: Int] => τ_0_0.[P:T].[Q:U] [explicit]
+- τ_0_0.[concrete: S<τ_0_1>] => τ_0_0 [explicit]
+- τ_0_1.[Copyable] => τ_0_1 [explicit]
+- τ_0_1.[Escapable] => τ_0_1 [explicit]
+- τ_0_1.U => τ_0_1.[Q:U] [redundant]
+- τ_0_0.[P:T].[Q:U].[concrete: Int : Copyable] => τ_0_0.[P:T].[Q:U]
+- τ_0_0.[P:T].[Q:U].[concrete: Int : Escapable] => τ_0_0.[P:T].[Q:U]
+}
+Relations: {
+- [concrete: Int].[Copyable] =>> [concrete: Int].[concrete: Int : Copyable]
+- [concrete: Int].[Escapable] =>> [concrete: Int].[concrete: Int : Escapable]
+}
+Rewrite loops: {
+- (#1) τ_0_1: (τ_0_1 => τ_0_1.[Copyable]) ⊗ (τ_0_1 => τ_0_1.[Q]).[Copyable] ⊗ τ_0_1.([Q].[Copyable] => [Q]) ⊗ (τ_0_1.[Q] => τ_0_1)
+- (#2) τ_0_1: (τ_0_1 => τ_0_1.[Escapable]) ⊗ (τ_0_1 => τ_0_1.[Q]).[Escapable] ⊗ τ_0_1.([Q].[Escapable] => [Q]) ⊗ (τ_0_1.[Q] => τ_0_1)
+- (#7) τ_0_0.[P:T].[Q:U].[concrete: Int : Copyable]: (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int]).[concrete: Int : Copyable] ⊗ τ_0_0.[P:T].[Q:U].([concrete: Int].[concrete: Int : Copyable] =>> [concrete: Int].[Copyable]) ⊗ (τ_0_0.[P:T].[Q:U].[concrete: Int] => τ_0_0.[P:T].[Q:U]).[Copyable] ⊗ τ_0_0.[P:T].([Q:U].[Copyable] => [Q:U]) ⊗ (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int : Copyable])
+- (#8) τ_0_0.[P:T].[Q:U].[concrete: Int : Escapable]: (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int]).[concrete: Int : Escapable] ⊗ τ_0_0.[P:T].[Q:U].([concrete: Int].[concrete: Int : Escapable] =>> [concrete: Int].[Escapable]) ⊗ (τ_0_0.[P:T].[Q:U].[concrete: Int] => τ_0_0.[P:T].[Q:U]).[Escapable] ⊗ τ_0_0.[P:T].([Q:U].[Escapable] => [Q:U]) ⊗ (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int : Escapable])
+}
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-sil -Osize -sil-verify-all -g -debug-info-format=dwarf /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpknai9j79/21024105.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpknai9j79/21024105.swift")
+4.	While type-checking extension of G (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpknai9j79/21024105.swift:298:1)
+5.	While evaluating request GenericSignatureRequest(extension of G@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpknai9j79/21024105.swift:298:1)
+6.	While evaluating request InferredGenericSignatureRequest(<X, Y where X : P, Y : Q, X.T.U == Int>, (null), extension of G@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpknai9j79/21024105.swift:298:1, {}, {}, , extension of G@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpknai9j79/21024105.swift:298:1, DefaultRequirementOptions(expandingDefaults=1, inferOutOfScopeImpliedInverses=0))
+7.	Abort: function decomposeTermIntoConformanceRuleLeftHandSides at MinimalConformances.cpp:185
+| 	Term does not conform to protocol: τ_0_0.[P:T].[Q]
+| 	Rewrite system: {
+| 	- [Q].[Q] => [Q] [permanent]
+| 	- [Q].U => [Q:U] [permanent]
+| 	- [Q].[Copyable] => [Q] [explicit]
+| 	- [Q].[Escapable] => [Q] [explicit]
+| 	- [Q:U].[Copyable] => [Q:U] [explicit]
+| 	- [Q:U].[Escapable] => [Q:U] [explicit]
+| 	- [Q].[Q:U] => [Q:U]
+| 	- [Copyable].[Copyable] => [Copyable] [permanent]
+| 	- [Escapable].[Escapable] => [Escapable] [permanent]
+| 	- τ_0_1.[Q] => τ_0_1 [explicit]
+| 	- τ_0_0.[P:T].[Q:U].[concrete: Int] => τ_0_0.[P:T].[Q:U] [explicit]
+| 	- τ_0_0.[concrete: S<τ_0_1>] => τ_0_0 [explicit]
+| 	- τ_0_1.[Copyable] => τ_0_1 [explicit]
+| 	- τ_0_1.[Escapable] => τ_0_1 [explicit]
+| 	- τ_0_1.U => τ_0_1.[Q:U] [redundant]
+| 	- τ_0_0.[P:T].[Q:U].[concrete: Int : Copyable] => τ_0_0.[P:T].[Q:U]
+| 	- τ_0_0.[P:T].[Q:U].[concrete: Int : Escapable] => τ_0_0.[P:T].[Q:U]
+| 	}
+| 	Relations: {
+| 	- [concrete: Int].[Copyable] =>> [concrete: Int].[concrete: Int : Copyable]
+| 	- [concrete: Int].[Escapable] =>> [concrete: Int].[concrete: Int : Escapable]
+| 	}
+| 	Rewrite loops: {
+| 	- (#1) τ_0_1: (τ_0_1 => τ_0_1.[Copyable]) ⊗ (τ_0_1 => τ_0_1.[Q]).[Copyable] ⊗ τ_0_1.([Q].[Copyable] => [Q]) ⊗ (τ_0_1.[Q] => τ_0_1)
+| 	- (#2) τ_0_1: (τ_0_1 => τ_0_1.[Escapable]) ⊗ (τ_0_1 => τ_0_1.[Q]).[Escapable] ⊗ τ_0_1.([Q].[Escapable] => [Q]) ⊗ (τ_0_1.[Q] => τ_0_1)
+| 	- (#7) τ_0_0.[P:T].[Q:U].[concrete: Int : Copyable]: (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int]).[concrete: Int : Copyable] ⊗ τ_0_0.[P:T].[Q:U].([concrete: Int].[concrete: Int : Copyable] =>> [concrete: Int].[Copyable]) ⊗ (τ_0_0.[P:T].[Q:U].[concrete: Int] => τ_0_0.[P:T].[Q:U]).[Copyable] ⊗ τ_0_0.[P:T].([Q:U].[Copyable] => [Q:U]) ⊗ (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int : Copyable])
+| 	- (#8) τ_0_0.[P:T].[Q:U].[concrete: Int : Escapable]: (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int]).[concrete: Int : Escapable] ⊗ τ_0_0.[P:T].[Q:U].([concrete: Int].[concrete: Int : Escapable] =>> [concrete: Int].[Escapable]) ⊗ (τ_0_0.[P:T].[Q:U].[concrete: Int] => τ_0_0.[P:T].[Q:U]).[Escapable] ⊗ τ_0_0.[P:T].([Q:U].[Escapable] => [Q:U]) ⊗ (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int : Escapable])
+| 	}
+ #0 0x000056841a962658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x000056841a95fe75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x000056841a963411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007950ebb8a330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007950ebbe3c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007950ebb8a27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007950ebb6d8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x0000568414a8d5c2 (/usr/bin/swift-frontend+0x2d7a5c2)
+ #8 0x0000568414a8d6ac (/usr/bin/swift-frontend+0x2d7a6ac)
+ #9 0x00005684149b3289 swift::rewriting::RewriteSystem::decomposeTermIntoConformanceRuleLeftHandSides(swift::rewriting::MutableTerm, llvm::SmallVectorImpl<unsigned int>&) const (/usr/bin/swift-frontend+0x2ca0289)
+#10 0x00005684149b47c6 swift::rewriting::RewriteSystem::computeMinimalConformances(swift::rewriting::PropertyMap const&, llvm::DenseSet<unsigned int, llvm::DenseMapInfo<unsigned int, void>>&) const (/usr/bin/swift-frontend+0x2ca17c6)
+#11 0x00005684149add0e swift::rewriting::RewriteSystem::minimizeRewriteSystem(swift::rewriting::PropertyMap const&) (/usr/bin/swift-frontend+0x2c9ad0e)
+#12 0x00005684148ccbcf swift::rewriting::RequirementMachine::computeMinimalGenericSignature(bool) (/usr/bin/swift-frontend+0x2bb9bcf)
+#13 0x00005684148cf3ed swift::InferredGenericSignatureRequest::evaluate(swift::Evaluator&, swift::GenericSignatureImpl const*, swift::GenericParamList*, swift::WhereClauseOwner, llvm::SmallVector<swift::Requirement, 2u>, llvm::SmallVector<swift::TypeBase*, 2u>, swift::SourceLoc, swift::ExtensionDecl*, swift::optionset::OptionSet<swift::DefaultRequirementFlags, unsigned char>) const (/usr/bin/swift-frontend+0x2bbc3ed)
+#14 0x0000568413fee8ac llvm::PointerIntPair<swift::GenericSignature, 3u, swift::optionset::OptionSet<swift::GenericSignatureErrorFlags, unsigned int>, llvm::PointerLikeTypeTraits<swift::GenericSignature>, llvm::PointerIntPairInfo<swift::GenericSignature, 3u, llvm::PointerLikeTypeTraits<swift::GenericSignature>>> swift::SimpleRequest<swift::InferredGenericSignatureRequest, llvm::PointerIntPair<swift::GenericSignature, 3u, swift::optionset::OptionSet<swift::GenericSignatureErrorFlags, unsigned int>, llvm::PointerLikeTypeTraits<swift::GenericSignature>, llvm::PointerIntPairInfo<swift::GenericSignature, 3u, llvm::PointerLikeTypeTraits<swift::GenericSignature>>> (swift::GenericSignatureImpl const*, swift::GenericParamList*, swift::WhereClauseOwner, llvm::SmallVector<swift::Requirement, 2u>, llvm::SmallVector<swift::TypeBase*, 2u>, swift::SourceLoc, swift::ExtensionDecl*, swift::optionset::OptionSet<swift::DefaultRequirementFlags, unsigned char>), (swift::RequestFlags)1>::callDerived<0ul, 1ul, 2ul, 3ul, 4ul, 5ul, 6ul, 7ul>(swift::Evaluator&, std::integer_sequence<unsigned long, 0ul, 1ul, 2ul, 3ul, 4ul, 5ul, 6ul, 7ul>) const crtstuff.c:0:0
+#15 0x0000568413e9cac9 swift::InferredGenericSignatureRequest::OutputType swift::Evaluator::getResultUncached<swift::InferredGenericSignatureRequest, swift::InferredGenericSignatureRequest::OutputType swift::evaluateOrDefault<swift::InferredGenericSignatureRequest>(swift::Evaluator&, swift::InferredGenericSignatureRequest, swift::InferredGenericSignatureRequest::OutputType)::'lambda'()>(swift::InferredGenericSignatureRequest const&, swift::InferredGenericSignatureRequest::OutputType swift::evaluateOrDefault<swift::InferredGenericSignatureRequest>(swift::Evaluator&, swift::InferredGenericSignatureRequest, swift::InferredGenericSignatureRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#16 0x0000568413f7fd41 swift::GenericSignatureRequest::evaluate(swift::Evaluator&, swift::GenericContext*) const (/usr/bin/swift-frontend+0x226cd41)
+#17 0x0000568414620748 swift::GenericContext::getGenericSignature() const (/usr/bin/swift-frontend+0x290d748)
+#18 0x0000568413f43a92 (anonymous namespace)::DeclChecker::visitExtensionDecl(swift::ExtensionDecl*) TypeCheckDeclPrimary.cpp:0:0
+#19 0x0000568413f3af5b (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#20 0x0000568413f3a864 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x2227864)
+#21 0x0000568414075885 swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x2362885)
+#22 0x000056841407a23b swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#23 0x00005684140757b8 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x23627b8)
+#24 0x00005684128f3fd9 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_10>(long, swift::SourceFile&) Frontend.cpp:0:0
+#25 0x00005684128e773e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xbd473e)
+#26 0x00005684128e74bb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xbd44bb)
+#27 0x000056841275e822 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#28 0x000056841274b595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#29 0x000056841274821e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#30 0x000056841244fb21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#31 0x00007950ebb6f1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#32 0x00007950ebb6f28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#33 0x000056841244ea15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x7950ebc6c38d... done ***
+
+*** Program crashed: Aborted at 0x00007950ebc6c38d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007950ebc6c38d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007950ebc6c38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x000000000004a71b  304923
+rdi 0x000000000004a71b  304923
+rbp 0x000000000004a71b  304923
+rsp 0x00005684351ae2e8  3b 34 96 1a 84 56 00 00 70 e5 1a 35 84 56 00 00  ;4···V··på·5·V··
+ r8 0x00005684351ae570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x00005684351ae570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x00005684351ae570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x000056841c902ceb  64 65 63 6f 6d 70 6f 73 65 54 65 72 6d 49 6e 74  decomposeTermInt
+r14 0x0000000000000000  0
+r15 0x00005684351ae388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007950ebc6c38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007950ebb45000–0x00007950ebcf4eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

@@ -1,0 +1,12 @@
+t.m:2:26: warning: 'pcs' calling convention is not supported for this target [-Wignored-attributes]
+    2 | - (void)m __attribute__((pcs("aapcs")));
+      |                          ^
+unexpected calling convention in pcs attribute
+UNREACHABLE executed at clang/lib/Sema/SemaDeclAttr.cpp:5589!
+#11 llvm::llvm_unreachable_internal
+#12 handleCallConvAttr(clang::Sema&, clang::Decl*, clang::ParsedAttr const&)
+#13 ProcessDeclAttribute
+#14 clang::Sema::ProcessDeclAttributeList
+#15 clang::SemaObjC::ActOnMethodDeclaration
+#16 clang::Parser::ParseObjCMethodDecl
+#17 clang::Parser::ParseObjCInterfaceDeclList

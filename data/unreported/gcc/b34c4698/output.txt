@@ -1,0 +1,23 @@
+t.cc:3:7: internal compiler error: canonical types differ for identical types 'R' and 'R'
+    3 | R r (1);
+      |       ^
+0x305a98b internal_error(char const*, ...)
+	gcc/diagnostic-global-context.cc:787
+0x113b03f comptypes(tree_node*, tree_node*, int)
+	gcc/cp/typeck.cc:1760
+0xe0e726 conv_flags(int, int, tree_node*, tree_node*, int)
+	gcc/cp/call.cc:2458
+0xe21771 add_function_candidate
+	gcc/cp/call.cc:2700
+0xe22f6b add_candidates
+	gcc/cp/call.cc:6983
+0xe1530b build_new_method_call(tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, tree_node*, int, tree_node**, int)
+	gcc/cp/call.cc:12253
+0xe16a3d build_special_member_call(tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, tree_node*, int, int)
+	gcc/cp/call.cc:11868
+0xf3d49f expand_default_init
+	gcc/cp/init.cc:2257
+0xf407f8 build_aggr_init(tree_node*, tree_node*, int, int)
+	gcc/cp/init.cc:2095
+0xf02c98 check_initializer
+	gcc/cp/decl.cc:8765

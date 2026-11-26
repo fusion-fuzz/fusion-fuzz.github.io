@@ -1,0 +1,22 @@
+error: concrete type differs from previous defining opaque type use
+  --> repro.rs:11:9
+   |
+11 |         Bar(42)
+   |         ^^^^^^^ expected `()`, got `i32`
+   |
+note: previous use here
+  --> repro.rs:8:13
+   |
+ 8 | fn foo() -> Foo {
+   |             ^^^
+
+error: internal compiler error: compiler/rustc_borrowck/src/type_check/relate_tys.rs:412:17: it should not be possible to encounter unnormalized aliases in borrowck
+  --> repro.rs:11:9
+   |
+11 |         Bar(42)
+   |         ^^^^^^^
+
+thread 'rustc' panicked at compiler/rustc_borrowck/src/type_check/relate_tys.rs:412:17:
+query stack during panic:
+#0 [mir_borrowck] borrow-checking `foo::define`
+#1 [type_of_opaque] computing type of opaque `Foo::{opaque#0}`

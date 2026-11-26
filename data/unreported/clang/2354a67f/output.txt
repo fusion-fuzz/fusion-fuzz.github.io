@@ -1,0 +1,17 @@
+<source>:2:18: error: builtin functions must be directly called
+    2 | int (*p)(int) = &__builtin_abs;
+      |                  ^
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: clang -fsyntax-only <source>
+1.	<source>:2:31: current parser token ';'
+ #5 clang::Sema::DefaultFunctionArrayConversion(clang::Expr*, bool)
+ #6 clang::Sema::CheckSingleAssignmentConstraints(clang::QualType, clang::ActionResult<clang::Expr*, true>&, bool, bool, bool)
+ #7 clang::InitializationSequence::Perform(clang::Sema&, clang::InitializedEntity const&, clang::InitializationKind const&, llvm::MutableArrayRef<clang::Expr*>, clang::QualType*)
+ #8 clang::Sema::AddInitializerToDecl(clang::Decl*, clang::Expr*, bool)
+ #9 clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*)
+#10 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*)
+#11 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier)
+#12 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier)
+#13 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*)
+#14 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&)

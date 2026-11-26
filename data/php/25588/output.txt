@@ -1,0 +1,43 @@
+==2377743==ERROR: AddressSanitizer: heap-use-after-free on address 0x6040000f79e8 at pc 0x00000061c744 bp 0x7ffeec228d80 sp 0x7ffeec228540
+READ of size 10 at 0x6040000f79e8 thread T0
+    #0 0x61c743 in memcpy (sapi/cli/php+0x61c743)
+    #1 0x7fdf12df1b04 in sqlite3VdbeSerialPut (/lib/x86_64-linux-gnu/libsqlite3.so.0+0xe1b04)
+    #2 0x7fdf12dee2b9 in sqlite3VdbeExec (/lib/x86_64-linux-gnu/libsqlite3.so.0+0xde2b9)
+    #3 0x7fdf12df89be in sqlite3_step (/lib/x86_64-linux-gnu/libsqlite3.so.0+0xe89be)
+    #4 0x379555e in pdo_sqlite_stmt_execute ext/pdo_sqlite/sqlite_statement.c:54:10
+    #5 0x362e437 in zim_PDOStatement_execute ext/pdo/pdo_stmt.c:471:6
+    #6 0x61f6525 in ZEND_DO_FCALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:2017:4
+    #7 0x5fbb1bc in execute_ex Zend/zend_vm_execute.h:110621:12
+    #8 0x5fbd031 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #9 0x6baac36 in zend_execute_script Zend/zend.c:1980:3
+    #10 0x551c5a6 in php_execute_script_ex main/main.c:2636:13
+    #11 0x551d228 in php_execute_script main/main.c:2676:9
+    #12 0x6bbbf65 in do_cli sapi/cli/php_cli.c:943:5
+    #13 0x6bb6bf7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    ...
+
+0x6040000f79e8 is located 24 bytes inside of 42-byte region [0x6040000f79d0,0x6040000f79fa)
+
+freed by thread T0 here:
+    #0 0x681162 in free (sapi/cli/php+0x681162)
+    #1 0x5bc1653 in __zend_free Zend/zend_alloc.c:4108:2
+    #2 0x5bcbd30 in _efree Zend/zend_alloc.c:3060:3
+    #3 0x6b53f87 in zend_string_destroy Zend/zend_variables.c:66:2
+    #4 0x6b506f7 in rc_dtor_func Zend/zend_variables.c:56:2
+    #5 0x6b5097e in i_zval_ptr_dtor Zend/zend_variables.h:44:4
+    #6 0x6b50734 in zval_ptr_dtor Zend/zend_variables.c:83:2
+    #7 0x366ac5c in param_dtor ext/pdo/pdo_stmt.c:247:3
+    ...
+
+previously allocated by thread T0 here:
+    #0 0x6813cd in malloc (sapi/cli/php+0x6813cd)
+    #1 0x5bccae3 in __zend_malloc Zend/zend_alloc.c:4079:14
+    #2 0x5bcbb18 in _emalloc Zend/zend_alloc.c:3050:10
+    #3 0x5bcc552 in _safe_emalloc Zend/zend_alloc.c:3108:9
+    #4 0x5bce590 in _safe_femalloc Zend/zend_alloc.c:3230:2
+    #5 0x48c1cab in zend_string_safe_falloc Zend/zend_string.h:212:36
+    #6 0x494f3a0 in zif_str_repeat ext/standard/string.c:5756:11
+    #7 0x64023eb in ZEND_DO_ICALL_SPEC_RETVAL_USED_HANDLER Zend/zend_vm_execute.h:1393:2
+    ...
+
+SUMMARY: AddressSanitizer: heap-use-after-free (sapi/cli/php+0x61c743) in memcpy

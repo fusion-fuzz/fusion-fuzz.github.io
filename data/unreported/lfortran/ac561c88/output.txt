@@ -1,0 +1,9 @@
+$ lfortran -c repro.f90 -o /dev/null
+src/lfortran/semantics/ast_symboltable_visitor.cpp:2276:32: runtime error: member access within null pointer of type 'struct asr_t'
+  File "src/lfortran/semantics/ast_to_asr.cpp", line 74, in ast_to_asr(...)
+  File "src/lfortran/semantics/ast_symboltable_visitor.cpp", line 7226, in symbol_table_visitor(...)
+  File "src/lfortran/semantics/ast_symboltable_visitor.cpp", line 424, in SymbolTableVisitor::visit_TranslationUnit(...)
+  ...
+  File "src/lfortran/semantics/ast_symboltable_visitor.cpp", line 2276, in SymbolTableVisitor::visit_Subroutine(...)
+    diag.add(diag::Diagnostic(
+Segfault: Signal SIGSEGV (segmentation fault) received

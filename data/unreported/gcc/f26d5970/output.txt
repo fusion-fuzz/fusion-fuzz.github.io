@@ -1,0 +1,24 @@
+t.cc:3:18: note: anonymous union declared here
+    3 | struct A { union { int a; }; };
+      |                  ^
+t.cc:6:8: internal compiler error: tree check: expected function_type or method_type, have error_mark in check_default_args, at cp/decl2.cc:6368
+    6 | U foo () {}
+      |        ^
+0xaecca2 tree_check_failed(tree_node const*, char const*, int, char const*, ...)
+	gcc/tree.cc:9394
+0x8879bb tree_check2(tree_node*, char const*, int, char const*, tree_code, tree_code)
+	gcc/tree.h:4082
+0x8879bb check_default_args(tree_node*)
+	gcc/cp/decl2.cc:6368
+0xfa4d6e pushdecl(tree_node*, bool)
+	gcc/cp/name-lookup.cc:4159
+0xeafbaa start_preparsed_function(tree_node*, tree_node*, int)
+	gcc/cp/decl.cc:20137
+0xeccf23 start_function(cp_decl_specifier_seq*, cp_declarator const*, tree_node*)
+	gcc/cp/decl.cc:20429
+0x100c1cf cp_parser_function_definition_from_specifiers_and_declarator
+	gcc/cp/parser.cc:36382
+0x100c1cf cp_parser_init_declarator
+	gcc/cp/parser.cc:26314
+0x100f66b cp_parser_simple_declaration
+	gcc/cp/parser.cc:18277

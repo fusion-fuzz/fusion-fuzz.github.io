@@ -1,0 +1,5 @@
+$ clang -target powerpc64le-linux-gnu -fsyntax-only repro.c
+repro.c:1:1: error: __bf16 is not supported on this target
+clang/include/clang/Basic/TargetInfo.h:794:64: runtime error: reference binding to misaligned address 0xbebebebebebebebe for type 'const llvm::fltSemantics', which requires 4 byte alignment
+0xbebebebebebebebe: note: pointer points here
+<memory cannot be printed>

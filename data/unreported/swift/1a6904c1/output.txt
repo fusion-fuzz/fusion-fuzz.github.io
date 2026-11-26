@@ -1,0 +1,301 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpe1s2pguj/1a6904c1.swift:129:10: error: cannot build rewrite system for protocol; rule length limit exceeded
+127 | }
+128 | 
+129 | protocol P6: P1 {
+    |          |- error: cannot build rewrite system for protocol; rule length limit exceeded
+    |          `- note: failed rewrite rule is [P6:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4] => [P6:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V].[P4:V]
+130 |   associatedtype V: P6 & P4
+131 | }
+
+Abort: function getConformancePath at GenericSignatureQueries.cpp:617
+Failed to find conformance path for τ_0_0 (τ_0_0) : P6:
+(generic_type_param_type depth=0 index=0 param_kind=type)
+
+Requirement machine for <τ_0_0>
+Rewrite system: {
+- [P6].[P6] => [P6] [permanent]
+- [P6].V => [P6:V] [permanent]
+- [P6].[Copyable] => [P6] [explicit]
+- [P6].[Escapable] => [P6] [explicit]
+- [P6].[P6:V] => [P6:V]
+- [Copyable].[Copyable] => [Copyable] [permanent]
+- [Escapable].[Escapable] => [Escapable] [permanent]
+- [P1].[P1] => [P1] [permanent]
+- [P1].[Copyable] => [P1] [explicit]
+- [P1].[Escapable] => [P1] [explicit]
+- [P4].[P4] => [P4] [permanent]
+- [P4].V => [P4:V] [permanent]
+- [P4].[P3] => [P4] [explicit]
+- [P4].[Copyable] => [P4] [explicit]
+- [P4].[Escapable] => [P4] [explicit]
+- [P4].[P4:V] => [P4:V]
+- [P4].[P3:V] => [P4:V]
+- [P4].[P1] => [P4]
+- [P4].[P6_d77610d] => [P4]
+- [P4].[P6_d77610d:V] => [P4:V]
+- [P4].[P1_d77610d] => [P4]
+- [P4:V].[P4_d77610d] => [P4:V]
+- [P4:V].[P6_d77610d] => [P4:V]
+- [P4:V].[Copyable] => [P4:V]
+- [P4:V].[Escapable] => [P4:V]
+- [P4:V].[P3_d77610d] => [P4:V]
+- [P4:V].[P1_d77610d] => [P4:V]
+- [P4:V].V => [P4:V].[P6_d77610d:V]
+- [P3].[P3] => [P3] [permanent]
+- [P3].V => [P3:V] [permanent]
+- [P3].[P1] => [P3] [explicit]
+- [P3].[P6_d77610d] => [P3] [explicit]
+- [P3].[Copyable] => [P3] [explicit]
+- [P3].[Escapable] => [P3] [explicit]
+- [P3].[P3:V] => [P3:V]
+- [P3].[P6_d77610d:V] => [P3:V]
+- [P3].[P1_d77610d] => [P3]
+- [P3:V].[P4_d77610d] => [P3:V]
+- [P3:V].[P6_d77610d] => [P3:V]
+- [P3:V].[Copyable] => [P3:V]
+- [P3:V].[Escapable] => [P3:V]
+- [P3:V].[P3_d77610d] => [P3:V]
+- [P3:V].[P1_d77610d] => [P3:V]
+- [P3:V].V => [P3:V].[P6_d77610d:V]
+- [P6_d77610d].[P6_d77610d] => [P6_d77610d] [permanent]
+- [P6_d77610d].V => [P6_d77610d:V] [permanent]
+- [P6_d77610d].[P1_d77610d] => [P6_d77610d] [explicit]
+- [P6_d77610d:V].[P4_d77610d] => [P6_d77610d:V] [explicit]
+- [P6_d77610d:V].[P6_d77610d] => [P6_d77610d:V] [explicit]
+- [P6_d77610d].[Copyable] => [P6_d77610d] [explicit]
+- [P6_d77610d].[Escapable] => [P6_d77610d] [explicit]
+- [P6_d77610d:V].[Copyable] => [P6_d77610d:V] [explicit]
+- [P6_d77610d:V].[Escapable] => [P6_d77610d:V] [explicit]
+- [P6_d77610d].[P6_d77610d:V] => [P6_d77610d:V]
+- [P6_d77610d:V].[P3_d77610d] => [P6_d77610d:V]
+- [P6_d77610d:V].[P1_d77610d] => [P6_d77610d:V]
+- [P6_d77610d:V].V => [P6_d77610d:V].[P6_d77610d:V]
+- [P1_d77610d].[P1_d77610d] => [P1_d77610d] [permanent]
+- [P1_d77610d].[Copyable] => [P1_d77610d] [explicit]
+- [P1_d77610d].[Escapable] => [P1_d77610d] [explicit]
+- [P4_d77610d].[P4_d77610d] => [P4_d77610d] [permanent]
+- [P4_d77610d].[P3_d77610d] => [P4_d77610d] [explicit]
+- [P4_d77610d].[Copyable] => [P4_d77610d] [explicit]
+- [P4_d77610d].[Escapable] => [P4_d77610d] [explicit]
+- [P4_d77610d].[P1_d77610d] => [P4_d77610d]
+- [P3_d77610d].[P3_d77610d] => [P3_d77610d] [permanent]
+- [P3_d77610d].[P1_d77610d] => [P3_d77610d] [explicit]
+- [P3_d77610d].[Copyable] => [P3_d77610d] [explicit]
+- [P3_d77610d].[Escapable] => [P3_d77610d] [explicit]
+- τ_0_0.[P6] => τ_0_0 [explicit]
+- τ_0_0.[Copyable] => τ_0_0 [explicit]
+- τ_0_0.[Escapable] => τ_0_0 [explicit]
+- τ_0_0.V => τ_0_0.[P6:V]
+}
+Property map: {
+  [P6] => { conforms_to: [P6 Copyable Escapable] }
+  [Copyable] => { conforms_to: [Copyable] }
+  [Escapable] => { conforms_to: [Escapable] }
+  [P1] => { conforms_to: [P1 Copyable Escapable] }
+  [P4] => { conforms_to: [P4 P3 Copyable Escapable P1 P6_d77610d P1_d77610d] }
+  [P4:V] => { conforms_to: [P4_d77610d P6_d77610d Copyable Escapable P3_d77610d P1_d77610d] }
+  [P3] => { conforms_to: [P3 P1 P6_d77610d Copyable Escapable P1_d77610d] }
+  [P3:V] => { conforms_to: [P4_d77610d P6_d77610d Copyable Escapable P3_d77610d P1_d77610d] }
+  [P6_d77610d] => { conforms_to: [P6_d77610d P1_d77610d Copyable Escapable] }
+  [P6_d77610d:V] => { conforms_to: [P4_d77610d P6_d77610d Copyable Escapable P3_d77610d P1_d77610d] }
+  [P1_d77610d] => { conforms_to: [P1_d77610d Copyable Escapable] }
+  [P4_d77610d] => { conforms_to: [P4_d77610d P3_d77610d Copyable Escapable P1_d77610d] }
+  [P3_d77610d] => { conforms_to: [P3_d77610d P1_d77610d Copyable Escapable] }
+  τ_0_0 => { conforms_to: [P6 Copyable Escapable] }
+}
+Conformance paths: {
+}
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -Onone -sil-verify-all -enable-experimental-feature Macros /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpe1s2pguj/1a6904c1.swift
+1.	Swift version 6.5-dev (LLVM 449e14042c067af, Swift 3c721e148da715b)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpe1s2pguj/1a6904c1.swift")
+4.	While type-checking 'G1' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpe1s2pguj/1a6904c1.swift:137:1)
+5.	While type-checking protocol conformance G1<T>: P5 at 'G1' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpe1s2pguj/1a6904c1.swift:137:1)
+6.	While evaluating request ResolveTypeWitnessesRequest(<T> G1<T>: P5 module main)
+7.	Abort: function getConformancePath at GenericSignatureQueries.cpp:617
+| 	Failed to find conformance path for τ_0_0 (τ_0_0) : P6:
+| 	(generic_type_param_type depth=0 index=0 param_kind=type)
+| 	
+| 	Requirement machine for <τ_0_0>
+| 	Rewrite system: {
+| 	- [P6].[P6] => [P6] [permanent]
+| 	- [P6].V => [P6:V] [permanent]
+| 	- [P6].[Copyable] => [P6] [explicit]
+| 	- [P6].[Escapable] => [P6] [explicit]
+| 	- [P6].[P6:V] => [P6:V]
+| 	- [Copyable].[Copyable] => [Copyable] [permanent]
+| 	- [Escapable].[Escapable] => [Escapable] [permanent]
+| 	- [P1].[P1] => [P1] [permanent]
+| 	- [P1].[Copyable] => [P1] [explicit]
+| 	- [P1].[Escapable] => [P1] [explicit]
+| 	- [P4].[P4] => [P4] [permanent]
+| 	- [P4].V => [P4:V] [permanent]
+| 	- [P4].[P3] => [P4] [explicit]
+| 	- [P4].[Copyable] => [P4] [explicit]
+| 	- [P4].[Escapable] => [P4] [explicit]
+| 	- [P4].[P4:V] => [P4:V]
+| 	- [P4].[P3:V] => [P4:V]
+| 	- [P4].[P1] => [P4]
+| 	- [P4].[P6_d77610d] => [P4]
+| 	- [P4].[P6_d77610d:V] => [P4:V]
+| 	- [P4].[P1_d77610d] => [P4]
+| 	- [P4:V].[P4_d77610d] => [P4:V]
+| 	- [P4:V].[P6_d77610d] => [P4:V]
+| 	- [P4:V].[Copyable] => [P4:V]
+| 	- [P4:V].[Escapable] => [P4:V]
+| 	- [P4:V].[P3_d77610d] => [P4:V]
+| 	- [P4:V].[P1_d77610d] => [P4:V]
+| 	- [P4:V].V => [P4:V].[P6_d77610d:V]
+| 	- [P3].[P3] => [P3] [permanent]
+| 	- [P3].V => [P3:V] [permanent]
+| 	- [P3].[P1] => [P3] [explicit]
+| 	- [P3].[P6_d77610d] => [P3] [explicit]
+| 	- [P3].[Copyable] => [P3] [explicit]
+| 	- [P3].[Escapable] => [P3] [explicit]
+| 	- [P3].[P3:V] => [P3:V]
+| 	- [P3].[P6_d77610d:V] => [P3:V]
+| 	- [P3].[P1_d77610d] => [P3]
+| 	- [P3:V].[P4_d77610d] => [P3:V]
+| 	- [P3:V].[P6_d77610d] => [P3:V]
+| 	- [P3:V].[Copyable] => [P3:V]
+| 	- [P3:V].[Escapable] => [P3:V]
+| 	- [P3:V].[P3_d77610d] => [P3:V]
+| 	- [P3:V].[P1_d77610d] => [P3:V]
+| 	- [P3:V].V => [P3:V].[P6_d77610d:V]
+| 	- [P6_d77610d].[P6_d77610d] => [P6_d77610d] [permanent]
+| 	- [P6_d77610d].V => [P6_d77610d:V] [permanent]
+| 	- [P6_d77610d].[P1_d77610d] => [P6_d77610d] [explicit]
+| 	- [P6_d77610d:V].[P4_d77610d] => [P6_d77610d:V] [explicit]
+| 	- [P6_d77610d:V].[P6_d77610d] => [P6_d77610d:V] [explicit]
+| 	- [P6_d77610d].[Copyable] => [P6_d77610d] [explicit]
+| 	- [P6_d77610d].[Escapable] => [P6_d77610d] [explicit]
+| 	- [P6_d77610d:V].[Copyable] => [P6_d77610d:V] [explicit]
+| 	- [P6_d77610d:V].[Escapable] => [P6_d77610d:V] [explicit]
+| 	- [P6_d77610d].[P6_d77610d:V] => [P6_d77610d:V]
+| 	- [P6_d77610d:V].[P3_d77610d] => [P6_d77610d:V]
+| 	- [P6_d77610d:V].[P1_d77610d] => [P6_d77610d:V]
+| 	- [P6_d77610d:V].V => [P6_d77610d:V].[P6_d77610d:V]
+| 	- [P1_d77610d].[P1_d77610d] => [P1_d77610d] [permanent]
+| 	- [P1_d77610d].[Copyable] => [P1_d77610d] [explicit]
+| 	- [P1_d77610d].[Escapable] => [P1_d77610d] [explicit]
+| 	- [P4_d77610d].[P4_d77610d] => [P4_d77610d] [permanent]
+| 	- [P4_d77610d].[P3_d77610d] => [P4_d77610d] [explicit]
+| 	- [P4_d77610d].[Copyable] => [P4_d77610d] [explicit]
+| 	- [P4_d77610d].[Escapable] => [P4_d77610d] [explicit]
+| 	- [P4_d77610d].[P1_d77610d] => [P4_d77610d]
+| 	- [P3_d77610d].[P3_d77610d] => [P3_d77610d] [permanent]
+| 	- [P3_d77610d].[P1_d77610d] => [P3_d77610d] [explicit]
+| 	- [P3_d77610d].[Copyable] => [P3_d77610d] [explicit]
+| 	- [P3_d77610d].[Escapable] => [P3_d77610d] [explicit]
+| 	- τ_0_0.[P6] => τ_0_0 [explicit]
+| 	- τ_0_0.[Copyable] => τ_0_0 [explicit]
+| 	- τ_0_0.[Escapable] => τ_0_0 [explicit]
+| 	- τ_0_0.V => τ_0_0.[P6:V]
+| 	}
+| 	Property map: {
+| 	  [P6] => { conforms_to: [P6 Copyable Escapable] }
+| 	  [Copyable] => { conforms_to: [Copyable] }
+| 	  [Escapable] => { conforms_to: [Escapable] }
+| 	  [P1] => { conforms_to: [P1 Copyable Escapable] }
+| 	  [P4] => { conforms_to: [P4 P3 Copyable Escapable P1 P6_d77610d P1_d77610d] }
+| 	  [P4:V] => { conforms_to: [P4_d77610d P6_d77610d Copyable Escapable P3_d77610d P1_d77610d] }
+| 	  [P3] => { conforms_to: [P3 P1 P6_d77610d Copyable Escapable P1_d77610d] }
+| 	  [P3:V] => { conforms_to: [P4_d77610d P6_d77610d Copyable Escapable P3_d77610d P1_d77610d] }
+| 	  [P6_d77610d] => { conforms_to: [P6_d77610d P1_d77610d Copyable Escapable] }
+| 	  [P6_d77610d:V] => { conforms_to: [P4_d77610d P6_d77610d Copyable Escapable P3_d77610d P1_d77610d] }
+| 	  [P1_d77610d] => { conforms_to: [P1_d77610d Copyable Escapable] }
+| 	  [P4_d77610d] => { conforms_to: [P4_d77610d P3_d77610d Copyable Escapable P1_d77610d] }
+| 	  [P3_d77610d] => { conforms_to: [P3_d77610d P1_d77610d Copyable Escapable] }
+| 	  τ_0_0 => { conforms_to: [P6 Copyable Escapable] }
+| 	}
+| 	Conformance paths: {
+| 	}
+ #0 0x000055da118b08bb llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x92388bb)
+ #1 0x000055da118ad7a1 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x92357a1)
+ #2 0x000055da118b166b SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007da7ee625330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007da7ee67ec0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007da7ee62527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007da7ee6088ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000055da0b7e3572 (/usr/bin/swift-frontend+0x316b572)
+ #8 0x000055da0b7e365c (/usr/bin/swift-frontend+0x316b65c)
+ #9 0x000055da0b5e6f41 swift::rewriting::RequirementMachine::getConformancePath(swift::Type, swift::ProtocolDecl*) (/usr/bin/swift-frontend+0x2f6ef41)
+#10 0x000055da0b68cd48 swift::SubstitutionMap::lookupConformance(swift::CanType, swift::ProtocolDecl*) const (/usr/bin/swift-frontend+0x3014d48)
+#11 0x000055da0b6dad06 swift::LookUpConformanceInSubstitutionMap::operator()(swift::InFlightSubstitution&, swift::Type, swift::ProtocolDecl*) const (/usr/bin/swift-frontend+0x3062d06)
+#12 0x000055da0b6dbc2f swift::InFlightSubstitution::lookupConformance(swift::Type, swift::ProtocolDecl*, unsigned int) (/usr/bin/swift-frontend+0x3063c2f)
+#13 0x000055da0b6e2622 (anonymous namespace)::TypeSubstituter::transformDependentMemberType(swift::DependentMemberType*, swift::TypePosition) TypeSubstitution.cpp:0:0
+#14 0x000055da0b6ded7e swift::TypeTransform<(anonymous namespace)::TypeSubstituter>::doIt(swift::Type, swift::TypePosition) TypeSubstitution.cpp:0:0
+#15 0x000055da0b6dabbc swift::Type::subst(swift::InFlightSubstitution&) const (/usr/bin/swift-frontend+0x3062bbc)
+#16 0x000055da0b6da8be swift::Type::subst(swift::SubstitutionMap, swift::SubstOptions) const (/usr/bin/swift-frontend+0x30628be)
+#17 0x000055da0ad176bd swift::TypeChecker::substMemberTypeWithBase(swift::TypeDecl*, swift::Type, bool) (/usr/bin/swift-frontend+0x269f6bd)
+#18 0x000055da0ad81c94 resolveTypeWitnessViaLookup(swift::NormalProtocolConformance*, swift::AssociatedTypeDecl*) AssociatedTypeInference.cpp:0:0
+#19 0x000055da0ad7d917 (anonymous namespace)::AssociatedTypeInference::solve() AssociatedTypeInference.cpp:0:0
+#20 0x000055da0ad7d426 swift::ResolveTypeWitnessesRequest::evaluate(swift::Evaluator&, swift::NormalProtocolConformance*) const (/usr/bin/swift-frontend+0x2705426)
+#21 0x000055da0aa7ac88 swift::ResolveTypeWitnessesRequest::OutputType swift::Evaluator::getResultUncached<swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'()>(swift::ResolveTypeWitnessesRequest const&, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#22 0x000055da0aa79a7f swift::ResolveTypeWitnessesRequest::OutputType swift::Evaluator::getResultUncached<swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'()>(swift::ResolveTypeWitnessesRequest const&, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#23 0x000055da0aa798c9 swift::ResolveTypeWitnessesRequest::OutputType swift::Evaluator::getResultCached<swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'(), (void*)0>(swift::ResolveTypeWitnessesRequest const&, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#24 0x000055da0acbcdb5 (anonymous namespace)::MultiConformanceChecker::checkIndividualConformance(swift::NormalProtocolConformance*) TypeCheckProtocol.cpp:0:0
+#25 0x000055da0acb110f swift::TypeChecker::checkConformancesInContext(swift::IterableDeclContext*) (/usr/bin/swift-frontend+0x263910f)
+#26 0x000055da0ac21086 (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#27 0x000055da0ac1fc38 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x25a7c38)
+#28 0x000055da0ad63645 swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x26eb645)
+#29 0x000055da0ad68828 swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#30 0x000055da0ad67f2f swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#31 0x000055da0ad63575 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x26eb575)
+#32 0x000055da0952ec29 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_0>(long, swift::SourceFile&) Frontend.cpp:0:0
+#33 0x000055da0952437e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xeac37e)
+#34 0x000055da0952410b swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xeac10b)
+#35 0x000055da09391afe withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#36 0x000055da0937b1ed performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#37 0x000055da09376468 swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcfe468)
+#38 0x000055da0901daab swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9a5aab)
+#39 0x00007da7ee60a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#40 0x00007da7ee60a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#41 0x000055da0901cb35 _start (/usr/bin/swift-frontend+0x9a4b35)
+
+*** Signal 6: Backtracing from 0x7da7ee70752d... done ***
+
+*** Program crashed: Aborted at 0x00007da7ee70752d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.5 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007da7ee70752d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007da7ee70752d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d bb c8 0d 00  H=·ðÿÿs·ÃH··»È··
+rbx 0x0000000000000006  6
+rsi 0x0000000000176319  1532697
+rdi 0x0000000000176319  1532697
+rbp 0x0000000000176319  1532697
+rsp 0x000055da49c3ffd8  96 16 8b 11 da 55 00 00 00 00 00 00 00 00 00 00  ····ÚU··········
+ r8 0x0000000000000000  0
+ r9 0x0000000000000000  0
+r10 0x000055da49c40270  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x000055da1390a4d9  67 65 74 43 6f 6e 66 6f 72 6d 61 6e 63 65 50 61  getConformancePa
+r14 0x0000000000000016  22
+r15 0x000055da49c40088  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007da7ee70752d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d bb c8 0d 00  H=·ðÿÿs·ÃH··»È··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007da7ee5e0000–0x00007da7ee790039 a4a7992a8e66555c8141ab2a08a8465ff6e0ea65 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.01s
+
+Aborted (core dumped)

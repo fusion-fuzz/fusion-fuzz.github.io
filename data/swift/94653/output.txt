@@ -1,0 +1,25 @@
+Assertion failed: (inserted), function recordMatchCallArgumentResult at CSSimplify.cpp:15892.
+Stack dump:
+1.	Swift version 6.5-dev (LLVM c21ea2742cfe25f, Swift 2b0c27dbdd76ed8)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "t.swift")
+4.	While type-checking statement at [t.swift:9:1 - line:9:22] RangeText="let _: S = .init(1) {"
+5.	While type-checking declaration 0x5c3805e6ca50 (at t.swift:9:1)
+6.	While type-checking expression at [t.swift:9:12 - line:9:22] RangeText=".init(1) {"
+7.	While type-checking-target starting at t.swift:9:13
+8.	Assertion failed: (inserted), function recordMatchCallArgumentResult at CSSimplify.cpp:15892.
+#9  swift::constraints::ConstraintSystem::recordMatchCallArgumentResult(swift::constraints::ConstraintLocator*, swift::constraints::MatchCallArgumentResult) (.cold.1)
+#10 swift::constraints::ConstraintSystem::recordMatchCallArgumentResult(swift::constraints::ConstraintLocator*, swift::constraints::MatchCallArgumentResult)
+#11 matchCallArguments(swift::constraints::ConstraintSystem&, swift::FunctionType*, swift::ArgumentList*, ...)
+#12 swift::constraints::ConstraintSystem::simplifyApplicableFnConstraint(swift::FunctionType*, swift::Type, std::optional<swift::constraints::TrailingClosureMatching>, ...)
+#13 swift::constraints::ConstraintSystem::simplifyConstraint(swift::constraints::Constraint const&)
+#14 swift::constraints::ConstraintSystem::simplify()
+#15 swift::constraints::DisjunctionChoice::attempt(swift::constraints::ConstraintSystem&) const
+#16 swift::constraints::BindingStep<swift::constraints::DisjunctionChoiceProducer>::take(bool)
+#17 swift::constraints::DisjunctionStep::resume(bool)
+#18 swift::constraints::ConstraintSystem::solveImpl(llvm::SmallVectorImpl<swift::constraints::Solution>&)
+#19 swift::constraints::ConstraintSystem::salvage()
+#20 swift::constraints::ConstraintSystem::solve(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding)
+#21 swift::TypeChecker::typeCheckTarget(...)
+#22 swift::TypeChecker::typeCheckExpression(...)
+#23 swift::TypeChecker::typeCheckBinding(...)

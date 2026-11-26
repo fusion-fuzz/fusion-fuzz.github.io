@@ -1,0 +1,7 @@
+$ lfortran -c repro.f90 -o /dev/null
+src/libasr/asr_utils.h:781:16: runtime error: member access within null pointer of type 'const struct symbol_t'
+    #0 in symbol_type src/libasr/asr_utils.h:781
+    #1 in CommonVisitor<BodyVisitor>::create_ArrayRef(Location const&, AST::fnarg_t*, unsigned long, AST::fnarg_t*, unsigned long, ASR::expr_t*, ASR::symbol_t*, ASR::symbol_t*) src/lfortran/semantics/ast_common_visitor.h:13780
+    #2 in CommonVisitor<BodyVisitor>::visit_FuncCallOrArray(AST::FuncCallOrArray_t const&) src/lfortran/semantics/ast_common_visitor.h:21385
+    #3 in visit_expr_t<BodyVisitor> src/lfortran/ast.h:4786
+Segfault: Signal SIGSEGV (segmentation fault) received

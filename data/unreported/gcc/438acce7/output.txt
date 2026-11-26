@@ -1,0 +1,10 @@
+t.cc: In function 'int f()':
+t.cc:2:56: internal compiler error: in tsubst_expr, at cp/pt.cc:23363
+    2 | template <int> int f () { static R constexpr lim[2] = {}; return 0; }
+      |                                                        ^
+0x854756 tsubst_expr(tree_node*, tree_node*, int, tree_node*)   cp/pt.cc:23363
+0xe5599b fold_non_dependent_expr_template                       cp/constexpr.cc:12136
+0x1135831 store_init_value(...)                                 cp/typeck2.cc:1082
+0xedafa3 check_initializer                                      cp/decl.cc:8778
+0xee06b2 cp_finish_decl(...)                                    cp/decl.cc:9898
+0x1010250 cp_parser_init_declarator                             cp/parser.cc:26526

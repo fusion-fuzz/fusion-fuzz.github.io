@@ -1,0 +1,12 @@
+$ clang++ -fsyntax-only t.cpp
+t.cpp:3:3: error: no template named 'Alia'; did you mean 'Alias'?
+t.cpp:3:3: error: cannot specify deduction guide for alias template 'Alias'
+Unknown builtin type!
+UNREACHABLE executed at clang/lib/AST/ASTContext.cpp:2193!
+ #  clang::ASTContext::getTypeInfoImpl(clang::Type const*) const
+ #  clang::ASTContext::getTypeInfo(clang::Type const*) const
+ #  clang::ASTContext::getTypeInfoInChars(clang::QualType) const
+ #  (ItaniumRecordLayoutBuilder::LayoutField / LayoutFields)
+ #  clang::ASTContext::getASTRecordLayout(clang::RecordDecl const*) const
+ #  clang::ASTContext::getTypeInfoImpl(clang::Type const*) const
+ #  ... (sizeof operand)

@@ -1,0 +1,22 @@
+gcc-lambda-init-capture-requires-shadows-global-function.cc: In substitution of 'template<class auto:1> f<<lambda(int)> >(<lambda(int)>)::<lambda(auto:1)> [with auto:1 = int]':
+gcc-lambda-init-capture-requires-shadows-global-function.cc:7:26:   required from here
+    7 | int x = f ([] (int) { }) (1);
+      |         ~~~~~~~~~~~~~~~~~^~~
+gcc-lambda-init-capture-requires-shadows-global-function.cc:5:51: internal compiler error: in tsubst_expr, at cp/pt.cc:23174
+    5 |   return [fn{fn}] (auto a) requires requires { fn (a); } { return 0; };
+      |                                                ~~~^~~
+0x854c7b tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	gcc/cp/pt.cc:23174
+0x104fee3 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	gcc/cp/pt.cc:22451
+0xe5a3dd tsubst_valid_expression_requirement
+	gcc/cp/constraint.cc:1375
+0xe62bb8 tsubst_simple_requirement
+	gcc/cp/constraint.cc:1412
+0xe62bb8 tsubst_requirement
+	gcc/cp/constraint.cc:1636
+0xe62bb8 tsubst_requires_expr
+	gcc/cp/constraint.cc:1779
+0xe63246 tsubst_requires_expr(tree_node*, tree_node*, int, tree_node*)
+	gcc/cp/constraint.cc:1804
+0x1052054 tsubst_expr(tree_node*, tree_node*, int, tree_node*)

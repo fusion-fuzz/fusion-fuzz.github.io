@@ -1,0 +1,11 @@
+error: internal compiler error: compiler/rustc_mir_build/src/builder/scope.rs:845:26:
+  AliasConst(No, Alias { kind: Projection { def_id: DefId(0:4 ~ repro[a0ab]::Foo::TARGET) }, args: [Self/#0], .. })
+  --> repro.rs:14:36
+   |
+14 |                         break 'blk Self::TARGET;
+   |                                    ^^^^^^^^^^^^
+
+query stack during panic:
+#0 [mir_built] building MIR for `Foo::test_u8`
+#1 [check_unsafety] unsafety-checking `Foo::test_u8`
+#2 [analysis] running analysis passes on crate `repro`

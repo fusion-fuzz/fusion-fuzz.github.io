@@ -1,0 +1,8 @@
+$ mlir-opt --loop-invariant-code-motion repro.mlir
+mlir-opt: mlir/lib/Dialect/SparseTensor/IR/SparseTensorDialect.cpp:1551: Speculation::Speculatability mlir::sparse_tensor::LvlOp::getSpeculatability(): Assertion `constantIndex < cast<RankedTensorType>(getSource().getType()).getRank()' failed.
+#10 mlir::sparse_tensor::LvlOp::getSpeculatability() SparseTensorDialect.cpp:1550:3
+#11 mlir::detail::ConditionallySpeculatableInterfaceTraits::Model<mlir::sparse_tensor::LvlOp>::getSpeculatability(...)
+#12 mlir::isSpeculatable(mlir::Operation*) SideEffectInterfaces.cpp:382:3
+#13 mlir::isPure(mlir::Operation*) SideEffectInterfaces.cpp:404:29
+#14 mlir::moveLoopInvariantCode(...) LoopInvariantCodeMotionUtils.cpp
+#15 mlir::moveLoopInvariantCode(mlir::LoopLikeOpInterface) LoopInvariantCodeMotionUtils.cpp:112:10

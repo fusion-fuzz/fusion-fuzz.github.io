@@ -1,0 +1,23 @@
+gcc-enumerator-class-type-constexpr-object-in-template.cc: In instantiation of 'struct A<0>':
+gcc-enumerator-class-type-constexpr-object-in-template.cc:4:6:   required from here
+    4 | A<0> a;
+      |      ^
+gcc-enumerator-class-type-constexpr-object-in-template.cc:3:40: internal compiler error: in tsubst_expr, at cp/pt.cc:23398
+    3 | template <int> struct A { enum E { e = s }; };
+      |                                        ^
+0x85ecb6 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	gcc/cp/pt.cc:23398
+0x108638a tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	gcc/cp/pt.cc:21646
+0x108638a tsubst_enum
+	gcc/cp/pt.cc:29621
+0x108638a lookup_template_class(tree_node*, tree_node*, tree_node*, tree_node*, int)
+	gcc/cp/pt.cc:10886
+0x10873c5 tsubst(tree_node*, tree_node*, int, tree_node*)
+	gcc/cp/pt.cc:17369
+0x108dca9 tsubst_decl
+	gcc/cp/pt.cc:16316
+0x10bb152 instantiate_class_template(tree_node*)
+	gcc/cp/pt.cc:13191
+0x11348f9 complete_type(tree_node*)
+	gcc/cp/typeck.cc:138

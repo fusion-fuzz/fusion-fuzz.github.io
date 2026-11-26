@@ -1,0 +1,15 @@
+thread 'rustc' panicked at compiler/rustc_errors/src/diagnostic.rs:986:17:
+assertion `left == right` failed: suggestion must not have overlapping parts
+  left: Some([SubstitutionPart { span: repro.rs:2:13: 2:14 (#4), snippet: "<_ as Tr>::foo(" }, SubstitutionPart { span: repro.rs:2:13: 2:14 (#4), snippet: ", " }])
+ right: None
+stack backtrace:
+   ...
+  12: <rustc_errors::diagnostic::Diag>::multipart_suggestions::<String, Vec<Vec<(Span, String)>>>
+  13: <rustc_hir_typeck::fn_ctxt::FnCtxt>::annotate_alternative_method_deref
+  14: <rustc_hir_typeck::fn_ctxt::checks::ArgMatchingCtxt>::suggest_confusable
+  15: <rustc_hir_typeck::fn_ctxt::FnCtxt>::report_arg_errors
+  16: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_argument_types
+  17: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_method_call
+query stack during panic:
+#0 [typeck_root] type-checking `main`
+#1 [analysis] running analysis passes on crate `repro`

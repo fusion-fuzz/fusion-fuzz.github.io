@@ -1,0 +1,45 @@
+Traceback (most recent call last):
+[2m  Binary file "[0m[1m[35m/opt/lfortran/bin/lfortran[39m[0m[2m", in _start[0m
+[2m  Binary file "[0m[1m[35m/lib/x86_64-linux-gnu/libc.so.6[39m[0m[2m", in __libc_start_main[0m
+[2m  Binary file "[0m[1m[35m/lib/x86_64-linux-gnu/libc.so.6[39m[0m[2m", in <invalid>[0m
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp[39m[0m[2m", line 3214, in main[0m
+    return main_app(argc, argv);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp[39m[0m[2m", line 3008, in main_app(int, char**)[0m
+    return emit_cpp(opts.arg_file, compiler_options);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp[39m[0m[2m", line 920, in (anonymous namespace)::emit_cpp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::CompilerOptions&)[0m
+    LCompilers::Result<std::string> cpp = fe.get_cpp(input, lm, diagnostics, 1);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp[39m[0m[2m", line 940, in LCompilers::FortranEvaluator::get_cpp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&, long)[0m
+    return get_cpp2(*asr.result, diagnostics, default_lower_bound);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp[39m[0m[2m", line 952, in LCompilers::FortranEvaluator::get_cpp2[abi:cxx11](LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, long)[0m
+    default_lower_bound);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp[39m[0m[2m", line 738, in LCompilers::asr_to_cpp[abi:cxx11](Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions&, long)[0m
+    v.visit_asr((ASR::asr_t &)asr);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 379, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_asr(LCompilers::ASR::asr_t const&)[0m
+    void visit_asr(const asr_t &b) { visit_asr_t(b, self()); }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 353, in void LCompilers::ASR::visit_asr_t<LCompilers::ASRToCPPVisitor>(LCompilers::ASR::asr_t const&, LCompilers::ASRToCPPVisitor&)[0m
+    case asrType::unit: { v.visit_unit((const unit_t &)x); return; }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 380, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_unit(LCompilers::ASR::unit_t const&)[0m
+    void visit_unit(const unit_t &b) { visit_unit_t(b, self()); }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 22, in void LCompilers::ASR::visit_unit_t<LCompilers::ASRToCPPVisitor>(LCompilers::ASR::unit_t const&, LCompilers::ASRToCPPVisitor&)[0m
+    case unitType::TranslationUnit: { v.visit_TranslationUnit((const TranslationUnit_t &)x); return; }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp[39m[0m[2m", line 441, in LCompilers::ASRToCPPVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&)[0m
+    visit_symbol(*item.second);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 382, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&)[0m
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 30, in void LCompilers::ASR::visit_symbol_t<LCompilers::ASRToCPPVisitor>(LCompilers::ASR::symbol_t const&, LCompilers::ASRToCPPVisitor&)[0m
+    case symbolType::Program: { v.visit_Program((const Program_t &)x); return; }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp[39m[0m[2m", line 469, in LCompilers::ASRToCPPVisitor::visit_Program(LCompilers::ASR::Program_t const&)[0m
+    decl += convert_variable_decl(*v) + ";\n";
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp[39m[0m[2m", line 327, in LCompilers::ASRToCPPVisitor::convert_variable_decl[abi:cxx11](LCompilers::ASR::Variable_t const&, LCompilers::DeclarationOptions*)[0m
+    this->visit_expr(*v.m_symbolic_value);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 464, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_expr(LCompilers::ASR::expr_t const&)[0m
+    void visit_expr(const expr_t &b) { visit_expr_t(b, self()); }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 132, in void LCompilers::ASR::visit_expr_t<LCompilers::ASRToCPPVisitor>(LCompilers::ASR::expr_t const&, LCompilers::ASRToCPPVisitor&)[0m
+    case exprType::StructConstructor: { v.visit_StructConstructor((const StructConstructor_t &)x); return; }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/asr_to_c_cpp.h[39m[0m[2m", line 3036, in LCompilers::BaseCCPPVisitor<LCompilers::ASRToCPPVisitor>::visit_StructConstructor(LCompilers::ASR::StructConstructor_t const&)[0m
+    out += st->m_members[i];
+[2m  Binary file "[0m[1m[35m/lib/x86_64-linux-gnu/libstdc++.so.6[39m[0m[2m", in std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::operator+=(char const*)[0m
+[2m  File "[0m[1m[35m/build/gcc-11-0odw26/gcc-11-11.4.0/build/x86_64-linux-gnu/libsanitizer/asan/../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc[39m[0m[2m", line 387, in __interceptor_strlen.part.0[0m
+[2m  Binary file "[0m[1m[35m/lib/x86_64-linux-gnu/libc.so.6[39m[0m[2m", in <invalid>[0m
+[2m  Binary file "[0m[1m[35m/lib/x86_64-linux-gnu/libc.so.6[39m[0m[2m", in <invalid>[0m
+Segfault: Signal SIGSEGV (segmentation fault) received

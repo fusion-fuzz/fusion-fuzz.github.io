@@ -1,0 +1,18 @@
+warning: the feature `generic_const_exprs` is incomplete ...
+warning: the feature `reborrow` is incomplete ...
+
+thread 'rustc' panicked at compiler/rustc_ty_utils/src/consts.rs:326:17:
+not implemented
+   3: <rustc_ty_utils::consts::IsThirPolymorphic>::expr_is_poly
+   4: <rustc_ty_utils::consts::IsThirPolymorphic as Visitor>::visit_expr
+   6: rustc_middle::thir::visit::walk_stmt::<IsThirPolymorphic>
+   7: rustc_middle::thir::visit::walk_block::<IsThirPolymorphic>
+   9: rustc_ty_utils::consts::thir_abstract_const
+  14: rustc_mir_build::builder::build_mir_inner_impl
+  16: rustc_mir_transform::mir_built
+
+query stack during panic:
+#0 [thir_abstract_const] building an abstract representation for `main::{constant#0}`
+#1 [mir_built] building MIR for `main::{constant#0}`
+#2 [check_unsafety] unsafety-checking `main`
+#3 [analysis] running analysis passes on crate `repro`

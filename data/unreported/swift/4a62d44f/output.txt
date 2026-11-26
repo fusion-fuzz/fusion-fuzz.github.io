@@ -1,0 +1,253 @@
+SIL verification failed: read-only scope invalidated by a local write
+Verifying instruction:
+     %138 = global_addr @$s4main10a1_b332454AA02A_C0VySiGvp : $*A_b332454<Int> // users: %140, %139
+     %139 = begin_access [read] [dynamic] %138 : $*A_b332454<Int> // users: %141, %140
+->   copy_addr %139 to [init] %138 : $*A_b332454<Int> // id: %140
+In function:
+// main
+// Isolation: unspecified
+sil [ossa] @main : $@convention(c) (Int32, UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>) -> Int32 {
+bb0(%0 : $Int32, %1 : $UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>):
+  alloc_global @$s4main1aAA1AVySiGvp              // id: %2
+  %3 = global_addr @$s4main1aAA1AVySiGvp : $*A<Int> // users: %15, %12
+  %4 = metatype $@thin A<Int>.Type                // user: %10
+  %5 = integer_literal $Builtin.Int64, 0          // user: %6
+  %6 = struct $Int (%5)                           // user: %8
+  %7 = alloc_stack $Int                           // users: %11, %10, %8
+  store %6 to [trivial] %7                        // id: %8
+  // function_ref A.init(x:)
+  %9 = function_ref @$s4main1AV1xACyxGx_tcfC : $@convention(method) <τ_0_0> (@in τ_0_0, @thin A<τ_0_0>.Type) -> A<τ_0_0> // user: %10
+  %10 = apply %9<Int>(%7, %4) : $@convention(method) <τ_0_0> (@in τ_0_0, @thin A<τ_0_0>.Type) -> A<τ_0_0> // user: %12
+  dealloc_stack %7                                // id: %11
+  store %10 to [trivial] %3                       // id: %12
+  alloc_global @$s4main2a1AA1AVySiGvp             // id: %13
+  %14 = global_addr @$s4main2a1AA1AVySiGvp : $*A<Int> // user: %16
+  %15 = begin_access [read] [dynamic] %3          // users: %17, %16
+  copy_addr %15 to [init] %14                     // id: %16
+  end_access %15                                  // id: %17
+  alloc_global @$s4main1bAA1AVySSGvp              // id: %18
+  %19 = global_addr @$s4main1bAA1AVySSGvp : $*A<String> // users: %35, %32
+  %20 = metatype $@thin A<String>.Type            // user: %30
+  %21 = string_literal utf8 "zero"                // user: %26
+  %22 = integer_literal $Builtin.Word, 4          // user: %26
+  %23 = integer_literal $Builtin.Int1, -1         // user: %26
+  %24 = metatype $@thin String.Type               // user: %26
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %25 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %26
+  %26 = apply %25(%21, %22, %23, %24) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %28
+  %27 = alloc_stack $String                       // users: %31, %30, %28
+  store %26 to [init] %27                         // id: %28
+  // function_ref A.init(x:)
+  %29 = function_ref @$s4main1AV1xACyxGx_tcfC : $@convention(method) <τ_0_0> (@in τ_0_0, @thin A<τ_0_0>.Type) -> A<τ_0_0> // user: %30
+  %30 = apply %29<String>(%27, %20) : $@convention(method) <τ_0_0> (@in τ_0_0, @thin A<τ_0_0>.Type) -> A<τ_0_0> // user: %32
+  dealloc_stack %27                               // id: %31
+  store %30 to [trivial] %19                      // id: %32
+  alloc_global @$s4main2b1AA1AVySSGvp             // id: %33
+  %34 = global_addr @$s4main2b1AA1AVySSGvp : $*A<String> // user: %36
+  %35 = begin_access [read] [dynamic] %19         // users: %37, %36
+  copy_addr %35 to [init] %34                     // id: %36
+  end_access %35                                  // id: %37
+  alloc_global @$s4main1cAA1CCySiGvp              // id: %38
+  %39 = global_addr @$s4main1cAA1CCySiGvp : $*C<Int> // users: %51, %48
+  %40 = metatype $@thick C<Int>.Type              // user: %46
+  %41 = integer_literal $Builtin.Int64, 0         // user: %42
+  %42 = struct $Int (%41)                         // user: %44
+  %43 = alloc_stack $Int                          // users: %47, %46, %44
+  store %42 to [trivial] %43                      // id: %44
+  // function_ref C.__allocating_init(x:)
+  %45 = function_ref @$s4main1CC1xACyxGx_tcfC : $@convention(method) <τ_0_0> (@in τ_0_0, @thick C<τ_0_0>.Type) -> @owned C<τ_0_0> // user: %46
+  %46 = apply %45<Int>(%43, %40) : $@convention(method) <τ_0_0> (@in τ_0_0, @thick C<τ_0_0>.Type) -> @owned C<τ_0_0> // user: %48
+  dealloc_stack %43                               // id: %47
+  store %46 to [init] %39                         // id: %48
+  alloc_global @$s4main2c1AA1CCySiGvp             // id: %49
+  %50 = global_addr @$s4main2c1AA1CCySiGvp : $*C<Int> // user: %52
+  %51 = begin_access [read] [dynamic] %39         // users: %53, %52
+  copy_addr %51 to [init] %50                     // id: %52
+  end_access %51                                  // id: %53
+  alloc_global @$s4main1dAA1CCySSGvp              // id: %54
+  %55 = global_addr @$s4main1dAA1CCySSGvp : $*C<String> // users: %71, %68
+  %56 = metatype $@thick C<String>.Type           // user: %66
+  %57 = string_literal utf8 "zero"                // user: %62
+  %58 = integer_literal $Builtin.Word, 4          // user: %62
+  %59 = integer_literal $Builtin.Int1, -1         // user: %62
+  %60 = metatype $@thin String.Type               // user: %62
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %61 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %62
+  %62 = apply %61(%57, %58, %59, %60) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %64
+  %63 = alloc_stack $String                       // users: %67, %66, %64
+  store %62 to [init] %63                         // id: %64
+  // function_ref C.__allocating_init(x:)
+  %65 = function_ref @$s4main1CC1xACyxGx_tcfC : $@convention(method) <τ_0_0> (@in τ_0_0, @thick C<τ_0_0>.Type) -> @owned C<τ_0_0> // user: %66
+  %66 = apply %65<String>(%63, %56) : $@convention(method) <τ_0_0> (@in τ_0_0, @thick C<τ_0_0>.Type) -> @owned C<τ_0_0> // user: %68
+  dealloc_stack %63                               // id: %67
+  store %66 to [init] %55                         // id: %68
+  alloc_global @$s4main2d1AA1CCySSGvp             // id: %69
+  %70 = global_addr @$s4main2d1AA1CCySSGvp : $*C<String> // user: %72
+  %71 = begin_access [read] [dynamic] %55         // users: %73, %72
+  copy_addr %71 to [init] %70                     // id: %72
+  end_access %71                                  // id: %73
+  alloc_global @$s4main1xSivp                     // id: %74
+  %75 = global_addr @$s4main1xSivp : $*Int        // users: %111, %82
+  %76 = metatype $@thin A<Int>.Type               // user: %82
+  %77 = integer_literal $Builtin.Int64, 0         // user: %78
+  %78 = struct $Int (%77)                         // user: %80
+  %79 = alloc_stack $Int                          // users: %83, %82, %80
+  store %78 to [trivial] %79                      // id: %80
+  // function_ref static A.bort(_:)
+  %81 = function_ref @$s4main1AV4bortyxxFZ : $@convention(method) <τ_0_0> (@in_guaranteed τ_0_0, @thin A<τ_0_0>.Type) -> @out τ_0_0 // user: %82
+  %82 = apply %81<Int>(%75, %79, %76) : $@convention(method) <τ_0_0> (@in_guaranteed τ_0_0, @thin A<τ_0_0>.Type) -> @out τ_0_0
+  dealloc_stack %79                               // id: %83
+  alloc_global @$s4main1ySSvp                     // id: %84
+  %85 = global_addr @$s4main1ySSvp : $*String     // users: %383, %356, %96
+  %86 = metatype $@thin A<String>.Type            // user: %96
+  %87 = string_literal utf8 "zero"                // user: %92
+  %88 = integer_literal $Builtin.Word, 4          // user: %92
+  %89 = integer_literal $Builtin.Int1, -1         // user: %92
+  %90 = metatype $@thin String.Type               // user: %92
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %91 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %92
+  %92 = apply %91(%87, %88, %89, %90) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %94
+  %93 = alloc_stack $String                       // users: %98, %97, %96, %94
+  store %92 to [init] %93                         // id: %94
+  // function_ref static A.bort(_:)
+  %95 = function_ref @$s4main1AV4bortyxxFZ : $@convention(method) <τ_0_0> (@in_guaranteed τ_0_0, @thin A<τ_0_0>.Type) -> @out τ_0_0 // user: %96
+  %96 = apply %95<String>(%85, %93, %86) : $@convention(method) <τ_0_0> (@in_guaranteed τ_0_0, @thin A<τ_0_0>.Type) -> @out τ_0_0
+  destroy_addr %93                                // id: %97
+  dealloc_stack %93                               // id: %98
+  %99 = metatype $@thin A<String>.Type            // user: %105
+  %100 = integer_literal $Builtin.Int64, 0        // user: %101
+  %101 = struct $Int (%100)                       // user: %105
+  %102 = integer_literal $Builtin.Int64, 0        // user: %103
+  %103 = struct $Int (%102)                       // user: %105
+  // function_ref A.init(x:y:)
+  %104 = function_ref @$s4main1AV1x1yACyxGSi_SitcfC : $@convention(method) <τ_0_0> (Int, Int, @thin A<τ_0_0>.Type) -> A<τ_0_0> // user: %105
+  %105 = apply %104<String>(%101, %103, %99) : $@convention(method) <τ_0_0> (Int, Int, @thin A<τ_0_0>.Type) -> A<τ_0_0> // user: %107
+  // function_ref foo(_:)
+  %106 = function_ref @$s4main3fooyyAA1AVySSGF : $@convention(thin) (A<String>) -> () // user: %107
+  %107 = apply %106(%105) : $@convention(thin) (A<String>) -> ()
+  alloc_global @$s4main1qAA1XVyAA1BVSiGvp         // id: %108
+  %109 = global_addr @$s4main1qAA1XVyAA1BVSiGvp : $*X<B, Int> // user: %119
+  %110 = metatype $@thin X<B, Int>.Type           // user: %117
+  %111 = begin_access [read] [dynamic] %75        // users: %113, %112
+  %112 = load [trivial] %111                      // user: %115
+  end_access %111                                 // id: %113
+  %114 = alloc_stack $Int                         // users: %118, %117, %115
+  store %112 to [trivial] %114                    // id: %115
+  // function_ref X.init(a:)
+  %116 = function_ref @$s4main1XV1aACyxq_Gq__tcfC : $@convention(method) <τ_0_0, τ_0_1> (@in τ_0_1, @thin X<τ_0_0, τ_0_1>.Type) -> X<τ_0_0, τ_0_1> // user: %117
+  %117 = apply %116<B, Int>(%114, %110) : $@convention(method) <τ_0_0, τ_0_1> (@in τ_0_1, @thin X<τ_0_0, τ_0_1>.Type) -> X<τ_0_0, τ_0_1> // user: %119
+  dealloc_stack %114                              // id: %118
+  store %117 to [trivial] %109                    // id: %119
+  alloc_global @$s4main6fflObjAA1BVvp             // id: %120
+  %121 = global_addr @$s4main6fflObjAA1BVvp : $*B // user: %125
+  %122 = metatype $@thin B.Type                   // user: %124
+  // function_ref B.init()
+  %123 = function_ref @$s4main1BVACycfC : $@convention(method) (@thin B.Type) -> B // user: %124
+  %124 = apply %123(%122) : $@convention(method) (@thin B.Type) -> B // user: %125
+  store %124 to [trivial] %121                    // id: %125
+  alloc_global @$s4main9a_b332454AA02A_B0VySiGvp  // id: %126
+  %127 = global_addr @$s4main9a_b332454AA02A_B0VySiGvp : $*A_b332454<Int> // user: %136
+  %128 = metatype $@thin A_b332454<Int>.Type      // user: %134
+  %129 = integer_literal $Builtin.Int64, 0        // user: %130
+  %130 = struct $Int (%129)                       // user: %132
+  %131 = alloc_stack $Int                         // users: %135, %134, %132
+  store %130 to [trivial] %131                    // id: %132
+  // function_ref A_b332454.init(x_b332454:)
+  %133 = function_ref @$s4main9A_b332454V02x_B0ACyxGx_tcfC : $@convention(method) <τ_0_0> (@in τ_0_0, @thin A_b332454<τ_0_0>.Type) -> A_b332454<τ_0_0> // user: %134
+  %134 = apply %133<Int>(%131, %128) : $@convention(method) <τ_0_0> (@in τ_0_0, @thin A_b332454<τ_0_0>.Type) -> A_b332454<τ_0_0> // user: %136
+  dealloc_stack %131                              // id: %135
+  store %134 to [trivial] %127                    // id: %136
+  alloc_global @$s4main10a1_b332454AA02A_C0VySiGvp // id: %137
+  %138 = global_addr @$s4main10a1_b332454AA02A_C0VySiGvp : $*A_b332454<Int> // users: %140, %139
+  %139 = begin_access [read] [dynamic] %138       // users: %141, %140
+  copy_addr %139 to [init] %138                   // id: %140
+  end_access %139                                 // id: %141
+  alloc_global @$s4main9b_b332454AA02A_B0VySSGvp  // id: %142
+  %143 = global_addr @$s4main9b_b332454AA02A_B0VySSGvp : $*A_b332454<String> // users: %159, %156
+  %144 = metatype $@thin A_b332454<String>.Type   // user: %154
+  %145 = string_literal utf8 "zero"               // user: %150
+  %146 = integer_literal $Builtin.Word, 4         // user: %150
+  %147 = integer_literal $Builtin.Int1, -1        // user: %150
+  %148 = metatype $@thin String.Type              // user: %150
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %149 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %150
+  %150 = apply %149(%145, %146, %147, %148) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %152
+  %151 = alloc_stack $String                      // users: %155, %154, %152
+  store %150 to [init] %151                       // id: %152
+  // function_ref A_b332454.init(x_b332454:)
+  %153 = function_ref @$s4main9A_b332454V02x_B0ACyxGx_tcfC : $@convention(method) <τ_0_0> (@in τ_0_0, @thin A_b332454<τ_0_0>.Type) -> A_b332454<τ_0_0> // user: %154
+  %154 = apply %153<String>(%151, %144) : $@convention(method) <τ_0_0> (@in τ_0_0, @thin A_b332454<τ_0_0>.Type) -> A_b332454<τ_0_0> // user: %156
+  dealloc_stack %151                              // id: %155
+  store %154 to [trivial] %143                    // id: %156
+  alloc_global @$s4main10b1_b332454AA02A_C0VySSGvp // id: %157
+  %158 = global_addr @$s4main10b1_b332454AA02A_C0VySSGvp : $*A_b332454<String> // user: %160
+  %159 = begin_access [read] [dynamic] %143       // users: %161, %160
+  copy_addr %159 to [init] %158                   // id: %160
+  end_access %159                                 // id: %161
+  alloc_global @$s4main9c_b332454AA02C_B0CySiGvp  // id: %162
+  %163 = global_addr @$s4main9c_b332454AA02C_B0CySiGvp : $*C_b332454<Int> // users: %175, %172
+  %164 = metatype $@thick C_b332454<Int>.Type     // user: %170
+  %165 = integer_literal $Builtin.Int64, 0        // user: %166
+  %166 = struct $Int (%165)                       // user: %168
+  %167 = alloc_stack $Int                         // users: %171, %170, %168
+  store %166 to [trivial] %167                    // id: %168
+  // function_ref C_b332454.__allocating_init(x_b332454:)
+  %169 = function_ref @$s4main9C_b332454C02x_B0ACyxGx_tcfC : $@convention(method) <τ_0_0> (@in τ_0_0, @thick C_b332454<τ_0_0>.Type) -> @owned C_b332454<τ_0_0> // user: %170
+  %170 = apply %169<Int>(%167, %164) : $@convention(method) <τ_0_0> (@in τ_0_0, @thick C_b332454<τ_0_0>.Type) -> @owned C_b332454<τ_0_0> // user: %172
+  dealloc_stack %167                              // id: %171
+  store %170 to [init] %163                       // id: %172
+  alloc_global @$s4main10c1_b332454AA02C_C0CySiGvp // id: %173
+  %174 = global_addr @$s4main10c1_b332454AA02C_C0CySiGvp : $*C_b332454<Int> // user: %176
+  %175 = begin_access [read] [dynamic] %163       // users: %177, %176
+  copy_addr %175 to [init] %174                   // id: %176
+  end_access %175                                 // id: %177
+  alloc_global @$s4main9d_b332454AA02C_B0CySSGvp  // id: %178
+  %179 = global_addr @$s4main9d_b332454AA02C_B0CySSGvp : $*C_b332454<String> // users: %195, %192
+  %180 = metatype $@thick C_b332454<String>.Type  // user: %190
+  %181 = string_literal utf8 "zero"               // user: %186
+  %182 = integer_literal $Builtin.Word, 4         // user: %186
+  %183 = integer_literal $Builtin.Int1, -1        // user: %186
+  %184 = metatype $@thin String.Type              // user: %186
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %185 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %186
+  %186 = apply %185(%181, %182, %183, %184) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %188
+  %187 = alloc_stack $String                      // users: %191, %190, %188
+  store %186 to [init] %187                       // id: %188
+  // function_ref C_b332454.__allocating_init(x_b332454:)
+  %189 = function_ref @$s4main9C_b332454C02x_B0ACyxGx_tcfC : $@convention(method) <τ_0_0> (@in τ_0_0, @thick C_b332454<τ_0_0>.Type) -> @owned C_b332454<τ_0_0> // user: %190
+  %190 = apply %189<String>(%187, %180) : $@convention(method) <τ_0_0> (@in τ_0_0, @thick C_b332454<τ_0_0>.Type) -> @owned C_b332454<τ_0_0> // user: %192
+  dealloc_stack %187                              // id: %191
+  store %190 to [init] %179                       // id: %192
+  alloc_global @$s4main10d1_b332454AA02C_C0CySSGvp // id: %193
+  %194 = global_addr @$s4main10d1_b332454AA02C_C0CySSGvp : $*C_b332454<String> // user: %196
+  %195 = begin_access [read] [dynamic] %179       // users: %197, %196
+  copy_addr %195 to [init] %194                   // id: %196
+  end_access %195                                 // id: %197
+  alloc_global @$s4main9x_b332454Sivp             // id: %198
+  %199 = global_addr @$s4main9x_b332454Sivp : $*Int // users: %235, %206
+  %200 = metatype $@thin A_b332454<Int>.Type      // user: %206
+  %201 = integer_literal $Builtin.Int64, 0        // user: %202
+  %202 = struct $Int (%201)                       // user: %204
+  %203 = alloc_stack $Int                         // users: %207, %206, %204
+  store %202 to [trivial] %203                    // id: %204
+  // function_ref static A_b332454.bort(_:)
+  %205 = function_ref @$s4main9A_b332454V4bortyxxFZ : $@convention(method) <τ_0_0> (@in_guaranteed τ_0_0, @thin A_b332454<τ_0_0>.Type) -> @out τ_0_0 // user: %206
+  %206 = apply %205<Int>(%199, %203, %200) : $@convention(method) <τ_0_0> (@in_guaranteed τ_0_0, @thin A_b332454<τ_0_0>.Type) -> @out τ_0_0
+  dealloc_stack %203                              // id: %207
+  alloc_global @$s4main9y_b332454SSvp             // id: %208
+  %209 = global_addr @$s4main9y_b332454SSvp : $*String // user: %220
+  %210 = metatype $@thin A_b332454<String>.Type   // user: %220
+  %211 = string_literal utf8 "zero"               // user: %216
+  %212 = integer_literal $Builtin.Word, 4         // user: %216
+  %213 = integer_literal $Builtin.Int1, -1        // user: %216
+  %214 = metatype $@thin String.Type              // user: %216
+  // function_ref String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %215 = function_ref @$sSS21_builtinStringLiteral17utf8CodeUnitCount7isASCIISSBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %216
+  %216 = apply %215(%211, %212, %213, %214) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin String.Type) -> @owned String // user: %218
+  %217 = alloc_stack $String                      // users: %222, %221, %220, %218
+  store %216 to [init] %217                       // id: %218
+  // function_ref static A_b332454.bort(_:)
+  %219 = function_ref @$s4main9A_b332454V4bortyxxFZ : $@convention(method) <τ_0_0> (@in_guaranteed τ_0_0, @thin A_b332454<τ_0_0>.Type) -> @out τ_0_0 // user: %220
+  %220 = apply %219<String>(%209, %217, %210) : $@convention(method) <τ_0_0> (@in_guaranteed τ_0_0, @thin A_b332454<τ_0_0>.Type) -> @out τ_0_0
+  destroy_addr %217                               // id: %221
+  dealloc_stack %217 

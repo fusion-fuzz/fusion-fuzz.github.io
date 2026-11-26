@@ -1,0 +1,71 @@
+[0;33;1mwarning[0;0m[0;1m: The 'flush' intrinsic function is an LFortran extension[0;0m
+  [0;34;1m-->[0;0m /home/fuzz/WorkSpace/fusion-fuzz/.fused/lfortran/tmpngyh1ke4/daa85a61.f90:11:3
+   [0;34;1m|[0;0m
+[0;34;1m11 |[0;0m   call flush() ! flush all units
+   [0;34;1m|[0;0m   [0;33;1m^^^^^^^^^^^^ help: use the 'flush' statement instead[0;0m
+
+[0;33;1mwarning[0;0m[0;1m: The 'flush' intrinsic function is an LFortran extension[0;0m
+  [0;34;1m-->[0;0m /home/fuzz/WorkSpace/fusion-fuzz/.fused/lfortran/tmpngyh1ke4/daa85a61.f90:22:3
+   [0;34;1m|[0;0m
+[0;34;1m22 |[0;0m   call flush(10) ! flush specific unit
+   [0;34;1m|[0;0m   [0;33;1m^^^^^^^^^^^^^^ help: use the 'flush' statement instead[0;0m
+
+[0;33;1mwarning[0;0m[0;1m: The 'flush' intrinsic function is an LFortran extension[0;0m
+  [0;34;1m-->[0;0m /home/fuzz/WorkSpace/fusion-fuzz/.fused/lfortran/tmpngyh1ke4/daa85a61.f90:40:3
+   [0;34;1m|[0;0m
+[0;34;1m40 |[0;0m   call flush(unit) ! flush with dynamically optional argument
+   [0;34;1m|[0;0m   [0;33;1m^^^^^^^^^^^^^^^^ help: use the 'flush' statement instead[0;0m
+
+[0;33;1mwarning[0;0m[0;1m: The 'flush' intrinsic function is an LFortran extension[0;0m
+   [0;34;1m-->[0;0m /home/fuzz/WorkSpace/fusion-fuzz/.fused/lfortran/tmpngyh1ke4/daa85a61.f90:120:3
+    [0;34;1m|[0;0m
+[0;34;1m120 |[0;0m   call flush(SIMPLE_LOOP) ! flush with dynamically optional argument  ! dataflow fusion
+    [0;34;1m|[0;0m   [0;33;1m^^^^^^^^^^^^^^^^^^^^^^^ help: use the 'flush' statement instead[0;0m
+
+
+[0;1mNote[0;0m: Please report unclear, confusing or incorrect messages as bugs at
+https://github.com/lfortran/lfortran/issues.
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+[2m  Binary file "[0m[1m[35m/opt/lfortran/bin/lfortran[39m[0m[2m", in _start[0m
+[2m  Binary file "[0m[1m[35m/lib/x86_64-linux-gnu/libc.so.6[39m[0m[2m", in __libc_start_main[0m
+[2m  Binary file "[0m[1m[35m/lib/x86_64-linux-gnu/libc.so.6[39m[0m[2m", in <invalid>[0m
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp[39m[0m[2m", line 3214, in main[0m
+    return main_app(argc, argv);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp[39m[0m[2m", line 3026, in main_app(int, char**)[0m
+    int result = compile_to_assembly_file(opts.arg_file, outfile,
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp[39m[0m[2m", line 1437, in (anonymous namespace)::compile_to_assembly_file(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool, LCompilers::CompilerOptions&, LCompilers::PassManager&, bool)[0m
+    return compile_src_to_object_file(infile, outfile, time_report, true,
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp[39m[0m[2m", line 1387, in (anonymous namespace)::compile_src_to_object_file(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool, bool, LCompilers::CompilerOptions&, LCompilers::PassManager&, bool, bool*, bool)[0m
+    LCompilers::compile_asr_to_object(
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/pipeline.cpp[39m[0m[2m", line 79, in LCompilers::compile_asr_to_object(LCompilers::ASR::TranslationUnit_t&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool, LCompilers::CompilerOptions&, LCompilers::PassManager&, LCompilers::FortranEvaluator&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&)[0m
+    &result.optimization_time_us);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp[39m[0m[2m", line 848, in LCompilers::FortranEvaluator::get_llvm3(LCompilers::ASR::TranslationUnit_t&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&, LCompilers::LocationManager&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int*)[0m
+    compiler_options, run_fn, "", infile, lm);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp[39m[0m[2m", line 30127, in LCompilers::asr_to_llvm(LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, llvm::LLVMContext&, LCompilers::LLVMTargetConfig const&, Allocator&, LCompilers::PassManager&, LCompilers::CompilerOptions&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&)[0m
+    v.visit_asr((ASR::asr_t&)asr);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 379, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToLLVMVisitor>::visit_asr(LCompilers::ASR::asr_t const&)[0m
+    void visit_asr(const asr_t &b) { visit_asr_t(b, self()); }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 353, in void LCompilers::ASR::visit_asr_t<LCompilers::ASRToLLVMVisitor>(LCompilers::ASR::asr_t const&, LCompilers::ASRToLLVMVisitor&)[0m
+    case asrType::unit: { v.visit_unit((const unit_t &)x); return; }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 380, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToLLVMVisitor>::visit_unit(LCompilers::ASR::unit_t const&)[0m
+    void visit_unit(const unit_t &b) { visit_unit_t(b, self()); }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 22, in void LCompilers::ASR::visit_unit_t<LCompilers::ASRToLLVMVisitor>(LCompilers::ASR::unit_t const&, LCompilers::ASRToLLVMVisitor&)[0m
+    case unitType::TranslationUnit: { v.visit_TranslationUnit((const TranslationUnit_t &)x); return; }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp[39m[0m[2m", line 2387, in LCompilers::ASRToLLVMVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&)[0m
+    visit_symbol(*item.second);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 382, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToLLVMVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&)[0m
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 32, in void LCompilers::ASR::visit_symbol_t<LCompilers::ASRToLLVMVisitor>(LCompilers::ASR::symbol_t const&, LCompilers::ASRToLLVMVisitor&)[0m
+    case symbolType::Function: { v.visit_Function((const Function_t &)x); return; }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp[39m[0m[2m", line 10354, in LCompilers::ASRToLLVMVisitor::visit_Function(LCompilers::ASR::Function_t const&)[0m
+    generate_function(x);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp[39m[0m[2m", line 11157, in LCompilers::ASRToLLVMVisitor::generate_function(LCompilers::ASR::Function_t const&)[0m
+    this->visit_stmt(*x.m_body[i]);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 401, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToLLVMVisitor>::visit_stmt(LCompilers::ASR::stmt_t const&)[0m
+    void visit_stmt(const stmt_t &b) { visit_stmt_t(b, self()); }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 93, in void LCompilers::ASR::visit_stmt_t<LCompilers::ASRToLLVMVisitor>(LCompilers::ASR::stmt_t const&, LCompilers::ASRToLLVMVisitor&)[0m
+    case stmtType::Flush: { v.visit_Flush((const Flush_t &)x); return; }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp[39m[0m[2m", line 23799, in LCompilers::ASRToLLVMVisitor::visit_Flush(LCompilers::ASR::Flush_t const&)[0m
+    unit_val = llvm_utils->convert_kind(tmp, llvm::Type::getInt32Ty(context));
+AssertFailed: (val->getType()->isIntegerTy() && target_type->isIntegerTy()) || (val->getType()->isFloatingPointTy() && target_type->isFloatingPointTy())

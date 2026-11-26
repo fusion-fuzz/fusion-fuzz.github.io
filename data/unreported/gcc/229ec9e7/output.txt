@@ -1,0 +1,25 @@
+during IPA pass: analyzer
+t.c: In function 'f':
+t.c:5:10: internal compiler error: in maybe_get_byte_offset_relative_to_parent, at analyzer/region.cc:2553
+    5 |   return &v[1];
+      |          ^~~~~
+0x2c6cd4b internal_error(char const*, ...)
+	gcc/diagnostic-global-context.cc:787
+0xcca392 fancy_abort(char const*, int, char const*)
+	gcc/diagnostics/context.cc:1813
+0xa219c0 ana::bit_range_region::maybe_get_byte_offset_relative_to_parent(ana::region_model_manager&) const
+	gcc/analyzer/region.cc:2553
+0x19ea998 ana::region::calc_pointer(ana::symbolic::node_manager&) const
+	gcc/analyzer/region.cc:703
+0x19eaa27 ana::region::get_pointer(ana::region_model_manager&) const
+	gcc/analyzer/region.cc:343
+0x1a1c3a4 ana::region_model_manager::get_ptr_svalue(tree_node*, ana::region const*)
+	gcc/analyzer/region-model-manager.cc:405
+0x19f9c20 ana::region_model::get_rvalue(ana::path_var, ana::region_model_context*) const
+	gcc/analyzer/region-model.cc:3020
+0x1a0015a ana::region_model::on_assignment(gassign const*, ana::region_model_context*)
+	gcc/analyzer/region-model.cc:1511
+0x19d4a5d ana::gimple_stmt_op::execute_on_state(ana::operation_context&, ana::program_state) const
+	gcc/analyzer/ops.cc:447
+0x19aeb2f ana::exploded_graph::process_node(ana::exploded_node*)
+	gcc/analyzer/engine.cc:3693

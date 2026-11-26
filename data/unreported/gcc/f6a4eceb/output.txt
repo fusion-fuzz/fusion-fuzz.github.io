@@ -1,0 +1,30 @@
+t.cc: In instantiation of 'void f() [with int <anonymous> = 0]':
+t.cc:9:21:   required from here
+    9 | template void f<0> ();
+      |                     ^
+t.cc:6:17:   in 'constexpr' expansion of '((Foo*)(& foo))->Foo::~Foo()'
+    6 |   constexpr Foo foo{};
+      |                 ^~~
+t.cc:1:22: internal compiler error: in cxx_eval_store_expression, at cp/constexpr.cc:9054
+    1 | struct Foo { virtual ~Foo () = default; };
+      |                      ^
+0x3008bdb internal_error(char const*, ...)
+	gcc/diagnostic-global-context.cc:787
+0xdd085e fancy_abort(char const*, int, char const*)
+	gcc/diagnostics/context.cc:1813
+0x8548d6 cxx_eval_store_expression
+	gcc/cp/constexpr.cc:9054
+0xe30e8f cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	gcc/cp/constexpr.cc:10262
+0xe3268b cxx_eval_statement_list
+	gcc/cp/constexpr.cc:9356
+0xe2e69a cxx_eval_call_expression
+	gcc/cp/constexpr.cc:5119
+0xe441af cxx_eval_outermost_constant_expr
+	gcc/cp/constexpr.cc:11757
+0xeae22a cxx_maybe_build_cleanup(tree_node*, int)
+	gcc/cp/decl.cc:21375
+0xeb0784 initialize_local_var
+	gcc/cp/decl.cc:9126
+0xedb485 cp_finish_decl(tree_node*, tree_node*, bool, tree_node*, int, cp_decomp*)
+	gcc/cp/decl.cc:10294

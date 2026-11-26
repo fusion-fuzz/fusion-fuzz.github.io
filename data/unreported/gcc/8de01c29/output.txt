@@ -1,0 +1,25 @@
+during RTL pass: expand
+t.c: In function 'f._omp_fn.0':
+t.c:9:11: internal compiler error: in make_decl_rtl, at varasm.cc:1489
+    9 |   #pragma omp for reduction (task, +: j)
+      |           ^~~
+0x2cdd1bb internal_error(char const*, ...)
+	gcc/diagnostic-global-context.cc:787
+0xd038e4 fancy_abort(char const*, int, char const*)
+	gcc/diagnostics/context.cc:1813
+0x98b1cc make_decl_rtl(tree_node*)
+	gcc/varasm.cc:1489
+0x1037457 expand_expr_real_1(tree_node*, rtx_def*, machine_mode, expand_modifier, rtx_def**, bool)
+	gcc/expr.cc:11772
+0x1045e5f store_expr(tree_node*, rtx_def*, int, bool, bool)
+	gcc/expr.cc:6828
+0x1047782 expand_assignment(tree_node*, tree_node*, bool)
+	gcc/expr.cc:6524
+0xee608e expand_gimple_stmt_1
+	gcc/cfgexpand.cc:4349
+0xee608e expand_gimple_stmt
+	gcc/cfgexpand.cc:4430
+0xeec787 expand_gimple_basic_block
+	gcc/cfgexpand.cc:6547
+0xeee5d7 execute
+	gcc/cfgexpand.cc:7298

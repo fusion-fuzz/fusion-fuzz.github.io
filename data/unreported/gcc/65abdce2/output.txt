@@ -1,0 +1,19 @@
+gcc-placement-new-cast-string-literal.cc: In function 'void f()':
+gcc-placement-new-cast-string-literal.cc:2:18: warning: placement new constructing an object of type 'long long int' and size '8' in a region of type 'const char [2]' and size '2' [-Wplacement-new=]
+    2 | void f () { new ((void *) "1") long long; }
+      |                  ^~~~~~~~~~~~
+gcc-placement-new-cast-string-literal.cc:2:37: internal compiler error: tree check: expected tree that contains 'decl minimal' structure, have 'string_cst' in warn_placement_new_too_small, at cp/init.cc:2962
+    2 | void f () { new ((void *) "1") long long; }
+      |                                     ^~~~
+0xa5f767 tree_contains_struct_check_failed(tree_node const*, tree_node_structure_enum, char const*, int, char const*)
+	gcc/tree.cc:9419
+0x808f84 contains_struct_check(tree_node*, tree_node_structure_enum, char const*, int, char const*)
+	gcc/tree.h:3977
+0x808f84 warn_placement_new_too_small
+	gcc/cp/init.cc:2962
+0x808f84 build_new_1
+	gcc/cp/init.cc:3566
+0xf1c14d build_new(unsigned long, vec<tree_node*, va_gc, vl_embed>**, tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, int, int)
+	gcc/cp/init.cc:4187
+0xfe2e7b cp_parser_new_expression
+	gcc/cp/parser.cc:11000

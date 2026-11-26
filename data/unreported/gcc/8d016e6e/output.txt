@@ -1,0 +1,26 @@
+during GIMPLE pass: graphite
+t.c: In function 'f':
+t.c:2:6: internal compiler error: in set_codegen_error, at graphite-isl-ast-to-gimple.cc:199
+    2 | void f (double *s, double *M)
+      |      ^
+0x2c6cd4b internal_error(char const*, ...)
+	gcc/diagnostic-global-context.cc:787
+0xcca392 fancy_abort(char const*, int, char const*)
+	gcc/diagnostics/context.cc:1813
+0xbffe80 translate_isl_ast_to_gimple::set_codegen_error()
+	gcc/graphite-isl-ast-to-gimple.cc:199
+0xc000d6 translate_isl_ast_to_gimple::get_rename_from_scev(tree_node*, gimple**, loop*, vec<tree_node*, va_heap, vl_ptr>)
+	gcc/graphite-isl-ast-to-gimple.cc:1094
+0x2849da7 translate_isl_ast_to_gimple::graphite_copy_stmts_from_block(basic_block_def*, basic_block_def*, vec<tree_node*, va_heap, vl_ptr>)
+	gcc/graphite-isl-ast-to-gimple.cc:1214
+0x284b628 translate_isl_ast_to_gimple::copy_bb_and_scalar_dependences(basic_block_def*, edge_def*, vec<tree_node*, va_heap, vl_ptr>)
+	gcc/graphite-isl-ast-to-gimple.cc:1263
+0x284bd32 translate_isl_ast_to_gimple::translate_isl_ast_node_user(isl_ast_node*, edge_def*, hash_map<isl_id*, tree_node*, simple_hashmap_traits<default_hash_traits<isl_id*>, tree_node*> >&)
+	gcc/graphite-isl-ast-to-gimple.cc:821
+0x284bf23 translate_isl_ast_to_gimple::translate_isl_ast_for_loop(loop*, isl_ast_node*, edge_def*, tree_node*, tree_node*, tree_node*, hash_map<isl_id*, tree_node*, simple_hashmap_traits<default_hash_traits<isl_id*>, tree_node*> >&)
+	gcc/graphite-isl-ast-to-gimple.cc:614
+...
+0x284c786 graphite_regenerate_ast_isl(scop*)
+	gcc/graphite-isl-ast-to-gimple.cc:1502
+0x2847354 graphite_transform_loops()
+	gcc/graphite.cc:474

@@ -1,0 +1,171 @@
+SIL verification failed: Introduces instruction of kind which cannot emit on-stack pack metadata: apmi->getIntroducer()->mayRequirePackMetadata(*apmi->getFunction())
+Verifying instruction:
+->   %45 = alloc_pack_metadata $()                // user: %46
+     dealloc_pack_metadata %45 : $*()             // id: %46
+In function:
+// HasPack.CodingKeys.init(stringValue:)
+// Isolation: unspecified
+sil private @$s8e76b9a387HasPackV10CodingKeys33_2CAE251C4DE0CCDC13437B6A52C838ADLLO11stringValueAFyxxQp_QP_GSgSS_tcfC : $@convention(method) <each T> (@owned String, @thin HasPack<repeat each T>.CodingKeys.Type) -> Optional<HasPack<repeat each T>.CodingKeys> {
+[%0: read v**.c*.v**, write v**.c*.v**, copy v**.c*.v**, destroy v**.c*.v**]
+[global: read,write,copy,destroy,allocate,deinit_barrier]
+// %0 "stringValue"                               // users: %20, %30, %6, %2
+// %1 "$metatype"
+bb0(%0 : $String, %1 : $@thin HasPack<repeat each T>.CodingKeys.Type):
+  debug_value %0, let, name "stringValue", argno 1 // id: %2
+  %3 = integer_literal $Builtin.Int64, 120        // users: %10, %24
+  %4 = integer_literal $Builtin.Int64, -2233785415175766016 // user: %5
+  %5 = value_to_bridge_object %4                  // users: %12, %25
+  %6 = struct_extract %0, #String._guts           // users: %29, %7
+  %7 = struct_extract %6, #_StringGuts._object    // users: %13, %8
+  %8 = struct_extract %7, #_StringObject._countAndFlagsBits // user: %9
+  %9 = struct_extract %8, #UInt64._value          // user: %10
+  %10 = builtin "cmp_eq_Int64"(%9, %3) : $Builtin.Int1 // user: %11
+  cond_br %10, bb1, bb2                           // id: %11
+
+bb1:                                              // Preds: bb0
+  %12 = unchecked_trivial_bit_cast %5 to $UInt64  // user: %15
+  %13 = struct_extract %7, #_StringObject._object // user: %14
+  %14 = unchecked_trivial_bit_cast %13 to $UInt64 // user: %16
+  %15 = struct_extract %12, #UInt64._value        // user: %17
+  %16 = struct_extract %14, #UInt64._value        // user: %17
+  %17 = builtin "cmp_eq_Int64"(%15, %16) : $Builtin.Int1 // user: %18
+  cond_br %17, bb3, bb4                           // id: %18
+
+bb2:                                              // Preds: bb0
+  br bb6                                          // id: %19
+
+bb3:                                              // Preds: bb1
+  release_value %0                                // id: %20
+  br bb7                                          // id: %21
+
+bb4:                                              // Preds: bb1
+  br bb6                                          // id: %22
+
+bb5:                                              // Preds: bb6
+  br bb7                                          // id: %23
+
+bb6:                                              // Preds: bb2 bb4
+  %24 = struct $UInt64 (%3)                       // user: %25
+  %25 = struct $_StringObject (%24, %5)           // user: %26
+  %26 = struct $_StringGuts (%25)                 // user: %29
+  %27 = enum $_StringComparisonResult, #_StringComparisonResult.equal!enumelt // user: %29
+  // function_ref _stringCompareWithSmolCheck(_:_:expecting:)
+  %28 = function_ref @$ss27_stringCompareWithSmolCheck__9expectingSbs11_StringGutsV_ADs01_G16ComparisonResultOtF : $@convention(thin) (@guaranteed _StringGuts, @guaranteed _StringGuts, _StringComparisonResult) -> Bool // user: %29
+  %29 = apply %28(%26, %6, %27) : $@convention(thin) (@guaranteed _StringGuts, @guaranteed _StringGuts, _StringComparisonResult) -> Bool // user: %31
+  release_value %0                                // id: %30
+  %31 = struct_extract %29, #Bool._value          // user: %32
+  cond_br %31, bb5, bb8                           // id: %32
+
+bb7:                                              // Preds: bb3 bb5
+  %33 = alloc_pack_metadata $()                   // user: %38
+  %34 = enum $HasPack<repeat each T>.CodingKeys, #HasPack.CodingKeys.x!enumelt // user: %36
+  %35 = alloc_pack_metadata $()                   // user: %37
+  %36 = enum $Optional<HasPack<repeat each T>.CodingKeys>, #Optional.some!enumelt, %34 // user: %41
+  dealloc_pack_metadata %35                       // id: %37
+  dealloc_pack_metadata %33                       // id: %38
+  %39 = alloc_pack_metadata $()                   // user: %40
+  dealloc_pack_metadata %39                       // id: %40
+  br bb9(%36)                                     // id: %41
+
+bb8:                                              // Preds: bb6
+  %42 = alloc_pack_metadata $()                   // user: %44
+  %43 = enum $Optional<HasPack<repeat each T>.CodingKeys>, #Optional.none!enumelt // user: %47
+  dealloc_pack_metadata %42                       // id: %44
+  %45 = alloc_pack_metadata $()                   // user: %46
+  dealloc_pack_metadata %45                       // id: %46
+  br bb9(%43)                                     // id: %47
+
+// %48                                            // user: %49
+bb9(%48 : $Optional<HasPack<repeat each T>.CodingKeys>): // Preds: bb7 bb8
+  return %48                                      // id: %49
+} // end sil function '$s8e76b9a387HasPackV10CodingKeys33_2CAE251C4DE0CCDC13437B6A52C838ADLLO11stringValueAFyxxQp_QP_GSgSS_tcfC'
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -O -sil-verify-all /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpzkrf25jq/e76b9a38.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request IRGenRequest(IR Generation for module e76b9a38)
+4.	While evaluating request ExecuteSILPipelineRequest(Run pipelines { IRGen Preparation } on SIL for e76b9a38)
+5.	While running pass #28 SILFunctionTransform "PackMetadataMarkerInserter" on SILFunction "@$s8e76b9a387HasPackV10CodingKeys33_2CAE251C4DE0CCDC13437B6A52C838ADLLO11stringValueAFyxxQp_QP_GSgSS_tcfC".
+ for 'init(stringValue:)' (in module 'e76b9a38')
+6.	While verifying SIL function "@$s8e76b9a387HasPackV10CodingKeys33_2CAE251C4DE0CCDC13437B6A52C838ADLLO11stringValueAFyxxQp_QP_GSgSS_tcfC".
+ for 'init(stringValue:)' (in module 'e76b9a38')
+ #0 0x00005c492ad08658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x00005c492ad05e75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x00005c492ad09411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007767a2dda330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007767a2e33c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007767a2dda27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007767a2dbd8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00005c4923992e65 (/usr/bin/swift-frontend+0x18d9e65)
+ #8 0x00005c492399e0f4 (anonymous namespace)::SILVerifierBase<(anonymous namespace)::SILVerifier>::visitAllocPackMetadataInst(swift::AllocPackMetadataInst*) SILVerifier.cpp:0:0
+ #9 0x00005c492399bf0b (anonymous namespace)::SILVerifier::visitSILBasicBlock(swift::SILBasicBlock*) SILVerifier.cpp:0:0
+#10 0x00005c4923995f2b swift::SILFunction::verify(swift::CalleeCache*, swift::DominanceInfo*, bool, bool, bool) const (/usr/bin/swift-frontend+0x18dcf2b)
+#11 0x00005c4923a57deb swift::SILPassManager::runPassOnFunction(unsigned int, swift::SILFunction*) (/usr/bin/swift-frontend+0x199edeb)
+#12 0x00005c4923a58af1 swift::SILPassManager::runFunctionPasses(unsigned int, unsigned int) (/usr/bin/swift-frontend+0x199faf1)
+#13 0x00005c4923a5c523 swift::SILPassManager::execute() (/usr/bin/swift-frontend+0x19a3523)
+#14 0x00005c4923a55068 swift::SILPassManager::executePassPipelinePlan(swift::SILPassPipelinePlan const&) (/usr/bin/swift-frontend+0x199c068)
+#15 0x00005c4923a5501d swift::ExecuteSILPipelineRequest::evaluate(swift::Evaluator&, swift::SILPipelineExecutionDescriptor) const (/usr/bin/swift-frontend+0x199c01d)
+#16 0x00005c4923a7ce6a swift::SimpleRequest<swift::ExecuteSILPipelineRequest, std::tuple<> (swift::SILPipelineExecutionDescriptor), (swift::RequestFlags)1>::evaluateRequest(swift::ExecuteSILPipelineRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#17 0x00005c4923a63dfa swift::ExecuteSILPipelineRequest::OutputType swift::Evaluator::getResultUncached<swift::ExecuteSILPipelineRequest, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()>(swift::ExecuteSILPipelineRequest const&, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()) crtstuff.c:0:0
+#18 0x00005c4923a5525f swift::executePassPipelinePlan(swift::SILModule*, swift::SILPassPipelinePlan const&, bool, swift::irgen::IRGenModule*) (/usr/bin/swift-frontend+0x199c25f)
+#19 0x00005c4922de1a5c swift::IRGenRequest::evaluate(swift::Evaluator&, swift::IRGenDescriptor) const (/usr/bin/swift-frontend+0xd28a5c)
+#20 0x00005c4922e58982 swift::GeneratedModule swift::SimpleRequest<swift::IRGenRequest, swift::GeneratedModule (swift::IRGenDescriptor), (swift::RequestFlags)17>::callDerived<0ul>(swift::Evaluator&, std::integer_sequence<unsigned long, 0ul>) const crtstuff.c:0:0
+#21 0x00005c4922e58859 swift::SimpleRequest<swift::IRGenRequest, swift::GeneratedModule (swift::IRGenDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::IRGenRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#22 0x00005c492281f78c swift::IRGenRequest::OutputType swift::Evaluator::getResultUncached<swift::IRGenRequest, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()>(swift::IRGenRequest const&, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()) crtstuff.c:0:0
+#23 0x00005c4922de2bef swift::performIRGeneration(swift::ModuleDecl*, swift::IRGenOptions const&, swift::TBDGenOptions const&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::StringRef, swift::PrimarySpecificPaths const&, std::shared_ptr<llvm::cas::ObjectStore>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::GlobalVariable**, swift::cas::SwiftCASOutputBackend*, std::optional<llvm::cas::ObjectRef>) (/usr/bin/swift-frontend+0xd29bef)
+#24 0x00005c4922af4a47 generateIR(swift::IRGenOptions const&, swift::TBDGenOptions const&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, swift::PrimarySpecificPaths const&, std::shared_ptr<llvm::cas::ObjectStore>, swift::cas::SwiftCASOutputBackend*, llvm::StringRef, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, llvm::GlobalVariable*&, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, std::optional<llvm::cas::ObjectRef>) FrontendTool.cpp:0:0
+#25 0x00005c4922aed39e performCompileStepsPostSILGen(swift::CompilerInstance&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, swift::PrimarySpecificPaths const&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>, llvm::ArrayRef<swift::PrimarySpecificPaths>) FrontendTool.cpp:0:0
+#26 0x00005c4922aeb9d3 swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xa329d3)
+#27 0x00005c4922b0488a withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#28 0x00005c4922af1595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#29 0x00005c4922aee21e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#30 0x00005c49227f5b21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#31 0x00007767a2dbf1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#32 0x00007767a2dbf28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#33 0x00005c49227f4a15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x7767a2ebc38d... done ***
+
+*** Program crashed: Aborted at 0x00007767a2ebc38d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007767a2ebc38d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007767a2ebc38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x000000000000fcf7  64759
+rdi 0x000000000000fcf7  64759
+rbp 0x000000000000fcf7  64759
+rsp 0x00005c49645fa2e8  3b 94 d0 2a 49 5c 00 00 70 a5 5f 64 49 5c 00 00  ;·Ð*I\··p¥_dI\··
+ r8 0x00005c49645fa570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x00005c49645fa570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x00005c49645fa570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x00005c4964fe8210  70 51 62 64 49 5c 00 00 30 57 fb 64 49 5c 00 00  pQbdI\··0WûdI\··
+r14 0x0000000000000000  0
+r15 0x00005c49645fa388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007767a2ebc38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007767a2d95000–0x00007767a2f44eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

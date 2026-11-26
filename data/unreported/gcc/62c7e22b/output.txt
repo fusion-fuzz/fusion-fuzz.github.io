@@ -1,0 +1,14 @@
+gcc-consteval-redefinition-of-builtin-constant-p.cc: In function 'int d(int)':
+gcc-consteval-redefinition-of-builtin-constant-p.cc:1:45: internal compiler error: in cp_gimplify_expr, at cp/cp-gimplify.cc:1050
+    1 | int d (int v) { return __builtin_constant_p (v); }
+      |                        ~~~~~~~~~~~~~~~~~~~~~^~~
+0x7d6794 cp_gimplify_expr(tree_node**, gimple**, gimple**)
+	gcc/cp/cp-gimplify.cc:1050
+0x14d367b gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	gcc/gimplify.cc:20422
+0x14f6507 gimplify_modify_expr
+	gcc/gimplify.cc:7334
+0x14d43da gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	gcc/gimplify.cc:20516
+0x14d7caa gimplify_stmt(tree_node**, gimple**)
+	gcc/gimplify.cc:8577

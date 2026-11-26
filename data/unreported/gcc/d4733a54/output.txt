@@ -1,0 +1,19 @@
+gcc-invalid-template-parm-then-abbreviated-auto-unify.cc:1:29: error: expected identifier before 'auto'
+    1 | template <typename T, class auto, int = 0> void foo (T, auto) {}
+      |                             ^~~~
+gcc-invalid-template-parm-then-abbreviated-auto-unify.cc:1:23: error: two or more data types in declaration of 'parameter'
+gcc-invalid-template-parm-then-abbreviated-auto-unify.cc: In substitution of 'template<class T, <declaration error>, int <anonymous>, class auto:1> void foo(T, auto:1) [with T = int; <declaration error> = <missing>; int <anonymous> = <missing>; auto:1 = <missing>]':
+gcc-invalid-template-parm-then-abbreviated-auto-unify.cc:2:19:   required from here
+gcc-invalid-template-parm-then-abbreviated-auto-unify.cc:2:19: internal compiler error: in unify, at cp/pt.cc:26597
+0x85be69 unify
+	gcc/cp/pt.cc:26597
+0x106e721 unify_one_argument
+	gcc/cp/pt.cc:25098
+0x106ee6b type_unification_real
+	gcc/cp/pt.cc:25229
+0x10b5931 fn_type_unification(...)
+	gcc/cp/pt.cc:24485
+0xe2217a add_template_candidate_real
+	gcc/cp/call.cc:3787
+0xe232bf add_template_candidate
+	gcc/cp/call.cc:3877

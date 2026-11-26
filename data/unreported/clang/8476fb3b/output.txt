@@ -1,0 +1,6 @@
+$ clang -fsyntax-only -target x86_64-apple-macosx11 t.m
+t.m:9:17: error: cannot find interface declaration for 'Derived'
+clang/lib/Sema/SemaExprObjC.cpp:1445:35: runtime error: member call on null pointer of type 'clang::ObjCInterfaceDecl'
+ #  findMethodInCurrentClass(clang::Sema&, clang::Selector)        SemaExprObjC.cpp:1445
+ #  clang::SemaObjC::ParseObjCSelectorExpression(...)
+ #  clang::Parser::ParseObjCSelectorExpression(...)

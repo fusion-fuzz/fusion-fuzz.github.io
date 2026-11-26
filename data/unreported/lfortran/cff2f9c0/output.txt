@@ -1,0 +1,7 @@
+$ lfortran --show-ast repro.f90
+parser.yy:680:118: runtime error: member access within null pointer of type 'struct ast_t'
+    #0 in yyuserAction build/parser.yy:680
+    #1 in yydoAction build/parser.tab.cc:23209
+    #2 in yyglrReduce build/parser.tab.cc:23255
+    #3 in yyparse(LCompilers::LFortran::Parser&) build/parser.tab.cc:24070
+    #4 in LCompilers::LFortran::Parser::parse(std::string const&) src/lfortran/parser/parser.cpp:335

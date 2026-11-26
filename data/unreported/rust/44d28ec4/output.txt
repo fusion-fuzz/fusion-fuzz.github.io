@@ -1,0 +1,17 @@
+warning: lint `single_use_lifetime` has been renamed to `single_use_lifetimes`
+ --> repro.rs:1:8
+
+thread 'rustc' panicked at compiler/rustc_errors/src/diagnostic.rs:787:9:
+assertion `left == right` failed: suggestion must not have overlapping parts
+  left: Some([SubstitutionPart { span: repro.rs:4:16: 4:20 (#4), snippet: "" }, SubstitutionPart { span: repro.rs:4:16: 4:20 (#4), ... }])
+
+query stack during panic:
+#0 [early_lint_checks] perform lints prior to AST lowering
+#1 [index_ast] getting the AST for lowering
+
+thread 'rustc' panicked at compiler/rustc_lint/src/levels.rs:479:9:
+Found a `push` without a `pop`.
+...
+thread 'rustc' panicked at library/core/src/panicking.rs:233:5:
+panic in a destructor during cleanup
+Aborted (core dumped)

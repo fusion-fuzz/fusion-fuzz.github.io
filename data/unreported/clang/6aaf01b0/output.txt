@@ -1,0 +1,12 @@
+$ clang -c -O1 --target=x86_64-linux-gnu t.c
+llvm/include/llvm/Support/TypeSize.h:57:19: runtime error: signed integer overflow: 0 - -9223372036854775808 cannot be represented in type 'long'
+Stack dump:
+3.	Running pass 'Function Pass Manager' on module 't.c'.
+4.	Running pass 'X86 DAG->DAG Instruction Selection' on function '@f'
+ #  __ubsan_handle_sub_overflow_abort
+ #  llvm::StackOffset::operator-(...)                       (TypeSize.h:57)
+ #  llvm::BaseIndexOffset::equalBaseIndex(BaseIndexOffset const&, SelectionDAG const&, StackOffset&) const
+ #  llvm::BaseIndexOffset::computeAliasing(SDNode const*, LocationSize, SDNode const*, LocationSize, SelectionDAG const&, bool&)
+ #  (DAGCombiner alias analysis)
+ #  llvm::SelectionDAG::Combine(...)
+ #  llvm::SelectionDAGISel::CodeGenAndEmitDAG()

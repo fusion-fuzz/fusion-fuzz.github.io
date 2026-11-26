@@ -1,0 +1,19 @@
+$ go tool compile -S -o /dev/null x.go
+x.go:15:6: internal compiler error: ** malformed inlined routine range in main.get: caller main.get callee main.op II=0 range [9,22) not contained in { [0,0) }
+
+goroutine 1 [running]:
+cmd/compile/internal/base.FatalfAt(...)
+cmd/compile/internal/base.Fatalf(...)
+cmd/compile/internal/dwarfgen.checkInlCall(...)
+	cmd/compile/internal/dwarfgen/dwinl.go:420
+cmd/compile/internal/dwarfgen.assembleInlines(...)
+	cmd/compile/internal/dwarfgen/dwinl.go:197
+cmd/compile/internal/dwarfgen.Info(...)
+	cmd/compile/internal/dwarfgen/dwarf.go:167
+cmd/internal/obj.(*Link).DwarfAbstractFunc(...)
+cmd/compile/internal/dwarfgen.AbstractFunc(...)
+	cmd/compile/internal/dwarfgen/dwinl.go:218
+cmd/internal/obj.(*DwarfFixupTable).Finalize(...)
+	cmd/internal/obj/dwarf.go:694
+cmd/compile/internal/gc.Main(...)
+	cmd/compile/internal/gc/main.go:359

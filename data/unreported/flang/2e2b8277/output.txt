@@ -1,0 +1,9 @@
+# After PowerPC Pre-Emit Peephole
+  renamable $x3 = RLDICR_rec killed renamable $x3, 2, 61, implicit-def dead $cr0
+  renamable $x4 = LI8 1
+  renamable $x3 = ISEL8 killed renamable $x3, killed renamable $x4, killed renamable $cr0gt, implicit killed $cr0
+  renamable $x4 = LI8 12
+*** Bad machine code: Using an undefined physical register ***
+- instruction: renamable $x3 = ISEL8 killed renamable $x3, killed renamable $x4, killed renamable $cr0gt, implicit killed $cr0
+- operand 4:   implicit killed $cr0
+LLVM ERROR: Found 1 machine code errors.

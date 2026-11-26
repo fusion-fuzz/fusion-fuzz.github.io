@@ -1,0 +1,15 @@
+ext/session/mod_files.c:138:12: runtime error: member access within null pointer of type 'ps_files'
+    #0 0x3d9adf2 in ps_files_close ext/session/mod_files.c:138:12
+    #1 0x3d98a34 in ps_close_files ext/session/mod_files.c:457:2
+    #2 0x3cf3173 in php_rshutdown_session_globals ext/session/session.c:173:4
+    #3 0x3d6a87f in zm_deactivate_session ext/session/session.c:2967:2
+    #4 0x5c33176 in zend_deactivate_modules Zend/zend_API.c:3489:5
+    #5 0x54fd4f0 in php_request_shutdown main/main.c:1986:3
+    #6 0x6bafcd4 in do_cli sapi/cli/php_cli.c:1160:3
+    #7 0x6ba61e7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    #8 0x6ba4851 in main sapi/cli/php_cli_main.c:18:9
+    #9 0x7f3b428b2d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #10 0x7f3b428b2e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #11 0x606504 in _start (sapi/cli/php+0x606504)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior ext/session/mod_files.c:138:12 in 

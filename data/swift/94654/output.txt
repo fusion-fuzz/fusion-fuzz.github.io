@@ -1,0 +1,27 @@
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/optional:479: _Tp &std::_Optional_base_impl<swift::TangentSpace, std::_Optional_base<swift::TangentSpace>>::_M_get() [_Tp = swift::TangentSpace, _Dp = std::_Optional_base<swift::TangentSpace>]: Assertion 'this->_M_is_engaged()' failed.
+Stack dump:
+1.	Swift version 6.5-dev (LLVM c21ea2742cfe25f, Swift 2b0c27dbdd76ed8)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ExecuteSILPipelineRequest(Run pipelines { Mandatory Diagnostic Passes + Enabling Optimization Passes } on SIL for t)
+4.	While running pass #34 SILModuleTransform "Differentiation".
+5.	While processing // differentiability witness for f<A>(x:)
+sil_differentiability_witness hidden [reverse] [parameters 0] [results 0] <T where T : Differentiable> @$s1t1f1xxx_t16_Differentiation14DifferentiableRzlF : $@convention(thin) <T where T : Differentiable> (@in_guaranteed T) -> @out T {
+}
+ on SIL function "@$s1t1f1xxx_t16_Differentiation14DifferentiableRzlF".
+ for 'f(x:)' (at t.swift:4:1)
+6.	While generating VJP for SIL function "@$s1t1f1xxx_t16_Differentiation14DifferentiableRzlF".
+ for 'f(x:)' (at t.swift:4:1)
+7.	While generating pullback for SIL function "@$s1t1f1xxx_t16_Differentiation14DifferentiableRzlF".
+ for 'f(x:)' (at t.swift:4:1)
+#8  swift::autodiff::PullbackCloner::Implementation::getRemappedTangentType(swift::SILType) (.cold.2)
+#9  swift::autodiff::PullbackCloner::Implementation::getRemappedTangentType(swift::SILType)
+#10 swift::autodiff::PullbackCloner::Implementation::getAdjointBuffer(swift::SILBasicBlock*, swift::SILValue)
+#11 swift::autodiff::PullbackCloner::Implementation::visitUnconditionalCheckedCastAddrInst(swift::UnconditionalCheckedCastAddrInst*)
+#12 swift::autodiff::PullbackCloner::Implementation::visit(swift::SILInstruction*)
+#13 swift::autodiff::PullbackCloner::Implementation::visitSILBasicBlock(swift::SILBasicBlock*)
+#14 swift::autodiff::PullbackCloner::Implementation::run()
+#15 swift::autodiff::PullbackCloner::run()
+#16 swift::autodiff::VJPCloner::Implementation::run()
+#17 swift::autodiff::VJPCloner::run()
+#18 (anonymous namespace)::DifferentiationTransformer::canonicalizeDifferentiabilityWitness(...)
+#19 (anonymous namespace)::Differentiation::run()

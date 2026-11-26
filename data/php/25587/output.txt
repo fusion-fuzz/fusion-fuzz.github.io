@@ -1,0 +1,46 @@
+==2253707==ERROR: AddressSanitizer: heap-use-after-free on address 0x6040000f5f60 at pc 0x0000055f9ef4 bp 0x7ffd5858dcf0 sp 0x7ffd5858dce8
+READ of size 4 at 0x6040000f5f60 thread T0
+    #0 0x55f9ef3 in php_stream_locate_url_wrapper main/streams/streams.c:2039:26
+    #1 0x55fc355 in _php_stream_open_wrapper_ex main/streams/streams.c:2192:12
+    #2 0x4570374 in zif_fopen ext/standard/file.c:766:11
+    #3 0x383d6e3 in zif_phar_fopen ext/phar/func_interceptors.c:310:2
+    #4 0x636166a in ZEND_DO_ICALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:1323:2
+    #5 0x5f1c61c in execute_ex Zend/zend_vm_execute.h:110621:12
+    #6 0x5eb4d18 in zend_call_function Zend/zend_execute_API.c:1079:3
+    ...
+    #11 0x497abab in userfilter_filter ext/standard/user_filters.c:232:28
+    #12 0x55e8e86 in php_stream_write_filtered main/streams/streams.c:1183:12
+    #13 0x55d9972 in php_stream_flush_ex main/streams/streams.c:1245:3
+    #14 0x55d68e8 in php_stream_free main/streams/streams.c:339:18
+    #15 0x55f5564 in stream_resource_regular_dtor main/streams/streams.c:1798:19
+    #16 0x68e1559 in zend_resource_dtor Zend/zend_list.c:72:3
+    #17 0x68e3c84 in zend_close_rsrc_list Zend/zend_list.c:227:6
+    #18 0x5e95a47 in zend_shutdown_executor_values Zend/zend_execute_API.c:284:2
+    #19 0x5ea0a31 in shutdown_executor Zend/zend_execute_API.c:479:2
+    #20 0x6aa7f1e in zend_deactivate Zend/zend.c:1370:2
+    #21 0x548bf9f in php_request_shutdown main/main.c:2042:2
+    ...
+
+0x6040000f5f60 is located 16 bytes inside of 40-byte region [0x6040000f5f50,0x6040000f5f78)
+
+freed by thread T0 here:
+    #0 0x681162 in free (sapi/cli/php+0x681162)
+    #1 0x5b22f53 in __zend_free Zend/zend_alloc.c:4108:2
+    #2 0x5b2d630 in _efree Zend/zend_alloc.c:3060:3
+    #3 0x560e725 in stream_wrapper_dtor main/streams/userspace.c:72:2
+    #4 0x68e1559 in zend_resource_dtor Zend/zend_list.c:72:3
+    #5 0x68e3c84 in zend_close_rsrc_list Zend/zend_list.c:227:6
+    #6 0x5e95a47 in zend_shutdown_executor_values Zend/zend_execute_API.c:284:2
+    #7 0x5ea0a31 in shutdown_executor Zend/zend_execute_API.c:479:2
+    ...
+
+previously allocated by thread T0 here:
+    #0 0x6813cd in malloc (sapi/cli/php+0x6813cd)
+    #1 0x5b2e3e3 in __zend_malloc Zend/zend_alloc.c:4079:14
+    #2 0x5b2d418 in _emalloc Zend/zend_alloc.c:3050:10
+    #3 0x5b2ef8c in _ecalloc Zend/zend_alloc.c:3138:6
+    #4 0x560f8a0 in zif_stream_wrapper_register main/streams/userspace.c:477:44
+    #5 0x636166a in ZEND_DO_ICALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:1323:2
+    ...
+
+SUMMARY: AddressSanitizer: heap-use-after-free main/streams/streams.c:2039:26 in php_stream_locate_url_wrapper

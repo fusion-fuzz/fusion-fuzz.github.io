@@ -1,0 +1,21 @@
+$ rustc repro.rs
+thread 'rustc' panicked at compiler/rustc_middle/src/ty/normalize_erasing_regions.rs:84:13:
+assertion `left == right` failed
+  left: Alias(No, Alias { kind: Projection { def_id: DefId(0:8 ~ repro[d920]::Tr::A) }, args: [T/#0], .. })
+ right: Alias(Yes, Alias { kind: Projection { def_id: DefId(0:8 ~ repro[d920]::Tr::A) }, args: [T/#0], .. })
+stack backtrace:
+   4: <rustc_middle::ty::context::TyCtxt>::assert_fully_normalized::<rustc_middle::ty::Ty>
+   5: <rustc_middle::ty::layout::SizeSkeleton>::compute_inner
+   6: <rustc_middle::ty::layout::SizeSkeleton>::compute_inner
+   7: <rustc_middle::ty::layout::SizeSkeleton>::compute_inner::{closure#3}::{closure#0}
+  ...
+  18: <rustc_middle::ty::layout::SizeSkeleton>::compute_inner
+  25: <rustc_middle::ty::layout::SizeSkeleton>::compute
+  26: rustc_lint::types::repr_nullable_ptr::{closure#0}
+  27: rustc_lint::types::repr_nullable_ptr
+  28: <rustc_lint::types::improper_ctypes::ImproperCTypesVisitor>::visit_enum
+  ...
+  33: <rustc_lint::types::improper_ctypes::ImproperCTypesLint>::check_foreign_fn
+query stack during panic:
+#0 [lint_mod] linting top-level module
+#1 [analysis] running analysis passes on crate `repro`

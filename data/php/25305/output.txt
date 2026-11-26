@@ -1,0 +1,18 @@
+ext/lexbor/lexbor/dom/interfaces/document.c:217:40: runtime error: member access within null pointer of type 'lxb_dom_document_t' (aka 'struct lxb_dom_document')
+    #0 0x1c10569 in lxb_dom_document_destroy ext/lexbor/lexbor/dom/interfaces/document.c:217:40
+    #1 0x1d18ce5 in lxb_html_document_interface_create ext/lexbor/lexbor/html/interfaces/document.c:70:16
+    #2 0x1d18fdc in lxb_html_document_create ext/lexbor/lexbor/html/interfaces/document.c:100:12
+    #3 0x1046307 in zim_Dom_HTMLDocument_createFromString ext/dom/html_document.c:885:34
+    #4 0x61e6e35 in ZEND_DO_FCALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:2017:4
+    #5 0x5fabacc in execute_ex Zend/zend_vm_execute.h:110621:12
+    #6 0x5fad941 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #7 0x6b9a226 in zend_execute_script Zend/zend.c:1980:3
+    #8 0x550f6d6 in php_execute_script_ex main/main.c:2636:13
+    #9 0x5510358 in php_execute_script main/main.c:2676:9
+    #10 0x6bab555 in do_cli sapi/cli/php_cli.c:943:5
+    #11 0x6ba61e7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    #12 0x6ba4851 in main sapi/cli/php_cli_main.c:18:9
+    #13 0x7fbca0d58d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    ...
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior ext/lexbor/lexbor/dom/interfaces/document.c:217:40 in 

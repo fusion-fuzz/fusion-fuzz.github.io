@@ -1,0 +1,29 @@
+t.cc: In instantiation of 'struct S<int>':
+t.cc:9:21:   required from here
+    9 | void baz () { S<int>::s; }
+      |                     ^~
+t.cc:5:34: error: 'bar' was not declared in this scope; did you mean 'baz'?
+    5 |   static bool foo (decltype (bar (T {})));
+      |                              ~~~~^~~~~~
+      |                              baz
+t.cc: In instantiation of 'constexpr const bool S<int>::s':
+t.cc:9:23:   required from here
+    9 | void baz () { S<int>::s; }
+      |                       ^
+t.cc:6:33: internal compiler error: in filter_memfn_lookup, at cp/pt.cc:18331
+    6 |   static constexpr bool s = foo (0);
+      |                             ~~~~^~~
+0xdd085e fancy_abort(char const*, int, char const*)
+	gcc/diagnostics/context.cc:1813
+0x8ecb9c filter_memfn_lookup
+	gcc/cp/pt.cc:18331
+0x8ecb9c tsubst_baselink
+	gcc/cp/pt.cc:18422
+0x104ca37 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	gcc/cp/pt.cc:22098
+0x104b446 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	gcc/cp/pt.cc:22519
+0x10527de tsubst_init
+	gcc/cp/pt.cc:18659
+0x1083974 regenerate_decl_from_template
+	gcc/cp/pt.cc:28673

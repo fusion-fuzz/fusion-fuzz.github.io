@@ -1,0 +1,9 @@
+$ swift-frontend -emit-silgen repro.swift
+swift-frontend: lib/SILGen/SILGenLValue.cpp:6015: ManagedValue swift::Lowering::SILGenFunction::emitAddressOfLValue(SILLocation, LValue &&, TSanKind): Assertion `addr.getType().isAddress() && "resolving lvalue did not give an address"' failed.
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module repro)
+ #9  swift::Lowering::SILGenFunction::emitAddressOfLValue(swift::SILLocation, swift::Lowering::LValue&&, swift::Lowering::TSanKind)
+ #10 swift::Lowering::SILGenFunction::emitIgnoredExpr(swift::Expr*)
+ #11 swift::Lowering::SILGenFunction::emitMetatypeOfValue(swift::SILLocation, swift::Expr*, swift::CanType)
+ #12 (anonymous namespace)::RValueEmitter::visitDynamicTypeExpr(swift::DynamicTypeExpr*, swift::Lowering::SGFContext)
+ #14 swift::Lowering::SILGenFunction::emitIgnoredExpr(swift::Expr*)
+ #15 (anonymous namespace)::RValueEmitter::visitAssignExpr(swift::AssignExpr*, swift::Lowering::SGFContext)

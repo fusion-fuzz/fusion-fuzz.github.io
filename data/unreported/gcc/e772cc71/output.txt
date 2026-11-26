@@ -1,0 +1,12 @@
+t.cc: In function 'void f()':
+t.cc:3:39: internal compiler error: in tsubst_expr, at cp/pt.cc:23643
+    3 | template <typename T> void f() { x1 % 0; }
+      |                                       ^
+0x854403 tsubst_expr(tree_node*, tree_node*, int, tree_node*)   cp/pt.cc:23643
+0x10541e5 tsubst_expr(tree_node*, tree_node*, int, tree_node*)  cp/pt.cc:23042
+0xe5599b fold_non_dependent_expr_template                       cp/constexpr.cc:12136
+0xf0da4d fold_for_warn(tree_node*)                              cp/expr.cc:433
+0x111d12c cp_build_binary_op(...)                               cp/typeck.cc:5893
+0xe08414 build_new_op(...)                                      cp/call.cc:7783
+0x110e4f2 build_x_binary_op(...)                                cp/typeck.cc:5041
+0xfc9d85 cp_parser_binary_expression                            cp/parser.cc:11934

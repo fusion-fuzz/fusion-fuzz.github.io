@@ -1,0 +1,12 @@
+$ clang -S -emit-llvm -o /dev/null -fobjc-arc -fblocks -target arm64-apple-macosx14 t.m
+t.m:4:23: error: cannot capture __autoreleasing variable in a block
+DeclRefExpr for Decl not entered in LocalDeclMap?
+UNREACHABLE executed at clang/lib/CodeGen/CGExpr.cpp:3831!
+2.	t.m:2:6: LLVM IR generation of declaration 'val'
+3.	t.m:2:6: Generating code for declaration 'val'
+4.	t.m:4:14: LLVM IR generation of compound statement ('{}')
+ #  clang::CodeGen::CodeGenFunction::EmitDeclRefLValue(clang::DeclRefExpr const*)
+ #  clang::CodeGen::CodeGenFunction::EmitLValueHelper(...)
+ #  clang::CodeGen::CodeGenFunction::EmitLValue(...)
+ #  clang::CodeGen::CodeGenFunction::EmitCheckedLValue(...)
+ ...

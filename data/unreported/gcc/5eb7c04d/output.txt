@@ -1,0 +1,31 @@
+t.cc:2:14: error: field 'e' has incomplete type 'E'
+    2 | struct A { E e; };
+      |              ^
+t.cc:1:8: note: forward declaration of 'struct E'
+    1 | struct E;
+      |        ^
+t.cc: In instantiation of 'template for' iteration 1:
+t.cc:9:22:   required from here
+    9 |   template for (auto [...e] : A ())
+      |                      ^~~~~~
+t.cc:10:9: internal compiler error: in tsubst_pack_expansion, at cp/pt.cc:14424
+   10 |     foo (e...);
+      |     ~~~~^~~~~~
+0xdd085e fancy_abort(char const*, int, char const*)
+	gcc/diagnostics/context.cc:1813
+0x8e8bbe tsubst_pack_expansion(tree_node*, tree_node*, int, tree_node*)
+	gcc/cp/pt.cc:14424
+0x106b8c0 tsubst_call_args
+	gcc/cp/pt.cc:21645
+0x104b4b6 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	gcc/cp/pt.cc:22527
+0x10785f4 tsubst_stmt
+	gcc/cp/pt.cc:21147
+0x107a331 tsubst_stmt
+	gcc/cp/pt.cc:19889
+0x108194d finish_expansion_stmt(tree_node*, tree_node*, int, tree_node*)
+	gcc/cp/pt.cc:34142
+0x1014ce8 cp_parser_expansion_statement
+	gcc/cp/parser.cc:16929
+0xfd6ecb cp_parser_statement
+	gcc/cp/parser.cc:14473

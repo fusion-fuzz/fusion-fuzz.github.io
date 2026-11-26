@@ -1,0 +1,25 @@
+during RTL pass: stack
+t.c: In function 'f':
+t.c:9:1: internal compiler error: in emit_swap_insn, at reg-stack.cc:865
+    9 | }
+      | ^
+0x2c6cd4b internal_error(char const*, ...)
+	gcc/diagnostic-global-context.cc:787
+0xcca392 fancy_abort(char const*, int, char const*)
+	gcc/diagnostics/context.cc:1813
+0x93af87 emit_swap_insn
+	gcc/reg-stack.cc:865
+0x142ea3b move_for_stack_reg
+	gcc/reg-stack.cc:1160
+0x143130d subst_stack_regs
+	gcc/reg-stack.cc:2520
+0x1431a76 convert_regs_1
+	gcc/reg-stack.cc:3155
+0x1431a76 convert_regs_2
+	gcc/reg-stack.cc:3291
+0x1432200 convert_regs
+	gcc/reg-stack.cc:3327
+0x1432200 reg_to_stack
+	gcc/reg-stack.cc:3455
+0x1432200 rest_of_handle_stack_regs
+	gcc/reg-stack.cc:3511

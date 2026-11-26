@@ -1,0 +1,12 @@
+flang/lib/Semantics/resolve-names.cpp:2907:34: runtime error: reference binding to null pointer of type 'const DeclTypeSpec'
+    #0 in Fortran::semantics::ImplicitRulesVisitor::Pre(Fortran::parser::LetterSpec const&) flang/lib/Semantics/resolve-names.cpp:2907:19
+    #1 in Walk<Fortran::parser::LetterSpec, Fortran::semantics::ResolveNamesVisitor> flang/include/flang/Parser/parse-tree-visitor.h:193:17
+    #7 in Fortran::parser::detail::ParseTreeVisitorLookupScope::Walk<Fortran::parser::ImplicitSpec, Fortran::semantics::ResolveNamesVisitor>(...)
+    #13 in Walk<Fortran::parser::ImplicitStmt, Fortran::semantics::ResolveNamesVisitor> flang/include/flang/Parser/parse-tree-visitor.h:212:7
+    #20 in Walk<Fortran::parser::ImplicitPart, Fortran::semantics::ResolveNamesVisitor> flang/include/flang/Parser/parse-tree-visitor.h:229:7
+    #23 in Fortran::semantics::ResolveNamesVisitor::Pre(Fortran::parser::SpecificationPart const&) flang/lib/Semantics/resolve-names.cpp:10874:3
+    #27 in Fortran::semantics::ResolveNamesVisitor::ResolveSpecificationParts(Fortran::semantics::ProgramTree&) flang/lib/Semantics/resolve-names.cpp:11794:3
+    #28 in Fortran::semantics::ResolveNamesVisitor::Pre(Fortran::parser::ProgramUnit const&) flang/lib/Semantics/resolve-names.cpp:11602:3
+    #34 in Fortran::semantics::ResolveNames(...) flang/lib/Semantics/resolve-names.cpp:12196:55
+    #36 in Fortran::semantics::Semantics::Perform() flang/lib/Semantics/semantics.cpp:852:11
+    #37 in Fortran::frontend::FrontendAction::runSemanticChecks() flang/lib/Frontend/FrontendAction.cpp:248:13

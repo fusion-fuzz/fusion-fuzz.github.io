@@ -1,0 +1,58 @@
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+[2m  Binary file "[0m[1m[35m/opt/lfortran/bin/lfortran[39m[0m[2m", in _start[0m
+[2m  Binary file "[0m[1m[35m/lib/x86_64-linux-gnu/libc.so.6[39m[0m[2m", in __libc_start_main[0m
+[2m  Binary file "[0m[1m[35m/lib/x86_64-linux-gnu/libc.so.6[39m[0m[2m", in <invalid>[0m
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp[39m[0m[2m", line 3276, in main[0m
+    return main_app(argc, argv);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp[39m[0m[2m", line 3059, in main_app(int, char**)[0m
+    return emit_asm(opts.arg_file, lfortran_pass_manager,
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp[39m[0m[2m", line 1294, in (anonymous namespace)::emit_asm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::PassManager&, LCompilers::CompilerOptions&)[0m
+    diagnostics);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp[39m[0m[2m", line 907, in LCompilers::FortranEvaluator::get_asm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&)[0m
+    Result<std::unique_ptr<LLVMModule>> res = get_llvm2(code, lm, lpm, diagnostics);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp[39m[0m[2m", line 808, in LCompilers::FortranEvaluator::get_llvm2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&)[0m
+    diagnostics, lm, lm.files.back().in_filename, nullptr);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp[39m[0m[2m", line 868, in LCompilers::FortranEvaluator::get_llvm3(LCompilers::ASR::TranslationUnit_t&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&, LCompilers::LocationManager&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, long*)[0m
+    compiler_options, run_fn, "", infile, lm);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp[39m[0m[2m", line 29765, in LCompilers::asr_to_llvm(LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, llvm::LLVMContext&, LCompilers::LLVMTargetConfig const&, Allocator&, LCompilers::PassManager&, LCompilers::CompilerOptions&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&)[0m
+    pass_manager.apply_passes(al, &asr, co.po, diagnostics);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/pass_manager.h[39m[0m[2m", line 480, in LCompilers::PassManager::apply_passes(Allocator&, LCompilers::ASR::TranslationUnit_t*, LCompilers::PassOptions&, LCompilers::diag::Diagnostics&)[0m
+    apply_passes(al, asr, _passes, pass_options, diagnostics, cummulative_time_taken_by_passes_in_microseconds);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/pass_manager.h[39m[0m[2m", line 243, in LCompilers::PassManager::apply_passes(Allocator&, LCompilers::ASR::TranslationUnit_t*, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >&, LCompilers::PassOptions&, LCompilers::diag::Diagnostics&, double&)[0m
+    _passes_db[passes[i]](al, *asr, pass_options);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/intrinsic_subroutine.cpp[39m[0m[2m", line 175, in LCompilers::pass_replace_intrinsic_subroutine(Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::PassOptions const&)[0m
+    PassUtils::make_new_tu_functions_private(unit, [&]() {
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/pass_utils.cpp[39m[0m[2m", line 70, in LCompilers::PassUtils::make_new_tu_functions_private(LCompilers::ASR::TranslationUnit_t&, std::function<void ()> const&)[0m
+    instantiate();
+[2m  File "[0m[1m[35m/usr/include/c++/11/bits/std_function.h[39m[0m[2m", line 590, in std::function<void ()>::operator()() const[0m
+    return _M_invoker(_M_functor, std::forward<_ArgTypes>(__args)...);
+[2m  File "[0m[1m[35m/usr/include/c++/11/bits/std_function.h[39m[0m[2m", line 290, in std::_Function_handler<void (), LCompilers::pass_replace_intrinsic_subroutine(Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::PassOptions const&)::'lambda'()>::_M_invoke(std::_Any_data const&)[0m
+    return std::__invoke_r<_Res>(*_Base::_M_get_pointer(__functor),
+[2m  File "[0m[1m[35m/usr/include/c++/11/bits/invoke.h[39m[0m[2m", line 111, in std::enable_if<is_invocable_r_v<void, LCompilers::pass_replace_intrinsic_subroutine(Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::PassOptions const&)::'lambda'()&>, void>::type std::__invoke_r<void, LCompilers::pass_replace_intrinsic_subroutine(Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::PassOptions const&)::'lambda'()&>(LCompilers::pass_replace_intrinsic_subroutine(Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::PassOptions const&)::'lambda'()&)[0m
+    std::__invoke_impl<__type>(__tag{}, std::forward<_Callable>(__fn),
+[2m  File "[0m[1m[35m/usr/include/c++/11/bits/invoke.h[39m[0m[2m", line 61, in void std::__invoke_impl<void, LCompilers::pass_replace_intrinsic_subroutine(Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::PassOptions const&)::'lambda'()&>(std::__invoke_other, LCompilers::pass_replace_intrinsic_subroutine(Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::PassOptions const&)::'lambda'()&)[0m
+    { return std::forward<_Fn>(__f)(std::forward<_Args>(__args)...); }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/intrinsic_subroutine.cpp[39m[0m[2m", line 176, in LCompilers::pass_replace_intrinsic_subroutine(Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::PassOptions const&)::'lambda'()::operator()() const[0m
+    v.visit_TranslationUnit(unit);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/intrinsic_subroutine.cpp[39m[0m[2m", line 123, in LCompilers::ReplaceIntrinsicSubroutines::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&)[0m
+    this->visit_symbol(*item.second);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 389, in LCompilers::ASR::BaseVisitor<LCompilers::ReplaceIntrinsicSubroutines>::visit_symbol(LCompilers::ASR::symbol_t const&)[0m
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 30, in void LCompilers::ASR::visit_symbol_t<LCompilers::ReplaceIntrinsicSubroutines>(LCompilers::ASR::symbol_t const&, LCompilers::ReplaceIntrinsicSubroutines&)[0m
+    case symbolType::Program: { v.visit_Program((const Program_t &)x); return; }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/intrinsic_subroutine.cpp[39m[0m[2m", line 166, in LCompilers::ReplaceIntrinsicSubroutines::visit_Program(LCompilers::ASR::Program_t const&)[0m
+    transform_stmts(xx.m_body, xx.n_body);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/intrinsic_subroutine.cpp[39m[0m[2m", line 87, in LCompilers::ReplaceIntrinsicSubroutines::transform_stmts(LCompilers::ASR::stmt_t**&, unsigned long&)[0m
+    visit_stmt(*m_body[i]);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 408, in LCompilers::ASR::BaseVisitor<LCompilers::ReplaceIntrinsicSubroutines>::visit_stmt(LCompilers::ASR::stmt_t const&)[0m
+    void visit_stmt(const stmt_t &b) { visit_stmt_t(b, self()); }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h[39m[0m[2m", line 89, in void LCompilers::ASR::visit_stmt_t<LCompilers::ReplaceIntrinsicSubroutines>(LCompilers::ASR::stmt_t const&, LCompilers::ReplaceIntrinsicSubroutines&)[0m
+    case stmtType::IntrinsicImpureSubroutine: { v.visit_IntrinsicImpureSubroutine((const IntrinsicImpureSubroutine_t &)x); return; }
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/intrinsic_subroutine.cpp[39m[0m[2m", line 64, in LCompilers::ReplaceIntrinsicSubroutines::visit_IntrinsicImpureSubroutine(LCompilers::ASR::IntrinsicImpureSubroutine_t const&)[0m
+    ASR::stmt_t* subroutine_call = instantiate_subroutine(al, x.base.base.loc,
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/pass/intrinsic_subroutines.h[39m[0m[2m", line 285, in LCompilers::ASRUtils::RandomSeed::instantiate_RandomSeed(Allocator&, LCompilers::Location const&, LCompilers::SymbolTable*, LCompilers::Vec<LCompilers::ASR::ttype_t*>&, LCompilers::Vec<LCompilers::ASR::call_arg_t>&, long)[0m
+    ASR::ttype_t* get_type = elementwise_array_dummy_type(al, loc, arg_types[2]);
+[2m  File "[0m[1m[35m/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/pass/intrinsic_subroutines.h[39m[0m[2m", line 69, in LCompilers::ASRUtils::elementwise_array_dummy_type(Allocator&, LCompilers::Location const&, LCompilers::ASR::ttype_t*)[0m
+    if (ASRUtils::extract_physical_type(t) !=
+LCompilersException: Cannot extract the physical type of 0 type.

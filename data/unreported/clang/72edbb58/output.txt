@@ -1,0 +1,9 @@
+t.cpp:2:6: error: redefinition of 'f'
+    2 | void f() = delete("x");
+      |      ^
+t.cpp:1:6: note: previous definition is here
+clang++: clang/lib/AST/Decl.cpp:3150: void clang::FunctionDecl::setDefaultedOrDeletedInfo(clang::FunctionDecl::DefaultedOrDeletedFunctionInfo *): Assertion `!Body && "can't replace function body with defaulted function info"' failed.
+#12 clang::FunctionDecl::setDefaultedOrDeletedInfo
+#13 clang::Sema::SetDeclDeleted
+#14 clang::Parser::ParseFunctionDefinition
+#15 clang::Parser::ParseDeclGroup

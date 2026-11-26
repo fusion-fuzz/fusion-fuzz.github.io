@@ -1,0 +1,10 @@
+$ rustc --emit=metadata repro.rs
+thread 'rustc' panicked at compiler/rustc_middle/src/ty/assoc.rs:42:25:
+name of non-Rpitit assoc item
+stack backtrace:
+   4: <core::option::Option<rustc_span::symbol::Symbol>>::expect
+   5: <rustc_middle::ty::assoc::AssocItem>::name
+   6: <rustc_middle::ty::assoc::AssocItem>::ident
+   7: rustc_hir_analysis::check::check::check_impl_items_against_trait
+   8: rustc_hir_analysis::check::check::check_item_type
+   9: rustc_hir_analysis::check::wfcheck::check_well_formed

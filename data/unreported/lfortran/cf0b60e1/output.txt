@@ -1,0 +1,9 @@
+$ lfortran repro.f90 && ./a.out
+src/libasr/pass/intrinsic_functions.h:4355:25: runtime error: left shift of negative value -9223372036854775808
+    #0 in int LCompilers::ASRUtils::Popcnt::compute_count<long>(long, long)
+    #1 in eval_Popcnt src/libasr/pass/intrinsic_functions.h:4368
+    #2 in create_Popcnt src/libasr/pass/intrinsic_function_registry_util.h:7990
+    #3 in CommonVisitor<BodyVisitor>::intrinsic_as_node(...) src/lfortran/semantics/ast_common_visitor.h:21735
+64 8
+64 16
+58 56

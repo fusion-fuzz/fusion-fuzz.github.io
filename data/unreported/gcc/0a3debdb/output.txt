@@ -1,0 +1,21 @@
+gcc-global-register-redecl-after-address-taken.c:2:1: internal compiler error: in expand_expr_addr_expr_1, at expr.cc:9354
+    2 | register int a __asm__ ("ebx");
+      | ^~~~~~~~
+0x810cd4 expand_expr_addr_expr_1
+	gcc/expr.cc:9354
+0x100db6c expand_expr_addr_expr
+	gcc/expr.cc:9467
+0x100db6c expand_expr_real_1(tree_node*, rtx_def*, machine_mode, expand_modifier, rtx_def**, bool)
+	gcc/expr.cc:13073
+0x191cc3a expand_expr(tree_node*, rtx_def*, machine_mode, expand_modifier)
+	gcc/expr.h:323
+0x191cc3a output_constant
+	gcc/varasm.cc:5547
+0x191ddcc output_constant
+	gcc/varasm.cc:5452
+0x191ddcc assemble_variable_contents
+	gcc/varasm.cc:2476
+0x1924706 assemble_variable(tree_node*, int, int, int)
+	gcc/varasm.cc:2668
+0x1929399 varpool_node::assemble_decl()
+	gcc/varpool.cc:596

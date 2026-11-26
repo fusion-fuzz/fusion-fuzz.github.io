@@ -1,0 +1,22 @@
+t.cc: In function 'void f()':
+t.cc:5:34: internal compiler error: tree check: expected var_decl or parm_decl, have function_decl in cp_parser_omp_clause_interop, at cp/parser.cc:46417
+    5 |   #pragma omp dispatch interop (f)
+      |                                  ^
+0x3008bdb internal_error(char const*, ...)
+	gcc/diagnostic-global-context.cc:787
+0xaecca2 tree_check_failed(tree_node const*, char const*, int, char const*, ...)
+	gcc/tree.cc:9394
+0x8cb292 tree_check2(tree_node*, char const*, int, char const*, tree_code, tree_code)
+	gcc/tree.h:4082
+0x8cb292 cp_parser_omp_clause_interop
+	gcc/cp/parser.cc:46417
+0x8cb292 cp_parser_omp_all_clauses
+	gcc/cp/parser.cc:47558
+0xfd2f6b cp_parser_omp_dispatch
+	gcc/cp/parser.cc:54183
+0xfd2f6b cp_parser_omp_construct
+	gcc/cp/parser.cc:57313
+0xfd4634 cp_parser_pragma
+	gcc/cp/parser.cc:58055
+0xfd6661 cp_parser_statement
+	gcc/cp/parser.cc:14585

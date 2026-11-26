@@ -1,0 +1,28 @@
+$ rustc --edition=2021 -Zpolonius t.rs
+warning: the feature `unsafe_binders` is incomplete and may not be safe to use and/or cause compiler crashes
+ --> t.rs:1:12
+  |
+1 | #![feature(unsafe_binders)]
+  |            ^^^^^^^^^^^^^^
+
+thread 'rustc' panicked at compiler/rustc_borrowck/src/places_conflict.rs:541:13:
+not implemented
+stack backtrace:
+  10: core::panicking::panic_fmt
+  11: core::panicking::panic
+  12: core::panicking::unimplemented_default_msg
+  13: rustc_borrowck::places_conflict::place_components_conflict
+  14: <rustc_borrowck::polonius::legacy::loan_invalidations::LoanInvalidationsGenerator>::access_place
+  15: <rustc_borrowck::polonius::legacy::loan_invalidations::LoanInvalidationsGenerator as rustc_middle::mir::visit::Visitor>::visit_statement
+  16: rustc_borrowck::borrowck_check_region_constraints
+  17: <rustc_borrowck::root_cx::BorrowCheckRootCtxt>::do_mir_borrowck
+  18: rustc_borrowck::mir_borrowck
+
+note: rustc 1.102.0-nightly (739adecd4 2026-11-24) running on x86_64-unknown-linux-gnu
+
+note: compiler flags: --crate-type rlib -Z polonius
+
+query stack during panic:
+#0 [mir_borrowck] borrow-checking `f`
+#1 [mir_drops_elaborated_and_const_checked] elaborating drops for `f::{closure#0}`
+... and 1 other queries... use `env RUST_BACKTRACE=1` to see the full query stack

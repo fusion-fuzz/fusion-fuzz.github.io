@@ -1,0 +1,7 @@
+$ lfortran -c repro.f90 -o /dev/null
+src/libasr/pass/intrinsic_array_function_registry.h:7151:22: runtime error: member access within null pointer of type 'struct dimension_t'
+    #0 in create_Unpack src/libasr/pass/intrinsic_array_function_registry.h:7151
+    #1 in CommonVisitor<BodyVisitor>::intrinsic_as_node(AST::FuncCallOrArray_t const&, bool&) src/lfortran/semantics/ast_common_visitor.h
+    #2 in CommonVisitor<BodyVisitor>::visit_FuncCallOrArray(AST::FuncCallOrArray_t const&) src/lfortran/semantics/ast_common_visitor.h
+    #3 in visit_expr_t<BodyVisitor> src/lfortran/ast.h:4786
+Segfault: Signal SIGSEGV (segmentation fault) received

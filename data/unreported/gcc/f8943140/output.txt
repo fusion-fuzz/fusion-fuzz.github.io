@@ -1,0 +1,14 @@
+$ g++ -O2 -fnon-call-exceptions -S -o /dev/null t.cc
+t.cc: In function 'float foo(v2sf)':
+t.cc:3:7: error: statement marked for throw, but doesn't
+    3 | float foo (v2sf a) { D d; return a[0] + a[1]; }
+      |       ^~~
+_4 = _11;
+during GIMPLE pass: slp
+t.cc:3:7: internal compiler error: verify_gimple failed
+0x18dc9ce verify_gimple_in_cfg(function*, bool, bool)
+	gcc/tree-cfg.cc:5653
+0x172510e execute_function_todo
+	gcc/passes.cc:2105
+0x17258bb execute_todo
+	gcc/passes.cc:2157

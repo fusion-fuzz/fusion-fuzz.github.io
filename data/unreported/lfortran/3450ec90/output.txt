@@ -1,0 +1,8 @@
+$ lfortran -c repro.f90 -o /dev/null
+src/libasr/codegen/asr_to_llvm.cpp:18639: runtime error: load of null pointer of type 'long unsigned int'
+    #0 in ASRToLLVMVisitor::visit_RealConstant(RealConstant_t const&) src/libasr/codegen/asr_to_llvm.cpp:18639
+    #1 in visit_expr_t<ASRToLLVMVisitor> src/libasr/asr_base_visitor.h:149
+    #3 in ASRToLLVMVisitor::visit_expr_wrapper(expr_t*, bool, bool) src/libasr/codegen/asr_to_llvm.cpp:16588
+    #4 in ASRToLLVMVisitor::visit_expr_load_wrapper(expr_t*, long, bool) src/libasr/codegen/asr_to_llvm.cpp:16641
+    #5 in ASRToLLVMVisitor::visit_RealCompare(RealCompare_t const&) src/libasr/codegen/asr_to_llvm.cpp:17104
+Segfault: Signal SIGSEGV (segmentation fault) received

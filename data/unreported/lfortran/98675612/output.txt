@@ -1,0 +1,17 @@
+$ lfortran --cpp -c t.f90 -o /dev/null
+==1254486==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x50400001c537 at pc 0x000002111058 bp 0x7ffd42ba7ba0 sp 0x7ffd42ba7b90
+READ of size 1 at 0x50400001c537 thread T0
+    #0 0x2111057 in LCompilers::LFortran::CPreprocessor::run(std::string const&, LCompilers::LocationManager&, std::map<std::string, LCompilers::LFortran::CPPMacro>&, LCompilers::diag::Diagnostics&, bool) const parser/preprocessor.cpp:448
+    #1 0x287c163 in LCompilers::FortranEvaluator::get_ast2(std::string const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&) src/lfortran/fortran_evaluator.cpp:421
+    #2 0x287ed81 in LCompilers::FortranEvaluator::get_asr2(std::string const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&) src/lfortran/fortran_evaluator.cpp:494
+    #3 0x2b522f5 in LCompilers::load_input_asr(...) src/lfortran/pipeline.cpp:23
+    #4 0x1fc24cb in compile_src_to_object_file src/bin/lfortran.cpp:1349
+    #5 0x1ff3e7a in main_app(int, char**) src/bin/lfortran.cpp:3114
+    #6 0x1ff9c3d in main src/bin/lfortran.cpp:3276
+
+0x50400001c537 is located 0 bytes to the right of 39-byte region [0x50400001c510,0x50400001c537)
+allocated by thread T0 here:
+    #0 0x76bc920b91e7 in operator new(unsigned long)
+    #1 0x76bc8b6360bd in std::string::_M_mutate(unsigned long, unsigned long, char const*, unsigned long)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow parser/preprocessor.cpp:448 in LCompilers::LFortran::CPreprocessor::run(...)

@@ -1,0 +1,14 @@
+$ flang -fc1 -fsyntax-only t.f90
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: flang -fc1 -fsyntax-only t.f90
+ #0 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int)
+ #1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 Fortran::semantics::GetAssociationRoot(Fortran::semantics::Symbol const&, bool)
+ #4 Fortran::semantics::IsFunctionResult(Fortran::semantics::Symbol const&)
+ #5 Fortran::semantics::IsDestructible(Fortran::semantics::Symbol const&, Fortran::semantics::Symbol const*)
+ #6 Fortran::semantics::DerivedTypeSpec::HasDestruction() const
+ #7 Fortran::semantics::DerivedTypeSpec::HasDestruction() const
+ #8 Fortran::semantics::DerivedTypeSpec::HasDestruction() const
+ #9 Fortran::semantics::DerivedTypeSpec::HasDestruction() const
+... (HasDestruction() repeats until the stack is exhausted)

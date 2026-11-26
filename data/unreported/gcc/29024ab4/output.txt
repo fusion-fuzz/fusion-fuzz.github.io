@@ -1,0 +1,25 @@
+during IPA pass: analyzer
+t.cc: In function 'int main()':
+t.cc:7:24: internal compiler error: in concrete_bit_overlay, at analyzer/symbolic-bit-contents.cc:1031
+    7 | int main () { return b.e; }
+      |                      ~~^
+0xdd085e fancy_abort(char const*, int, char const*)
+	gcc/diagnostics/context.cc:1813
+0xb2db63 ana::symbolic::concrete_bit_overlay::concrete_bit_overlay(ana::symbolic::concrete_bit_overlay::key const&)
+	gcc/analyzer/symbolic-bit-contents.cc:1031
+0x1dfa3d7 ana::symbolic::bit_contents_manager::get_concrete_bit_overlay(ana::symbolic::concrete_bit_overlay::key, ana::uncertainty_t*)
+	gcc/analyzer/symbolic-bit-contents.cc:2434
+0x2d93db5 ana::decl_region::calc_bit_contents_for_constructor(tree_node*, ana::region_model_manager*) const
+	gcc/analyzer/initializers.cc:282
+0x1d7b507 ana::decl_region::get_bit_contents_for_constructor(tree_node*, ana::region_model_manager*) const
+	gcc/analyzer/region.cc:1669
+0x1dfeb99 ana::symbolic::bit_contents_manager::make_baseline_contents(ana::symbolic::baseline_key)
+	gcc/analyzer/symbolic-bit-contents.cc:2579
+0x1dfece4 ana::symbolic::bit_contents_manager::get_baseline_contents(ana::region const&, ana::baseline_state)
+	gcc/analyzer/symbolic-bit-contents.cc:2631
+0x1ddb90d ana::store::get_bits(ana::symbolic::memory_range const&, ana::baseline_state) const
+	gcc/analyzer/store.cc:1246
+0x1d84d84 ana::region_model::get_store_value(ana::region const*, ana::region_model_context*) const
+	gcc/analyzer/region-model.cc:3113
+0x1d8b330 ana::region_model::get_rvalue(ana::path_var, ana::region_model_context*) const
+	gcc/analyzer/region-model.cc:3020

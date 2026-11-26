@@ -1,0 +1,8 @@
+   mlir/lib/Dialect/Affine/IR/AffineOps.cpp:5418:21: runtime error: signed integer overflow: 4611686018427387904 * 2 cannot be represented in type 'long'
+       #0 mlir::affine::AffineLinearizeIndexOp::fold(...)   mlir/lib/Dialect/Affine/IR/AffineOps.cpp:5418:21
+       #1 mlir::Op<mlir::affine::AffineLinearizeIndexOp, ...>::foldSingleResultHook<...>   mlir/include/mlir/IR/OpDefinition.h:1975
+       #3 mlir::Operation::fold(...)                         mlir/lib/IR/Operation.cpp:629
+       #5 (anonymous namespace)::GreedyPatternRewriteDriver::processWorklist()   GreedyPatternRewriteDriver.cpp:500
+      #13 (anonymous namespace)::Canonicalizer::runOnOperation()                  Canonicalizer.cpp:88
+   SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior mlir/lib/Dialect/Affine/IR/AffineOps.cpp:5418:21
+   

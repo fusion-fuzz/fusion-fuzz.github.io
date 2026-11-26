@@ -1,0 +1,11 @@
+$ clang -fsyntax-only repro.c
+repro.c:1:23: error: expected ';' after struct
+    1 | void f(struct {int a;} 1);
+      |                       ^
+      |                       ;
+clang/lib/Parse/ParseDecl.cpp:7805:36: runtime error: member call on misaligned address 0x60e000000c27 for type 'clang::IdentifierInfo', which requires 8 byte alignment
+ 61 3b 7d 20 31  29 3b 0a 00 be be be be  ...          <- the bytes are the source text "a;} 1);\n"
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior clang/lib/Parse/ParseDecl.cpp:7805:36
+ #15 clang::Parser::ParseParameterDeclarationClause(clang::DeclaratorContext, clang::ParsedAttributes&, llvm::SmallVectorImpl<clang::DeclaratorChunk::ParamInfo>&, clang::SourceLocation&, bool)
+ #16 clang::Parser::ParseFunctionDeclarator(...)
+ #17 clang::Parser::ParseDirectDeclarator(clang::Declarator&)

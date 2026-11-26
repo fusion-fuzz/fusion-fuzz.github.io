@@ -1,0 +1,44 @@
+==2253705==ERROR: AddressSanitizer: heap-use-after-free on address 0x61100003a240 at pc 0x0000055803af bp 0x7fff40d49a30 sp 0x7fff40d49a28
+READ of size 8 at 0x61100003a240 thread T0
+    #0 0x55803ae in php_stream_cast main/streams/cast.c:200:15
+    #1 0x47a2b23 in set_proc_descriptor_from_resource ext/standard/proc_open.c:1115:23
+    #2 0x479b44f in zif_proc_open ext/standard/proc_open.c:1314:8
+    #3 0x636166a in ZEND_DO_ICALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:1323:2
+    #4 0x5f1c61c in execute_ex Zend/zend_vm_execute.h:110621:12
+    #5 0x5f1e491 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #6 0x6ab62c6 in zend_execute_script Zend/zend.c:1982:3
+    #7 0x549897f in php_execute_script_ex main/main.c:2664:13
+    #8 0x54995f8 in php_execute_script main/main.c:2704:9
+    #9 0x6ac7079 in do_cli sapi/cli/php_cli.c:943:5
+    #10 0x6ac23c7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    #11 0x6ac0a31 in main sapi/cli/php_cli_main.c:18:9
+    ...
+
+0x61100003a240 is located 0 bytes inside of 256-byte region [0x61100003a240,0x61100003a340)
+
+freed by thread T0 here:
+    #0 0x681162 in free (sapi/cli/php+0x681162)
+    #1 0x5b22f53 in __zend_free Zend/zend_alloc.c:4108:2
+    #2 0x5b2d630 in _efree Zend/zend_alloc.c:3060:3
+    #3 0x55d9624 in php_stream_free main/streams/streams.c:439:3
+    #4 0x4571da7 in zif_fclose ext/standard/file.c:796:20
+    ...
+    #13 0x5615174 in php_userstreamop_flush main/streams/userspace.c:746:28
+    #14 0x55d9c97 in php_stream_flush_ex main/streams/streams.c:1251:9
+    #15 0x55e86c6 in php_stream_flush main/streams/streams.c:1258:9
+    #16 0x5580311 in php_stream_cast main/streams/cast.c:199:3
+    #17 0x47a2b23 in set_proc_descriptor_from_resource ext/standard/proc_open.c:1115:23
+    #18 0x479b44f in zif_proc_open ext/standard/proc_open.c:1314:8
+    ...
+
+previously allocated by thread T0 here:
+    #0 0x6813cd in malloc (sapi/cli/php+0x6813cd)
+    #1 0x5b2e3e3 in __zend_malloc Zend/zend_alloc.c:4079:14
+    #2 0x5b2d418 in _emalloc Zend/zend_alloc.c:3050:10
+    #3 0x55d43ad in _php_stream_alloc main/streams/streams.c:168:22
+    #4 0x561c906 in user_wrapper_opener main/streams/userspace.c:346:12
+    #5 0x55fce21 in _php_stream_open_wrapper_ex main/streams/streams.c:2213:11
+    #6 0x4570374 in zif_fopen ext/standard/file.c:766:11
+    ...
+
+SUMMARY: AddressSanitizer: heap-use-after-free main/streams/cast.c:200:15 in php_stream_cast

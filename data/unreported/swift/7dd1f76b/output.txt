@@ -1,0 +1,6 @@
+$ swift-frontend -emit-sil -O repro.swift
+swift-frontend: lib/SILOptimizer/Utils/Generics.cpp:2152: SILFunction *swift::GenericFuncSpecializer::lookupSpecialization(): Assertion `ReInfo.getSpecializedType() == SpecializedF->getLoweredFunctionType() && "Previously specialized function does not match expected type."' failed.
+4.	While running pass #407 SILFunctionTransform "GenericSpecializer" on SILFunction "@main".
+#10 swift::trySpecializeApplyOfGeneric(swift::SILOptFunctionBuilder&, swift::ApplySite, ...)
+#11 swift::specializeAppliesInFunction(swift::SILFunction&, swift::SILTransform*, bool)
+#12 (anonymous namespace)::GenericSpecializer::run()

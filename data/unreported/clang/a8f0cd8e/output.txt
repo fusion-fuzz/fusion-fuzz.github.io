@@ -1,0 +1,21 @@
+<source>:3:10: error: unknown type name 'Invalid'
+    3 |   void f(Invalid);
+      |          ^
+should not call this with unresolved exception specs
+UNREACHABLE executed at clang/lib/AST/Type.cpp:4124!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: clang++ -std=c++20 -fsyntax-only <source>
+1.	<source>:20:23: current parser token ';'
+2.	<source>:20:12: parsing function body 'foo'
+3.	<source>:20:12: in compound statement ('{}')
+ #9 clang::FunctionProtoType::canThrow() const
+#10 clang::Sema::canCalleeThrow(clang::Sema&, clang::Expr const*, clang::Decl const*, clang::SourceLocation)
+#11 checkNoThrow(clang::Sema&, clang::Stmt const*, llvm::SmallPtrSetImpl<clang::Decl const*>&)::'lambda'(clang::Decl const*, bool)::operator()(clang::Decl const*, bool) const SemaCoroutine.cpp
+#12 checkNoThrow(clang::Sema&, clang::Stmt const*, llvm::SmallPtrSetImpl<clang::Decl const*>&) SemaCoroutine.cpp
+#13 checkNoThrow(clang::Sema&, clang::Stmt const*, llvm::SmallPtrSetImpl<clang::Decl const*>&) SemaCoroutine.cpp
+#14 checkNoThrow(clang::Sema&, clang::Stmt const*, llvm::SmallPtrSetImpl<clang::Decl const*>&) SemaCoroutine.cpp
+#15 clang::Sema::checkFinalSuspendNoThrow(clang::Stmt const*)
+#16 clang::Sema::ActOnCoroutineBodyStart(clang::Scope*, clang::SourceLocation, llvm::StringRef)
+#17 clang::Sema::ActOnCoreturnStmt(clang::Scope*, clang::SourceLocation, clang::Expr*)
+#18 clang::Parser::ParseReturnStatement()

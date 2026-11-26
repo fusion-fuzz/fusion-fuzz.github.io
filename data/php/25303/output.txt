@@ -1,0 +1,18 @@
+ext/soap/php_encoding.c:3114:5: runtime error: member access within null pointer of type 'struct _encode'
+    #0 0x3e95282 in to_xml_list ext/soap/php_encoding.c:3114:5
+    #1 0x3e96a1a in to_xml_union ext/soap/php_encoding.c:3195:9
+    #2 0x3e931b4 in sdl_guess_convert_xml ext/soap/php_encoding.c:3379:10
+    #3 0x3e8c60d in master_to_xml_int ext/soap/php_encoding.c:484:11
+    #4 0x3e86380 in master_to_xml ext/soap/php_encoding.c:495:9
+    #5 0x40914a8 in serialize_zval ext/soap/soap.c:4413:13
+    #6 0x408f510 in serialize_parameter ext/soap/soap.c:4384:13
+    #7 0x4087361 in serialize_function_call ext/soap/soap.c:4245:12
+    #8 0x407ede7 in do_soap_call ext/soap/soap.c:2580:16
+    #9 0x405b1fb in soap_client_call_common ext/soap/soap.c:2775:2
+    #10 0x4059c7d in zim_SoapClient___call ext/soap/soap.c:2795:2
+    #11 0x64637dc in ZEND_CALL_TRAMPOLINE_SPEC_HANDLER Zend/zend_vm_execute.h:3683:4
+    #12 0x5fabacc in execute_ex Zend/zend_vm_execute.h:110621:12
+    #13 0x5fad941 in zend_execute Zend/zend_vm_execute.h:116059:2
+    ...
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior ext/soap/php_encoding.c:3114:5 in 

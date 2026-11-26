@@ -1,0 +1,18 @@
+$ lfortran --fixed-form -c t.f -o /dev/null
+==1255315==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x5030000a6caf at pc 0x0000021bbaa7 bp 0x7fff35830230 sp 0x7fff35830220
+READ of size 1 at 0x5030000a6caf thread T0
+    #0 0x21bbaa6 in LCompilers::LFortran::FixedFormRecursiveDescent::tokenize_line(unsigned char*&) src/lfortran/parser/fixedform_tokenizer.cpp:764
+    #1 0x21c65d8 in LCompilers::LFortran::FixedFormRecursiveDescent::lex_derived_type(unsigned char*&) src/lfortran/parser/fixedform_tokenizer.cpp:1182
+    #2 0x21c7831 in LCompilers::LFortran::FixedFormRecursiveDescent::lex_body_statement(unsigned char*&, bool) src/lfortran/parser/fixedform_tokenizer.cpp:1238
+    #3 0x21e23ec in LCompilers::LFortran::FixedFormRecursiveDescent::lex_program(unsigned char*&, bool, bool, LCompilers::diag::Diagnostics&) src/lfortran/parser/fixedform_tokenizer.cpp:2089
+    #4 0x21ec336 in LCompilers::LFortran::FixedFormRecursiveDescent::lex_global_scope_item(unsigned char*&, bool, LCompilers::diag::Diagnostics&) src/lfortran/parser/fixedform_tokenizer.cpp:2337
+    #5 0x21ed1a7 in LCompilers::LFortran::FixedFormRecursiveDescent::lex_global_scope(unsigned char*&, bool, LCompilers::diag::Diagnostics&) src/lfortran/parser/fixedform_tokenizer.cpp:2362
+    #6 0x21a9069 in LCompilers::LFortran::FixedFormTokenizer::tokenize_input(LCompilers::diag::Diagnostics&, Allocator&, bool) src/lfortran/parser/fixedform_tokenizer.cpp:2380
+    #7 0x2169f47 in LCompilers::LFortran::Parser::parse(std::string const&) src/lfortran/parser/parser.cpp:345
+    #8 0x21689ff in LCompilers::LFortran::parse(Allocator&, std::string const&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions const&, unsigned int) src/lfortran/parser/parser.cpp:292
+    #9 0x287d685 in LCompilers::FortranEvaluator::get_ast2(std::string const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&) src/lfortran/fortran_evaluator.cpp:451
+
+0x5030000a6caf is located 0 bytes to the right of 31-byte region [0x5030000a6c90,0x5030000a6caf)
+allocated by thread T0 here:
+    #0 0x77eca154e1e7 in operator new(unsigned long)
+    #1 0x77ec9aacafee in std::string::_M_assign(std::string const&)

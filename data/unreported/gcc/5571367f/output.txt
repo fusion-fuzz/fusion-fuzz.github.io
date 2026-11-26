@@ -1,0 +1,22 @@
+$ g++ -fmodules -S -o /dev/null t.cc
+t.cc:1:8: internal compiler error: in type_node, at cp/module.cc:9681
+    1 | export module X;
+      |        ^~~~~~
+0xe00e5e fancy_abort(char const*, int, char const*)
+	gcc/diagnostics/context.cc:1813
+0x82bd48 type_node
+	gcc/cp/module.cc:9681
+0xf9f2e2 tree_node
+	gcc/cp/module.cc:10333
+0xfa10b2 core_vals
+	gcc/cp/module.cc:7018
+0xfa10b2 tree_node_vals
+	gcc/cp/module.cc:7893
+0xfa2279 fn_parms_init
+	gcc/cp/module.cc:11364
+0xf9cad2 decl_value
+	gcc/cp/module.cc:8523
+0xfa5c66 depset::hash::find_dependencies(module_state*)
+	gcc/cp/module.cc:15736
+0xfa6901 module_state::write_begin(elf_out*, cpp_reader*, module_state_config&, unsigned int&)
+	gcc/cp/module.cc:21118

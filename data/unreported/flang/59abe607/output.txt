@@ -1,0 +1,11 @@
+Referring to an instruction in another function!
+  call void @llvm.memcpy.p0.p0.i32(ptr align 8 %2, ptr align 8 %2, i32 24, i1 false), !tbaa !39
+While deleting: ptr %
+Use still stuck around after Def is destroyed:  call void @llvm.memcpy.p0.p0.i32(ptr align 8 %2, ptr align 8 <badref>, i32 24, i1 false), !tbaa !39
+Uses remain when a value is destroyed!
+UNREACHABLE executed at llvm/lib/IR/Value.cpp:99!
+  llvm::Value::~Value()
+  llvm::BasicBlock::eraseFromParent() / llvm::Function::deleteBodyImpl / llvm::Module::dropAllReferences
+  mlir::LLVM::ModuleTranslation::~ModuleTranslation()
+  mlir::translateModuleToLLVMIR(mlir::Operation*, llvm::LLVMContext&, llvm::StringRef, bool, llvm::vfs::FileSystem*)
+  Fortran::frontend::CodeGenAction::generateLLVMIR()

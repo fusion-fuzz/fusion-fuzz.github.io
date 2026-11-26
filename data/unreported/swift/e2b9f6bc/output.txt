@@ -1,0 +1,132 @@
+SIL memory lifetime failure in @$s8e2b9f6bc4ButzVyxGSlAASl9formIndex5aftery0D0Qzz_tFTW: memory is initialized, but shouldn't be
+memory location: %0 = argument of bb0 : $*τ_0_0                    // users: %4, %5, %4
+at instruction:   %4 = apply %3<τ_0_0>(%0, %0, %2) : $@convention(method) <τ_0_0 where τ_0_0 : Comparable> (@in_guaranteed τ_0_0, Butz<τ_0_0>) -> @out τ_0_0
+
+Abort: function reportError at MemoryLifetimeVerifier.cpp:261
+in function:
+// protocol witness for Collection.formIndex(after:) in conformance Butz<A>
+// Isolation: unspecified
+sil private [transparent] [thunk] [heuristic_always_inline] [ossa] @$s8e2b9f6bc4ButzVyxGSlAASl9formIndex5aftery0D0Qzz_tFTW : $@convention(witness_method: Collection) <τ_0_0 where τ_0_0 : Comparable> (@inout τ_0_0, @in_guaranteed Butz<τ_0_0>) -> () {
+[%0: read v**, write v**, copy v**, destroy v**]
+[%1: read v**]
+[global: read,write,copy,destroy,allocate,deinit_barrier]
+// %0                                             // users: %4, %5, %4
+bb0(%0 : $*τ_0_0, %1 : $*Butz<τ_0_0>):
+  %2 = struct $Butz<τ_0_0> ()                     // user: %4
+  // function_ref Butz.index(after:)
+  %3 = function_ref @$s8e2b9f6bc4ButzV5index5afterxx_tF : $@convention(method) <τ_0_0 where τ_0_0 : Comparable> (@in_guaranteed τ_0_0, Butz<τ_0_0>) -> @out τ_0_0 // user: %4
+  %4 = apply %3<τ_0_0>(%0, %0, %2) : $@convention(method) <τ_0_0 where τ_0_0 : Comparable> (@in_guaranteed τ_0_0, Butz<τ_0_0>) -> @out τ_0_0
+  destroy_addr %0                                 // id: %5
+  %6 = tuple ()                                   // user: %7
+  return %6                                       // id: %7
+} // end sil function '$s8e2b9f6bc4ButzVyxGSlAASl9formIndex5aftery0D0Qzz_tFTW'
+
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -O -sil-verify-all -enable-experimental-feature NonescapableTypes /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpirgmmyiv/e2b9f6bc.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ExecuteSILPipelineRequest(Run pipelines { PrepareOptimizationPasses, EarlyModulePasses, HighLevel,Function+EarlyLoopOpt, HighLevel,Module+StackPromote, MidLevel,Function, ClosureSpecialize, LowLevel,Function, LateLoopOpt, SIL Debug Info Generator } on SIL for e2b9f6bc)
+4.	While running pass #1959 SILFunctionTransform "TempRValueElimination" on SILFunction "@$s8e2b9f6bc4ButzVyxGSlAASl9formIndex5aftery0D0Qzz_tFTW".
+ for 'formIndex(after:)' (in module 'Swift')
+5.	While verifying SIL function "@$s8e2b9f6bc4ButzVyxGSlAASl9formIndex5aftery0D0Qzz_tFTW".
+ for 'formIndex(after:)' (in module 'Swift')
+6.	Abort: function reportError at MemoryLifetimeVerifier.cpp:261
+| 	in function:
+| 	// protocol witness for Collection.formIndex(after:) in conformance Butz<A>
+| 	// Isolation: unspecified
+| 	sil private [transparent] [thunk] [heuristic_always_inline] [ossa] @$s8e2b9f6bc4ButzVyxGSlAASl9formIndex5aftery0D0Qzz_tFTW : $@convention(witness_method: Collection) <τ_0_0 where τ_0_0 : Comparable> (@inout τ_0_0, @in_guaranteed Butz<τ_0_0>) -> () {
+| 	[%0: read v**, write v**, copy v**, destroy v**]
+| 	[%1: read v**]
+| 	[global: read,write,copy,destroy,allocate,deinit_barrier]
+| 	// %0                                             // users: %4, %5, %4
+| 	bb0(%0 : $*τ_0_0, %1 : $*Butz<τ_0_0>):
+| 	  %2 = struct $Butz<τ_0_0> ()                     // user: %4
+| 	  // function_ref Butz.index(after:)
+| 	  %3 = function_ref @$s8e2b9f6bc4ButzV5index5afterxx_tF : $@convention(method) <τ_0_0 where τ_0_0 : Comparable> (@in_guaranteed τ_0_0, Butz<τ_0_0>) -> @out τ_0_0 // user: %4
+| 	  %4 = apply %3<τ_0_0>(%0, %0, %2) : $@convention(method) <τ_0_0 where τ_0_0 : Comparable> (@in_guaranteed τ_0_0, Butz<τ_0_0>) -> @out τ_0_0
+| 	  destroy_addr %0                                 // id: %5
+| 	  %6 = tuple ()                                   // user: %7
+| 	  return %6                                       // id: %7
+| 	} // end sil function '$s8e2b9f6bc4ButzVyxGSlAASl9formIndex5aftery0D0Qzz_tFTW'
+ #0 0x00005ee8ae447658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x00005ee8ae444e75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x00005ee8ae448411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007a012ecce330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007a012ed27c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007a012ecce27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007a012ecb18ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00005ee8a85725c2 (/usr/bin/swift-frontend+0x2d7a5c2)
+ #8 0x00005ee8a85726ac (/usr/bin/swift-frontend+0x2d7a6ac)
+ #9 0x00005ee8a715dc2b (anonymous namespace)::MemoryLifetimeVerifier::reportError(llvm::Twine const&, int, swift::SILInstruction*) MemoryLifetimeVerifier.cpp:0:0
+#10 0x00005ee8a715cb8d (anonymous namespace)::MemoryLifetimeVerifier::require(llvm::SmallBitVector const&, llvm::Twine const&, swift::SILInstruction*, bool) MemoryLifetimeVerifier.cpp:0:0
+#11 0x00005ee8a715d632 (anonymous namespace)::MemoryLifetimeVerifier::requireBitsClear(llvm::SmallBitVector const&, swift::SILValue, swift::SILInstruction*) MemoryLifetimeVerifier.cpp:0:0
+#12 0x00005ee8a715d84d (anonymous namespace)::MemoryLifetimeVerifier::checkFuncArgument(llvm::SmallBitVector&, swift::Operand&, swift::SILArgumentConvention, swift::SILInstruction*) MemoryLifetimeVerifier.cpp:0:0
+#13 0x00005ee8a715b150 (anonymous namespace)::MemoryLifetimeVerifier::checkBlock(swift::SILBasicBlock*, llvm::SmallBitVector&) MemoryLifetimeVerifier.cpp:0:0
+#14 0x00005ee8a7159691 (anonymous namespace)::MemoryLifetimeVerifier::verify() MemoryLifetimeVerifier.cpp:0:0
+#15 0x00005ee8a71586e1 swift::SILFunction::verifyMemoryLifetime(swift::CalleeCache*, swift::DeadEndBlocks*) (/usr/bin/swift-frontend+0x19606e1)
+#16 0x00005ee8a70d5604 swift::SILFunction::verify(swift::CalleeCache*, swift::DominanceInfo*, bool, bool, bool) const (/usr/bin/swift-frontend+0x18dd604)
+#17 0x00005ee8a7196deb swift::SILPassManager::runPassOnFunction(unsigned int, swift::SILFunction*) (/usr/bin/swift-frontend+0x199edeb)
+#18 0x00005ee8a7197af1 swift::SILPassManager::runFunctionPasses(unsigned int, unsigned int) (/usr/bin/swift-frontend+0x199faf1)
+#19 0x00005ee8a719b523 swift::SILPassManager::execute() (/usr/bin/swift-frontend+0x19a3523)
+#20 0x00005ee8a7194068 swift::SILPassManager::executePassPipelinePlan(swift::SILPassPipelinePlan const&) (/usr/bin/swift-frontend+0x199c068)
+#21 0x00005ee8a719401d swift::ExecuteSILPipelineRequest::evaluate(swift::Evaluator&, swift::SILPipelineExecutionDescriptor) const (/usr/bin/swift-frontend+0x199c01d)
+#22 0x00005ee8a71bbe6a swift::SimpleRequest<swift::ExecuteSILPipelineRequest, std::tuple<> (swift::SILPipelineExecutionDescriptor), (swift::RequestFlags)1>::evaluateRequest(swift::ExecuteSILPipelineRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#23 0x00005ee8a71a2dfa swift::ExecuteSILPipelineRequest::OutputType swift::Evaluator::getResultUncached<swift::ExecuteSILPipelineRequest, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()>(swift::ExecuteSILPipelineRequest const&, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()) crtstuff.c:0:0
+#24 0x00005ee8a719425f swift::executePassPipelinePlan(swift::SILModule*, swift::SILPassPipelinePlan const&, bool, swift::irgen::IRGenModule*) (/usr/bin/swift-frontend+0x199c25f)
+#25 0x00005ee8a71a456b swift::runSILOptimizationPasses(swift::SILModule&) (/usr/bin/swift-frontend+0x19ac56b)
+#26 0x00005ee8a63ccc90 swift::CompilerInstance::performSILProcessing(swift::SILModule*) (/usr/bin/swift-frontend+0xbd4c90)
+#27 0x00005ee8a622be3d performCompileStepsPostSILGen(swift::CompilerInstance&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, swift::PrimarySpecificPaths const&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>, llvm::ArrayRef<swift::PrimarySpecificPaths>) FrontendTool.cpp:0:0
+#28 0x00005ee8a622a9d3 swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xa329d3)
+#29 0x00005ee8a624388a withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#30 0x00005ee8a6230595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#31 0x00005ee8a622d21e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#32 0x00005ee8a5f34b21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#33 0x00007a012ecb31ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#34 0x00007a012ecb328b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#35 0x00005ee8a5f33a15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x7a012edb038d... done ***
+
+*** Program crashed: Aborted at 0x00007a012edb038d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007a012edb038d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007a012edb038d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x000000000000ff3e  65342
+rdi 0x000000000000ff3e  65342
+rbp 0x000000000000ff3e  65342
+rsp 0x00005ee8e64702e8  3b 84 44 ae e8 5e 00 00 70 05 47 e6 e8 5e 00 00  ;·D®è^··p·Gæè^··
+ r8 0x00005ee8e6470570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x00005ee8e6470570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x00005ee8e6470570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x00005ee8afd014bf  72 65 70 6f 72 74 45 72 72 6f 72 00 69 6e 20 66  reportError·in f
+r14 0x0000000000000000  0
+r15 0x00005ee8e6470388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007a012edb038d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007a012ec89000–0x00007a012ee38eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

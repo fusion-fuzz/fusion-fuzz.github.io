@@ -1,0 +1,249 @@
+SIL verification failed: inconsistent stack states entering basic block
+Entering basic block bb1
+Current stack state: [
+  %7 = alloc_ref [stack] $Entry<Any>              // user: %9
+  %19 = alloc_pack_metadata $()
+]
+Recorded stack state: [
+  %7 = alloc_ref [stack] $Entry<Any>              // user: %9
+]
+Verifying instruction:
+     %30 = builtin "add_Word"(%15 : $Builtin.Word, %11 : $Builtin.Word) : $Builtin.Word // user: %31
+->   br bb1(%30 : $Builtin.Word)                  // id: %31
+In function:
+// main
+// Isolation: unspecified
+sil @main : $@convention(c) (Int32, UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>) -> Int32 {
+[%1: noescape **]
+[global: read,write,copy,destroy,allocate,deinit_barrier]
+bb0(%0 : $Int32, %1 : $UnsafeMutablePointer<Optional<UnsafeMutablePointer<Int8>>>):
+  alloc_global @$s8b26a834a7counterSivp           // id: %2
+  %3 = global_addr @$s8b26a834a7counterSivp : $*Int // users: %6, %69
+  %4 = integer_literal $Builtin.Int64, 0          // user: %5
+  %5 = struct $Int (%4)                           // user: %6
+  store %5 to %3                                  // id: %6
+  %7 = alloc_ref [stack] $Entry<Any>              // user: %9
+  // function_ref specialized Entry.init()
+  %8 = function_ref @$s8b26a834a5EntryCACyxGycfcyp_Tg5 : $@convention(method) (@owned Entry<Any>) -> @owned Entry<Any> // user: %9
+  %9 = apply %8(%7) : $@convention(method) (@owned Entry<Any>) -> @owned Entry<Any> // users: %35, %105, %27, %40, %21, %13, %12
+  %10 = integer_literal $Builtin.Word, 0          // users: %28, %29, %57, %14
+  %11 = integer_literal $Builtin.Word, 1          // users: %48, %33, %103, %30, %16
+  debug_value %9, let, name "entry", argno 1      // id: %12
+  debug_value %9, var, name "self", type $Foo<Any>, expr op_fragment:#Foo.entry // id: %13
+  br bb1(%10)                                     // id: %14
+
+// %15                                            // users: %30, %18, %16
+// Loop header
+bb1(%15 : $Builtin.Word):                         // Preds: bb5 bb0
+  %16 = builtin "cmp_eq_Word"(%15, %11) : $Builtin.Int1 // user: %17
+  cond_br %16, bb3, bb2                           // id: %17
+
+bb2:                                              // Preds: bb1
+  %18 = dynamic_pack_index %15 of $Pack{Entry<Any>} // user: %20
+  %19 = alloc_pack_metadata $()
+  %20 = open_pack_element %18 of <each Results> at <Pack{Any}>, shape $each Results, id 110 // users: %24, %21
+  %21 = unchecked_ref_cast %9 to $Entry<@pack_element(110) each Results> // type-defs: %20; users: %24, %22
+  debug_value %21, let, name "entry"              // id: %22
+  // function_ref Entry.isEmpty.getter
+  %23 = function_ref @$s8b26a834a5EntryC7isEmptySbvg : $@convention(method) <τ_0_0> (@guaranteed Entry<τ_0_0>) -> Bool // user: %24
+  %24 = apply %23<@pack_element(110) each Results>(%21) : $@convention(method) <τ_0_0> (@guaranteed Entry<τ_0_0>) -> Bool // type-defs: %20; user: %25
+  %25 = struct_extract %24, #Bool._value          // user: %26
+  cond_br %25, bb4, bb5                           // id: %26
+
+bb3:                                              // Preds: bb1
+  debug_value %9, let, name "self", argno 1, transform {
+// %0                                             // user: %1
+  bb0(%0 : $Entry<Any>):
+    %1 = struct $Foo<Any> (%0)                    // user: %2
+    return %1                                     // id: %2
+  }                                               // id: %27
+  br bb6(%10)                                     // id: %28
+
+bb4:                                              // Preds: bb2
+  br bb6(%10)                                     // id: %29
+
+bb5:                                              // Preds: bb2
+  %30 = builtin "add_Word"(%15, %11) : $Builtin.Word // user: %31
+  br bb1(%30)                                     // id: %31
+
+// %32                                            // users: %103, %37, %33
+// Loop header
+bb6(%32 : $Builtin.Word):                         // Preds: bb4 bb3 bb10
+  %33 = builtin "cmp_eq_Word"(%32, %11) : $Builtin.Int1 // user: %34
+  cond_br %33, bb7, bb8                           // id: %34
+
+bb7:                                              // Preds: bb6
+  strong_release %9                               // id: %35
+  br bb9                                          // id: %36
+
+bb8:                                              // Preds: bb6
+  %37 = dynamic_pack_index %32 of $Pack{Entry<Any>} // user: %39
+  %38 = alloc_pack_metadata $()
+  %39 = open_pack_element %37 of <each Results> at <Pack{Any}>, shape $each Results, id 109 // users: %43, %40
+  %40 = unchecked_ref_cast %9 to $Entry<@pack_element(109) each Results> // type-defs: %39; users: %43, %41
+  debug_value %40, let, name "entry"              // id: %41
+  // function_ref Entry.isEmpty.getter
+  %42 = function_ref @$s8b26a834a5EntryC7isEmptySbvg : $@convention(method) <τ_0_0> (@guaranteed Entry<τ_0_0>) -> Bool // user: %43
+  %43 = apply %42<@pack_element(109) each Results>(%40) : $@convention(method) <τ_0_0> (@guaranteed Entry<τ_0_0>) -> Bool // type-defs: %39; user: %44
+  %44 = struct_extract %43, #Bool._value          // user: %45
+  cond_br %44, bb10, bb11                         // id: %45
+
+bb9:                                              // Preds: bb11 bb7
+  %46 = integer_literal $Builtin.Int64, 1         // user: %47
+  %47 = struct $Int (%46)                         // user: %52
+  %48 = alloc_ref [tail_elems $Any * %11] $_ContiguousArrayStorage<Any> // user: %49
+  %49 = upcast %48 to $__ContiguousArrayStorageBase // users: %54, %56, %83
+  %50 = integer_literal $Builtin.Int64, 2         // user: %51
+  %51 = struct $UInt (%50)                        // user: %52
+  %52 = struct $_SwiftArrayBodyStorage (%47, %51) // user: %53
+  %53 = struct $_ArrayBody (%52)                  // user: %55
+  %54 = ref_element_addr %49, #__ContiguousArrayStorageBase.countAndCapacity // user: %55
+  store %53 to %54                                // id: %55
+  %56 = ref_tail_addr %49, $Any                   // user: %57
+  %57 = index_addr [projection] %56, %10          // user: %81
+  %58 = alloc_stack $String                       // users: %79, %68, %80, %76
+  %59 = integer_literal $Builtin.Int1, -1         // user: %101
+  %60 = integer_literal $Builtin.Int64, 4211540152288636739 // user: %61
+  %61 = struct $UInt64 (%60)                      // user: %64
+  %62 = integer_literal $Builtin.Int64, -1657324662872342496 // user: %63
+  %63 = value_to_bridge_object %62                // user: %64
+  %64 = struct $_StringObject (%61, %63)          // user: %65
+  %65 = struct $_StringGuts (%64)                 // user: %66
+  %66 = struct $String (%65)                      // user: %68
+  // function_ref String.append(_:)
+  %67 = function_ref @$sSS6appendyySSF : $@convention(method) (@guaranteed String, @inout String) -> () // user: %76
+  store %66 to %58                                // id: %68
+  %69 = begin_access [read] [static] [no_nested_conflict] %3 // users: %70, %71
+  %70 = load %69                                  // user: %73
+  end_access %69                                  // id: %71
+  %72 = alloc_stack $Int                          // users: %73, %78, %75
+  store %70 to %72                                // id: %73
+  %74 = witness_method $Int, #CustomStringConvertible.description!getter : <Self where Self : CustomStringConvertible> (Self) -> () -> String : $@convention(witness_method: CustomStringConvertible) <τ_0_0 where τ_0_0 : CustomStringConvertible> (@in_guaranteed τ_0_0) -> @owned String // user: %75
+  %75 = apply %74<Int>(%72) : $@convention(witness_method: CustomStringConvertible) <τ_0_0 where τ_0_0 : CustomStringConvertible> (@in_guaranteed τ_0_0) -> @owned String // users: %77, %76
+  %76 = apply %67(%75, %58) : $@convention(method) (@guaranteed String, @inout String) -> ()
+  release_value %75                               // id: %77
+  dealloc_stack %72                               // id: %78
+  %79 = load %58                                  // user: %82
+  dealloc_stack %58                               // id: %80
+  %81 = init_existential_addr %57, $String        // user: %82
+  store %79 to %81                                // id: %82
+  %83 = end_cow_mutation %49                      // users: %100, %84
+  %84 = struct $_ContiguousArrayBuffer<Any> (%83) // user: %85
+  %85 = struct $Array<Any> (%84)                  // user: %99
+  %86 = integer_literal $Builtin.Int64, 32        // user: %87
+  %87 = struct $UInt64 (%86)                      // user: %90
+  %88 = integer_literal $Builtin.Int64, -2233785415175766016 // user: %89
+  %89 = value_to_bridge_object %88                // users: %95, %90
+  %90 = struct $_StringObject (%87, %89)          // user: %91
+  %91 = struct $_StringGuts (%90)                 // user: %92
+  %92 = struct $String (%91)                      // user: %99
+  %93 = integer_literal $Builtin.Int64, 10        // user: %94
+  %94 = struct $UInt64 (%93)                      // user: %95
+  %95 = struct $_StringObject (%94, %89)          // user: %96
+  %96 = struct $_StringGuts (%95)                 // user: %97
+  %97 = struct $String (%96)                      // user: %99
+  // function_ref print(_:separator:terminator:)
+  %98 = function_ref @$ss5print_9separator10terminatoryypd_S2StF : $@convention(thin) (@guaranteed Array<Any>, @guaranteed String, @guaranteed String) -> () // user: %99
+  %99 = apply %98(%85, %92, %97) : $@convention(thin) (@guaranteed Array<Any>, @guaranteed String, @guaranteed String) -> ()
+  strong_release %83                              // id: %100
+  cond_fail %59, "Unexpectedly found nil while unwrapping an Optional value" // id: %101
+  unreachable                                     // id: %102
+
+bb10:                                             // Preds: bb8
+  %103 = builtin "add_Word"(%32, %11) : $Builtin.Word // user: %104
+  br bb6(%103)                                    // id: %104
+
+bb11:                                             // Preds: bb8
+  strong_release %9                               // id: %105
+  br bb9                                          // id: %106
+} // end sil function 'main'
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -Osize -sil-verify-all -enable-experimental-feature ThenStatements -disable-availability-checking /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpdik6im2i/b26a834a.swift
+1.	Swift version 6.5-dev (LLVM 449e14042c067af, Swift 3c721e148da715b)
+2.	Compiling with effective version 5.10
+3.	While evaluating request IRGenRequest(IR Generation for module b26a834a)
+4.	While evaluating request ExecuteSILPipelineRequest(Run pipelines { IRGen Preparation } on SIL for b26a834a)
+5.	While running pass #25 SILFunctionTransform "PackMetadataMarkerInserter" on SILFunction "@main".
+6.	While verifying SIL function "@main".
+ #0 0x0000633be60278bb llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x92388bb)
+ #1 0x0000633be60247a1 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x92357a1)
+ #2 0x0000633be602866b SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007868c3da5330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007868c3dfec0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007868c3da527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007868c3d888ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x0000633bde9c80f3 swift::verificationFailure(llvm::Twine const&, swift::SILInstruction const*, llvm::function_ref<void (swift::SILPrintContext&)>) (/usr/bin/swift-frontend+0x1bd90f3)
+ #8 0x0000633bdea47f02 (anonymous namespace)::BBState::handleJoinPoint((anonymous namespace)::BBState const&, bool, swift::SILInstruction*, swift::SILBasicBlock*) FlowSensitiveVerifier.cpp:0:0
+ #9 0x0000633bdea47657 swift::silverifier::verifyFlowSensitiveRules(swift::SILFunction*) (/usr/bin/swift-frontend+0x1c58657)
+#10 0x0000633bde9cb01a swift::SILFunction::verify(swift::CalleeCache*, swift::DominanceInfo*, bool, bool, bool) const (/usr/bin/swift-frontend+0x1bdc01a)
+#11 0x0000633bdea814f8 swift::SILPassManager::runPassOnFunction(unsigned int, swift::SILFunction*) (/usr/bin/swift-frontend+0x1c924f8)
+#12 0x0000633bdea822d1 swift::SILPassManager::runFunctionPasses(unsigned int, unsigned int) (/usr/bin/swift-frontend+0x1c932d1)
+#13 0x0000633bdea85b53 swift::SILPassManager::execute() (/usr/bin/swift-frontend+0x1c96b53)
+#14 0x0000633bdea7e758 swift::SILPassManager::executePassPipelinePlan(swift::SILPassPipelinePlan const&) (/usr/bin/swift-frontend+0x1c8f758)
+#15 0x0000633bdea7e70b swift::ExecuteSILPipelineRequest::evaluate(swift::Evaluator&, swift::SILPipelineExecutionDescriptor) const (/usr/bin/swift-frontend+0x1c8f70b)
+#16 0x0000633bdeaac92a swift::SimpleRequest<swift::ExecuteSILPipelineRequest, std::tuple<> (swift::SILPipelineExecutionDescriptor), (swift::RequestFlags)1>::evaluateRequest(swift::ExecuteSILPipelineRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#17 0x0000633bdea8d6c5 swift::ExecuteSILPipelineRequest::OutputType swift::Evaluator::getResultUncached<swift::ExecuteSILPipelineRequest, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()>(swift::ExecuteSILPipelineRequest const&, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#18 0x0000633bdea8d611 swift::ExecuteSILPipelineRequest::OutputType swift::Evaluator::getResultUncached<swift::ExecuteSILPipelineRequest, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()>(swift::ExecuteSILPipelineRequest const&, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()) crtstuff.c:0:0
+#19 0x0000633bdea7e91f swift::executePassPipelinePlan(swift::SILModule*, swift::SILPassPipelinePlan const&, bool, swift::irgen::IRGenModule*) (/usr/bin/swift-frontend+0x1c8f91f)
+#20 0x0000633bddded0a2 swift::IRGenRequest::evaluate(swift::Evaluator&, swift::IRGenDescriptor) const (/usr/bin/swift-frontend+0xffe0a2)
+#21 0x0000633bdde5e72a swift::GeneratedModule swift::SimpleRequest<swift::IRGenRequest, swift::GeneratedModule (swift::IRGenDescriptor), (swift::RequestFlags)17>::callDerived<0ul>(swift::Evaluator&, std::integer_sequence<unsigned long, 0ul>) const crtstuff.c:0:0
+#22 0x0000633bdde5e5f9 swift::SimpleRequest<swift::IRGenRequest, swift::GeneratedModule (swift::IRGenDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::IRGenRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#23 0x0000633bdd7be27d swift::IRGenRequest::OutputType swift::Evaluator::getResultUncached<swift::IRGenRequest, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()>(swift::IRGenRequest const&, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#24 0x0000633bdd7bddeb swift::IRGenRequest::OutputType swift::Evaluator::getResultUncached<swift::IRGenRequest, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()>(swift::IRGenRequest const&, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()) crtstuff.c:0:0
+#25 0x0000633bdddee2a3 swift::performIRGeneration(swift::ModuleDecl*, swift::IRGenOptions const&, swift::TBDGenOptions const&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::StringRef, swift::PrimarySpecificPaths const&, std::shared_ptr<llvm::cas::ObjectStore>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::GlobalVariable**, swift::cas::SwiftCASOutputBackend*, std::optional<llvm::cas::ObjectRef>) (/usr/bin/swift-frontend+0xfff2a3)
+#26 0x0000633bddaf577c generateIR(swift::IRGenOptions const&, swift::TBDGenOptions const&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, swift::PrimarySpecificPaths const&, std::shared_ptr<llvm::cas::ObjectStore>, swift::cas::SwiftCASOutputBackend*, llvm::StringRef, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, llvm::GlobalVariable*&, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, std::optional<llvm::cas::ObjectRef>) FrontendTool.cpp:0:0
+#27 0x0000633bddaec5df performCompileStepsPostSILGen(swift::CompilerInstance&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, swift::PrimarySpecificPaths const&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>, llvm::ArrayRef<swift::PrimarySpecificPaths>) FrontendTool.cpp:0:0
+#28 0x0000633bddaeac3b swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xcfbc3b)
+#29 0x0000633bddb08b61 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#30 0x0000633bddaf21ed performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#31 0x0000633bddaed468 swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcfe468)
+#32 0x0000633bdd794aab swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9a5aab)
+#33 0x00007868c3d8a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#34 0x00007868c3d8a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#35 0x0000633bdd793b35 _start (/usr/bin/swift-frontend+0x9a4b35)
+
+*** Signal 6: Backtracing from 0x7868c3e8752d... done ***
+
+*** Program crashed: Aborted at 0x00007868c3e8752d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.5 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007868c3e8752d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007868c3e8752d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d bb c8 0d 00  H=·ðÿÿs·ÃH··»È··
+rbx 0x0000000000000006  6
+rsi 0x0000000000241e52  2367058
+rdi 0x0000000000241e52  2367058
+rbp 0x0000000000241e52  2367058
+rsp 0x0000633c24578fd8  96 86 02 e6 3b 63 00 00 00 00 00 00 00 00 00 00  ···æ;c··········
+ r8 0x0000000000000000  0
+ r9 0x0000000000000000  0
+r10 0x0000633c24579270  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x0000633c24f52fb0  60 72 f2 24 3c 63 00 00 98 e8 f5 24 3c 63 00 00  `rò$<c···èõ$<c··
+r14 0x0000000000000016  22
+r15 0x0000633c24579088  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007868c3e8752d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d bb c8 0d 00  H=·ðÿÿs·ÃH··»È··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007868c3d60000–0x00007868c3f10039 a4a7992a8e66555c8141ab2a08a8465ff6e0ea65 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.01s
+
+Aborted (core dumped)

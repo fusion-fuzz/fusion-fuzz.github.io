@@ -1,0 +1,29 @@
+t.cc: In function 'S* f()':
+t.cc:8:23: error: could not convert 't' from 'int' to 'C'
+    8 |   return new S {A (), t};
+      |                       ^
+      |                       |
+      |                       int
+t.cc:8:24: internal compiler error: in cxx_eval_store_expression, at cp/constexpr.cc:8944
+    8 |   return new S {A (), t};
+      |                        ^
+0xdd085e fancy_abort(char const*, int, char const*)
+	gcc/diagnostics/context.cc:1813
+0x854bb6 cxx_eval_store_expression
+	gcc/cp/constexpr.cc:8944
+0xe30e8f cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	gcc/cp/constexpr.cc:10262
+0xe31a63 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	gcc/cp/constexpr.cc:10592
+0xe441af cxx_eval_outermost_constant_expr
+	gcc/cp/constexpr.cc:11757
+0xe4b6e0 maybe_constant_value(tree_node*, tree_node*, mce_value)
+	gcc/cp/constexpr.cc:12232
+0xf07403 fold_for_warn(tree_node*)
+	gcc/cp/expr.cc:440
+0x1127366 maybe_warn_about_returning_address_of_local
+	gcc/cp/typeck.cc:11172
+0x1127366 check_return_expr(tree_node*, bool*, bool*)
+	gcc/cp/typeck.cc:11999
+0x10bead8 finish_return_stmt(tree_node*)
+	gcc/cp/semantics.cc:1594

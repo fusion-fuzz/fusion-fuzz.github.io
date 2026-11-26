@@ -1,0 +1,22 @@
+t.cc: In function 'void f(T) [with T = int]':
+t.cc:3:6: internal compiler error: in vague_linkage_p, at cp/decl2.cc:2716
+    3 | void f (T) {}
+      |      ^
+0xdd085e fancy_abort(char const*, int, char const*)
+	gcc/diagnostics/context.cc:1813
+0x8868df vague_linkage_p(tree_node*)
+	gcc/cp/decl2.cc:2716
+0xeeda06 generate_mangling_alias
+	gcc/cp/decl2.cc:5611
+0xf36335 mangle_decl(tree_node*)
+	gcc/cp/mangle.cc:4973
+0x1c20025 decl_assembler_name(tree_node*)
+	gcc/tree.cc:862
+0x1c4a9f8 assign_assembler_name_if_needed(tree_node*)
+	gcc/tree.cc:978
+0x1295f92 cgraph_node::analyze()
+	gcc/cgraphunit.cc:688
+0x12988e7 analyze_functions
+	gcc/cgraphunit.cc:1271
+0x12996c6 symbol_table::finalize_compilation_unit()
+	gcc/cgraphunit.cc:2594

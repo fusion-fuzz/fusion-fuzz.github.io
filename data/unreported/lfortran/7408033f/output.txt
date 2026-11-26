@@ -1,0 +1,10 @@
+$ lfortran -c repro.f90 -o /dev/null
+==2849032==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x502000000420 ...
+READ of size 4 at 0x502000000420 thread T0
+    #0 in LCompilers::ASRUtils::fetch_ArrayConstant_value_helper(...) src/libasr/asr_utils.h:9430
+    #1 in LCompilers::ASRUtils::fetch_ArrayConstant_value(...) src/libasr/asr_utils.h:9503
+    #2 in CommonVisitor<BodyVisitor>::create_ArrayRef(...)::{lambda(int, long)#1}::operator() src/lfortran/semantics/ast_common_visitor.h:16626
+    ...
+    #12 in CommonVisitor<BodyVisitor>::create_ArrayRef(...) src/lfortran/semantics/ast_common_visitor.h:16641
+    #13 in CommonVisitor<BodyVisitor>::visit_FuncCallOrArray(...) src/lfortran/semantics/ast_common_visitor.h:23938
+    #16 in BodyVisitor::visit_Print(...) src/lfortran/semantics/ast_body_visitor.cpp:9628

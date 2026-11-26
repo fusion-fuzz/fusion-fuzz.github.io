@@ -1,0 +1,23 @@
+$ g++ -S -o /dev/null -std=c++26 -freflection t.cc
+t.cc: In function 'void f()':
+t.cc:2:26: internal compiler error: in gimplify_expr, at gimplify.cc:21402
+    2 | void f () { arg a = arg (); }
+      |                          ^
+0x9cd387 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	gcc/gimplify.cc:21402
+0x14fbdd7 gimplify_modify_expr
+	gcc/gimplify.cc:7349
+0x14d6f8a gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	gcc/gimplify.cc:20547
+0x14da85a gimplify_stmt(tree_node**, gimple**)
+	gcc/gimplify.cc:8592
+0x14f996d gimplify_and_add(tree_node*, gimple**)
+	gcc/gimplify.cc:558
+0x14f996d gimplify_init_ctor_eval
+	gcc/gimplify.cc:6173
+0x14fa955 gimplify_init_constructor
+	gcc/gimplify.cc:6614
+0x14fbbd8 gimplify_modify_expr
+	gcc/gimplify.cc:7303
+0x14f4e37 gimplify_compound_expr
+	gcc/gimplify.cc:7647

@@ -1,0 +1,23 @@
+t.c: In function 'f':
+t.c:5:37: error: 'j' does not have pointer or array type
+    5 |   #pragma omp target has_device_addr(j[:2])
+      |                                     ^
+t.c:5:11: internal compiler error: tree check: expected tree that contains 'decl minimal' structure, have 'omp_array_section' in c_finish_omp_clauses, at c/c-typeck.cc:18146
+    5 |   #pragma omp target has_device_addr(j[:2])
+      |           ^~~
+0x2c6cd4b internal_error(char const*, ...)
+	gcc/diagnostic-global-context.cc:787
+0x9e8a4d tree_contains_struct_check_failed(tree_node const*, tree_node_structure_enum, char const*, int, char const*)
+	gcc/tree.cc:9568
+0x81bbab contains_struct_check(tree_node*, tree_node_structure_enum, char const*, int, char const*)
+	gcc/tree.h:4209
+0x81bbab c_finish_omp_clauses(tree_node*, c_omp_region_type)
+	gcc/c/c-typeck.cc:18146
+0xd8f05f c_parser_omp_target
+	gcc/c/c-parser.cc:27811
+0xd84b37 c_parser_compound_statement_nostart
+	gcc/c/c-parser.cc:7934
+0xd84d98 c_parser_compound_statement
+	gcc/c/c-parser.cc:7192
+0xd8308f c_parser_declaration_or_fndef
+	gcc/c/c-parser.cc:3374

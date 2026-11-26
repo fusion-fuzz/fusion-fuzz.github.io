@@ -1,0 +1,31 @@
+t.c:1:14: warning: call-clobbered register used for global register variable
+    1 | register int regvar asm ("ecx");
+      |              ^~~~~~
+t.c: In function 'f':
+t.c:7:1: error: unable to find a register to spill
+    7 | }
+      | ^
+t.c:7:1: error: this is the insn:
+(insn 24 46 45 5 (parallel [
+            (set (reg:SI 120 [orig:100 _4 ] [100])
+                (ashift:SI (reg:SI 120 [orig:100 _4 ] [100])
+                    (reg:QI 121)))
+            (clobber (reg:CC 17 flags))
+        ]) "t.c":6:37 discrim 1 1173 {*ashlsi3_1}
+     (expr_list:REG_DEAD (reg:QI 121)
+        (expr_list:REG_UNUSED (reg:CC 17 flags)
+            (nil))))
+during RTL pass: reload
+t.c:7:1: internal compiler error: in lra_split_hard_reg_for, at lra-assigns.cc:1908
+0x2c6cd4b internal_error(char const*, ...)
+	gcc/diagnostic-global-context.cc:787
+0xcca392 fancy_abort(char const*, int, char const*)
+	gcc/diagnostics/context.cc:1813
+0x9495f8 _fatal_insn(char const*, rtx_def const*, char const*, int, char const*)
+	gcc/rtl-error.cc:108
+0x12a82d1 lra_split_hard_reg_for(bool)
+	gcc/lra-assigns.cc:1908
+0x12a10d2 lra(_IO_FILE*, int)
+	gcc/lra.cc:2591
+0x124c2e7 do_reload
+	gcc/ira.cc:6098

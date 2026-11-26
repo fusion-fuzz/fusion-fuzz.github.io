@@ -1,0 +1,4 @@
+$ flang -c -fopenmp -fopenmp-version=60 repro.f90
+warning: OpenMP support for version 60 in flang is still incomplete [-Wexperimental-option]
+flang-24: flang/lib/Lower/OpenMP/OpenMP.cpp:8086: void genOMP(lower::AbstractConverter &, lower::SymMap &, semantics::SemanticsContext &, lower::pft::Evaluation &, const parser::OmpBlockConstruct &): Assertion `llvm::omp::blockConstructSet.test(directive) && "Expected block construct"' failed.
+flang-24: error: unable to execute command: Aborted

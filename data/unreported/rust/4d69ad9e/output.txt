@@ -1,0 +1,31 @@
+$ rustc repro.rs
+error: scalable vectors are not supported on this architecture
+ --> repro.rs:3:1
+  |
+3 | #[rustc_scalable_vector(4)]
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: scalable vectors cannot have multiple fields
+ --> repro.rs:4:1
+  |
+4 | struct S(u32, u32);
+  | ^^^^^^^^
+
+thread 'rustc' panicked at compiler/rustc_middle/src/ty/sty.rs:1319:9:
+assertion `left == right` failed
+  left: 2
+ right: 1
+stack backtrace:
+   4: <rustc_middle::ty::Ty>::scalable_vector_parts
+   5: rustc_ty_utils::layout::layout_of_uncached
+   6: rustc_ty_utils::layout::layout_of
+  ...
+  10: <rustc_mir_transform::known_panics_lint::CanConstProp>::check
+  11: <rustc_mir_transform::known_panics_lint::ConstPropagator>::new
+  12: <rustc_mir_transform::known_panics_lint::KnownPanicsLint as rustc_mir_transform::pass_manager::MirLint>::run_lint
+  ...
+  17: rustc_mir_transform::mir_drops_elaborated_and_const_checked
+query stack during panic:
+#0 [layout_of] computing layout of `S`
+#1 [mir_drops_elaborated_and_const_checked] elaborating drops for `f`
+#2 [analysis] running analysis passes on crate `repro`

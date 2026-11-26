@@ -1,0 +1,11 @@
+during RTL pass: expand
+In function 'void f.contract_wrapper(S)',
+    inlined from 'int main()' at t.cc:9:4:
+t.cc:10:1: internal compiler error: in assign_temp, at function.cc:991
+0x921f50 assign_temp(tree_node*, int, int)              function.cc:991
+0x12336ae initialize_argument_information               calls.cc:1514
+0x12336ae expand_call(tree_node*, rtx_def*, int)        calls.cc:3054
+0x139abd2 expand_expr_real_1(...)                       expr.cc:12824
+0x124833b expand_call_stmt                              cfgexpand.cc:3242
+0x124833b expand_gimple_stmt_1                          cfgexpand.cc:4283
+0x124e647 expand_gimple_basic_block                     cfgexpand.cc:6547

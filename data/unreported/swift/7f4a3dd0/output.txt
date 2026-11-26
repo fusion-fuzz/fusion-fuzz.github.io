@@ -1,0 +1,9 @@
+swift-frontend: llvm/include/llvm/ADT/ArrayRef.h:253: const T &llvm::ArrayRef<swift::GenericTypeParamType *>::operator[](size_t) const
+  [T = swift::GenericTypeParamType *]: Assertion `Index < Length && "Invalid index!"' failed.
+...
+ #9  swift::GenericEnvironment::getMappingIfPresent(swift::CanType) const
+ #10 swift::GenericEnvironment::getOrCreateArchetypeFromInterfaceType(swift::Type)
+ #11 swift::TypeTransform<(anonymous namespace)::MapTypeIntoContext>::doIt(swift::Type, swift::TypePosition)
+...
+While evaluating request TypeCheckPrimaryFileRequest(...)
+While type-checking 'Function1' (at gm.swift:8:8)

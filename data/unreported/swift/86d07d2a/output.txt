@@ -1,0 +1,143 @@
+SIL memory lifetime failure in @$s4main7TheEnumOSYAASY8rawValuexSg03RawE0Qz_tcfCTW: memory is initialized, but shouldn't be
+memory location:   %4 = alloc_stack $@opened("3D641A3A-BD90-11F1-B50F-9E7CFD389906", any TheProtocol) Self // type-defs: %3; users: %10, %5
+at instruction:   dealloc_stack %4 : $*@opened("3D641A3A-BD90-11F1-B50F-9E7CFD389906", any TheProtocol) Self // id: %10
+
+Abort: function reportError at MemoryLifetimeVerifier.cpp:261
+in function:
+// protocol witness for RawRepresentable.init(rawValue:) in conformance TheEnum
+// Isolation: unspecified
+sil private [transparent] [thunk] [ossa] @$s4main7TheEnumOSYAASY8rawValuexSg03RawE0Qz_tcfCTW : $@convention(witness_method: RawRepresentable) (@in any TheProtocol, @thick TheEnum.Type) -> @out Optional<TheEnum> {
+[%0: write v**]
+[%1: read v**, write v**, destroy v**]
+[global: read,write,copy,destroy,allocate,deinit_barrier]
+// %0                                             // user: %11
+// %1                                             // users: %9, %3
+bb0(%0 : $*Optional<TheEnum>, %1 : $*any TheProtocol, %2 : $@thick TheEnum.Type):
+  %3 = open_existential_addr mutable_access %1 to $*@opened("3D641A3A-BD90-11F1-B50F-9E7CFD389906", any TheProtocol) Self // users: %5, %4
+  %4 = alloc_stack $@opened("3D641A3A-BD90-11F1-B50F-9E7CFD389906", any TheProtocol) Self // type-defs: %3; users: %10, %5
+  copy_addr %3 to [init] %4                       // id: %5
+  %6 = enum $TheEnum, #TheEnum.case1!enumelt      // users: %8, %7
+  debug_value %6, var, name "self"                // id: %7
+  %8 = enum $Optional<TheEnum>, #Optional.some!enumelt, %6 // user: %11
+  destroy_addr %1                                 // id: %9
+  dealloc_stack %4                                // id: %10
+  store %8 to [trivial] %0                        // id: %11
+  %12 = tuple ()                                  // user: %13
+  return %12                                      // id: %13
+} // end sil function '$s4main7TheEnumOSYAASY8rawValuexSg03RawE0Qz_tcfCTW'
+
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -c -O -sil-verify-all -enable-experimental-feature NonescapableTypes -enable-library-evolution /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpi0efj715/86d07d2a.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ExecuteSILPipelineRequest(Run pipelines { PrepareOptimizationPasses, EarlyModulePasses, HighLevel,Function+EarlyLoopOpt, HighLevel,Module+StackPromote, MidLevel,Function, ClosureSpecialize, LowLevel,Function, LateLoopOpt, SIL Debug Info Generator } on SIL for main)
+4.	While running pass #2156 SILFunctionTransform "EarlyPerfInliner" on SILFunction "@$s4main7TheEnumOSYAASY8rawValuexSg03RawE0Qz_tcfCTW".
+ for 'init(rawValue:)' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpi0efj715/86d07d2a.swift:16:3)
+5.	While verifying SIL function "@$s4main7TheEnumOSYAASY8rawValuexSg03RawE0Qz_tcfCTW".
+ for 'init(rawValue:)' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpi0efj715/86d07d2a.swift:16:3)
+6.	Abort: function reportError at MemoryLifetimeVerifier.cpp:261
+| 	in function:
+| 	// protocol witness for RawRepresentable.init(rawValue:) in conformance TheEnum
+| 	// Isolation: unspecified
+| 	sil private [transparent] [thunk] [ossa] @$s4main7TheEnumOSYAASY8rawValuexSg03RawE0Qz_tcfCTW : $@convention(witness_method: RawRepresentable) (@in any TheProtocol, @thick TheEnum.Type) -> @out Optional<TheEnum> {
+| 	[%0: write v**]
+| 	[%1: read v**, write v**, destroy v**]
+| 	[global: read,write,copy,destroy,allocate,deinit_barrier]
+| 	// %0                                             // user: %11
+| 	// %1                                             // users: %9, %3
+| 	bb0(%0 : $*Optional<TheEnum>, %1 : $*any TheProtocol, %2 : $@thick TheEnum.Type):
+| 	  %3 = open_existential_addr mutable_access %1 to $*@opened("3D641A3A-BD90-11F1-B50F-9E7CFD389906", any TheProtocol) Self // users: %5, %4
+| 	  %4 = alloc_stack $@opened("3D641A3A-BD90-11F1-B50F-9E7CFD389906", any TheProtocol) Self // type-defs: %3; users: %10, %5
+| 	  copy_addr %3 to [init] %4                       // id: %5
+| 	  %6 = enum $TheEnum, #TheEnum.case1!enumelt      // users: %8, %7
+| 	  debug_value %6, var, name "self"                // id: %7
+| 	  %8 = enum $Optional<TheEnum>, #Optional.some!enumelt, %6 // user: %11
+| 	  destroy_addr %1                                 // id: %9
+| 	  dealloc_stack %4                                // id: %10
+| 	  store %8 to [trivial] %0                        // id: %11
+| 	  %12 = tuple ()                                  // user: %13
+| 	  return %12                                      // id: %13
+| 	} // end sil function '$s4main7TheEnumOSYAASY8rawValuexSg03RawE0Qz_tcfCTW'
+ #0 0x00005af8705bc658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x00005af8705b9e75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x00005af8705bd411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007ad538784330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007ad5387ddc0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007ad53878427e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007ad5387678ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00005af86a6e75c2 (/usr/bin/swift-frontend+0x2d7a5c2)
+ #8 0x00005af86a6e76ac (/usr/bin/swift-frontend+0x2d7a6ac)
+ #9 0x00005af8692d2c2b (anonymous namespace)::MemoryLifetimeVerifier::reportError(llvm::Twine const&, int, swift::SILInstruction*) MemoryLifetimeVerifier.cpp:0:0
+#10 0x00005af8692d1b8d (anonymous namespace)::MemoryLifetimeVerifier::require(llvm::SmallBitVector const&, llvm::Twine const&, swift::SILInstruction*, bool) MemoryLifetimeVerifier.cpp:0:0
+#11 0x00005af8692d2632 (anonymous namespace)::MemoryLifetimeVerifier::requireBitsClear(llvm::SmallBitVector const&, swift::SILValue, swift::SILInstruction*) MemoryLifetimeVerifier.cpp:0:0
+#12 0x00005af8692d10d7 (anonymous namespace)::MemoryLifetimeVerifier::checkBlock(swift::SILBasicBlock*, llvm::SmallBitVector&) MemoryLifetimeVerifier.cpp:0:0
+#13 0x00005af8692d3caa std::_Function_handler<void (swift::SILBasicBlock*), (anonymous namespace)::MemoryLifetimeVerifier::verify()::$_3>::_M_invoke(std::_Any_data const&, swift::SILBasicBlock*&&) MemoryLifetimeVerifier.cpp:0:0
+#14 0x00005af8692d72f2 swift::MemoryLocations::handleSingleBlockLocations(std::function<void (swift::SILBasicBlock*)>) (/usr/bin/swift-frontend+0x196a2f2)
+#15 0x00005af8692cef30 (anonymous namespace)::MemoryLifetimeVerifier::verify() MemoryLifetimeVerifier.cpp:0:0
+#16 0x00005af8692cd6e1 swift::SILFunction::verifyMemoryLifetime(swift::CalleeCache*, swift::DeadEndBlocks*) (/usr/bin/swift-frontend+0x19606e1)
+#17 0x00005af86924a604 swift::SILFunction::verify(swift::CalleeCache*, swift::DominanceInfo*, bool, bool, bool) const (/usr/bin/swift-frontend+0x18dd604)
+#18 0x00005af86930bdeb swift::SILPassManager::runPassOnFunction(unsigned int, swift::SILFunction*) (/usr/bin/swift-frontend+0x199edeb)
+#19 0x00005af86930caf1 swift::SILPassManager::runFunctionPasses(unsigned int, unsigned int) (/usr/bin/swift-frontend+0x199faf1)
+#20 0x00005af869310523 swift::SILPassManager::execute() (/usr/bin/swift-frontend+0x19a3523)
+#21 0x00005af869309068 swift::SILPassManager::executePassPipelinePlan(swift::SILPassPipelinePlan const&) (/usr/bin/swift-frontend+0x199c068)
+#22 0x00005af86930901d swift::ExecuteSILPipelineRequest::evaluate(swift::Evaluator&, swift::SILPipelineExecutionDescriptor) const (/usr/bin/swift-frontend+0x199c01d)
+#23 0x00005af869330e6a swift::SimpleRequest<swift::ExecuteSILPipelineRequest, std::tuple<> (swift::SILPipelineExecutionDescriptor), (swift::RequestFlags)1>::evaluateRequest(swift::ExecuteSILPipelineRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#24 0x00005af869317dfa swift::ExecuteSILPipelineRequest::OutputType swift::Evaluator::getResultUncached<swift::ExecuteSILPipelineRequest, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()>(swift::ExecuteSILPipelineRequest const&, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()) crtstuff.c:0:0
+#25 0x00005af86930925f swift::executePassPipelinePlan(swift::SILModule*, swift::SILPassPipelinePlan const&, bool, swift::irgen::IRGenModule*) (/usr/bin/swift-frontend+0x199c25f)
+#26 0x00005af86931956b swift::runSILOptimizationPasses(swift::SILModule&) (/usr/bin/swift-frontend+0x19ac56b)
+#27 0x00005af868541c90 swift::CompilerInstance::performSILProcessing(swift::SILModule*) (/usr/bin/swift-frontend+0xbd4c90)
+#28 0x00005af8683a0e3d performCompileStepsPostSILGen(swift::CompilerInstance&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, swift::PrimarySpecificPaths const&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>, llvm::ArrayRef<swift::PrimarySpecificPaths>) FrontendTool.cpp:0:0
+#29 0x00005af86839f9d3 swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xa329d3)
+#30 0x00005af8683b888a withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#31 0x00005af8683a5595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#32 0x00005af8683a221e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#33 0x00005af8680a9b21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#34 0x00007ad5387691ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#35 0x00007ad53876928b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#36 0x00005af8680a8a15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x7ad53886638d... done ***
+
+*** Program crashed: Aborted at 0x00007ad53886638d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007ad53886638d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007ad53886638d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x000000000000ce22  52770
+rdi 0x000000000000ce22  52770
+rbp 0x000000000000ce22  52770
+rsp 0x00005af8889782e8  3b d4 5b 70 f8 5a 00 00 70 85 97 88 f8 5a 00 00  ;Ô[pøZ··p···øZ··
+ r8 0x00005af888978570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x00005af888978570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x00005af888978570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x00005af871e764bf  72 65 70 6f 72 74 45 72 72 6f 72 00 69 6e 20 66  reportError·in f
+r14 0x0000000000000000  0
+r15 0x00005af888978388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007ad53886638d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007ad53873f000–0x00007ad5388eeeb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.01s
+
+Aborted (core dumped)

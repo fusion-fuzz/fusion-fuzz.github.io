@@ -1,0 +1,10 @@
+flang-24: error: unable to execute command: Segmentation fault (core dumped)
+Stack dump:
+ #3 Fortran::semantics::OmpStructureChecker::Enter
+ #4 void Fortran::parser::detail::ParseTreeVisitorLookupScope::ForEachInTuple
+ #5 void Fortran::common::log2visit::Log2VisitHelper
+ #6 void Fortran::parser::detail::ParseTreeVisitorLookupScope::ForEachInTuple
+ #7 std::enable_if::type Fortran::parser::detail::ParseTreeVisitorLookupScope::Walk
+ #8 Fortran::semantics::SemanticsVisitor::Walk
+ #9 Fortran::semantics::Semantics::Perform
+#10 Fortran::frontend::FrontendAction::runSemanticChecks
