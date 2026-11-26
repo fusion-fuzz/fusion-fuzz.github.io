@@ -1,0 +1,43 @@
+==2377373==ERROR: AddressSanitizer: heap-use-after-free on address 0x61100003ace0 at pc 0x00000567361d bp 0x7ffdcbe6c180 sp 0x7ffdcbe6c178
+READ of size 8 at 0x61100003ace0 thread T0
+    #0 0x567361c in php_stream_free main/streams/streams.c:271:12
+    #1 0x39b237c in phar_entry_delref ext/phar/phar.c:405:4
+    #2 0x3a21e36 in phar_stream_close ext/phar/stream.c:367:2
+    #3 0x5674a52 in php_stream_free main/streams/streams.c:377:9
+    #4 0x45e3f3b in zif_fclose ext/standard/file.c:796:20
+    #5 0x640020a in ZEND_DO_ICALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:1323:2
+    #6 0x5fbb1bc in execute_ex Zend/zend_vm_execute.h:110621:12
+    #7 0x5fbd031 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #8 0x6baac36 in zend_execute_script Zend/zend.c:1980:3
+    #9 0x551c5a6 in php_execute_script_ex main/main.c:2636:13
+    #10 0x551d228 in php_execute_script main/main.c:2676:9
+    #11 0x6bbbf65 in do_cli sapi/cli/php_cli.c:943:5
+    #12 0x6bb6bf7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    #13 0x6bb5261 in main sapi/cli/php_cli_main.c:18:9
+    ...
+
+0x61100003ace0 is located 160 bytes inside of 256-byte region [0x61100003ac40,0x61100003ad40)
+
+freed by thread T0 here:
+    #0 0x681162 in free (sapi/cli/php+0x681162)
+    #1 0x5bc1653 in __zend_free Zend/zend_alloc.c:4108:2
+    #2 0x5bcbd30 in _efree Zend/zend_alloc.c:3060:3
+    #3 0x5677014 in php_stream_free main/streams/streams.c:439:3
+    #4 0x39b237c in phar_entry_delref ext/phar/phar.c:405:4
+    #5 0x3a21e36 in phar_stream_close ext/phar/stream.c:367:2
+    #6 0x5674a52 in php_stream_free main/streams/streams.c:377:9
+    #7 0x45e3f3b in zif_fclose ext/standard/file.c:796:20
+    ...
+
+previously allocated by thread T0 here:
+    #0 0x6813cd in malloc (sapi/cli/php+0x6813cd)
+    #1 0x5bccae3 in __zend_malloc Zend/zend_alloc.c:4079:14
+    #2 0x5bcbb18 in _emalloc Zend/zend_alloc.c:3050:10
+    #3 0x5671d9d in _php_stream_alloc main/streams/streams.c:168:22
+    #4 0x5648a72 in _php_stream_fopen_from_fd_int main/streams/plain_wrapper.c:211:9
+    #5 0x5648bcb in _php_stream_fopen_from_fd main/streams/plain_wrapper.c:318:23
+    #6 0x5652cc1 in _php_stream_fopen main/streams/plain_wrapper.c:1240:10
+    #7 0x565535e in php_plain_files_stream_opener main/streams/plain_wrapper.c:1306:9
+    ...
+
+SUMMARY: AddressSanitizer: heap-use-after-free main/streams/streams.c:271:12 in php_stream_free

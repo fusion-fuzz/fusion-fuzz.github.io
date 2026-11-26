@@ -1,0 +1,17 @@
+ext/gd/libgd/gd_interpolation.c:1627:36: runtime error: nan is outside the range of representable values of type 'int'
+    #0 0x14e7282 in gdImageRotateInterpolated ext/gd/libgd/gd_interpolation.c:1627:36
+    #1 0x13ec1e1 in zif_imagerotate ext/gd/gd.c:1270:11
+    #2 0x640020a in ZEND_DO_ICALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:1323:2
+    #3 0x5fbb1bc in execute_ex Zend/zend_vm_execute.h:110621:12
+    #4 0x5fbd031 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #5 0x6baac36 in zend_execute_script Zend/zend.c:1980:3
+    #6 0x551c5a6 in php_execute_script_ex main/main.c:2636:13
+    #7 0x551d228 in php_execute_script main/main.c:2676:9
+    #8 0x6bbbf65 in do_cli sapi/cli/php_cli.c:943:5
+    #9 0x6bb6bf7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    #10 0x6bb5261 in main sapi/cli/php_cli_main.c:18:9
+    #11 0x7fe5f666fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #12 0x7fe5f666fe3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #13 0x606504 in _start (sapi/cli/php+0x606504)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior ext/gd/libgd/gd_interpolation.c:1627:36 in 

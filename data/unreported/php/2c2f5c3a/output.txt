@@ -1,0 +1,15 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==2263241==ERROR: AddressSanitizer: SEGV on unknown address 0x000040f0897c (pc 0x00000644e024 bp 0x7fff9fee4810 sp 0x7fff9fee3dd0 T0)
+==2263241==The signal is caused by a WRITE memory access.
+    #0 0x644e024 in ZEND_FETCH_CLASS_CONSTANT_SPEC_CONST_CONST_HANDLER Zend/zend_vm_execute.h:7913:6
+    #1 0x5f1c61c in execute_ex Zend/zend_vm_execute.h:110621:12
+    #2 0x5f1e491 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #3 0x6ab62c6 in zend_execute_script Zend/zend.c:1982:3
+    #4 0x549897f in php_execute_script_ex main/main.c:2664:13
+    #5 0x54995f8 in php_execute_script main/main.c:2704:9
+    #6 0x6ac7079 in do_cli sapi/cli/php_cli.c:943:5
+    ...
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV Zend/zend_vm_execute.h:7913:6 in ZEND_FETCH_CLASS_CONSTANT_SPEC_CONST_CONST_HANDLER

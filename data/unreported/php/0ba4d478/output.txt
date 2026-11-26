@@ -1,0 +1,20 @@
+Zend/zend_types.h:1433:9: runtime error: member access within misaligned address 0xbebebebebebebebe for type 'zend_refcounted' (aka 'struct _zend_refcounted'), which requires 4 byte alignment
+0xbebebebebebebebe: note: pointer points here
+<memory cannot be printed>
+    #0 0x5f69d26 in zval_delref_p Zend/zend_types.h:1433:9
+    #1 0x5f3d76b in zval_ptr_dtor_nogc Zend/zend_variables.h:34:35
+    #2 0x5f56cbc in zend_vm_stack_free_args Zend/zend_execute.h:437:4
+    #3 0x5f4d139 in zend_call_function Zend/zend_execute_API.c:947:7
+    #4 0x452ed2b in zif_call_user_func ext/standard/basic_functions.c:1507:6
+    #5 0x640020a in ZEND_DO_ICALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:1323:2
+    #6 0x5fbb1bc in execute_ex Zend/zend_vm_execute.h:110621:12
+    #7 0x5fbd031 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #8 0x6baac36 in zend_execute_script Zend/zend.c:1980:3
+    #9 0x551c5a6 in php_execute_script_ex main/main.c:2636:13
+    #10 0x551d228 in php_execute_script main/main.c:2676:9
+    #11 0x6bbbf65 in do_cli sapi/cli/php_cli.c:943:5
+    #12 0x6bb6bf7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    #13 0x6bb5261 in main sapi/cli/php_cli_main.c:18:9
+    ...
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Zend/zend_types.h:1433:9 in 

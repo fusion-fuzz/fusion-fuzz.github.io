@@ -1,0 +1,15 @@
+php: Zend/zend_hash.c:1290: zval *_zend_hash_index_add_or_update_i(HashTable *, zend_ulong, zval *, uint32_t): Assertion `zval_get_type(&(*(zv))) == 0' failed.
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==2263215==ERROR: AddressSanitizer: ABRT on unknown address 0x03e8002288af (pc 0x7faaab5d59fc bp 0x0000002288af sp 0x7ffe8d2b9650 T0)
+    ...
+    #7 0x667ab05 in _zend_hash_index_add_or_update_i Zend/zend_hash.c:1290:5
+    #8 0x6679fd3 in zend_hash_index_add_new Zend/zend_hash.c:1426:9
+    #9 0x68de8a5 in zend_hash_index_add_new_ptr Zend/zend_hash.h:870:7
+    #10 0x68ced37 in zend_lazy_object_set_info Zend/zend_lazy_objects.c:95:19
+    #11 0x68ce0b0 in zend_object_make_lazy Zend/zend_lazy_objects.c:370:2
+    #12 0x3bbc977 in reflection_class_new_lazy ext/reflection/php_reflection.c:5155:8
+    #13 0x3bbd016 in zim_ReflectionClass_resetAsLazyGhost ext/reflection/php_reflection.c:5187:2
+    #14 0x6157985 in ZEND_DO_FCALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:2017:4
+    #15 0x5f1c61c in execute_ex Zend/zend_vm_execute.h:110621:12
+    ...

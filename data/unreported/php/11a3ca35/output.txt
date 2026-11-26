@@ -1,0 +1,8 @@
+Zend/zend_types.h:973:66: runtime error: member access within null pointer of type 'const zend_string' (aka 'const struct _zend_string')
+    #0 0x5f5d292 in zstr_has_ce_cache Zend/zend_types.h:973:66
+    #1 0x5f5b02d in zend_lookup_class_ex Zend/zend_execute_API.c:1257:6
+    #2 0x5f60df6 in zend_fetch_class Zend/zend_execute_API.c:1824:7
+    #3 0x637e83e in ZEND_INIT_STATIC_METHOD_CALL_SPEC_UNUSED_UNUSED_HANDLER Zend/zend_vm_execute.h:37000:8
+    #4 0x48fd0820  (/dev/zero (deleted)+0x8000820)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior Zend/zend_types.h:973:66 in 

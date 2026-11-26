@@ -1,0 +1,47 @@
+==2253711==ERROR: AddressSanitizer: heap-use-after-free on address 0x61100003a2b0 at pc 0x0000055ebaad bp 0x7fffc49ee330 sp 0x7fffc49ee328
+READ of size 2 at 0x61100003a2b0 thread T0
+    #0 0x55ebaac in php_stream_seek main/streams/streams.c:1380:14
+    #1 0x396736c in phar_flush_ex ext/phar/phar.c:2552:3
+    #2 0x3948c04 in phar_flush ext/phar/phar.c:2491:9
+    #3 0x38e7be0 in phar_add_file ext/phar/phar_object.c:3690:3
+    #4 0x38e63a3 in zim_Phar_offsetSet ext/phar/phar_object.c:3778:2
+    #5 0x5eb569b in zend_call_function Zend/zend_execute_API.c:1092:4
+    #6 0x5ebb34d in zend_call_known_function_ex Zend/zend_execute_API.c:1185:23
+    #7 0x5ed01d3 in zend_call_known_function Zend/zend_API.h:895:2
+    #8 0x5ebc634 in zend_call_known_instance_method Zend/zend_API.h:923:2
+    #9 0x5ebc4cc in zend_call_known_instance_method_with_2_params Zend/zend_execute_API.c:1205:2
+    #10 0x691544b in zend_std_write_dimension Zend/zend_object_handlers.c:1424:3
+    #11 0x655e6f6 in zend_assign_to_object_dim Zend/zend_execute.c:1573:2
+    #12 0x5ff1ac2 in ZEND_ASSIGN_DIM_SPEC_CV_CONST_OP_DATA_CONST_HANDLER Zend/zend_vm_execute.h:43314:4
+    #13 0x5f1c61c in execute_ex Zend/zend_vm_execute.h:110621:12
+    #14 0x5f1e491 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #15 0x6ab62c6 in zend_execute_script Zend/zend.c:1982:3
+    ...
+
+0x61100003a2b0 is located 112 bytes inside of 256-byte region [0x61100003a240,0x61100003a340)
+
+freed by thread T0 here:
+    #0 0x681162 in free (sapi/cli/php+0x681162)
+    #1 0x5b22f53 in __zend_free Zend/zend_alloc.c:4108:2
+    #2 0x5b2d630 in _efree Zend/zend_alloc.c:3060:3
+    #3 0x55d9624 in php_stream_free main/streams/streams.c:439:3
+    #4 0x4571da7 in zif_fclose ext/standard/file.c:796:20
+    #5 0x636166a in ZEND_DO_ICALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:1323:2
+    ...
+
+previously allocated by thread T0 here:
+    #0 0x6813cd in malloc (sapi/cli/php+0x6813cd)
+    #1 0x5b2e3e3 in __zend_malloc Zend/zend_alloc.c:4079:14
+    #2 0x5b2d418 in _emalloc Zend/zend_alloc.c:3050:10
+    #3 0x55d43ad in _php_stream_alloc main/streams/streams.c:168:22
+    #4 0x55ab1b2 in _php_stream_fopen_from_fd_int main/streams/plain_wrapper.c:211:9
+    #5 0x55ab30b in _php_stream_fopen_from_fd main/streams/plain_wrapper.c:318:23
+    #6 0x55b5401 in _php_stream_fopen main/streams/plain_wrapper.c:1240:10
+    #7 0x55b7a9e in php_plain_files_stream_opener main/streams/plain_wrapper.c:1306:9
+    #8 0x55fce21 in _php_stream_open_wrapper_ex main/streams/streams.c:2213:11
+    #9 0x3974747 in phar_flush_ex ext/phar/phar.c:3082:14
+    #10 0x3948c04 in phar_flush ext/phar/phar.c:2491:9
+    #11 0x38e7be0 in phar_add_file ext/phar/phar_object.c:3690:3
+    ...
+
+SUMMARY: AddressSanitizer: heap-use-after-free main/streams/streams.c:1380:14 in php_stream_seek

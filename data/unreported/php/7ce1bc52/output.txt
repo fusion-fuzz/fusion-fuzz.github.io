@@ -1,0 +1,43 @@
+==2373758==ERROR: AddressSanitizer: heap-use-after-free on address 0x603000053fb0 at pc 0x000004a5631f bp 0x7ffd3638ca60 sp 0x7ffd3638ca58
+READ of size 4 at 0x603000053fb0 thread T0
+    #0 0x4a5631e in zend_gc_refcount Zend/zend_types.h:819:12
+    #1 0x4a35a74 in zval_refcount_p Zend/zend_types.h:1418:9
+    #2 0x4a336cc in php_var_dump ext/standard/var.c:238:8
+    #3 0x4a33ea4 in php_array_element_dump ext/standard/var.c:58:2
+    #4 0x4a30626 in php_var_dump ext/standard/var.c:165:5
+    #5 0x4a361d7 in zif_var_dump ext/standard/var.c:262:3
+    #6 0x640020a in ZEND_DO_ICALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:1323:2
+    #7 0x5fbb1bc in execute_ex Zend/zend_vm_execute.h:110621:12
+    #8 0x5fbd031 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #9 0x6baac36 in zend_execute_script Zend/zend.c:1980:3
+    #10 0x551c5a6 in php_execute_script_ex main/main.c:2636:13
+    #11 0x551d228 in php_execute_script main/main.c:2676:9
+    #12 0x6bbbf65 in do_cli sapi/cli/php_cli.c:943:5
+    #13 0x6bb6bf7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    ...
+
+0x603000053fb0 is located 0 bytes inside of 32-byte region [0x603000053fb0,0x603000053fd0)
+
+freed by thread T0 here:
+    #0 0x681162 in free (sapi/cli/php+0x681162)
+    #1 0x5bc1653 in __zend_free Zend/zend_alloc.c:4108:2
+    #2 0x5bcbd30 in _efree Zend/zend_alloc.c:3060:3
+    #3 0x6b5411e in zend_reference_destroy Zend/zend_variables.c:74:2
+    #4 0x6b506f7 in rc_dtor_func Zend/zend_variables.c:56:2
+    #5 0x6185ef7 in ZEND_ASSIGN_REF_SPEC_VAR_CV_HANDLER Zend/zend_vm_execute.h:32105:3
+    #6 0x5fbb1bc in execute_ex Zend/zend_vm_execute.h:110621:12
+    #7 0x5fbd031 in zend_execute Zend/zend_vm_execute.h:116059:2
+    ...
+
+previously allocated by thread T0 here:
+    #0 0x6813cd in malloc (sapi/cli/php+0x6813cd)
+    #1 0x5bccae3 in __zend_malloc Zend/zend_alloc.c:4079:14
+    #2 0x5bcbb18 in _emalloc Zend/zend_alloc.c:3050:10
+    #3 0x6438fe0 in ZEND_MAKE_REF_SPEC_VAR_UNUSED_HANDLER Zend/zend_vm_execute.h:30511:4
+    #4 0x5fbb1bc in execute_ex Zend/zend_vm_execute.h:110621:12
+    #5 0x5fbd031 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #6 0x6baac36 in zend_execute_script Zend/zend.c:1980:3
+    #7 0x551c5a6 in php_execute_script_ex main/main.c:2636:13
+    ...
+
+SUMMARY: AddressSanitizer: heap-use-after-free Zend/zend_types.h:819:12 in zend_gc_refcount

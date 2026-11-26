@@ -1,0 +1,17 @@
+ext/gd/libgd/gdft.c:1184:17: runtime error: nan is outside the range of representable values of type 'long'
+    #0 0x15f5df1 in php_gd_gdImageStringFTEx ext/gd/libgd/gdft.c:1184:17
+    #1 0x15f41a6 in php_gd_gdImageStringFT ext/gd/libgd/gdft.c:906:12
+    #2 0x1437ee6 in php_imagettftext_common ext/gd/gd.c:3494:11
+    #3 0x14383be in zif_imagefttext ext/gd/gd.c:3428:2
+    #4 0x636166a in ZEND_DO_ICALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:1323:2
+    #5 0x5f1c61c in execute_ex Zend/zend_vm_execute.h:110621:12
+    #6 0x5f1e491 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #7 0x6ab62c6 in zend_execute_script Zend/zend.c:1982:3
+    #8 0x549897f in php_execute_script_ex main/main.c:2664:13
+    #9 0x54995f8 in php_execute_script main/main.c:2704:9
+    #10 0x6ac7079 in do_cli sapi/cli/php_cli.c:943:5
+    #11 0x6ac23c7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    #12 0x6ac0a31 in main sapi/cli/php_cli_main.c:18:9
+    ...
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior ext/gd/libgd/gdft.c:1184:17 in 

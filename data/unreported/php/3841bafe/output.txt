@@ -1,0 +1,43 @@
+==2372756==ERROR: AddressSanitizer: heap-use-after-free on address 0x606000051d5c at pc 0x000004312bb7 bp 0x7fff88561a80 sp 0x7fff88561a78
+READ of size 4 at 0x606000051d5c thread T0
+    #0 0x4312bb6 in zend_hash_num_elements Zend/zend_hash.h:340:13
+    #1 0x43114ec in zim_RegexIterator_accept ext/spl/spl_iterators.c:1825:12
+    #2 0x5f5342f in zend_call_function Zend/zend_execute_API.c:1092:4
+    #3 0x5f590dd in zend_call_known_function_ex Zend/zend_execute_API.c:1185:23
+    #4 0x68864d3 in zend_call_known_function Zend/zend_API.h:895:2
+    #5 0x68863e5 in zend_call_method Zend/zend_interfaces.c:82:2
+    #6 0x42f4ede in zend_call_method_with_0_params Zend/zend_interfaces.h:45:9
+    #7 0x435865e in spl_filter_it_fetch ext/spl/spl_iterators.c:1602:3
+    #8 0x4309ba5 in spl_filter_it_rewind ext/spl/spl_iterators.c:1621:2
+    #9 0x4309b63 in zim_FilterIterator_rewind ext/spl/spl_iterators.c:1638:2
+    #10 0x5f5342f in zend_call_function Zend/zend_execute_API.c:1092:4
+    #11 0x5f590dd in zend_call_known_function_ex Zend/zend_execute_API.c:1185:23
+    #12 0x68864d3 in zend_call_known_function Zend/zend_API.h:895:2
+    #13 0x6898a94 in zend_call_known_instance_method Zend/zend_API.h:923:2
+    ...
+
+0x606000051d5c is located 28 bytes inside of 56-byte region [0x606000051d40,0x606000051d78)
+
+freed by thread T0 here:
+    #0 0x681162 in free (sapi/cli/php+0x681162)
+    #1 0x5bc1653 in __zend_free Zend/zend_alloc.c:4108:2
+    #2 0x5bcbd30 in _efree Zend/zend_alloc.c:3060:3
+    #3 0x67305c0 in zend_array_destroy Zend/zend_hash.c:2106:2
+    #4 0x6b506f7 in rc_dtor_func Zend/zend_variables.c:56:2
+    #5 0x6b5097e in i_zval_ptr_dtor Zend/zend_variables.h:44:4
+    #6 0x6b50734 in zval_ptr_dtor Zend/zend_variables.c:83:2
+    #7 0xd7c6b6 in php_pcre_split_impl ext/pcre/php_pcre.c:2818:3
+    ...
+
+previously allocated by thread T0 here:
+    #0 0x6813cd in malloc (sapi/cli/php+0x6813cd)
+    #1 0x5bccae3 in __zend_malloc Zend/zend_alloc.c:4079:14
+    #2 0x5bcbb18 in _emalloc Zend/zend_alloc.c:3050:10
+    #3 0x66f090a in _zend_new_array Zend/zend_hash.c:352:18
+    #4 0xd5d0a6 in array_init_size Zend/zend_API.h:509:2
+    #5 0xd7cf36 in array_init Zend/zend_API.h:514:2
+    #6 0xd793c1 in php_pcre_split_impl ext/pcre/php_pcre.c:2660:2
+    #7 0x4311383 in zim_RegexIterator_accept ext/spl/spl_iterators.c:1824:4
+    ...
+
+SUMMARY: AddressSanitizer: heap-use-after-free Zend/zend_hash.h:340:13 in zend_hash_num_elements

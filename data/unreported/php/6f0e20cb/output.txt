@@ -1,0 +1,35 @@
+==2373158==ERROR: AddressSanitizer: heap-use-after-free on address 0x606000054020 at pc 0x000005f8a8bf bp 0x7ffe7dc3d820 sp 0x7ffe7dc3d818
+READ of size 4 at 0x606000054020 thread T0
+    #0 0x5f8a8be in zend_gc_delref Zend/zend_types.h:847:2
+    #1 0x65e9cef in zval_delref_p Zend/zend_types.h:1433:9
+    #2 0x5f9b14b in zval_ptr_dtor_nogc Zend/zend_variables.h:34:35
+    #3 0x5fab20f in cleanup_live_vars Zend/zend_execute.c:5018:6
+    #4 0x6665907 in zend_dispatch_try_catch_finally_helper_SPEC Zend/zend_vm_execute.h:3386:2
+    #5 0x645eff8 in ZEND_HANDLE_EXCEPTION_SPEC_HANDLER Zend/zend_vm_execute.h:3460:2
+    #6 0x48bf802a  (/dev/zero (deleted)+0x800002a)
+
+0x606000054020 is located 0 bytes inside of 56-byte region [0x606000054020,0x606000054058)
+
+freed by thread T0 here:
+    #0 0x681162 in free (sapi/cli/php+0x681162)
+    #1 0x5bc1653 in __zend_free Zend/zend_alloc.c:4108:2
+    #2 0x5bcbd30 in _efree Zend/zend_alloc.c:3060:3
+    #3 0x67305c0 in zend_array_destroy Zend/zend_hash.c:2106:2
+    #4 0x48bf9148  (/dev/zero (deleted)+0x8001148)
+    #5 0x5fbd031 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #6 0x6baac36 in zend_execute_script Zend/zend.c:1980:3
+    #7 0x551c5a6 in php_execute_script_ex main/main.c:2636:13
+    ...
+
+previously allocated by thread T0 here:
+    #0 0x6813cd in malloc (sapi/cli/php+0x6813cd)
+    #1 0x5bccae3 in __zend_malloc Zend/zend_alloc.c:4079:14
+    #2 0x5bcbb18 in _emalloc Zend/zend_alloc.c:3050:10
+    #3 0x66f090a in _zend_new_array Zend/zend_hash.c:352:18
+    #4 0x43e5f86 in array_init_size Zend/zend_API.h:509:2
+    #5 0x441c241 in zif_array_slice ext/standard/array.c:3950:2
+    #6 0x48bf9001  (/dev/zero (deleted)+0x8001001)
+    #7 0x5fbd031 in zend_execute Zend/zend_vm_execute.h:116059:2
+    ...
+
+SUMMARY: AddressSanitizer: heap-use-after-free Zend/zend_types.h:847:2 in zend_gc_delref

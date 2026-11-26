@@ -1,0 +1,19 @@
+==2377190==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffe06960120 at pc 0x0000018c0c77 bp 0x7ffe0695af90 sp 0x7ffe0695af88
+READ of size 16 at 0x7ffe06960120 thread T0
+    #0 0x18c0c76 in SHA256_Transform_sse2 ext/hash/hash_sha_sse2.c:209:24
+    #1 0x18e7cb1 in SHA256Transform ext/hash/hash_sha.c:178:2
+    #2 0x18e31b8 in PHP_SHA256Update ext/hash/hash_sha.c:344:4
+    #3 0x3a7c423 in phar_create_signature ext/phar/util.c:1850:5
+    #4 0x39de4d5 in phar_flush_ex ext/phar/phar.c:3032:30
+    #5 0x3937437 in zim_Phar_setStub ext/phar/phar_object.c:2887:3
+    #6 0x61f6525 in ZEND_DO_FCALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:2017:4
+    #7 0x5fbb1bc in execute_ex Zend/zend_vm_execute.h:110621:12
+    #8 0x5fbd031 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #9 0x6baac36 in zend_execute_script Zend/zend.c:1980:3
+    #10 0x551c5a6 in php_execute_script_ex main/main.c:2636:13
+    #11 0x551d228 in php_execute_script main/main.c:2676:9
+    #12 0x6bbbf65 in do_cli sapi/cli/php_cli.c:943:5
+    #13 0x6bb6bf7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    ...
+
+SUMMARY: AddressSanitizer: stack-buffer-overflow ext/hash/hash_sha_sse2.c:209:24 in SHA256_Transform_sse2

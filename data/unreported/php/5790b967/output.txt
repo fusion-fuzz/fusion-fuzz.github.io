@@ -1,0 +1,18 @@
+ext/standard/http_fopen_wrapper.c:552:20: runtime error: nan is outside the range of representable values of type 'long'
+    #0 0x465bd3c in php_stream_url_wrap_http_ex ext/standard/http_fopen_wrapper.c:552:20
+    #1 0x4659166 in php_stream_url_wrap_http ext/standard/http_fopen_wrapper.c:1285:11
+    #2 0x55fce21 in _php_stream_open_wrapper_ex main/streams/streams.c:2213:11
+    #3 0x456319e in zif_file_get_contents ext/standard/file.c:415:11
+    #4 0x3837f99 in zif_phar_file_get_contents ext/phar/func_interceptors.c:219:2
+    #5 0x636166a in ZEND_DO_ICALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:1323:2
+    #6 0x5f1c61c in execute_ex Zend/zend_vm_execute.h:110621:12
+    #7 0x5f1e491 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #8 0x6ab62c6 in zend_execute_script Zend/zend.c:1982:3
+    #9 0x549897f in php_execute_script_ex main/main.c:2664:13
+    #10 0x54995f8 in php_execute_script main/main.c:2704:9
+    #11 0x6ac7079 in do_cli sapi/cli/php_cli.c:943:5
+    #12 0x6ac23c7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    #13 0x6ac0a31 in main sapi/cli/php_cli_main.c:18:9
+    ...
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior ext/standard/http_fopen_wrapper.c:552:20 in 

@@ -1,0 +1,18 @@
+ext/gd/libgd/gd.c:1166:40: runtime error: signed integer overflow: 5 - -2147483648 cannot be represented in type 'int'
+    #0 0x15ae268 in clip_1d ext/gd/libgd/gd.c:1166:40
+    #1 0x15a96c9 in php_gd_gdImageLine ext/gd/libgd/gd.c:1525:9
+    #2 0x1415290 in zif_imageline ext/gd/gd.c:2617:2
+    #3 0x640020a in ZEND_DO_ICALL_SPEC_RETVAL_UNUSED_HANDLER Zend/zend_vm_execute.h:1323:2
+    #4 0x5fbb1bc in execute_ex Zend/zend_vm_execute.h:110621:12
+    #5 0x5fbd031 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #6 0x6baac36 in zend_execute_script Zend/zend.c:1980:3
+    #7 0x551c5a6 in php_execute_script_ex main/main.c:2636:13
+    #8 0x551d228 in php_execute_script main/main.c:2676:9
+    #9 0x6bbbf65 in do_cli sapi/cli/php_cli.c:943:5
+    #10 0x6bb6bf7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    #11 0x6bb5261 in main sapi/cli/php_cli_main.c:18:9
+    #12 0x7f818b1d1d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #13 0x7f818b1d1e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    ...
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior ext/gd/libgd/gd.c:1166:40 in 

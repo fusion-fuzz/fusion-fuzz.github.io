@@ -1,0 +1,43 @@
+==2376162==ERROR: AddressSanitizer: heap-use-after-free on address 0x60d000019298 at pc 0x0000041caf5f bp 0x7ffd1ef84eb0 sp 0x7ffd1ef84ea8
+READ of size 8 at 0x60d000019298 thread T0
+    #0 0x41caf5e in spl_array_has_dimension_ex ext/spl/spl_array.c:589:22
+    #1 0x41f3837 in spl_array_has_dimension ext/spl/spl_array.c:639:9
+    #2 0x6657c86 in zend_isempty_dim_slow Zend/zend_execute.c:3382:11
+    #3 0x639af5b in ZEND_ISSET_ISEMPTY_DIM_OBJ_SPEC_CV_CONST_HANDLER Zend/zend_vm_execute.h:44618:12
+    #4 0x5fbb1bc in execute_ex Zend/zend_vm_execute.h:110621:12
+    #5 0x5fbd031 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #6 0x6baac36 in zend_execute_script Zend/zend.c:1980:3
+    #7 0x551c5a6 in php_execute_script_ex main/main.c:2636:13
+    #8 0x551d228 in php_execute_script main/main.c:2676:9
+    #9 0x6bbbf65 in do_cli sapi/cli/php_cli.c:943:5
+    #10 0x6bb6bf7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    #11 0x6bb5261 in main sapi/cli/php_cli_main.c:18:9
+    #12 0x7f447c59cd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #13 0x7f447c59ce3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    ...
+
+0x60d000019298 is located 40 bytes inside of 144-byte region [0x60d000019270,0x60d000019300)
+
+freed by thread T0 here:
+    #0 0x681162 in free (sapi/cli/php+0x681162)
+    #1 0x5bc1653 in __zend_free Zend/zend_alloc.c:4108:2
+    #2 0x5bcbd30 in _efree Zend/zend_alloc.c:3060:3
+    #3 0x6a28780 in zend_objects_store_del Zend/zend_objects_API.c:197:3
+    #4 0x5f5625d in zend_object_release Zend/zend_objects_API.h:83:3
+    #5 0x5f559e8 in zend_call_function Zend/zend_execute_API.c:1143:3
+    #6 0x5f590dd in zend_call_known_function_ex Zend/zend_execute_API.c:1185:23
+    #7 0x41fc6a3 in zend_call_known_function Zend/zend_API.h:895:2
+    ...
+
+previously allocated by thread T0 here:
+    #0 0x6813cd in malloc (sapi/cli/php+0x6813cd)
+    #1 0x5bccae3 in __zend_malloc Zend/zend_alloc.c:4079:14
+    #2 0x5bcbb18 in _emalloc Zend/zend_alloc.c:3050:10
+    #3 0x42017d2 in zend_object_alloc Zend/zend_objects_API.h:100:14
+    #4 0x41dba72 in spl_array_object_new_ex ext/spl/spl_array.c:156:11
+    #5 0x41f36ba in spl_array_object_new ext/spl/spl_array.c:237:9
+    #6 0x5c17dcd in _object_and_properties_init Zend/zend_API.c:1901:3
+    #7 0x5c18140 in object_init_ex Zend/zend_API.c:1915:9
+    ...
+
+SUMMARY: AddressSanitizer: heap-use-after-free ext/spl/spl_array.c:589:22 in spl_array_has_dimension_ex

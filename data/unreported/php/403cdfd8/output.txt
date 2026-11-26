@@ -1,0 +1,43 @@
+==2378811==ERROR: AddressSanitizer: heap-use-after-free on address 0x616000072680 at pc 0x000002518a59 bp 0x7fffb2f39b90 sp 0x7fffb2f39b88
+READ of size 1 at 0x616000072680 thread T0
+    #0 0x2518a58 in preload_shutdown ext/opcache/ZendAccelerator.c:3902:12
+    #1 0x251642b in accel_shutdown ext/opcache/ZendAccelerator.c:3756:3
+    #2 0x22c8cbd in zm_shutdown_zend_accelerator ext/opcache/zend_accelerator_module.c:521:2
+    #3 0x5c3e016 in module_destructor Zend/zend_API.c:3409:3
+    #4 0x6b94a3e in module_destructor_zval Zend/zend.c:918:2
+    #5 0x6725186 in _zend_hash_del_el_ex Zend/zend_hash.c:1721:3
+    #6 0x6722973 in _zend_hash_del_el Zend/zend_hash.c:1748:2
+    #7 0x6736440 in zend_hash_graceful_reverse_destroy Zend/zend_hash.c:2279:4
+    #8 0x5c2b08b in zend_destroy_modules Zend/zend_API.c:2636:2
+    #9 0x6b9ab07 in zend_shutdown Zend/zend.c:1185:2
+    #10 0x551a60a in php_module_shutdown main/main.c:2508:2
+    #11 0x6bb6d82 in do_php_cli sapi/cli/php_cli.c:1373:3
+    #12 0x6bb5261 in main sapi/cli/php_cli_main.c:18:9
+    #13 0x7f3d1f20ad8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    ...
+
+0x616000072680 is located 0 bytes inside of 528-byte region [0x616000072680,0x616000072890)
+
+freed by thread T0 here:
+    #0 0x681162 in free (sapi/cli/php+0x681162)
+    #1 0x5bc1653 in __zend_free Zend/zend_alloc.c:4108:2
+    #2 0x5bcbd30 in _efree Zend/zend_alloc.c:3060:3
+    #3 0x550cc71 in zend_arena_destroy Zend/zend_arena.h:155:4
+    #4 0x550bbe0 in php_request_shutdown main/main.c:2040:2
+    #5 0x6bc06e4 in do_cli sapi/cli/php_cli.c:1160:3
+    #6 0x6bb6bf7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    #7 0x6bb5261 in main sapi/cli/php_cli_main.c:18:9
+    ...
+
+previously allocated by thread T0 here:
+    #0 0x6813cd in malloc (sapi/cli/php+0x6813cd)
+    #1 0x5bccae3 in __zend_malloc Zend/zend_alloc.c:4079:14
+    #2 0x5bcbb18 in _emalloc Zend/zend_alloc.c:3050:10
+    #3 0x675f53d in zend_arena_alloc Zend/zend_arena.h:171:25
+    #4 0x67a3127 in zend_lazy_class_load Zend/zend_inheritance.c:3404:25
+    #5 0x679b0c1 in zend_do_link_class Zend/zend_inheritance.c:3658:9
+    #6 0x64432ea in ZEND_DECLARE_ANON_CLASS_SPEC_HANDLER Zend/zend_vm_execute.h:3269:9
+    #7 0x5fbb1bc in execute_ex Zend/zend_vm_execute.h:110621:12
+    ...
+
+SUMMARY: AddressSanitizer: heap-use-after-free ext/opcache/ZendAccelerator.c:3902:12 in preload_shutdown
