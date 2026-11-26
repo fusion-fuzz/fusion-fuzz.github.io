@@ -235,7 +235,7 @@ def render(generated, bugs):
 <p class="repo"><a href="{REPO}">github.com/fusion-fuzz/fusion-fuzz</a></p>
 </header>
 
-<aside class="note"><b>Note.</b> Many bugs found by Fusion-Fuzz have not been reported yet (<a href="#bugs" data-show="unreported">marked Unreported</a>). These are mixed with false alarms and duplicate bugs. We appreciate any effort to validate them and report them to the corresponding vendors. If you do, the credit for the report is yours; please add a note to the report co-crediting <a href="{REPO}">Fusion-Fuzz</a>.</aside>
+<aside class="note"><b>Note.</b> We do not report most bugs from Dec. 2026 due to the growing bug flooding problem, and we show found bugs in this tracker. Many bugs found by Fusion-Fuzz have not been reported yet (<a href="#bugs" data-show="unreported">marked Unreported</a>). It is known that they are mixed with false alarms and duplicate bugs. We appreciate any effort to filter, validate, report, and fix true and important bugs to the corresponding vendors for more robust programming language implementations. <a href="{REPO}">Fusion-Fuzz</a>.</aside>
 
 <section class="stats">
 <div><b>{n:,}</b><span>Bugs</span></div>
