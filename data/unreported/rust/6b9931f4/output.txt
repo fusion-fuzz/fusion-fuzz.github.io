@@ -1,0 +1,97 @@
+[... 59 lines omitted ...]
+   |
+   = note: mutable references to mutable statics are dangerous; it's undefined behavior if any other pointer to the static is used or if any other reference is created for the static while the mutable reference lives
+   = note: for more information, see <https://doc.rust-lang.org/edition-guide/rust-2024/static-mut-references.html>
+   = note: `#[warn(static_mut_refs)]` (part of `#[warn(rust_2024_compatibility)]`) on by default
+help: use `&raw mut` instead to create a raw pointer
+   |
+46 |         let sfoo: *mut Foo = &raw mut SFOO;
+   |                               +++
+
+
+thread 'rustc' (1217690) panicked at compiler/rustc_const_eval/src/util/check_validity_requirement.rs:201:41:
+called `Result::unwrap()` on an `Err` value: InterpErrorInfo(InterpErrorInfoInner { kind: UndefinedBehavior(ValidationError { orig_ty: pattern_type!(*const () is !null), path: None, msg: "encountered 0, but expected something greater or equal to 1", ptr_bytes_warning: false }), backtrace: InterpErrorBacktrace { backtrace: None } })
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panicking.rs:80:14
+   2: core::result::unwrap_failed
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/result.rs:1871:5
+   3: <core::result::Result<(), rustc_middle::mir::interpret::error::InterpErrorInfo>>::unwrap
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/result.rs:1232:23
+   4: <rustc_middle::mir::interpret::error::InterpResult>::unwrap
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/interpret/error.rs:1062:23
+   5: rustc_const_eval::util::check_validity_requirement::validate_scalar_in_layout
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/util/check_validity_requirement.rs:201:41
+   6: rustc_const_eval::provide::{closure#3}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/lib.rs:63:31
+   7: <rustc_const_eval::provide::{closure#3} as core::ops::function::FnOnce<(rustc_middle::ty::context::TyCtxt, rustc_middle::ty::consts::int::ScalarInt, rustc_middle::ty::Ty)>>::call_once
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/ops/function.rs:250:5
+   8: <rustc_middle::ty::context::TyCtxt>::validate_scalar_in_layout
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/hooks.rs:32:17
+   9: <rustc_middle::ty::print::pretty::FmtPrinter as rustc_middle::ty::print::pretty::PrettyPrinter>::pretty_print_const_scalar_int
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/print/pretty.rs:1825:49
+  10: <rustc_middle::ty::print::pretty::FmtPrinter as rustc_middle::ty::print::pretty::PrettyPrinter>::pretty_print_const_scalar
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/print/pretty.rs:1712:22
+  11: rustc_middle::mir::pretty::pretty_print_const_value_tcx
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/pretty.rs:2038:15
+  12: rustc_middle::mir::pretty::pretty_print_const_value_tcx
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/pretty.rs:2023:37
+  13: rustc_middle::mir::pretty::pretty_print_const_value_tcx
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/pretty.rs:2023:37
+  14: rustc_middle::mir::pretty::comma_sep
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/pretty.rs:1915:9
+  15: rustc_middle::mir::pretty::pretty_print_const_value_tcx
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/pretty.rs:2011:33
+  16: rustc_middle::mir::pretty::pretty_print_const_value::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/pretty.rs:2064:9
+  17: rustc_middle::ty::context::tls::with::<rustc_middle::mir::pretty::pretty_print_const_value::{closure#0}, core::result::Result<(), core::fmt::Error>>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:96:28
+  18: rustc_middle::ty::context::tls::with_context::<rustc_middle::ty::context::tls::with<rustc_middle::mir::pretty::pretty_print_const_value::{closure#0}, core::result::Result<(), core::fmt::Error>>::{closure#0}, core::result::Result<(), core::fmt::Error>>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:86:36
+  19: rustc_middle::ty::context::tls::with_context_opt::<rustc_middle::ty::context::tls::with_context<rustc_middle::ty::context::tls::with<rustc_middle::mir::pretty::pretty_print_const_value::{closure#0}, core::result::Result<(), core::fmt::Error>>::{closure#0}, core::result::Result<(), core::fmt::Error>>::{closure#0}, core::result::Result<(), core::fmt::Error>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:75:18
+  20: rustc_middle::ty::context::tls::with_context::<rustc_middle::ty::context::tls::with<rustc_middle::mir::pretty::pretty_print_const_value::{closure#0}, core::result::Result<(), core::fmt::Error>>::{closure#0}, core::result::Result<(), core::fmt::Error>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:86:5
+  21: rustc_middle::ty::context::tls::with::<rustc_middle::mir::pretty::pretty_print_const_value::{closure#0}, core::result::Result<(), core::fmt::Error>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:96:5
+  22: rustc_middle::mir::pretty::pretty_print_const_value
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/pretty.rs:2062:5
+  23: <rustc_middle::mir::consts::Const as core::fmt::Display>::fmt
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/consts.rs:509:36
+  24: <core::fmt::rt::Argument>::fmt
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/fmt/rt.rs:152:76
+  25: core::fmt::write
+  26: <core::fmt::Formatter>::write_fmt
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/fmt/mod.rs:2132:13
+  27: <rustc_middle::mir::VarDebugInfoContents as core::fmt::Debug>::fmt
+  28: <core::fmt::rt::Argument>::fmt
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/fmt/rt.rs:152:76
+  29: core::fmt::write
+  30: <core::fmt::Formatter>::write_fmt
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/fmt/mod.rs:2132:13
+  31: <rustc_middle::mir::VarDebugInfo as core::fmt::Debug>::fmt
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/pretty.rs:559:9
+  32: <core::fmt::rt::Argument>::fmt
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/fmt/rt.rs:152:76
+  33: core::fmt::write
+  34: <&mut alloc::string::String as core::fmt::Write::write_fmt::SpecWriteFmt>::spec_write_fmt
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/fmt/mod.rs:238:21
+  35: <alloc::string::String as core::fmt::Write>::write_fmt
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/fmt/mod.rs:243:14
+  36: alloc::fmt::format::format_inner
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/alloc/src/fmt.rs:654:14
+  37: alloc::fmt::format::{closure#0}
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/alloc/src/fmt.rs:659:34
+  38: <core::option::Option<&str>>::map_or_else::<alloc::string::String, alloc::fmt::format::{closure#0}, <str as alloc::borrow::ToOwned>::to_owned>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/option.rs:1276:21
+  39: alloc::fmt::format
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/alloc/src/fmt.rs:659:19
+  40: rustc_middle::mir::pretty::write_scope_tree
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/pretty.rs:422:35
+  41: rustc_middle::mir::pretty::write_scope_tree
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/pretty.rs:542:9
+  42: rustc_middle::mir::pretty::write_scope_tree
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/pretty.
+[... truncated ...]

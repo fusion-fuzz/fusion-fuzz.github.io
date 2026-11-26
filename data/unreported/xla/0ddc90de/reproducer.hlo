@@ -1,0 +1,25 @@
+HloModule jit_f, allow_spmd_sharding_propagation_to_output={true}, num_partitions=8
+
+ENTRY %main.12 {
+  %Arg_0.1 = s32[8]{0} parameter(0), sharding={devices=[8]<=[8]}, metadata={op_name="x"}
+  %copy.2 = s32[8]{0} copy(Arg_0.1), sharding={devices=[4,2]<=[8] last_tile_dim_replicate}
+  %custom-call.3 = s32[2]{0} custom-call(copy.2), custom_call_target="SPMDFullToShardShape", sharding={devices=[1,4,2]<=[8] last_tile_dims={manual, replicated}}, backend_config="unspecified_dims=[0]"
+  %copy.1 = s32[2]{0} copy(custom-call.3), sharding={devices=[2,4]<=[4,2]T(1,0) last_tile_dims={manual}}
+  %multiply.0 = s32[2]{0} multiply(copy.1, copy.1), sharding={devices=[2,4]<=[4,2]T(1,0) last_tile_dims={manual}}
+  %collective-permute.0 = s32[2]{0} collective-permute(multiply.0), channel_id=1, source_target_pairs={{0,6},{2,0},{4,2},{6,4},{1,7},{3,1},{5,3},{7,5}}, sharding={devices=[2,4]<=[4,2]T(1,0) last_tile_dims={manual}}
+  %custom-call.11 = s32[8]{0} custom-call(collective-permute.0), custom_call_target="SPMDShardToFullShape", sharding={devices=[8]<=[8]}, backend_config="unspecified_dims=[0]"
+  %parameter.0 = f32[2,4256]{1,0} parameter(1)
+  %constant = f32[] constant(0)
+  %pad.264 = f32[2,4480]{1,0} pad(%parameter.0, %constant), padding=0_0x0_224
+  %slice.267 = f32[2,4480]{1,0} slice(%pad.264), slice={[0:2], [0:4480]}
+  %reshape.269 = f32[2,28,160]{2,1,0} reshape(%slice.267)
+  %parameter.1 = s32[27,2]{1,0} parameter(2)
+  %constant.d = f32[] constant(0)
+  %pad.264.d = f32[2,4480]{1,0} pad(%parameter.0, %constant.d), padding=0_0x0_224
+  %slice.267.d = f32[2,4480]{1,0} slice(%pad.264.d), slice={[0:2], [0:4480]}
+  %reshape.269.d = f32[2,28,160]{2,1,0} reshape(%slice.267.d)
+  %gather.271.d = f32[2,27,2,160]{3,2,1,0} gather(%reshape.269.d, %parameter.1), offset_dims={0,3}, collapsed_slice_dims={1}, start_index_map={1}, index_vector_dim=2, slice_sizes={2,1,160}
+  %gather.271 = f32[2,27,2,160]{3,2,1,0} gather(%copy.2, %parameter.1), offset_dims={0,3}, collapsed_slice_dims={1}, start_index_map={1}, index_vector_dim=2, slice_sizes={2,1,160}
+  %ffl.root = (s32[8]{0}, f32[2,27,2,160]{3,2,1,0}) tuple(%custom-call.11, %gather.271)
+  ROOT %ffl.root.1 = (s32[8]{0}, f32[2,27,2,160]{3,2,1,0}, f32[2,27,2,160]{3,2,1,0}) tuple(%custom-call.11, %gather.271, %gather.271.d)
+}

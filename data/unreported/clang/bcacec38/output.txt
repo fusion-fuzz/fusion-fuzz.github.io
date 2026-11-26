@@ -1,0 +1,96 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoavyi12i/8457c6c6.mm:22:12: warning: class 'Blocky' defined without specifying a base class [-Wobjc-root-class]
+   22 | @interface Blocky @end
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoavyi12i/8457c6c6.mm:22:18: note: add a super class to fix this problem
+   22 | @interface Blocky @end
+      |                  ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/AST/TypeBase.h:954: const clang::ExtQualsTypeCommonBase *clang::QualType::getCommonPtr() const: Assertion `!isNull() && "Cannot retrieve a NULL type pointer"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O3 -std=c++14 -fblocks -fno-objc-arc -target x86_64-apple-darwin10 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoavyi12i/8457c6c6.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoavyi12i/8457c6c6.mm:37:1: current parser token '@'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoavyi12i/8457c6c6.mm:27:1: LLVM IR generation of declaration 'Blocky::doAThing'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoavyi12i/8457c6c6.mm:28:6: LLVM IR generation of compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005b1a41ba066b __interceptor_backtrace + 91
+1  clang++   0x00005b1a477fb027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005b1a477f4cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005b1a477f99c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005b1a47647cc5
+5  clang++   0x00005b1a476484d3
+6  libc.so.6 0x0000756ac082c520
+7  libc.so.6 0x0000756ac08809bc pthread_kill + 300
+8  libc.so.6 0x0000756ac082c476 raise + 22
+9  libc.so.6 0x0000756ac08127f3 abort + 211
+10 libc.so.6 0x0000756ac081271b
+11 libc.so.6 0x0000756ac0823e96
+12 clang++   0x00005b1a482bf55e
+13 clang++   0x00005b1a4855465e clang::CodeGen::CodeGenFunction::EmitObjCIvarRefLValue(clang::ObjCIvarRefExpr const*) + 782
+14 clang++   0x00005b1a485457f2 clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t) + 1634
+15 clang++   0x00005b1a485d41cc
+16 clang++   0x00005b1a52458872 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 274
+17 clang++   0x00005b1a4851cef6 clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t) + 678
+18 clang++   0x00005b1a4853fdb8 clang::CodeGen::CodeGenFunction::EmitCheckedLValue(clang::Expr const*, clang::CodeGen::CodeGenFunction::TypeCheckKind) + 520
+19 clang++   0x00005b1a486f64d4
+20 clang++   0x00005b1a486b2870
+21 clang++   0x00005b1a48708a5d
+22 clang++   0x00005b1a486b2870
+23 clang++   0x00005b1a486b23ff clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 255
+24 clang++   0x00005b1a48a20884 clang::CodeGen::CodeGenFunction::EmitReturnStmt(clang::ReturnStmt const&) + 4948
+25 clang++   0x00005b1a48a2d955 clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 469
+26 clang++   0x00005b1a48a29b60 clang::CodeGen::CodeGenFunction::EmitCompoundStmt(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 784
+27 clang++   0x00005b1a48a1a352 clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 770
+28 clang++   0x00005b1a48a18b9a clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 122
+29 clang++   0x00005b1a491d87c4 clang::CodeGen::CodeGenFunction::GenerateBlockFunction(clang::GlobalDecl, clang::CodeGen::CGBlockInfo const&, llvm::DenseMap<clang::Decl const*, clang::CodeGen::Address, llvm::DenseMapInfo<clang::Decl const*, void>, llvm::detail::DenseMapPair<clang::Decl const*, clang::CodeGen::Address>> const&, bool, bool) + 11780
+30 clang++   0x00005b1a491d11f5 clang::CodeGen::CodeGenFunction::EmitBlockLiteral(clang::CodeGen::CGBlockInfo const&) + 1781
+31 clang++   0x00005b1a491cc821 clang::CodeGen::CodeGenFunction::EmitBlockLiteral(clang::BlockExpr const*) + 1169
+32 clang++   0x00005b1a486b2870
+33 clang++   0x00005b1a486b23ff clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 255
+34 clang++   0x00005b1a491df1f7 clang::CodeGen::CodeGenFunction::EmitBlockCallExpr(clang::CallExpr const*, clang::CodeGen::ReturnValueSlot, llvm::CallBase**) + 855
+35 clang++   0x00005b1a485a3c35 clang::CodeGen::CodeGenFunction::EmitCallExpr(clang::CallExpr const*, clang::CodeGen::ReturnValueSlot, llvm::CallBase**) + 821
+36 clang++   0x00005b1a486f022c
+37 clang++   0x00005b1a486b2870
+38 clang++   0x00005b1a486b23ff clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 255
+39 clang++   0x00005b1a4851bb6c clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) + 364
+40 clang++   0x00005b1a4851b85d clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) + 1005
+41 clang++   0x00005b1a48a18d6b clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 587
+42 clang++   0x00005b1a48a2d955 clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 469
+43 clang++   0x00005b1a48824a53 clang::CodeGen::CodeGenFunction::GenerateObjCMethod(clang::ObjCMethodDecl const*) + 1043
+44 clang++   0x00005b1a48c0766d clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) + 6589
+45 clang++   0x00005b1a4954a2e3
+46 clang++   0x00005b1a49536445 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 837
+47 clang++   0x00005b1a4dd1cadd clang::ParseAST(clang::Sema&, bool, bool) + 2445
+48 clang++   0x00005b1a495409bc clang::CodeGenAction::ExecuteAction() + 4124
+49 clang++   0x00005b1a49bfb2fe clang::FrontendAction::Execute() + 222
+50 clang++   0x00005b1a49a8d5f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+51 clang++   0x00005b1a49ddf989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+52 clang++   0x00005b1a41c361a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+53 clang++   0x00005b1a41c2a0f9
+54 clang++   0x00005b1a41c34637
+55 clang++   0x00005b1a49664317
+56 clang++   0x00005b1a47647a7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+57 clang++   0x00005b1a4966181a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+58 clang++   0x00005b1a495b229c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+59 clang++   0x00005b1a495b3a2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+60 clang++   0x00005b1a49603060 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+61 clang++   0x00005b1a41c28517 clang_main(int, char**, llvm::ToolContext const&) + 12295
+62 clang++   0x00005b1a41c57e27 main + 567
+63 libc.so.6 0x0000756ac0813d90
+64 libc.so.6 0x0000756ac0813e40 __libc_start_main + 128
+65 clang++   0x00005b1a41b64b35 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git e996ce0d9ad6443a7ea3f88ccb0a8e114b0e840e)
+Target: x86_64-apple-darwin10
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/8457c6c6-21f405.mm
+clang++: note: diagnostic msg: /tmp/8457c6c6-21f405.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

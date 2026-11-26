@@ -1,0 +1,76 @@
+[... 22 lines omitted ...]
+   |
+88 | trait Foo_b50cfdb<'a> {
+   |       ^^^^^^^^^^^ help: convert the identifier to upper camel case: `FooB50cfdb`
+
+warning: trait `SuperFn_b50cfdb` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp21eaiyke/d185a63b.rs:96:7
+   |
+96 | trait SuperFn_b50cfdb: for<'a> Foo_b50cfdb<'a> + for<'a> Fn(<Self as Foo_b50cfdb<'a>>::Input) {}
+   |       ^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `SuperFnB50cfdb`
+
+error[E0277]: the trait bound `T: SuperFn_b50cfdb05` is not satisfied
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp21eaiyke/d185a63b.rs:46:21
+   |
+46 | impl<T> SuperFn for T where T: for<'a> Fn(<Self as Foo_d50cfdb<'a>>::Input) + for<'a> Foo_d50cfdb<'a> {}
+   |                     ^ the trait `SuperFn_b50cfdb05` is not implemented for `T`
+   |
+note: required by a bound in `SuperFn`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp21eaiyke/d185a63b.rs:38:89
+   |
+38 | trait SuperFn: for<'a> Foo_d50cfdb<'a> + for<'a> Fn(<Self as Foo_d50cfdb<'a>>::Input) + SuperFn_b50cfdb05 {
+   |                                                                                         ^^^^^^^^^^^^^^^^^ required by this bound in `SuperFn`
+help: consider further restricting type parameter `T` with trait `SuperFn_b50cfdb05`
+   |
+46 | impl<T> SuperFn for T where T: for<'a> Fn(<Self as Foo_d50cfdb<'a>>::Input) + for<'a> Foo_d50cfdb<'a> + SuperFn_b50cfdb05 {}
+   |                                                                                                       +++++++++++++++++++
+
+error[E0271]: type mismatch resolving `<T as FnOnce<(<T as Foo_b50cfdb05<'a>>::Input,)>>::Output == ()`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp21eaiyke/d185a63b.rs:46:21
+   |
+46 | impl<T> SuperFn for T where T: for<'a> Fn(<Self as Foo_d50cfdb<'a>>::Input) + for<'a> Foo_d50cfdb<'a> {}
+   |                     ^ types differ
+   |
+note: required for `T` to implement `SuperFn_b50cfdb05`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp21eaiyke/d185a63b.rs:72:7
+   |
+72 | trait SuperFn_b50cfdb05: for<'a> Foo_b50cfdb05<'a> + for<'a> Fn(<Self as Foo_b50cfdb05<'a>>::Input) {}
+   |       ^^^^^^^^^^^^^^^^^
+note: required by a bound in `SuperFn`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp21eaiyke/d185a63b.rs:38:89
+   |
+38 | trait SuperFn: for<'a> Foo_d50cfdb<'a> + for<'a> Fn(<Self as Foo_d50cfdb<'a>>::Input) + SuperFn_b50cfdb05 {
+   |                                                                                         ^^^^^^^^^^^^^^^^^ required by this bound in `SuperFn`
+
+
+thread 'rustc' (3619824) panicked at compiler/rustc_type_ir/src/relate.rs:527:13:
+assertion `left == right` failed: Alias(Yes, Alias { kind: Projection { def_id: DefId(0:11 ~ d185a63b[2e2b]::Foo_d50cfdb::Input) }, args: [T/#0, '?51], .. }) != Alias(No, Alias { kind: Projection { def_id: DefId(0:28 ~ d185a63b[2e2b]::Foo_b50cfdb05::Input) }, args: [T/#0, '^0.Named(DefId(0:34 ~ d185a63b[2e2b]::SuperFn_b50cfdb05::'a#1))], .. })
+  left: Yes
+ right: No
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panicking.rs:80:14
+   2: core::panicking::assert_failed_inner
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panicking.rs:447:23
+   3: core::panicking::assert_failed::<rustc_type_ir::ty_kind::IsRigid, rustc_type_ir::ty_kind::IsRigid>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panicking.rs:407:5
+   4: rustc_type_ir::relate::structurally_relate_tys::<rustc_middle::ty::context::TyCtxt, rustc_trait_selection::error_reporting::infer::SameTypeModuloInfer>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/relate.rs:527:13
+   5: rustc_type_ir::relate::structurally_relate_tys::<rustc_middle::ty::context::TyCtxt, rustc_trait_selection::error_reporting::infer::SameTypeModuloInfer>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/relate.rs:346:1
+   6: <rustc_trait_selection::error_reporting::infer::SameTypeModuloInfer as rustc_type_ir::relate::TypeRelation<rustc_middle::ty::context::TyCtxt>>::tys
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/error_reporting/infer/mod.rs:2521:18
+   7: <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate::<rustc_trait_selection::error_reporting::infer::SameTypeModuloInfer>::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/relate.rs:177:30
+   8: <&mut <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_trait_selection::error_reporting::infer::SameTypeModuloInfer>::{closure#1} as core::ops::function::FnOnce<(((rustc_middle::ty::Ty, rustc_middle::ty::Ty), bool),)>>::call_once
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/ops/function.rs:310:21
+   9: <core::option::Option<((rustc_middle::ty::Ty, rustc_middle::ty::Ty), bool)>>::map::<core::result::Result<rustc_middle::ty::Ty, rustc_type_ir::error::TypeError<rustc_middle::ty::context::TyCtxt>>, &mut <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_trait_selection::error_reporting::infer::SameTypeModuloInfer>::{closure#1}>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/option.rs:1163:29
+  10: <core::iter::adapters::map::Map<core::iter::adapters::chain::Chain<core::iter::adapters::map::Map<core::iter::adapters::zip::Zip<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>, core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_trait_selection::error_reporting::infer::SameTypeModuloInfer>::{closure#0}>, core::iter::sources::once::Once<((rustc_middle::ty::Ty, rustc_middle::ty::Ty), bool)>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_trait_selection::error_reporting::infer::SameTypeModuloInfer>::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/iter/adapters/map.rs:107:26
+  11: <core::iter::adapters::enumerate::Enumerate<core::iter::adapters::map::Map<core::iter::adapters::chain::Chain<core::iter::adapters::map::Map<core::iter::adapters::zip::Zip<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>, core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_trait_selection::error_reporting::infer::SameTypeModuloInfer>::{closure#0}>, core::iter::sources::once::Once<((rustc_middle::ty::Ty, rustc_middle::ty::Ty), bool)>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_trait_selection::error_reporting::infer::SameTypeModuloInfer>::{closure#1}>> as core::iter::traits::iterator::Iterator>::next
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/iter/adapters/enumerate.rs:80:27
+  12: <core::iter::adapters::map::Map<core::iter::adapters::enumerate::Enumerate<core::iter::adapters::map::Map<core::iter::adapters::chain::Chain<core::iter::adapters::map::Map<core::iter::adapters::zip::Zip<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>, core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_trait_selection::error_reporting::infer::SameTypeModuloInfer>::{closure#0}>, core::iter::sources::once::Once<((rustc_middle::ty::Ty, rustc_middle::ty::Ty), bool)>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_trait_selection::error_reporting::infer::SameTypeModuloInfer>::{closure#1}>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_trait_selection::e
+[... truncated ...]

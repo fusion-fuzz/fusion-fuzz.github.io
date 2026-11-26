@@ -1,0 +1,74 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuh9ucjk0/70854996.mm:15:17: warning: class property 'p1' requires method 'p1' to be defined - use @dynamic or provide a method implementation in this class implementation [-Wobjc-property-implementation]
+   15 | @implementation I1
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuh9ucjk0/70854996.mm:12:22: note: property declared here
+   12 | @property(class) int p1;
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuh9ucjk0/70854996.mm:15:17: warning: class property 'p1' requires method 'setP1:' to be defined - use @dynamic or provide a method implementation in this class implementation [-Wobjc-property-implementation]
+   15 | @implementation I1
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuh9ucjk0/70854996.mm:12:22: note: property declared here
+   12 | @property(class) int p1;
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuh9ucjk0/70854996.mm:6:12: warning: class 'I1' defined without specifying a base class [-Wobjc-root-class]
+    6 | @interface I1
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuh9ucjk0/70854996.mm:6:14: note: add a super class to fix this problem
+    6 | @interface I1
+      |              ^
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O3 -std=c++17 -fblocks -fobjc-runtime=gnustep-2.0 -fobjc-arc -ffast-math -target aarch64-none-linux-gnu -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuh9ucjk0/70854996.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuh9ucjk0/70854996.mm:30:68: current parser token '}'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuh9ucjk0/70854996.mm:30:67: parsing function body 'used_no_default'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuh9ucjk0/70854996.mm:30:67: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005666bf537329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005666bf533fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005666bf5348a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005666bf476218
+4  libc.so.6 0x00007230c06e2520
+5  clang++   0x00005666bd23518c
+6  clang++   0x00005666c1e56fa2 clang::Parser::ParseCompoundStatementBody(bool) + 466
+7  clang++   0x00005666c1e57c9f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+8  clang++   0x00005666c1df3dd4 clang::Parser::ParseLexedObjCMethodDefs(clang::Parser::LexedMethod&, bool) + 484
+9  clang++   0x00005666c1df42d6 clang::Parser::ObjCImplParsingDataRAII::finish(clang::SourceRange) + 278
+10 clang++   0x00005666c1df43db clang::Parser::ParseObjCAtEndDeclaration(clang::SourceRange) + 187
+11 clang++   0x00005666c1d4fdf3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2563
+12 clang++   0x00005666c1dfabc1 clang::Parser::ParseObjCAtImplementationDeclaration(clang::SourceLocation, clang::ParsedAttributes&) + 785
+13 clang++   0x00005666c1d4fdf3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2563
+14 clang++   0x00005666c1d506ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+15 clang++   0x00005666c1d2d632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+16 clang++   0x00005666c03ce061 clang::FrontendAction::Execute() + 65
+17 clang++   0x00005666c0357e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+18 clang++   0x00005666c04a5de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+19 clang++   0x00005666bd30133e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+20 clang++   0x00005666bd2f713a
+21 clang++   0x00005666bd2f72cf
+22 clang++   0x00005666c00dccfd
+23 clang++   0x00005666bf476630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+24 clang++   0x00005666c00ddb53
+25 clang++   0x00005666c0092607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+26 clang++   0x00005666c0096ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+27 clang++   0x00005666c00a5004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+28 clang++   0x00005666bd2fc923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+29 clang++   0x00005666bd2387f1 main + 113
+30 libc.so.6 0x00007230c06c9d90
+31 libc.so.6 0x00007230c06c9e40 __libc_start_main + 128
+32 clang++   0x00005666bd2f6765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: aarch64-none-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/70854996-978b68.mm
+clang++: note: diagnostic msg: /tmp/70854996-978b68.sh
+clang++: note: diagnostic msg: 
+
+********************
+Segmentation fault (core dumped)

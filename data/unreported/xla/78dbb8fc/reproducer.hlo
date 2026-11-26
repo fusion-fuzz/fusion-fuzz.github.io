@@ -1,0 +1,91 @@
+HloModule test
+
+%body {
+  %state = (s32[], f32[3]) parameter(0)
+  %i = s32[] get-tuple-element(state), index=0
+  %buffer = f32[3] get-tuple-element(state), index=1
+  %one = s32[] constant(1)
+  %next_i = s32[] add(i, one)
+  %ten = s32[] constant(10)
+  %value = s32[] add(i, ten)
+  %value_f = f32[] convert(value)
+  %update = f32[1] reshape(value_f)
+  %next_buffer = f32[3] dynamic-update-slice(buffer, update, i)
+  ROOT %next_state = (s32[], f32[3]) tuple(next_i, next_buffer)
+}
+
+%condition {
+  %state = (s32[], f32[3]) parameter(0)
+  %i = s32[] get-tuple-element(state), index=0
+  %three = s32[] constant(3)
+  ROOT %continue = pred[] compare(i, three), direction=LT
+}
+
+%compare {
+  %p0 = s32[] parameter(0)
+  %p1 = s32[] parameter(1)
+  %c = f32[] convert(p1)
+  %operand = f32[3] broadcast(c), dimensions={}
+  %zero = s32[] constant(0)
+  %init = (s32[], f32[3]) tuple(zero, operand)
+  %loop = (s32[], f32[3]) while(init), condition=%condition, body=%body
+  %buffer_out = f32[3] get-tuple-element(loop), index=1
+  %a = f32[1] slice(buffer_out), slice={[0:1]}
+  %b = f32[1] slice(buffer_out), slice={[1:2]}
+  %a_scalar = f32[] reshape(a)
+  %b_scalar = f32[] reshape(b)
+  %flip = pred[] compare(b_scalar, a_scalar), direction=GT
+  %ge = pred[] compare(p0, p1), direction=GE
+  ROOT %result = pred[] xor(ge, flip)
+}
+
+%body.d {
+  %state = (s32[], f32[3]) parameter(0)
+  %i = s32[] get-tuple-element(state), index=0
+  %buffer = f32[3] get-tuple-element(state), index=1
+  %one = s32[] constant(1)
+  %next_i = s32[] add(i, one)
+  %ten = s32[] constant(10)
+  %value = s32[] add(i, ten)
+  %value_f = f32[] convert(value)
+  %update = f32[1] reshape(value_f)
+  %next_buffer = f32[3] dynamic-update-slice(buffer, update, i)
+  ROOT %next_state = (s32[], f32[3]) tuple(next_i, next_buffer)
+}
+
+%condition.d {
+  %state = (s32[], f32[3]) parameter(0)
+  %i = s32[] get-tuple-element(state), index=0
+  %three = s32[] constant(3)
+  ROOT %continue = pred[] compare(i, three), direction=LT
+}
+
+%compare.d {
+  %p0 = s32[] parameter(0)
+  %p1 = s32[] parameter(1)
+  %c = f32[] convert(p1)
+  %operand = f32[3] broadcast(c), dimensions={}
+  %zero = s32[] constant(0)
+  %init = (s32[], f32[3]) tuple(zero, operand)
+  %loop = (s32[], f32[3]) while(init), condition=%condition.d, body=%body.d
+  %buffer_out = f32[3] get-tuple-element(loop), index=1
+  %a = f32[1] slice(buffer_out), slice={[0:1]}
+  %b = f32[1] slice(buffer_out), slice={[1:2]}
+  %a_scalar = f32[] reshape(a)
+  %b_scalar = f32[] reshape(b)
+  %flip = pred[] compare(b_scalar, a_scalar), direction=GT
+  %ge = pred[] compare(p0, p1), direction=GE
+  ROOT %result = pred[] xor(ge, flip)
+}
+
+ENTRY %ReshapeAndBroadcastMerged {
+  %param0 = f32[5]{0} parameter(0), origin={{"param0"}}
+  %reshape = f32[1,5,1]{2,1,0} reshape(%param0), origin={{"reshape"}}
+  %broadcast = f32[1,2,3,5,1]{4,3,2,1,0} broadcast(%reshape), dimensions={0,3,4}
+  %x = s32[7] parameter(1)
+  %sorted = s32[7] sort(%x), dimensions={0}, is_stable=true, to_apply=%compare
+  %ffl.root = (f32[1,2,3,5,1]{4,3,2,1,0}, s32[7]) tuple(%broadcast, %sorted)
+  %x.d = s32[7] parameter(2)
+  %sorted.d = s32[7] sort(%x), dimensions={0}, is_stable=true, to_apply=%compare.d
+  ROOT %ffl.root.1 = (f32[1,2,3,5,1]{4,3,2,1,0}, s32[7], s32[7]) tuple(%broadcast, %sorted, %sorted.d)
+}

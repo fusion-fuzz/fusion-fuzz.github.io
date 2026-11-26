@@ -1,0 +1,25 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==2174833==ERROR: AddressSanitizer: SEGV on unknown address 0x00005a80002c (pc 0x7f20de77ee39 bp 0x7ffcb5174eb0 sp 0x7ffcb5174648 T0)
+==2174833==The signal is caused by a READ memory access.
+    #0 0x7f20de77ee39  string/../sysdeps/x86_64/multiarch/memcmp-avx2-movbe.S:413
+    #1 0x61c1ce in MemcmpInterceptorCommon(void*, int (*)(void const*, void const*, unsigned long), void const*, void const*, unsigned long) (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x61c1ce)
+    #2 0x61c54a in memcmp (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x61c54a)
+    #3 0x7f20de83709e in zip_file_set_comment (/lib/x86_64-linux-gnu/libzip.so.4+0x709e)
+    #4 0x48e650e in php_zip_set_file_comment /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/zip/php_zip.c:78:9
+    #5 0x48e60b4 in zim_ZipArchive_setCommentName /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/zip/php_zip.c:2218:2
+    #6 0x5d047c1 in ZEND_DO_FCALL_SPEC_RETVAL_USED_HANDLER /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:2152:4
+    #7 0x5abdaba in execute_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:110493:12
+    #8 0x5abfba8 in zend_execute /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:115931:2
+    #9 0x66eb2dc in zend_execute_script /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend.c:1977:3
+    #10 0x5024f1d in php_execute_script_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:2631:13
+    #11 0x5026198 in php_execute_script /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:2671:9
+    #12 0x66fe7a2 in do_cli /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:947:5
+    #13 0x66f8f86 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:1368:18
+    #14 0x7f20de60ed8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #15 0x7f20de60ee3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #16 0x605b04 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x605b04)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV string/../sysdeps/x86_64/multiarch/memcmp-avx2-movbe.S:413 
+==2174833==ABORTING

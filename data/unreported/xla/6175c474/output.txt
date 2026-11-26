@@ -1,0 +1,19 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1791991741.327683 2370072 compile_module_to_llvm_ir.cc:329] Check failed: new_module Failed to parse bitcode Invalid instruction with no BB (Producer: 'LLVM24.0.0git' Reader: 'LLVM 24.0.0git')
+*** Check failure stack trace: ***
+    @     0x5c49ff309a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5c49ff3099e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5c49f3ecc5f4  xla::gpu::CopyToContext()
+    @     0x5c49f3dc4256  std::_Function_handler<>::_M_invoke()
+    @     0x5c49f3ec2e2e  absl::lts_20260526::internal_any_invocable::LocalInvoker<>()
+    @     0x5c49f4010a0d  xla::gpu::CubinCustomKernelCompiler::CompileToCubinImpl()
+    @     0x5c49f400f2ee  xla::gpu::CubinCustomKernelCompiler::CompileImpl()
+    @     0x5c49f401279a  absl::lts_20260526::internal_any_invocable::RemoteInvoker<>()
+    @     0x5c49ff11dba2  std::_Function_handler<>::_M_invoke()
+    @     0x5c49ff11c394  Eigen::ThreadPoolTempl<>::WorkerLoop()
+    @     0x5c49ff11c221  std::__invoke_impl<>()
+    @     0x5c49ff10a68e  tsl::(anonymous namespace)::PThread::ThreadFn()
+    @     0x7d99fd03fa83  (unknown)
+Aborted (core dumped)

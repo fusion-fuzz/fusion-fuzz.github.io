@@ -1,0 +1,20 @@
+during GIMPLE pass: coro-lower-builtins
+<source>: In function 'void* f(void*)':
+<source>:2:7: internal compiler error: in lower_coro_builtin, at coroutine-passes.cc:110
+    2 | void *f (void *h) { return __builtin_coro_promise (h, (__SIZE_TYPE__) &x, true); }
+      |       ^
+0x2c67ad8 diagnostics::context::diagnostic_impl(rich_location*, diagnostics::metadata const*, diagnostics::option_id, char const*, __va_list_tag (*) [1], diagnostics::kind)
+	???:0
+0x2c5c71b internal_error(char const*, ...)
+	???:0
+0xb9c742 fancy_abort(char const*, int, char const*)
+	???:0
+0x1272e5b walk_gimple_stmt(gimple_stmt_iterator*, tree_node* (*)(gimple_stmt_iterator*, bool*, walk_stmt_info*), tree_node* (*)(tree_node**, int*, void*), walk_stmt_info*)
+	???:0
+0x12730c5 walk_gimple_seq_mod(gimple**, tree_node* (*)(gimple_stmt_iterator*, bool*, walk_stmt_info*), tree_node* (*)(tree_node**, int*, void*), walk_stmt_info*)
+	???:0
+/cefs/68/68355b14e76da62127dfa16c_gcc-trunk-20261018/bin/../libexec/gcc/x86_64-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -iprefix /cefs/68/68355b14e76da62127dfa16c_gcc-trunk-20261018/bin/../lib/gcc/x86_64-linux-gnu/17.0.0/ -D_GNU_SOURCE <source> -quiet -dumpdir /app/output.s- -dumpbase example.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -g -fdiagnostics-color=always -fno-verbose-asm -o /tmp/ccB8ayrb.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.
+x86-64 gcc (trunk) - 1088ms

@@ -1,0 +1,60 @@
+=================================================================
+==94==ERROR: AddressSanitizer: global-buffer-overflow on address 0x5edfef9969b0 at pc 0x73e5cad1557b bp 0x7ffeed18d9d0 sp 0x7ffeed18d9c8
+READ of size 8 at 0x5edfef9969b0 thread T0
+    #0 0x73e5cad1557a in signaldict_richcompare /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Modules/_decimal/_decimal.c:798:37
+    #1 0x5edfee58d26a in do_richcompare /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Objects/object.c:1065:15
+    #2 0x5edfee58d26a in PyObject_RichCompare /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Objects/object.c:1114:21
+    #3 0x5edfee92fccc in _PyEval_EvalFrameDefault /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/generated_cases.c.h:5281:35
+    #4 0x5edfee905371 in _PyEval_Vector /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/ceval.c:2176:12
+    #5 0x5edfee905371 in PyEval_EvalCode /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/ceval.c:681:21
+    #6 0x5edfeeeca0fa in run_eval_code_obj /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/pythonrun.c:1406:12
+    #7 0x5edfeeec981c in run_mod /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/pythonrun.c:1509:19
+    #8 0x5edfeeec451c in _PyRun_File /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/pythonrun.c:1332:15
+    #9 0x5edfeeec27ef in _PyRun_SimpleFile /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/pythonrun.c:544:15
+    #10 0x5edfeeec1e47 in _PyRun_AnyFile /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/pythonrun.c:92:18
+    #11 0x5edfeef8d8af in pymain_run_file_obj /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Modules/main.c:478:24
+    #12 0x5edfeef8d8af in pymain_run_file /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Modules/main.c:494:20
+    #13 0x5edfeef8c028 in pymain_run_python /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Modules/main.c:804:21
+    #14 0x5edfeef8c028 in Py_RunMain /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Modules/main.c:891:5
+    #15 0x5edfeef8d057 in pymain_main /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Modules/main.c:921:12
+    #16 0x5edfeef8d2bf in Py_BytesMain /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Modules/main.c:945:12
+    #17 0x77e5cb9ced8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #18 0x77e5cb9cee3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #19 0x5edfedef9334 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/python+0x9fd334) (BuildId: ca90491e49290c487356a96661cf4fa97186159f)
+
+0x5edfef9969b0 is located 16 bytes before global variable 'notimplemented_as_number' defined in '/home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Objects/object.c:2450' (0x5edfef9969c0) of size 288
+0x5edfef9969b0 is located 0 bytes after global variable '_Py_NoneStruct' defined in '/home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Objects/object.c:2400' (0x5edfef9969a0) of size 16
+SUMMARY: AddressSanitizer: global-buffer-overflow /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Modules/_decimal/_decimal.c:798:37 in signaldict_richcompare
+Shadow bytes around the buggy address:
+  0x5edfef996700: 00 00 00 00 00 00 00 00 f9 f9 f9 f9 f9 f9 f9 f9
+  0x5edfef996780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x5edfef996800: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x5edfef996880: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x5edfef996900: 00 00 00 00 00 00 f9 f9 f9 f9 f9 f9 f9 f9 f9 f9
+=>0x5edfef996980: f9 f9 f9 f9 00 00[f9]f9 00 00 00 00 00 00 00 00
+  0x5edfef996a00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x5edfef996a80: 00 00 00 00 00 00 00 00 00 00 00 00 f9 f9 f9 f9
+  0x5edfef996b00: f9 f9 f9 f9 00 00 00 00 00 00 00 00 00 00 00 00
+  0x5edfef996b80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x5edfef996c00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==94==ABORTING
+./test.sh: line 3:    94 Aborted                 (core dumped)

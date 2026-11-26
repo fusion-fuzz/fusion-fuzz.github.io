@@ -1,0 +1,34 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpx_0iblk2/9c8e14e7.c:21:12: error: 'weakref' symbol 'i' ultimately targets itself
+   21 | static int i __attribute__((weakref("i")));
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpx_0iblk2/9c8e14e7.c:31:1: error: conflicting types for 'foo'; have 'int(void)'
+   31 | foo (void)
+      | ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpx_0iblk2/9c8e14e7.c:8:1: note: previous definition of 'foo' with type 'void(_Float16 * restrict,  _Float16 * restrict,  _Float16 * restrict)'
+    8 | foo (_Float16 *__restrict__ a, _Float16 *__restrict__ b,
+      | ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpx_0iblk2/9c8e14e7.c:36:1: error: conflicting types for 'foo'; have 'int(void)'
+   36 | foo (void)
+      | ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpx_0iblk2/9c8e14e7.c:8:1: note: previous definition of 'foo' with type 'void(_Float16 * restrict,  _Float16 * restrict,  _Float16 * restrict)'
+    8 | foo (_Float16 *__restrict__ a, _Float16 *__restrict__ b,
+      | ^~~
+cc1: internal compiler error: in get, at cgraph.h:3128
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x981f28 varpool_node::get(tree_node const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraph.h:3128
+0x98233e varpool_node::get(tree_node const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:3977
+0x98233e varpool_node::analyze()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/varpool.cc:535
+0x10afe6e analyze_functions
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:1334
+0x10b0cd6 symbol_table::finalize_compilation_unit()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2593
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpx_0iblk2/9c8e14e7.c -quiet -dumpbase 9c8e14e7.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O0 -O3 -std=c99 -fexceptions -floop-nest-optimize -ffast-math -o /tmp/ccJObrPv.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

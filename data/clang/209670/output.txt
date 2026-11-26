@@ -1,0 +1,91 @@
+/tmp/test.cpp:3:2: error: expected ';' after struct
+    3 | }
+      |  ^
+      |  ;
+/tmp/test.cpp:4:8: error: module declaration must occur at the start of the translation unit
+    4 | export module foo:bar;
+      |        ^
+/tmp/test.cpp:1:1: note: add 'module;' to the start of the file to introduce a global module fragment
+    1 | struct D {
+      | ^
+/tmp/test.cpp:6:25: error: 'operator==' is missing exception specification 'noexcept'
+    6 |   friend constexpr bool operator==(const D&, const D&); // expected-error {{non-constexpr}}
+      |                         ^                             
+      |                                                        noexcept
+/tmp/test.cpp:2:15: note: previous declaration is here
+    2 |   friend bool operator==(const D&, const D&) = default; // expected-note {{previous}}
+      |               ^
+/tmp/test.cpp:7:23: error: unknown type name 'G'
+    7 | bool operator==(const G&, const G&);
+      |                       ^
+/tmp/test.cpp:7:33: error: unknown type name 'G'
+    7 | bool operator==(const G&, const G&);
+      |                                 ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaLookup.cpp:1854: static bool clang::LookupResult::isAcceptableSlow(clang::Sema&, clang::NamedDecl*, clang::Sema::AcceptableKind): Assertion `DeclModule && "hidden decl has no owning module"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O3 -std=c++20 /tmp/test.cpp
+1.	/tmp/test.cpp:7:36: current parser token ';'
+2.	/tmp/test.cpp:5:1: parsing struct/union/class body 'TestD'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000563e502ae0f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000563e502aadcc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000563e502ab678 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000563e501edf88
+4  libc.so.6 0x00007f6b69b0a520
+5  libc.so.6 0x00007f6b69b5e9fc pthread_kill + 300
+6  libc.so.6 0x00007f6b69b0a476 raise + 22
+7  libc.so.6 0x00007f6b69af07f3 abort + 211
+8  libc.so.6 0x00007f6b69af071b
+9  libc.so.6 0x00007f6b69b01e96
+10 clang++   0x0000563e5317b94f clang::LookupResult::isAcceptableSlow(clang::Sema&, clang::NamedDecl*, clang::Sema::AcceptableKind) + 591
+11 clang++   0x0000563e5317dfcf clang::LookupResult::isAvailableForLookup(clang::Sema&, clang::NamedDecl*) + 47
+12 clang++   0x0000563e531996e6
+13 clang++   0x0000563e53186c5b
+14 clang++   0x0000563e53187c0b clang::Sema::CppLookupName(clang::LookupResult&, clang::Scope*) + 3659
+15 clang++   0x0000563e531885c6 clang::Sema::LookupName(clang::LookupResult&, clang::Scope*, bool, bool) + 1910
+16 clang++   0x0000563e52e5468f clang::Sema::HandleDeclarator(clang::Scope*, clang::Declarator&, llvm::MutableArrayRef<clang::TemplateParameterList*>) + 575
+17 clang++   0x0000563e52f05621 clang::Sema::ActOnCXXMemberDeclarator(clang::Scope*, clang::AccessSpecifier, clang::Declarator&, llvm::MutableArrayRef<clang::TemplateParameterList*>, clang::Expr*, clang::VirtSpecifiers const&, clang::InClassInitStyle) + 1057
+18 clang++   0x0000563e52ab17ba clang::Parser::ParseCXXClassMemberDeclaration(clang::AccessSpecifier, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject*) + 5706
+19 clang++   0x0000563e52ab3230 clang::Parser::ParseCXXClassMemberDeclarationWithPragmas(clang::AccessSpecifier&, clang::ParsedAttributes&, clang::TypeSpecifierType, clang::Decl*) + 1296
+20 clang++   0x0000563e52ab38f8 clang::Parser::ParseCXXMemberSpecification(clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributes&, unsigned int, clang::Decl*) + 1144
+21 clang++   0x0000563e52ab64ff clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 8191
+22 clang++   0x0000563e52a85732 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2994
+23 clang++   0x0000563e52a40e88 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 200
+24 clang++   0x0000563e52a4192f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 959
+25 clang++   0x0000563e52a4d7a1 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 977
+26 clang++   0x0000563e52a4e7df clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+27 clang++   0x0000563e52a2b70a clang::ParseAST(clang::Sema&, bool, bool) + 586
+28 clang++   0x0000563e50fa4071 clang::FrontendAction::Execute() + 65
+29 clang++   0x0000563e50f2dc65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+30 clang++   0x0000563e5107fea3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+31 clang++   0x0000563e4ec82c96 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7046
+32 clang++   0x0000563e4ec78a2a
+33 clang++   0x0000563e4ec78bbf
+34 clang++   0x0000563e50cb535d
+35 clang++   0x0000563e501ee3a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+36 clang++   0x0000563e50cb61b3
+37 clang++   0x0000563e50c6b987 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+38 clang++   0x0000563e50c701e0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+39 clang++   0x0000563e50c7de44 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+40 clang++   0x0000563e4ec7e2d3 clang_main(int, char**, llvm::ToolContext const&) + 7267
+41 clang++   0x0000563e4ebd07a1 main + 113
+42 libc.so.6 0x00007f6b69af1d90
+43 libc.so.6 0x00007f6b69af1e40 __libc_start_main + 128
+44 clang++   0x0000563e4ec78055 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git aefba88f46a6e55645c848f58f6ba56944d5ae62)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/test-282301.cpp
+clang++: note: diagnostic msg: /tmp/test-282301.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

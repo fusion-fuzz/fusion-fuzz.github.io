@@ -1,0 +1,74 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc: In lambda function:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc:33:12: warning: implicit capture of 'this' via '[=]' is deprecated in C++20 [-Wdeprecated]
+   33 |     return [=](this auto) { return x; };  // { dg-warning "implicit capture" }
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc:33:12: note: add explicit 'this' or '*this' capture
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc: In lambda function:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc:59:14: warning: implicit capture of 'this' via '[=]' is deprecated in C++20 [-Wdeprecated]
+   59 |       return [=](this auto) {   // { dg-warning "implicit capture" }
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc:59:14: note: add explicit 'this' or '*this' capture
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc: In lambda function:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc:172:12: warning: implicit capture of 'this' via '[=]' is deprecated in C++20 [-Wdeprecated]
+  172 |     return [=](this auto) { return x; };  // { dg-warning "implicit capture" }
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc:172:12: note: add explicit 'this' or '*this' capture
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc: In lambda function:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc:198:14: warning: implicit capture of 'this' via '[=]' is deprecated in C++20 [-Wdeprecated]
+  198 |       return [=](this auto) {   // { dg-warning "implicit capture" }
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc:198:14: note: add explicit 'this' or '*this' capture
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc: In instantiation of 'auto mult_mv()::S::byval_c() [with int r = 7; int c = 3]':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc:230:1:   required from 'void mult_mv() [with int r = 7; int c = 3; int N = 3]'
+  230 | };
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc:234:17:   required from here
+  234 |   mult_mv<7, 3> ();
+      |   ~~~~~~~~~~~~~~^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc:199:16: internal compiler error: in tsubst, at cp/pt.cc:17353
+  199 |         return this->x;
+      |                ^~~~
+0x305a98b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00d26 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x8626f5 tsubst(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:17353
+0x1078d60 tsubst_entering_scope
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:10307
+0x1078d60 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:23330
+0x1078539 tsubst_name
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:18249
+0x1078539 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:22907
+0x10870dd tsubst(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:18118
+0x1087970 tsubst(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:17328
+0x10796b8 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:21824
+0x10794b1 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:22315
+0x1078491 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:22882
+0x10a5ed4 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:21114
+0x10a7d36 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:19874
+0x10a796b tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:20305
+0x10a8051 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:19864
+0x107779f tsubst_lambda_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:21512
+0x107acaf tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:23555
+0x1078ae3 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:22486
+0x10a5ed4 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:21114
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmpuhgqlp/f75b62c0.cc -quiet -dumpdir a- -dumpbase f75b62c0.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O1 -std=c++26 -fsyntax-only -funroll-loops -fgraphite-identity -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

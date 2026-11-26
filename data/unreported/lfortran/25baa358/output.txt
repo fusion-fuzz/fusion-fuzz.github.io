@@ -1,0 +1,33 @@
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3149, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 2933, in main_app(int, char**)
+    return emit_asm(opts.arg_file, compiler_options);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 1266, in (anonymous namespace)::emit_asm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::CompilerOptions&)
+    LCompilers::Result<std::string> r = fe.get_asm(input, lm, lpm, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 821, in LCompilers::FortranEvaluator::get_asm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&)
+    Result<std::unique_ptr<LLVMModule>> res = get_llvm2(code, lm, lpm, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 717, in LCompilers::FortranEvaluator::get_llvm2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&)
+    Result<ASR::TranslationUnit_t*> asr = get_asr2(code, lm, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 456, in LCompilers::FortranEvaluator::get_asr2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&)
+    res = get_ast2(code_orig, lm, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 413, in LCompilers::FortranEvaluator::get_ast2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&)
+    compiler_options.interactive ? cell_start : 0);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/parser/parser.cpp", line 292, in LCompilers::LFortran::parse(Allocator&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions const&, unsigned int)
+    if (!p.parse(s)) {
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/parser/parser.cpp", line 335, in LCompilers::LFortran::Parser::parse(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+    if (yyparse(*this) == 0) {
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc", line 23332, in yyparse(LCompilers::LFortran::Parser&)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc", line 22958, in yyresolveStack(yyGLRStack*, LCompilers::LFortran::Parser&)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc", line 22695, in yyresolveStates(yyGLRState*, int, yyGLRStack*, LCompilers::LFortran::Parser&)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc", line 22934, in yyresolveValue(yyGLRState*, yyGLRStack*, LCompilers::LFortran::Parser&)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc", line 22712, in yyresolveAction(yySemanticOption*, yyGLRStack*, LCompilers::LFortran::YYSTYPE*, LCompilers::Location*, LCompilers::LFortran::Parser&)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc", line 22695, in yyresolveStates(yyGLRState*, int, yyGLRStack*, LCompilers::LFortran::Parser&)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc", line 22934, in yyresolveValue(yyGLRState*, yyGLRStack*, LCompilers::LFortran::Parser&)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc", line 22732, in yyresolveAction(yySemanticOption*, yyGLRStack*, LCompilers::LFortran::YYSTYPE*, LCompilers::Location*, LCompilers::LFortran::Parser&)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.yy", line 2566, in yyuserAction(int, int, yyGLRStackItem*, yyGLRStack*, long, LCompilers::LFortran::YYSTYPE*, LCompilers::Location*, LCompilers::LFortran::Parser&)
+AssertFailed: !item.keyword

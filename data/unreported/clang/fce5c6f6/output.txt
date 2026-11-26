@@ -1,0 +1,65 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppdjuvl0d/54873595.cpp:7:35: warning: comparing values of different Unicode code unit types 'char8_t' and 'char32_t' may compare different code points [-Wcharacter-conversion]
+    7 | void foo(char8_t u8) { (int[])(u8 == U'\u00FF'); }
+      |                                ~~ ^  ~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppdjuvl0d/54873595.cpp:7:24: warning: expression result unused [-Wunused-value]
+    7 | void foo(char8_t u8) { (int[])(u8 == U'\u00FF'); }
+      |                        ^~~~~~~~~~~~~~~~~~~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGExprAgg.cpp:1064: void {anonymous}::AggExprEmitter::VisitCastExpr(clang::CastExpr*): Assertion `CGF.getContext().hasSameUnqualifiedType(E->getSubExpr()->getType(), E->getType()) && "Implicit cast types must be compatible"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O0 -std=c++23 -fblocks /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppdjuvl0d/54873595.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppdjuvl0d/54873595.cpp:20:1: current parser token 'static_assert'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppdjuvl0d/54873595.cpp:7:6: LLVM IR generation of declaration 'foo'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppdjuvl0d/54873595.cpp:7:6: Generating code for declaration 'foo'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000555f1731f4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000555f1731c1bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000555f1731ca78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000555f1725ee88
+4  libc.so.6 0x00007f5a38401520
+5  libc.so.6 0x00007f5a384559bc pthread_kill + 300
+6  libc.so.6 0x00007f5a38401476 raise + 22
+7  libc.so.6 0x00007f5a383e77f3 abort + 211
+8  libc.so.6 0x00007f5a383e771b
+9  libc.so.6 0x00007f5a383f8e96
+10 clang++   0x0000555f17674569
+11 clang++   0x0000555f1766f43b
+12 clang++   0x0000555f1766f85e clang::CodeGen::CodeGenFunction::EmitAggExpr(clang::Expr const*, clang::CodeGen::AggValueSlot) + 1006
+13 clang++   0x0000555f176316cc clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) + 700
+14 clang++   0x0000555f17657f4a clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) + 282
+15 clang++   0x0000555f17803734 clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 388
+16 clang++   0x0000555f1780badc clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+17 clang++   0x0000555f17875871 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) + 177
+18 clang++   0x0000555f1788c884 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 1380
+19 clang++   0x0000555f178f6c0a clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 2106
+20 clang++   0x0000555f178eff64 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 580
+21 clang++   0x0000555f178f0e60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+22 clang++   0x0000555f178fc495
+23 clang++   0x0000555f17ca03e1
+24 clang++   0x0000555f17c8fbc1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+25 clang++   0x0000555f19b05cdc clang::ParseAST(clang::Sema&, bool, bool) + 508
+26 clang++   0x0000555f1800de51 clang::FrontendAction::Execute() + 65
+27 clang++   0x0000555f17f97df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+28 clang++   0x0000555f180e5c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+29 clang++   0x0000555f15d2ed3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+30 clang++   0x0000555f15d24ada
+31 clang++   0x0000555f15d24c6f
+32 clang++   0x0000555f17d1c42d
+33 clang++   0x0000555f1725f2a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+34 clang++   0x0000555f17d1d283
+35 clang++   0x0000555f17cd1d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+36 clang++   0x0000555f17cd6600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+37 clang++   0x0000555f17ce4714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+38 clang++   0x0000555f15d2a383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+39 clang++   0x0000555f15c7a901 main + 113
+40 libc.so.6 0x00007f5a383e8d90
+41 libc.so.6 0x00007f5a383e8e40 __libc_start_main + 128
+42 clang++   0x0000555f15d24105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: Error generating preprocessed source(s).
+Aborted (core dumped)

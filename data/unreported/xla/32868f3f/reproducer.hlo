@@ -1,0 +1,48 @@
+HloModule dus_in_sort_comparator
+
+%compare {
+  %p0 = s32[] parameter(0)
+  %p1 = s32[] parameter(1)
+  %c = f32[] convert(p1)
+  %operand = f32[3] broadcast(c), dimensions={}
+  %update = f32[1] constant({7})
+  %zero = s32[] constant(0)
+  %two = s32[] constant(2)
+  %idx = s32[] clamp(zero, p0, two)
+  %updated = f32[3] dynamic-update-slice(operand, update, idx)
+  %picked = f32[1] dynamic-slice(updated, idx), dynamic_slice_sizes={1}
+  %picked_scalar = f32[] reshape(picked)
+  %three = f32[] constant(3)
+  %flip = pred[] compare(picked_scalar, three), direction=GT
+  %ge = pred[] compare(p0, p1), direction=GE
+  ROOT %result = pred[] xor(ge, flip)
+}
+
+%update_s32 {
+  %lhs = s32[] parameter(0)
+  ROOT %rhs = s32[] parameter(1)
+}
+
+%update_s32.d {
+  %lhs = s32[] parameter(0)
+  ROOT %rhs = s32[] parameter(1)
+}
+
+%update_s32.d.1 {
+  %lhs = s32[] parameter(0)
+  ROOT %rhs = s32[] parameter(1)
+}
+
+ENTRY %main {
+  %x = s32[7] parameter(0)
+  %sorted = s32[7] sort(x), dimensions={0}, is_stable=true, to_apply=compare
+  %parameter.1 = s32[] parameter(1)
+  %parameter.2 = s32[0]{0} parameter(2)
+  %parameter.3 = s32[] parameter(3)
+  %scatter_ScatterIntoScalar = s32[] scatter(%parameter.1, %parameter.2, %parameter.3), update_window_dims={}, inserted_window_dims={}, scatter_dims_to_operand_dims={}, index_vector_dim=0, to_apply=%update_s32
+  %ffl.root = (s32[7], s32[]) tuple(%sorted, %scatter_ScatterIntoScalar)
+  %parameter.2.d = s32[0]{0} parameter(4)
+  %parameter.3.d = s32[] parameter(5)
+  %scatter_ScatterIntoScalar.d = s32[] scatter(%parameter.3, %parameter.2.d, %parameter.3.d), update_window_dims={}, inserted_window_dims={}, scatter_dims_to_operand_dims={}, index_vector_dim=0, to_apply=%update_s32.d.1
+  ROOT %ffl.root.1 = (s32[7], s32[], s32[]) tuple(%sorted, %scatter_ScatterIntoScalar, %scatter_ScatterIntoScalar.d)
+}

@@ -1,0 +1,67 @@
+panic: unexpected Expression: KindArrayBindingPattern [recovered, repanicked]
+
+goroutine 338 [running]:
+sync.(*WaitGroup).Go.func1.1()
+	/usr/local/go/src/sync/waitgroup.go:251 +0x45
+panic({0xdefd20?, 0x3a4d34a96810?})
+	/usr/local/go/src/runtime/panic.go:860 +0x13a
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitExpression(0x3a4d32636a80, 0x3a4d3046ea40, 0x2)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:3342 +0xc05
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitSpreadElement(0x3a4d32636a80, 0x3a4d34a7dc80)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:2948 +0x65
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitExpression(0x3a4d32636a80, 0x3a4d34a7dc80, 0x1)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:3301 +0x877
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitArrayLiteralExpressionElement(0x3a4d32636a80?, 0x3a4d34a94840?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:2480 +0x18
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitListItems(0x3a4d32636a80, 0x15c9330, 0x3a4d328fb8b0, {0x3a4d349f3f68, 0x1, 0x3a4d328fb8b0?}, 0x22d2, 0x0, {0x2a, 0x33})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4991 +0x5d9
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitListRange(0x3a4d32636a80, 0x15c9330, 0x3a4d328fb8b0, 0x3a4d34a7ee00, 0x22d2, 0x3a4d328fb8b0?, 0x3a4d34ab8230?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4790 +0x3ac
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitList(0x3a4d32636a80, 0x15c9330, 0x3a4d328fb8b0, 0x3a4d34a7ee00, 0x22d2)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4735 +0x90
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitArrayLiteralExpression(0x3a4d32636a80, 0x3a4d328fb8b0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:2485 +0x5c
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitExpression(0x3a4d32636a80, 0x3a4d328fb8b0, 0x4)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:3259 +0x338
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitBinaryExpression(0x3a4d32636a80, 0x3a4d322137f8)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:2885 +0x1d4
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitExpression(0x3a4d32636a80, 0x3a4d322137f8, 0x0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:3293 +0x76b
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitExpressionStatement(0x3a4d32636a80, 0x3a4d34a7edc0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:3431 +0xdd
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitStatement(0x3a4d32636a80, 0x3a4d34a7edc0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4174 +0x117
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitListItems(0x3a4d32636a80, 0x15c93b8, 0x3a4d34a77740, {0x3a4d34a966c0, 0x2, 0x810097?}, 0x81, 0x0, {0xffffffff, 0xffffffff})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4991 +0x5d9
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitListRange(0x3a4d32636a80, 0x15c93b8, 0x3a4d34a77740, 0x3a4d34a05a00, 0x81, 0x0?, 0x3a4d34a77740?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4790 +0x3ac
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitList(0x3a4d32636a80, 0x15c93b8, 0x3a4d34a77740, 0x3a4d34a05a00, 0x81)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4735 +0x90
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitBlock(0x3a4d32636a80, 0x3a4d34a77740)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:3388 +0x126
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitTryStatement(0x3a4d32636a80, 0x3a4d349d70e0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:3673 +0xa8
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitStatement(0x3a4d32636a80, 0x3a4d349d70e0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4202 +0x367
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitListItems(0x3a4d32636a80, 0x15c93b8, 0x3a4d34aa4008, {0x3a4d34a7b008, 0x3, 0x15c93f8?}, 0x1, 0x0, {0xffffffff, 0xffffffff})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4991 +0x5d9
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitListRange(0x3a4d32636a80, 0x15c93b8, 0x3a4d34aa4008, 0x3a4d34a05aa0, 0x1, 0x3a4d302780c0?, 0x3a4d34a9db80?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4790 +0x3ac
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitSourceFile(0x3a4d32636a80, 0x3a4d34aa4008)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4695 +0x2b1
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).Write(0x3a4d32636a80, 0x3a4d34aa4008, 0x3a4d34aa4008, {0x15f6708, 0x3a4d34a0ba40}, 0xa27ddd?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:5256 +0x10ec
+github.com/microsoft/TypeScript/tsc/internal/compiler.(*emitter).printSourceFile(0x3a4d3084af00, {0x3a4d304b0480, 0xb4}, {0x0, 0x0}, 0x3a4d34aa4008, 0x3a4d32636a80, 0x3a4d304ac008, 0x0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/compiler/emitter.go:330 +0x265
+github.com/microsoft/TypeScript/tsc/internal/compiler.(*emitter).emitJSFile(0x3a4d3084af00, 0x3a4d3048e708, {0x3a4d304b0480, 0xb4}, {0x0, 0x0})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/compiler/emitter.go:218 +0x385
+github.com/microsoft/TypeScript/tsc/internal/compiler.(*emitter).emit(0x3a4d3084af00)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/compiler/emitter.go:50 +0x11d
+github.com/microsoft/TypeScript/tsc/internal/compiler.(*Program).Emit.func2()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/compiler/program.go:1854 +0x1ce
+github.com/microsoft/TypeScript/tsc/internal/core.(*parallelWorkGroup).Queue.func1()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/core/workgroup.go:40 +0x13
+sync.(*WaitGroup).Go.func1()
+	/usr/local/go/src/sync/waitgroup.go:258 +0x4a
+created by sync.(*WaitGroup).Go in goroutine 1
+	/usr/local/go/src/sync/waitgroup.go:238 +0x73

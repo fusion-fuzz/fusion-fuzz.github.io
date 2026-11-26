@@ -1,0 +1,82 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8bfj9176/826636f2.mm:5:12: warning: class 'A' defined without specifying a base class [-Wobjc-root-class]
+    5 | @interface A
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8bfj9176/826636f2.mm:5:13: note: add a super class to fix this problem
+    5 | @interface A
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8bfj9176/826636f2.mm:52:46: error: use of undeclared identifier 'getGV'
+   52 |     void await_suspend(std::coroutine_handle<getGV>) noexcept;
+      |                                              ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8bfj9176/826636f2.mm:90:36: error: no matching member function for call to 'await_suspend'
+   90 | f<std::b<std::c<int, int>>> J<bc>::bo() {
+      |                                    ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8bfj9176/826636f2.mm:90:36: note: call to 'final_suspend' implicitly required by the final suspend point
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8bfj9176/826636f2.mm:94:16: note: function is a coroutine due to use of 'co_await' here
+   94 |   co_return{0, co_await ax(bu, bw)};
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8bfj9176/826636f2.mm:97:18: warning: expression result unused [-Wunused-value]
+   97 |   auto cn = [] { J<int>::bo; };
+      |                  ^~~~~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/include/llvm/Support/Casting.h:109: static bool llvm::isa_impl_cl<clang::Expr, const clang::Stmt *>::doit(const From *) [To = clang::Expr, From = const clang::Stmt *]: Assertion `Val && "isa<> used on a null pointer"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Oz -std=c++20 -fblocks -fobjc-runtime=gnustep-2.0 -fno-objc-arc -fsanitize=undefined -target x86_64-unknown-linux-gnu -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8bfj9176/826636f2.mm
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8bfj9176/826636f2.mm:90:36: instantiating function definition 'J<int>::bo'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000057ce5ebad66b __interceptor_backtrace + 91
+1  clang++   0x000057ce64808027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x000057ce64801cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x000057ce648069c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x000057ce64654cc5
+5  clang++   0x000057ce646554d3
+6  libc.so.6 0x0000779509c5a520
+7  libc.so.6 0x0000779509cae9bc pthread_kill + 300
+8  libc.so.6 0x0000779509c5a476 raise + 22
+9  libc.so.6 0x0000779509c407f3 abort + 211
+10 libc.so.6 0x0000779509c4071b
+11 libc.so.6 0x0000779509c51e96
+12 clang++   0x000057ce65329a42
+13 clang++   0x000057ce6b69d2df clang::CoroutineStmtBuilder::makeInitialAndFinalSuspend() + 175
+14 clang++   0x000057ce6b69cd36 clang::CoroutineStmtBuilder::CoroutineStmtBuilder(clang::Sema&, clang::FunctionDecl&, clang::sema::FunctionScopeInfo&, clang::Stmt*) + 1814
+15 clang++   0x000057ce6b69c068 clang::Sema::CheckCompletedCoroutineBody(clang::FunctionDecl*, clang::Stmt*&) + 1816
+16 clang++   0x000057ce6b7b0138 clang::Sema::ActOnFinishFunctionBody(clang::Decl*, clang::Stmt*, bool, bool) + 2152
+17 clang++   0x000057ce6ce8c552 clang::Sema::InstantiateFunctionDefinition(clang::SourceLocation, clang::FunctionDecl*, bool, bool, bool) + 8434
+18 clang++   0x000057ce6ce96901 clang::Sema::PerformPendingInstantiations(bool, bool) + 1377
+19 clang++   0x000057ce6b0cc4ae clang::Sema::ActOnEndOfTranslationUnitFragment(clang::TUFragmentKind) + 1614
+20 clang++   0x000057ce6b0cf002 clang::Sema::ActOnEndOfTranslationUnit() + 2562
+21 clang++   0x000057ce6ad50df1 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1265
+22 clang++   0x000057ce6ad29a7f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+23 clang++   0x000057ce66c082fe clang::FrontendAction::Execute() + 222
+24 clang++   0x000057ce66a9a5f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+25 clang++   0x000057ce66dec989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+26 clang++   0x000057ce5ec431a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+27 clang++   0x000057ce5ec370f9
+28 clang++   0x000057ce5ec41637
+29 clang++   0x000057ce66671317
+30 clang++   0x000057ce64654a7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+31 clang++   0x000057ce6666e81a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+32 clang++   0x000057ce665bf29c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+33 clang++   0x000057ce665c0a2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+34 clang++   0x000057ce66610060 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+35 clang++   0x000057ce5ec35517 clang_main(int, char**, llvm::ToolContext const&) + 12295
+36 clang++   0x000057ce5ec64e27 main + 567
+37 libc.so.6 0x0000779509c41d90
+38 libc.so.6 0x0000779509c41e40 __libc_start_main + 128
+39 clang++   0x000057ce5eb71b35 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git e996ce0d9ad6443a7ea3f88ccb0a8e114b0e840e)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/826636f2-326d7a.mm
+clang++: note: diagnostic msg: /tmp/826636f2-326d7a.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

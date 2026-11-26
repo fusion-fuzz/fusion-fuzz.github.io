@@ -1,0 +1,37 @@
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpjazzq8hk/d310624b.cc:3:8: internal compiler error: in add_indirects, at cp/module.cc:8053
+    3 | export module PiL;
+      |        ^~~~~~
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x81ea4d add_indirects
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:8053
+0x81ea4d decl_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:9622
+0x1115455 tree_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:10389
+0x11146c2 decl_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:9537
+0x1115455 tree_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:10389
+0x1119997 tree_list
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:5395
+0x111a4b7 write_class_def
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:13565
+0x111a4b7 write_definition
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:14131
+0x111c86b depset::hash::find_dependencies(module_state*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:15733
+0x111cf91 module_state::write_begin(elf_out*, cpp_reader*, module_state_config&, unsigned int&)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:21113
+0x111ead4 finish_module_processing(cpp_reader*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:23979
+0x1094a50 c_parse_final_cleanups()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl2.cc:6129
+0x1357358 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1455
+/home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -iprefix /home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../lib/gcc/x86_64-pc-linux-gnu/17.0.0/ -D_GNU_SOURCE /home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpjazzq8hk/d310624b.cc -quiet -dumpbase d310624b.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O1 -std=c++17 -finline-functions -fwrapv -ftrapv -fmodules -fdump-lang-module -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:12:1: error: expected type name in extension declaration
+ 10 | extension
+ 11 | 
+ 12 | extension InvalidStruct {
+    | `- error: expected type name in extension declaration
+ 13 | 
+ 14 | extension InvalidProtocol
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:10:10: error: expected '{' in extension
+  8 | 
+  9 | // --- Seed A ---
+ 10 | extension
+    |          `- error: expected '{' in extension
+ 11 | 
+ 12 | extension InvalidStruct {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:14:26: error: expected '{' in extension
+ 12 | extension InvalidStruct {
+ 13 | 
+ 14 | extension InvalidProtocol
+    |                          `- error: expected '{' in extension
+ 15 | 
+ 16 | // --- Seed B ---
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:14:1: error: declaration is only valid at file scope
+ 12 | extension InvalidStruct {
+ 13 | 
+ 14 | extension InvalidProtocol
+    | `- error: declaration is only valid at file scope
+ 15 | 
+ 16 | // --- Seed B ---
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:43:1: error: declaration is only valid at file scope
+ 41 | // NB: Ridiculous formatting to test that we do not include leading trivia in locations.
+ 42 | 
+ 43 | import
+    | `- error: declaration is only valid at file scope
+ 44 | Swift
+ 45 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:44:6: error: 'using' is an experimental feature that is currently disabled
+ 42 | 
+ 43 | import
+ 44 | Swift
+    |      `- error: 'using' is an experimental feature that is currently disabled
+ 45 | 
+ 46 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:131:17: error: consecutive statements on a line must be separated by ';'
+129 |   }
+130 |   var t: Int {
+131 |     read { yield q }
+    |                 `- error: consecutive statements on a line must be separated by ';'
+132 |     modify { yield &q }
+133 |   }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:132:19: error: consecutive statements on a line must be separated by ';'
+130 |   var t: Int {
+131 |     read { yield q }
+132 |     modify { yield &q }
+    |                   `- error: consecutive statements on a line must be separated by ';'
+133 |   }
+134 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:137:37: error: consecutive declarations on a line must be separated by ';'
+135 | 
+136 | func rethrowingFn(fn: () throws -> Void) rethrows {}
+137 | func reasyncFn(fn: () async -> Void) reasync {}
+    |                                     `- error: consecutive declarations on a line must be separated by ';'
+138 | func testRethrows() {
+139 |     rethrowingFn { _ = 1 }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:137:38: error: expected declaration
+ 10 | extension
+ 11 | 
+ 12 | extension InvalidStruct {
+    | `- note: in extension of 'InvalidStruct'
+ 13 | 
+ 14 | extension InvalidProtocol
+    :
+135 | 
+136 | func rethrowingFn(fn: () throws -> Void) rethrows {}
+137 | func reasyncFn(fn: () async -> Void) reasync {}
+    |                                      `- error: expected declaration
+138 | func testRethrows() {
+139 |     rethrowingFn { _ = 1 }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:185:1: error: declaration is only valid at file scope
+183 | }
+184 | 
+185 | extension TestVars {
+    | `- error: declaration is only valid at file scope
+186 |   var inExt: Int { return 0 }
+187 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:289:1: error: declaration is only valid at file scope
+287 | }
+288 | 
+289 | extension
+    | `- error: declaration is only valid at file scope
+290 | Class: Proto2 where T: Proto1 {
+291 |   func method2(_ b: Bool) {}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:295:1: error: 'operator' may only be declared at file scope
+293 | 
+294 | prefix
+295 | operator ⎭^-^⎭
+    | `- error: 'operator' may only be declared at file scope
+296 | 
+297 | infix
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:298:1: error: 'operator' may only be declared at file scope
+296 | 
+297 | infix
+298 | operator
+    | `- error: 'operator' may only be declared at file scope
+299 |   ~^-^~
+300 |   :
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwgm34soq/9b0ab7a8.swift:304:1: error: 'operator' may only be declared at file scope
+[... 490 more lines ...]

@@ -1,0 +1,60 @@
+clang-24: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/AST/TypeLoc.h:79: T clang::TypeLoc::castAs() const [with T = clang::TypeSpecTypeLoc]: Assertion `T::isKind(*this)' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24 -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -dumpdir a- -disable-free -clear-ast-before-backend -main-file-name test.mm -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -fcoverage-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -resource-dir /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/x86_64-linux-gnu/c++/11 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/backward -internal-isystem /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24/include -internal-isystem /usr/local/include -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fobjc-runtime=gcc -fobjc-encode-cxx-class-template-spec -fobjc-exceptions -fcxx-exceptions -fexceptions -faddrsig -fdwarf2-cfi-asm -o /tmp/test-be7a01.o -x objective-c++ /tmp/test.mm
+1.	/tmp/test.mm:1:57: current parser token 'T'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang-24  0x000055f2bcc1a0f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang-24  0x000055f2bcc16dcc llvm::sys::RunSignalHandlers() + 76
+2  clang-24  0x000055f2bcc16f32
+3  clang-24  0x000055f2bcc16fec
+4  libc.so.6 0x00007f495516b520
+5  libc.so.6 0x00007f49551bf9fc pthread_kill + 300
+6  libc.so.6 0x00007f495516b476 raise + 22
+7  libc.so.6 0x00007f49551517f3 abort + 211
+8  libc.so.6 0x00007f495515171b
+9  libc.so.6 0x00007f4955162e96
+10 clang-24  0x000055f2bf73dc59
+11 clang-24  0x000055f2bf7c67da clang::Sema::ClassifyName(clang::Scope*, clang::CXXScopeSpec&, clang::IdentifierInfo*&, clang::SourceLocation, clang::Token const&, clang::CorrectionCandidateCallback*) + 714
+12 clang-24  0x000055f2bf3b8011 clang::Parser::TryAnnotateName(clang::CorrectionCandidateCallback*, clang::ImplicitTypenameContext) + 657
+13 clang-24  0x000055f2bf4df667 clang::Parser::isCXXDeclarationSpecifier(clang::ImplicitTypenameContext, clang::Parser::TPResult, bool*) + 5431
+14 clang-24  0x000055f2bf4e18cc clang::Parser::isTemplateArgumentList(unsigned int) + 1580
+15 clang-24  0x000055f2bf44a44d clang::Parser::ParseOptionalCXXScopeSpecifier(clang::CXXScopeSpec&, clang::OpaquePtr<clang::QualType>, bool, bool, bool*, bool, clang::IdentifierInfo const**, bool, bool, bool, bool, bool) + 3853
+16 clang-24  0x000055f2bf3b7020 clang::Parser::TryAnnotateCXXScopeToken(bool) + 224
+17 clang-24  0x000055f2bf3f3257 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 9943
+18 clang-24  0x000055f2bf3f4c89 clang::Parser::ParseSpecifierQualifierList(clang::DeclSpec&, clang::ImplicitTypenameContext, clang::AccessSpecifier, clang::Parser::DeclSpecContext) + 89
+19 clang-24  0x000055f2bf3f51ba clang::Parser::ParseTypeName(clang::SourceRange*, clang::DeclaratorContext, clang::AccessSpecifier, clang::Decl**, clang::ParsedAttributes*) + 506
+20 clang-24  0x000055f2bf462a49 clang::Parser::parseObjCTypeArgsOrProtocolQualifiers(clang::OpaquePtr<clang::QualType>, clang::SourceLocation&, llvm::SmallVectorImpl<clang::OpaquePtr<clang::QualType>>&, clang::SourceLocation&, clang::SourceLocation&, llvm::SmallVectorImpl<clang::Decl*>&, llvm::SmallVectorImpl<clang::SourceLocation>&, clang::SourceLocation&, bool, bool) + 1945
+21 clang-24  0x000055f2bf46cb2c clang::Parser::ParseObjCAtInterfaceDeclaration(clang::SourceLocation, clang::ParsedAttributes&) + 2444
+22 clang-24  0x000055f2bf46d445 clang::Parser::ParseObjCAtDirectives(clang::ParsedAttributes&, clang::ParsedAttributes&) + 1317
+23 clang-24  0x000055f2bf3b9e70 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2720
+24 clang-24  0x000055f2bf3ba7df clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+25 clang-24  0x000055f2bf3babf4 clang::Parser::ParseFirstTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 68
+26 clang-24  0x000055f2bf3976db clang::ParseAST(clang::Sema&, bool, bool) + 539
+27 clang-24  0x000055f2bd910071 clang::FrontendAction::Execute() + 65
+28 clang-24  0x000055f2bd899c65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+29 clang-24  0x000055f2bd9ebea3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+30 clang-24  0x000055f2bb5eec96 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7046
+31 clang-24  0x000055f2bb5e4a2a
+32 clang-24  0x000055f2bb5e8dd5 clang_main(int, char**, llvm::ToolContext const&) + 1893
+33 clang-24  0x000055f2bb53c7a1 main + 113
+34 libc.so.6 0x00007f4955152d90
+35 libc.so.6 0x00007f4955152e40 __libc_start_main + 128
+36 clang-24  0x000055f2bb5e4055 _start + 37
+clang++: error: unable to execute command: Aborted (core dumped)
+clang++: error: clang frontend command failed with exit code -2 (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git aefba88f46a6e55645c848f58f6ba56944d5ae62)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/test-77c65e.mm
+clang++: note: diagnostic msg: /tmp/test-77c65e.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

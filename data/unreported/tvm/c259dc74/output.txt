@@ -1,0 +1,46 @@
+Traceback (most recent call last):
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/runner.py", line 289, in main
+    lib = tvm.compile(mod, target=_make_target(target), **kw)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/driver/build_module.py", line 111, in compile
+    lib = tvm.tirx.build(mod, target, pipeline=tir_pipeline)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/tirx/build.py", line 227, in build
+    mod = pipeline(mod)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/ir/transform.py", line 171, in __call__
+    return _ffi_transform_api.RunPass(self, mod)
+  File "python/tvm_ffi/cython/function.pxi", line 1038, in tvm_ffi.core.Function.__call__
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 604, in operator()
+    [](Pass pass, ffi::RValueRef<IRModule> mod) { return pass(*std::move(mod)); });
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 294, in tvm::transform::Pass::operator()(tvm::IRModule) const
+    return this->operator()(std::move(mod), PassContext::Current());
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 393, in tvm::transform::Pass::operator()(tvm::IRModule, tvm::transform::PassContext const&) const
+    ret = node->operator()(std::move(mod), pass_ctx);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 493, in tvm::transform::ModulePassNode::operator()(tvm::IRModule, tvm::transform::PassContext const&) const
+    mod = pass_func(std::move(mod), pass_ctx);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 599, in operator()
+    return pass_func(ffi::RValueRef<IRModule>(std::move(mod)), ctx);
+  File "<unknown>", line 0, in TVMFFIPyCallback(void*, TVMFFIAny const*, int, TVMFFIAny*)
+  File "<unknown>", line 0, in TVMFFIPyCallManager::ForwardPyErrorToFFI()
+  File "<unknown>", line 0, in TVMFFICyErrorSetRaisedFromPyError(_object*)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/s_tir/pipeline.py", line 118, in _pipeline
+    mod = tvm.ir.transform.Sequential(passes)(mod)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/ir/transform.py", line 171, in __call__
+    return _ffi_transform_api.RunPass(self, mod)
+  File "python/tvm_ffi/cython/function.pxi", line 1038, in tvm_ffi.core.Function.__call__
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 604, in operator()
+    [](Pass pass, ffi::RValueRef<IRModule> mod) { return pass(*std::move(mod)); });
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 294, in tvm::transform::Pass::operator()(tvm::IRModule) const
+    return this->operator()(std::move(mod), PassContext::Current());
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 393, in tvm::transform::Pass::operator()(tvm::IRModule, tvm::transform::PassContext const&) const
+    ret = node->operator()(std::move(mod), pass_ctx);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 560, in tvm::transform::SequentialNode::operator()(tvm::IRModule, tvm::transform::PassContext const&) const
+    mod = pass(std::move(mod), pass_ctx);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 393, in tvm::transform::Pass::operator()(tvm::IRModule, tvm::transform::PassContext const&) const
+    ret = node->operator()(std::move(mod), pass_ctx);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 493, in tvm::transform::ModulePassNode::operator()(tvm::IRModule, tvm::transform::PassContext const&) const
+    mod = pass_func(std::move(mod), pass_ctx);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/tirx/transform/make_packed_api.cc", line 329, in operator()
+    func = MakePackedAPI(std::move(func));
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/tirx/transform/make_packed_api.cc", line 293, in tvm::tirx::PrimFunc tvm::tirx::MakePackedAPI(tvm::tirx::PrimFunc)
+    TVM_FFI_ICHECK_EQ(undefined.size(), 0)
+tvm.error.InternalError: Check failed: undefined.size() == 0 (1 vs. 0) : In PrimFunc single_elementwise variables (tx,) are used, but are not passed in as API arguments
+FFL_INTERNAL_ERROR (compile)

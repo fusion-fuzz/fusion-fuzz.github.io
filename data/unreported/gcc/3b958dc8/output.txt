@@ -1,0 +1,97 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc: In function 'int main()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:15:15: error: use of deleted function 'B::B()'
+   15 |   B* b1 = new B;                // { dg-error "use of deleted function" }
+      |               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:10:8: note: 'B::B()' is implicitly deleted because the default definition would be ill-formed:
+   10 | struct B: A { };                // { dg-error "deleted" }
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:10:8: error: use of deleted function 'A::~A()'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:7:3: note: declared here
+    7 |   ~A() = delete;                // { dg-message "declared here" }
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc: In function 'int main()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:15:15: note: use '-fdiagnostics-all-candidates' to display considered candidates
+   15 |   B* b1 = new B;                // { dg-error "use of deleted function" }
+      |               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:16:19: error: use of deleted function 'B::B(const B&)'
+   16 |   B* b2 = new B(eb);            // { dg-error "use of deleted function" }
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:10:8: note: 'B::B(const B&)' is implicitly deleted because the default definition would be ill-formed:
+   10 | struct B: A { };                // { dg-error "deleted" }
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:10:8: error: use of deleted function 'A::~A()'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:7:3: note: declared here
+    7 |   ~A() = delete;                // { dg-message "declared here" }
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc: In function 'int main()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:16:19: note: use '-fdiagnostics-all-candidates' to display considered candidates
+   16 |   B* b2 = new B(eb);            // { dg-error "use of deleted function" }
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:15:6: warning: unused variable 'b1' [-Wunused-variable]
+   15 |   B* b1 = new B;                // { dg-error "use of deleted function" }
+      |      ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:16:6: warning: unused variable 'b2' [-Wunused-variable]
+   16 |   B* b2 = new B(eb);            // { dg-error "use of deleted function" }
+      |      ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc: In function 'void gftp_config_parse_args(int, char**, ...)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:24:22: error: use of deleted function 'B::~B()'
+   24 |   __builtin_va_start (argp, eb);
+      |   ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:10:8: note: 'B::~B()' is implicitly deleted because the default definition would be ill-formed:
+   10 | struct B: A { };                // { dg-error "deleted" }
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:10:8: error: use of deleted function 'A::~A()'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:7:3: note: declared here
+    7 |   ~A() = delete;                // { dg-message "declared here" }
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc: In function 'void gftp_config_parse_args(int, char**, ...)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc:24:22: internal compiler error: tree check: expected target_expr, have error_mark in bot_manip, at cp/tree.cc:3315
+   24 |   __builtin_va_start (argp, eb);
+      |   ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+0x305a98b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xa69e5a tree_check_failed(tree_node const*, char const*, int, char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:9247
+0x8984f6 tree_check(tree_node*, char const*, int, char const*, tree_code)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:3837
+0x8984f6 bot_manip
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/tree.cc:3315
+0x1c5e683 walk_tree_1(tree_node**, tree_node* (*)(tree_node**, int*, void*), void*, hash_set<tree_node*, false, default_hash_traits<tree_node*> >*, tree_node* (*)(tree_node**, int*, tree_node* (*)(tree_node**, int*, void*), void*, hash_set<tree_node*, false, default_hash_traits<tree_node*> >*))
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:11870
+0x111eb52 break_out_target_exprs(tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/tree.cc:3480
+0xe7cbcd maybe_constant_value(tree_node*, tree_node*, mce_value)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:12100
+0xe10400 build_cxx_call(tree_node*, int, tree_node**, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:11624
+0xe182d3 build_over_call
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:11138
+0xe2cb57 build_new_function_call(tree_node*, vec<tree_node*, va_gc, vl_embed>**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:5327
+0x10f0fa2 finish_call_expr(tree_node*, vec<tree_node*, va_gc, vl_embed>**, bool, bool, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:3606
+0x100ef58 cp_parser_postfix_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:9281
+0x100b676 cp_parser_unary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:10799
+0xff0e4a cp_parser_cast_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:11714
+0xff1d41 cp_parser_binary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:11817
+0xff2b62 cp_parser_assignment_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12170
+0xff7a55 cp_parser_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12367
+0xffca5a cp_parser_expression_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14952
+0x1004cb6 cp_parser_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14700
+0x10084e8 cp_parser_statement_seq_opt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:15215
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpbtjvnxzr/ba1605c2.cc -quiet -dumpbase ba1605c2.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Os -Wall -fexceptions -fipa-pta -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

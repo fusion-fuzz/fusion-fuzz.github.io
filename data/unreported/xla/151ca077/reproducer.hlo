@@ -1,0 +1,12 @@
+HloModule Fft
+
+ENTRY %main {
+  %operand = c64[3, 3, 4] parameter(0)
+  %p0 = f32[8, 32] parameter(1)
+  %transpose_p0 = f32[32, 8] transpose(%p0), dimensions={1, 0}
+  %ifft = c64[3, 3, 4] fft(operand), fft_type=IFFT, fft_length={3, 3, 4}
+  %ffl.root = (c64[3, 3, 4], f32[32, 8]) tuple(%ifft, %transpose_p0)
+  %p0.d = f32[8, 32] parameter(2)
+  %transpose_p0.d = f32[32, 8] transpose(%ifft), dimensions={1, 0}
+  ROOT %ffl.root.1 = (c64[3, 3, 4], f32[32, 8], f32[32, 8]) tuple(%ifft, %transpose_p0, %transpose_p0.d)
+}

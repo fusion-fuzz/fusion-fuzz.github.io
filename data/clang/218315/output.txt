@@ -1,0 +1,66 @@
+/tmp/test.cpp:4:45: error: explicit instantiation declaration (with 'extern') follows explicit instantiation definition (without 'extern')
+    4 | extern template class __declspec(dllexport) S<int>;
+      |                                             ^
+/tmp/test.cpp:3:1: note: explicit instantiation definition is here
+    3 | template class S<int>;                               // win32-warning {{explicit instantiation definition is not exported without 'dllexport'}}
+      | ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaTemplate.cpp:10231: void dllExportImportClassTemplateSpecialization(clang::Sema&, clang::ClassTemplateSpecializationDecl*): Assertion `A && "dllExportImportClassTemplateSpecialization called " "on Def without dllexport or dllimport"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Os -std=c++11 -fblocks -ffast-math -target x86_64-mingw32 -ffreestanding /tmp/test.cpp
+1.	/tmp/test.cpp:5:22: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005bccb08a8329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005bccb08a4fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005bccb08a58a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005bccb07e7218
+4  libc.so.6 0x00007a2a8202e520
+5  libc.so.6 0x00007a2a820829bc pthread_kill + 300
+6  libc.so.6 0x00007a2a8202e476 raise + 22
+7  libc.so.6 0x00007a2a820147f3 abort + 211
+8  libc.so.6 0x00007a2a8201471b
+9  libc.so.6 0x00007a2a82025e96
+10 clang++   0x00005bccb3b3d3ef
+11 clang++   0x00005bccb3b69139 clang::Sema::ActOnExplicitInstantiation(clang::Scope*, clang::SourceLocation, clang::SourceLocation, unsigned int, clang::SourceLocation, clang::CXXScopeSpec const&, clang::OpaquePtr<clang::TemplateName>, clang::SourceLocation, clang::SourceLocation, llvm::MutableArrayRef<clang::ParsedTemplateArgument>, clang::SourceLocation, clang::ParsedAttributesView const&) + 5545
+12 clang++   0x00005bccb312917d clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 7757
+13 clang++   0x00005bccb30f84a5 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2821
+14 clang++   0x00005bccb31d6069 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2361
+15 clang++   0x00005bccb31d6a08 clang::Parser::ParseExplicitInstantiation(clang::DeclaratorContext, clang::SourceLocation, clang::SourceLocation, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 184
+16 clang++   0x00005bccb31e284c clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) + 492
+17 clang++   0x00005bccb3107bb1 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 641
+18 clang++   0x00005bccb30c066e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+19 clang++   0x00005bccb30c16ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+20 clang++   0x00005bccb309e632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+21 clang++   0x00005bccb173f061 clang::FrontendAction::Execute() + 65
+22 clang++   0x00005bccb16c8e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+23 clang++   0x00005bccb1816de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+24 clang++   0x00005bccae67233e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+25 clang++   0x00005bccae66813a
+26 clang++   0x00005bccae6682cf
+27 clang++   0x00005bccb144dcfd
+28 clang++   0x00005bccb07e7630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+29 clang++   0x00005bccb144eb53
+30 clang++   0x00005bccb1403607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+31 clang++   0x00005bccb1407ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+32 clang++   0x00005bccb1416004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+33 clang++   0x00005bccae66d923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+34 clang++   0x00005bccae5a97f1 main + 113
+35 libc.so.6 0x00007a2a82015d90
+36 libc.so.6 0x00007a2a82015e40 __libc_start_main + 128
+37 clang++   0x00005bccae667765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-windows-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/test-2bd060.cpp
+clang++: note: diagnostic msg: /tmp/test-2bd060.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

@@ -1,0 +1,41 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpdde7b717/2c687727.c: In function 'inout':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpdde7b717/2c687727.c:8:34: error: 'd' undeclared (first use in this function)
+    8 |   #pragma omp task depend(inout: d)
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpdde7b717/2c687727.c:8:34: note: each undeclared identifier is reported only once for each function it appears in
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpdde7b717/2c687727.c:22:31: error: 'e' undeclared (first use in this function)
+   22 |   #pragma omp task depend(in: e[3]->a)
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpdde7b717/2c687727.c:28:34: error: 'f' undeclared (first use in this function)
+   28 |   #pragma omp task depend(out: (*f).a)
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpdde7b717/2c687727.c:40:34: error: 'h' undeclared (first use in this function)
+   40 |   #pragma omp task depend(inout: h.g.c[2])
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpdde7b717/2c687727.c: At top level:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpdde7b717/2c687727.c:148:48: error: expected context selector set name before 'd'
+  148 | [[omp::directive (begin declare variant match (d={target}))]];
+      |                                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpdde7b717/2c687727.c:158:9: internal compiler error: in c_parser_consume_token, at c/c-parser.cc:960
+  158 | #pragma omp end declare variant  /* { dg-error "'begin declare variant' in attribute syntax terminated with 'end declare variant' in pragma syntax" } */
+      |         ^~~
+0x2cb9bab internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xcdc9e4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x79a7e4 c_parser_consume_token(c_parser*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:960
+0xd93b27 c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2634
+0xda2139 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2256
+0xda3080 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xda3080 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xe28b99 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu -D_REENTRANT /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpdde7b717/2c687727.c -quiet -dumpdir a- -dumpbase 2c687727.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O3 -fsyntax-only -frounding-math -fPIC -fopenmp -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

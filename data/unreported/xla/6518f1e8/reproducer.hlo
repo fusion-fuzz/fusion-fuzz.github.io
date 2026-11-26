@@ -1,0 +1,14 @@
+HloModule module, num_partitions=2
+
+ENTRY %entry {
+  %lhs = f32[16,8]{1,0} parameter(0), sharding={devices=[2,1]<=[2]}
+  %rhs = f32[4,8]{1,0} parameter(1), sharding={devices=[1,2]<=[2]}
+  %dot = f32[16,4]{1,0} dot(lhs, rhs), lhs_contracting_dims={1}, rhs_contracting_dims={1}, sharding={devices=[2,1]<=[2]}
+  %param0 = f64[1519,3056] parameter(2), sharding={devices=[2,1]<=[2]}
+  %pad_val.d = f64[] constant(0), sharding={replicated}
+  %custom-call.d = (f64[1520,3056]{1,0}, f64[1520,3056]{1,0}) custom-call(%param0, %pad_val.d), custom_call_target="_SPMDInternalOp_MultiPad", sharding={{devices=[2,1]<=[2]}, {devices=[2,1]<=[2]}}, backend_config="dimension=0,amt=1,bufferize=0"
+  %pad_val = f64[] constant(0), sharding={replicated}
+  %custom-call = (f64[1520,3056]{1,0}, f64[1520,3056]{1,0}) custom-call(%lhs, %pad_val), custom_call_target="_SPMDInternalOp_MultiPad", sharding={{devices=[2,1]<=[2]}, {devices=[2,1]<=[2]}}, backend_config="dimension=0,amt=1,bufferize=0"
+  %ffl.root = (f32[16,4]{1,0}, (f64[1520,3056]{1,0}, f64[1520,3056]{1,0})) tuple(%dot, %custom-call)
+  ROOT %ffl.root.1 = (f32[16,4]{1,0}, (f64[1520,3056]{1,0}, f64[1520,3056]{1,0}), (f64[1520,3056]{1,0}, f64[1520,3056]{1,0})) tuple(%dot, %custom-call, %custom-call.d)
+}

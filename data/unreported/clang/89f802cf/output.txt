@@ -1,0 +1,71 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpotnogvq5/512ea722.cpp:11:15: error: unknown type name 'the'
+   11 |   C(C& other, the a = the());
+      |               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpotnogvq5/512ea722.cpp:11:23: error: use of undeclared identifier 'the'
+   11 |   C(C& other, the a = the());
+      |                       ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpotnogvq5/512ea722.cpp:19:12: error: expected class name
+   19 | struct D : the, B, virtual C { 
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpotnogvq5/512ea722.cpp:104:7: warning: unused variable 'b' [-Wunused-variable]
+  104 |     S b(a);
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpotnogvq5/512ea722.cpp:125:7: error: cannot pass object of non-trivial type 'A' through variadic constructor; call will abort at runtime [-Wnon-pod-varargs]
+  125 | A b = 2.34;
+      |       ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/AST/Decl.h:2933: clang::ParmVarDecl *clang::FunctionDecl::getParamDecl(unsigned int): Assertion `i < getNumParams() && "Illegal param #"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O1 -std=c++11 -fblocks -Wall -target x86_64-apple-darwin -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpotnogvq5/512ea722.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpotnogvq5/512ea722.cpp:125:11: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000058db9a85a8cb __interceptor_backtrace + 91
+1  clang++   0x000058dba0508037 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x000058dba0501d03 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x000058dba05069d4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x000058dba03520d5
+5  clang++   0x000058dba03528e3
+6  libc.so.6 0x000076b8ca2bc520
+7  libc.so.6 0x000076b8ca3109bc pthread_kill + 300
+8  libc.so.6 0x000076b8ca2bc476 raise + 22
+9  libc.so.6 0x000076b8ca2a27f3 abort + 211
+10 libc.so.6 0x000076b8ca2a271b
+11 libc.so.6 0x000076b8ca2b3e96
+12 clang++   0x000058dba1f8e7f4
+13 clang++   0x000058dba7d614b5
+14 clang++   0x000058dba7d4fc0d clang::InitializationSequence::Perform(clang::Sema&, clang::InitializedEntity const&, clang::InitializationKind const&, llvm::MutableArrayRef<clang::Expr*>, clang::QualType*) + 21885
+15 clang++   0x000058dba74c94f2 clang::Sema::AddInitializerToDecl(clang::Decl*, clang::Expr*, bool) + 9666
+16 clang++   0x000058dba6af4d7f clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 8927
+17 clang++   0x000058dba6aef16f clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 7215
+18 clang++   0x000058dba6a91d70 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 2224
+19 clang++   0x000058dba6a90be1 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 529
+20 clang++   0x000058dba6a8eac3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 3907
+21 clang++   0x000058dba6a8a6d5 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1765
+22 clang++   0x000058dba6a631ef clang::ParseAST(clang::Sema&, bool, bool) + 2351
+23 clang++   0x000058dba225b2ab clang::CodeGenAction::ExecuteAction() + 1771
+24 clang++   0x000058dba291952e clang::FrontendAction::Execute() + 222
+25 clang++   0x000058dba27aa900 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+26 clang++   0x000058dba2afe2df clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 751
+27 clang++   0x000058db9a8f03e6 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4390
+28 clang++   0x000058db9a8e4349
+29 clang++   0x000058db9a8ee887
+30 clang++   0x000058dba2381d37
+31 clang++   0x000058dba0351e8d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+32 clang++   0x000058dba237f23a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+33 clang++   0x000058dba22cfbbc clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+34 clang++   0x000058dba22d134b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+35 clang++   0x000058dba2320940 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+36 clang++   0x000058db9a8e2777 clang_main(int, char**, llvm::ToolContext const&) + 12295
+37 clang++   0x000058db9a9120f7 main + 567
+38 libc.so.6 0x000076b8ca2a3d90
+39 libc.so.6 0x000076b8ca2a3e40 __libc_start_main + 128
+40 clang++   0x000058db9a81ed95 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git cd9c8d090c1a87ebc619e7aba9a036f06466be5e)
+Target: x86_64-apple-darwin
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: error: unable to execute command: Segmentation fault (core dumped)
+clang++: note: diagnostic msg: Error generating preprocessed source(s).
+Aborted (core dumped)

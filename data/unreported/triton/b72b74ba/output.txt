@@ -1,0 +1,33 @@
+triton-opt: /home/runner/work/triton/triton/llvm-project/mlir/lib/Transforms/Utils/Inliner.cpp:42: void walkReferencedSymbolNodes(mlir::Operation *, mlir::CallGraph &, mlir::SymbolTableCollection &, DenseMap<mlir::Attribute, mlir::CallGraphNode *> &, function_ref<void (mlir::CallGraphNode *, mlir::Operation *)>): Assertion `symbolUses && "expected uses to be valid"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmpi1ncce4u/3d6f9444.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic -inline
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x000055df85659d8a
+1  triton-opt 0x000055df85656c8e
+2  triton-opt 0x000055df8565ac8b
+3  libc.so.6  0x00007f4947ba4520
+4  libc.so.6  0x00007f4947bf89bc pthread_kill + 300
+5  libc.so.6  0x00007f4947ba4476 raise + 22
+6  libc.so.6  0x00007f4947b8a7f3 abort + 211
+7  libc.so.6  0x00007f4947b8a71b
+8  libc.so.6  0x00007f4947b9be96
+9  triton-opt 0x000055df849f05b9
+10 triton-opt 0x000055df849eff20
+11 triton-opt 0x000055df849eeca0
+12 triton-opt 0x000055df7e05bbbc
+13 triton-opt 0x000055df7e027b3b
+14 triton-opt 0x000055df7e0286b9
+15 triton-opt 0x000055df7e02f6d2
+16 triton-opt 0x000055df7e02ef42
+17 triton-opt 0x000055df7e019fd7
+18 triton-opt 0x000055df7e01926c
+19 triton-opt 0x000055df852779d1
+20 triton-opt 0x000055df7e00f5d2
+21 triton-opt 0x000055df7e00f9d1
+22 triton-opt 0x000055df7e00fc0d
+23 triton-opt 0x000055df7dffacfc
+24 libc.so.6  0x00007f4947b8bd90
+25 libc.so.6  0x00007f4947b8be40 __libc_start_main + 128
+26 triton-opt 0x000055df7d5cee65
+Aborted (core dumped)

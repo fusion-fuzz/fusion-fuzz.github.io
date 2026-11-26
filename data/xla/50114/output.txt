@@ -1,0 +1,3 @@
+hlo-opt --platform=cpu --stage=hlo --o=/dev/null dup_operand.hlo        # INTERNAL RET_CHECK
+hlo-opt --platform=cpu --stage=hlo --o=/dev/null dup_operand_cc.hlo     # SIGSEGV at teardown
+run_hlo_module --platform=interpreter --reference_platform= --random_init_input_literals=true dup_operand.hlo   # runs

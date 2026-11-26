@@ -1,0 +1,19 @@
+min.mojo:5:15: error: 'TypeList' parameter 'Trait' has 'AnyTrait[AnyType]' type, but value has type 'AnyTrait[AnyType]'
+struct S[*Ts: AnyType]:
+              ^~~~~~~
+Mojo/stdlib/std/builtin/variadics.mojo:41:1: note: 'TypeList' declared here
+struct TypeList[Trait: AnyTrait[AnyType], //, values: KGENParamList[Trait]]    # note - synthetic signature
+^
+Please submit a bug report to https://github.com/modular/modular/issues and include the crash backtrace along with all the relevant source codes.
+Stack dump:
+0.	Program arguments: mojo build min.mojo
+1.	Crash resolving decl body at loc("min.mojo":9:5)
+    >> def g[T: AnyType]():
+           ^
+2.	Crash parsing statement at loc("min.mojo":10:5)
+    >>     _ = S[T]()
+           ^
+3.	Crash ParamInf::inferForStruct at loc("min.mojo":10:10)
+    >>     _ = S[T]()
+                ^
+Segmentation fault (core dumped)

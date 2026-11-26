@@ -1,0 +1,61 @@
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp1rni3re7/28910adc.cc:23:8: error: redefinition of 'struct A'
+   23 | struct A
+      |        ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp1rni3re7/28910adc.cc:9:8: note: previous definition of 'struct A'
+    9 | struct A { virtual ~A(); };
+      |        ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp1rni3re7/28910adc.cc: In function 'consteval int f()':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp1rni3re7/28910adc.cc:39:13: error: 'const struct A' has no member named 'f'
+   39 |   return ar.f();
+      |             ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp1rni3re7/28910adc.cc:40:1: warning: call to non-'constexpr' function 'virtual B::~B()' [-Winvalid-constexpr]
+   40 | }
+      | ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp1rni3re7/28910adc.cc:28:8: note: 'virtual B::~B()' is not usable as a 'constexpr' function because:
+   28 | struct B: A
+      |        ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp1rni3re7/28910adc.cc:28:8: internal compiler error: in synthesized_method_walk, at cp/method.cc:3031
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x815be6 synthesized_method_walk
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/method.cc:3031
+0x10eaf53 explain_implicit_non_constexpr(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/method.cc:3395
+0xff4927 explain_invalid_constexpr_fn(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:1112
+0xff14b4 potential_constant_expression_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:12249
+0xfedf8f potential_constant_expression_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:12813
+0xfee594 potential_constant_expression_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:12463
+0xfedf8f potential_constant_expression_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:12813
+0xff393d potential_constant_expression_1(tree_node*, bool, bool, bool, bool, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:13258
+0xff393d require_potential_rvalue_constant_expression_fncheck(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:13307
+0xff3f4f maybe_save_constexpr_fundef(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:970
+0x1074ff4 finish_function(bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:20897
+0x117fda6 cp_parser_function_definition_after_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36356
+0x11b01bb cp_parser_function_definition_from_specifiers_and_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36268
+0x11b01bb cp_parser_init_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:26179
+0x11b16fb cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18196
+0x11c12cf cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17733
+0x11c3d33 cp_parser_toplevel_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17837
+0x11c3d33 cp_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:5599
+/home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -iprefix /home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../lib/gcc/x86_64-pc-linux-gnu/17.0.0/ -D_GNU_SOURCE /home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp1rni3re7/28910adc.cc -quiet -dumpbase 28910adc.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Os -fPIC -frounding-math -ftrapv -o /tmp/ccr3P6VO.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

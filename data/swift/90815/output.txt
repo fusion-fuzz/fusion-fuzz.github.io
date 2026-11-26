@@ -1,0 +1,152 @@
+/tmp/test.swift:6:30: error: expected '}' at end of brace statement
+3 |     subscript<U>(dynamicMember keyPath: KeyPath<T, U> & Sendable) -> U {
+4 |   struct Foo {
+5 |   func test(s: S<Foo>) {
+  |                        `- note: to match this opening '{'
+6 |     _ = s[bar: NonSendable()]
+  |                              `- error: expected '}' at end of brace statement
+
+/tmp/test.swift:6:30: error: expected '}' in struct
+2 |   struct S<T> {
+3 |     subscript<U>(dynamicMember keyPath: KeyPath<T, U> & Sendable) -> U {
+4 |   struct Foo {
+  |              `- note: to match this opening '{'
+5 |   func test(s: S<Foo>) {
+6 |     _ = s[bar: NonSendable()]
+  |                              `- error: expected '}' in struct
+
+/tmp/test.swift:6:30: error: expected '}' at end of brace statement
+1 |   @dynamicMemberLookup
+2 |   struct S<T> {
+3 |     subscript<U>(dynamicMember keyPath: KeyPath<T, U> & Sendable) -> U {
+  |                                                                        `- note: to match this opening '{'
+4 |   struct Foo {
+5 |   func test(s: S<Foo>) {
+6 |     _ = s[bar: NonSendable()]
+  |                              `- error: expected '}' at end of brace statement
+
+/tmp/test.swift:6:30: error: expected '}' in struct
+1 |   @dynamicMemberLookup
+2 |   struct S<T> {
+  |               `- note: to match this opening '{'
+3 |     subscript<U>(dynamicMember keyPath: KeyPath<T, U> & Sendable) -> U {
+4 |   struct Foo {
+5 |   func test(s: S<Foo>) {
+6 |     _ = s[bar: NonSendable()]
+  |                              `- error: expected '}' in struct
+
+/tmp/test.swift:4:10: error: type 'Foo' cannot be nested in generic function getter for 'subscript(dynamicMember:)'
+2 |   struct S<T> {
+3 |     subscript<U>(dynamicMember keyPath: KeyPath<T, U> & Sendable) -> U {
+4 |   struct Foo {
+  |          `- error: type 'Foo' cannot be nested in generic function getter for 'subscript(dynamicMember:)'
+5 |   func test(s: S<Foo>) {
+6 |     _ = s[bar: NonSendable()]
+
+Assertion failed: (constraints.size() == 1), function bindOverloadType at TypeOfReference.cpp:2535.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -frontend -interpret /tmp/test.swift -disable-objc-interop -no-color-diagnostics -Xcc -fno-color-diagnostics -empty-abi-descriptor -no-auto-bridging-header-chaining -module-name test -in-process-plugin-server-path /usr/lib/swift/host/libSwiftInProcPluginServer.so -plugin-path /usr/lib/swift/host/plugins -plugin-path /usr/local/lib/swift/host/plugins
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/tmp/test.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(test.(file).S.<anonymous>.Foo.test(s:)@/tmp/test.swift:5:8)
+5.	While type-checking statement at [/tmp/test.swift:5:24 - line:6:29] RangeText="{
+    _ = s[bar: NonSendable()"
+6.	While type-checking expression at [/tmp/test.swift:6:5 - line:6:29] RangeText="_ = s[bar: NonSendable()"
+7.	While type-checking-target starting at /tmp/test.swift:6:5
+8.	Assertion failed: (constraints.size() == 1), function bindOverloadType at TypeOfReference.cpp:2535.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+ #0 0x0000556e79694658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x0000556e79691e75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x0000556e79695411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007fea784d5330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007fea7852eb2c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9eb2c)
+ #5 0x00007fea784d527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007fea784b88ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x0000556e737bf5c2 (/usr/bin/swift-frontend+0x2d7a5c2)
+ #8 0x0000556e737bf574 (/usr/bin/swift-frontend+0x2d7a574)
+ #9 0x0000556e72b78219 swift::constraints::ConstraintSystem::bindOverloadType(swift::constraints::SelectedOverload const&, swift::Type, swift::constraints::ConstraintLocator*, swift::DeclContext*) (/usr/bin/swift-frontend+0x2133219)
+#10 0x0000556e72b7bcc1 swift::constraints::ConstraintSystem::resolveOverload(swift::constraints::OverloadChoice, swift::DeclContext*, swift::constraints::ConstraintLocator*, swift::Type, swift::constraints::PreparedOverload*) (/usr/bin/swift-frontend+0x2136cc1)
+#11 0x0000556e72a396ee swift::constraints::ConstraintSystem::simplifyConstraint(swift::constraints::Constraint const&) (/usr/bin/swift-frontend+0x1ff46ee)
+#12 0x0000556e72a2483e swift::constraints::ConstraintSystem::simplifyMemberConstraint(swift::constraints::ConstraintKind, swift::Type, swift::DeclNameRef, swift::Type, swift::DeclContext*, swift::FunctionRefInfo, llvm::ArrayRef<swift::constraints::OverloadChoice>, swift::optionset::OptionSet<swift::constraints::ConstraintSystem::TypeMatchFlags, unsigned int>, swift::constraints::ConstraintLocatorBuilder) (/usr/bin/swift-frontend+0x1fdf83e)
+#13 0x0000556e729e5f1d swift::constraints::ConstraintSystem::addValueMemberConstraint(swift::Type, swift::DeclNameRef, swift::Type, swift::DeclContext*, swift::FunctionRefInfo, llvm::ArrayRef<swift::constraints::OverloadChoice>, swift::constraints::ConstraintLocatorBuilder) crtstuff.c:0:0
+#14 0x0000556e729e70af (anonymous namespace)::ConstraintGenerator::addSubscriptConstraints(swift::Expr*, swift::Type, swift::ValueDecl*, swift::ArgumentList*, swift::constraints::ConstraintLocator*, llvm::SmallVectorImpl<swift::TypeVariableType*>*) CSGen.cpp:0:0
+#15 0x0000556e729dbb08 (anonymous namespace)::ConstraintWalker::walkToExprPost(swift::Expr*) CSGen.cpp:0:0
+#16 0x0000556e732bf436 (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#17 0x0000556e732c13a5 (anonymous namespace)::Traversal::visitAssignExpr(swift::AssignExpr*) ASTWalker.cpp:0:0
+#18 0x0000556e732bf72d (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#19 0x0000556e732bf343 swift::Expr::walk(swift::ASTWalker&) (/usr/bin/swift-frontend+0x287a343)
+#20 0x0000556e729d31ae swift::constraints::ConstraintSystem::generateConstraints(swift::Expr*, swift::DeclContext*) (/usr/bin/swift-frontend+0x1f8e1ae)
+#21 0x0000556e729d1c34 swift::constraints::ConstraintSystem::generateConstraints(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x1f8cc34)
+#22 0x0000556e72a549a0 swift::constraints::ConstraintSystem::solveImpl(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x200f9a0)
+#23 0x0000556e72a542b6 swift::constraints::ConstraintSystem::solve(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x200f2b6)
+#24 0x0000556e72c1e4e1 swift::TypeChecker::typeCheckTarget(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x21d94e1)
+#25 0x0000556e72c1e361 swift::TypeChecker::typeCheckExpression(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x21d9361)
+#26 0x0000556e72c1e236 swift::TypeChecker::typeCheckExpression(swift::Expr*&, swift::DeclContext*, swift::constraints::ContextualTypeInfo, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>) (/usr/bin/swift-frontend+0x21d9236)
+#27 0x0000556e72d24bd7 (anonymous namespace)::StmtChecker::typeCheckASTNode(swift::ASTNode&) TypeCheckStmt.cpp:0:0
+#28 0x0000556e72d2b50c swift::ASTVisitor<(anonymous namespace)::StmtChecker, void, swift::Stmt*, void, void, void, void>::visit(swift::Stmt*) TypeCheckStmt.cpp:0:0
+#29 0x0000556e72d2e9cc bool (anonymous namespace)::StmtChecker::typeCheckStmt<swift::BraceStmt>(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#30 0x0000556e72d26404 (anonymous namespace)::StmtChecker::typeCheckBody(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#31 0x0000556e72d2602b swift::TypeCheckFunctionBodyRequest::evaluate(swift::Evaluator&, swift::AbstractFunctionDecl*) const (/usr/bin/swift-frontend+0x22e102b)
+#32 0x0000556e73429fde swift::TypeCheckFunctionBodyRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()>(swift::TypeCheckFunctionBodyRequest const&, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#33 0x0000556e73374ab9 swift::AbstractFunctionDecl::getTypecheckedBody() const (/usr/bin/swift-frontend+0x292fab9)
+#34 0x0000556e73512a08 swift::SourceFile::typeCheckDelayedFunctions() (/usr/bin/swift-frontend+0x2acda08)
+#35 0x0000556e72da796d swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x236296d)
+#36 0x0000556e72dac23b swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#37 0x0000556e72da77b8 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x23627b8)
+#38 0x0000556e71625fd9 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_10>(long, swift::SourceFile&) Frontend.cpp:0:0
+#39 0x0000556e7161973e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xbd473e)
+#40 0x0000556e716194bb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xbd44bb)
+#41 0x0000556e71490822 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#42 0x0000556e7147d595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#43 0x0000556e7147a21e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#44 0x0000556e71181b21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#45 0x00007fea784ba1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#46 0x00007fea784ba28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#47 0x0000556e71180a15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x7fea785b728d... done ***
+
+*** Program crashed: Aborted at 0x00007fea785b728d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007fea785b728d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007fea785b728d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b bb 0d 00  H=·ðÿÿs·ÃH··[»··
+rbx 0x0000000000000006  6
+rsi 0x000000000016df77  1498999
+rdi 0x000000000016df77  1498999
+rbp 0x000000000016df77  1498999
+rsp 0x0000556e802792e8  3b 54 69 79 6e 55 00 00 70 95 27 80 6e 55 00 00  ;TiynU··p·'·nU··
+ r8 0x0000556e80279570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x0000556e80279570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x0000556e80279570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x0000000000000010  16
+r14 0x0000000000000000  0
+r15 0x0000556e80279388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007fea785b728d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b bb 0d 00  H=·ðÿÿs·ÃH··[»··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007fea78490000–0x00007fea7863fd39 8e9fd827446c24067541ac5390e6f527fb5947bb libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

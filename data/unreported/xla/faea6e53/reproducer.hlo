@@ -1,0 +1,67 @@
+HloModule m
+
+%async_wrapped_1 (p: f32[10]) -> f32[10] {
+  ROOT %p = f32[10]{0} parameter(0)
+}
+
+%async_wrapped_2 (p: f32[10]) -> f32[10] {
+  ROOT %p = f32[10]{0} parameter(0)
+}
+
+%while_cond (state: (f32[10], ((f32[10]), f32[10], s32[]))) -> pred[] {
+  %state = (f32[10], ((f32[10]), f32[10], s32[])) parameter(0)
+  ROOT %cond = pred[] constant(true)
+}
+
+%while_body (state: (f32[10], ((f32[10]), f32[10], s32[]))) -> (f32[10], ((f32[10]), f32[10], s32[])) {
+  %state = (f32[10], ((f32[10]), f32[10], s32[])) parameter(0)
+  %val = f32[10]{0} get-tuple-element(state), index=0
+  %async_state = ((f32[10]), f32[10], s32[]) get-tuple-element(state), index=1
+  %async-update = ((f32[10]), f32[10], s32[]) async-update(async_state), calls=%async_wrapped_2
+  %done = f32[10]{0} async-done(async-update), calls=%async_wrapped_2
+  %next-start = ((f32[10]), f32[10], s32[]) async-start(done), calls=%async_wrapped_2
+  ROOT %next_state = (f32[10], ((f32[10]), f32[10], s32[])) tuple(done, next-start)
+}
+
+%async_wrapped_1.d (p: f32[10]) -> f32[10] {
+  ROOT %p = f32[10]{0} parameter(0)
+}
+
+%async_wrapped_2.d (p: f32[10]) -> f32[10] {
+  ROOT %p = f32[10]{0} parameter(0)
+}
+
+%while_cond.d (state: (f32[10], ((f32[10]), f32[10], s32[]))) -> pred[] {
+  %state = (f32[10], ((f32[10]), f32[10], s32[])) parameter(0)
+  ROOT %cond = pred[] constant(true)
+}
+
+%while_body.d (state: (f32[10], ((f32[10]), f32[10], s32[]))) -> (f32[10], ((f32[10]), f32[10], s32[])) {
+  %state = (f32[10], ((f32[10]), f32[10], s32[])) parameter(0)
+  %val = f32[10]{0} get-tuple-element(state), index=0
+  %async_state = ((f32[10]), f32[10], s32[]) get-tuple-element(state), index=1
+  %async-update = ((f32[10]), f32[10], s32[]) async-update(async_state), calls=%async_wrapped_2.d
+  %done = f32[10]{0} async-done(async-update), calls=%async_wrapped_2.d
+  %next-start = ((f32[10]), f32[10], s32[]) async-start(done), calls=%async_wrapped_2.d
+  ROOT %next_state = (f32[10], ((f32[10]), f32[10], s32[])) tuple(done, next-start)
+}
+
+ENTRY %test {
+  %p = u32[4] parameter(0)
+  %c = u32[] constant(8)
+  %b = u32[4] broadcast(c), dimensions={}
+  %p0 = f32[10]{0} parameter(1)
+  %async-start = ((f32[10]), f32[10], s32[]) async-start(%p0), calls=%async_wrapped_1
+  %init = (f32[10], ((f32[10]), f32[10], s32[])) tuple(%p0, %async-start)
+  %loop = (f32[10], ((f32[10]), f32[10], s32[])) while(%init), condition=%while_cond, body=%while_body
+  %post_loop_async = ((f32[10]), f32[10], s32[]) get-tuple-element(%loop), index=1
+  %post_loop_done = f32[10]{0} async-done(%post_loop_async), calls=%async_wrapped_2
+  %r = u32[4] remainder(p, b)
+  %ffl.root = (u32[4], f32[10]{0}) tuple(%r, %post_loop_done)
+  %async-start.d = ((f32[10]), f32[10], s32[]) async-start(%post_loop_done), calls=%async_wrapped_1.d
+  %init.d = (f32[10], ((f32[10]), f32[10], s32[])) tuple(%post_loop_done, %async-start.d)
+  %loop.d = (f32[10], ((f32[10]), f32[10], s32[])) while(%init.d), condition=%while_cond.d, body=%while_body.d
+  %post_loop_async.d = ((f32[10]), f32[10], s32[]) get-tuple-element(%loop.d), index=1
+  %post_loop_done.d = f32[10]{0} async-done(%post_loop_async.d), calls=%async_wrapped_2.d
+  ROOT %ffl.root.1 = (u32[4], f32[10]{0}, f32[10]{0}) tuple(%r, %post_loop_done, %post_loop_done.d)
+}

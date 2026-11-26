@@ -1,0 +1,31 @@
+HloModule module, num_partitions=8
+
+ENTRY %entry {
+  %p1 = bf16[2,24,24,32]{3,2,1,0} parameter(0), sharding={replicated}
+  %p2 = bf16[2,4,4,32]{3,2,1,0} parameter(1), sharding={replicated}
+  %c1 = bf16[2,24,24,32]{3,2,1,0} copy(p1), sharding={devices=[2,2,2,1]<=[8]}
+  %c2 = bf16[2,4,4,32]{3,2,1,0} copy(p2), sharding={devices=[2,2,2,1]<=[8]}
+  %constant.1163 = bf16[] constant(0), sharding={replicated}
+  %constant.1165 = s32[] constant(0), sharding={replicated}
+  %pad.179 = bf16[2,56,56,32]{3,2,1,0} pad(c1, constant.1163), padding=0_0x16_16x16_16x0_0, sharding={devices=[2,2,2,1]<=[8]}
+  %add.439 = bf16[2,4,4,32]{3,2,1,0} add(c2, c2), sharding={devices=[2,2,2,1]<=[8]}
+  %constant.1070 = s32[] constant(48), sharding={replicated}
+  %dynamic-update-slice.128 = bf16[2,56,56,32]{3,2,1,0} dynamic-update-slice(pad.179, add.439, constant.1165, constant.1070, constant.1070, /*index=5*/constant.1165), sharding={devices=[2,2,2,1]<=[8]}
+  %c = bf16[2,56,56,32]{3,2,1,0} copy(dynamic-update-slice.128), sharding={devices=[2,2,2,1]<=[8]}
+  %Arg_1.2 = f64[] parameter(2)
+  %Arg_0.1 = f64[8,3]{1,0} parameter(3), frontend_attributes={xla.sdy.sharding="#sdy.sharding<@mesh, [{\"x\"}, {}]>"}
+  %p1.d = bf16[2,24,24,32]{3,2,1,0} parameter(4), sharding={replicated}
+  %p2.d = bf16[2,4,4,32]{3,2,1,0} parameter(5), sharding={replicated}
+  %c1.d = bf16[2,24,24,32]{3,2,1,0} copy(%p1.d), sharding={devices=[2,2,2,1]<=[8]}
+  %c2.d = bf16[2,4,4,32]{3,2,1,0} copy(%p2.d), sharding={devices=[2,2,2,1]<=[8]}
+  %constant.1163.d = bf16[] constant(0), sharding={replicated}
+  %constant.1165.d = s32[] constant(0), sharding={replicated}
+  %pad.179.d = bf16[2,56,56,32]{3,2,1,0} pad(%c1.d, %constant.1163.d), padding=0_0x16_16x16_16x0_0, sharding={devices=[2,2,2,1]<=[8]}
+  %add.439.d = bf16[2,4,4,32]{3,2,1,0} add(%c2.d, %c2.d), sharding={devices=[2,2,2,1]<=[8]}
+  %constant.1070.d = s32[] constant(48), sharding={replicated}
+  %dynamic-update-slice.128.d = bf16[2,56,56,32]{3,2,1,0} dynamic-update-slice(%pad.179.d, %constant.1163, %constant.1165.d, %constant.1070.d, %constant.1070.d, /*index=5*/%constant.1165.d), sharding={devices=[2,2,2,1]<=[8]}
+  %c.d = bf16[2,56,56,32]{3,2,1,0} copy(%dynamic-update-slice.128.d), sharding={devices=[2,2,2,1]<=[8]}
+  %dot.3 = f64[8,3]{1,0} dot(f64[] %Arg_1.2, f64[8,3]{1,0} %Arg_0.1), lhs_contracting_dims={}, rhs_contracting_dims={}, metadata={op_name="jit(matmul)/jit(main)/dot_general[dimension_numbers=(((), ()), ((), ())) precision=None preferred_element_type=float64]" source_file="third_party/py/jax/tests/pjit_test.py" source_line=4021}
+  %ffl.root = (f64[8,3]{1,0}, bf16[2,56,56,32]{3,2,1,0}) tuple(%dot.3, %c.d)
+  ROOT %ffl.root.1 = (bf16[2,56,56,32]{3,2,1,0}, f64[8,3]{1,0}, bf16[2,56,56,32]{3,2,1,0}) tuple(%c, %dot.3, %c.d)
+}

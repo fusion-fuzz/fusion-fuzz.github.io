@@ -1,0 +1,55 @@
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4682:5: runtime error: load of value 106, which is not a valid value for type 'astType'
+    #0 0x55e6affa08d2 in visit_expr_t<LCompilers::LFortran::ASTPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4682
+    #1 0x55e6affd605c in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_expr(LCompilers::LFortran::AST::expr_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:5036
+    #2 0x55e6affd8a48 in LCompilers::LFortran::AST::PickleBaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_fnarg(LCompilers::LFortran::AST::fnarg_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:22192
+    #3 0x55e6affe3c32 in LCompilers::LFortran::AST::PickleBaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_FuncCallOrArray(LCompilers::LFortran::AST::FuncCallOrArray_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:19750
+    #4 0x55e6affa0eec in visit_expr_t<LCompilers::LFortran::ASTPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4691
+    #5 0x55e6affd605c in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_expr(LCompilers::LFortran::AST::expr_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:5036
+    #6 0x55e6b04ce9bb in LCompilers::LFortran::AST::PickleBaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_var_sym(LCompilers::LFortran::AST::var_sym_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:21923
+    #7 0x55e6b0036347 in LCompilers::LFortran::AST::PickleBaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_Declaration(LCompilers::LFortran::AST::Declaration_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:15939
+    #8 0x55e6affad284 in visit_decl_stmt_t<LCompilers::LFortran::ASTPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4612
+    #9 0x55e6afffd470 in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_decl_stmt(LCompilers::LFortran::AST::decl_stmt_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4969
+    #10 0x55e6b003e571 in LCompilers::LFortran::AST::PickleBaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_DerivedType(LCompilers::LFortran::AST::DerivedType_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:16094
+    #11 0x55e6affad461 in visit_decl_stmt_t<LCompilers::LFortran::ASTPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4615
+    #12 0x55e6afffd470 in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_decl_stmt(LCompilers::LFortran::AST::decl_stmt_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4969
+    #13 0x55e6b000f3a8 in LCompilers::LFortran::AST::PickleBaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_Program(LCompilers::LFortran::AST::Program_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:15131
+    #14 0x55e6affaad74 in visit_mod_t<LCompilers::LFortran::ASTPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4544
+    #15 0x55e6afffd240 in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_mod(LCompilers::LFortran::AST::mod_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4941
+    #16 0x55e6affa1a4d in visit_ast_t<LCompilers::LFortran::ASTPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4898
+    #17 0x55e6affd7880 in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_ast(LCompilers::LFortran::AST::ast_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4938
+    #18 0x55e6b0003b5d in LCompilers::LFortran::AST::PickleBaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_TranslationUnit(LCompilers::LFortran::AST::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:14902
+    #19 0x55e6affaa73f in visit_unit_t<LCompilers::LFortran::ASTPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4533
+    #20 0x55e6afffd1f0 in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_unit(LCompilers::LFortran::AST::unit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4939
+    #21 0x55e6affa19f2 in visit_ast_t<LCompilers::LFortran::ASTPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4897
+    #22 0x55e6affd7880 in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_ast(LCompilers::LFortran::AST::ast_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4938
+    #23 0x55e6aff87578 in LCompilers::LFortran::pickle[abi:cxx11](LCompilers::LFortran::AST::ast_t&, bool, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/pickle.cpp:192
+    #24 0x55e6aff877e5 in LCompilers::LFortran::pickle[abi:cxx11](LCompilers::LFortran::AST::TranslationUnit_t&, bool, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/pickle.cpp:197
+    #25 0x55e6b05adde0 in LCompilers::FortranEvaluator::get_ast(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:351
+    #26 0x55e6afd8cea1 in emit_ast /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:641
+    #27 0x55e6afdca8e3 in main_app(int, char**) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:2882
+    #28 0x55e6afdd2e60 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3149
+    #29 0x7f71cf2d3d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #30 0x7f71cf2d3e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #31 0x55e6af88a9b4 in _start (/opt/lfortran/bin/lfortran+0x2c37f9b4)
+
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3149, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 2882, in main_app(int, char**)
+    return emit_ast(opts.arg_file, compiler_options);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 641, in (anonymous namespace)::emit_ast(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::CompilerOptions&)
+    LCompilers::Result<std::string> r = fe.get_ast(input, lm, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 351, in LCompilers::FortranEvaluator::get_ast(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&)
+    return LFortran::pickle(*ast.result, compiler_options.use_colors,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/pickle.cpp", line 197, in LCompilers::LFortran::pickle[abi:cxx11](LCompilers::LFortran::AST::TranslationUnit_t&, bool, bool)
+    return pickle((AST::ast_t&)(ast), colors, indent);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/pickle.cpp", line 192, in LCompilers::LFortran::pickle[abi:cxx11](LCompilers::LFortran::AST::ast_t&, bool, bool)
+    v.visit_ast(ast);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4938, in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_ast(LCompilers::LFortran::AST::ast_t const&)
+    void visit_ast(const ast_t &b) { visit_ast_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4897, in void LCompilers::LFortran::AST::visit_ast_t<LCompilers::LFortran::ASTPickleVisitor>(LComp
+[... truncated ...]

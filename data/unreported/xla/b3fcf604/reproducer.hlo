@@ -1,0 +1,15 @@
+HloModule m
+
+ENTRY %e {
+  %p0 = f16[70,30] parameter(0)
+  %p0c = f32[70,30] convert(p0)
+  %constant_3663 = f32[] constant(4321)
+  %bc0 = f32[30,5] broadcast(constant_3663)
+  %d = f32[70,5] dot(p0c, bc0), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %paramA.d = f32[?] parameter(2)
+  %add.d = f32[?] add(%paramA.d, %paramA.d)
+  %paramA = f32[?] parameter(1)
+  %add = f32[?] add(%bc0, %bc0)
+  %ffl.root = (f32[70,5], f32[?]) tuple(%d, %add)
+  ROOT %ffl.root.1 = (f32[70,5], f32[?], f32[?]) tuple(%d, %add, %add.d)
+}

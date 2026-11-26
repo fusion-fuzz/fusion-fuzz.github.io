@@ -1,0 +1,62 @@
+unexpected OS type
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/MC/MCStreamer.cpp:1759!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O1 -fblocks -ffast-math -g -target arm64-apple-firmware -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8yg13lz7/048b7a1e.cpp
+1.	<eof> parser at end of file
+2.	Code generation
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005ffa005f566b __interceptor_backtrace + 91
+1  clang++   0x00005ffa06250027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005ffa06249cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005ffa0624e9c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005ffa0609ccc5
+5  clang++   0x00005ffa0609d4d3
+6  libc.so.6 0x00007ca540032520
+7  libc.so.6 0x00007ca5400869bc pthread_kill + 300
+8  libc.so.6 0x00007ca540032476 raise + 22
+9  libc.so.6 0x00007ca5400187f3 abort + 211
+10 clang++   0x00005ffa060bc2e8 llvm::llvm_unreachable_internal(char const*, char const*, unsigned int) + 216
+11 clang++   0x00005ffa05a66bf9 llvm::MCStreamer::emitVersionForTarget(llvm::Triple const&, llvm::VersionTuple const&, llvm::Triple const*, llvm::VersionTuple const&) + 5097
+12 clang++   0x00005ffa091d063c llvm::AsmPrinter::doInitialization(llvm::Module&) + 2140
+13 clang++   0x00005ffa052915b3 llvm::FPPassManager::doInitialization(llvm::Module&) + 147
+14 clang++   0x00005ffa0527d73d llvm::legacy::PassManagerImpl::run(llvm::Module&) + 3437
+15 clang++   0x00005ffa0915e52b llvm::runCodeGenPipeline(llvm::TargetMachine&, llvm::Module&, llvm::raw_pwrite_stream&, std::unique_ptr<llvm::ToolOutputFile, std::default_delete<llvm::ToolOutputFile>>&, llvm::CodeGenFileType, bool, bool, bool, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) + 4299
+16 clang++   0x00005ffa06dbc0db
+17 clang++   0x00005ffa06db71b8 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 6936
+18 clang++   0x00005ffa07f8da08 clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 4744
+19 clang++   0x00005ffa0c771804 clang::ParseAST(clang::Sema&, bool, bool) + 1716
+20 clang++   0x00005ffa07f959bc clang::CodeGenAction::ExecuteAction() + 4124
+21 clang++   0x00005ffa086502fe clang::FrontendAction::Execute() + 222
+22 clang++   0x00005ffa084e25f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+23 clang++   0x00005ffa08834989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+24 clang++   0x00005ffa0068b1a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+25 clang++   0x00005ffa0067f0f9
+26 clang++   0x00005ffa00689637
+27 clang++   0x00005ffa080b9317
+28 clang++   0x00005ffa0609ca7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+29 clang++   0x00005ffa080b681a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+30 clang++   0x00005ffa0800729c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+31 clang++   0x00005ffa08008a2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+32 clang++   0x00005ffa08058060 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+33 clang++   0x00005ffa0067d517 clang_main(int, char**, llvm::ToolContext const&) + 12295
+34 clang++   0x00005ffa006ace27 main + 567
+35 libc.so.6 0x00007ca540019d90
+36 libc.so.6 0x00007ca540019e40 __libc_start_main + 128
+37 clang++   0x00005ffa005b9b35 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git e996ce0d9ad6443a7ea3f88ccb0a8e114b0e840e)
+Target: arm64-apple-firmware
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/048b7a1e-213318.cpp
+clang++: note: diagnostic msg: /tmp/048b7a1e-213318.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

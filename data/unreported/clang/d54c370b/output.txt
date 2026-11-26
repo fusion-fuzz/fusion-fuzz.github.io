@@ -1,0 +1,99 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:24:1: error: unknown type name 'vector'
+   24 | vector signed char sc, sc2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:25:1: error: unknown type name 'vector'
+   25 | vector unsigned char uc, uc2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:26:1: error: unknown type name 'vector'
+   26 | vector bool char bc, bc2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:28:1: error: unknown type name 'vector'
+   28 | vector signed short ss, ss2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:29:1: error: unknown type name 'vector'
+   29 | vector unsigned short us, us2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:30:1: error: unknown type name 'vector'
+   30 | vector bool short bs, bs2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:32:1: error: unknown type name 'vector'
+   32 | vector signed int si, si2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:33:1: error: unknown type name 'vector'
+   33 | vector unsigned int ui, ui2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:34:1: error: unknown type name 'vector'
+   34 | vector bool int bi, bi2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:36:1: error: unknown type name 'vector'
+   36 | vector signed long long sl, sl2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:37:1: error: unknown type name 'vector'
+   37 | vector unsigned long long ul, ul2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:38:1: error: unknown type name 'vector'
+   38 | vector bool long long bl, bl2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:40:1: error: unknown type name 'vector'
+   40 | vector signed __int128 slll, slll2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:41:1: error: unknown type name 'vector'
+   41 | vector unsigned __int128 ulll, ulll2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:42:1: error: unknown type name 'vector'
+   42 | vector bool __int128 blll, blll2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:44:1: error: unknown type name 'vector'
+   44 | vector double fd, fd2;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:46:1: error: unknown type name 'vector'
+   46 | vector long ll; // expected-error {{cannot use 'long' with '__vector'}}
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:47:1: error: unknown type name 'vector'
+   47 | vector float ff; // expected-error {{cannot use 'float' with '__vector'}}
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppxar50um/ca4e771e.cpp:48:1: error: unknown type name 'vector'
+   48 | vector long double ld; // expected-error {{cannot use 'long double' with '__vector'}}
+      | ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+=================================================================
+==63533==ERROR: AddressSanitizer: allocator is out of memory trying to allocate 0xe00000008 bytes
+==63533==WARNING: invalid path to external symbolizer!
+==63533==WARNING: Failed to use and restart external symbolizer!
+    #0 0x56d3a289a85d  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c8585d) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #1 0x56d3b146902e  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1785402e) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #2 0x56d3b146aef1  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x17855ef1) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #3 0x56d3b2127acc  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x18512acc) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #4 0x56d3b2172909  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1855d909) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #5 0x56d3b1f5084d  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1833b84d) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #6 0x56d3b1f520f0  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1833d0f0) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #7 0x56d3b1b219be  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x17f0c9be) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #8 0x56d3b1b223e1  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x17f0d3e1) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #9 0x56d3af3fbea5  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x157e6ea5) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #10 0x56d3af3906e5  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1577b6e5) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #11 0x56d3aea252db  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14e102db) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #12 0x56d3aea2093e  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14e0b93e) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #13 0x56d3ae9c367f  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14dae67f) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #14 0x56d3ae9c24f0  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14dad4f0) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #15 0x56d3ae9c03d2  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14dab3d2) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #16 0x56d3ae9bbfe4  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14da6fe4) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #17 0x56d3ae994a7e  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14d7fa7e) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #18 0x56d3aa1b89bb  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x105a39bb) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #19 0x56d3aa8732fd  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x10c5e2fd) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #20 0x56d3aa7055ef  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x10af05ef) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #21 0x56d3aaa57988  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x10e42988) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #22 0x56d3a28ae1a0  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c991a0) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #23 0x56d3a28a20f8  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c8d0f8) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #24 0x56d3a28ac636  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c97636) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #25 0x56d3aa2dc316  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x106c7316) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #26 0x56d3a82bfa7c  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xe6aaa7c) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #27 0x56d3aa2d9819  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x106c4819) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #28 0x56d3aa22a29b  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1061529b) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+    #29 0x56d3aa22ba2a  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x10616a2a) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69)
+
+==63533==HINT: if you don't care about these errors you may set allocator_may_return_null=1
+SUMMARY: AddressSanitizer: out-of-memory (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c8585d) (BuildId: e1443ee75f4641958c23fac92695ea2fbf534a69) 
+==63533==ABORTING
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack 
+[... truncated ...]

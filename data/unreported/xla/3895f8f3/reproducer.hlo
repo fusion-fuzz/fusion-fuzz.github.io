@@ -1,0 +1,47 @@
+HloModule late_pinned_nested_fusion
+
+%inner_comp {
+  %operand = f32[1024,128]{1,0} parameter(0)
+  %indices = s32[512]{0} parameter(1)
+  ROOT %gather = f32[512,128]{1,0} gather(operand, indices), offset_dims={1}, collapsed_slice_dims={0}, start_index_map={0}, index_vector_dim=1, slice_sizes={1,128}
+}
+
+%outer_comp {
+  %op0 = f32[1024,128]{1,0} parameter(0)
+  %op1 = s32[512]{0} parameter(1)
+  ROOT %inner = f32[512,128]{1,0} fusion(op0, op1), kind=kCustom, calls=inner_comp
+}
+
+%inner_comp.d {
+  %operand = f32[1024,128]{1,0} parameter(0)
+  %indices = s32[512]{0} parameter(1)
+  ROOT %gather = f32[512,128]{1,0} gather(operand, indices), offset_dims={1}, collapsed_slice_dims={0}, start_index_map={0}, index_vector_dim=1, slice_sizes={1,128}
+}
+
+%outer_comp.d {
+  %op0 = f32[1024,128]{1,0} parameter(0)
+  %op1 = s32[512]{0} parameter(1)
+  ROOT %inner = f32[512,128]{1,0} fusion(op0, op1), kind=kCustom, calls=%inner_comp.d
+}
+
+%inner_comp.d.d {
+  %operand = f32[1024,128]{1,0} parameter(0)
+  %indices = s32[512]{0} parameter(1)
+  ROOT %gather = f32[512,128]{1,0} gather(operand, indices), offset_dims={1}, collapsed_slice_dims={0}, start_index_map={0}, index_vector_dim=1, slice_sizes={1,128}
+}
+
+%outer_comp.d.d {
+  %op0 = f32[1024,128]{1,0} parameter(0)
+  %op1 = s32[512]{0} parameter(1)
+  ROOT %inner = f32[512,128]{1,0} fusion(op0, op1), kind=kCustom, calls=%inner_comp.d.d
+}
+
+ENTRY %main {
+  %p0 = f32[1024,128]{1,0} parameter(0)
+  %p1 = f32[1024,128]{1,0} parameter(1)
+  %x = f32[1024,128]{1,0} add(p0, p1)
+  %indices = s32[512]{0} parameter(2)
+  %outer = f32[512,128]{1,0} fusion(x, indices), kind=kLoop, calls=%outer_comp.d.d
+  %convert = bf16[512,128]{1,0} convert(outer)
+  ROOT %root = (bf16[512,128]{1,0}, f32[1024,128]{1,0}) tuple(convert, x)
+}

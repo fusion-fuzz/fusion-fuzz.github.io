@@ -1,0 +1,48 @@
+mlir-opt: /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/IR/SymbolTable.cpp:120: mlir::SymbolTable::SymbolTable(Operation *): Assertion `symbolTableOp->getRegion(0).hasOneBlock() && "expected operation to have a single block"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-mlir-install/bin/mlir-opt --split-input-file --allow-unregistered-dialect --inline --sccp --loop-invariant-code-motion /home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmp9wszs013/a6bd33ac.mlir
+ #0 0x000063344d207826 ___interceptor_backtrace (/home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-mlir-install/bin/mlir-opt+0x7408826)
+ #1 0x000063344d2f0a97 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/llvm/lib/Support/Unix/Signals.inc:931:13
+ #2 0x000063344d2f38ea llvm::sys::RunSignalHandlers() /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/llvm/lib/Support/Signals.cpp:0:5
+ #3 0x000063344d2f38ea SignalHandler(int, siginfo_t*, void*) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/llvm/lib/Support/Unix/Signals.inc:457:3
+ #4 0x000070b3ee2c6520 (/lib/x86_64-linux-gnu/libc.so.6+0x42520)
+ #5 0x000070b3ee31a9bc pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x969bc)
+ #6 0x000070b3ee2c6476 gsignal (/lib/x86_64-linux-gnu/libc.so.6+0x42476)
+ #7 0x000070b3ee2ac7f3 abort (/lib/x86_64-linux-gnu/libc.so.6+0x287f3)
+ #8 0x000070b3ee2ac71b (/lib/x86_64-linux-gnu/libc.so.6+0x2871b)
+ #9 0x000070b3ee2bde96 (/lib/x86_64-linux-gnu/libc.so.6+0x39e96)
+#10 0x000063345f64358d mlir::SymbolTable::SymbolTable(mlir::Operation*) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/IR/SymbolTable.cpp:119:3
+#11 0x000063345f64e760 std::__uniq_ptr_impl<mlir::SymbolTable, std::default_delete<mlir::SymbolTable>>::__uniq_ptr_impl(mlir::SymbolTable*) /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/unique_ptr.h:155:56
+#12 0x000063345f64e760 std::__uniq_ptr_data<mlir::SymbolTable, std::default_delete<mlir::SymbolTable>, true, true>::__uniq_ptr_data(mlir::SymbolTable*) /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/unique_ptr.h:210:40
+#13 0x000063345f64e760 std::unique_ptr<mlir::SymbolTable, std::default_delete<mlir::SymbolTable>>::unique_ptr<std::default_delete<mlir::SymbolTable>, void>(mlir::SymbolTable*) /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/unique_ptr.h:282:4
+#14 0x000063345f64e760 std::_MakeUniq<mlir::SymbolTable>::__single_object std::make_unique<mlir::SymbolTable, mlir::Operation*&>(mlir::Operation*&) /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/unique_ptr.h:962:14
+#15 0x000063345f64e760 mlir::SymbolTableCollection::getSymbolTable(mlir::Operation*) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/IR/SymbolTable.cpp:986:24
+#16 0x000063345f64e252 mlir::SymbolTableCollection::lookupSymbolIn(mlir::Operation*, mlir::StringAttr) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/IR/SymbolTable.cpp:0:10
+#17 0x000063345f64795f lookupSymbolInImpl(mlir::Operation*, mlir::SymbolRefAttr, llvm::SmallVectorImpl<mlir::Operation*>&, llvm::function_ref<mlir::Operation* (mlir::Operation*, mlir::StringAttr)>) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/IR/SymbolTable.cpp:395:8
+#18 0x000063345f64e5d2 mlir::SymbolTableCollection::lookupSymbolIn(mlir::Operation*, mlir::SymbolRefAttr, llvm::SmallVectorImpl<mlir::Operation*>&) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/IR/SymbolTable.cpp:964:1
+#19 0x000063345f64e3f5 llvm::LogicalResult::failed() const /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/llvm/include/llvm/Support/LogicalResult.h:43:43
+#20 0x000063345f64e3f5 llvm::failed(llvm::LogicalResult) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/llvm/include/llvm/Support/LogicalResult.h:71:58
+#21 0x000063345f64e3f5 mlir::SymbolTableCollection::lookupSymbolIn(mlir::Operation*, mlir::SymbolRefAttr) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/IR/SymbolTable.cpp:949:7
+#22 0x000063345f23981a mlir::call_interface_impl::resolveCallable(mlir::CallOpInterface, mlir::SymbolTableCollection*) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/Interfaces/CallInterfaces.cpp:200:5
+#23 0x000063345cf45262 mlir::detail::CallOpInterfaceInterfaceTraits::Model<mlir::func::CallOp>::resolveCallableInTable(mlir::detail::CallOpInterfaceInterfaceTraits::Concept const*, mlir::Operation*, mlir::SymbolTableCollection*) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-mlir-build/tools/mlir/include/mlir/Interfaces/CallInterfaces.h.inc:548:3
+#24 0x000063345f0fbab9 mlir::CallGraph::resolveCallable(mlir::CallOpInterface, mlir::SymbolTableCollection&) const /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/Analysis/CallGraph.cpp:150:12
+#25 0x000063345f0fadab mlir::CallGraphNode::addCallEdge(mlir::CallGraphNode*) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/Analysis/CallGraph.cpp:50:3
+#26 0x000063345f0fadab computeCallGraph(mlir::Operation*, mlir::CallGraph&, mlir::SymbolTableCollection&, mlir::CallGraphNode*, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/Analysis/CallGraph.cpp:82:19
+#27 0x000063345f0fb02e computeCallGraph(mlir::Operation*, mlir::CallGraph&, mlir::SymbolTableCollection&, mlir::CallGraphNode*, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/Analysis/CallGraph.cpp:95:28
+#28 0x000063345f0fb02e computeCallGraph(mlir::Operation*, mlir::CallGraph&, mlir::SymbolTableCollection&, mlir::CallGraphNode*, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/Analysis/CallGraph.cpp:95:28
+#29 0x000063345f0fb02e computeCallGraph(mlir::Operation*, mlir::CallGraph&, mlir::SymbolTableCollection&, mlir::CallGraphNode*, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/Analysis/CallGraph.cpp:95:28
+#30 0x000063345f0fab30 mlir::CallGraph::CallGraph(mlir::Operation*) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/Analysis/CallGraph.cpp:0:3
+#31 0x0000633459f32bfa mlir::transform::detail::verifyNoRecursionInCallGraph(mlir::Operation*) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/Dialect/Transform/IR/Utils.cpp:85:8
+#32 0x0000633459d9a6c6 mlir::transform::TransformDialect::verifyOperationAttribute(mlir::Operation*, mlir::NamedAttribute) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/Dialect/Transform/IR/TransformDialect.cpp:229:12
+#33 0x000063345f66d052 llvm::LogicalResult::failed() const /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/llvm/include/llvm/Support/LogicalResult.h:43:43
+#34 0x000063345f66d052 llvm::failed(llvm::LogicalResult) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/llvm/include/llvm/Support/LogicalResult.h:71:58
+#35 0x000063345f66d052 (anonymous namespace)::OperationVerifier::verifyOnEntrance(mlir::Operation&) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/IR/Verifier.cpp:307:11
+#36 0x000063345f66d052 _ZZN12_GLOBAL__N_117OperationVerifier15verifyOperationERN4mlir9OperationEENK3$_2clIS2_EEDaPT_ /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/IR/Verifier.cpp:439:45
+#37 0x000063345f66d052 _ZZN12_GLOBAL__N_117OperationVerifier15verifyOperationERN4mlir9OperationEENK3$_1clIZNS0_15verifyOperationES3_E3$_2EEDaOT_N4llvm12PointerUnionIJPS2_PNS1_5BlockEEEE /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/IR/Verifier.cpp:419:16
+#38 0x000063345f66d052 (anonymous namespace)::OperationVerifier::verifyOperation(mlir::Operation&) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/IR/Verifier.cpp:438:16
+#39 0x000063345f66d052 (anonymous namespace)::OperationVerifier::verifyOpAndDominance(mlir::Operation&) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/IR/Verifier.cpp:91:14
+#40 0x000063345f66d8b6 (anonymous namespace)::OperationVerifier::verifyOnExit(mlir::Operation&)::$_0::operator()(mlir::Operation*) const /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/lib/IR/Verifier.cpp:368:9
+#41 0x000063345f66d8b6 auto void mlir::parallelForEach<mlir::Operation**, (anonymous namespace)::OperationVerifier::verifyOnExit(mlir::Operation&)::$_0>(mlir::MLIRContext*, mlir::Operation**, mlir::Operation**, (anonymous namespace)::OperationVerifier::verifyOnExit(mlir::Operation&)::$_0&&)::'lambda'(mlir::Operation**&&)::operator()<mlir::Operation*&>(mlir::Operation**&&) const /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/include/mlir/IR/Threading.h:120:12
+#42 0x000063345f66d8b6 llvm::LogicalResult mlir::failableParallelForEach<mlir::Operation**, void mlir::parallelFo
+[... truncated ...]

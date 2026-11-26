@@ -1,0 +1,75 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpai27z_87/8c6ebf01.cpp:7:25: warning: default member initializer for bit-field is a C++20 extension [-Wc++20-extensions]
+    7 |   int n : 0xFFFFFFFFULL = 0;
+      |                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpai27z_87/8c6ebf01.cpp:7:7: warning: width of bit-field 'n' (4'294'967'295 bits) exceeds the width of its type; value will be truncated to 32 bits [-Wbitfield-width]
+    7 |   int n : 0xFFFFFFFFULL = 0;
+      |       ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/IR/Type.cpp:349: static llvm::IntegerType* llvm::IntegerType::get(llvm::LLVMContext&, unsigned int): Assertion `NumBits >= MIN_INT_BITS && "bitwidth too small"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O1 -std=gnu++17 -fblocks -funroll-loops /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpai27z_87/8c6ebf01.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpai27z_87/8c6ebf01.cpp:12:1: current parser token 'int'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpai27z_87/8c6ebf01.cpp:10:3: LLVM IR generation of declaration 's'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpai27z_87/8c6ebf01.cpp:10:3: Generating code for declaration 's'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055d64784d4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055d64784a1bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055d64784aa78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055d64778ce88
+4  libc.so.6 0x00007fbfd540d520
+5  libc.so.6 0x00007fbfd54619bc pthread_kill + 300
+6  libc.so.6 0x00007fbfd540d476 raise + 22
+7  libc.so.6 0x00007fbfd53f37f3 abort + 211
+8  libc.so.6 0x00007fbfd53f371b
+9  libc.so.6 0x00007fbfd5404e96
+10 clang++   0x000055d6472a5aad llvm::IntegerType::get(llvm::LLVMContext&, unsigned int) + 733
+11 clang++   0x000055d647d1a79d
+12 clang++   0x000055d647d1abf3
+13 clang++   0x000055d647d1cb2d clang::CodeGen::CodeGenTypes::ComputeRecordLayout(clang::RecordDecl const*, llvm::StructType*) + 77
+14 clang++   0x000055d647e75374 clang::CodeGen::CodeGenTypes::ConvertRecordDeclType(clang::RecordDecl const*) + 1124
+15 clang++   0x000055d647e75d90 clang::CodeGen::CodeGenTypes::getCGRecordLayout(clang::RecordDecl const*) + 128
+16 clang++   0x000055d647bcc977
+17 clang++   0x000055d647bd77bf
+18 clang++   0x000055d647bd7e12
+19 clang++   0x000055d647bd8ccf clang::CodeGen::ConstantEmitter::tryEmitPrivateForVarInit(clang::VarDecl const&) + 239
+20 clang++   0x000055d647bd90a2 clang::CodeGen::ConstantEmitter::tryEmitForInitializer(clang::VarDecl const&) + 82
+21 clang++   0x000055d647e004a1 clang::CodeGen::CodeGenModule::EmitGlobalVarDefinition(clang::VarDecl const*, bool) + 2065
+22 clang++   0x000055d647e1df01 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 481
+23 clang++   0x000055d647e1ee60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+24 clang++   0x000055d647e2b42b
+25 clang++   0x000055d6481ce3e1
+26 clang++   0x000055d6481bdbc1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+27 clang++   0x000055d64a033cdc clang::ParseAST(clang::Sema&, bool, bool) + 508
+28 clang++   0x000055d64853be51 clang::FrontendAction::Execute() + 65
+29 clang++   0x000055d6484c5df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+30 clang++   0x000055d648613c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+31 clang++   0x000055d64625cd3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+32 clang++   0x000055d646252ada
+33 clang++   0x000055d646252c6f
+34 clang++   0x000055d64824a42d
+35 clang++   0x000055d64778d2a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+36 clang++   0x000055d64824b283
+37 clang++   0x000055d6481ffd17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+38 clang++   0x000055d648204600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+39 clang++   0x000055d648212714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+40 clang++   0x000055d646258383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+41 clang++   0x000055d6461a8901 main + 113
+42 libc.so.6 0x00007fbfd53f4d90
+43 libc.so.6 0x00007fbfd53f4e40 __libc_start_main + 128
+44 clang++   0x000055d646252105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/8c6ebf01-7b9c4a.cpp
+clang++: note: diagnostic msg: /tmp/8c6ebf01-7b9c4a.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

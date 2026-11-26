@@ -1,0 +1,26 @@
+/tmp/test.cc: In function 'void foo()':
+/tmp/test.cc:3:1: error: unexpected module directive
+    3 | export module M;  // { dg-error "unexpected module directive" }
+      | ^~~~~~
+/tmp/test.cc: At global scope:
+/tmp/test.cc:5:16: internal compiler error: in declare_module, at cp/module.cc:22899
+    5 | export module A;
+      |                ^
+0x3046dcb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xdd9a1e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x828e20 declare_module(module_state*, unsigned long, bool, tree_node*, cpp_reader*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:22899
+0xfefc65 cp_parser_module_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17321
+0x1025088 cp_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:5568
+0x1025088 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:57910
+0x11b8619 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /tmp/test.cc -quiet -dumpbase test.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O1 -Wno-global-module -std=c++98 -ftrapv -fmodules -o /tmp/ccmOsnyW.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

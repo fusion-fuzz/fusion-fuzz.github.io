@@ -1,0 +1,35 @@
+triton-opt: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-src/third_party/amd/lib/Dialect/TritonAMDGPU/IR/TargetFeatures.cpp:55: static mlir::triton::amdgpu::TargetFeatures mlir::triton::amdgpu::TargetFeatures::fromModuleOp(mlir::ModuleOp): Assertion `targetName.starts_with(kTargetPrefix) && "expected target attribute to be prefixed with \"hip:\""' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmp581utm3s/62b594be.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic --allocate-shared-memory --tritongpu-global-scratch-memory-allocation --convert-triton-gpu-to-llvm --convert-builtin-func-to-llvm
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x00005f296a9e548a
+1  triton-opt 0x00005f296a9e238e
+2  triton-opt 0x00005f296a9e638b
+3  libc.so.6  0x00007cc34987e520
+4  libc.so.6  0x00007cc3498d29bc pthread_kill + 300
+5  libc.so.6  0x00007cc34987e476 raise + 22
+6  libc.so.6  0x00007cc3498647f3 abort + 211
+7  libc.so.6  0x00007cc34986471b
+8  libc.so.6  0x00007cc349875e96
+9  triton-opt 0x00005f29631f2c6c
+10 triton-opt 0x00005f296318b74a
+11 triton-opt 0x00005f29631df2af
+12 triton-opt 0x00005f296a5f16ff
+13 triton-opt 0x00005f296a5f1351
+14 triton-opt 0x00005f296a5f1351
+15 triton-opt 0x00005f296a5f01a0
+16 triton-opt 0x00005f2969b1381e
+17 triton-opt 0x00005f2968fc132f
+18 triton-opt 0x00005f29633a6536
+19 triton-opt 0x00005f29633a5257
+20 triton-opt 0x00005f29633a4fcc
+21 triton-opt 0x00005f296a6036b1
+22 triton-opt 0x00005f296339b332
+23 triton-opt 0x00005f296339b731
+24 triton-opt 0x00005f296339b96d
+25 triton-opt 0x00005f296338692c
+26 libc.so.6  0x00007cc349865d90
+27 libc.so.6  0x00007cc349865e40 __libc_start_main + 128
+28 triton-opt 0x00005f296292ddf5
+Aborted (core dumped)

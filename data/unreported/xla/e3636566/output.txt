@@ -1,0 +1,38 @@
+Running HLO module with runner HloRunner...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1790066762.310011 1944482 shape.h:397] Check failed: has_layout() pred[4]
+*** Check failure stack trace: ***
+    @     0x5c8198d46e84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5c8198d46e06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5c818ec41e3c  xla::Shape::layout()
+    @     0x5c8197d0456d  xla::(anonymous namespace)::Compare<>()
+    @     0x5c8197cd2fe6  xla::primitive_util::FloatingPointTypeSwitch<>()
+    @     0x5c8197c158f7  xla::HloEvaluator::HandleCompare()
+    @     0x5c8198671b41  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x5c819866fb37  xla::HloInstruction::Visit<>()
+    @     0x5c8197c100e6  xla::HloEvaluator::EvaluateInternal()
+    @     0x5c8197c0fc65  xla::HloEvaluator::EvaluateInternal()
+    @     0x5c8197c0f328  xla::HloEvaluator::Evaluate()
+    @     0x5c8197c22887  xla::HloEvaluator::HandleFusion()
+    @     0x5c81986711de  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x5c819866fb37  xla::HloInstruction::Visit<>()
+    @     0x5c819866ed00  xla::HloInstruction::Accept<>()
+    @     0x5c818ec200a5  xla::HloComputation::Accept<>()
+    @     0x5c8197c0df9f  xla::HloEvaluator::Evaluate()
+    @     0x5c8197c0f142  xla::HloEvaluator::Evaluate()
+    @     0x5c818ec52e7b  xla::InterpreterLoadedExecutable::Evaluate()
+    @     0x5c818ec51b04  xla::InterpreterLoadedExecutable::ExecuteSharded()
+    @     0x5c81971ef704  xla::HloRunner::ExecuteWithDeviceBuffers()
+    @     0x5c81971f0643  xla::HloRunner::ExecuteWithExecutable()
+    @     0x5c81971f9a70  xla::HloRunnerInterface::ExecuteWithExecutable()
+    @     0x5c81971ef28d  xla::HloRunner::Execute()
+    @     0x5c81971f974e  xla::HloRunnerInterface::Execute()
+    @     0x5c818ec2c057  xla::(anonymous namespace)::ExecuteWithRunner()
+    @     0x5c818ec26927  xla::(anonymous namespace)::RunAndCompareInternal()
+    @     0x5c818ec248a7  xla::RunAndCompare()
+    @     0x5c818ec27e8e  xla::RunAndCompare()
+    @     0x5c818ec21a8f  main
+    @     0x749c533e8d90  (unknown)
+Aborted (core dumped)
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmpxet6eyf1/9c822837.hlo**

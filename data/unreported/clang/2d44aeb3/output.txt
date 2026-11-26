@@ -1,0 +1,72 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpl1nevln5/37458d9b.mm:59:4: error: nested name specifier 'X' for declaration does not refer into a class, class template or class template partial specialization
+   59 | X::X() = default;
+      | ~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpl1nevln5/37458d9b.mm:60:9: error: nested name specifier 'X' for declaration does not refer into a class, class template or class template partial specialization
+   60 | void X::SortWithCollator() {}
+      |      ~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpl1nevln5/37458d9b.mm:60:9: error: nested name specifier 'X' for declaration does not refer into a class, class template or class template partial specialization
+   60 | void X::SortWithCollator() {}
+      |      ~~~^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/Parse/RAIIObjectsForParser.h:150: void clang::ParsingDeclRAIIObject::complete(clang::Decl *): Assertion `!Popped && "ParsingDeclaration has already been popped!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O1 -std=gnu++20 -fblocks -fobjc-runtime=macosx-10.14 -fobjc-arc /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpl1nevln5/37458d9b.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpl1nevln5/37458d9b.mm:60:28: current parser token '{'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000059f2d950366b __interceptor_backtrace + 91
+1  clang++   0x000059f2df15e027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x000059f2df157cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x000059f2df15c9c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x000059f2defaacc5
+5  clang++   0x000059f2defab4d3
+6  libc.so.6 0x00007ac606276520
+7  libc.so.6 0x00007ac6062ca9bc pthread_kill + 300
+8  libc.so.6 0x00007ac606276476 raise + 22
+9  libc.so.6 0x00007ac60625c7f3 abort + 211
+10 libc.so.6 0x00007ac60625c71b
+11 libc.so.6 0x00007ac60626de96
+12 clang++   0x000059f2e56c19e4
+13 clang++   0x000059f2e56b0e30 clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 6160
+14 clang++   0x000059f2e570c5f6 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 10470
+15 clang++   0x000059f2e56ae680 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 2224
+16 clang++   0x000059f2e56ad4f1 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 529
+17 clang++   0x000059f2e56ab3d3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 3907
+18 clang++   0x000059f2e57fb27f clang::Parser::ParseObjCAtImplementationDeclaration(clang::SourceLocation, clang::ParsedAttributes&) + 4383
+19 clang++   0x000059f2e57f647b clang::Parser::ParseObjCAtDirectives(clang::ParsedAttributes&, clang::ParsedAttributes&) + 1083
+20 clang++   0x000059f2e56aaca0 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2064
+21 clang++   0x000059f2e56a6fe5 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1765
+22 clang++   0x000059f2e567fa7f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+23 clang++   0x000059f2e0ea39bc clang::CodeGenAction::ExecuteAction() + 4124
+24 clang++   0x000059f2e155e2fe clang::FrontendAction::Execute() + 222
+25 clang++   0x000059f2e13f05f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+26 clang++   0x000059f2e1742989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+27 clang++   0x000059f2d95991a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+28 clang++   0x000059f2d958d0f9
+29 clang++   0x000059f2d9597637
+30 clang++   0x000059f2e0fc7317
+31 clang++   0x000059f2defaaa7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+32 clang++   0x000059f2e0fc481a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+33 clang++   0x000059f2e0f1529c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+34 clang++   0x000059f2e0f16a2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+35 clang++   0x000059f2e0f66060 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+36 clang++   0x000059f2d958b517 clang_main(int, char**, llvm::ToolContext const&) + 12295
+37 clang++   0x000059f2d95bae27 main + 567
+38 libc.so.6 0x00007ac60625dd90
+39 libc.so.6 0x00007ac60625de40 __libc_start_main + 128
+40 clang++   0x000059f2d94c7b35 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git e996ce0d9ad6443a7ea3f88ccb0a8e114b0e840e)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/37458d9b-cfe17f.mm
+clang++: note: diagnostic msg: /tmp/37458d9b-cfe17f.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

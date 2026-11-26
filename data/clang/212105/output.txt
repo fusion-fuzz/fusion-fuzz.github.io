@@ -1,0 +1,70 @@
+clang: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/IR/Instructions.cpp:1232: void llvm::CondBrInst::AssertOK(): Assertion `getCondition()->getType()->isIntegerTy(1) && "May only branch on boolean predicates!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -S -o /dev/null -Oz -std=c99 -fsanitize=undefined -g /tmp/test.c
+1.	<eof> parser at end of file
+2.	/tmp/test.c:3:6: LLVM IR generation of declaration 'test_builtin_elementwise_clzg'
+3.	/tmp/test.c:3:6: Generating code for declaration 'test_builtin_elementwise_clzg'
+ #0 0x0000563187d983e7 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x24923e7)
+ #1 0x0000563187d95dc4 llvm::sys::CleanupOnSignal(unsigned long) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x248fdc4)
+ #2 0x0000563187cd4218 CrashRecoverySignalHandler(int) CrashRecoveryContext.cpp:0:0
+ #3 0x00007ff6d9063970 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x40970)
+ #4 0x00007ff6d90ba1dc (/usr/lib/x86_64-linux-gnu/libc.so.6+0x971dc)
+ #5 0x00007ff6d9063842 raise (/usr/lib/x86_64-linux-gnu/libc.so.6+0x40842)
+ #6 0x00007ff6d904b4b2 abort (/usr/lib/x86_64-linux-gnu/libc.so.6+0x284b2)
+ #7 0x00007ff6d904b424 __assert_perror_fail (/usr/lib/x86_64-linux-gnu/libc.so.6+0x28424)
+ #8 0x0000563186187723 (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x881723)
+ #9 0x000056318808735c clang::CodeGen::CodeGenFunction::EmitCheck(llvm::ArrayRef<std::pair<llvm::Value*, clang::SanitizerKind::SanitizerOrdinal>>, SanitizerHandler, llvm::ArrayRef<llvm::Constant*>, llvm::ArrayRef<llvm::Value*>, clang::CodeGen::TrapReason const*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x278135c)
+#10 0x000056318851c8cc clang::CodeGen::CodeGenFunction::EmitCheckedArgForBuiltin(clang::Expr const*, clang::CodeGen::CodeGenFunction::BuiltinCheckKind) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x2c168cc)
+#11 0x000056318852a93a clang::CodeGen::CodeGenFunction::EmitBuiltinExpr(clang::GlobalDecl, unsigned int, clang::CallExpr const*, clang::CodeGen::ReturnValueSlot) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x2c2493a)
+#12 0x00005631880a93e6 clang::CodeGen::CodeGenFunction::EmitCallExpr(clang::CallExpr const*, clang::CodeGen::ReturnValueSlot, llvm::CallBase**) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x27a33e6)
+#13 0x00005631881140cd (anonymous namespace)::ScalarExprEmitter::VisitCallExpr(clang::CallExpr const*) CGExprScalar.cpp:0:0
+#14 0x0000563188108d57 (anonymous namespace)::ScalarExprEmitter::Visit(clang::Expr*) CGExprScalar.cpp:0:0
+#15 0x000056318811457f (anonymous namespace)::ScalarExprEmitter::VisitBinAssign(clang::BinaryOperator const*) CGExprScalar.cpp:0:0
+#16 0x000056318810d97f clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x280797f)
+#17 0x000056318807fb3f clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x2779b3f)
+#18 0x00005631880a3b1b clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x279db1b)
+#19 0x0000563188230add clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x292aadd)
+#20 0x00005631882388e3 clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x29328e3)
+#21 0x000056318829a637 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x2994637)
+#22 0x00005631882af694 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x29a9694)
+#23 0x000056318830a599 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x2a04599)
+#24 0x00005631883043b5 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x29fe3b5)
+#25 0x0000563188305088 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x29ff088)
+#26 0x000056318830fcf1 clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) (.part.0) CodeGenModule.cpp:0:0
+#27 0x00005631886664b0 (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl(clang::DeclGroupRef) ModuleBuilder.cpp:0:0
+#28 0x0000563188656afa clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x2d50afa)
+#29 0x000056318a3eb523 clang::ParseAST(clang::Sema&, bool, bool) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x4ae5523)
+#30 0x00005631889e265a clang::FrontendAction::Execute() (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x30dc65a)
+#31 0x000056318896970a clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x306370a)
+#32 0x0000563188ab071a clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x31aa71a)
+#33 0x000056318686e8f3 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0xf688f3)
+#34 0x00005631868662b8 ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#35 0x000056318686648a int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::'lambda'(llvm::SmallVectorImpl<char const*>&)>(long, llvm::SmallVectorImpl<char const*>&) driver.cpp:0:0
+#36 0x00005631886dc529 void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const::'lambda'()>(long) Job.cpp:0:0
+#37 0x0000563187cd45d1 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x23ce5d1)
+#38 0x00005631886dd99b clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const (.part.0) Job.cpp:0:0
+#39 0x0000563188690ef8 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x2d8aef8)
+#40 0x000056318869618d clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x2d9018d)
+#41 0x00005631886a90e5 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0x2da30e5)
+#42 0x000056318686b534 clang_main(int, char**, llvm::ToolContext const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0xf65534)
+#43 0x00005631867b0bc5 main (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0xeaabc5)
+#44 0x00007ff6d904cf77 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x29f77)
+#45 0x00007ff6d904d027 __libc_start_main (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a027)
+#46 0x0000563186865521 _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+0xf5f521)
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 353729bbe4c53086c9acf3a9d1a4a88a61eec997)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang: note: diagnostic msg: /tmp/test-71c6d5.c
+clang: note: diagnostic msg: /tmp/test-71c6d5.sh
+clang: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

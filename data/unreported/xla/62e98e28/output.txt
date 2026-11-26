@@ -1,0 +1,29 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+W0000 00:00:1791989823.601124 2212170 sort_rewriter.cc:798] Missing deviceless CUB scratch size data for sort. Using fallback sort algorithm rather than SortRewriter, which will be slower at runtime. 
+To avoid this, compile with a GPU present, or add the deviceless CUB data for your device and CUB version to xla/backends/gpu/libraries/cub/data
+F0000 00:00:1791989823.611050 2212170 ir_emission_utils.cc:502] Check failed: instr.opcode() != HloOpcode::kFusion (fusion vs. fusion) 
+*** Check failure stack trace: ***
+    @     0x5def3dff1a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5def3dff19e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5def3c21b882  xla::gpu::FindNonTrivialHero()
+    @     0x5def34040311  xla::gpu::IsReduceInputFusion()
+    @     0x5def34043341  xla::gpu::IsFusibleAsMultiOutputFusionRoot()
+    @     0x5def32d9139e  xla::gpu::MultiOutputFusion::FuseSiblings()
+    @     0x5def32d92e63  xla::gpu::MultiOutputFusion::DoMultiOutputFusion()
+    @     0x5def32d94ca2  xla::gpu::MultiOutputFusion::RunImpl()
+    @     0x5def3a0a8be7  xla::HloPassInterface::Run()
+    @     0x5def35c263ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5def35c217bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5def35c20bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5def3a0a8be7  xla::HloPassInterface::Run()
+    @     0x5def32b7c70f  xla::gpu::(anonymous namespace)::RunFusionPasses()
+    @     0x5def32b7846f  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5def32b8206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5def32ab6934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5def32ab6373  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5def32aa8d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5def3e042466  main
+    @     0x7d2530dd4d90  (unknown)
+Aborted (core dumped)

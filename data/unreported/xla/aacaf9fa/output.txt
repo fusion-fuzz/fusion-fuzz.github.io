@@ -1,0 +1,122 @@
+[... 9 lines omitted ...]
+... compiled and ran in 3.4562e-05s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.00343739s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.000404431s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 5.78565s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 9.89889s.
+Running HLO module with runner HloRunner...
+E0000 00:00:1790068716.516633 2100536 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/hlo/evaluator/hlo_evaluator.cc:4930) ShapeUtil::Compatible(reduce_window->shape(), inferred_return_shape) return shape is set to: bf16[32,32,2,128]{3,2,1,0} but is inferred to be: f32[32,32,2,128]{3,2,1,0}
+=== Source Location Trace: ===
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+... compiled and ran in 0.00221144s.
+INVALID_ARGUMENT: PJRT does not support more than one tuple as input parameters (found 2 tuples)
+	Failed to execute on HloRunner
+=== Source Location Trace: ===
+./xla/util.h:304
+xla/service/hlo_runner.cc:110
+xla/service/hlo_runner.cc:368
+xla/service/hlo_runner.cc:515
+xla/service/hlo_runner.cc:437
+xla/tools/run_hlo_module.cc:326
+
+
+=== Iteration 2
+W0000 00:00:1790068716.518124 2100536 run_hlo_module.cc:483] !!! Warning !!! When running decomposed module, running HLO passes is likely not what you want. If you have unoptimized HLO, first convert it to the optimized e.g. using the hlo-opt tool, and then isolate without HLO passes.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.000632363s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.000589488s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 4.3772e-05s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.000523873s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.00050762s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 6.66755s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 5.90975s.
+Running HLO module with runner HloRunner...
+E0000 00:00:1790068730.457548 2100536 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/hlo/evaluator/hlo_evaluator.cc:4930) ShapeUtil::Compatible(reduce_window->shape(), inferred_return_shape) return shape is set to: bf16[32,32,2,128]{3,2,1,0} but is inferred to be: f32[32,32,2,128]{3,2,1,0}
+=== Source Location Trace: ===
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+... compiled and ran in 0.00129693s.
+INVALID_ARGUMENT: PJRT does not support more than one tuple as input parameters (found 2 tuples)
+	Failed to execute on HloRunner
+=== Source Location Trace: ===
+./xla/util.h:304
+xla/service/hlo_runner.cc:110
+xla/service/hlo_runner.cc:368
+xla/service/hlo_runner.cc:515
+xla/service/hlo_runner.cc:437
+xla/tools/run_hlo_module.cc:326
+
+2/2 runs failed.
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmpakgpn0y4/fed06314.hlo** 
+ Reference            | Test                 | Module                        | Status
+-----------------------------------------------------------------------------------------------------------
+ MATCHED              | MATCHED              | fusion                        | OK
+[... 37 more lines ...]

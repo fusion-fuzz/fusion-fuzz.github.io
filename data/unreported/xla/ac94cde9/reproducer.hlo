@@ -1,0 +1,11 @@
+HloModule m
+
+ENTRY %main {
+  %p0 = f32[2,3,3,1]{3,2,1,0} parameter(0)
+  %p1 = f32[1,1,1,32]{0,1,2,3} parameter(1)
+  %data = s32[4] parameter(2)
+  %size = s32[] parameter(3)
+  %dyn = s32[<=4] set-dimension-size(%data, %size), dimensions={0}
+  %conv = f32[2,3,3,32]{3,2,1,0} convolution(p0, p1), window={size=1x1}, dim_labels=b01f_01io->b01f
+  ROOT %ffl.root = (f32[2,3,3,32]{3,2,1,0}, s32[<=4]) tuple(%conv, %dyn)
+}

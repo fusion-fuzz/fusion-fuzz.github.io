@@ -1,0 +1,30 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1791989856.791063 2215385 hlo_instruction.cc:2515] Check failed: operand->shape().is_unbounded_dynamic() || ShapeUtil::StaticExtentProduct(shape) == ShapeUtil::StaticExtentProduct(operand->shape()) shape: f16[18,256] operand: f16[18,32]
+*** Check failure stack trace: ***
+    @     0x559f3ba11a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x559f3ba119e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x559f3b35bf6a  xla::HloInstruction::CreateReshape()
+    @     0x559f32f5c7d4  xla::AlgebraicSimplifierVisitor::RemoveDegenerateDimensionFromDot()
+    @     0x559f32f67925  xla::AlgebraicSimplifierVisitor::HandleDot()
+    @     0x559f3b346262  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x559f3b345ef7  xla::HloInstruction::Visit<>()
+    @     0x559f3b34846e  xla::PostOrderDFS<>()
+    @     0x559f3b344cf8  xla::HloInstruction::Accept<>()
+    @     0x559f304a6f07  xla::HloComputation::Accept<>()
+    @     0x559f32f47ace  xla::AlgebraicSimplifierVisitor::Run()
+    @     0x559f30a7ee4a  xla::gpu::GpuAlgebraicSimplifier::RunImpl()
+    @     0x559f37ac8be7  xla::HloPassInterface::Run()
+    @     0x559f336463ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x559f336417bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x559f33640bd5  xla::HloPassPipeline::RunImpl()
+    @     0x559f37ac8be7  xla::HloPassInterface::Run()
+    @     0x559f30594e11  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x559f305a206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x559f304d6934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x559f304d6373  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x559f304c8d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x559f3ba62466  main
+    @     0x7a8681bd4d90  (unknown)
+Aborted (core dumped)

@@ -1,0 +1,88 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc: In lambda function:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc:13:3: error: expected '{' before 'y'
+   13 |   y (x > 10) { return x; }; // OK
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc:13:3: error: expected ',' or ';' before 'y'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc:62:6: error: conflicting declaration 'auto gl0'
+   62 | auto gl0 = [] (int x)
+      |      ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc:12:6: note: previous declaration as '<lambda(int)> gl0'
+   12 | auto gl0 = [] (int x)
+      |      ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc: In lambda function:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc:79:10: error: 'i' is not implicitly captured by a contract assertion
+   79 |     pre (i > 0) {};  // { dg-error {'i' is not implicitly captured by a contract assertion} }
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc:76:7: note: 'i' declared here
+   76 |   int i = 1;
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc: In function 'void foo()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc:81:14: error: 'x' was not declared in this scope
+   81 |   auto f3 = [x]
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc: In lambda function:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc:82:10: error: 'i' is not captured
+   82 |     pre (i > 0) {};  // OK, i is captured explicitly.
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc:81:15: note: the lambda has no capture-default
+   81 |   auto f3 = [x]
+      |               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc:76:7: note: 'int i' declared here
+   76 |   int i = 1;
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc: In lambda function:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc:85:22: error: 'i' is not implicitly captured by a contract assertion
+   85 |     contract_assert (i > 0); // { dg-error {'i' is not implicitly captured by a contract assertion} }
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc:76:7: note: 'i' declared here
+   76 |   int i = 1;
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc: In lambda function:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc:105:10: internal compiler error: tree check: expected var_decl or parm_decl or result_decl, have error_mark in set_contract_capture_flag, at cp/semantics.cc:4703
+  105 |     pre (x > 0) { (void) x; };
+      |          ^
+0x3046dcb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xa5eb6a tree_check_failed(tree_node const*, char const*, int, char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:9245
+0x87d584 tree_check3(tree_node*, char const*, int, char const*, tree_code, tree_code, tree_code)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:3871
+0x87d584 set_contract_capture_flag
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:4703
+0x10c92d7 process_outer_var_ref(tree_node*, int, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:4820
+0x10da6ec finish_id_expression_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:4985
+0x10db494 finish_id_expression(tree_node*, tree_node*, tree_node*, cp_id_kind*, bool, bool, bool*, bool, bool, bool, bool, char const**, unsigned long)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:5281
+0xff90bd cp_parser_primary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:7162
+0xfe68c4 cp_parser_postfix_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:8954
+0xfe3476 cp_parser_unary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:10724
+0xfc8c4a cp_parser_cast_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:11639
+0xfc9b41 cp_parser_binary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:11742
+0xfd0252 cp_parser_conditional_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12054
+0xfd07cc cp_parser_late_contract_condition(cp_parser*, tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:33847
+0xfd0a00 cp_parser_late_contracts
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:33891
+0xff72f3 cp_parser_lambda_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:13843
+0xff72f3 cp_parser_lambda_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12964
+0xff8f39 cp_parser_primary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:6821
+0xfe68c4 cp_parser_postfix_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:8954
+0xfe3476 cp_parser_unary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:10724
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpufrvgry4/a1e3bc9f.cc -quiet -dumpbase a1e3bc9f.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O0 -std=gnu++26 -fcontracts -fsyntax-only -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

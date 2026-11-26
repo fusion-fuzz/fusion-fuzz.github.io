@@ -1,0 +1,88 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__po7n3t/a6559414.cpp:10:6: error: expected member name or ';' after declaration specifiers
+   10 |     (void)u.i;
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__po7n3t/a6559414.cpp:10:6: error: expected ')'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__po7n3t/a6559414.cpp:10:5: note: to match this '('
+   10 |     (void)u.i;
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__po7n3t/a6559414.cpp:11:5: error: expected member name or ';' after declaration specifiers
+   11 |     return 0;
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__po7n3t/a6559414.cpp:12:9: error: 'operator new' takes type size_t ('unsigned long') as 1st parameter
+   12 |   void *operator new(S<int>);
+      |         ^            ~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/AST/DeclTemplate.h:1969: void clang::ClassTemplateSpecializationDecl::setPointOfInstantiation(clang::SourceLocation): Assertion `Loc.isValid() && "point of instantiation must be valid!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O2 -std=c++03 -ffast-math /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__po7n3t/a6559414.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__po7n3t/a6559414.cpp:15:16: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055b3eaefd4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055b3eaefa1bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055b3eaefaa78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055b3eae3ce88
+4  libc.so.6 0x00007f02696e5520
+5  libc.so.6 0x00007f02697399bc pthread_kill + 300
+6  libc.so.6 0x00007f02696e5476 raise + 22
+7  libc.so.6 0x00007f02696cb7f3 abort + 211
+8  libc.so.6 0x00007f02696cb71b
+9  libc.so.6 0x00007f02696dce96
+10 clang++   0x000055b3ee33e2e7 clang::Sema::InstantiateClassImpl(clang::SourceLocation, clang::CXXRecordDecl*, clang::CXXRecordDecl*, clang::MultiLevelTemplateArgumentList const&, clang::TemplateSpecializationKind, bool) + 4615
+11 clang++   0x000055b3ee369d0e clang::Sema::InstantiateClassTemplateSpecialization(clang::SourceLocation, clang::ClassTemplateSpecializationDecl*, clang::TemplateSpecializationKind, bool, bool) + 510
+12 clang++   0x000055b3ee3f5812
+13 clang++   0x000055b3ef2e4fe5 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+14 clang++   0x000055b3ee406639 clang::Sema::RequireCompleteTypeImpl(clang::SourceLocation, clang::QualType, clang::Sema::CompleteTypeKind, clang::Sema::TypeDiagnoser*) + 1545
+15 clang++   0x000055b3ee09133d
+16 clang++   0x000055b3ee092437
+17 clang++   0x000055b3ee0835af
+18 clang++   0x000055b3ee0839f3
+19 clang++   0x000055b3ee0863f1 clang::Sema::AddMethodCandidate(clang::CXXMethodDecl*, clang::DeclAccessPair, clang::CXXRecordDecl*, clang::QualType, clang::Expr::Classification, llvm::ArrayRef<clang::Expr*>, clang::OverloadCandidateSet&, bool, bool, llvm::MutableArrayRef<clang::ImplicitConversionSequence>, clang::OverloadCandidateParamOrder, bool) + 1137
+20 clang++   0x000055b3edd8b04c
+21 clang++   0x000055b3edda3467 clang::Sema::FindAllocationFunctions(clang::SourceLocation, clang::SourceRange, clang::AllocationFunctionScope, clang::AllocationFunctionScope, clang::QualType, bool, clang::ImplicitAllocationParameters const&, llvm::MutableArrayRef<clang::Expr*>, bool) + 1239
+22 clang++   0x000055b3edda7bb5 clang::Sema::BuildCXXNew(clang::SourceRange, bool, clang::SourceLocation, llvm::MutableArrayRef<clang::Expr*>, clang::SourceLocation, clang::SourceRange, clang::QualType, clang::TypeSourceInfo*, std::optional<clang::Expr*>, clang::SourceRange, clang::Expr*) + 6549
+23 clang++   0x000055b3edda8f32 clang::Sema::ActOnCXXNew(clang::SourceLocation, bool, clang::SourceLocation, llvm::MutableArrayRef<clang::Expr*>, clang::SourceLocation, clang::SourceRange, clang::Declarator&, clang::Expr*) + 322
+24 clang++   0x000055b3ed787349 clang::Parser::ParseCXXNewExpression(bool, clang::SourceLocation) + 1625
+25 clang++   0x000055b3ed776ab0 clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 3936
+26 clang++   0x000055b3ed777f1b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+27 clang++   0x000055b3ed777fbd clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 61
+28 clang++   0x000055b3ed7a2274 clang::Parser::ParseInitializer(clang::Decl*) + 52
+29 clang++   0x000055b3ed72fd0f clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 2927
+30 clang++   0x000055b3ed749a2c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+31 clang++   0x000055b3ed6f966c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+32 clang++   0x000055b3ed6f9e4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+33 clang++   0x000055b3ed705d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+34 clang++   0x000055b3ed706dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+35 clang++   0x000055b3ed6e3cf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+36 clang++   0x000055b3ebbebe51 clang::FrontendAction::Execute() + 65
+37 clang++   0x000055b3ebb75df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+38 clang++   0x000055b3ebcc3c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+39 clang++   0x000055b3e990cd3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+40 clang++   0x000055b3e9902ada
+41 clang++   0x000055b3e9902c6f
+42 clang++   0x000055b3eb8fa42d
+43 clang++   0x000055b3eae3d2a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+44 clang++   0x000055b3eb8fb283
+45 clang++   0x000055b3eb8afd17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+46 clang++   0x000055b3eb8b4600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+47 clang++   0x000055b3eb8c2714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+48 clang++   0x000055b3e9908383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+49 clang++   0x000055b3e9858901 main + 113
+50 libc.so.6 0x00007f02696ccd90
+51 libc.so.6 0x00007f02696cce40 __libc_start_main + 128
+52 clang++   0x000055b3e9902105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/a6559414-c39cd3.cpp
+clang++: note: diagnostic msg: /tmp/a6559414-c39cd3.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

@@ -1,0 +1,98 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:6:12: error: expected identifier
+    6 | @interface int
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:7:2: error: prefix attribute must be followed by an interface, protocol, or implementation
+    7 | @end
+      |  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:11:37: error: expected a qualified name after 'typename'
+   11 | template<typename handled, typename not>
+      |                                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:11:37: error: expected ',' or '>' in template-parameter-list
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:17:25: error: template argument for non-type template parameter must be an expression
+   17 | struct is_same<handled, handled> {
+      |                         ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:11:37: note: template parameter is declared here
+   11 | template<typename handled, typename not>
+      |                                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:40:45: error: template argument for non-type template parameter must be an expression
+   40 | int check_infer_strong[is_same<id, __strong id>::value? 1 : -1];
+      |                                             ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:11:37: note: template parameter is declared here
+   11 | template<typename handled, typename not>
+      |                                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:55:23: error: 'check_ptr_strong2' declared as an array with a negative size
+   55 | int check_ptr_strong2[is_pointer_strong<__weak id*>::value? -1 : 1];
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:55:41: error: cannot create __weak reference in file using manual reference counting
+   55 | int check_ptr_strong2[is_pointer_strong<__weak id*>::value? -1 : 1];
+      |                                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:56:23: error: 'check_ptr_strong3' declared as an array with a negative size
+   56 | int check_ptr_strong3[is_pointer_strong<__autoreleasing id*>::value? -1 : 1];
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:57:23: error: 'check_ptr_strong4' declared as an array with a negative size
+   57 | int check_ptr_strong4[is_pointer_strong<__unsafe_unretained id*>::value? -1 : 1];
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:58:23: error: 'check_ptr_strong5' declared as an array with a negative size
+   58 | int check_ptr_strong5[is_pointer_strong<id>::value? -1 : 1];
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:72:8: error: class template partial specialization does not specialize any template argument; to define the primary template, remove the template argument list
+   72 | struct make_strong_pointer<__autoreleasing handled> {
+      |        ^                  ~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:72:8: error: redefinition of 'make_strong_pointer'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:62:8: note: previous definition is here
+   62 | struct make_strong_pointer {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:77:8: error: class template partial specialization does not specialize any template argument; to define the primary template, remove the template argument list
+   77 | struct make_strong_pointer<__unsafe_unretained handled> {
+      |        ^                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:77:8: error: redefinition of 'make_strong_pointer'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:62:8: note: previous definition is here
+   62 | struct make_strong_pointer {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:82:72: error: template argument for non-type template parameter must be an expression
+   82 | int check_make_strong1[is_same<make_strong_pointer<id>::type, __strong id *>::value ? 1 : -1];
+      |                                                                        ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:11:37: note: template parameter is declared here
+   11 | template<typename handled, typename not>
+      |                                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:83:65: error: template argument for non-type template parameter must be an expression
+   83 | int check_make_strong2[is_same<make_strong_pointer<int*>::type, int* __strong *>::value ? 1 : -1];
+      |                                                                 ^~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:11:37: note: template parameter is declared here
+   11 | template<typename handled, typename not>
+      |                                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:86:81: error: template argument for non-type template parameter must be an expression
+   86 | int check_make_strong3[is_same<make_strong_pointer<__strong id>::type, __strong id *>::value ? 1 : -1];
+      |                                                                                 ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:11:37: note: template parameter is declared here
+   11 | template<typename handled, typename not>
+      |                                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:87:74: error: template argument for non-type template parameter must be an expression
+   87 | int check_make_strong4[is_same<make_strong_pointer<__strong int*>::type, int* __strong *>::value ? 1 : -1];
+      |                                                                          ^~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:11:37: note: template parameter is declared here
+   11 | template<typename handled, typename not>
+      |                                     ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaOverload.cpp:12473: void DiagnoseBadDeduction(clang::Sema&, clang::NamedDecl*, clang::Decl*, clang::DeductionFailureInfo&, unsigned int, bool, clang::TemplateSpecCandidateSetKind): Assertion `S.Context.hasSameType(Param, NonCanonParam)' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O2 -fblocks -fobjc-runtime=macosx-10.14 -fno-objc-arc -Wextra /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:250:36: current parser token ')'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:244:30: parsing function body 'test_qual_vs_unqual_a'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcg9plvue/ce6ac778.mm:244:30: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000064e6b8fd9329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000064e6b8fd5fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000064e6b8fd68a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000064e6b8f18218
+4  libc.so.6 0x00007ed17c9ed520
+5  libc.so.6 0x00007ed17ca419bc pthread_kill + 300
+6  libc.so.6 0x00007ed17c9ed476 raise + 22
+7  libc.so.6 0x00007ed17c9d37f3 abort + 211
+8  libc.so.6 0x00007ed17c9d371b
+9  libc.so.6 0x00007ed17c9e4e96
+10 clang++   0x000064e6bc163b7a
+11 clang++   0x000064e6bc189926 clang::OverloadCandidateSet::NoteCandidates(clang::Sema&, llvm::ArrayRef<clang::Expr*>, llvm::ArrayRef<clang::OverloadCandidate*>, llvm::StringRef, clang::SourceLocation) + 3750
+12 clang++   0x000064e6bc18ae24 clang::OverloadCandidateSet::NoteCandidates(std::pair<clang::SourceLocation, clang::PartialDiagnostic>, clang::Sema&, clang::OverloadCandidateDisplayKind, llvm::ArrayRef<clang::Expr*>, llvm::StringRef, clang::SourceLocation, llvm::function_ref<b
+[... truncated ...]

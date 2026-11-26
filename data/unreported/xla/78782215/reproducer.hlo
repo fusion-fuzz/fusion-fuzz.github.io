@@ -1,0 +1,24 @@
+HloModule m
+
+cond {
+  p = (f32[16], f32[16], pred[]) parameter(0)
+  ROOT g = pred[] get-tuple-element(p), index=2
+}
+
+body {
+  p = (f32[16], f32[16], pred[]) parameter(0)
+  g0 = f32[16] get-tuple-element(p), index=0
+  g1 = f32[16] get-tuple-element(p), index=1
+  g2 = pred[] get-tuple-element(p), index=2
+  cps = (f32[16], f32[16], u32[], u32[]) collective-permute-start(g1), source_target_pairs={{0,1},{1,0}}
+  cpd = f32[16] collective-permute-done(cps)
+  ROOT t = (f32[16], f32[16], pred[]) tuple(g0, cpd, g2)
+}
+
+ENTRY e {
+  a = f32[16] parameter(0)
+  b = f32[16] parameter(1)
+  c = pred[] parameter(2)
+  t = (f32[16], f32[16], pred[]) tuple(a, b, c)
+  ROOT w = (f32[16], f32[16], pred[]) while(t), condition=cond, body=body
+}

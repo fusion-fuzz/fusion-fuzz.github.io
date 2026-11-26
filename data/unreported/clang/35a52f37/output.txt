@@ -1,0 +1,70 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvgicff6n/035784ff.cpp:31:34: error: variable has incomplete type 'void'
+   31 |                             void foo(void {} [[using
+      |                                  ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Parse/ParseDecl.cpp:1778: bool clang::Parser::DiagnoseProhibitedCXX11Attribute(): Assertion `Tok.is(tok::r_square) && "isCXX11AttributeSpecifier lied"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O2 -std=c++20 /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvgicff6n/035784ff.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvgicff6n/035784ff.cpp:32:25: current parser token '}'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvgicff6n/035784ff.cpp:8:12: parsing function body 'main'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvgicff6n/035784ff.cpp:8:12: in compound statement ('{}')
+4.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvgicff6n/035784ff.cpp:17:40: in compound statement ('{}')
+5.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvgicff6n/035784ff.cpp:20:16: in compound statement ('{}')
+6.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvgicff6n/035784ff.cpp:22:34: in compound statement ('{}')
+7.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvgicff6n/035784ff.cpp:23:38: in compound statement ('{}')
+8.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvgicff6n/035784ff.cpp:24:66: in compound statement ('{}')
+9.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvgicff6n/035784ff.cpp:28:32: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055f7443274f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055f7443241bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055f744324a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055f744266e88
+4  libc.so.6 0x00007fdf06f93520
+5  libc.so.6 0x00007fdf06fe79bc pthread_kill + 300
+6  libc.so.6 0x00007fdf06f93476 raise + 22
+7  libc.so.6 0x00007fdf06f797f3 abort + 211
+8  libc.so.6 0x00007fdf06f7971b
+9  libc.so.6 0x00007fdf06f8ae96
+10 clang++   0x000055f746b541e9
+11 clang++   0x000055f746ba6f78 clang::Parser::ParsePostfixExpressionSuffix(clang::ActionResult<clang::Expr*, true>) + 3368
+12 clang++   0x000055f746ba003b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 1259
+13 clang++   0x000055f746ba1f1b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+14 clang++   0x000055f746ba1fbd clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 61
+15 clang++   0x000055f746ba239e clang::Parser::ParseExpressionList(llvm::SmallVectorImpl<clang::Expr*>&, llvm::function_ref<void ()>, bool, bool) + 142
+16 clang++   0x000055f746b5990d clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 1901
+17 clang++   0x000055f746b73a2c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+18 clang++   0x000055f746b76c1b clang::Parser::ParseSimpleDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, bool, clang::Parser::ForRangeInit*, clang::SourceLocation*) + 875
+19 clang++   0x000055f746b77123 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 307
+20 clang++   0x000055f746c2f2ec clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 5452
+21 clang++   0x000055f746c2fbfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+22 clang++   0x000055f746c37b07 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+23 clang++   0x000055f746c38288
+24 clang++   0x000055f74870efe5 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+25 clang++   0x000055f746c2743b clang::Parser::ParseCompoundStatement(bool, unsigned int) + 107
+26 clang++   0x000055f746c2e626 clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 2182
+27 clang++   0x000055f746c2fbfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+28 clang++   0x000055f746c30e1b clang::Parser::ParseStatement(clang::SourceLocation*, clang::Parser::ParsedStmtContext, clang::LabelDecl*) + 107
+29 clang++   0x000055f746c2d97c clang::Parser::ParseIfStatement(clang::SourceLocation*) + 1980
+30 clang++   0x000055f746c2e4ef clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 1871
+31 clang++   0x000055f746c2fbfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+32 clang++   0x000055f746c37b07 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+33 clang++   0x000055f746c38288
+34 clang++   0x000055f74870efe5 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+35 clang++   0x000055f746c2743b clang::Parser::ParseCompoundStatement(bool, unsigned int) + 107
+36 clang++   0x000055f746c2e626 clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 2182
+37 clang++   0x000055f746c2fbfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+38 clang++   0x000055f746c30e1b clang::Parser::ParseStatement(clang::SourceLocation*, clang::Parser::ParsedStmtContext, clang::LabelDecl*) + 107
+39 clang++   0x000055f746c2d751 clang::Parser::ParseIfStatement(clang::SourceLocation*) + 1425
+40 clang++   0x000055f746c2e4ef clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 1871
+41 clang++   0x000055f746c2fbfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+42 clang++   0x000055f746c37b07 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+43 clang++   0x000055f746c38288
+44 clang++   0x000055f74870efe5 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+45 clang++   0x000055f746c2743b clang::Parser::ParseCompoundStatement(bool, unsigned int) + 107
+46 clang++   0x000055f746c2e626 clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 2182
+47 clang++   0x000055f746c2fbfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+48 clang++   0x000055f746c30e1b clang::Parser::ParseStatement(clang::SourceLocation*, clang::Parser::ParsedStmtContext, clang::LabelDecl*) + 107
+49 clang++   0x000055f746c2d751 clang::Parser::ParseIfStatement(clang::SourceLocation*) + 1425
+50 clang++   0x000055f746c2e4ef clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 1871
+51 clang++   0x000055f746c2fbfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clan
+[... truncated ...]

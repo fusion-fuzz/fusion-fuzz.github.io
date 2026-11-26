@@ -1,0 +1,8 @@
+php: Zend/zend_types.h:809: uint32_t zend_gc_delref(zend_refcounted_h *): Assertion `p->refcount > 0' failed.
+Aborted (core dumped)
+Average time per message: 0.00 µs
+
+Fatal error: Allowed memory size of 104857600 bytes exhausted at /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_gc.c:355 (tried to allocate 4096 bytes) in /home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/c802c55c.php on line 53
+Stack trace:
+#0 /home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/c802c55c.php(61): PriceWriter->onPrice(449990, 'symbol', 99.9, 449990, 100.1, 449991)
+#1 {main}

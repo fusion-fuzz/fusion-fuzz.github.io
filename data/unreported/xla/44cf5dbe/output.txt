@@ -1,0 +1,17 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791996266.273545 2747647 hlo_instructions.cc:707] Check failed: !async_computation->IsFusionComputation() 
+*** Check failure stack trace: ***
+    @     0x63106cd61a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x63106cd619e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x63106c6e0294  xla::HloAsyncStartInstruction::HloAsyncStartInstruction()
+    @     0x63106c6a7410  xla::HloInstruction::CreateAsyncStart()
+    @     0x63106c39b77d  xla::(anonymous namespace)::HloParserImpl::CreateInstruction()
+    @     0x63106c38f22a  xla::(anonymous namespace)::HloParserImpl::ParseInstructionRhs()
+    @     0x63106c38e889  xla::(anonymous namespace)::HloParserImpl::ParseInstruction()
+    @     0x63106c38e30e  xla::(anonymous namespace)::HloParserImpl::ParseInstructionList()
+    @     0x63106c373345  xla::(anonymous namespace)::HloParserImpl::Run()
+    @     0x63106c370a90  xla::ParseAndReturnUnverifiedModule()
+    @     0x63106cdb401a  xla::LoadModuleFromData()
+    @     0x63106cdb1ef7  main
+    @     0x73d4d8bd4d90  (unknown)
+Aborted (core dumped)

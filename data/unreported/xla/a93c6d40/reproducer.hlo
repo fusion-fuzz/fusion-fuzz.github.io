@@ -1,0 +1,18 @@
+HloModule test
+
+%while_body {
+  %param = f32[] parameter(0)
+  ROOT %neg = f32[] negate(%param)
+}
+
+%while_cond {
+  %param = f32[] parameter(0)
+  %zero = f32[] constant(0.0)
+  ROOT %cmp = pred[] compare(%param, %zero), direction=GT
+}
+
+ENTRY %main {
+  %id = u32[] parameter(0)
+  %id2 = f32[] bitcast-convert(%id)
+  ROOT %while = f32[] while(%id2), condition=%while_cond, body=%while_body
+}

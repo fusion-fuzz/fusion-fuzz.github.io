@@ -1,0 +1,14 @@
+HloModule m
+
+ENTRY %e {
+  %src = s32[2,2,258] parameter(0)
+  %of1 = s32[] parameter(1)
+  %of2 = s32[] parameter(2)
+  %of3 = s32[] parameter(3)
+  %ds = s32[1,2,32] dynamic-slice(s32[2,2,258] %src, s32[] %of1, s32[] %of2, s32[] %of3), dynamic_slice_sizes={1, 2, 32}
+  %p0 = f16[2,18] parameter(4)
+  %p1 = s8[256,2] parameter(5)
+  %c = f16[256,2] convert(%p1)
+  %d = f16[18,256] dot(%p0, %ds), lhs_contracting_dims={0}, rhs_contracting_dims={1}, metadata={op_name="foo"}
+  ROOT %ffl.root = (s32[1,2,32], f16[18,256]) tuple(%ds, %d)
+}

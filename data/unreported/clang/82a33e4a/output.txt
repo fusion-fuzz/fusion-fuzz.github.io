@@ -1,0 +1,85 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpit71d2w8/bc47a3a5.mm:35:23: error: cannot initialize return object of type 'int' with an rvalue of type 'id'
+   35 | int g(int z) { return get_from_foo(a); }
+      |                       ^~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpit71d2w8/bc47a3a5.mm:33:30: error: no matching function for call to 'foo'
+   33 | T get_from_foo(T y) { return foo(y); }
+      |                              ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpit71d2w8/bc47a3a5.mm:35:23: note: in instantiation of function template specialization 'get_from_foo<id>' requested here
+   35 | int g(int z) { return get_from_foo(a); }
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpit71d2w8/bc47a3a5.mm:30:12: note: candidate function not viable: no known conversion from 'id' to 'int' for 1st argument
+   30 | static int foo(int x) { return x; }
+      |            ^   ~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/Expr.cpp:1859: bool clang::CastExpr::CastConsistency() const: Assertion `getSubExpr()->getType()->isPointerType()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O3 -std=c++14 -fblocks -fno-objc-arc -fno-elide-constructors -target x86_64-apple-darwin10 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpit71d2w8/bc47a3a5.mm
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpit71d2w8/bc47a3a5.mm:33:3: instantiating function definition 'get_from_foo<id>'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005c217bf4366b __interceptor_backtrace + 91
+1  clang++   0x00005c2181b9e027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005c2181b97cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005c2181b9c9c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005c21819eacc5
+5  clang++   0x00005c21819eb4d3
+6  libc.so.6 0x000070ffab6f4520
+7  libc.so.6 0x000070ffab7489bc pthread_kill + 300
+8  libc.so.6 0x000070ffab6f4476 raise + 22
+9  libc.so.6 0x000070ffab6da7f3 abort + 211
+10 libc.so.6 0x000070ffab6da71b
+11 libc.so.6 0x000070ffab6ebe96
+12 clang++   0x00005c218b621153 clang::CastExpr::CastConsistency() const + 4723
+13 clang++   0x00005c2182bf4ba0
+14 clang++   0x00005c218b622aea
+15 clang++   0x00005c218b6228f6 clang::ImplicitCastExpr::Create(clang::ASTContext const&, clang::QualType, clang::CastKind, clang::Expr*, llvm::SmallVector<clang::CXXBaseSpecifier*, 4u> const*, clang::ExprValueKind, clang::FPOptionsOverride) + 726
+16 clang++   0x00005c218845ebb1 clang::Sema::ImpCastExprToType(clang::Expr*, clang::QualType, clang::CastKind, clang::ExprValueKind, llvm::SmallVector<clang::CXXBaseSpecifier*, 4u> const*, clang::CheckedConversionKind) + 3857
+17 clang++   0x00005c21892463ae clang::Sema::PerformImplicitConversion(clang::Expr*, clang::QualType, clang::StandardConversionSequence const&, clang::AssignmentAction, clang::CheckedConversionKind) + 23902
+18 clang++   0x00005c218923f12e clang::Sema::PerformImplicitConversion(clang::Expr*, clang::QualType, clang::ImplicitConversionSequence const&, clang::AssignmentAction, clang::CheckedConversionKind) + 846
+19 clang++   0x00005c21893a0431 clang::InitializationSequence::Perform(clang::Sema&, clang::InitializedEntity const&, clang::InitializationKind const&, llvm::MutableArrayRef<clang::Expr*>, clang::QualType*) + 28289
+20 clang++   0x00005c21893bbfa2 clang::Sema::PerformCopyInitialization(clang::InitializedEntity const&, clang::SourceLocation, clang::ActionResult<clang::Expr*, true>, bool, bool) + 2626
+21 clang++   0x00005c2189acb657 clang::Sema::PerformMoveOrCopyInitialization(clang::InitializedEntity const&, clang::Sema::NamedReturnInfo const&, clang::Expr*, bool) + 2727
+22 clang++   0x00005c2189ad2bc9 clang::Sema::BuildReturnStmt(clang::SourceLocation, clang::Expr*, bool) + 6713
+23 clang++   0x00005c2189ff17d0
+24 clang++   0x00005c218a113c7a
+25 clang++   0x00005c2189ff11ff
+26 clang++   0x00005c2189fefd97 clang::Sema::SubstStmt(clang::Stmt*, clang::MultiLevelTemplateArgumentList const&) + 295
+27 clang++   0x00005c218a2224dd clang::Sema::InstantiateFunctionDefinition(clang::SourceLocation, clang::FunctionDecl*, bool, bool, bool) + 8317
+28 clang++   0x00005c218a22c901 clang::Sema::PerformPendingInstantiations(bool, bool) + 1377
+29 clang++   0x00005c21884624ae clang::Sema::ActOnEndOfTranslationUnitFragment(clang::TUFragmentKind) + 1614
+30 clang++   0x00005c2188465002 clang::Sema::ActOnEndOfTranslationUnit() + 2562
+31 clang++   0x00005c21880e6df1 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1265
+32 clang++   0x00005c21880bfa7f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+33 clang++   0x00005c2183f9e2fe clang::FrontendAction::Execute() + 222
+34 clang++   0x00005c2183e305f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+35 clang++   0x00005c2184182989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+36 clang++   0x00005c217bfd91a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+37 clang++   0x00005c217bfcd0f9
+38 clang++   0x00005c217bfd7637
+39 clang++   0x00005c2183a07317
+40 clang++   0x00005c21819eaa7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+41 clang++   0x00005c2183a0481a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+42 clang++   0x00005c218395529c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+43 clang++   0x00005c2183956a2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+44 clang++   0x00005c21839a6060 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+45 clang++   0x00005c217bfcb517 clang_main(int, char**, llvm::ToolContext const&) + 12295
+46 clang++   0x00005c217bffae27 main + 567
+47 libc.so.6 0x000070ffab6dbd90
+48 libc.so.6 0x000070ffab6dbe40 __libc_start_main + 128
+49 clang++   0x00005c217bf07b35 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git e996ce0d9ad6443a7ea3f88ccb0a8e114b0e840e)
+Target: x86_64-apple-darwin10
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/bc47a3a5-7da4ee.mm
+clang++: note: diagnostic msg: /tmp/bc47a3a5-7da4ee.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

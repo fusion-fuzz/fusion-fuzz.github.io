@@ -1,0 +1,28 @@
+HloModule pjit
+
+%async_wrapped_computation {
+  %p0 = f32[16] parameter(0)
+  %p1 = f32[16] parameter(1)
+  ROOT %cc = f32[16] custom-call(p0, p1), custom_call_target="foo", output_to_operand_aliasing={{}: (1, {})}
+}
+
+ENTRY %main.21 {
+  %p = bf16[8,4,256,1024,12288]{4,3,2,1,0} parameter(0), sharding={devices=[8,1,1,1,1]0,1,2,3,4,5,6,7}
+  %p2 = bf16[8,4,256,1024,12288]{4,3,2,1,0} parameter(1), sharding={devices=[4,1,1,1,1,2]0,1,2,3,4,5,6,7 last_tile_dim_replicate}
+  %c0 = bf16[8,4,256,1024,12288]{4,3,2,1,0} copy(p)
+  %c1 = bf16[8,4,256,1024,12288]{4,3,2,1,0} copy(p2)
+  %a = bf16[8,4,256,1024,12288]{4,3,2,1,0} add(c0, c1)
+  %c2 = bf16[8,4,256,1024,12288]{4,3,2,1,0} copy(a), sharding={devices=[8,1,1,1,1]0,1,2,3,4,5,6,7}
+  %constant = f32[16] constant(1.0)
+  %tc_operand1 = f32[16] parameter(2)
+  %p.d = bf16[8,4,256,1024,12288]{4,3,2,1,0} parameter(3), sharding={devices=[8,1,1,1,1]0,1,2,3,4,5,6,7}
+  %c0.d = bf16[8,4,256,1024,12288]{4,3,2,1,0} copy(%p.d)
+  %c1.d = bf16[8,4,256,1024,12288]{4,3,2,1,0} copy(%a)
+  %a.d = bf16[8,4,256,1024,12288]{4,3,2,1,0} add(%c0.d, %c1.d)
+  %c2.d = bf16[8,4,256,1024,12288]{4,3,2,1,0} copy(%a.d), sharding={devices=[8,1,1,1,1]0,1,2,3,4,5,6,7}
+  %async_start = ((), (), s32[]) async-start(), calls=%async_wrapped_computation, async_execution_thread="sparsecore"
+  %async_update = ((f32[16], f32[16]), f32[16]) async-update(%async_start, %constant, %tc_operand1)
+  %async_done = f32[16] async-done(%async_update)
+  %ffl.root = (f32[16], bf16[8,4,256,1024,12288]{4,3,2,1,0}) tuple(%async_done, %c2.d)
+  ROOT %ffl.root.1 = (bf16[8,4,256,1024,12288]{4,3,2,1,0}, f32[16], bf16[8,4,256,1024,12288]{4,3,2,1,0}) tuple(%c2, %async_done, %c2.d)
+}

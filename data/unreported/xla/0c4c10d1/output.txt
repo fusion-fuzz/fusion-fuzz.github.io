@@ -1,0 +1,29 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1791993484.849784 2509607 algebraic_simplifier.cc:8588] Check failed: update_shape.dimensions().size() == rank (0 vs. 4) 
+*** Check failure stack trace: ***
+    @     0x5f2f9b9a1a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5f2f9b9a19e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5f2f92f15b24  xla::AlgebraicSimplifierVisitor::HandleDynamicUpdateSlice()
+    @     0x5f2f9b2d6406  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x5f2f9b2d5ef7  xla::HloInstruction::Visit<>()
+    @     0x5f2f9b2d846e  xla::PostOrderDFS<>()
+    @     0x5f2f9b2d4cf8  xla::HloInstruction::Accept<>()
+    @     0x5f2f90436d95  xla::HloComputation::Accept<>()
+    @     0x5f2f92ed7ace  xla::AlgebraicSimplifierVisitor::Run()
+    @     0x5f2f90a0ee4a  xla::gpu::GpuAlgebraicSimplifier::RunImpl()
+    @     0x5f2f97a58be7  xla::HloPassInterface::Run()
+    @     0x5f2f935d63ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5f2f935d17bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5f2f935d0bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5f2f97a58be7  xla::HloPassInterface::Run()
+    @     0x5f2f90524e11  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5f2f9053206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5f2f90466934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5f2f90466e85  xla::CompiledOptProvider::GetExecutable()
+    @     0x5f2f90466245  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5f2f90458d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5f2f9b9f2466  main
+    @     0x70c7d2dd4d90  (unknown)
+Aborted (core dumped)

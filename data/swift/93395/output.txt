@@ -1,0 +1,11 @@
+$ swift-frontend -emit-silgen repro.swift
+Non-nominal type without conformance to BitwiseCopyable:
+some Equatable
+within C
+of AP::Opaque
+swift-frontend: lib/SIL/IR/TypeLowering.cpp:3844: auto swift::Lowering::TypeConverter::verifyTrivialLowering(const TypeLowering &, AbstractionPattern, CanType, TypeExpansionContext)::(anonymous class)::operator()(auto, auto, auto *, auto) const [...]: Assertion `false' failed.
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module repro)
+4.	While silgen visitDecl 'C' (at repro.swift:2:1)
+5.	While generating SIL witness table protocol conformance C: Q at 'C' (at repro.swift:2:1)
+6.	While generating protocol witness thunk SIL function "@$s5repro1CVAA1QA2aDP1iSivMTW".
+ for modify for i (at repro.swift:4:7)

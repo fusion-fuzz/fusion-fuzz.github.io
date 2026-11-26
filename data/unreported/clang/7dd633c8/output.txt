@@ -1,0 +1,10 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprulo57vv/c0ce98a7.cpp:23:23: error: conversion from 'void *' to 'bool' is not allowed in a converted constant expression
+   23 |   void foo() noexcept(&&bar);
+      |                       ^~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaDecl.cpp:2301: void clang::Sema::ActOnPopScope(clang::SourceLocation, clang::Scope*): Assertion `(S->getFlags() & (Scope::DeclScope | Scope::TemplateParamScope)) && "Scope shouldn't contain decls!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -Os -std=c++20 -fblocks /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprulo57vv/c0ce98a7.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprulo57vv/c0ce98a7.cpp:26:1: current parser token 'static'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprulo57vv/c0ce98a7.cpp:22:1: parsing struct/union/class body '(unnamed struct at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprulo57vv/c0ce98a7.cpp:22:1)'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):

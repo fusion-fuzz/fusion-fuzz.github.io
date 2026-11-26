@@ -1,0 +1,26 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791796575.801407  119453 hlo_computation.h:342] Check failed: param_no < static_cast<int64_t>(param_instructions_.size()) (1 vs. 1) Computation fused_computation.reference has no parameter number 1
+*** Check failure stack trace: ***
+    @     0x62854d7aa8a4  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x62854d7aa826  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x628543e99431  xla::HloComputation::parameter_instruction()
+    @     0x62854d113e3c  xla::HloInstruction::Defuse()
+    @     0x628543eb6c4b  absl::lts_20260526::functional_internal::InvokeObject<>()
+    @     0x62854d07250b  xla::CallGraph::VisitNodesInternal()
+    @     0x62854d0724e6  xla::CallGraph::VisitNodesInternal()
+    @     0x62854d0728a0  xla::CallGraph::VisitNodes()
+    @     0x628543eb6751  xla::Defuser::RunImpl()
+    @     0x62854cf0cf97  xla::HloPassInterface::Run()
+    @     0x62854c61ed5c  xla::HloPassPipeline::RunHelper<>()
+    @     0x62854c61a1ad  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x62854c6195c5  xla::HloPassPipeline::RunImpl()
+    @     0x62854cf0cf97  xla::HloPassInterface::Run()
+    @     0x628543eb5562  xla::Despecializer::RunImpl()
+    @     0x62854cf0cf97  xla::HloPassInterface::Run()
+    @     0x628543eb4c6d  xla::PrepareReferenceModule()
+    @     0x628543e8ee4e  xla::(anonymous namespace)::RunAndCompareInternal()
+    @     0x628543e8ce67  xla::RunAndCompare()
+    @     0x628543e9044e  xla::RunAndCompare()
+    @     0x628543e8a04f  main
+    @     0x728d517f8d90  (unknown)
+Aborted (core dumped)

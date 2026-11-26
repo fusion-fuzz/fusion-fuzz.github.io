@@ -1,0 +1,74 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpduoiwaqw/76f3c0b5.cpp:40:11: warning: using enum declaration is a C++20 extension [-Wc++20-extensions]
+   40 |     using enum EnumOne;
+      |           ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGDebugInfo.cpp:6552: void clang::CodeGen::CGDebugInfo::EmitUsingEnumDecl(const clang::UsingEnumDecl&): Assertion `UD.shadow_size() && "We shouldn't be codegening an invalid UsingEnumDecl" " containing no decls"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -Os -std=c++17 -fblocks -g -funroll-loops -target x86_64-pc-windows-msvc19.11.0 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpduoiwaqw/76f3c0b5.cpp
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpduoiwaqw/76f3c0b5.cpp:39:25: instantiating function definition 'UsingUsingEnum::t<void>'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpduoiwaqw/76f3c0b5.cpp:39:25: LLVM IR generation of declaration 'UsingUsingEnum::t'
+4.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpduoiwaqw/76f3c0b5.cpp:39:25: Generating code for declaration 'UsingUsingEnum::t'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000585305e2e329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000585305e2afec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000585305e2b8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000585305d6d218
+4  libc.so.6 0x00007024303c9520
+5  libc.so.6 0x000070243041d9bc pthread_kill + 300
+6  libc.so.6 0x00007024303c9476 raise + 22
+7  libc.so.6 0x00007024303af7f3 abort + 211
+8  libc.so.6 0x00007024303af71b
+9  libc.so.6 0x00007024303c0e96
+10 clang++   0x00005853062c6560 clang::CodeGen::CGDebugInfo::EmitUsingDecl(clang::UsingDecl const&) + 0
+11 clang++   0x00005853064a9dcc clang::CodeGen::CodeGenFunction::EmitDeclStmt(clang::DeclStmt const&) + 140
+12 clang++   0x00005853064c44a5 clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 389
+13 clang++   0x00005853064bb87a clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 138
+14 clang++   0x00005853064c3f3c clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+15 clang++   0x000058530652d901 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) + 177
+16 clang++   0x00005853065449d4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 1396
+17 clang++   0x00005853065aece8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 2152
+18 clang++   0x00005853065a7f64 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 580
+19 clang++   0x00005853065a8e60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+20 clang++   0x00005853065b4335
+21 clang++   0x0000585306957ef1
+22 clang++   0x00005853069470f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+23 clang++   0x00005853093176e8 clang::Sema::InstantiateFunctionDefinition(clang::SourceLocation, clang::FunctionDecl*, bool, bool, bool) + 3800
+24 clang++   0x000058530931574d clang::Sema::PerformPendingInstantiations(bool, bool) + 301
+25 clang++   0x00005853087e99fd
+26 clang++   0x00005853087e9d36 clang::Sema::ActOnEndOfTranslationUnit() + 182
+27 clang++   0x0000585308647872 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 946
+28 clang++   0x0000585308624632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+29 clang++   0x0000585306cc5061 clang::FrontendAction::Execute() + 65
+30 clang++   0x0000585306c4ee65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+31 clang++   0x0000585306d9cde3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+32 clang++   0x0000585303bf833e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+33 clang++   0x0000585303bee13a
+34 clang++   0x0000585303bee2cf
+35 clang++   0x00005853069d3cfd
+36 clang++   0x0000585305d6d630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+37 clang++   0x00005853069d4b53
+38 clang++   0x0000585306989607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+39 clang++   0x000058530698def0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+40 clang++   0x000058530699c004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+41 clang++   0x0000585303bf3923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+42 clang++   0x0000585303b2f7f1 main + 113
+43 libc.so.6 0x00007024303b0d90
+44 libc.so.6 0x00007024303b0e40 __libc_start_main + 128
+45 clang++   0x0000585303bed765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-pc-windows-msvc19.11.0
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/76f3c0b5-e28d0c.cpp
+clang++: note: diagnostic msg: /tmp/76f3c0b5-e28d0c.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

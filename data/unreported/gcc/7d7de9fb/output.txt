@@ -1,0 +1,79 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:89:10: error: argument 'count' to the 'counted_by' attribute is not a field declaration in the same structure as 'fam'
+   89 |     char fam[] __counted_by(count); /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |          ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:105:10: error: argument 'count' to the 'counted_by' attribute is not a field declaration in the same structure as 'fam'
+  105 |     char fam[] __counted_by(count); /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |          ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:120:11: error: argument 'count' to the 'counted_by' attribute is not a field declaration in the same structure as 'p'
+  120 |     char* p __counted_by(count); /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:128:11: error: argument 'countp' to the 'counted_by' attribute is not a field declaration with an integer type
+  128 |     char* p __counted_by(countp); /* { dg-error "attribute is not a field declaration with an integer type" } */
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:158:12: error: argument 'f' to the 'counted_by' attribute is not a field declaration with an integer type
+  158 |     float *pointer_2 __counted_by(f); /* { dg-error "attribute is not a field declaration with an integer type" } */
+      |            ^~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:168:15: error: argument 'a0' to the 'counted_by' attribute is not a field declaration in the same structure as 'b0'
+  168 | struct { char b0[] __attribute__ ((counted_by (a0))); } x00; /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |               ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:171:15: error: argument 'a1' to the 'counted_by' attribute is not a field declaration in the same structure as 'b1'
+  171 | struct { char b1[] __attribute__ ((counted_by (a1))); } *x1; /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |               ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:174:16: error: argument 'f1' to the 'counted_by' attribute is not a field declaration in the same structure as 'e1'
+  174 | struct { char *e1 __attribute__ ((counted_by (f1))); } *x3; /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |                ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:177:16: error: argument 'f5' to the 'counted_by' attribute is not a field declaration in the same structure as 'e5'
+  177 | struct { char *e5 __attribute__ ((counted_by (f5))); } **x5; /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |                ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:181:15: error: argument 'c' to the 'counted_by' attribute is not a field declaration in the same structure as 'd'
+  181 | struct { char d[] __attribute__ ((counted_by (c))); } func00 (int a, int b); /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:184:15: error: argument 'c1' to the 'counted_by' attribute is not a field declaration in the same structure as 'd1'
+  184 | struct { char d1[] __attribute__ ((counted_by (c1))); } *func1 (int a, int b); /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |               ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:187:16: error: argument 'c3' to the 'counted_by' attribute is not a field declaration in the same structure as 'd3'
+  187 | struct { char *d3 __attribute__ ((counted_by (c3))); } *func3 () { return 0; } /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |                ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:190:16: error: argument 'c5' to the 'counted_by' attribute is not a field declaration in the same structure as 'd5'
+  190 | struct { char *d5 __attribute__ ((counted_by (c5))); } **func5 () { return 0; } /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |                ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:193:13: warning: anonymous struct declared inside parameter list will not be visible outside of this definition or declaration
+  193 | void func6 (struct { float *f __attribute__ ((counted_by (g))); int g; } *pa, int count); /* { dg-warning "anonymous struct declared inside parameter list will not be visible outside" } */
+      |             ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:194:29: error: argument 'g1' to the 'counted_by' attribute is not a field declaration in the same structure as 'f1'
+  194 | void func7 (struct { float *f1 __attribute__ ((counted_by (g1)));} *pa, int count); /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |                             ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:194:13: warning: anonymous struct declared inside parameter list will not be visible outside of this definition or declaration
+  194 | void func7 (struct { float *f1 __attribute__ ((counted_by (g1)));} *pa, int count); /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |             ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c: In function 'foo':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:202:33: error: argument 'count1' to the 'counted_by' attribute is not a field declaration in the same structure as 'p1'
+  202 |   res += alignof (struct {char *p1 __attribute__ ((counted_by (count1))); }); /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |                                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c: At top level:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:212:8: error: argument 'mc1' to the 'counted_by' attribute is not a field declaration in the same structure as 'md1'
+  212 |  char *md1 __attribute__ ((counted_by (mc1))); /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |        ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:243:3: error: #error "DEC32_SUBNORMAL_MIN not defined"
+  243 | # error "DEC32_SUBNORMAL_MIN not defined"
+      |   ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:247:3: error: #error "DEC64_SUBNORMAL_MIN not defined"
+  247 | # error "DEC64_SUBNORMAL_MIN not defined"
+      |   ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:251:3: error: #error "DEC128_SUBNORMAL_MIN not defined"
+  251 | # error "DEC128_SUBNORMAL_MIN not defined"
+      |   ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:254:28: error: argument 'd0' to the 'counted_by' attribute is not a field declaration in the same structure as 'c0'
+  254 | struct s00 { struct { char c0[] __attribute__ ((counted_by (d0))); } x; } yy00; /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |                            ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:257:27: error: argument 'd' to the 'counted_by' attribute is not a field declaration in the same structure as 'c'
+  257 | struct s1 { struct { char c[] __attribute__ ((counted_by (d))); } *x; } *yy; /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:260:28: error: argument 'd' to the 'counted_by' attribute is not a field declaration in the same structure as 'c'
+  260 | struct s3 { struct { char *c __attribute__ ((counted_by (d))); } *x; } *y3; /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:263:28: error: argument 'd5' to the 'counted_by' attribute is not a field declaration in the same structure as 'c5'
+  263 | struct s5 { struct { char *c5 __attribute__ ((counted_by (d5))); } x[4]; } *y5; /* { dg-error "attribute is not a field declaration in the same structure as" } */
+      |                            ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjwzu0qzt/ca2fdbfd.c:267:28: error: argument 'd7' to the 'counted_by' attribute is not a field declaration in the same 
+[... truncated ...]

@@ -1,0 +1,19 @@
+HloModule m
+
+%max {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  ROOT %m = f32[] maximum(%a, %b)
+}
+
+ENTRY %main {
+  %p0 = f32[16,97] parameter(0)
+  %c = f32[] constant(-inf)
+  %r0 = f32[16] reduce(%p0, %c), dimensions={1}, to_apply=%max
+  %b0 = f32[16,97] broadcast(%r0), dimensions={0}
+  %sub0 = f32[16,97] subtract(%p0, %b0)
+  %r1 = f32[16] reduce(%sub0, %c), dimensions={1}, to_apply=%max
+  %b1 = f32[16,97] broadcast(%r1), dimensions={0}
+  %sub1 = f32[16,97] subtract(%sub0, %b1)
+  ROOT %t = (f32[16,97], f32[16,97]) tuple(%sub0, %sub1)
+}

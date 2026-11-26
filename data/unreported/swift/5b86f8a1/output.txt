@@ -1,0 +1,103 @@
+[... 56 lines omitted ...]
+  [Iterable_b272f35:Element] => { conforms_to: [Copyable Escapable] }
+  [Copyable] => { conforms_to: [Copyable] }
+  [Escapable] => { conforms_to: [Escapable] }
+  τ_0_0 => { conforms_to: [Seq_b272f35 Copyable Escapable] }
+  τ_0_0.[Seq_b272f35:BorrowingSeqIter] => { conforms_to: [Copyable Escapable] concrete_type: [concrete: Adapter_b272f35<τ_0_0.[Seq_b272f35:Iterator]>] }
+}
+Conformance paths: {
+}
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -c -Onone -sil-verify-all /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwz2pg2xj/7080e9c4.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwz2pg2xj/7080e9c4.swift")
+4.	While type-checking 'Seq_b272f35' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwz2pg2xj/7080e9c4.swift:196:8)
+5.	While type-checking protocol conformance τ_0_0: BorrowingSeq_b272f35 at extension of Seq_b272f35 (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwz2pg2xj/7080e9c4.swift:217:1)
+6.	While evaluating request ResolveTypeWitnessesRequest(<Self where Self : Seq_b272f35, Self.BorrowingSeqIter == Adapter_b272f35<Self.Iterator>> τ_0_0: BorrowingSeq_b272f35 module main)
+7.	Abort: function getReducedTypeParameter at GenericSignatureQueries.cpp:461
+| 	getReducedTypeParameter() was called
+| 	       with <τ_0_0 where τ_0_0 : Seq_b272f35, τ_0_0.BorrowingSeqIter == Adapter_b272f35<τ_0_0.Iterator>>,
+| 	       and τ_0_0.BorrowingSeqIter.Element.
+| 	
+| 	This type parameter's reduced term is τ_0_0.[BorrowingSeq_b272f35:BorrowingSeqIter].[BorrowingIter_b272f35:Element].
+| 	
+| 	This is not a valid term, because τ_0_0 does not have a member type named [BorrowingSeq_b272f35:BorrowingSeqIter].
+| 	
+| 	This usually indicates the caller passed the wrong type or generic signature to getReducedType().
+| 	
+| 	Requirement machine for <τ_0_0 where τ_0_0 : Seq_b272f35, τ_0_0.BorrowingSeqIter == Adapter_b272f35<τ_0_0.Iterator>>
+| 	Rewrite system: {
+| 	- [Seq_b272f35].[Seq_b272f35] => [Seq_b272f35] [permanent]
+| 	- [Seq_b272f35].Iterator => [Seq_b272f35:Iterator] [permanent]
+| 	- [Seq_b272f35].BorrowingSeqIter => [Seq_b272f35:BorrowingSeqIter] [permanent]
+| 	- [Seq_b272f35].[Copyable] => [Seq_b272f35] [explicit]
+| 	- [Seq_b272f35].[Escapable] => [Seq_b272f35] [explicit]
+| 	- [Seq_b272f35:Iterator].[Iterable_b272f35] => [Seq_b272f35:Iterator] [explicit]
+| 	- [Seq_b272f35:Iterator].[Copyable] => [Seq_b272f35:Iterator] [explicit]
+| 	- [Seq_b272f35:Iterator].[Escapable] => [Seq_b272f35:Iterator] [explicit]
+| 	- [Seq_b272f35:BorrowingSeqIter].[Copyable] => [Seq_b272f35:BorrowingSeqIter] [explicit]
+| 	- [Seq_b272f35:BorrowingSeqIter].[Escapable] => [Seq_b272f35:BorrowingSeqIter] [explicit]
+| 	- [Seq_b272f35].[Seq_b272f35:Iterator] => [Seq_b272f35:Iterator]
+| 	- [Seq_b272f35].[Seq_b272f35:BorrowingSeqIter] => [Seq_b272f35:BorrowingSeqIter]
+| 	- [Seq_b272f35:Iterator].Element => [Seq_b272f35:Iterator].[Iterable_b272f35:Element]
+| 	- [Iterable_b272f35].[Iterable_b272f35] => [Iterable_b272f35] [permanent]
+| 	- [Iterable_b272f35].Element => [Iterable_b272f35:Element] [permanent]
+| 	- [Iterable_b272f35].[Copyable] => [Iterable_b272f35] [explicit]
+| 	- [Iterable_b272f35].[Escapable] => [Iterable_b272f35] [explicit]
+| 	- [Iterable_b272f35:Element].[Copyable] => [Iterable_b272f35:Element] [explicit]
+| 	- [Iterable_b272f35:Element].[Escapable] => [Iterable_b272f35:Element] [explicit]
+| 	- [Iterable_b272f35].[Iterable_b272f35:Element] => [Iterable_b272f35:Element]
+| 	- [Copyable].[Copyable] => [Copyable] [permanent]
+| 	- [Escapable].[Escapable] => [Escapable] [permanent]
+| 	- τ_0_0.[Seq_b272f35] => τ_0_0 [explicit]
+| 	- τ_0_0.Iterator.[Iterable_b272f35] => τ_0_0.Iterator [explicit] [lhs↓] [rhs↓]
+| 	- τ_0_0.BorrowingSeqIter.[concrete: Adapter_b272f35<τ_0_0.Iterator>] => τ_0_0.BorrowingSeqIter [explicit] [lhs↓] [rhs↓] [subst↓]
+| 	- τ_0_0.[Copyable] => τ_0_0 [explicit]
+| 	- τ_0_0.[Escapable] => τ_0_0 [explicit]
+| 	- τ_0_0.Iterator => τ_0_0.[Seq_b272f35:Iterator] [explicit]
+| 	- τ_0_0.BorrowingSeqIter => τ_0_0.[Seq_b272f35:BorrowingSeqIter] [explicit]
+| 	- τ_0_0.Iterator.[Iterable_b272f35] => τ_0_0.[Seq_b272f35:Iterator] [explicit] [lhs↓]
+| 	- τ_0_0.BorrowingSeqIter.[concrete: Adapter_b272f35<τ_0_0.Iterator>] => τ_0_0.[Seq_b272f35:BorrowingSeqIter] [explicit] [lhs↓]
+| 	- τ_0_0.[Seq_b272f35:BorrowingSeqIter].[concrete: Adapter_b272f35<τ_0_0.[Seq_b272f35:Iterator]>] => τ_0_0.[Seq_b272f35:BorrowingSeqIter] [explicit]
+| 	- τ_0_0.[Seq_b272f35:BorrowingSeqIter].[concrete: Adapter_b272f35<τ_0_0.Iterator>] => τ_0_0.[Seq_b272f35:BorrowingSeqIter] [explicit] [subst↓]
+| 	- τ_0_0.[Seq_b272f35:BorrowingSeqIter].[concrete: Adapter_b272f35<τ_0_0.[Seq_b272f35:Iterator]> : Copyable] => τ_0_0.[Seq_b272f35:BorrowingSeqIter]
+| 	- τ_0_0.[Seq_b272f35:BorrowingSeqIter].[concrete: Adapter_b272f35<τ_0_0.[Seq_b272f35:Iterator]> : Escapable] => τ_0_0.[Seq_b272f35:BorrowingSeqIter]
+| 	- τ_0_0.[Seq_b272f35:BorrowingSeqIter].[concrete: Adapter_b272f35<τ_0_0.Iterator> : Copyable] => τ_0_0.[Seq_b272f35:BorrowingSeqIter] [subst↓]
+| 	- τ_0_0.[Seq_b272f35:BorrowingSeqIter].[concrete: Adapter_b272f35<τ_0_0.Iterator> : Escapable] => τ_0_0.[Seq_b272f35:BorrowingSeqIter] [subst↓]
+| 	}
+| 	Property map: {
+| 	  [Seq_b272f35] => { conforms_to: [Seq_b272f35 Copyable Escapable] }
+| 	  [Seq_b272f35:Iterator] => { conforms_to: [Iterable_b272f35 Copyable Escapable] }
+| 	  [Seq_b272f35:BorrowingSeqIter] => { conforms_to: [Copyable Escapable] }
+| 	  [Iterable_b272f35] => { conforms_to: [Iterable_b272f35 Copyable Escapable] }
+| 	  [Iterable_b272f35:Element] => { conforms_to: [Copyable Escapable] }
+| 	  [Copyable] => { conforms_to: [Copyable] }
+| 	  [Escapable] => { conforms_to: [Escapable] }
+| 	  τ_0_0 => { conforms_to: [Seq_b272f35 Copyable Escapable] }
+| 	  τ_0_0.[Seq_b272f35:BorrowingSeqIter] => { conforms_to: [Copyable Escapable] concrete_type: [concrete: Adapter_b272f35<τ_0_0.[Seq_b272f35:Iterator]>] }
+| 	}
+| 	Conformance paths: {
+| 	}
+ #0 0x0000555c3d576bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x0000555c3d5742e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x0000555c3d5778c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f4e8da67330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f4e8dac0c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f4e8da6727e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f4e8da4a8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x0000555c379b4622 (/usr/bin/swift-frontend+0x3055622)
+ #8 0x0000555c379b470c (/usr/bin/swift-frontend+0x305570c)
+ #9 0x0000555c377bff2c swift::rewriting::RequirementMachine::getReducedTypeParameter(swift::CanType, llvm::ArrayRef<swift::GenericTypeParamType*>) const (/usr/bin/swift-frontend+0x2e60f2c)
+#10 0x0000555c376e0f5c swift::GenericSignatureImpl::getReducedTypeParameter(swift::CanType) const (/usr/bin/swift-frontend+0x2d81f5c)
+#11 0x0000555c376d9546 swift::GenericEnvironment::getOrCreateArchetypeFromInterfaceType(swift::Type) (/usr/bin/swift-frontend+0x2d7a546)
+#12 0x0000555c376d9373 swift::GenericEnvironment::mapTypeIntoEnvironment(swift::Type) const (/usr/bin/swift-frontend+0x2d7a373)
+#13 0x0000555c370049d4 (anonymous namespace)::AssociatedTypeInference::inferAbstractTypeWitnesses(llvm::ArrayRef<swift::AssociatedTypeDecl*>, unsigned int) AssociatedTypeInference.cpp:0:0
+#14 0x0000555c370001a0 (anonymous namespace)::AssociatedTypeInference::findSolutionsRec(llvm::ArrayRef<swift::AssociatedTypeDecl*>, llvm::SmallVectorImpl<(anonymous namespace)::InferredTypeWitnessesSolution>&, llvm::SmallVectorImpl<(anonymous namespace)::InferredTypeWitnessesSolution>&, llvm::SmallVector<std::pair<swift::ValueDecl*, swift::ValueDecl*>, 4u>&, unsigned int, unsigned int, unsigned int) AssociatedTypeInference.cpp:0:0
+#15 0x0000555c37000e75 (anonymous namespace)::AssociatedTypeInference::findSolutionsRec(llvm::ArrayRef<swift::AssociatedTypeDecl*>, llvm::SmallVectorImpl<(anonymous namespace)::InferredTypeWitnessesSolution>&, llvm::SmallVectorImpl<(anonymous namespace)::InferredTypeWitnessesSolution>&, llvm::SmallVector<std::pair<swift::ValueDecl*, swift::ValueDecl*>, 4u>&, unsigned int, unsigned int, unsigned int) AssociatedTypeInference.cpp:0:0
+#16 0x0000555c36fd05b3 (anonymous namespace)::AssociatedTypeInference::findSolutions(llvm::ArrayRef<swift::AssociatedTypeDecl*>, llvm::SmallVectorImpl<(anonymous namespace)::InferredTypeWitnessesSolution>&) AssociatedTypeInference.cpp:0:0
+#17 0x0000555c36fc76cb (anonymous namespace)::AssociatedTypeInference::solve() AssociatedTypeInference.cpp:0:0
+#18 0x0000555c36fc67f6 swift::ResolveTypeWitnessesRequest::evaluate(swift::Evaluator&, swift::NormalProtocolConform
+[... truncated ...]

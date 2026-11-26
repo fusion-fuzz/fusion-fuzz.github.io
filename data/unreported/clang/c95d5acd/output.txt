@@ -1,0 +1,75 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpgxysgc3u/dcc34399.cpp:220:15: error: use of undeclared identifier 'tc'; did you mean 'test::tc'?
+  220 | static_assert(tc<int, int>, "should get partial spec");
+      |               ^~
+      |               test::tc
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpgxysgc3u/dcc34399.cpp:209:18: note: 'test::tc' declared here
+  209 | TriConcreteClass tc;
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpgxysgc3u/dcc34399.cpp:220:15: error: 'tc' is expected to be a non-type template, but instantiated to a class template
+  220 | static_assert(tc<int, int>, "should get partial spec");
+      |               ^~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpgxysgc3u/dcc34399.cpp:209:18: note: class template declared here
+  209 | TriConcreteClass tc;
+      |                  ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/ExprConstant.cpp:22353: bool doEvaluateAsRValue(const clang::Expr *, Expr::EvalResult &, const clang::ASTContext &, clang::SemaProxy *, bool): Assertion `!E->isValueDependent() && "Expression evaluator can't be called on a dependent expression."' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O0 -fblocks -g -fno-elide-constructors -fno-strict-aliasing -target i686-windows-msvc -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpgxysgc3u/dcc34399.cpp
+1.	<eof> parser at end of file
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005bc47aee265b __interceptor_backtrace + 91
+1  clang++   0x00005bc480c231b7 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005bc480c1ce83 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005bc480c21b54 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005bc480a6ae35
+5  clang++   0x00005bc480a6b643
+6  libc.so.6 0x0000732af203a520
+7  libc.so.6 0x0000732af208e9bc pthread_kill + 300
+8  libc.so.6 0x0000732af203a476 raise + 22
+9  libc.so.6 0x0000732af20207f3 abort + 211
+10 libc.so.6 0x0000732af202071b
+11 libc.so.6 0x0000732af2031e96
+12 clang++   0x00005bc48ea69222
+13 clang++   0x00005bc48ea6937e clang::Expr::EvaluateAsMandatedConstantRValue(clang::Expr::EvalResult&, clang::ASTContext const&, clang::SemaProxy&) const + 286
+14 clang++   0x00005bc48c32d7d9 clang::Sema::VerifyIntegerConstantExpression(clang::Expr*, llvm::APSInt*, clang::Sema::VerifyICEDiagnoser&, clang::AllowFoldKind) + 3849
+15 clang++   0x00005bc48c3220f9 clang::Sema::VerifyIntegerConstantExpression(clang::Expr*, llvm::APSInt*, unsigned int, clang::AllowFoldKind) + 281
+16 clang++   0x00005bc48c13b206 clang::Sema::BuildStaticAssertDeclaration(clang::SourceLocation, clang::Expr*, clang::Expr*, clang::SourceLocation, bool) + 1334
+17 clang++   0x00005bc48b57d526 clang::Parser::ParseStaticAssertDeclaration(clang::SourceLocation&) + 3286
+18 clang++   0x00005bc48b5203ef clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 671
+19 clang++   0x00005bc48b4bd54a clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 1002
+20 clang++   0x00005bc48b4b9c45 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1701
+21 clang++   0x00005bc48b49282f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+22 clang++   0x00005bc482963a0f clang::CodeGenAction::ExecuteAction() + 1775
+23 clang++   0x00005bc48302777e clang::FrontendAction::Execute() + 222
+24 clang++   0x00005bc482eb8360 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+25 clang++   0x00005bc48320d043 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1395
+26 clang++   0x00005bc47af78217 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4551
+27 clang++   0x00005bc47af6c0d9
+28 clang++   0x00005bc47af76617
+29 clang++   0x00005bc482a8cd47
+30 clang++   0x00005bc480a6abed llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+31 clang++   0x00005bc482a8a24a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+32 clang++   0x00005bc4829d970c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+33 clang++   0x00005bc4829dafcc clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4732
+34 clang++   0x00005bc482a2b3b0 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+35 clang++   0x00005bc47af6a507 clang_main(int, char**, llvm::ToolContext const&) + 12295
+36 clang++   0x00005bc47af9a7e7 main + 567
+37 libc.so.6 0x0000732af2021d90
+38 libc.so.6 0x0000732af2021e40 __libc_start_main + 128
+39 clang++   0x00005bc47aea6b25 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git f9c45b362c71ac659c96ed0b70e84d19d64b13fb)
+Target: i686-unknown-windows-msvc
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/dcc34399-ff46db.cpp
+clang++: note: diagnostic msg: /tmp/dcc34399-ff46db.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

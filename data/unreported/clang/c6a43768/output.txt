@@ -1,0 +1,102 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb_i1_bp4/658d403e.cpp:8:7: error: cannot use dot operator on a type
+    8 |     tm.tm_year = -2007 - 1900;
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb_i1_bp4/658d403e.cpp:9:7: error: cannot use dot operator on a type
+    9 |     tm.tm_mon = 5;
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb_i1_bp4/658d403e.cpp:10:7: error: cannot use dot operator on a type
+   10 |     tm.tm_mday = 28;
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb_i1_bp4/658d403e.cpp:11:7: error: cannot use dot operator on a type
+   11 |     tm.tm_hour = 0;
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb_i1_bp4/658d403e.cpp:12:7: error: cannot use dot operator on a type
+   12 |     tm.tm_min = 0;
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb_i1_bp4/658d403e.cpp:13:7: error: cannot use dot operator on a type
+   13 |     tm.tm_sec = 0;
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb_i1_bp4/658d403e.cpp:14:7: error: cannot use dot operator on a type
+   14 |     tm.tm_isdst = 0;
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb_i1_bp4/658d403e.cpp:16:24: error: 'tm' does not refer to a value
+   16 |     time_t t = mktime(&tm);
+      |                        ^
+/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:7:8: note: declared here
+    7 | struct tm
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb_i1_bp4/658d403e.cpp:17:5: error: expected unqualified-id
+   17 |     if (t != (time_t)-1) {
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb_i1_bp4/658d403e.cpp:25:5: error: expected unqualified-id
+   25 |     return 0;
+      |     ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/ASTDiagnostic.cpp:502: void clang::FormatASTNodeDiagnosticArgument(clang::DiagnosticsEngine::ArgumentKind, intptr_t, llvm::StringRef, llvm::StringRef, llvm::ArrayRef<std::pair<clang::DiagnosticsEngine::ArgumentKind, long int> >, llvm::SmallVectorImpl<char>&, void*, llvm::ArrayRef<long int>): Assertion `At && "Received null Attr object!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -Oz -fno-inline -ffast-math /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb_i1_bp4/658d403e.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb_i1_bp4/658d403e.cpp:28:9: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000561bcd2984f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000561bcd2951bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000561bcd295a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000561bcd1d7e88
+4  libc.so.6 0x00007fbe89bcc520
+5  libc.so.6 0x00007fbe89c209bc pthread_kill + 300
+6  libc.so.6 0x00007fbe89bcc476 raise + 22
+7  libc.so.6 0x00007fbe89bb27f3 abort + 211
+8  libc.so.6 0x00007fbe89bb271b
+9  libc.so.6 0x00007fbe89bc3e96
+10 clang++   0x0000561bd0b4f7cc clang::FormatASTNodeDiagnosticArgument(clang::DiagnosticsEngine::ArgumentKind, long, llvm::StringRef, llvm::StringRef, llvm::ArrayRef<std::pair<clang::DiagnosticsEngine::ArgumentKind, long>>, llvm::SmallVectorImpl<char>&, void*, llvm::ArrayRef<long>) + 3164
+11 clang++   0x0000561bcd4a5dac clang::Diagnostic::FormatDiagnostic(char const*, char const*, llvm::SmallVectorImpl<char>&) const + 668
+12 clang++   0x0000561bcdfede3d clang::TextDiagnosticPrinter::HandleDiagnostic(clang::DiagnosticsEngine::Level, clang::Diagnostic const&) + 93
+13 clang++   0x0000561bcd4a3df4 clang::DiagnosticsEngine::Report(clang::DiagnosticsEngine::Level, clang::Diagnostic const&) + 52
+14 clang++   0x0000561bcd4a45b0 clang::DiagnosticsEngine::ProcessDiag(clang::DiagnosticBuilder const&) + 640
+15 clang++   0x0000561bcfc3aa6d clang::Sema::EmitDiagnostic(unsigned int, clang::DiagnosticBuilder const&) + 173
+16 clang++   0x0000561bcfcc9796 clang::SemaBase::ImmediateDiagBuilder::~ImmediateDiagBuilder() + 54
+17 clang++   0x0000561bcfc1c378 clang::SemaBase::SemaDiagnosticBuilder::~SemaDiagnosticBuilder() + 88
+18 clang++   0x0000561bcfebb3a8 clang::Sema::MergeFunctionDecl(clang::FunctionDecl*, clang::NamedDecl*&, clang::Scope*, bool, bool) + 5112
+19 clang++   0x0000561bcfec91d1 clang::Sema::CheckFunctionDeclaration(clang::Scope*, clang::FunctionDecl*, clang::LookupResult&, bool, bool) + 1265
+20 clang++   0x0000561bcfecfb42 clang::Sema::ActOnFunctionDeclarator(clang::Scope*, clang::Declarator&, clang::DeclContext*, clang::TypeSourceInfo*, clang::LookupResult&, llvm::MutableArrayRef<clang::TemplateParameterList*>, bool&) + 12770
+21 clang++   0x0000561bcfed449b clang::Sema::HandleDeclarator(clang::Scope*, clang::Declarator&, llvm::MutableArrayRef<clang::TemplateParameterList*>) + 1387
+22 clang++   0x0000561bcfed537b clang::Sema::ActOnDeclarator(clang::Scope*, clang::Declarator&) + 123
+23 clang++   0x0000561bcfaca28b clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 235
+24 clang++   0x0000561bcfae4a2c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+25 clang++   0x0000561bcfa9466c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+26 clang++   0x0000561bcfa94e4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+27 clang++   0x0000561bcfaa0d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+28 clang++   0x0000561bcfaa1dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+29 clang++   0x0000561bcfa7ecf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+30 clang++   0x0000561bcdf86e51 clang::FrontendAction::Execute() + 65
+31 clang++   0x0000561bcdf10df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+32 clang++   0x0000561bce05ec03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+33 clang++   0x0000561bcbca7d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+34 clang++   0x0000561bcbc9dada
+35 clang++   0x0000561bcbc9dc6f
+36 clang++   0x0000561bcdc9542d
+37 clang++   0x0000561bcd1d82a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+38 clang++   0x0000561bcdc96283
+39 clang++   0x0000561bcdc4ad17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+40 clang++   0x0000561bcdc4f600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+41 clang++   0x0000561bcdc5d714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+42 clang++   0x0000561bcbca3383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+43 clang++   0x0000561bcbbf3901 main + 113
+44 libc.so.6 0x00007fbe89bb3d90
+45 libc.so.6 0x00007fbe89bb3e40 __libc_start_main + 128
+46 clang++   0x0000561bcbc9d105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/658d403e-9be389.cpp
+clang++: note: diagnostic msg: /tmp/658d403e-9be389.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

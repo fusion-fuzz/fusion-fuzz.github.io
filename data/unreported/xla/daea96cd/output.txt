@@ -1,0 +1,26 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1791996501.756010 2761993 layout_assignment.cc:528] Check failed: buffers[0]->instruction() == instruction (0x57ac294372b0 vs. 0x57ac297027f0) 
+*** Check failure stack trace: ***
+    @     0x57abf8131a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x57abf81319e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x57abefb69c5c  absl::lts_20260526::functional_internal::InvokeObject<>()
+    @     0x57abf7cb298d  xla::ShapeUtil::ForEachSubshapeWithStatusHelper<>()
+    @     0x57abf7ca7946  xla::ShapeUtil::ForEachSubshapeWithStatus()
+    @     0x57abefb492b8  xla::LayoutAssignment::SetInstructionLayout()
+    @     0x57abece8b9e8  xla::gpu::GpuLayoutAssignment::AddBackendConstraints()
+    @     0x57abefb6083e  xla::LayoutAssignment::RunImpl()
+    @     0x57abf41e8be7  xla::HloPassInterface::Run()
+    @     0x57abefd663ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x57abefd617bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x57abefd60bd5  xla::HloPassPipeline::RunImpl()
+    @     0x57abf41e8be7  xla::HloPassInterface::Run()
+    @     0x57abeccb758b  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x57abeccc206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x57abecbf6934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x57abecbf6373  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x57abecbe8d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x57abf8182466  main
+    @     0x7d4ba99d4d90  (unknown)
+Aborted (core dumped)

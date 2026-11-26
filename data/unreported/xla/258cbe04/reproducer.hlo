@@ -1,0 +1,19 @@
+HloModule TensorFlowScatterV1
+
+%update_s32 (lhs: s32[], rhs: s32[]) -> s32[] {
+  %lhs = s32[] parameter(0)
+  %rhs = s32[] parameter(1)
+  ROOT %add = s32[] add(lhs, rhs)
+}
+
+ENTRY %main {
+  %param = s32[1, 2, 5, 1] parameter(0)
+  %size = s32[] constant(0)
+  %param_padded = s32[<=1, 2, 5, 1] set-dimension-size(param, size), dimensions={0}
+  %reshaped = s32[<=10] reshape(param_padded)
+  %param.d = f32[1] parameter(1), sharding={mesh['x'=2,'y'=2] [{'x'}]}
+  %copy = f32[1] copy(%param.d), sharding={mesh['x'=2,'y'=2] replicated}
+  %init = s32[] constant(0)
+  %reduce = s32[] reduce(reshaped, init), dimensions={0}, to_apply=update_s32
+  ROOT %ffl.root = (s32[], f32[1]) tuple(%reduce, %copy)
+}

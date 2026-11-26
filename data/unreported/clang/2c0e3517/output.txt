@@ -1,0 +1,73 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsf263g9n/46569512.cpp:12:38: error: use of undeclared identifier 'f'
+   12 |   template <int I> int D<I>::y = I + f();
+      |                                      ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/Expr.cpp:3360: bool clang::Expr::isConstantInitializer(clang::ASTContext&, bool, const clang::Expr**) const: Assertion `!isValueDependent() && "Expression evaluator can't be called on a dependent expression."' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O1 -std=c++20 -fblocks -funroll-loops -target x86_64-scei-ps4 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsf263g9n/46569512.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsf263g9n/46569512.cpp:13:46: current parser token ';'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsf263g9n/46569512.cpp:10:45: instantiating variable definition 'D<42>::y'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005602513da409 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005602513d70cc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005602513d7988 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000560251319368
+4  libc.so.6 0x00007f6359eeb520
+5  libc.so.6 0x00007f6359f3f9bc pthread_kill + 300
+6  libc.so.6 0x00007f6359eeb476 raise + 22
+7  libc.so.6 0x00007f6359ed17f3 abort + 211
+8  libc.so.6 0x00007f6359ed171b
+9  libc.so.6 0x00007f6359ee2e96
+10 clang++   0x0000560254fe4779 clang::Expr::isConstantInitializer(clang::ASTContext&, bool, clang::Expr const**) const + 2137
+11 clang++   0x0000560254856aa1 clang::Sema::InstantiateVariableInitializer(clang::VarDecl*, clang::VarDecl*, clang::MultiLevelTemplateArgumentList const&) + 913
+12 clang++   0x00005602548b7b2b clang::Sema::BuildVariableInstantiation(clang::VarDecl*, clang::VarDecl*, clang::MultiLevelTemplateArgumentList const&, llvm::SmallVector<clang::Sema::LateInstantiatedAttribute, 1u>*, clang::DeclContext*, clang::LocalInstantiationScope*, bool, clang::VarTemplateSpecializationDecl*) + 1659
+13 clang++   0x00005602548c48f2 clang::TemplateDeclInstantiator::VisitVarDecl(clang::VarDecl*, bool, llvm::ArrayRef<clang::BindingDecl*>*) + 450
+14 clang++   0x00005602548ca338
+15 clang++   0x00005602557c9f65 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+16 clang++   0x0000560254856531 clang::Sema::SubstDecl(clang::Decl*, clang::DeclContext*, clang::MultiLevelTemplateArgumentList const&) + 225
+17 clang++   0x00005602548b97e1 clang::Sema::InstantiateVariableDefinition(clang::SourceLocation, clang::VarDecl*, bool, bool, bool) + 4641
+18 clang++   0x000056025482adea clang::Sema::InstantiateClassMembers(clang::SourceLocation, clang::CXXRecordDecl*, clang::MultiLevelTemplateArgumentList const&, clang::TemplateSpecializationKind) + 2298
+19 clang++   0x000056025482b56e clang::Sema::InstantiateClassTemplateSpecializationMembers(clang::SourceLocation, clang::ClassTemplateSpecializationDecl*, clang::TemplateSpecializationKind) + 126
+20 clang++   0x0000560254693586 clang::Sema::ActOnExplicitInstantiation(clang::Scope*, clang::SourceLocation, clang::SourceLocation, unsigned int, clang::SourceLocation, clang::CXXScopeSpec const&, clang::OpaquePtr<clang::TemplateName>, clang::SourceLocation, clang::SourceLocation, llvm::MutableArrayRef<clang::ParsedTemplateArgument>, clang::SourceLocation, clang::ParsedAttributesView const&) + 4358
+21 clang++   0x0000560253c53edd clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 7757
+22 clang++   0x0000560253c23205 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2821
+23 clang++   0x0000560253d00dc9 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2361
+24 clang++   0x0000560253d01768 clang::Parser::ParseExplicitInstantiation(clang::DeclaratorContext, clang::SourceLocation, clang::SourceLocation, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 184
+25 clang++   0x0000560253d0d5ac clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) + 492
+26 clang++   0x0000560253c32911 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 641
+27 clang++   0x0000560253beb3ce clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+28 clang++   0x0000560253bec45f clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+29 clang++   0x0000560253bc9392 clang::ParseAST(clang::Sema&, bool, bool) + 530
+30 clang++   0x0000560252272ad1 clang::FrontendAction::Execute() + 65
+31 clang++   0x00005602521fca75 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+32 clang++   0x000056025234a713 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+33 clang++   0x000056024f1a527e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+34 clang++   0x000056024f19af8a
+35 clang++   0x000056024f19b11f
+36 clang++   0x0000560251f8151d
+37 clang++   0x0000560251319780 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+38 clang++   0x0000560251f82373
+39 clang++   0x0000560251f36e07 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+40 clang++   0x0000560251f3b6f0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+41 clang++   0x0000560251f49804 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+42 clang++   0x000056024f1a0863 clang_main(int, char**, llvm::ToolContext const&) + 7315
+43 clang++   0x000056024f0dc7c1 main + 113
+44 libc.so.6 0x00007f6359ed2d90
+45 libc.so.6 0x00007f6359ed2e40 __libc_start_main + 128
+46 clang++   0x000056024f19a5b5 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-scei-ps4
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/46569512-1f9ce9.cpp
+clang++: note: diagnostic msg: /tmp/46569512-1f9ce9.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

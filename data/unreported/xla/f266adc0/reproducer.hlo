@@ -1,0 +1,19 @@
+HloModule module
+
+%fusion {
+  %p0 = f16[64,48] parameter(0)
+  %p1 = f16[48] parameter(1)
+  %t = f16[48,64] transpose(p0), dimensions={1,0}
+  %b = f16[48,64] broadcast(p1), dimensions={0}
+  ROOT %a = f16[48,64] add(t, b)
+}
+
+ENTRY %main {
+  %p0 = f16[64,48] parameter(0)
+  %p1 = f16[48] parameter(1)
+  %fusion = f16[48,64] fusion(p0, p1), kind=kLoop, calls=fusion, backend_config={ "fusion_backend_config":{ "block_level_fusion_config":{ "output_tiles":[{"sizes":["8", "8"]}], "num_ctas":"1" } } }
+  %p0.d = f32[1024,1024]{1,0} parameter(2)
+  %p1.d = f32[1024,1024]{1,0} parameter(3)
+  %dot = f32[1024,1024]{1,0} dot(%p0.d, %p1.d), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  ROOT %ffl.root = (f16[48,64], f32[1024,1024]{1,0}) tuple(%fusion, %dot)
+}

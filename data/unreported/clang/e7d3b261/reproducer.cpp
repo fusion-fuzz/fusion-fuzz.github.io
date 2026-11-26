@@ -1,0 +1,16 @@
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];
+template <bool B> void f() [[clang::nonblocking(B)]];

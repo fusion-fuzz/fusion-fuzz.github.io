@@ -1,0 +1,107 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m:17:5: error: interface type cannot be statically allocated
+   17 |   S iS;
+      |     ^
+      |     *
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m:22:1: error: interface type 'NSArray' cannot be returned by value; did you forget * in 'NSArray'?
+   22 | NSArray func(void) {
+      | ^
+      |        *
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m:23:11: error: interface type cannot be statically allocated
+   23 |   NSArray P;
+      |           ^
+      |           *
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m:27:1: error: interface type 'NSArray' cannot be returned by value; did you forget * in 'NSArray'?
+   27 | NSArray (func2)(void) { return 0; }
+      | ^
+      |        *
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m:36:12: error: interface type cannot be statically allocated
+   36 |         NSArray pluginNames = [NSArray arrayWithObjects];
+      |                 ^
+      |                 *
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m:39:33: error: use of undeclared identifier 'end'
+   39 | static long ffl_fusion = (long)(end);
+      |                                 ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m:48:18: error: redefinition of 'S' as different kind of symbol
+   48 | typedef struct S S; // expected-note 4 {{forward declaration of 'struct S'}}
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m:12:12: note: previous definition is here
+   12 | @interface S @end
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m:52:4: error: arithmetic on pointer to interface 'S', which is not a constant size for this architecture and platform
+   52 |   b++;       // expected-error {{arithmetic on a pointer to an incomplete type}}
+      |   ~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m:53:5: error: arithmetic on pointer to interface 'S', which is not a constant size for this architecture and platform
+   53 |   b += 1;    // expected-error {{arithmetic on a pointer to an incomplete type}}
+      |   ~ ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m:59:8: error: arithmetic on pointer to interface 'S', which is not a constant size for this architecture and platform
+   59 |   b = 1+b;   // expected-error {{arithmetic on a pointer to an incomplete type}}
+      |        ^~
+clang: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaExpr.cpp:5004: bool checkArithmeticOnObjCPointer(clang::Sema&, clang::SourceLocation, clang::Expr*): Assertion `op->getType()->isObjCObjectPointerType()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -fsyntax-only -Os -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -fobjc-runtime=ios-7 -fobjc-arc -target x86_64-unknown-unknown -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m:67:4: current parser token '++'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m:50:23: parsing function body 'a'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0sd4_obm/39597c74.m:50:23: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x00006097f537c329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x00006097f5378fec llvm::sys::RunSignalHandlers() + 76
+2  clang     0x00006097f53798a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x00006097f52bb218
+4  libc.so.6 0x00007f2a7d0ba520
+5  libc.so.6 0x00007f2a7d10e9bc pthread_kill + 300
+6  libc.so.6 0x00007f2a7d0ba476 raise + 22
+7  libc.so.6 0x00007f2a7d0a07f3 abort + 211
+8  libc.so.6 0x00007f2a7d0a071b
+9  libc.so.6 0x00007f2a7d0b1e96
+10 clang     0x00006097f810d98a
+11 clang     0x00006097f81457be
+12 clang     0x00006097f815df38 clang::Sema::CreateBuiltinUnaryOp(clang::SourceLocation, clang::UnaryOperatorKind, clang::Expr*, bool) + 968
+13 clang     0x00006097f7c0af7d clang::Parser::ParsePostfixExpressionSuffix(clang::ActionResult<clang::Expr*, true>) + 1005
+14 clang     0x00006097f7c0497b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 1259
+15 clang     0x00006097f7c0685b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+16 clang     0x00006097f7c068fd clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 61
+17 clang     0x00006097f7c0ab7d clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+18 clang     0x00006097f7c9bbc1 clang::Parser::ParseExprStatement(clang::Parser::ParsedStmtContext) + 81
+19 clang     0x00006097f7c93b7b clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 5275
+20 clang     0x00006097f7c9453b clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+21 clang     0x00006097f7c9c447 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+22 clang     0x00006097f7c9cc9f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+23 clang     0x00006097f7b8e06f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+24 clang     0x00006097f7bd8c64 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+25 clang     0x00006097f7b87fac clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+26 clang     0x00006097f7b8878f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+27 clang     0x00006097f7b94646 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+28 clang     0x00006097f7b956ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+29 clang     0x00006097f7b72632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+30 clang     0x00006097f6213061 clang::FrontendAction::Execute() + 65
+31 clang     0x00006097f619ce65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+32 clang     0x00006097f62eade3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+33 clang     0x00006097f314633e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+34 clang     0x00006097f313c13a
+35 clang     0x00006097f313c2cf
+36 clang     0x00006097f5f21cfd
+37 clang     0x00006097f52bb630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+38 clang     0x00006097f5f22b53
+39 clang     0x00006097f5ed7607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+40 clang     0x00006097f5edbef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+41 clang     0x00006097f5eea004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+42 clang     0x00006097f3141923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+43 clang     0x00006097f307d7f1 main + 113
+44 libc.so.6 0x00007f2a7d0a1d90
+45 libc.so.6 0x00007f2a7d0a1e40 __libc_start_main + 128
+46 clang     0x00006097f313b765 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-unknown
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang: note: diagnostic msg: /tmp/39597c74-3a29b8.m
+clang: note: diagnostic msg: /tmp/39597c74-3a29b8.sh
+clang: no
+[... truncated ...]

@@ -1,0 +1,108 @@
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:138:32: warning: null character(s) preserved in literal
+  138 | #pragma GCC diagnostic ignored "'test test'"
+      |                                ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc: In function 'void f1()':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:60:19: error: use of 'f3' before deduction of 'auto'
+   60 |     auto f3 = F3{&f3}; //ICE: Segmentation fault
+      |                   ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:61:17: error: expected ',' or ';' before '{' token
+   61 |     auto f4 = f2{&f3}; //OK
+      |                 ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:62:17: error: expected ',' or ';' before '{' token
+   62 |     auto f5 = f0{&f3}; //OK
+      |                 ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:63:15: error: use of 'f6' before deduction of 'auto'
+   63 |     auto f6 = f6{&f3}; //ICE: in build_qualified_name, at cp/tree.c:2238
+      |               ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc: In function 'void bar()':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:75:27: error: use of enum 'T' without previous declaration
+   75 |   if (x != (sizeof ((enum T) 0x1234)))  /* { dg-error "conversion to incomplete type" } */
+      |                           ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc: At global scope:
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:81:44: error: redefinition of 'struct F0<R, AA>'
+   81 | template<typename R, typename...AA> struct F0 { //OK
+      |                                            ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:4:44: note: previous definition of 'struct F0<R, AA>'
+    4 | template<typename R, typename...AA> struct F0 { //OK
+      |                                            ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:96:44: error: redefinition of 'struct F3<R, AA>'
+   96 | template<typename R, typename...AA> struct F3 {
+      |                                            ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:16:44: note: previous definition of 'struct F3<R, AA>'
+   16 | template<typename R, typename...AA> struct F3 {
+      |                                            ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:119:22: error: parameter pack 'AA' must be at the end of the template parameter list
+  119 | template<typename R, typename...AA, typename _FflDeclT = f4<int>> struct F6 {
+      |                      ^~~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:124:5: error: 'x' does not name a type [-Wtemplate-body]
+  124 |     x fun_ptr;
+      |     ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:128:37: error: redefinition of 'template<class R, class ... AA> F0(R (*)(AA ...)) -> F0<R, AA ...>'
+  128 | template<typename R, typename...AA> F0(R(*fun_ptr)(AA...)) -> F0<R, AA...>;
+      |                                     ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:44:37: note: 'template<class R, class ... AA> F0(R (*)(AA ...)) -> F0<R, AA ...>' previously declared here
+   44 | template<typename R, typename...AA> F0(R(*fun_ptr)(AA...)) -> F0<R, AA...>;
+      |                                     ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:131:37: error: redefinition of 'template<class R, class ... AA> F3(R (*)(AA ...)) -> F3<R, AA ...>'
+  131 | template<typename R, typename...AA> F3(R(*fun_ptr)(AA...)) -> F3<R, AA...>;
+      |                                     ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:47:37: note: 'template<class R, class ... AA> F3(R (*)(AA ...)) -> F3<R, AA ...>' previously declared here
+   47 | template<typename R, typename...AA> F3(R(*fun_ptr)(AA...)) -> F3<R, AA...>;
+      |                                     ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:134:74: note: so any instantiation with a non-empty parameter pack would be ill-formed
+  134 | template<typename R, typename...AA> F6(R(*fun_ptr)(AA...)) -> F6<R, AA...>;
+      |                                                                          ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:134:63: error: trailing return type '<type error>' of deduction guide is not a specialization of 'F6<R, <declaration error>, _FflDeclT>'
+  134 | template<typename R, typename...AA> F6(R(*fun_ptr)(AA...)) -> F6<R, AA...>;
+      |                                                               ^~~~~~~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:138:32: warning: unknown option after '#pragma GCC diagnostic' kind [-Wpragmas]
+  138 | #pragma GCC diagnostic ignored "'test test'"
+      |                                ^~~~~~~~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc: In function 'void test()':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc:122:32: internal compiler error: in constructor_name_p, at cp/name-lookup.cc:5390
+  122 |     using fun_ptr_t = decltype(&F6::fun_not_implemented); //ICE: in build_qualified_name, at cp/tree.c:2238
+      |                                ^~~~~~~~~~~~~~~~~~~~~~~~
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x82941e constructor_name_p(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/name-lookup.cc:5390
+0x120f2e8 tsubst_baselink
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:18370
+0x11f06ee tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:22028
+0x121b300 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:18225
+0x121b300 tsubst_name
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:18225
+0x121b300 tsubst_qualified_id
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:18503
+0x11f2d4d tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:21930
+0x11fd436 tsubst(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:18094
+0x1206fb4 tsubst_arg_types
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:16688
+0x1209201 tsubst_arg_types
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:16665
+0x1209201 build_deduction_guide
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:32013
+0x1209a35 ctor_deduction_guides_for
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:32649
+0x1209a35 deduction_guides_for
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:32738
+0x11ea982 do_class_deduction
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:32907
+0x11ea982 do_auto_deduction(tree_node*, tree_node*, tree_node*, int, auto_deduction_context, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:33129
+0x1264cd1 finish_compound_literal(tree_node*, tree_node*, int, fcl_t)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:3862
+0x117507f cp_parser_functional_cast
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36863
+0x1185a91 cp_parser_postfix_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:8874
+/home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -iprefix /home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../lib/gcc/x86_64-pc-linux-gnu/17.0.0/ -D_GNU_SOURCE /home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp0u781djp/4443d6b3.cc -quiet -dumpdir a- -dumpbase 4443d6b3.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Og -fsyntax-only -fno-tree-vectorize -fexceptions -ffast-math -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

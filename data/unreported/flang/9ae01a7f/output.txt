@@ -1,0 +1,54 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpvk0hiaxy/58633076.f90:22:14: warning: SIZES clause is not allowed on TILE directive in OpenMP v3.1, try -fopenmp-version=51 [-Wopenmp-future]
+    !$omp tile sizes(2) sizes(2)
+               ^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpvk0hiaxy/58633076.f90:22:23: warning: SIZES clause is not allowed on TILE directive in OpenMP v3.1, try -fopenmp-version=51 [-Wopenmp-future]
+    !$omp tile sizes(2) sizes(2)
+                        ^^^^^^^^
+flang-24: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-project/flang/lib/Lower/OpenMP/OpenMP.cpp:2991: void genCanonicalLoopNest(lower::AbstractConverter &, lower::SymMap &, semantics::SemanticsContext &, lower::pft::Evaluation &, lower::pft::Evaluation *, mlir::Location, const ConstructQueue &, ConstructQueue::const_iterator, size_t, llvm::SmallVectorImpl<mlir::omp::CanonicalLoopOp> &): Assertion `numLoops >= 1 && "Expecting at least one loop"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-flang-build/bin/flang-24 -fc1 -triple aarch64-unknown-linux-gnu -emit-obj -ffree-form -flarge-sizes -fno-color-diagnostics -mrelocation-model pic -pic-level 2 -pic-is-pie -complex-range=improved -fcomplex-arithmetic=improved -target-cpu generic -target-feature +v8a -target-feature +fp-armv8 -target-feature +neon -std=f2018 -fopenmp -resource-dir /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-flang-build/lib/clang/24 -mframe-pointer=non-leaf-no-reserve -O1 -o /dev/null -x f95 /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpvk0hiaxy/58633076.f90
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  flang-24  0x00006219404e98ba ___interceptor_backtrace + 74
+1  flang-24  0x00006219429fd3d3 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 323
+2  flang-24  0x00006219429f7217 llvm::sys::RunSignalHandlers() + 455
+3  flang-24  0x00006219429ffd3f
+4  libc.so.6 0x0000711b099f4330
+5  libc.so.6 0x0000711b09a4dc0c pthread_kill + 284
+6  libc.so.6 0x0000711b099f427e gsignal + 30
+7  libc.so.6 0x0000711b099d78ff abort + 223
+8  libc.so.6 0x0000711b099d781b
+9  libc.so.6 0x0000711b099ea517
+10 flang-24  0x0000621943e9a524
+11 flang-24  0x0000621943df2d7d
+12 flang-24  0x0000621943de5140
+13 flang-24  0x0000621943d8a4ea Fortran::lower::genOpenMPConstruct(Fortran::lower::AbstractConverter&, Fortran::lower::SymMap&, Fortran::semantics::SemanticsContext&, Fortran::lower::pft::Evaluation&, Fortran::parser::OpenMPConstruct const&) + 602
+14 flang-24  0x0000621943561bee
+15 flang-24  0x0000621943557ca5
+16 flang-24  0x0000621943711ce5
+17 flang-24  0x0000621943491f5a Fortran::lower::LoweringBridge::lower(Fortran::parser::Program const&, Fortran::semantics::SemanticsContext const&) + 2906
+18 flang-24  0x0000621942ae0070 Fortran::frontend::CodeGenAction::beginSourceFileAction() + 5712
+19 flang-24  0x0000621942acd4cc Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) + 2764
+20 flang-24  0x0000621942a94a20 Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) + 2448
+21 flang-24  0x0000621942adcb23 Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) + 10211
+22 flang-24  0x000062194058a6f5 fc1_main(llvm::ArrayRef<char const*>, char const*) + 1365
+23 flang-24  0x000062194058230b main + 3035
+24 libc.so.6 0x0000711b099d91ca
+25 libc.so.6 0x0000711b099d928b __libc_start_main + 139
+26 flang-24  0x00006219404a1665 _start + 37
+flang-24: error: unable to execute command: Aborted
+flang-24: error: flang frontend command failed with exit code -2 (use -v to see invocation)
+flang version 24.0.0git (https://github.com/llvm/llvm-project.git 201f3aa5b655f3c9ec387eb51ae90f2effcb1e05)
+Target: aarch64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-flang-build/bin
+Build config: +assertions, +asan, +ubsan
+flang-24: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+flang-24: note: diagnostic msg: /tmp/58633076-0ead0b
+flang-24: note: diagnostic msg: /tmp/58633076-0ead0b.sh
+flang-24: note: diagnostic msg: 
+
+********************

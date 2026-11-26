@@ -1,0 +1,69 @@
+HloModule module_main
+
+%wrapped_send_recv {
+  %param0 = f32[] parameter(0)
+  %param1 = token[] parameter(1)
+  %send1 = (f32[], u32[], token[]) send(param0, param1), channel_id=0, frontend_attributes={_xla_send_recv_source_target_pairs={{0,1},{1,2}}}
+  %param2 = f32[] parameter(2)
+  %param3 = token[] parameter(3)
+  %send2 = (f32[], u32[], token[]) send(param2, param3), channel_id=0, frontend_attributes={_xla_send_recv_source_target_pairs={{2,3}}}
+  %param4 = token[] parameter(4)
+  %recv1 = (f32[], u32[], token[]) recv(param4), channel_id=0, frontend_attributes={_xla_send_recv_source_target_pairs={{0,1},{1,2}}}
+  %param5 = token[] parameter(5)
+  %recv2 = (f32[], u32[], token[]) recv(param5), channel_id=0, frontend_attributes={_xla_send_recv_source_target_pairs={{2,3}}}
+  ROOT %out = ((f32[], u32[], token[]), (f32[], u32[], token[]), (f32[], u32[], token[]), (f32[], u32[], token[])) tuple(send1, send2, recv1, recv2)
+}
+
+%fusion1 {
+  %p0 = bf16[96,512,64]{1,2,0} parameter(0)
+  %cp = bf16[96,512,64]{2,1,0} copy(p0)
+  %p1 = bf16[96,64,512]{2,1,0} parameter(1)
+  ROOT %d = bf16[96,512,512]{2,1,0} dot(cp, p1), lhs_batch_dims={0}, lhs_contracting_dims={2}, rhs_batch_dims={0}, rhs_contracting_dims={1}
+}
+
+%wrapped_send_recv.d {
+  %param0 = f32[] parameter(0)
+  %param1 = token[] parameter(1)
+  %send1 = (f32[], u32[], token[]) send(param0, param1), channel_id=0, frontend_attributes={_xla_send_recv_source_target_pairs={{0,1},{1,2}}}
+  %param2 = f32[] parameter(2)
+  %param3 = token[] parameter(3)
+  %send2 = (f32[], u32[], token[]) send(param2, param3), channel_id=0, frontend_attributes={_xla_send_recv_source_target_pairs={{2,3}}}
+  %param4 = token[] parameter(4)
+  %recv1 = (f32[], u32[], token[]) recv(param4), channel_id=0, frontend_attributes={_xla_send_recv_source_target_pairs={{0,1},{1,2}}}
+  %param5 = token[] parameter(5)
+  %recv2 = (f32[], u32[], token[]) recv(param5), channel_id=0, frontend_attributes={_xla_send_recv_source_target_pairs={{2,3}}}
+  ROOT %out = ((f32[], u32[], token[]), (f32[], u32[], token[]), (f32[], u32[], token[]), (f32[], u32[], token[])) tuple(send1, send2, recv1, recv2)
+}
+
+%wrapped_send_recv.d.d {
+  %param0 = f32[] parameter(0)
+  %param1 = token[] parameter(1)
+  %send1 = (f32[], u32[], token[]) send(param0, param1), channel_id=0, frontend_attributes={_xla_send_recv_source_target_pairs={{0,1},{1,2}}}
+  %param2 = f32[] parameter(2)
+  %param3 = token[] parameter(3)
+  %send2 = (f32[], u32[], token[]) send(param2, param3), channel_id=0, frontend_attributes={_xla_send_recv_source_target_pairs={{2,3}}}
+  %param4 = token[] parameter(4)
+  %recv1 = (f32[], u32[], token[]) recv(param4), channel_id=0, frontend_attributes={_xla_send_recv_source_target_pairs={{0,1},{1,2}}}
+  %param5 = token[] parameter(5)
+  %recv2 = (f32[], u32[], token[]) recv(param5), channel_id=0, frontend_attributes={_xla_send_recv_source_target_pairs={{2,3}}}
+  ROOT %out = ((f32[], u32[], token[]), (f32[], u32[], token[]), (f32[], u32[], token[]), (f32[], u32[], token[])) tuple(send1, send2, recv1, recv2)
+}
+
+ENTRY %main {
+  %data1 = f32[] constant(10)
+  %after-all1 = token[] after-all()
+  %data2 = f32[] constant(20)
+  %after-all2 = token[] after-all()
+  %async-comp-start = ((f32[], token[], f32[], token[], token[], token[]), ((f32[], u32[], token[]), (f32[], u32[], token[]), (f32[], u32[], token[]), (f32[], u32[], token[])), s32[]) async-start(data1, after-all1, data2, after-all2, after-all1, after-all2), calls=wrapped_send_recv, frontend_attributes={_collectives_group=""}
+  %async-comp-done = ((f32[], u32[], token[]), (f32[], u32[], token[]), (f32[], u32[], token[]), (f32[], u32[], token[])) async-done(async-comp-start)
+  %recv-context1 = (f32[], u32[], token[]) get-tuple-element(async-comp-done), index=2
+  %data-out1 = f32[] get-tuple-element(recv-context1), index=0
+  %recv-context2 = (f32[], u32[], token[]) get-tuple-element(async-comp-done), index=3
+  %data-out2 = f32[] get-tuple-element(recv-context2), index=0
+  %c100 = f32[] constant(100)
+  %res1 = f32[] dot(data-out1, c100)
+  %res2 = f32[] dot(data-out2, c100)
+  %out = (f32[], f32[]) tuple(res1, res2)
+  %ffl.call = ((f32[], u32[], token[]), (f32[], u32[], token[]), (f32[], u32[], token[]), (f32[], u32[], token[])) call(%data-out2, %after-all2, %data-out1, %after-all1, %after-all2, %after-all1), to_apply=%wrapped_send_recv.d
+  ROOT %ffl.root = ((f32[], f32[]), ((f32[], u32[], token[]), (f32[], u32[], token[]), (f32[], u32[], token[]), (f32[], u32[], token[]))) tuple(%out, %ffl.call)
+}

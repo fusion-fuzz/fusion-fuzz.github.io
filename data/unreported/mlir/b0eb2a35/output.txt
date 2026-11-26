@@ -1,0 +1,24 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==2928958==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x55e4ffc33b87 bp 0x7fffc57dbad0 sp 0x7fffc57db9f8 T0)
+==2928958==The signal is caused by a WRITE memory access.
+==2928958==Hint: address points to the zero page.
+    #0 0x55e4ffc33b87 in test::FormatOptSymbolRefAttrOp::verifyInvariantsImpl() /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-mlir-build/tools/mlir/test/lib/Dialect/Test/TestOpsSyntax.cpp.inc:13596:1
+    #1 0x55e4ff83334c in mlir::PassRegistration<(anonymous namespace)::TestMultiBufferingPass>::PassRegistration(std::function<std::unique_ptr<mlir::Pass, std::default_delete<mlir::Pass>> ()> const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/include/mlir/Pass/PassRegistry.h:157:5
+    #2 0x55e4ff83334c in mlir::PassRegistration<(anonymous namespace)::TestMultiBufferingPass>::PassRegistration() /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/include/mlir/Pass/PassRegistry.h:160:9
+    #3 0x55e4ff83334c in mlir::test::registerTestMultiBuffering() /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/test/lib/Dialect/MemRef/TestMultiBuffer.cpp:53:3
+    #4 0x55e4ff54e5aa in registerTestPasses() /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/tools/mlir-opt/mlir-opt.cpp:252:3
+    #5 0x55e4ff54e5aa in main /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/mlir/tools/mlir-opt/mlir-opt.cpp:326:3
+    #6 0x7f531f7ddd8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f) (BuildId: 22ca0a83a4004122e30a69b597be96e134068616)
+    #7 0x7f531f7dde3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f) (BuildId: 22ca0a83a4004122e30a69b597be96e134068616)
+    #8 0x55e4ff4651b4 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-mlir-install/bin/mlir-opt+0x73051b4) (BuildId: 384f31835e82c6a451c17a6ce01f3b1d24514389)
+
+==2928958==Register values:
+rax = 0x000055e51b732238  rbx = 0x00007fffc57dba00  rcx = 0x0000000000000000  rdx = 0x0000000000000014  
+rdi = 0x00007cb31ecf1480  rsi = 0x00007cb31ecf1480  rbp = 0x00007fffc57dbad0  rsp = 0x00007fffc57db9f8  
+ r8 = 0x00000f9663d9e2d0   r9 = 0x0000000000000000  r10 = 0x00000f9663d9e2d1  r11 = 0x0000000000000000  
+r12 = 0x00007b531de551d0  r13 = 0x00007b531db81da0  r14 = 0x00007b531de55000  r15 = 0x00000f6ae3bc2a00  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-mlir-build/tools/mlir/test/lib/Dialect/Test/TestOpsSyntax.cpp.inc:13596:1 in test::FormatOptSymbolRefAttrOp::verifyInvariantsImpl()
+==2928958==ABORTING
+Aborted

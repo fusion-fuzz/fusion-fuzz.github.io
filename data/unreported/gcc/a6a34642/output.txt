@@ -1,0 +1,48 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp91mnkac5/6c064fd1.cc: In member function 'void A::foo(T)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp91mnkac5/6c064fd1.cc:43:50: internal compiler error: in is_function_default_version, at attribs.cc:1274
+   43 |   int f(void) __attribute__((target("arch=atom")));
+      |                                                  ^
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x8a0309 is_function_default_version(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/attribs.cc:1274
+0x1fd96b4 ix86_mangle_decl_assembler_name(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/config/i386/i386-features.cc:5993
+0x10db995 get_mangled_id
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:4870
+0x10db995 mangle_decl(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:4907
+0x10492ec maybe_version_functions(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:1428
+0x10492ec maybe_version_functions(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:1419
+0x1057a5f decls_match(tree_node*, tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:1341
+0x1057cdb duplicate_decls(tree_node*, tree_node*, bool, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:1930
+0x1149e3f pushdecl(tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/name-lookup.cc:4089
+0x1071c6d start_decl(cp_declarator const*, cp_decl_specifier_seq*, int, tree_node*, tree_node*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:6805
+0x11af73a cp_parser_init_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:26372
+0x11b16fb cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18196
+0x11b489d cp_parser_declaration_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17052
+0x117bf5a cp_parser_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14559
+0x117f598 cp_parser_statement_seq_opt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:15129
+0x117f838 cp_parser_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14976
+0x11b4a17 cp_parser_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:28999
+0x11b4a17 cp_parser_ctor_initializer_opt_and_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29050
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp91mnkac5/6c064fd1.cc -quiet -dumpdir a- -dumpbase 6c064fd1.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Ofast -O2 -std=c++11 -fsyntax-only -fPIC -fdump-tree-ccp2 -fdump-tree-optimized -fno-ipa-vrp -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

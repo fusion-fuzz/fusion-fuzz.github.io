@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3000, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 2785, in main_app(int, char**)
+    return emit_llvm(opts.arg_file, lfortran_pass_manager,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 1146, in (anonymous namespace)::emit_llvm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::PassManager&, LCompilers::CompilerOptions&)
+    std::cerr << diagnostics.render(lm, compiler_options);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/diagnostics.cpp", line 87, in LCompilers::diag::Diagnostics::render[abi:cxx11](LCompilers::LocationManager&, LCompilers::CompilerOptions const&)
+    out += render_diagnostic_human(d, lm, compiler_options.use_colors,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/diagnostics.cpp", line 189, in LCompilers::diag::render_diagnostic_human[abi:cxx11](LCompilers::diag::Diagnostic&, LCompilers::LocationManager const&, bool, bool)
+    out += render_diagnostic_human(d, use_colors);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/diagnostics.cpp", line 225, in LCompilers::diag::render_diagnostic_human[abi:cxx11](LCompilers::diag::Diagnostic const&, bool)
+    Span s = l.spans[0];
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/diagnostics.h", line 15, in LCompilers::diag::Span::Span(LCompilers::diag::Span const&)
+    struct Span {
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+Segfault: Signal SIGSEGV (segmentation fault) received

@@ -1,0 +1,61 @@
+HloModule module
+
+%add {
+  %lhs = f32[] parameter(0)
+  %rhs = f32[] parameter(1)
+  ROOT %add.2 = f32[] add(%lhs, %rhs)
+}
+
+%scatter_computation {
+  %operand = f32[50,64,8] parameter(0)
+  %indices = s32[500,1]{1,0} parameter(1)
+  %updates = f32[500,1,64,8] parameter(2)
+  ROOT %scatter = f32[50,64,8] scatter(%operand, %indices, %updates), update_window_dims={1,2,3}, inserted_window_dims={}, scatter_dims_to_operand_dims={0}, index_vector_dim=1, to_apply=%add
+}
+
+%add.d {
+  %lhs = f32[] parameter(0)
+  %rhs = f32[] parameter(1)
+  ROOT %add.2 = f32[] add(%lhs, %rhs)
+}
+
+%scatter_computation.d {
+  %operand = f32[50,64,8] parameter(0)
+  %indices = s32[500,1]{1,0} parameter(1)
+  %updates = f32[500,1,64,8] parameter(2)
+  ROOT %scatter = f32[50,64,8] scatter(%operand, %indices, %updates), update_window_dims={1,2,3}, inserted_window_dims={}, scatter_dims_to_operand_dims={0}, index_vector_dim=1, to_apply=%add.d
+}
+
+%add.d.1 {
+  %lhs = f32[] parameter(0)
+  %rhs = f32[] parameter(1)
+  ROOT %add.2 = f32[] add(%lhs, %rhs)
+}
+
+%scatter_computation.d.1 {
+  %operand = f32[50,64,8] parameter(0)
+  %indices = s32[500,1]{1,0} parameter(1)
+  %updates = f32[500,1,64,8] parameter(2)
+  ROOT %scatter = f32[50,64,8] scatter(%operand, %indices, %updates), update_window_dims={1,2,3}, inserted_window_dims={}, scatter_dims_to_operand_dims={0}, index_vector_dim=1, to_apply=%add.d.1
+}
+
+ENTRY %main {
+  %p0 = f32[4] parameter(0)
+  %p1 = f32[4] parameter(1)
+  %before = (f32[4], f32[4]) custom-call(p0, p1), custom_call_target="__xla_internal_call_marker_before"
+  %p = f32[50,64,8]{2,1,0} parameter(2)
+  %p.1 = s32[500,1]{1,0} parameter(3)
+  %p.2 = f32[500,1,64,8]{3,2,1,0} parameter(4)
+  %wrapped_scatter = f32[50,64,8]{2,1,0} fusion(%p, %p.1, %p.2), kind=kLoop, calls=%scatter_computation
+  %gte0 = f32[4] get-tuple-element(before), index=0
+  %gte1 = f32[4] get-tuple-element(before), index=1
+  %add = f32[4] add(gte0, gte1)
+  %after = f32[4] custom-call(add), custom_call_target="__xla_internal_call_marker_after"
+  %ffl.root = (f32[4], f32[50,64,8]{2,1,0}) tuple(%after, %wrapped_scatter)
+  %ffl.call = f32[50,64,8] call(%wrapped_scatter, %p.1, %p.2), to_apply=%scatter_computation.d
+  %ffl.root.1 = (f32[4], f32[50,64,8]{2,1,0}, f32[50,64,8]) tuple(%after, %wrapped_scatter, %ffl.call)
+  %p.1.d = s32[500,1]{1,0} parameter(5)
+  %p.2.d = f32[500,1,64,8]{3,2,1,0} parameter(6)
+  %wrapped_scatter.d = f32[50,64,8]{2,1,0} fusion(%p, %p.1.d, %p.2.d), kind=kLoop, calls=%scatter_computation.d.1
+  ROOT %ffl.root.2 = (f32[4], f32[50,64,8]{2,1,0}, f32[50,64,8], f32[50,64,8]{2,1,0}) tuple(%after, %wrapped_scatter, %ffl.call, %wrapped_scatter.d)
+}

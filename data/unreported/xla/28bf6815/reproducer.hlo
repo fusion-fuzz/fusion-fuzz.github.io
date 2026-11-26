@@ -1,0 +1,15 @@
+HloModule gather_simplifier
+
+ENTRY %kernel_entry {
+  %operand = f32[0,2] parameter(0)
+  %indices = s32[3] parameter(1)
+  %gather = f32[3,2] gather(f32[0,2] operand, s32[3]{0} indices), offset_dims={1}, collapsed_slice_dims={0}, start_index_map={0}, index_vector_dim=1, slice_sizes={0,2}
+  %token0 = token[] after-all(), sharding={maximal device=0}
+  %infeed = (f32[8,2]{1,0}, token[]) infeed(%token0), sharding={{devices=[2,1]<=[2]}, {maximal device=0}}
+  %infeed.data = f32[8,2]{1,0} get-tuple-element(%infeed), index=0, sharding={maximal device=0}
+  %ffl.root = (f32[3,2], f32[8,2]{1,0}) tuple(%gather, %infeed.data)
+  %token0.d = token[] after-all(), sharding={maximal device=0}
+  %infeed.d = (f32[8,2]{1,0}, token[]) infeed(%token0.d), sharding={{devices=[2,1]<=[2]}, {maximal device=0}}
+  %infeed.data.d = f32[8,2]{1,0} get-tuple-element(%infeed), index=0, sharding={maximal device=0}
+  ROOT %ffl.root.1 = (f32[3,2], f32[8,2]{1,0}, f32[8,2]{1,0}) tuple(%gather, %infeed.data, %infeed.data.d)
+}

@@ -1,0 +1,28 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1793777666.221273  732927 op_expander_pass.cc:57] Check failed: changed 
+*** Check failure stack trace: ***
+    @     0x55a03e9a4a24  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x55a03e9a49a6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x55a0368f9c3c  xla::OpExpanderPass::RunImpl()
+    @     0x55a03b2d8a01  xla::HloPassInterface::Run()
+    @     0x55a036ab1cdc  xla::HloPassPipeline::RunHelper()
+    @     0x55a036ab2820  xla::HloPassPipeline::RunPassesInternal()
+    @     0x55a036ab47f5  xla::HloPassPipeline::RunImpl()
+    @     0x55a0331c291a  xla::HloPassFix<>::RunOnChangedComputationsOnce()
+    @     0x55a0331c2178  xla::HloPassFix<>::RunToFixPoint()
+    @     0x55a0331c1e84  xla::HloPassFix<>::RunImpl()
+    @     0x55a03b2d8a01  xla::HloPassInterface::Run()
+    @     0x55a036ab1cdc  xla::HloPassPipeline::RunHelper()
+    @     0x55a036ab2820  xla::HloPassPipeline::RunPassesInternal()
+    @     0x55a036ab47f5  xla::HloPassPipeline::RunImpl()
+    @     0x55a03b2d8a01  xla::HloPassInterface::Run()
+    @     0x55a0331c86a7  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x55a0331d31ab  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x55a033107744  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x55a0330fbc8e  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x55a0330f9be7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x55a03e9f51d6  main
+    @     0x795e099d4d90  (unknown)
+Aborted (core dumped)

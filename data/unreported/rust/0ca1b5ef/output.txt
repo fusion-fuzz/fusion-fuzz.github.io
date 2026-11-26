@@ -1,0 +1,121 @@
+error[E0433]: cannot find module or crate `std` in this scope
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpiz0qxl1f/2b39d991.rs:9:5
+  |
+9 | use std::marker::{Reborrow, PhantomData};
+  |     ^^^ use of unresolved module or unlinked crate `std`
+  |
+  = help: you might be missing a crate named `std`
+
+error: cannot find macro `println` in this scope
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpiz0qxl1f/2b39d991.rs:43:5
+   |
+43 |     println!("FFL Fusion Done");
+   |     ^^^^^^^
+
+error: cannot find attribute `derive` in this scope
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpiz0qxl1f/2b39d991.rs:28:3
+   |
+28 | #[derive(Reborrow)]
+   |   ^^^^^^
+
+warning: the feature `lang_items` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpiz0qxl1f/2b39d991.rs:1:21
+  |
+1 | #![feature(no_core, lang_items, export_stable)]
+  |                     ^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+  = note: `#[warn(internal_features)]` on by default
+
+error: lang items are not allowed in stable dylibs
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpiz0qxl1f/2b39d991.rs:13:1
+   |
+13 | #[lang = "pointee_sized"]
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: lang items are not allowed in stable dylibs
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpiz0qxl1f/2b39d991.rs:17:1
+   |
+17 | #[lang = "meta_sized"]
+   | ^^^^^^^^^^^^^^^^^^^^^^
+
+error: lang items are not allowed in stable dylibs
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpiz0qxl1f/2b39d991.rs:21:1
+   |
+21 | #[lang = "sized"]
+   | ^^^^^^^^^^^^^^^^^
+
+
+thread 'rustc' (303120) panicked at compiler/rustc_hir_typeck/src/coercion.rs:311:34:
+Unexpectedly using core/std without reborrow
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panicking.rs:80:14
+   2: core::panicking::panic_display::<&str>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panicking.rs:259:5
+   3: core::option::expect_failed
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/option.rs:2257:5
+   4: <core::option::Option<rustc_span::def_id::DefId>>::expect
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/option.rs:969:21
+   5: <rustc_hir_typeck::coercion::Coerce>::coerce::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/coercion.rs:311:34
+   6: <rustc_hir_typeck::coercion::Coerce>::coerce
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/coercion.rs:242:5
+   7: <rustc_hir_typeck::fn_ctxt::FnCtxt>::try_find_coercion_lub::{closure#2}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/coercion.rs:1444:55
+   8: <rustc_infer::infer::InferCtxt>::commit_if_ok::<rustc_infer::infer::InferOk<(alloc::vec::Vec<rustc_middle::ty::adjustment::Adjustment>, rustc_middle::ty::Ty)>, rustc_type_ir::error::TypeError<rustc_middle::ty::context::TyCtxt>, <rustc_hir_typeck::fn_ctxt::FnCtxt>::try_find_coercion_lub::{closure#2}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_infer/src/infer/snapshot/mod.rs:86:17
+   9: <rustc_hir_typeck::fn_ctxt::FnCtxt>::coerce
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/coercion.rs:1154:23
+  10: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_argument_types::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:393:22
+  11: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_argument_types
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:477:34
+  12: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_argument_types_maybe_method_like::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/callee.rs:669:18
+  13: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_argument_types_maybe_method_like
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/callee.rs:686:20
+  14: <rustc_hir_typeck::fn_ctxt::FnCtxt>::confirm_builtin_call
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/callee.rs:622:14
+  15: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_call
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/callee.rs:164:22
+  16: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_kind
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:369:50
+  17: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_expectation_and_args
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:272:23
+  18: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_expectation
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:212:14
+  19: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_hint
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:167:14
+  20: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_coercible_to_type_or_error::<<rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_coercible_to_type::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:143:23
+  21: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_coercible_to_type
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:133:14
+  22: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_decl_initializer
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1168:18
+  23: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_decl
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1178:32
+  24: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_decl_local
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1223:23
+  25: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_stmt
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1247:22
+  26: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_block::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1317:22
+  27: <rustc_hir_typeck::fn_ctxt::FnCtxt>::with_breakable_ctxt::<<rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_block::{closure#0}, ()>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/_impl.rs:1617:22
+  28: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_block
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1315:31
+  29: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_kind
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:368:46
+  30: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_expectation_and_args
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:272:23
+  31: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_expectation
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:212:14
+  32: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_hint
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:167:14
+  33: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_return_or_body_tail
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:959:35
+  34: rustc_hir_typeck::check::check_fn
+[... 124 more lines ...]

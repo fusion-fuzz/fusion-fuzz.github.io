@@ -1,0 +1,93 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:6:8: error: expected a LinalgOp
+  %0 = "test.conv_op_not_linalg_op"(%arg0, %arg1, %arg2)
+       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:6:8: note: see current operation: %0 = "test.conv_op_not_linalg_op"(%arg0, %arg1, %arg2) : (tensor<?xf32>, tensor<?xf32>, tensor<?xf32>) -> tensor<?xf32>
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:15:8: error: expected op with 2 inputs and 1 output
+  %0 = test.linalg_conv_op {
+       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:15:8: note: see current operation: 
+%0 = "test.linalg_conv_op"(%arg0, %arg1) <{operandSegmentSizes = array<i32: 1, 1>}> ({
+^bb0(%arg2: f32, %arg3: f32):
+  "linalg.yield"(%arg3) : (f32) -> ()
+}) {indexing_maps = [affine_map<(d0) -> (d0)>, affine_map<(d0) -> (d0)>], iterator_types = [#test.iterator_type<parallel>]} : (tensor<?xf32>, tensor<?xf32>) -> tensor<?xf32>
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:28:8: error: unexpected input index map for convolutions
+  %0 = test.linalg_conv_op {
+       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:28:8: note: see current operation: 
+%0 = "test.linalg_conv_op"(%arg0, %arg1, %arg2) <{operandSegmentSizes = array<i32: 2, 1>}> ({
+^bb0(%arg3: f32, %arg4: f32, %arg5: f32):
+  "linalg.yield"(%arg5) : (f32) -> ()
+}) {indexing_maps = [affine_map<(d0, d1) -> (d0 * 2)>, affine_map<(d0, d1) -> (d1)>, affine_map<(d0, d1) -> (d0)>], iterator_types = [#test.iterator_type<parallel>, #test.iterator_type<reduction>]} : (tensor<?xf32>, tensor<?xf32>, tensor<?xf32>) -> tensor<?xf32>
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:45:8: error: unexpected input index map for convolutions
+  %0 = test.linalg_conv_op {
+       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:45:8: note: see current operation: 
+%0 = "test.linalg_conv_op"(%arg0, %arg1, %arg2) <{operandSegmentSizes = array<i32: 2, 1>}> ({
+^bb0(%arg3: f32, %arg4: f32, %arg5: f32):
+  "linalg.yield"(%arg5) : (f32) -> ()
+}) {indexing_maps = [affine_map<(d0, d1) -> (d0 + d1, d0)>, affine_map<(d0, d1) -> (d1)>, affine_map<(d0, d1) -> (d0)>], iterator_types = [#test.iterator_type<parallel>, #test.iterator_type<reduction>]} : (tensor<?x?xf32>, tensor<?xf32>, tensor<?xf32>) -> tensor<?xf32>
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:62:8: error: expected output/filter indexing maps to be projected permutations
+  %0 = test.linalg_conv_op {
+       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:62:8: note: see current operation: 
+%0 = "test.linalg_conv_op"(%arg0, %arg1, %arg2) <{operandSegmentSizes = array<i32: 2, 1>}> ({
+^bb0(%arg3: f32, %arg4: f32, %arg5: f32):
+  "linalg.yield"(%arg5) : (f32) -> ()
+}) {indexing_maps = [affine_map<(d0, d1) -> (d1)>, affine_map<(d0, d1) -> (d0 + d1)>, affine_map<(d0, d1) -> (d0)>], iterator_types = [#test.iterator_type<parallel>, #test.iterator_type<reduction>]} : (tensor<?xf32>, tensor<?xf32>, tensor<?xf32>) -> tensor<?xf32>
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:79:8: error: expected output/filter indexing maps to be projected permutations
+  %0 = test.linalg_conv_op {
+       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:79:8: note: see current operation: 
+%0 = "test.linalg_conv_op"(%arg0, %arg1, %arg2) <{operandSegmentSizes = array<i32: 2, 1>}> ({
+^bb0(%arg3: f32, %arg4: f32, %arg5: f32):
+  "linalg.yield"(%arg5) : (f32) -> ()
+}) {indexing_maps = [affine_map<(d0, d1) -> (d0)>, affine_map<(d0, d1) -> (d1)>, affine_map<(d0, d1) -> (d0 + d1)>], iterator_types = [#test.iterator_type<parallel>, #test.iterator_type<parallel>]} : (tensor<?xf32>, tensor<?xf32>, tensor<?xf32>) -> tensor<?xf32>
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:98:8: error: unexpected loop dimension for convolution op
+  %0 = test.linalg_conv_op {
+       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:98:8: note: see current operation: 
+%0 = "test.linalg_conv_op"(%arg0, %arg1, %arg2) <{operandSegmentSizes = array<i32: 2, 1>}> ({
+^bb0(%arg3: f32, %arg4: f32, %arg5: f32):
+  "linalg.yield"(%arg5) : (f32) -> ()
+}) {indexing_maps = [affine_map<(d0, d1) -> (d0 + d1)>, affine_map<(d0, d1) -> (d1)>, affine_map<(d0, d1) -> (d0, d1)>], iterator_types = [#test.iterator_type<parallel>, #test.iterator_type<parallel>]} : (tensor<?xf32>, tensor<?xf32>, tensor<?x?xf32>) -> tensor<?x?xf32>
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:116:8: error: unexpected loop dimension for convolution op
+  %0 = test.linalg_conv_op {
+       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:116:8: note: see current operation: 
+%0 = "test.linalg_conv_op"(%arg0, %arg1, %arg2) <{operandSegmentSizes = array<i32: 2, 1>}> ({
+^bb0(%arg3: f32, %arg4: f32, %arg5: f32):
+  "linalg.yield"(%arg5) : (f32) -> ()
+}) {indexing_maps = [affine_map<(d0, d1, d2) -> (d0 + d1)>, affine_map<(d0, d1, d2) -> (d1)>, affine_map<(d0, d1, d2) -> (d0, d2)>], iterator_types = [#test.iterator_type<parallel>, #test.iterator_type<reduction>, #test.iterator_type<parallel>]} : (tensor<?xf32>, tensor<?xf32>, tensor<?x?xf32>) -> tensor<?x?xf32>
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:135:8: error: unexpected loop dimension for convolution op
+  %0 = test.linalg_conv_op {
+       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:135:8: note: see current operation: 
+%0 = "test.linalg_conv_op"(%arg0, %arg1, %arg2) <{operandSegmentSizes = array<i32: 2, 1>}> ({
+^bb0(%arg3: f32, %arg4: f32, %arg5: f32):
+  "linalg.yield"(%arg5) : (f32) -> ()
+}) {indexing_maps = [affine_map<(d0, d1, d2) -> (d0 + d1)>, affine_map<(d0, d1, d2) -> (d1, d2)>, affine_map<(d0, d1, d2) -> (d0)>], iterator_types = [#test.iterator_type<parallel>, #test.iterator_type<reduction>, #test.iterator_type<reduction>]} : (tensor<?xf32>, tensor<?x?xf32>, tensor<?xf32>) -> tensor<?xf32>
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:154:8: error: unexpected loop dimension for convolution op
+  %0 = test.linalg_conv_op {
+       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir:154:8: note: see current operation: 
+%0 = "test.linalg_conv_op"(%arg0, %arg1, %arg2) <{operandSegmentSizes = array<i32: 2, 1>}> ({
+^bb0(%arg3: f32, %arg4: f32, %arg5: f32):
+  "linalg.yield"(%arg5) : (f32) -> ()
+}) {indexing_maps = [affine_map<(d0, d1, d2) -> (d0 + d1, d2)>, affine_map<(d0, d1, d2) -> (d1)>, affine_map<(d0, d1, d2) -> (d0)>], iterator_types = [#test.iterator_type<parallel>, #test.iterator_type<reduction>, #test.iterator_type<reduction>]} : (tensor<?x?xf32>, tensor<?xf32>, tensor<?xf32>) -> tensor<?xf32>
+mlir-opt: /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/llvm/include/llvm/Support/Casting.h:560: decltype(auto) llvm::cast(const From &) [To = test::IteratorTypeAttr, From = mlir::Attribute]: Assertion `isa<To>(Val) && "cast<Ty>() argument of incompatible type!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-mlir-install/bin/mlir-opt --split-input-file --allow-unregistered-dialect --cse --canonicalize --symbol-dce --inline --sccp --verify-roundtrip /home/fuzz/WorkSpace/fusion-fuzz/.fused/mlir/tmpkca0u5_9/d5f8f714.mlir
+ #0 0x000055e36d209b46 ___interceptor_backtrace (/home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-mlir-install/bin/mlir-opt+0x734eb46)
+ #1 0x000055e36d2f2ba7 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/llvm/lib/Support/Unix/Signals.inc:931:13
+ #2 0x000055e36d2f59fa llvm::sys::RunSignalHandlers() /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/llvm/lib/Support/Signals.cpp:0:5
+ #3 0x000055e36d2f59fa SignalHandler(int, siginfo_t*, void*) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/llvm/lib/Support/Unix/Signals.inc:457:3
+ #4 0x00007f32e5a95520 (/lib/x86_64-linux-gnu/libc.so.6+0x42520)
+ #5 0x00007f32e5ae99bc pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x969bc)
+ #6 0x00007f32e5a95476 gsignal (/lib/x86_64-linux-gnu/libc.so.6+0x42476)
+ #7 0x00007f32e5a7b7f3 abort (/lib/x86_64-linux-gnu/libc.so.6+0x287f3)
+ #8 0x00007f32e5a7b71b (/lib/x86_64-linux-gnu/libc.so.6+0x2871b)
+ #9 0x00007f32e5a8ce96 (/lib/x86_64-linux-gnu/libc.so.6+0x39e96)
+#10 0x000055e36e2fa7c7 decltype(auto) llvm::cast<test::IteratorTypeAttr, mlir::Attribute>(mlir::Attribute const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-project/llvm/include/llvm/Support/Casting.h:560:3
+#11 0x000055e36e2fa7c7 mlir::ArrayAttr::attr_value_iterator<test::IteratorTypeAttr>::operator*() const /home/fuzz/Work
+[... truncated ...]

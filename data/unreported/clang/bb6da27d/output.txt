@@ -1,0 +1,70 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzistfzpb/4070d4a9.cpp:23:38: warning: defaulted comparison operators are a C++20 extension [-Wc++20-extensions]
+   23 |   bool operator==(const A &) const = default;
+      |                                      ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGExprCXX.cpp:336: clang::CodeGen::RValue clang::CodeGen::CodeGenFunction::EmitCXXMemberOrOperatorMemberCallExpr(const clang::CallExpr*, const clang::CXXMethodDecl*, clang::CodeGen::ReturnValueSlot, bool, clang::NestedNameSpecifier, bool, const clang::Expr*, llvm::CallBase**): Assertion `MD->getParent()->mayInsertExtraPadding() && "unknown trivial member function"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O1 -std=c++17 -funroll-loops /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzistfzpb/4070d4a9.cpp
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzistfzpb/4070d4a9.cpp:26:6: LLVM IR generation of declaration 'foo'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzistfzpb/4070d4a9.cpp:26:6: Generating code for declaration 'foo'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000556ae7f924f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000556ae7f8f1bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000556ae7f8fa78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000556ae7ed1e88
+4  libc.so.6 0x00007fcddbee7520
+5  libc.so.6 0x00007fcddbf3b9bc pthread_kill + 300
+6  libc.so.6 0x00007fcddbee7476 raise + 22
+7  libc.so.6 0x00007fcddbecd7f3 abort + 211
+8  libc.so.6 0x00007fcddbecd71b
+9  libc.so.6 0x00007fcddbedee96
+10 clang++   0x0000556ae82f4a5c clang::CodeGen::CodeGenFunction::EmitCXXMemberOrOperatorMemberCallExpr(clang::CallExpr const*, clang::CXXMethodDecl const*, clang::CodeGen::ReturnValueSlot, bool, clang::NestedNameSpecifier, bool, clang::Expr const*, llvm::CallBase**) + 8316
+11 clang++   0x0000556ae82f4be9 clang::CodeGen::CodeGenFunction::EmitCXXOperatorMemberCallExpr(clang::CXXOperatorCallExpr const*, clang::CXXMethodDecl const*, clang::CodeGen::ReturnValueSlot, llvm::CallBase**) + 169
+12 clang++   0x0000556ae82d157d clang::CodeGen::CodeGenFunction::EmitCallExpr(clang::CallExpr const*, clang::CodeGen::ReturnValueSlot, llvm::CallBase**) + 941
+13 clang++   0x0000556ae8344001
+14 clang++   0x0000556ae833ec9d clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 141
+15 clang++   0x0000556ae846df98 clang::CodeGen::CodeGenFunction::EmitReturnStmt(clang::ReturnStmt const&) + 1288
+16 clang++   0x0000556ae847eadc clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+17 clang++   0x0000556ae84e8871 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) + 177
+18 clang++   0x0000556ae84ff884 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 1380
+19 clang++   0x0000556ae8569c0a clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 2106
+20 clang++   0x0000556ae8562f64 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 580
+21 clang++   0x0000556ae8563e60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+22 clang++   0x0000556ae856f495
+23 clang++   0x0000556ae89133e1
+24 clang++   0x0000556ae8902bc1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+25 clang++   0x0000556aea778cdc clang::ParseAST(clang::Sema&, bool, bool) + 508
+26 clang++   0x0000556ae8c80e51 clang::FrontendAction::Execute() + 65
+27 clang++   0x0000556ae8c0adf5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+28 clang++   0x0000556ae8d58c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+29 clang++   0x0000556ae69a1d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+30 clang++   0x0000556ae6997ada
+31 clang++   0x0000556ae6997c6f
+32 clang++   0x0000556ae898f42d
+33 clang++   0x0000556ae7ed22a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+34 clang++   0x0000556ae8990283
+35 clang++   0x0000556ae8944d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+36 clang++   0x0000556ae8949600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+37 clang++   0x0000556ae8957714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+38 clang++   0x0000556ae699d383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+39 clang++   0x0000556ae68ed901 main + 113
+40 libc.so.6 0x00007fcddbeced90
+41 libc.so.6 0x00007fcddbecee40 __libc_start_main + 128
+42 clang++   0x0000556ae6997105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/4070d4a9-cf8ee5.cpp
+clang++: note: diagnostic msg: /tmp/4070d4a9-cf8ee5.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

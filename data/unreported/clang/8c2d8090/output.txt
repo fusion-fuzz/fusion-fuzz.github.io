@@ -1,0 +1,88 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:4:19: error: expected a qualified name after 'typename'
+    4 | template<typename void, void val> struct A {}; // expected-note 3{{template parameter is declared here}}
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:4:19: error: expected ',' or '>' in template-parameter-list
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:4:23: error: expected unqualified-id
+    4 | template<typename void, void val> struct A {}; // expected-note 3{{template parameter is declared here}}
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:6:19: error: expected a qualified name after 'typename'
+    6 | template<typename void, typename U> constexpr bool is_same = false;
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:6:19: error: expected ',' or '>' in template-parameter-list
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:6:23: error: expected unqualified-id
+    6 | template<typename void, typename U> constexpr bool is_same = false;
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:7:19: error: expected a qualified name after 'typename'
+    7 | template<typename void> constexpr bool is_same<void, void> = true;
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:7:19: error: expected ',' or '>' in template-parameter-list
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:7:40: error: no variable template matches partial specialization
+    7 | template<typename void> constexpr bool is_same<void, void> = true;
+      |                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:10:3: error: no template named 'A'
+   10 |   A<const char*, "test"> a; // expected-error {{pointer to subobject of string literal}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:11:3: error: no template named 'A'
+   11 |   A<const char (&)[5], "test"> b; // expected-error {{reference to string literal}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:17:3: error: no template named 'A'
+   17 |   A<const char*, arr> a;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:18:3: error: no template named 'A'
+   18 |   A<const char(&)[3], arr> b;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:19:3: error: no template named 'A'
+   19 |   A<const char*, &arr[0]> c;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:20:3: error: no template named 'A'
+   20 |   A<const char*, &arr[1]> d; // expected-error {{refers to subobject '&arr[1]'}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:21:3: error: no template named 'A'
+   21 |   A<const char*, (&arr)[0]> e;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:22:3: error: no template named 'A'
+   22 |   A<const char*, &x> f;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:23:3: error: no template named 'A'
+   23 |   A<const char*, &(&x)[0]> g;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:24:3: error: no template named 'A'
+   24 |   A<const char*, &(&x)[1]> h; // expected-error {{refers to subobject '&x + 1'}}
+      |   ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -Os -fblocks -Wall -fstrict-enums -fsanitize=undefined -target x86_64-apple-darwin10 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:337:58: current parser token '{'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:331:1: parsing namespace 'Nested'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjioebo7w/b4209f35.cpp:332:27: parsing struct/union/class body 'Nested::A'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005b4cd2b40329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005b4cd2b3cfec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005b4cd2b3d8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005b4cd2a7f218
+4  libc.so.6 0x000071b5688dc520
+5  clang++   0x00005b4cd5e22f28 clang::Sema::RebuildTemplateParamsInCurrentInstantiation(clang::TemplateParameterList*) + 248
+6  clang++   0x00005b4cd5e25df0 clang::Sema::ActOnClassTemplateSpecialization(clang::Scope*, unsigned int, clang::TagUseKind, clang::SourceLocation, clang::SourceLocation, clang::CXXScopeSpec&, clang::TemplateIdAnnotation&, clang::ParsedAttributesView const&, llvm::MutableArrayRef<clang::TemplateParameterList*>, clang::SkipBodyInfo*) + 5040
+7  clang++   0x00005b4cd53bfdb1 clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 2689
+8  clang++   0x00005b4cd53904a5 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2821
+9  clang++   0x00005b4cd53bbb04 clang::Parser::ParseCXXClassMemberDeclaration(clang::AccessSpecifier, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject*) + 2932
+10 clang++   0x00005b4cd547a338
+11 clang++   0x00005b4cd53bc00d clang::Parser::ParseCXXClassMemberDeclaration(clang::AccessSpecifier, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject*) + 4221
+12 clang++   0x00005b4cd53be060 clang::Parser::ParseCXXClassMemberDeclarationWithPragmas(clang::AccessSpecifier&, clang::ParsedAttributes&, clang::TypeSpecifierType, clang::Decl*) + 1296
+13 clang++   0x00005b4cd53be728 clang::Parser::ParseCXXMemberSpecification(clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributes&, unsigned int, clang::Decl*) + 1144
+14 clang++   0x00005b4cd53c128c clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 8028
+15 clang++   0x00005b4cd53904a5 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2821
+16 clang++   0x00005b4cd546e069 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2361
+17 clang++   0x00005b4cd547a338
+18 clang++   0x00005b4cd547a75a clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) + 250
+19 clang++   0x00005b4cd539fbb1 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 641
+20 clang++   0x00005b4cd535866e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+21 clang++   0x00005b4cd53b667b clang::Parser::ParseInnerNamespace(llvm::SmallVector<clang::Parser::InnerNamespaceInfo, 4u> const&, unsigned int, clang::SourceLocation&, clang::ParsedAttributes&, clang::BalancedDelimiterTracker&) + 507
+22 clang++   0x00005b4cd53b7424 clang::Parser::ParseNamespace(clang::DeclaratorContext, clang::SourceLocation&, clang::SourceLocation) + 3188
+23 clang++   0x00005b4cd539fc6b clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 827
+24 clang++   0x00005b4cd535866e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+25 clang++   0x00005b4cd53596ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+26 clang++   0x00005b4cd5336632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+27 clang++   0x00005b4cd39d7061 clang::F
+[... truncated ...]

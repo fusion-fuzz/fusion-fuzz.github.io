@@ -1,0 +1,36 @@
+clang: error: invalid Darwin version number: darwin1
+Cannot print arguments for inferred OS version
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Driver/ToolChains/Darwin.cpp:1972!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -fsyntax-only -O0 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -fobjc-runtime=macosx-10.14 -fno-objc-arc -fno-strict-aliasing -target x86_64-apple-darwin1-1 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpgym6zy_r/41f57e97.m
+1.	Compilation construction
+2.	Building compilation jobs
+3.	Building compilation jobs
+4.	Building compilation jobs
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x00005574759d6409 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x00005574759d30cc llvm::sys::RunSignalHandlers() + 76
+2  clang     0x00005574759d3236
+3  clang     0x00005574759d32fc
+4  libc.so.6 0x00007fcdd4a94520
+5  libc.so.6 0x00007fcdd4ae89bc pthread_kill + 300
+6  libc.so.6 0x00007fcdd4a94476 raise + 22
+7  libc.so.6 0x00007fcdd4a7a7f3 abort + 211
+8  clang     0x000055747592026e
+9  clang     0x000055747667f006
+10 clang     0x00005574766954d6
+11 clang     0x000055747669794b
+12 clang     0x0000557476535973 clang::driver::Compilation::getArgsForToolChain(clang::driver::ToolChain const*, clang::BoundArch, clang::driver::Action::OffloadKind) + 2371
+13 clang     0x00005574765622bc clang::driver::Driver::BuildJobsForActionNoCache(clang::driver::Compilation&, clang::driver::Action const*, clang::driver::ToolChain const*, clang::BoundArch, bool, bool, char const*, std::map<std::pair<clang::driver::Action const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::SmallVector<clang::driver::InputInfo, 4u>, std::less<std::pair<clang::driver::Action const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>>, std::allocator<std::pair<std::pair<clang::driver::Action const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>> const, llvm::SmallVector<clang::driver::InputInfo, 4u>>>>&, clang::driver::Action::OffloadKind) const + 3116
+14 clang     0x0000557476564303 clang::driver::Driver::BuildJobsForAction(clang::driver::Compilation&, clang::driver::Action const*, clang::driver::ToolChain const*, clang::BoundArch, bool, bool, char const*, std::map<std::pair<clang::driver::Action const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::SmallVector<clang::driver::InputInfo, 4u>, std::less<std::pair<clang::driver::Action const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>>, std::allocator<std::pair<std::pair<clang::driver::Action const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>> const, llvm::SmallVector<clang::driver::InputInfo, 4u>>>>&, clang::driver::Action::OffloadKind) const + 467
+15 clang     0x0000557476561dac clang::driver::Driver::BuildJobsForActionNoCache(clang::driver::Compilation&, clang::driver::Action const*, clang::driver::ToolChain const*, clang::BoundArch, bool, bool, char const*, std::map<std::pair<clang::driver::Action const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::SmallVector<clang::driver::InputInfo, 4u>, std::less<std::pair<clang::driver::Action const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>>, std::allocator<std::pair<std::pair<clang::driver::Action const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>> const, llvm::SmallVector<clang::driver::InputInfo, 4u>>>>&, clang::driver::Action::OffloadKind) const + 1820
+16 clang     0x0000557476564303 clang::driver::Driver::BuildJobsForAction(clang::driver::Compilation&, clang::driver::Action const*, clang::driver::ToolChain const*, clang::BoundArch, bool, bool, char const*, std::map<std::pair<clang::driver::Action const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::SmallVector<clang::driver::InputInfo, 4u>, std::less<std::pair<clang::driver::Action const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>>, std::allocator<std::pair<std::pair<clang::driver::Action const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>> const, llvm::SmallVector<clang::driver::InputInfo, 4u>>>>&, clang::driver::Action::OffloadKind) const + 467
+17 clang     0x0000557476564f4d clang::driver::Driver::BuildJobs(clang::driver::Compilation&) const + 605
+18 clang     0x000055747657924e clang::driver::Driver::BuildCompilation(llvm::ArrayRef<char const*>) + 10718
+19 clang     0x000055747379b925 clang_main(int, char**, llvm::ToolContext const&) + 3413
+20 clang     0x00005574736d87c1 main + 113
+21 libc.so.6 0x00007fcdd4a7bd90
+22 libc.so.6 0x00007fcdd4a7be40 __libc_start_main + 128
+23 clang     0x00005574737965b5 _start + 37
+Aborted (core dumped)

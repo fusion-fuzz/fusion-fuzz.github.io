@@ -1,0 +1,34 @@
+/home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:1047 internal compiler error: array size is an override-expression, when expected a constant-expression.
+Was the SubstituteOverride transform run?
+
+********************************************************************
+*  The tint shader compiler has encountered an unexpected error.   *
+*                                                                  *
+*  Please help us fix this issue by submitting a bug report at     *
+*  crbug.com/tint with the source program that triggered the bug.  *
+********************************************************************
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==8508==ERROR: AddressSanitizer: ILL on unknown address 0x62859c4349c3 (pc 0x62859c4349c3 bp 0x7ffeee5b6730 sp 0x7ffeee5b6440 T0)
+    #0 0x62859c4349c3 in tint::InternalCompilerError::~InternalCompilerError() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/ice/ice.cc:71
+    #1 0x62859d623e89 in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:1047
+    #2 0x62859d628e34 in operator()<tint::wgsl::writer::(anonymous namespace)::State::Type(const tint::core::type::Type*)::<lambda(const tint::core::type::Array*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:345
+    #3 0x62859d62c484 in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #4 0x62859d62d80d in Type /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:1017
+    #5 0x62859d60c17b in Var /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:610
+    #6 0x62859d5f83fe in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:196
+    #7 0x62859d5f883e in operator()<tint::wgsl::writer::(anonymous namespace)::State::RootBlock(const tint::core::ir::Block*)::<lambda(const tint::core::ir::Var*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:347
+    #8 0x62859d5f9599 in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #9 0x62859d5f9cf3 in RootBlock /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:194
+    #10 0x62859d5f76a7 in Run /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:119
+    #11 0x62859d638a1b in tint::wgsl::writer::IRToProgram(tint::core::ir::Module&, tint::wgsl::writer::Options const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:1420
+    #12 0x62859c87f21d in tint::wgsl::writer::ProgramFromIR(tint::core::ir::Module&, tint::wgsl::writer::Options const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/writer.cc:72
+    #13 0x62859bd5670f in Run /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd/tint/main.cc:1666
+    #14 0x62859bd57f12 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd/tint/main.cc:1791
+    #15 0x7b898eeca1c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 328820b908de8ea1ef79afa8995e302e819163d7)
+    #16 0x7b898eeca28a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 328820b908de8ea1ef79afa8995e302e819163d7)
+    #17 0x62859bd2d664 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/out/fuzz/tint+0xa132664) (BuildId: 61f8842b624cda73281b295b81b2dbccbaf89d49)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: ILL /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/ice/ice.cc:71 in tint::InternalCompilerError::~InternalCompilerError()
+==8508==ABORTING

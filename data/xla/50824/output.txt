@@ -1,0 +1,18 @@
+F0000 hlo_sharding.h:770] Check failed: IsTiledLeaf()
+*** Check failure stack trace: ***
+    xla::HloSharding::TiledDataRank()
+    xla::HloSharding::NumTiles()
+    xla::hlo_sharding_util::IsLeafShardingMoreSpecific()
+    xla::(anonymous namespace)::PickRepresentativeOperand()
+    xla::ShardingPropagation::InferShardingFromOperands()
+    xla::ShardingPropagation::RunToFixPoint()
+    xla::ShardingPropagation::RunImpl()
+    xla::HloPassInterface::Run()
+    xla::HloPassPipeline::RunHelper<>()
+    xla::HloPassPipeline::RunPassesInternal<>()
+    xla::HloPassPipeline::RunImpl()
+    xla::HloPassInterface::Run()
+    xla::gpu::GpuCompiler::OptimizeHloModule()
+    xla::gpu::GpuCompiler::RunHloPasses()
+    xla::CompiledOptProvider::GetOptimizedHlo()
+    main

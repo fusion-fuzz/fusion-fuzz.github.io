@@ -1,0 +1,70 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpyk4_7atq/7315122d.cpp:63:5: warning: class template argument deduction for alias templates is a C++20 extension [-Wc++20-extensions]
+   63 | Bar a{0, 0};
+      |     ^
+Can't get a NULL template argument here
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaTemplateDeduction.cpp:2867!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Oz -std=c++17 -fno-inline -fno-strict-aliasing /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpyk4_7atq/7315122d.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpyk4_7atq/7315122d.cpp:63:12: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055f76a7654f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055f76a7621bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055f76a762a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055f76a6a4e88
+4  libc.so.6 0x00007fd628ec4520
+5  libc.so.6 0x00007fd628f189bc pthread_kill + 300
+6  libc.so.6 0x00007fd628ec4476 raise + 22
+7  libc.so.6 0x00007fd628eaa7f3 abort + 211
+8  clang++   0x000055f76a6af87e
+9  clang++   0x000055f76da67889 clang::Sema::getTrivialTemplateArgumentLoc(clang::TemplateArgument const&, clang::QualType, clang::SourceLocation) + 713
+10 clang++   0x000055f76dba7e7d
+11 clang++   0x000055f76dba8567 clang::Sema::SubstTemplateArgument(clang::TemplateArgumentLoc const&, clang::MultiLevelTemplateArgumentList const&, clang::TemplateArgumentLoc&, clang::SourceLocation, clang::DeclarationName const&) + 135
+12 clang++   0x000055f76dadc90f
+13 clang++   0x000055f76db263d8 clang::Sema::DeclareImplicitDeductionGuides(clang::TemplateDecl*, clang::SourceLocation) + 3208
+14 clang++   0x000055f76d6eca83
+15 clang++   0x000055f76d6ecd66 clang::Sema::LookupQualifiedName(clang::LookupResult&, clang::DeclContext*, bool) + 214
+16 clang++   0x000055f76d6ae34e clang::Sema::DeduceTemplateSpecializationFromInitializer(clang::TypeSourceInfo*, clang::InitializedEntity const&, clang::InitializationKind const&, llvm::MutableArrayRef<clang::Expr*>) + 734
+17 clang++   0x000055f76d3614de clang::Sema::deduceVarTypeFromInitializer(clang::VarDecl*, clang::DeclarationName, clang::QualType, clang::TypeSourceInfo*, clang::SourceRange, bool, clang::Expr*) + 1150
+18 clang++   0x000055f76d363641 clang::Sema::DeduceVariableDeclarationType(clang::VarDecl*, bool, clang::Expr*) + 97
+19 clang++   0x000055f76d38f22c clang::Sema::AddInitializerToDecl(clang::Decl*, clang::Expr*, bool) + 508
+20 clang++   0x000055f76cf9767b clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 1243
+21 clang++   0x000055f76cfb1a2c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+22 clang++   0x000055f76cf6166c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+23 clang++   0x000055f76cf61e4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+24 clang++   0x000055f76cf6dd06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+25 clang++   0x000055f76cf6edbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+26 clang++   0x000055f76cf4bcf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+27 clang++   0x000055f76b453e51 clang::FrontendAction::Execute() + 65
+28 clang++   0x000055f76b3dddf5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+29 clang++   0x000055f76b52bc03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+30 clang++   0x000055f769174d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+31 clang++   0x000055f76916aada
+32 clang++   0x000055f76916ac6f
+33 clang++   0x000055f76b16242d
+34 clang++   0x000055f76a6a52a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+35 clang++   0x000055f76b163283
+36 clang++   0x000055f76b117d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+37 clang++   0x000055f76b11c600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+38 clang++   0x000055f76b12a714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+39 clang++   0x000055f769170383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+40 clang++   0x000055f7690c0901 main + 113
+41 libc.so.6 0x00007fd628eabd90
+42 libc.so.6 0x00007fd628eabe40 __libc_start_main + 128
+43 clang++   0x000055f76916a105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/7315122d-2f5dda.cpp
+clang++: note: diagnostic msg: /tmp/7315122d-2f5dda.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

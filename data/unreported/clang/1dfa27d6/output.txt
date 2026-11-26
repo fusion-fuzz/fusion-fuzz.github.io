@@ -1,0 +1,88 @@
+A.map:2:22: warning: unknown pragma ignored [-Wunknown-pragmas]
+    2 | #pragma clang module contents
+      |                      ^
+B.map:2:22: warning: unknown pragma ignored [-Wunknown-pragmas]
+B.map:2:22: warning: unknown pragma ignored [-Wunknown-pragmas]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjzos4z58/4c1dfb91.cpp:40:22: fatal error: module 'B' is defined in both '/tmp/B-d5dab7.pcm' and '/tmp/B-014532.pcm'
+   40 | #pragma clang module import B
+      |                      ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/include/llvm/ADT/TinyPtrVector.h:218: void llvm::TinyPtrVector<EltTy>::push_back(EltTy) [with EltTy = clang::Module*]: Assertion `!Val.isNull() && "Can't add a null value"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Oz -std=gnu++20 -fblocks -ffast-math -Wall -fno-elide-constructors /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjzos4z58/4c1dfb91.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjzos4z58/4c1dfb91.cpp:40:2: current parser token 'pragma'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005b4fa90a8329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005b4fa90a4fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005b4fa90a58a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005b4fa8fe7218
+4  libc.so.6 0x00007a8b1ca6b520
+5  libc.so.6 0x00007a8b1cabf9bc pthread_kill + 300
+6  libc.so.6 0x00007a8b1ca6b476 raise + 22
+7  libc.so.6 0x00007a8b1ca517f3 abort + 211
+8  libc.so.6 0x00007a8b1ca5171b
+9  libc.so.6 0x00007a8b1ca62e96
+10 clang++   0x00005b4fac8f9c88 clang::ASTContext::mergeDefinitionIntoModule(clang::NamedDecl*, clang::Module*, bool) + 856
+11 clang++   0x00005b4faa09e2c4 clang::ASTReader::mergeDefinitionVisibility(clang::NamedDecl*, clang::NamedDecl*) + 84
+12 clang++   0x00005b4faa10c3e1 clang::ASTDeclMerger::MergeDefinitionData(clang::CXXRecordDecl*, clang::CXXRecordDecl::DefinitionData&&) + 433
+13 clang++   0x00005b4faa1124df clang::ASTDeclMerger::mergeTemplatePattern(clang::RedeclarableTemplateDecl*, clang::RedeclarableTemplateDecl*, bool) + 207
+14 clang++   0x00005b4faa11294c void clang::ASTDeclMerger::mergeRedeclarableImpl<clang::RedeclarableTemplateDecl>(clang::Redeclarable<clang::RedeclarableTemplateDecl>*, clang::RedeclarableTemplateDecl*, clang::GlobalDeclID) + 156
+15 clang++   0x00005b4faa115616 clang::ASTDeclReader::VisitClassTemplateDecl(clang::ClassTemplateDecl*) + 534
+16 clang++   0x00005b4faa116c36 clang::ASTDeclReader::Visit(clang::Decl*) + 38
+17 clang++   0x00005b4fad49f395 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+18 clang++   0x00005b4faa0eeb54 clang::ASTReader::ReadDeclRecord(clang::GlobalDeclID) + 1364
+19 clang++   0x00005b4faa06707b clang::ASTReader::GetDecl(clang::GlobalDeclID) + 427
+20 clang++   0x00005b4faa0b59bd
+21 clang++   0x00005b4faa0b5c0b
+22 clang++   0x00005b4faa0ab177
+23 clang++   0x00005b4faa0ae674 clang::ASTReader::readTypeRecord(unsigned long) + 836
+24 clang++   0x00005b4faa0aeb62 clang::ASTReader::GetType(unsigned long) + 162
+25 clang++   0x00005b4faa0aabce
+26 clang++   0x00005b4faa0ae674 clang::ASTReader::readTypeRecord(unsigned long) + 836
+27 clang++   0x00005b4faa0aeb62 clang::ASTReader::GetType(unsigned long) + 162
+28 clang++   0x00005b4faa0c2b70
+29 clang++   0x00005b4faa0ae674 clang::ASTReader::readTypeRecord(unsigned long) + 836
+30 clang++   0x00005b4faa0aeb62 clang::ASTReader::GetType(unsigned long) + 162
+31 clang++   0x00005b4faa0b214b clang::ASTReader::finishPendingActions() + 859
+32 clang++   0x00005b4faa0b47a8 non-virtual thunk to clang::ASTReader::FinishedDeserializing() + 88
+33 clang++   0x00005b4faa0eedd9 clang::ASTReader::ReadDeclRecord(clang::GlobalDeclID) + 2009
+34 clang++   0x00005b4faa06707b clang::ASTReader::GetDecl(clang::GlobalDeclID) + 427
+35 clang++   0x00005b4faa0c726f clang::ASTReader::PassInterestingDeclsToConsumer() + 95
+36 clang++   0x00005b4faa0b1395 clang::ASTReader::ReadAST(clang::ModuleFileName, clang::serialization::ModuleKind, clang::SourceLocation, unsigned int, clang::serialization::ModuleFile**) + 1269
+37 clang++   0x00005b4fa9ec3c40 clang::CompilerInstance::findOrCompileModuleAndReadAST(llvm::StringRef, clang::SourceLocation, clang::SourceRange, bool) + 1616
+38 clang++   0x00005b4fa9ec5ab8 clang::CompilerInstance::loadModule(clang::SourceLocation, llvm::ArrayRef<clang::IdentifierLoc>, clang::Module::NameVisibilityKind, bool) + 1928
+39 clang++   0x00005b4fad40c8d1
+40 clang++   0x00005b4fad4006c5 clang::Preprocessor::HandlePragmaDirective(clang::PragmaIntroducer) + 101
+41 clang++   0x00005b4fad3d65b8 clang::Preprocessor::HandleDirective(clang::Token&) + 1784
+42 clang++   0x00005b4fad3686c5 clang::Lexer::LexTokenInternal(clang::Token&) + 1317
+43 clang++   0x00005b4fad36a94e clang::Lexer::Lex(clang::Token&) + 174
+44 clang++   0x00005b4fad419eec clang::Preprocessor::Lex(clang::Token&) + 60
+45 clang++   0x00005b4fab8b2323
+46 clang++   0x00005b4fab8c18cd clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1037
+47 clang++   0x00005b4fab8c1b14 clang::Parser::ParseFirstTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 68
+48 clang++   0x00005b4fab89e600 clang::ParseAST(clang::Sema&, bool, bool) + 480
+49 clang++   0x00005b4fa9f3f061 clang::FrontendAction::Execute() + 65
+50 clang++   0x00005b4fa9ec8e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+51 clang++   0x00005b4faa016de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+52 clang++   0x00005b4fa6e7233e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+53 clang++   0x00005b4fa6e6813a
+54 clang++   0x00005b4fa6e682cf
+55 clang++   0x00005b4fa9c4dcfd
+56 clang++   0x00005b4fa8fe7630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+57 clang++   0x00005b4fa9c4eb53
+58 clang++   0x00005b4fa9c03607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+59 clang++   0x00005b4fa9c07ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+60 clang++   0x00005b4fa9c16004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+61 clang++   0x00005b4fa6e6d923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+62 clang++   0x00005b4fa6da97f1 main + 113
+63 libc.so.6 0x00007a8b1ca52d90
+64 libc.so.6 0x00007a8b1ca52e40 __libc_start_main + 128
+65 clang++   0x00005b4fa6e67765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: Error generating preprocessed source(s).
+Aborted (core dumped)

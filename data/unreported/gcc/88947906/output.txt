@@ -1,0 +1,29 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1w08hpg2/763d37d9.c:45:1: internal compiler error: in c_update_type_canonical, at c/c-decl.cc:9452
+   45 | ATTR (copy (finline_noret)) int
+      | ^~~~
+0x2ccb70b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xd03700 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x78674e c_update_type_canonical
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-decl.cc:9452
+0xd38c41 finish_struct(unsigned long, tree_node*, tree_node*, tree_node*, c_struct_parse_info*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-decl.cc:10042
+0xd917a8 c_parser_struct_or_union_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:4554
+0xd917a8 c_parser_declspecs(c_parser*, c_declspecs*, bool, bool, bool, bool, bool, bool, bool, c_lookahead_kind)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3925
+0xdb9c02 c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2586
+0xdc9249 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2276
+0xdca190 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2115
+0xdca190 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31603
+0xe4fd99 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1442
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1w08hpg2/763d37d9.c -quiet -dumpdir a- -dumpbase 763d37d9.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O0 -Wall -fsyntax-only -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

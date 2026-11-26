@@ -1,0 +1,110 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:52:12: warning: class 'Int1' defined without specifying a base class [-Wobjc-root-class]
+   52 | @interface Int1 {
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:52:16: note: add a super class to fix this problem
+   52 | @interface Int1 {
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:79:12: error: redefinition of 'Derived' as different kind of symbol
+   79 | @interface Derived: Base
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:11:8: note: previous definition is here
+   11 | struct Derived : public full {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:61:12: warning: class 'Base' defined without specifying a base class [-Wobjc-root-class]
+   61 | @interface Base
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:61:16: note: add a super class to fix this problem
+   61 | @interface Base
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:89:17: warning: cannot find interface declaration for 'Derived'
+   89 | @implementation Derived
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:89:17: warning: class 'Derived' defined without specifying a base class [-Wobjc-root-class]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:89:24: note: add a super class to fix this problem
+   89 | @implementation Derived
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:92:12: warning: class 'B1' defined without specifying a base class [-Wobjc-root-class]
+   92 | @interface B1 
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:92:14: note: add a super class to fix this problem
+   92 | @interface B1 
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:103:12: warning: class 'Test' defined without specifying a base class [-Wobjc-root-class]
+  103 | @interface Test 
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:103:16: note: add a super class to fix this problem
+  103 | @interface Test 
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:127:27: error: reference to 'Derived' is ambiguous
+  127 |         const char *en = @encode(Derived);
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:89:17: note: candidate found by name lookup is 'Derived'
+   89 | @implementation Derived
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:79:12: note: candidate found by name lookup is 'Derived'
+   79 | @interface Derived: Base
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:11:8: note: candidate found by name lookup is 'Derived'
+   11 | struct Derived : public full {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:159:27: error: reference to 'Derived' is ambiguous
+  159 | const char g1[] = @encode(Derived);
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:89:17: note: candidate found by name lookup is 'Derived'
+   89 | @implementation Derived
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:79:12: note: candidate found by name lookup is 'Derived'
+   79 | @interface Derived: Base
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:11:8: note: candidate found by name lookup is 'Derived'
+   11 | struct Derived : public full {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:174:8: error: expected member name or ';' after declaration specifiers
+  174 |   Base() : B(2) {}
+      |   ~~~~ ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:174:12: error: use of undeclared identifier 'B'
+  174 |   Base() : B(2) {}
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:174:17: error: expected ';' at end of declaration list
+  174 |   Base() : B(2) {}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:172:12: warning: class 'Base1X' defined without specifying a base class [-Wobjc-root-class]
+  172 | @interface Base1X {
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:172:18: note: add a super class to fix this problem
+  172 | @interface Base1X {
+      |                  ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/RecordLayoutBuilder.cpp:3630: const clang::ASTRecordLayout& clang::ASTContext::getObjCLayout(const clang::ObjCInterfaceDecl*) const: Assertion `D && !D->isInvalidDecl() && D->isThisDeclarationADefinition() && "Invalid interface decl!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O2 -std=gnu++20 -fblocks -fobjc-runtime=gnustep-2.0 -fno-objc-arc -target x86_64-unknown-linux-gnu -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8q860e30/ccad1bbf.mm:194:34: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055b81a343409 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055b81a3400cc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055b81a340988 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055b81a282368
+4  libc.so.6 0x00007f3c52618520
+5  libc.so.6 0x00007f3c5266c9bc pthread_kill + 300
+6  libc.so.6 0x00007f3c52618476 raise + 22
+7  libc.so.6 0x00007f3c525fe7f3 abort + 211
+8  libc.so.6 0x00007f3c525fe71b
+9  libc.so.6 0x00007f3c5260fe96
+10 clang++   0x000055b81e3aa08c clang::ASTContext::getObjCLayout(clang::ObjCInterfaceDecl const*) const + 1260
+11 clang++   0x000055b81e39d007 clang::ASTContext::lookupFieldBitOffset(clang::ObjCInterfaceDecl const*, clang::ObjCIvarDecl const*) const + 87
+12 clang++   0x000055b81db86142
+13 clang++   0x000055b81dbc9053 clang::ASTContext::getObjCEncodingForTypeImpl(clang::QualType, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>&, clang::ASTContext::ObjCEncOptions, clang::FieldDecl const*, clang::QualType*) const + 2979
+14 clang++   0x000055b81dbc892b clang::ASTContext::getObjCEncodingForTypeImpl(clang::QualType, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>&, clang::ASTContext::ObjCEncOptions, clang::FieldDecl const*, clang::QualType*) const + 1147
+15 clang++   0x000055b81d21790e clang::SemaObjC::BuildObjCEncodeExpression(clang::SourceLocation, clang::TypeSourceInfo*, clang::SourceLocation) + 398
+16 clang++   0x000055b81d217bfb clang::SemaObjC::ParseObjCEncodeExpression(clang::SourceLocation, clang::SourceLocation, clang::SourceLocation, clang::OpaquePtr<clang::QualType>, clang::SourceLocation) + 91
+17 clang++   0x000055b81cbfab77 clang::Parser::ParseObjCEncodeExpression(clang::SourceLocation) + 503
+18 clang++   0x000055b81cc01e03 clang::Parser::ParseObjCAtExpression(clang::SourceLocation) + 1635
+19 clang++   0x000055b81cbc58c3 clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 5843
+20 clang++   0x000055b81cbc65bb clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+21 clang++   0x000055b81cbc665d clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 61
+22 clang++   0x000055b81cbf0914 clang::Parser::ParseInitializer(clang::Decl*) + 52
+23 clang++   0x000055b81cb7e3af clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 2927
+24 clang++   0x000055b81cb980cc clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+25 clang++   0x000055b81cb47d0c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+26 clang++   0x000055b81cb484ef clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, c
+[... truncated ...]

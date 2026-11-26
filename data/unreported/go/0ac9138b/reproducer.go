@@ -1,0 +1,62 @@
+package main
+
+import (
+	"encoding/xml"
+	"fmt"
+	"strings"
+)
+
+// asmcheck
+
+// Copyright 2024 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
+
+func i64(a, b int64) int64 { // arm64:`STP ` `LDP `
+	g()
+	return a + b
+}
+
+func i32(a, b int32) int32 { // arm64:`STPW` `LDPW`
+	g()
+	return a + b
+}
+
+func f64(a, b float64) float64 { // arm64:`FSTPD` `FLDPD`
+	g()
+	return a + b
+}
+
+func f32(a, b float32) float32 { // arm64:`FSTPS` `FLDPS`
+	g()
+	return a + b
+}
+
+//go:noinline
+func g() {
+}
+
+func startElem(decoder *xml.Decoder, t xml.Token) {
+	switch elem := t.(type) {
+	case xml.StartElement:
+		fmt.Printf("Start element: %+v\n", elem)
+	}
+}
+
+func main() {
+	xmlData := `
+    <a xmlns="ahihi">
+        <bar foo="ahihi"/>
+    </a>`
+
+	decoder := xml.NewDecoder(strings.NewReader(xmlData))
+
+	for {
+		t, err := decoder.Token()
+		if err != nil {
+			break
+		}
+		startElem(decoder, t)
+	}
+}

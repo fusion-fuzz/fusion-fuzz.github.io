@@ -1,0 +1,21 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpivgfg83c/bfe5624c.c:33:12: error: 'foo' redeclared as different kind of symbol
+   33 | const cint foo; /* { dg-bogus "duplicate" "duplicate type qualifier error" } */
+      |            ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpivgfg83c/bfe5624c.c:6:34: note: previous definition of 'foo' with type 'v4si(void)' {aka '__vector(4) int(void)'}
+    6 | v4si __RTL (startwith ("vregs")) foo (void)
+      |                                  ^~~
+cc1: internal compiler error: in needed_p, at cgraphunit.cc:244
+0x2cdd1bb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xd038e4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7ec6fb symtab_node::needed_p()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:244
+0xf36655 analyze_functions
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:1222
+0xf37bf6 symbol_table::finalize_compilation_unit()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2592
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpivgfg83c/bfe5624c.c -quiet -dumpbase bfe5624c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Os -O2 -Wall -std=gnu11 -ftree-vectorize -frounding-math -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

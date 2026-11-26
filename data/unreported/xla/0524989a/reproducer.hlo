@@ -1,0 +1,9 @@
+HloModule m
+
+ENTRY %e {
+  %a = f32[10,10] parameter(0)
+  %b = f32[10,10] parameter(1)
+  %d1 = f32[10,10] dot(%a, %b), lhs_contracting_dims={1}, rhs_contracting_dims={0}, algorithm=dot_bf16_bf16_f32
+  %d2 = f32[10,10] negate(%a), control-predecessors={%d1}
+  ROOT %t = (f32[10,10], f32[10,10]) tuple(%d1, %d2)
+}

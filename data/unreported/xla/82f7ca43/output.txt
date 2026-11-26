@@ -1,0 +1,36 @@
+Running HLO module with runner HloRunner...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1790130553.011980 2636001 shape_util.cc:1926] Check failed: ReshapeIsBitcast(input_shape, output_shape_with_layout) reshape is not a bitcast for input_shape: f32[8,3]{1,0} and output_shape_with_layout: bf16[12,2]{1,0}
+*** Check failure stack trace: ***
+    @     0x56fc2d07ee84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x56fc2d07ee06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x56fc2cbffc72  xla::ShapeUtil::AlignLayouts()
+    @     0x56fc2bd64cf1  xla::LayoutAssignment::ChooseOperandLayoutFromOutputLayout()
+    @     0x56fc2bd68ee5  xla::LayoutAssignment::PropagateBufferConstraintToOperands()
+    @     0x56fc2bd69b48  xla::LayoutAssignment::PropagateBufferConstraint()
+    @     0x56fc2bd66cb7  xla::LayoutAssignment::PropagateConstraints()
+    @     0x56fc2bd6f723  xla::LayoutAssignment::RunOnComputation()
+    @     0x56fc2bd72b30  xla::LayoutAssignment::RunImpl()
+    @     0x56fc2c7c1457  xla::HloPassInterface::Run()
+    @     0x56fc2b62071c  xla::HloPassPipeline::RunHelper<>()
+    @     0x56fc2b61bbcf  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x56fc2b61aff5  xla::HloPassPipeline::RunImpl()
+    @     0x56fc2c7c1457  xla::HloPassInterface::Run()
+    @     0x56fc22f9f39e  xla::RunInterpreterHloPasses()
+    @     0x56fc22f9fd10  xla::(anonymous namespace)::CompileInterpreterExecutableInternal()
+    @     0x56fc22f9f813  xla::CompileInterpreterExecutable()
+    @     0x56fc22f9baa7  xla::InterpreterPjRtCompiler::Compile()
+    @     0x56fc2b543b6b  xla::PjRtCompile()
+    @     0x56fc22f8b915  xla::InterpreterClient::Compile()
+    @     0x56fc2b5292ca  xla::HloRunner::CreateExecutable()
+    @     0x56fc2b52724c  xla::HloRunner::Execute()
+    @     0x56fc2b53174e  xla::HloRunnerInterface::Execute()
+    @     0x56fc22f64057  xla::(anonymous namespace)::ExecuteWithRunner()
+    @     0x56fc22f5e927  xla::(anonymous namespace)::RunAndCompareInternal()
+    @     0x56fc22f5c8a7  xla::RunAndCompare()
+    @     0x56fc22f5fe8e  xla::RunAndCompare()
+    @     0x56fc22f59a8f  main
+    @     0x7ccea283bd90  (unknown)
+Aborted (core dumped)
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmpzlfa1aro/5b7f5138.hlo**

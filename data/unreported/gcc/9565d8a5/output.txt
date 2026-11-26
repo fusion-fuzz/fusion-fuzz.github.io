@@ -1,0 +1,93 @@
+[... 20 lines omitted ...]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:10:57: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+   10 | #pragma omp declare simd linear (val (x) : val) linear (ref (y) : ref) linear (uval (z) : uval)
+      |                                                         ^~~
+      |                                                         ----- -   ---
+      |                                                                   ref, step (ref)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:10:80: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+   10 | #pragma omp declare simd linear (val (x) : val) linear (ref (y) : ref) linear (uval (z) : uval)
+      |                                                                                ^~~~
+      |                                                                                ------ -   ----
+      |                                                                                           uval, step (uval)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:20:22: error: '#pragma omp declare simd' not immediately followed by function declaration or definition
+   20 | typedef unsigned int u32;
+      |                      ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:55:34: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+   55 | #pragma omp declare simd linear (val (x) : uval) linear (ref (y) : val) linear (uval (z) : ref)
+      |                                  ^~~
+      |                                  ----- -   ----
+      |                                            val, step (uval)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:55:58: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+   55 | #pragma omp declare simd linear (val (x) : uval) linear (ref (y) : val) linear (uval (z) : ref)
+      |                                                          ^~~
+      |                                                          ----- -   ---
+      |                                                                    ref, step (val)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:55:81: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+   55 | #pragma omp declare simd linear (val (x) : uval) linear (ref (y) : val) linear (uval (z) : ref)
+      |                                                                                 ^~~~
+      |                                                                                 ------ -   ---
+      |                                                                                            uval, step (ref)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:73:15: error: redefinition of 'constexpr const int val'
+   73 | constexpr int val = 1;
+      |               ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:5:15: note: 'constexpr const int val' previously defined here
+    5 | constexpr int val = 1;
+      |               ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:74:15: error: redefinition of 'constexpr const int ref'
+   74 | constexpr int ref = 2;
+      |               ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:6:15: note: 'constexpr const int ref' previously defined here
+    6 | constexpr int ref = 2;
+      |               ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:75:15: error: redefinition of 'constexpr const int uval'
+   75 | constexpr int uval = 3;
+      |               ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:7:15: note: 'constexpr const int uval' previously defined here
+    7 | constexpr int uval = 3;
+      |               ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:76:34: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+   76 | #pragma omp declare simd linear (val (x) : we (1)) linear (ref (y) : we (2)) linear (uval (z) : we (3))
+      |                                  ^~~
+      |                                  ----- -   ------
+      |                                            val, step (we (1))
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:76:60: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+   76 | #pragma omp declare simd linear (val (x) : we (1)) linear (ref (y) : we (2)) linear (uval (z) : we (3))
+      |                                                            ^~~
+      |                                                            ----- -   ------
+      |                                                                      ref, step (we (2))
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:76:86: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+   76 | #pragma omp declare simd linear (val (x) : we (1)) linear (ref (y) : we (2)) linear (uval (z) : we (3))
+      |                                                                                      ^~~~
+      |                                                                                      ------ -   ------
+      |                                                                                                 uval, step (we (3))
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:78:34: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+   78 | #pragma omp declare simd linear (val (x) : val) linear (ref (y) : ref) linear (uval (z) : uval)
+      |                                  ^~~
+      |                                  ----- -   ---
+      |                                            val, step (val)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:78:57: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+   78 | #pragma omp declare simd linear (val (x) : val) linear (ref (y) : ref) linear (uval (z) : uval)
+      |                                                         ^~~
+      |                                                         ----- -   ---
+      |                                                                   ref, step (ref)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:78:80: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+   78 | #pragma omp declare simd linear (val (x) : val) linear (ref (y) : ref) linear (uval (z) : uval)
+      |                                                                                ^~~~
+      |                                                                                ------ -   ----
+      |                                                                                           uval, step (uval)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:80:34: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+   80 | #pragma omp declare simd linear (val (x) : ref) linear (ref (y) : u64) linear (uval (z) : val)
+      |                                  ^~~
+      |                                  ----- -   ---
+      |                                            val, step (ref)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:80:57: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+   80 | #pragma omp declare simd linear (val (x) : ref) linear (ref (y) : u64) linear (uval (z) : val)
+      |                                                         ^~~
+      |                                                         ----- -   ---
+      |                                                                   ref, step (u64)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcnzdgss6/376484dd.cc:80:80: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+   80 | #pragma omp declare simd linear (val (x) : ref) linear (ref (y) : u64) linear (uval (z) : val)
+      |                                                                                ^~~~
+      |                                                                                ------ -   ---
+      |                                                                                           uval, step (
+[... truncated ...]

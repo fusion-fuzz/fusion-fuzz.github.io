@@ -1,0 +1,59 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8mk3ldjx/de127c33.cpp:1:10: fatal error: 'riscv_vector.h' file not found
+    1 | #include <riscv_vector.h>
+      |          ^~~~~~~~~~~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/Expr.cpp:346: static clang::ConstantExpr* clang::ConstantExpr::Create(const clang::ASTContext&, clang::Expr*, clang::ConstantResultStorageKind, bool): Assertion `!isa<ConstantExpr>(E)' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O2 -std=c++23 -fsanitize=undefined -funroll-loops -fsanitize=address /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8mk3ldjx/de127c33.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8mk3ldjx/de127c33.cpp:16:22: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005603e97594f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005603e97561bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005603e9756a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005603e9698e88
+4  libc.so.6 0x00007f4e5579b520
+5  libc.so.6 0x00007f4e557ef9bc pthread_kill + 300
+6  libc.so.6 0x00007f4e5579b476 raise + 22
+7  libc.so.6 0x00007f4e557817f3 abort + 211
+8  libc.so.6 0x00007f4e5578171b
+9  libc.so.6 0x00007f4e55792e96
+10 clang++   0x00005603ed354e7c clang::ConstantExpr::Create(clang::ASTContext const&, clang::Expr*, clang::ConstantResultStorageKind, bool) + 540
+11 clang++   0x00005603ec4c9cc9 clang::Sema::BuildCompoundLiteralExpr(clang::SourceLocation, clang::TypeSourceInfo*, clang::SourceLocation, clang::Expr*) + 2169
+12 clang++   0x00005603ec4ca0ad clang::Sema::ActOnCompoundLiteral(clang::SourceLocation, clang::OpaquePtr<clang::QualType>, clang::SourceLocation, clang::Expr*) + 93
+13 clang++   0x00005603ebfdcf89 clang::Parser::ParseParenExpression(clang::ParenParseOption&, bool, clang::ParenExprKind, clang::TypoCorrectionTypeBehavior, clang::OpaquePtr<clang::QualType>&, clang::SourceLocation&) + 4681
+14 clang++   0x00005603ebfd2621 clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 2769
+15 clang++   0x00005603ebfd3f1b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+16 clang++   0x00005603ebfd3fbd clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 61
+17 clang++   0x00005603ebffe274 clang::Parser::ParseInitializer(clang::Decl*) + 52
+18 clang++   0x00005603ebf8bd0f clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 2927
+19 clang++   0x00005603ebfa5a2c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+20 clang++   0x00005603ebf5566c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+21 clang++   0x00005603ebf55e4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+22 clang++   0x00005603ebf61d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+23 clang++   0x00005603ebf62dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+24 clang++   0x00005603ebf3fcf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+25 clang++   0x00005603ea447e51 clang::FrontendAction::Execute() + 65
+26 clang++   0x00005603ea3d1df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+27 clang++   0x00005603ea51fc03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+28 clang++   0x00005603e8168d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+29 clang++   0x00005603e815eada
+30 clang++   0x00005603e815ec6f
+31 clang++   0x00005603ea15642d
+32 clang++   0x00005603e96992a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+33 clang++   0x00005603ea157283
+34 clang++   0x00005603ea10bd17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+35 clang++   0x00005603ea110600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+36 clang++   0x00005603ea11e714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+37 clang++   0x00005603e8164383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+38 clang++   0x00005603e80b4901 main + 113
+39 libc.so.6 0x00007f4e55782d90
+40 libc.so.6 0x00007f4e55782e40 __libc_start_main + 128
+41 clang++   0x00005603e815e105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: Error generating preprocessed source(s).
+Aborted (core dumped)

@@ -1,0 +1,23 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1791991143.282173 2322327 gpu_conv_runner.cc:414] Check failed: num_dimensions == dnums.input_spatial_dimensions_size() (2 vs. 3) 
+*** Check failure stack trace: ***
+    @     0x5f3cb46e1a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5f3cb46e19e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5f3caa8418ff  xla::gpu::GetGpuConvConfig()
+    @     0x5f3caa83c84f  xla::gpu::ConvolutionThunk::Create()
+    @     0x5f3ca92cb349  xla::gpu::ThunkEmitter::EmitConvolution()
+    @     0x5f3ca92bfacf  xla::gpu::ThunkEmitter::DispatchCustomCall()
+    @     0x5f3ca92de6bc  xla::gpu::ThunkEmitter::EmitHloInstruction()
+    @     0x5f3ca92d5a02  xla::gpu::ThunkEmitter::EmitHloComputation()
+    @     0x5f3ca92eba02  xla::gpu::ThunkEmitter::EmitHloEntryComputation()
+    @     0x5f3ca92a2087  xla::gpu::CompileModuleToLlvmIr()
+    @     0x5f3ca927818b  xla::gpu::GpuCompiler::CompileToBackendResult()
+    @     0x5f3ca927cac3  xla::gpu::GpuCompiler::RunBackend()
+    @     0x5f3ca91a6f48  xla::CompiledOptProvider::GetExecutable()
+    @     0x5f3ca91a6245  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5f3ca9198d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5f3cb4732466  main
+    @     0x7d28a49d4d90  (unknown)
+Aborted (core dumped)

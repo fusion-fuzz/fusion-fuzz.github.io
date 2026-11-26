@@ -1,0 +1,12 @@
+HloModule module
+
+ENTRY %fusion {
+  %param_0 = f64[64, 64] parameter(0)
+  %transpose = f64[64,64] transpose(%param_0), dimensions={1,0}
+  %operand = f32[150] parameter(1)
+  %i = s8[] parameter(2)
+  %j = s8[] parameter(3)
+  %inner_ds = f32[80] dynamic-slice(%operand, %param_0), dynamic_slice_sizes={80}
+  %outer_ds = f32[10] dynamic-slice(%inner_ds, %j), dynamic_slice_sizes={10}
+  ROOT %ffl.root = (f64[64,64], f32[10]) tuple(%transpose, %outer_ds)
+}

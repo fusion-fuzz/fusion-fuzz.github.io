@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpne7asn1l/85b661c2.swift:26:5: error: expected 'func' keyword in instance method declaration
+ 24 | @propertyWrapper
+ 25 | struct ImplementationDetailWrapper<T> {
+ 26 |     bar
+    |     `- error: expected 'func' keyword in instance method declaration
+ 27 |         .fooooooooooo(first: 3,
+ 28 |                       second)[x: 10] {} other: {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpne7asn1l/85b661c2.swift:26:8: error: expected '(' in argument list of function declaration
+ 24 | @propertyWrapper
+ 25 | struct ImplementationDetailWrapper<T> {
+ 26 |     bar
+    |        `- error: expected '(' in argument list of function declaration
+ 27 |         .fooooooooooo(first: 3,
+ 28 |                       second)[x: 10] {} other: {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpne7asn1l/85b661c2.swift:27:9: error: expected declaration
+ 23 | 
+ 24 | @propertyWrapper
+ 25 | struct ImplementationDetailWrapper<T> {
+    |        `- note: in declaration of 'ImplementationDetailWrapper'
+ 26 |     bar
+ 27 |         .fooooooooooo(first: 3,
+    |         `- error: expected declaration
+ 28 |                       second)[x: 10] {} other: {
+ 29 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpne7asn1l/85b661c2.swift:256:2: error: expected '}' in struct
+ 23 | 
+ 24 | @propertyWrapper
+ 25 | struct ImplementationDetailWrapper<T> {
+    |                                       `- note: to match this opening '{'
+ 26 |     bar
+ 27 |         .fooooooooooo(first: 3,
+    :
+254 | func buildWidget(_ w: ProjectionWrapper<Int>) -> Widget {
+255 |   Widget($w: w)
+256 | }
+    |  `- error: expected '}' in struct
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpne7asn1l/85b661c2.swift:25:8: error: property wrapper type 'ImplementationDetailWrapper' does not contain a non-static property named 'wrappedValue' [#PropertyWrappers]
+ 23 | 
+ 24 | @propertyWrapper
+ 25 | struct ImplementationDetailWrapper<T> {
+    |        `- error: property wrapper type 'ImplementationDetailWrapper' does not contain a non-static property named 'wrappedValue' [#PropertyWrappers]
+ 26 |     bar
+ 27 |         .fooooooooooo(first: 3,
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpne7asn1l/85b661c2.swift:149:28: warning: generic parameter 'T' shadows generic parameter from outer scope with the same name; this is an error in the Swift 6 language mode
+ 23 | 
+ 24 | @propertyWrapper
+ 25 | struct ImplementationDetailWrapper<T> {
+    |                                    `- note: 'T' previously declared here
+ 26 |     bar
+ 27 |         .fooooooooooo(first: 3,
+    :
+147 | }
+148 | 
+149 | func projectionPlaceholder<T>(@Wrapper _ value: T) {}
+    |                            `- warning: generic parameter 'T' shadows generic parameter from outer scope with the same name; this is an error in the Swift 6 language mode
+150 | 
+151 | func testOmittedProjectionLabel(value: Int) {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpne7asn1l/85b661c2.swift:227:26: warning: generic parameter 'T' shadows generic parameter from outer scope with the same name; this is an error in the Swift 6 language mode
+ 23 | 
+ 24 | @propertyWrapper
+ 25 | struct ImplementationDetailWrapper<T> {
+    |                                    `- note: 'T' previously declared here
+ 26 |     bar
+ 27 |         .fooooooooooo(first: 3,
+    :
+225 | }
+226 | 
+227 | func takesWrapperClosure<T>(_: ProjectionWrapper<[S<T>]>, closure: (ProjectionWrapper<S<T>>) -> Void) {}
+    |                          `- warning: generic parameter 'T' shadows generic parameter from outer scope with the same name; this is an error in the Swift 6 language mode
+228 | 
+229 | func testGenericPropertyWrapper<U>(@ProjectionWrapper wrappers: [S<U>]) {
+
+Assertion failed: (!node.isNull() && "Cannot set type information on null node"), function setType at ConstraintSystem.cpp:840.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -O -sil-verify-all -enable-experimental-feature NonescapableTypes /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpne7asn1l/85b661c2.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpne7asn1l/85b661c2.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(main.(file).ImplementationDetailWrapper.testClosuresWithImplementationDetailWrapper()@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpne7asn1l/85b661c2.swift:143:6)
+5.	While type-checking statement at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpne7asn1l/85b661c2.swift:143:52 - line:147:1] RangeText="{
+  let _: (Int) -> (ImplementationDetailWrapper<Int>, Int) = { (@ImplementationDetailWrapper value) in
+    (_value, value)
+  }
+"
+6.	While type-checking declaration 0x561aaea8c328 (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpne7asn1l/85b661c2.swift:144:3)
+7.	While type-checking expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpne7asn1l/85b661c2.swift:144:61 - line:146:3] RangeText="{ (@ImplementationDetailWrapper value) in
+    (_value, value)
+  "
+8.	While type-checking-target starting at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpne7asn1l/85b661c2.swift:144:61
+9.	Assertion failed: (!node.isNull() && "Cannot set type information on null node"), function setType at ConstraintSystem.cpp:840.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+ #0 0x0000561aa8942bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x0000561aa89402e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x0000561aa89438c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f805cc80330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f805ccd9c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f805cc8027e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f805cc638ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x0000561aa2d80622 (/usr/bin/swift-frontend+0x3055622)
+ #8 0x0000561aa2d805d7 (/usr/bin/swift-frontend+0x30555d7)
+ #9 0x0000561aa20c8619 swift::constraints::ConstraintSystem::setType(swift::ASTNode, swift::Type, swift::constraints::PreparedOverloadBuilder*) (/usr/bin/swift-frontend+0x239d619)
+#10 0x0000561aa1fe0b93 swift::constraints::ConstraintSystem::resolveClosure(swift::TypeVariableType*, swift::Type, swift::constraints::ConstraintLocatorBuilder) (/usr/bin/swift-frontend+0x22b5b93)
+#11 0x0000561aa1fe0044 swift::constraints::ConstraintSystem::matchTypesBindTypeVar(swift::TypeVariableType*, swift::Type, swift::constraints::ConstraintKind, swift::optionset::OptionSet<swift::constraints::ConstraintSystem::TypeMatchFlags, unsigned int>, swift::constraints::ConstraintLocatorBuilder, llvm::function_ref<swift::constraints::ConstraintSystem::SolutionKind ()>) (/usr/bin/swift-frontend+0x22b5044)
+#12 0x0000561aa1fd0e44 swift::constraints::ConstraintSystem::matchTypes(swift::Type, swift::Type, swift::constraints::ConstraintKind, swift::optionset::OptionSet<swift::constraints::ConstraintSystem::TypeMatchFlags, unsigned int>, swift::constraints::ConstraintLocatorBuilder) (/usr/bin/swift-frontend+0x22a5e44)
+#13 0x0000561aa23de908 swift::constraints::TypeVariableBinding::attempt(swift::constraints::ConstraintSystem&) const (/usr/bin/swift-frontend+0x26b3908)
+#14 0x0000561aa203642f swift::constraints::BindingStep<swift::constraints::TypeVarBindingProducer>::take(bool) crtstuff.c:0:0
+#15 0x0000561aa2025b5a swift::constraints::ConstraintSystem::solveImpl(llvm::SmallVectorImpl<swift::constraints::Solution>&) (/usr/bin/swift-frontend+0x22fab5a)
+#16 0x0000561aa2026d1d swift::constraints::ConstraintSystem::solve(llvm::SmallVectorImpl<swift::constraints::Solution>&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x22fbd1d)
+#17 0x0000561aa202691b swift::constraints::ConstraintSystem::solveImpl(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x22fb91b)
+#18 0x0000561aa202621d swift::constraints::ConstraintSystem::solve(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x22fb21d)
+#19 0x0000561aa21ec9e5 swift::TypeChecker::typeCheckTarget(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x24c19e5)
+[... 69 more lines ...]

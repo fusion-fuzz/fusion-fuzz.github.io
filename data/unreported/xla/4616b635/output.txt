@@ -1,0 +1,53 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+E0000 00:00:1792147481.070927 1290723 gpu_hlo_schedule.cc:1076] The byte size of input/output arguments (1030792151192) exceeds the base limit (30279519436). This indicates an error in the calculation!
+I0000 00:00:1792147481.121892 1290723 latency_hiding_scheduler.cc:4596] [latency-hiding-scheduler] LatencyHidingScheduler current memory usage: 412316860496 bytes. Current limit: 0
+E0000 00:00:1792147481.123447 1290723 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/hlo/ir/hlo_schedule.cc:445) instruction_position.size() == computation->instruction_count() Schedule for computation async_wrapped_computation.1 has 6 instructions, expected 3
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+INTERNAL: RET_CHECK failure (xla/hlo/ir/hlo_schedule.cc:445) instruction_position.size() == computation->instruction_count() Schedule for computation async_wrapped_computation.1 has 6 instructions, expected 3
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+xla/hlo/ir/hlo_schedule.cc:428
+xla/hlo/ir/hlo_schedule.cc:370
+xla/hlo/transforms/simplifiers/hlo_rematerialization.cc:3374
+./xla/hlo/pass/hlo_pass_pipeline.h:142
+xla/hlo/pass/hlo_pass_pipeline.cc:254
+./xla/hlo/pass/hlo_pass_pipeline.h:142
+xla/hlo/pass/hlo_pass_pipeline.cc:254
+xla/service/gpu/gpu_compiler.cc:2912
+xla/service/gpu/gpu_compiler.cc:3087
+xla/tools/hlo_opt/gpu_opt.cc:262
+xla/tools/hlo_opt/gpu_opt.cc:103
+xla/hlo/tools/hlo_opt/opt_main.cc:202
+xla/hlo/tools/hlo_opt/opt_main.cc:214

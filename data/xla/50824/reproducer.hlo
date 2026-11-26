@@ -1,0 +1,7 @@
+HloModule m, num_partitions=2
+
+ENTRY e {
+  a = f32[8] parameter(0), sharding={unreduced}
+  add = f32[8] add(a, a)
+  ROOT t = (f32[8]) tuple(add)
+}

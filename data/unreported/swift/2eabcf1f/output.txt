@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:22:29: error: unary operator cannot be separated from its operand
+20 | var foo: Double { 1 / 2 }
+21 | var bar: Regex<Substring> { /x/ }
+22 | var baz: Regex<Substring> { / x/ }
+   |                             `- error: unary operator cannot be separated from its operand
+23 | var qux: Regex<Substring> { / x}/ }
+24 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:23:29: error: unary operator cannot be separated from its operand
+21 | var bar: Regex<Substring> { /x/ }
+22 | var baz: Regex<Substring> { / x/ }
+23 | var qux: Regex<Substring> { / x}/ }
+   |                             `- error: unary operator cannot be separated from its operand
+24 | 
+25 | // Check that we are not crashing
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:23:33: error: consecutive statements on a line must be separated by ';'
+21 | var bar: Regex<Substring> { /x/ }
+22 | var baz: Regex<Substring> { / x/ }
+23 | var qux: Regex<Substring> { / x}/ }
+   |                                 `- error: consecutive statements on a line must be separated by ';'
+24 | 
+25 | // Check that we are not crashing
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:23:33: error: operator with postfix spacing cannot start a subexpression
+21 | var bar: Regex<Substring> { /x/ }
+22 | var baz: Regex<Substring> { / x/ }
+23 | var qux: Regex<Substring> { / x}/ }
+   |                                 `- error: operator with postfix spacing cannot start a subexpression
+24 | 
+25 | // Check that we are not crashing
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:23:35: error: expected expression
+21 | var bar: Regex<Substring> { /x/ }
+22 | var baz: Regex<Substring> { / x/ }
+23 | var qux: Regex<Substring> { / x}/ }
+   |                                   `- error: expected expression
+24 | 
+25 | // Check that we are not crashing
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:23:35: error: extraneous '}' at top level
+21 | var bar: Regex<Substring> { /x/ }
+22 | var baz: Regex<Substring> { / x/ }
+23 | var qux: Regex<Substring> { / x}/ }
+   |                                   `- error: extraneous '}' at top level
+24 | 
+25 | // Check that we are not crashing
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:14:14: warning: external macro implementation type 'MacroDefinition.FileIDMacro' could not be found for macro 'customFileID()'; plugin for module 'MacroDefinition' not found
+12 | 
+13 | @freestanding(expression)
+14 | public macro customFileID() -> String = #externalMacro(module: "MacroDefinition", type: "FileIDMacro")
+   |              `- warning: external macro implementation type 'MacroDefinition.FileIDMacro' could not be found for macro 'customFileID()'; plugin for module 'MacroDefinition' not found
+15 | 
+16 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:47:14: warning: external macro implementation type 'MacroDefinition.FileIDMacro' could not be found for macro 'customFileID_d7cb162()'; plugin for module 'MacroDefinition' not found
+45 | 
+46 | @freestanding(expression)
+47 | public macro customFileID_d7cb162() -> String = #externalMacro(module: "MacroDefinition", type: "FileIDMacro")
+   |              `- warning: external macro implementation type 'MacroDefinition.FileIDMacro' could not be found for macro 'customFileID_d7cb162()'; plugin for module 'MacroDefinition' not found
+48 | 
+49 | @attached(peer)
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:50:14: warning: external macro implementation type 'MacroDefinition.AddCompletionHandler' could not be found for macro 'addCompletionHandler_d7cb162()'; plugin for module 'MacroDefinition' not found
+48 | 
+49 | @attached(peer)
+50 | public macro addCompletionHandler_d7cb162() = #externalMacro(module: "MacroDefinition", type: "AddCompletionHandler")
+   |              `- warning: external macro implementation type 'MacroDefinition.AddCompletionHandler' could not be found for macro 'addCompletionHandler_d7cb162()'; plugin for module 'MacroDefinition' not found
+51 | 
+52 | @freestanding(expression)
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:53:7: warning: external macro implementation type 'MacroDefinition.FileIDMacro' could not be found for macro 'moduleCustomFileID_d7cb162()'; plugin for module 'MacroDefinition' not found
+51 | 
+52 | @freestanding(expression)
+53 | macro moduleCustomFileID_d7cb162() -> String = #externalMacro(module: "MacroDefinition", type: "FileIDMacro")
+   |       `- warning: external macro implementation type 'MacroDefinition.FileIDMacro' could not be found for macro 'moduleCustomFileID_d7cb162()'; plugin for module 'MacroDefinition' not found
+54 | 
+55 | // CHECK-DAG: "precise": "s:5Macro20addCompletionHandleryycfm"
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:65:1: error: 'public' modifier cannot be used in protocols
+63 | protocol _FflShape {
+64 | @attached(peer)
+65 | public macro addCompletionHandler() = #externalMacro(module: "MacroDefinition", type: "AddCompletionHandler")
+   | |- error: 'public' modifier cannot be used in protocols
+   | `- note: protocol requirements implicitly have the same access as the protocol itself
+66 | 
+67 | @freestanding(expression)
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:65:14: error: macro 'addCompletionHandler()' can only be declared at file scope
+63 | protocol _FflShape {
+64 | @attached(peer)
+65 | public macro addCompletionHandler() = #externalMacro(module: "MacroDefinition", type: "AddCompletionHandler")
+   |              `- error: macro 'addCompletionHandler()' can only be declared at file scope
+66 | 
+67 | @freestanding(expression)
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:65:14: warning: external macro implementation type 'MacroDefinition.AddCompletionHandler' could not be found for macro 'addCompletionHandler()'; plugin for module 'MacroDefinition' not found
+63 | protocol _FflShape {
+64 | @attached(peer)
+65 | public macro addCompletionHandler() = #externalMacro(module: "MacroDefinition", type: "AddCompletionHandler")
+   |              `- warning: external macro implementation type 'MacroDefinition.AddCompletionHandler' could not be found for macro 'addCompletionHandler()'; plugin for module 'MacroDefinition' not found
+66 | 
+67 | @freestanding(expression)
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:68:7: error: macro 'moduleCustomFileID()' can only be declared at file scope
+66 | 
+67 | @freestanding(expression)
+68 | macro moduleCustomFileID() -> String = #externalMacro(module: "MacroDefinition", type: "FileIDMacro")
+   |       `- error: macro 'moduleCustomFileID()' can only be declared at file scope
+69 | 
+70 | // CHECK-DAG: "precise": "s:5Macro20addCompletionHandleryycfm"
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp_0ftv1rl/e5af3d0f.swift:68:7: warning: external macro implementation type 'MacroDefinition.FileIDMacro' could not be found for macro 'moduleCustomFileID()'; plugin for module 'MacroDefinition' not found
+66 | 
+67 | @freestanding(expression)
+68 | macro moduleCustomFileID() -> String = #externalMacro(module: "MacroDefinition", type: "FileIDMacro")
+   |       `- warning: external macro implementation type 'MacroDefinition.FileIDMacro' could not be found for macro 'moduleCustomFileID()'; plugin for module 'MacroDefinition' not found
+69 | 
+70 | // CHECK-DAG: "precise": "s:5Macro20addCompletionHandleryycfm"
+[... 79 more lines ...]

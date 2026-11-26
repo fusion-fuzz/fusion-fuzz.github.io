@@ -1,0 +1,28 @@
+HloModule ConditionalWithIdentity
+
+%true_computation {
+  ROOT %true_param = f32[] parameter(0)
+}
+
+%false_computation {
+  ROOT %false_param = f32[] parameter(0)
+}
+
+ENTRY %main {
+  %my_pred = pred[] constant(true)
+  %constant1 = f32[] constant(56)
+  %constant2 = f32[] constant(12)
+  %conditional = f32[] conditional(my_pred, constant1, constant2), true_computation=true_computation, false_computation=false_computation
+  %param_0 = f32[10] parameter(0)
+  %param_1 = f32[10] parameter(1)
+  %tanh.d = f32[10] tanh(%param_0)
+  %mul.d = f32[10] multiply(%tanh.d, %param_0)
+  %clamp.d = f32[10] clamp(%mul.d, %param_0, %param_0)
+  %param_2 = f32[10] parameter(2)
+  %param_3 = f32[10] parameter(3)
+  %tanh = f32[10] tanh(%param_0)
+  %mul = f32[10] multiply(%tanh, %param_1)
+  %clamp = f32[10] clamp(%mul, %param_2, %constant1)
+  %ffl.root = (f32[], f32[10]) tuple(%conditional, %clamp)
+  ROOT %ffl.root.1 = (f32[], f32[10], f32[10]) tuple(%conditional, %clamp, %clamp.d)
+}

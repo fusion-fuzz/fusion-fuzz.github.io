@@ -1,0 +1,86 @@
+[... 136 lines omitted ...]
+    |
+128 | trait WithWhere_dae8138<Art, Thou> = Romeo_dae8138 + Romeo_dae8138 where Fore_dae8138<(Art, Thou)>: Romeo_dae8138;
+    |       ^^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `WithWhereDae8138`
+
+warning: trait alias `BareWhere_dae8138` should have an upper camel case name
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpk2v08ydb/30520b21.rs:129:7
+    |
+129 | trait BareWhere_dae8138<Wild, Are> = where The_dae8138<Wild>: Things_dae8138<Are>;
+    |       ^^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `BareWhereDae8138`
+
+error[E0107]: missing generics for trait alias `Partial`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpk2v08ydb/30520b21.rs:7:11
+   |
+ 7 | fn get<T: Partial>(opt: &Option<T>) -> &T {
+   |           ^^^^^^^ expected 1 generic argument
+   |
+note: trait alias defined here, with 1 generic parameter: `T`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpk2v08ydb/30520b21.rs:28:7
+   |
+28 | trait Partial<T> = IntoIterator<Item = T>;
+   |       ^^^^^^^ -
+help: add missing generic argument
+   |
+ 7 | fn get<T: Partial<T>>(opt: &Option<T>) -> &T {
+   |                  +++
+
+
+thread 'rustc' (1206094) panicked at compiler/rustc_const_eval/src/interpret/operand.rs:278:9:
+immediate ScalarPair(alloc1<imm>, 0x0000000000000004) does not fit to layout TyAndLayout { ty: &str, layout: Layout { size: Size(8 bytes), align: AbiAlign { abi: Align(8 bytes) }, backend_repr: Scalar(pointer is 1..=18446744073709551615), fields: Primitive, largest_niche: Some(Niche { offset: Size(0 bytes), value: pointer, valid_range: 1..=18446744073709551615 }), uninhabited: false, variants: Single { index: 0 }, max_repr_align: None, unadjusted_abi_align: Align(8 bytes), randomization_seed: 281492156579847 } }
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panicking.rs:80:14
+   2: <rustc_const_eval::interpret::operand::ImmTy>::from_immediate
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/operand.rs:278:9
+   3: <rustc_const_eval::interpret::operand::OpTy>::as_mplace_or_imm
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/place.rs:330:46
+   4: <rustc_mir_transform::known_panics_lint::ConstPropagator>::eval_constant
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:272:14
+   5: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::visit_const_operand
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:688:14
+   6: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::super_terminator
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/visit.rs:580:34
+   7: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::visit_terminator
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:755:14
+   8: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::super_basic_block_data
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/visit.rs:320:26
+   9: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::visit_basic_block_data
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:824:14
+  10: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::visit_body
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:677:18
+  11: <rustc_mir_transform::known_panics_lint::KnownPanicsLint as rustc_mir_transform::pass_manager::MirLint>::run_lint
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:60:16
+  12: rustc_mir_transform::pass_manager::run_passes_inner
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/pass_manager.rs:368:22
+  13: rustc_mir_transform::pass_manager::run_passes_no_validate
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/pass_manager.rs:236:5
+  14: rustc_mir_transform::run_runtime_lowering_passes
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/lib.rs:668:5
+  15: rustc_mir_transform::run_analysis_to_runtime_passes
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/lib.rs:621:5
+  16: rustc_mir_transform::mir_drops_elaborated_and_const_checked
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/lib.rs:591:5
+      [... omitted 13 frames ...]
+  17: rustc_middle::query::calls::query_ensure_ok::<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:170:13
+  18: <rustc_middle::query::calls::TyCtxtEnsureOk>::mir_drops_elaborated_and_const_checked::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:304:21
+  19: rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1181:33
+  20: <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners::<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/hir/map.rs:378:79
+  21: rustc_data_structures::sync::parallel::par_for_each_in::<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:182:30
+  22: <core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panic/unwind_safe.rs:275:9
+  23: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>, ()>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:576:43
+  24: std::panicking::catch_unwind::<(), core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:544:19
+  25: std::panic::catch_unwind::<core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>, ()>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panic.rs:359:14
+  26: <rustc_data_structures::sync::parallel::ParallelGuard>::run::<(), rustc_data_structures::sync::parallel::par_for_eac
+[... truncated ...]

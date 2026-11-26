@@ -1,0 +1,18 @@
+HloModule m
+
+%f {
+  ROOT %p0 = f32[10,20] parameter(0)
+}
+
+ENTRY %test {
+  %p = f32[200] parameter(0)
+  %r1 = f32[10, 20] reshape(p)
+  %fusion = f32[10,20] fusion(%r1), kind=kLoop, calls=%f
+  %r1.d = f32[10, 20] reshape(%p)
+  %t1.d = f32[20, 10] transpose(%fusion), dimensions={1, 0}
+  %r2.d = f32[20, 1, 10] reshape(%t1.d)
+  %ffl.root = (f32[10,20], f32[20, 1, 10]) tuple(%fusion, %r2.d)
+  %t1 = f32[20, 10] transpose(r1), dimensions={1, 0}
+  %r2 = f32[20, 1, 10] reshape(t1)
+  ROOT %ffl.root.1 = (f32[20, 1, 10], f32[10,20], f32[20, 1, 10]) tuple(%r2, %fusion, %r2.d)
+}

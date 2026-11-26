@@ -1,0 +1,92 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:13:19: error: type-id cannot have a name
+   13 | using V1 = short((ext_vector_type(4)));
+      |                   ^~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:13:35: error: expected parameter declarator
+   13 | using V1 = short((ext_vector_type(4)));
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:13:35: error: expected ')'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:13:34: note: to match this '('
+   13 | using V1 = short((ext_vector_type(4)));
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:17:28: error: use of undeclared identifier 'gw'
+   17 |             lock_free_add(&gw->weights[i][j + 2], -update);
+      |                            ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:17:40: error: use of undeclared identifier 'i'
+   17 |             lock_free_add(&gw->weights[i][j + 2], -update);
+      |                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:17:43: error: use of undeclared identifier 'j'
+   17 |             lock_free_add(&gw->weights[i][j + 2], -update);
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:17:52: error: use of undeclared identifier 'update'
+   17 |             lock_free_add(&gw->weights[i][j + 2], -update);
+      |                                                    ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:18:28: error: use of undeclared identifier 'gw'
+   18 |             lock_free_add(&gw->weights[i][j + 3], update * 0.5f);
+      |                            ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:18:40: error: use of undeclared identifier 'i'
+   18 |             lock_free_add(&gw->weights[i][j + 3], update * 0.5f);
+      |                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:18:43: error: use of undeclared identifier 'j'
+   18 |             lock_free_add(&gw->weights[i][j + 3], update * 0.5f);
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:18:51: error: use of undeclared identifier 'update'
+   18 |             lock_free_add(&gw->weights[i][j + 3], update * 0.5f);
+      |                                                   ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:19:13: error: use of undeclared identifier 'j'
+   19 |             j += VEC_SIZE;
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:19:18: error: use of undeclared identifier 'VEC_SIZE'
+   19 |             j += VEC_SIZE;
+      |                  ^~~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/ASTContext.cpp:4735: clang::QualType clang::ASTContext::getVectorType(clang::QualType, unsigned int, clang::VectorKind) const: Assertion `vecType->isBuiltinType() || (vecType->isBitIntType() && llvm::isPowerOf2_32(vecType->castAs<BitIntType>()->getNumBits()))' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O1 -g /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:22:16: current parser token ')'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:16:12: parsing function body 'foo'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpehl52azs/587f162e.cpp:16:12: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000056276a6f14f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000056276a6ee1bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000056276a6eea78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000056276a630e88
+4  libc.so.6 0x00007f463e957520
+5  libc.so.6 0x00007f463e9ab9bc pthread_kill + 300
+6  libc.so.6 0x00007f463e957476 raise + 22
+7  libc.so.6 0x00007f463e93d7f3 abort + 211
+8  libc.so.6 0x00007f463e93d71b
+9  libc.so.6 0x00007f463e94ee96
+10 clang++   0x000056276df59e67 clang::ASTContext::getVectorType(clang::QualType, unsigned int, clang::VectorKind) const + 391
+11 clang++   0x000056276d5840f6 clang::Sema::CheckVectorConditionalTypes(clang::ActionResult<clang::Expr*, true>&, clang::ActionResult<clang::Expr*, true>&, clang::ActionResult<clang::Expr*, true>&, clang::SourceLocation) + 2790
+12 clang++   0x000056276d5a40d9 clang::Sema::CXXCheckConditionalOperands(clang::ActionResult<clang::Expr*, true>&, clang::ActionResult<clang::Expr*, true>&, clang::ActionResult<clang::Expr*, true>&, clang::ExprValueKind&, clang::ExprObjectKind&, clang::SourceLocation) + 1273
+13 clang++   0x000056276d4cd960 clang::Sema::ActOnConditionalOp(clang::SourceLocation, clang::SourceLocation, clang::Expr*, clang::Expr*, clang::Expr*) + 192
+14 clang++   0x000056276cf6d9e7 clang::Parser::ParseRHSOfBinaryExpression(clang::ActionResult<clang::Expr*, true>, clang::prec::Level) + 2647
+15 clang++   0x000056276cf7023d clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+16 clang++   0x000056276cf7437d clang::Parser::ParseParenExpression(clang::ParenParseOption&, bool, clang::ParenExprKind, clang::TypoCorrectionTypeBehavior, clang::OpaquePtr<clang::QualType>&, clang::SourceLocation&) + 1597
+17 clang++   0x000056276cf6a621 clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 2769
+18 clang++   0x000056276cf6bf1b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+19 clang++   0x000056276cf6bfbd clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 61
+20 clang++   0x000056276cf7023d clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+21 clang++   0x000056276d001281 clang::Parser::ParseExprStatement(clang::Parser::ParsedStmtContext) + 81
+22 clang++   0x000056276cff923b clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 5275
+23 clang++   0x000056276cff9bfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+24 clang++   0x000056276d001b07 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+25 clang++   0x000056276d00235f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+26 clang++   0x000056276cef372f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+27 clang++   0x000056276cf3e324 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+28 clang++   0x000056276ceed66c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+29 clang++   0x000056276ceede4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+30 clang++   0x000056276cef9d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+31 clang++   0x000056276cefadbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+32 clang++   0x000056276ced7cf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+33 clang++   0x000056276b3dfe51 clang::FrontendAction::Execute() + 65
+34 clang++   0x000056276b369df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+35 clang++   0x000056276b4b7c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+36 clang++   0x0000562769100d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+37 clang++   0x00005627690f6ada
+38 clang++   0x00005627690f6c6f
+39 clang++   0x000056276b0ee42d
+40 clang++   0x000056276a6312a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+41 clang++   0x000056276b0ef283
+42 clang++   0x000
+[... truncated ...]

@@ -1,0 +1,31 @@
+cc1plus: warning: command-line option '-std=gnu99' is valid for C/ObjC but not for C++
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplpx6dfne/597bfc12.cpp: In function 'void aarchpcs_overflow_call()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplpx6dfne/597bfc12.cpp:35:21: note: the ABI for passing parameters with 268435456-byte alignment has changed in GCC 4.6
+   35 |   aarchpcs_overflow (0, 1, 2, 3, 4, 5, 6, 7, e);
+      |   ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+during RTL pass: expand
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplpx6dfne/597bfc12.cpp:35:21: internal compiler error: in expand_call, at calls.cc:3765
+0x305a98b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00d26 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x125b024 expand_call(tree_node*, rtx_def*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/calls.cc:3765
+0x13c47d2 expand_expr_real_1(tree_node*, rtx_def*, machine_mode, expand_modifier, rtx_def**, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/expr.cc:12833
+0x1271acb expand_expr(tree_node*, rtx_def*, machine_mode, expand_modifier)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/expr.h:323
+0x1271acb expand_call_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:3242
+0x1271acb expand_gimple_stmt_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:4283
+0x1271acb expand_gimple_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:4430
+0x1277dd7 expand_gimple_basic_block
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:6547
+0x1279c27 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:7298
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplpx6dfne/597bfc12.cpp -quiet -dumpbase 597bfc12.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -O1 -std=gnu++17 -std=gnu99 -fstrict-aliasing -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

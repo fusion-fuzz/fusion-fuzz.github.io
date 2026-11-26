@@ -1,0 +1,121 @@
+error[E0425]: cannot find type `S` in this scope
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp_s2b6gwp/b8401c30.rs:75:12
+   |
+75 | impl A for S {}
+   |            ^ not found in this scope
+   |
+note: similarly named trait `A` defined here
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp_s2b6gwp/b8401c30.rs:54:1
+   |
+54 | trait A {
+   | ^^^^^^^
+help: a trait with a similar name exists
+   |
+75 - impl A for S {}
+75 + impl A for A {}
+   |
+
+error[E0425]: cannot find type `S` in this scope
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp_s2b6gwp/b8401c30.rs:81:12
+   |
+81 | impl B for S {}
+   |            ^ not found in this scope
+   |
+note: similarly named trait `A` defined here
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp_s2b6gwp/b8401c30.rs:54:1
+   |
+54 | trait A {
+   | ^^^^^^^
+help: a trait with a similar name exists
+   |
+81 - impl B for S {}
+81 + impl B for A {}
+   |
+
+error[E0425]: cannot find type `S` in this scope
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp_s2b6gwp/b8401c30.rs:87:12
+   |
+87 | impl C for S {}
+   |            ^ not found in this scope
+   |
+note: similarly named trait `A` defined here
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp_s2b6gwp/b8401c30.rs:54:1
+   |
+54 | trait A {
+   | ^^^^^^^
+help: a trait with a similar name exists
+   |
+87 - impl C for S {}
+87 + impl C for A {}
+   |
+
+warning: the feature `rustc_attrs` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp_s2b6gwp/b8401c30.rs:3:12
+  |
+3 | #![feature(rustc_attrs)]
+  |            ^^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+  = note: `#[warn(internal_features)]` on by default
+
+warning: trait `A_da3ba3d` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp_s2b6gwp/b8401c30.rs:36:7
+   |
+36 | trait A_da3ba3d {
+   |       ^^^^^^^^^ help: convert the identifier to upper camel case: `ADa3ba3d`
+   |
+   = note: `#[warn(non_camel_case_types)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: trait `B_da3ba3d` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp_s2b6gwp/b8401c30.rs:40:7
+   |
+40 | trait B_da3ba3d {
+   |       ^^^^^^^^^ help: convert the identifier to upper camel case: `BDa3ba3d`
+
+warning: trait `C_da3ba3d` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp_s2b6gwp/b8401c30.rs:44:7
+   |
+44 | trait C_da3ba3d: A_da3ba3d + B_da3ba3d {
+   |       ^^^^^^^^^ help: convert the identifier to upper camel case: `CDa3ba3d`
+
+warning: type `S_da3ba3d` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp_s2b6gwp/b8401c30.rs:48:8
+   |
+48 | struct S_da3ba3d;
+   |        ^^^^^^^^^ help: convert the identifier to upper camel case: `SDa3ba3d`
+
+error: vtable entries: [
+           MetadataDropInPlace,
+           MetadataSize,
+           MetadataAlign,
+           Method(<S_da3ba3d as A_da3ba3d>::foo_a),
+       ]
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp_s2b6gwp/b8401c30.rs:51:1
+   |
+51 | impl A_da3ba3d for S_da3ba3d {}
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: internal compiler error: compiler/rustc_middle/src/ty/instance.rs:640:21: failed to resolve instance for <{type error} as A>::foo_a
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp_s2b6gwp/b8401c30.rs:55:5
+   |
+55 |     fn foo_a(&self) {}
+   |     ^^^^^^^^^^^^^^^
+
+
+thread 'rustc' (136294) panicked at compiler/rustc_middle/src/ty/instance.rs:640:21:
+Box<dyn Any>
+stack backtrace:
+   0: std::panicking::begin_panic::<rustc_errors::ExplicitBug>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:751:5
+   1: std::panic::panic_any::<rustc_errors::ExplicitBug>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panic.rs:260:5
+   2: <rustc_errors::diagnostic::BugAbort as rustc_errors::diagnostic::EmissionGuarantee>::emit_producing_guarantee
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:58:9
+   3: <rustc_errors::diagnostic::Diag<rustc_errors::diagnostic::BugAbort>>::emit
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1319:9
+   4: <rustc_errors::DiagCtxtHandle>::span_bug::<rustc_span::span_encoding::Span, alloc::string::String>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:982:48
+   5: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:38:54
+   6: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}
+[... 174 more lines ...]

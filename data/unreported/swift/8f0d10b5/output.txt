@@ -1,0 +1,94 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgphv4zgn/0340a3f9.swift:104:8: error: Strict memory safety is not enabled!
+102 | // The feature flag should be enabled.
+103 | #if !hasFeature(StrictMemorySafety)
+104 | #error("Strict memory safety is not enabled!")
+    |        `- error: Strict memory safety is not enabled!
+105 | #endif
+106 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgphv4zgn/0340a3f9.swift:397:8: error: struct 'ConfusedStruct' cannot be both '@safe' and '@unsafe'
+395 | 
+396 | @safe @unsafe
+397 | struct ConfusedStruct { } // expected-error{{struct 'ConfusedStruct' cannot be both '@safe' and '@unsafe'}}
+    |        `- error: struct 'ConfusedStruct' cannot be both '@safe' and '@unsafe'
+398 | 
+399 | @unsafe
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgphv4zgn/0340a3f9.swift:130:3: warning: no unsafe operations occur within 'unsafe' expression [#UnnecessaryEffectMarker::UnnecessaryUnsafe]
+128 | 
+129 |   // expected-warning@+1{{no unsafe operations occur within 'unsafe' expression}}
+130 |   unsafe g_d9d4fd4()
+    |   `- warning: no unsafe operations occur within 'unsafe' expression [#UnnecessaryEffectMarker::UnnecessaryUnsafe]
+131 | }
+132 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgphv4zgn/0340a3f9.swift:196:12: warning: no unsafe operations occur within 'unsafe' expression [#UnnecessaryEffectMarker::UnnecessaryUnsafe]
+194 | 
+195 |   // expected-note@+1{{reference to unsafe instance method 'next()'}}
+196 |   for _ in unsafe uas { } // expected-warning{{for-in loop uses unsafe constructs but is not marked with 'unsafe'}}{{documentation-file=strict-memory-safety}}{{7-7=unsafe }} expected-note{{conformance}}
+    |            `- warning: no unsafe operations occur within 'unsafe' expression [#UnnecessaryEffectMarker::UnnecessaryUnsafe]
+197 |   // expected-warning@-1 {{no unsafe operations occur within 'unsafe' expression}}
+198 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgphv4zgn/0340a3f9.swift:199:19: warning: no unsafe operations occur within 'unsafe' expression [#UnnecessaryEffectMarker::UnnecessaryUnsafe]
+197 |   // expected-warning@-1 {{no unsafe operations occur within 'unsafe' expression}}
+198 | 
+199 |   for unsafe _ in unsafe uas { } // expected-warning{{no unsafe operations occur within 'unsafe' expression}}
+    |                   `- warning: no unsafe operations occur within 'unsafe' expression [#UnnecessaryEffectMarker::UnnecessaryUnsafe]
+200 | 
+201 |   for unsafe _ in [1, 2, 3] { } // expected-warning{{no unsafe operations occur within 'unsafe' for-in loop}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgphv4zgn/0340a3f9.swift:201:7: warning: no unsafe operations occur within 'unsafe' for-in loop [#UnnecessaryEffectMarker::UnnecessaryUnsafe]
+199 |   for unsafe _ in unsafe uas { } // expected-warning{{no unsafe operations occur within 'unsafe' expression}}
+200 | 
+201 |   for unsafe _ in [1, 2, 3] { } // expected-warning{{no unsafe operations occur within 'unsafe' for-in loop}}
+    |       `- warning: no unsafe operations occur within 'unsafe' for-in loop [#UnnecessaryEffectMarker::UnnecessaryUnsafe]
+202 | }
+203 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgphv4zgn/0340a3f9.swift:290:14: error: 'unsafe' cannot appear to the right of a non-assignment operator
+288 | // Parsing of `unsafe` expressions.
+289 | func testUnsafePositionError() -> Int {
+290 |   return 3 + unsafe unsafeInt() // expected-error{{'unsafe' cannot appear to the right of a non-assignment operator}}
+    |              `- error: 'unsafe' cannot appear to the right of a non-assignment operator
+291 | }
+292 | 
+
+swift-frontend: /home/build-user/llvm-project/llvm/include/llvm/ADT/DenseMap.h:698: bool llvm::DenseMapBase<llvm::SmallDenseMap<swift::rewriting::Symbol, unsigned int, 1>, swift::rewriting::Symbol, unsigned int, llvm::DenseMapInfo<swift::rewriting::Symbol>, llvm::detail::DenseMapPair<swift::rewriting::Symbol, unsigned int>>::LookupBucketFor(const LookupKeyT &, BucketT *&) [DerivedT = llvm::SmallDenseMap<swift::rewriting::Symbol, unsigned int, 1>, KeyT = swift::rewriting::Symbol, ValueT = unsigned int, KeyInfoT = llvm::DenseMapInfo<swift::rewriting::Symbol>, BucketT = llvm::detail::DenseMapPair<swift::rewriting::Symbol, unsigned int>, LookupKeyT = swift::rewriting::Symbol]: Assertion `!KeyInfoT::isEqual(Val, EmptyKey) && !KeyInfoT::isEqual(Val, TombstoneKey) && "Empty/Tombstone value shouldn't be inserted into map!"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-sil -O -sil-verify-all -enable-experimental-feature ThenStatements /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgphv4zgn/0340a3f9.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgphv4zgn/0340a3f9.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(main.(file).moreUnsafeFunc(unsafe:)@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgphv4zgn/0340a3f9.swift:322:6)
+5.	While type-checking statement at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgphv4zgn/0340a3f9.swift:322:36 - line:329:1] RangeText="{
+  let _: [Int] = unsafe []
+  // expected-warning@-1{{no unsafe operations occur within 'unsafe' expression}}
+
+  _ = unsafe[1]
+
+  _ = "\(unsafe)"
+"
+6.	While type-checking expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgphv4zgn/0340a3f9.swift:328:3 - line:328:7] RangeText="_ = "
+7.	While type-checking-target starting at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgphv4zgn/0340a3f9.swift:328:3
+8.	While building rewrite system for generic signature <τ_0_0, τ_0_1 where τ_0_0 : CustomStringConvertible, τ_0_0 : TextOutputStreamable, τ_0_1 : StringProtocol>
+ #0 0x00005648728b1bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x00005648728af2e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x00005648728b28c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007fe3c659b330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007fe3c65f4c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007fe3c659b27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007fe3c657e8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007fe3c657e81b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007fe3c6591517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x000056486cb04f1d (/usr/bin/swift-frontend+0x2e6af1d)
+#10 0x000056486cb4c4ff llvm::MapVector<swift::rewriting::Symbol, swift::rewriting::Trie<unsigned int, (swift::rewriting::MatchKind)0>::Entry, llvm::SmallDenseMap<swift::rewriting::Symbol, unsigned int, 1u, llvm::DenseMapInfo<swift::rewriting::Symbol, void>, llvm::detail::DenseMapPair<swift::rewriting::Symbol, unsigned int>>, llvm::SmallVector<std::pair<swift::rewriting::Symbol, swift::rewriting::Trie<unsigned int, (swift::rewriting::MatchKind)0>::Entry>, 1u>>::operator[](swift::rewriting::Symbol const&) crtstuff.c:0:0
+#11 0x000056486cb4a01c std::optional<unsigned int> swift::rewriting::Trie<unsigned int, (swift::rewriting::MatchKind)0>::insert<swift::rewriting::Symbol const*>(swift::rewriting::Symbol const*, swift::rewriting::Symbol const*, unsigned int) crtstuff.c:0:0
+#12 0x000056486cb487a8 swift::rewriting::RewriteSystem::addRules(std::vector<swift::rewriting::Rule, std::allocator<swift::rewriting::Rule>>&&, std::vector<std::pair<swift::rewriting::MutableTerm, swift::rewriting::MutableTerm>, std::allocator<std::pair<swift::rewriting::MutableTerm, swift::rewriting::MutableTerm>>>&&, std::vector<std::pair<swift::rewriting::MutableTerm, swift::rewriting::MutableTerm>, std::allocator<std::pair<swift::rewriting::MutableTerm, swift::rewriting::MutableTerm>>>&&) (/usr/bin/swift-frontend+0x2eae7a8)
+#13 0x000056486cb484fa swift::rewriting::RewriteSystem::initialize(bool, llvm::ArrayRef<swift::ProtocolDecl const*>, std::vector<swift::rewriting::Rule, std::allocator<swift::rewriting::Rule>>&&, std::vector<std::pair<swift::rewriting::MutableTerm, swift::rewriting::MutableTerm>, std::allocator<std::pair<swift::rewriting::MutableTerm, swift::rewriting::MutableTerm>>>&&, std::vector<std::pair<swift::rewriting::MutableTerm, swift::rewriting::MutableTerm>, std::allocator<std::pair<swift::rewriting::MutableTerm, swift::rewriting::MutableTerm>>>&&) (/usr/bin/swift-frontend+0x2eae4fa)
+#14 0x000056486cb3a222 swift::rewriting::RequirementMachine::initWithGenericSignature(swift::GenericSignature) (/usr/bin/swift-frontend+0x2ea0222)
+#15 0x000056486cb43379 swift::rewriting::RewriteContext::getRequirementMachine(swift::CanGenericSignature) (/usr/bin/swift-frontend+0x2ea9379)
+#16 0x000056486ca1b84d swift::GenericSignatureImpl::getReducedType(swift::Type) const (/usr/bin/swift-frontend+0x2d8184d)
+#17 0x000056486cbb3b63 swift::Type
+[... truncated ...]

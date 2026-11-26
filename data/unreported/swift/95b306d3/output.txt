@@ -1,0 +1,121 @@
+<unknown>:0: error: option '-debug-info-format=dwarf' is missing a required argument (-g)
+/fusion-fuzz/.fused/swift/tmpd6uqfj0v/abb6396f.swift:169:3: error: expected 'func' keyword in instance method declaration
+167 |   Widget($w: w)
+168 |   }
+169 |   print(fusion_a61e)
+    |   `- error: expected 'func' keyword in instance method declaration
+170 | 
+171 |   // --- Bug Primitive ---
+
+/fusion-fuzz/.fused/swift/tmpd6uqfj0v/abb6396f.swift:169:9: error: unnamed parameters must be written with the empty name '_'
+167 |   Widget($w: w)
+168 |   }
+169 |   print(fusion_a61e)
+    |         `- error: unnamed parameters must be written with the empty name '_'
+170 | 
+171 |   // --- Bug Primitive ---
+
+/fusion-fuzz/.fused/swift/tmpd6uqfj0v/abb6396f.swift:200:3: error: expected declaration
+149 | 
+150 | @propertyWrapper
+151 | struct ProjectionWrapper<Value> {
+    |        `- note: in declaration of 'ProjectionWrapper'
+152 |   var wrappedValue: Value
+153 | 
+    :
+198 |   return body
+199 |   }
+200 |   do {
+    |   `- error: expected declaration
+201 |   let _ffl_desc  = String(describing: fusion_a61e)
+202 |   let _ffl_items = _ffl_desc.split(separator: " ").map(String.init)
+
+/fusion-fuzz/.fused/swift/tmpd6uqfj0v/abb6396f.swift:163:27: error: property type 'Int' does not match 'wrappedValue' type 'Value'
+161 | 
+162 |   struct Widget {
+163 |   init(@ProjectionWrapper w: Int) {}
+    |                           `- error: property type 'Int' does not match 'wrappedValue' type 'Value'
+164 |   }
+165 | 
+
+Assertion failed: (isAdmissibleType(Second)), function Constraint at Constraint.cpp:66.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /opt/swift-coverage/bin/swift -frontend -typecheck -Osize -sil-verify-all -debug-info-format=dwarf /fusion-fuzz/.fused/swift/tmpd6uqfj0v/abb6396f.swift
+1.	Swift version 6.3.3 (swift-6.3.3-RELEASE)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/fusion-fuzz/.fused/swift/tmpd6uqfj0v/abb6396f.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(abb6396f.(file).ProjectionWrapper.buildWidget@/fusion-fuzz/.fused/swift/tmpd6uqfj0v/abb6396f.swift:166:8)
+5.	While type-checking statement at [/fusion-fuzz/.fused/swift/tmpd6uqfj0v/abb6396f.swift:166:59 - line:168:3] RangeText="{
+  Widget($w: w)
+  "
+6.	While type-checking statement at [/fusion-fuzz/.fused/swift/tmpd6uqfj0v/abb6396f.swift:167:3 - line:167:15] RangeText="Widget($w: w"
+7.	While type-checking-target starting at /fusion-fuzz/.fused/swift/tmpd6uqfj0v/abb6396f.swift:167:3
+8.	Assertion failed: (isAdmissibleType(Second)), function Constraint at Constraint.cpp:66.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  swift     0x000062c8223fe2f8
+1  swift     0x000062c8223fbd45
+2  swift     0x000062c8223fef61
+3  libc.so.6 0x00007d0277a81330
+4  libc.so.6 0x00007d0277adac0c pthread_kill + 284
+5  libc.so.6 0x00007d0277a8127e gsignal + 30
+6  libc.so.6 0x00007d0277a648ff abort + 223
+7  swift     0x000062c81ac0e407
+8  swift     0x000062c81ac0e521
+9  swift     0x000062c81e0c5b52
+10 swift     0x000062c81ce002d7
+11 swift     0x000062c81ce03593
+12 swift     0x000062c81ccab7b7
+13 swift     0x000062c81cfe7d70
+14 swift     0x000062c81cfe8212
+15 swift     0x000062c81cdb64d7
+16 swift     0x000062c81cda1950
+17 swift     0x000062c81cda0985
+18 swift     0x000062c81cd73cab
+19 swift     0x000062c81d328acb
+20 swift     0x000062c81d329896
+21 swift     0x000062c81cfe48af
+22 swift     0x000062c81d17fb5a
+23 swift     0x000062c81d17d837
+24 swift     0x000062c81d174ddb
+25 swift     0x000062c81d180052
+26 swift     0x000062c81d178847
+27 swift     0x000062c81d177d09
+28 swift     0x000062c81d177429
+29 swift     0x000062c81dc1d1f4
+30 swift     0x000062c81db24d5e
+31 swift     0x000062c81db24cd7
+32 swift     0x000062c81dd66d13
+33 swift     0x000062c81d217990
+34 swift     0x000062c81d21dcdb
+35 swift     0x000062c81d2176b1
+36 swift     0x000062c81d217658
+37 swift     0x000062c81b332da7
+38 swift     0x000062c81b325cd8
+39 swift     0x000062c81b32599c
+40 swift     0x000062c81afca201
+41 swift     0x000062c81afb881d
+42 swift     0x000062c81afb42ea
+43 swift     0x000062c81acf453d
+44 swift     0x000062c81acf3173
+45 libc.so.6 0x00007d0277a661ca
+46 libc.so.6 0x00007d0277a6628b __libc_start_main + 139
+47 swift     0x000062c81acf28a5
+
+*** Signal 6: Backtracing from 0x7d0277b6338d... done ***
+
+*** Program crashed: Aborted at 0x000000000018bf76 ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift" crashed:
+
+  0  0x00007d0277b6338d <unknown> in libc.so.6
+...
+
+
+Registers:
+[... 31 more lines ...]

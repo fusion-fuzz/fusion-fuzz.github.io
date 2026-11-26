@@ -1,0 +1,67 @@
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/include/llvm/ADT/DenseMap.h:1334: llvm::DenseMapIterator<KeyT, ValueT, KeyInfoT, Bucket, IsConst>::value_type& llvm::DenseMapIterator<KeyT, ValueT, KeyInfoT, Bucket, IsConst>::operator*() const [with KeyT = llvm::BasicBlock*; ValueT = llvm::TinyPtrVector<llvm::BasicBlock*>; KeyInfoT = llvm::DenseMapInfo<llvm::BasicBlock*, void>; Bucket = llvm::detail::DenseMapPair<llvm::BasicBlock*, llvm::TinyPtrVector<llvm::BasicBlock*> >; bool IsConst = false; llvm::DenseMapIterator<KeyT, ValueT, KeyInfoT, Bucket, IsConst>::reference = llvm::detail::DenseMapPair<llvm::BasicBlock*, llvm::TinyPtrVector<llvm::BasicBlock*> >&]: Assertion `Ptr != End && "dereferencing end() iterator"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -Oz -std=c++23 -fblocks -fobjc-runtime=gnustep-2.0 -fobjc-arc -ffast-math -ffp-contract=fast -fstrict-enums -target i686-pc-windows-msvc19.0.24213 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsv6b0vz_/c7ec652d.mm
+1.	<eof> parser at end of file
+2.	Optimizer
+3.	Running pass "verify" on module "/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsv6b0vz_/c7ec652d.mm"
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000057590426e329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000057590426afec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000057590426b8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005759041ad218
+4  libc.so.6 0x000070fc1deca520
+5  libc.so.6 0x000070fc1df1e9bc pthread_kill + 300
+6  libc.so.6 0x000070fc1deca476 raise + 22
+7  libc.so.6 0x000070fc1deb07f3 abort + 211
+8  libc.so.6 0x000070fc1deb071b
+9  libc.so.6 0x000070fc1dec1e96
+10 clang++   0x0000575903cf26f0
+11 clang++   0x0000575903d040e4
+12 clang++   0x0000575903d04602
+13 clang++   0x0000575903d08fcd
+14 clang++   0x0000575903d0b446 llvm::verifyModule(llvm::Module const&, llvm::raw_ostream*, bool*) + 1190
+15 clang++   0x0000575903d0b511 llvm::VerifierAnalysis::run(llvm::Module&, llvm::AnalysisManager<llvm::Module>&) + 49
+16 clang++   0x00005759054456b6
+17 clang++   0x0000575903ca9d58 llvm::AnalysisManager<llvm::Module>::getResultImpl(llvm::AnalysisKey*, llvm::Module&) + 856
+18 clang++   0x0000575903cdc8b2 llvm::VerifierPass::run(llvm::Module&, llvm::AnalysisManager<llvm::Module>&) + 146
+19 clang++   0x000057590468dce6
+20 clang++   0x0000575903caa4f6 llvm::PassManager<llvm::Module, llvm::AnalysisManager<llvm::Module>>::run(llvm::Module&, llvm::AnalysisManager<llvm::Module>&) + 934
+21 clang++   0x00005759046a126e
+22 clang++   0x00005759046a36fe
+23 clang++   0x00005759046a62f3 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::StringRef, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 483
+24 clang++   0x0000575904d953ca clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 1866
+25 clang++   0x0000575906a6484c clang::ParseAST(clang::Sema&, bool, bool) + 1068
+26 clang++   0x0000575905105061 clang::FrontendAction::Execute() + 65
+27 clang++   0x000057590508ee65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+28 clang++   0x00005759051dcde3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+29 clang++   0x000057590203833e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+30 clang++   0x000057590202e13a
+31 clang++   0x000057590202e2cf
+32 clang++   0x0000575904e13cfd
+33 clang++   0x00005759041ad630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+34 clang++   0x0000575904e14b53
+35 clang++   0x0000575904dc9607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+36 clang++   0x0000575904dcdef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+37 clang++   0x0000575904ddc004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+38 clang++   0x0000575902033923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+39 clang++   0x0000575901f6f7f1 main + 113
+40 libc.so.6 0x000070fc1deb1d90
+41 libc.so.6 0x000070fc1deb1e40 __libc_start_main + 128
+42 clang++   0x000057590202d765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: i686-pc-windows-msvc19.0.24213
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/c7ec652d-9b0ec7.mm
+clang++: note: diagnostic msg: /tmp/c7ec652d-9b0ec7.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

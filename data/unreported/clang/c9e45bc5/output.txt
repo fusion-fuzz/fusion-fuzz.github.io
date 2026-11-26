@@ -1,0 +1,77 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsh9y1il_/e66ea767.c:296:8: warning: declaration of 'enum (unnamed at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsh9y1il_/e66ea767.c:296:8)' will not be visible outside of this function [-Wvisibility]
+  296 | int f2(enum {AA=7,BB} E) {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsh9y1il_/e66ea767.c:549:8: warning: declaration of 'enum (unnamed at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsh9y1il_/e66ea767.c:549:8)' will not be visible outside of this function [-Wvisibility]
+  549 | int f1(enum {AA,BB} E) {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsh9y1il_/e66ea767.c:555:8: warning: declaration of 'enum (unnamed at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsh9y1il_/e66ea767.c:555:8)' will not be visible outside of this function [-Wvisibility]
+  555 | int f2(enum {AA=7,BB} N) {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsh9y1il_/e66ea767.c:555:22: error: expected ';' after enum
+  555 | int f2(enum {AA=7,BB} N) {
+      |                      ^
+      |                      ;
+/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Parse/ParseDecl.cpp:7805:36: runtime error: member call on misaligned address 0x7714f93cc08e for type 'clang::IdentifierInfo', which requires 8 byte alignment
+0x7714f93cc08e: note: pointer points here
+ 65 20 4e 20 31 30  30 0a 0a 69 6e 74 20 78  3b 0a 23 70 72 61 67 6d  61 20 6f 6d 70 20 74 68  72 65
+             ^ 
+==32731==WARNING: invalid path to external symbolizer!
+==32731==WARNING: Failed to use and restart external symbolizer!
+    #0 0x5e0c427e04c4  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14e7f4c4) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #1 0x5e0c427d79f5  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14e769f5) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #2 0x5e0c427d12fa  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14e702fa) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #3 0x5e0c427cca8f  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14e6ba8f) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #4 0x5e0c46e9df11  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1953cf11) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #5 0x5e0c427834d8  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14e224d8) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #6 0x5e0c427a19da  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14e409da) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #7 0x5e0c42745d6f  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14de4d6f) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #8 0x5e0c42744be0  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14de3be0) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #9 0x5e0c42742ac2  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14de1ac2) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #10 0x5e0c4273e6d4  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14ddd6d4) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #11 0x5e0c427171ee  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14db61ee) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #12 0x5e0c3df0f2aa  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x105ae2aa) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #13 0x5e0c3e5cd52d  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x10c6c52d) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #14 0x5e0c3e45e8ff  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x10afd8ff) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #15 0x5e0c3e7b22de  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x10e512de) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #16 0x5e0c365a43e5  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c433e5) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #17 0x5e0c36598348  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c37348) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #18 0x5e0c365a2886  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c41886) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #19 0x5e0c3e035d36  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x106d4d36) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #20 0x5e0c3c005e8c  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xe6a4e8c) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #21 0x5e0c3e033239  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x106d2239) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #22 0x5e0c3df83bbb  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x10622bbb) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #23 0x5e0c3df8534a  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1062434a) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #24 0x5e0c3dfd493f  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1067393f) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #25 0x5e0c36596776  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c35776) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #26 0x5e0c365c60f6  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c650f6) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #27 0x7714fbd48d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f) (BuildId: 6a6cb5a80fd5e5bb5bf3aeaa111add98e88843a5)
+    #28 0x7714fbd48e3f  (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f) (BuildId: 6a6cb5a80fd5e5bb5bf3aeaa111add98e88843a5)
+    #29 0x5e0c364d2d94  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8b71d94) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Parse/ParseDecl.cpp:7805:36 in 
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -S -o /dev/null -Os -std=gnu99 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -funroll-loops -Wall -fstrict-enums -target x86_64-unknown-linux -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsh9y1il_/e66ea767.c
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsh9y1il_/e66ea767.c:555:23 <Spelling=/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpsh9y1il_/e66ea767.c:4:11>: current parser token '100'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x00005e0c3650e8cb __interceptor_backtrace + 91
+1  clang     0x00005e0c3c1bc037 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang     0x00005e0c3c1b5d03 llvm::sys::RunSignalHandlers() + 275
+3  clang     0x00005e0c3c1ba9d4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang     0x00005e0c3c0060d5
+5  clang     0x00005e0c3c0068e3
+6  libc.so.6 0x00007714fbd61520
+7  libc.so.6 0x00007714fbdb59bc pthread_kill + 300
+8  libc.so.6 0x00007714fbd61476 raise + 22
+9  libc.so.6 0x00007714fbd477f3 abort + 211
+10 clang     0x00005e0c36579f37
+11 clang     0x00005e0c36577dd1
+12 clang     0x00005e0c3658bb1c
+13 clang     0x00005e0c3658c68c
+14 clang     0x00005e0c3658c71e __ubsan_handle_type_mismatch_v1_abort + 46
+15 clang     0x00005e0c427e04c5 clang::Parser::ParseParameterDeclarationClause(clang::DeclaratorContext, clang::ParsedAttributes&, llvm::SmallVectorImpl<clang::DeclaratorChunk::ParamInfo>&, clang::SourceLocation&, bool) + 13061
+16 clang     0x00005e0c427d79f6 clang::Parser::ParseFunctionDeclarator(clang::Declarator&, clang::ParsedAttributes&, clang::BalancedDelimiterTracker&, bool, bool) + 2246
+17 clang     0x00005e0c427d12fb clang::Parser::ParseDirectDeclarator(clang::Declarator&) + 9435
+18 clang     0x00005e0c427cca90 clang::Parser::ParseDeclaratorInternal(clang::Declarator&, void (clang::Parser::*)(clang::Declarator&)) + 5728
+19 clang     0x00005e0c46e9df12 clang::StackExhaustionHandler::runW
+[... truncated ...]

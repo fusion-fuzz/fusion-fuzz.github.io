@@ -1,0 +1,50 @@
+error[E0433]: cannot find module or crate `std` in this scope
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppz5t_978/70b0b136.rs:5:5
+  |
+5 | use std::mem::size_of;
+  |     ^^^ use of unresolved module or unlinked crate `std`
+  |
+  = help: you might be missing a crate named `std`
+
+error: cannot find macro `assert_eq` in this scope
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppz5t_978/70b0b136.rs:63:5
+   |
+63 |     assert_eq!(8usize, <T as Foo>::U::generic_method::<f64>());
+   |     ^^^^^^^^^
+
+error: cannot find macro `assert_eq` in this scope
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppz5t_978/70b0b136.rs:62:5
+   |
+62 |     assert_eq!(2u32, <T as Foo>::U::method());
+   |     ^^^^^^^^^
+
+warning: the feature `lang_items` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppz5t_978/70b0b136.rs:1:12
+  |
+1 | #![feature(lang_items)]
+  |            ^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+  = note: `#[warn(internal_features)]` on by default
+
+error[E0391]: cycle detected when computing the super clauses of `MetaSized`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppz5t_978/70b0b136.rs:44:1
+   |
+44 | pub trait MetaSized: PointeeSized {}
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: ...which immediately requires computing the super clauses of `MetaSized` again
+note: cycle used when computing the super clauses of `Bar`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppz5t_978/70b0b136.rs:26:1
+   |
+26 | / trait Bar {
+...  |
+32 | |     fn generic_method<T>() -> usize;
+33 | | }
+   | |_^
+   = note: for more information, see <https://rustc-dev-guide.rust-lang.org/overview.html#queries> and <https://rustc-dev-guide.rust-lang.org/query.html>
+
+
+thread 'rustc' (3227343) panicked at compiler/rustc_next_trait_solver/src/solve/assembly/mod.rs:608:21:
+internal error: entered unreachable code: `PointeeSized` is removed during lowering
+stack backtrace:

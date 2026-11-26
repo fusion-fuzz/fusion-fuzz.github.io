@@ -1,0 +1,62 @@
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3010, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 2766, in main_app(int, char**)
+    return emit_ast(opts.arg_file, compiler_options);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 647, in (anonymous namespace)::emit_ast(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::CompilerOptions&)
+    LCompilers::Result<std::string> r = fe.get_ast(input, lm, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 230, in LCompilers::FortranEvaluator::get_ast(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&)
+    return LFortran::pickle(*ast.result, compiler_options.use_colors,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/pickle.cpp", line 197, in LCompilers::LFortran::pickle[abi:cxx11](LCompilers::LFortran::AST::TranslationUnit_t&, bool, bool)
+    return pickle((AST::ast_t&)(ast), colors, indent);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/pickle.cpp", line 192, in LCompilers::LFortran::pickle[abi:cxx11](LCompilers::LFortran::AST::ast_t&, bool, bool)
+    v.visit_ast(ast);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4901, in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_ast(LCompilers::LFortran::AST::ast_t const&)
+    void visit_ast(const ast_t &b) { visit_ast_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4860, in void LCompilers::LFortran::AST::visit_ast_t<LCompilers::LFortran::ASTPickleVisitor>(LCompilers::LFortran::AST::ast_t const&, LCompilers::LFortran::ASTPickleVisitor&)
+    case astType::unit: { v.visit_unit((const unit_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4902, in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_unit(LCompilers::LFortran::AST::unit_t const&)
+    void visit_unit(const unit_t &b) { visit_unit_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4498, in void LCompilers::LFortran::AST::visit_unit_t<LCompilers::LFortran::ASTPickleVisitor>(LCompilers::LFortran::AST::unit_t const&, LCompilers::LFortran::ASTPickleVisitor&)
+    case unitType::TranslationUnit: { v.visit_TranslationUnit((const TranslationUnit_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 14800, in LCompilers::LFortran::AST::PickleBaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_TranslationUnit(LCompilers::LFortran::AST::TranslationUnit_t const&)
+    self().visit_ast(*x.m_items[i]);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4901, in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_ast(LCompilers::LFortran::AST::ast_t const&)
+    void visit_ast(const ast_t &b) { visit_ast_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4861, in void LCompilers::LFortran::AST::visit_ast_t<LCompilers::LFortran::ASTPickleVisitor>(LCompilers::LFortran::AST::ast_t const&, LCompilers::LFortran::ASTPickleVisitor&)
+    case astType::mod: { v.visit_mod((const mod_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4904, in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_mod(LCompilers::LFortran::AST::mod_t const&)
+    void visit_mod(const mod_t &b) { visit_mod_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4506, in void LCompilers::LFortran::AST::visit_mod_t<LCompilers::LFortran::ASTPickleVisitor>(LCompilers::LFortran::AST::mod_t const&, LCompilers::LFortran::ASTPickleVisitor&)
+    case modType::Module: { v.visit_Module((const Module_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 14858, in LCompilers::LFortran::AST::PickleBaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_Module(LCompilers::LFortran::AST::Module_t const&)
+    self().visit_program_unit(*x.m_contains[i]);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4909, in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_program_unit(LCompilers::LFortran::AST::program_unit_t const&)
+    void visit_program_unit(const program_unit_t &b) { visit_program_unit_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4517, in void LCompilers::LFortran::AST::visit_program_unit_t<LCompilers::LFortran::ASTPickleVisitor>(LCompilers::LFortran::AST::program_unit_t const&, LCompilers::LFortran::ASTPickleVisitor&)
+    case program_unitType::Subroutine: { v.visit_Subroutine((const Subroutine_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 15115, in LCompilers::LFortran::AST::PickleBaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_Subroutine(LCompilers::LFortran::AST::Subroutine_t const&)
+    self().visit_decl_stmt(*x.m_items[i]);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4932, in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_decl_stmt(LCompilers::LFortran::AST::decl_stmt_t const&)
+    void visit_decl_stmt(const decl_stmt_t &b) { visit_decl_stmt_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4622, in void LCompilers::LFortran::AST::visit_decl_stmt_t<LCompilers::LFortran::ASTPickleVisitor>(LCompilers::LFortran::AST::decl_stmt_t const&, LCompilers::LFortran::ASTPickleVisitor&)
+    case decl_stmtType::SubroutineCall: { v.visit_SubroutineCall((const SubroutineCall_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 18048, in LCompilers::LFortran::AST::PickleBaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_SubroutineCall(LCompilers::LFortran::AST::SubroutineCall_t const&)
+    self().visit_fnarg(x.m_args[i]);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 22057, in LCompilers::LFortran::AST::PickleBaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_fnarg(LCompilers::LFortran::AST::fnarg_t const&)
+    self().visit_expr(*x.m_end);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4999, in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_expr(LCompilers::LFortran::AST::expr_t const&)
+    void visit_expr(const expr_t &b) { visit_expr_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4656, in void LCompilers::LFortran::AST::visit_expr_t<LCompilers::LFortran::ASTPickleVisitor>(LCompilers::LFortran::AST::expr_t const&, LCompilers::LFortran::ASTPickleVisitor&)
+    case exprType::FuncCallOrArray: { v.visit_FuncCallOrArray((const FuncCallOrArray_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 19652, in LCompilers::LFortran::AST::PickleBaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_FuncCallOrArray(LCompilers::LFortran::AST::FuncCallOrArray_t const&)
+    self().visit_fnarg(x.m_subargs[i]);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 22050, in LCompilers::LFortran::AST::PickleBaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_fnarg(LCompilers::LFortran::AST::fnarg_t const&)
+    self().visit_expr(*x.m_start);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h", line 4999, in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::ASTPickleVisitor>::visit_expr(LCompilers::LFortran::AST::expr_t const&)
+    void visit_expr(const expr_t &b) { visit_expr_t(b, self()); }
+AssertFailed: x.base.type == astType::expr

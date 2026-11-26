@@ -1,0 +1,93 @@
+[... 7 lines omitted ...]
+  = note: `#[warn(internal_features)]` on by default
+
+warning: the feature `core_intrinsics` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmph616bbdw/414e64a6.rs:1:24
+  |
+1 | #![feature(custom_mir, core_intrinsics)]
+  |                        ^^^^^^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+
+error: internal compiler error: coercion error but no error emitted
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmph616bbdw/414e64a6.rs:26:5
+   |
+26 |     x //~ ERROR mismatched types
+   |     ^
+
+
+thread 'rustc' (136084) panicked at compiler/rustc_errors/src/lib.rs:1545:17:
+aborting due to `-Z treat-err-as-bug=1`
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panicking.rs:80:14
+   2: <rustc_errors::DiagCtxtInner>::panic_if_treat_err_as_bug
+   3: <rustc_errors::DiagCtxtInner>::emit_diagnostic::{closure#3}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1416:22
+   4: rustc_interface::callbacks::track_diagnostic::<core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/callbacks.rs:47:46
+   5: rustc_middle::ty::context::tls::enter_context::<rustc_interface::callbacks::track_diagnostic<core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}::{closure#0}, core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:56:9
+   6: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::try_with::<rustc_middle::ty::context::tls::enter_context<rustc_interface::callbacks::track_diagnostic<core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}::{closure#0}, core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}, core::option::Option<rustc_span::ErrorGuaranteed>>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:464:12
+   7: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::with::<rustc_middle::ty::context::tls::enter_context<rustc_interface::callbacks::track_diagnostic<core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}::{closure#0}, core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}, core::option::Option<rustc_span::ErrorGuaranteed>>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:428:20
+   8: rustc_middle::ty::context::tls::enter_context::<rustc_interface::callbacks::track_diagnostic<core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}::{closure#0}, core::option::Option<rustc_span::ErrorGuaranteed>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:53:9
+   9: rustc_interface::callbacks::track_diagnostic::<core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/callbacks.rs:47:13
+  10: rustc_middle::ty::context::tls::with_context_opt::<rustc_interface::callbacks::track_diagnostic<core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}, core::option::Option<rustc_span::ErrorGuaranteed>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:75:18
+  11: rustc_interface::callbacks::track_diagnostic::<core::option::Option<rustc_span::ErrorGuaranteed>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/callbacks.rs:41:5
+  12: <rustc_errors::DiagCtxtInner>::emit_diagnostic
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1335:9
+  13: <rustc_errors::DiagCtxtHandle>::emit_diagnostic
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:876:33
+  14: <rustc_errors::diagnostic::Diag>::emit_producing_error_guaranteed
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1312:29
+  15: <rustc_errors::diagnostic::Diag>::emit
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1319:9
+  16: <rustc_errors::DiagCtxtHandle>::span_delayed_bug::<rustc_span::span_encoding::Span, &str>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1097:82
+  17: <rustc_hir_typeck::coercion::CoerceMany>::coerce_inner::<<rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_block::{closure#0}::{closure#1}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/coercion.rs:1744:31
+  18: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_block::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1338:24
+  19: <rustc_hir_typeck::fn_ctxt::FnCtxt>::with_breakable_ctxt::<<rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_block::{closure#0}, ()>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/_impl.rs:1617:22
+  20: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_block
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1315:31
+  21: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_kind
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:368:46
+  22: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_expectation_and_args
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:272:23
+  23: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_expectation
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:212:14
+  24: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_hint
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:167:14
+  25: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_return_or_body_tail
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:959:35
+  26: rustc_hir_typeck::check::check_fn
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/check.rs:129:9
+  27: rustc_hir_typeck::typeck_with_inspect::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/lib.rs:179:9
+  28: rustc_hir_typeck::typeck_with_inspect
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/lib.rs:110:1
+      [... omitted 13 frames ...]
+  29: rustc_middle::query::calls::query_ensure_ok::<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:170:13
+  30: <rustc_middle::query::calls::TyCtxtEnsureOk>::typeck_root::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:302:21
+  31: <rustc_middle::query::calls::TyCtxtEnsureOk>::typeck::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:49:14
+  32: rustc_hir_analysis::check_crate::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/lib.rs:195:29
+  33: <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners::<rustc_hir_analysis::check_crate::{closure#1}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/hir/map.rs:378:79
+  34: rustc_data_structures::sync::parallel::par_for_each_in::<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_hir_analysis::check_crate::{closure#1}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:182:30
+  35: <core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::
+[... truncated ...]

@@ -1,0 +1,117 @@
+SIL verification failed: cannot call an async function from a non async function: !calleeConv.funcTy->isAsync() || AI->getFunction()->isAsync()
+Verifying instruction:
+     %10 = upcast %9 : $Base to $C                // user: %12
+     // function_ref C.init()
+  %11 = function_ref @$s4main1CCACyYacfc : $@convention(method) @async (@owned C) -> @owned C // user: %12
+->   %12 = apply %11(%10) : $@convention(method) @async (@owned C) -> @owned C // user: %13
+     %13 = unchecked_ref_cast %12 : $C to $Base   // user: %14
+In function:
+// Base.init(from:)
+// Isolation: unspecified
+sil hidden [ossa] @$s4main4BaseC4fromACs7Decoder_p_tKcfc : $@convention(method) (@in any Decoder, @owned Base) -> (@owned Base, @error any Error) {
+// %0 "decoder"                                   // users: %17, %16, %6
+// %1 "self"                                      // user: %8
+bb0(%0 : $*any Decoder, %1 : @owned $Base):
+  %2 = alloc_box ${ var Base }                    // user: %3
+  %3 = mark_uninitialized [derivedself] %2        // users: %20, %4
+  %4 = begin_borrow [lexical] [var_decl] %3       // users: %19, %5
+  %5 = project_box %4, 0                          // users: %18, %15, %14, %9, %8
+  debug_value %0, let, name "decoder", argno 1, expr op_deref // id: %6
+  debug_value undef : $any Error, var, name "$error", argno 2 // id: %7
+  store %1 to [init] %5                           // id: %8
+  %9 = load [take] %5                             // user: %10
+  %10 = upcast %9 to $C                           // user: %12
+  // function_ref C.init()
+  %11 = function_ref @$s4main1CCACyYacfc : $@convention(method) @async (@owned C) -> @owned C // user: %12
+  %12 = apply %11(%10) : $@convention(method) @async (@owned C) -> @owned C // user: %13
+  %13 = unchecked_ref_cast %12 to $Base           // user: %14
+  store %13 to [init] %5                          // id: %14
+  %15 = load [copy] %5                            // user: %21
+  end_formal_scope %0                             // id: %16
+  destroy_addr %0                                 // id: %17
+  end_formal_scope %5                             // id: %18
+  end_borrow %4                                   // id: %19
+  destroy_value %3                                // id: %20
+  return %15                                      // id: %21
+} // end sil function '$s4main4BaseC4fromACs7Decoder_p_tKcfc'
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -O -sil-verify-all -strict-concurrency=complete /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpo8wkciq7/3149c0ae.swift
+1.	Swift version 6.5-dev (LLVM b57635c461931c5, Swift 4f57c3ebcd65115)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module main)
+4.	While silgen constructor initializer SIL function "@$s4main4BaseC4fromACs7Decoder_p_tKcfc".
+ for 'init(from:)' (in module 'main')
+5.	While verifying SIL function "@$s4main4BaseC4fromACs7Decoder_p_tKcfc".
+ for 'init(from:)' (in module 'main')
+ #0 0x00005ac39126f9cb llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x92269cb)
+ #1 0x00005ac39126c8b1 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x92238b1)
+ #2 0x00005ac39127077b SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x0000702e49f0c330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x0000702e49f65c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x0000702e49f0c27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x0000702e49eef8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00005ac389c13873 swift::verificationFailure(llvm::Twine const&, swift::SILInstruction const*, llvm::function_ref<void (swift::SILPrintContext&)>) (/usr/bin/swift-frontend+0x1bca873)
+ #8 0x00005ac389c2a79d (anonymous namespace)::SILVerifierBase<(anonymous namespace)::SILVerifier>::visitApplyInst(swift::ApplyInst*) SILVerifier.cpp:0:0
+ #9 0x00005ac389c1d0ab (anonymous namespace)::SILVerifier::visitSILBasicBlock(swift::SILBasicBlock*) SILVerifier.cpp:0:0
+#10 0x00005ac389c168bb swift::SILFunction::verify(swift::CalleeCache*, swift::DominanceInfo*, bool, bool, bool) const (/usr/bin/swift-frontend+0x1bcd8bb)
+#11 0x00005ac3893eed7f swift::Lowering::SILGenModule::postEmitFunction(swift::SILDeclRef, swift::SILFunction*) crtstuff.c:0:0
+#12 0x00005ac3893ee1d4 swift::Lowering::SILGenModule::emitFunctionDefinition(swift::SILDeclRef, swift::SILFunction*) crtstuff.c:0:0
+#13 0x00005ac3893f3c41 swift::ASTLoweringRequest::evaluate(swift::Evaluator&, swift::ASTLoweringDescriptor) const (/usr/bin/swift-frontend+0x13aac41)
+#14 0x00005ac389515967 swift::SimpleRequest<swift::ASTLoweringRequest, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>> (swift::ASTLoweringDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::ASTLoweringRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#15 0x00005ac3893f926d swift::ASTLoweringRequest::OutputType swift::Evaluator::getResultUncached<swift::ASTLoweringRequest, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()>(swift::ASTLoweringRequest const&, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#16 0x00005ac3893f8fec swift::ASTLoweringRequest::OutputType swift::Evaluator::getResultUncached<swift::ASTLoweringRequest, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()>(swift::ASTLoweringRequest const&, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()) crtstuff.c:0:0
+#17 0x00005ac3893f3f34 swift::performASTLowering(swift::ModuleDecl*, swift::Lowering::TypeConverter&, swift::SILOptions const&, swift::IRGenOptions const*) (/usr/bin/swift-frontend+0x13aaf34)
+#18 0x00005ac388d3123f swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xce823f)
+#19 0x00005ac388d4f231 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#20 0x00005ac388d388cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#21 0x00005ac388d33af8 swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xceaaf8)
+#22 0x00005ac3889d4f0b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x98bf0b)
+#23 0x0000702e49ef11ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#24 0x0000702e49ef128b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#25 0x00005ac3889d3f95 _start (/usr/bin/swift-frontend+0x98af95)
+
+*** Signal 6: Backtracing from 0x702e49fee52d... done ***
+
+*** Program crashed: Aborted at 0x0000702e49fee52d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.5 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x0000702e49fee52d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x0000702e49fee52d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d bb c8 0d 00  H=·ðÿÿs·ÃH··»È··
+rbx 0x0000000000000006  6
+rsi 0x000000000036eb40  3599168
+rdi 0x000000000036eb40  3599168
+rbp 0x000000000036eb40  3599168
+rsp 0x00005ac3a550efd8  a6 07 27 91 c3 5a 00 00 00 00 00 00 00 00 00 00  ¦·'·ÃZ··········
+ r8 0x0000000000000000  0
+ r9 0x0000000000000000  0
+r10 0x00005ac3a550f270  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x00005ac3a5d4fde0  00 15 d2 a5 c3 5a 00 00 e0 fe d4 a5 c3 5a 00 00  ··Ò¥ÃZ··àþÔ¥ÃZ··
+r14 0x0000000000000016  22
+r15 0x00005ac3a550f088  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x0000702e49fee52d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d bb c8 0d 00  H=·ðÿÿs·ÃH··»È··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x0000702e49ec7000–0x0000702e4a077039 a4a7992a8e66555c8141ab2a08a8465ff6e0ea65 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.01s
+
+Aborted (core dumped)

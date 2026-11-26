@@ -1,0 +1,16 @@
+HloModule module, num_partitions=2
+
+ENTRY %entry {
+  %lhs = f32[16,8]{1,0} parameter(0), sharding={devices=[2,1]<=[2]}
+  %rhs = f32[4,8]{1,0} parameter(1), sharding={devices=[1,2]<=[2]}
+  %dot = f32[16,4]{1,0} dot(lhs, rhs), lhs_contracting_dims={1}, rhs_contracting_dims={1}, sharding={devices=[2,1]<=[2]}
+  %param = f32[6,7,32] parameter(2)
+  %constant = f32[] constant(0)
+  %pad = f32[8,7,32] pad(%param, %constant), padding=1_1x0_0x0_0
+  %rev = f32[8,7,32] reverse(%pad), dimensions={0,1,2}
+  %slice = f32[1,2,7] slice(%rev), slice={[2:3:2], [0:7:4], [0:32:5]}
+  %tuple = (f32[1,2,7]) tuple(%slice)
+  %dot.d = f32[16,4]{1,0} dot(%rev, %rhs), lhs_contracting_dims={1}, rhs_contracting_dims={1}, sharding={devices=[2,1]<=[2]}
+  %ffl.root = ((f32[1,2,7]), f32[16,4]{1,0}) tuple(%tuple, %dot.d)
+  ROOT %ffl.root.1 = (f32[16,4]{1,0}, (f32[1,2,7]), f32[16,4]{1,0}) tuple(%dot, %tuple, %dot.d)
+}

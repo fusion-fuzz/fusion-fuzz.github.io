@@ -1,0 +1,24 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1793422485.730921  245636 hlo_instructions.cc:2871] Check failed: fused_root->IsFusible() %scatter.48 = f32[1,4096]{1,0} scatter(%bitcast.2335, %pad.96, %bitcast.2748), update_window_dims={1,2}, inserted_window_dims={}, scatter_dims_to_operand_dims={0,1}, index_vector_dim=1, to_apply=%add_a
+*** Check failure stack trace: ***
+    @     0x63e62d2eda24  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x63e62d2ed9a6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x63e62cc74a6e  xla::HloFusionInstruction::HloFusionInstruction()
+    @     0x63e62cc3681b  xla::HloInstruction::CreateFusion()
+    @     0x63e623a3042f  std::_Function_handler<>::_M_invoke()
+    @     0x63e623a2ffdf  xla::emitters::FusionWrapperBase::RunImpl()
+    @     0x63e629c21a01  xla::HloPassInterface::Run()
+    @     0x63e6253facdc  xla::HloPassPipeline::RunHelper()
+    @     0x63e6253fb820  xla::HloPassPipeline::RunPassesInternal()
+    @     0x63e6253fd7f5  xla::HloPassPipeline::RunImpl()
+    @     0x63e629c21a01  xla::HloPassInterface::Run()
+    @     0x63e621b144b6  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x63e621b1c1ab  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x63e621a50744  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x63e621a44c8e  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x63e621a42be7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x63e62d33e1d6  main
+    @     0x75364bdd4d90  (unknown)
+Aborted (core dumped)

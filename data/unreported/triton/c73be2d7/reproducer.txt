@@ -1,0 +1,39 @@
+#H_b41c21a1_shared = #ttg.nvmma_shared<{swizzlingByteWidth = 128, transposed = false, elementBitWidth = 32, CGALayout = [[0, 0]]}>
+#H_b41c21a1_barrierEnc = #ttg.swizzled_shared<{vec = 1, perPhase = 1, maxPhase = 1, order = [0], CGALayout = [[0]]}>
+#H_b41c21a1_tmem = #ttng.tensor_memory_encoding<blockM = 128, blockN = 128, colStride = 1, CGALayout = [[0, 0]]>
+#H_b41c21a1_smem = #ttg.shared_memory
+#D_fe63f7bf_A_2d07368d_blocked = #ttg.blocked<{sizePerThread = [1, 128], threadsPerWarp = [32, 1], warpsPerCTA = [4, 1], order = [0, 1]}>
+#D_fe63f7bf_A_2d07368d_blocked1 = #ttg.blocked<{sizePerThread = [1, 1], threadsPerWarp = [1, 32], warpsPerCTA = [2, 2], order = [1, 0]}>
+#D_fe63f7bf_A_2d07368d_blocked2 = #ttg.blocked<{sizePerThread = [128, 1], threadsPerWarp = [1, 32], warpsPerCTA = [1, 4], order = [1, 0]}>
+#D_fe63f7bf_A_2d07368d_linear = #ttg.linear<{register = [[0, 1], [0, 2], [32, 0], [64, 0], [0, 4]], lane = [[1, 0], [2, 0], [4, 0], [8, 0], [16, 0]], warp = [[0, 0], [0, 0]], block = []}>
+#D_fe63f7bf_A_2d07368d_shared = #ttg.nvmma_shared<{swizzlingByteWidth = 128, transposed = false, elementBitWidth = 16}>
+#D_fe63f7bf_A_2d07368d_shared1 = #ttg.nvmma_shared<{swizzlingByteWidth = 128, transposed = true, elementBitWidth = 16}>
+#D_fe63f7bf_A_2d07368d_shared2 = #ttg.swizzled_shared<{vec = 1, perPhase = 1, maxPhase = 1, order = [1, 0]}>
+#D_fe63f7bf_A_2d07368d_shared3 = #ttg.nvmma_shared<{swizzlingByteWidth = 64, transposed = false, elementBitWidth = 8}>
+#D_fe63f7bf_A_2d07368d_shared4 = #ttg.nvmma_shared<{swizzlingByteWidth = 64, transposed = true, elementBitWidth = 8}>
+#D_fe63f7bf_A_2d07368d_smem = #ttg.shared_memory
+#D_fe63f7bf_A_2d07368d_tmem = #ttng.tensor_memory_encoding<blockM = 128, blockN = 128, colStride = 1>
+#D_fe63f7bf_A_2d07368d_tmem_scales = #ttng.tensor_memory_scales_encoding<>
+#D_fe63f7bf_B_b41c21a1_shared = #ttg.nvmma_shared<{swizzlingByteWidth = 128, transposed = false, elementBitWidth = 32, CGALayout = [[0, 0]]}>
+#D_fe63f7bf_B_b41c21a1_barrierEnc = #ttg.swizzled_shared<{vec = 1, perPhase = 1, maxPhase = 1, order = [0], CGALayout = [[0]]}>
+#D_fe63f7bf_B_b41c21a1_tmem = #ttng.tensor_memory_encoding<blockM = 128, blockN = 128, colStride = 1, CGALayout = [[0, 0]]>
+#D_fe63f7bf_B_b41c21a1_smem = #ttg.shared_memory
+module attributes {"ttg.num-ctas" = 2 : i32, "ttg.num-warps" = 4 : i32, "ttng.two-ctas" = true, ttg.target = "cuda:100", "ttg.threads-per-warp" = 32 : i32} {
+tt.func @H_b41c21a1_insert_fence_and_relaxed_cluster_barrier_before_wait_after_tmem_copy() {
+    %c0 = arith.constant 0 : i32
+    %src = ttg.local_alloc : () -> !ttg.memdesc<128x128xf32, #H_b41c21a1_shared, #H_b41c21a1_smem, mutable>
+    %dst = ttng.tmem_alloc : () -> !ttg.memdesc<128x128xf32, #H_b41c21a1_tmem, #ttng.tensor_memory, mutable>
+    %barrier = ttg.local_alloc : () -> !ttg.memdesc<1xi64, #H_b41c21a1_barrierEnc, #H_b41c21a1_smem, mutable>
+    ttng.init_barrier %barrier, 1 : !ttg.memdesc<1xi64, #H_b41c21a1_barrierEnc, #H_b41c21a1_smem, mutable>
+    ttng.tmem_copy %src, %dst : !ttg.memdesc<128x128xf32, #H_b41c21a1_shared, #H_b41c21a1_smem, mutable>, !ttg.memdesc<128x128xf32, #H_b41c21a1_tmem, #ttng.tensor_memory, mutable>
+    ttng.wait_barrier %barrier, %c0 : !ttg.memdesc<1xi64, #H_b41c21a1_barrierEnc, #H_b41c21a1_smem, mutable>
+    %dfe63f7bf_arg0 = ub.poison : tensor<128x64xf16, #D_fe63f7bf_A_2d07368d_blocked1>
+    %dfe63f7bf_c0_i32 = arith.constant 0 : i32
+    %dfe63f7bf_c1_i32 = arith.constant 1 : i32
+    scf.for %dfe63f7bf_arg2 = %dfe63f7bf_c0_i32 to %c0 step %dfe63f7bf_c1_i32  : i32 {
+    %dfe63f7bf_0 = "producer"(%dfe63f7bf_arg0, %dfe63f7bf_arg2) {loop.cluster = 1 : i32, loop.stage = 0 : i32, ttg.partition = array<i32: 0>} : (tensor<128x64xf16, #D_fe63f7bf_A_2d07368d_blocked1>, i32) -> tensor<128x64xf16, #D_fe63f7bf_A_2d07368d_blocked1>
+    "use"(%dfe63f7bf_0) {loop.cluster = 0 : i32, loop.stage = 1 : i32, ttg.partition = array<i32: 0>} : (tensor<128x64xf16, #D_fe63f7bf_A_2d07368d_blocked1>) -> ()
+    } {ttg.partition = array<i32: 0, 1>, tt.num_stages = 2 : i32, tt.scheduled_max_stage = 1 : i32, tt.warp_specialize, ttg.partition.stages = [0 : i32, 1 : i32, 0 : i32], ttg.warp_specialize.tag = 0 : i32}
+    tt.return
+  }
+}

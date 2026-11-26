@@ -1,0 +1,51 @@
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -frontend -c -primary-file min.swift -target x86_64-unknown-linux-gnu -disable-objc-interop -color-diagnostics -Xcc -fcolor-diagnostics -empty-abi-descriptor -no-auto-bridging-header-chaining -module-name min -in-process-plugin-server-path /usr/lib/swift/host/libSwiftInProcPluginServer.so -plugin-path /usr/lib/swift/host/plugins -plugin-path /usr/local/lib/swift/host/plugins -o /tmp/TemporaryDirectory.lUcKJd/min-1.o
+1.	Swift version 6.2 (swift-6.2-RELEASE)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ParseTopLevelDeclsRequest(source_file "min.swift")
+4.	While evaluating request ParseSourceFileRequest(source_file "min.swift")
+5.	With parser at source location: min.swift:43:1
+#0 0x000059403f35a598 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x7316598)
+#1 0x000059403f35836e llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x731436e)
+#2 0x000059403f35ac31 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+#3 0x00007184cdabd330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+#4 0x000059403a1e2005 swift::Parser::parseExternAttribute(swift::DeclAttributes&, bool&, llvm::StringRef, swift::SourceLoc, swift::SourceLoc)::$_10::operator()(std::optional<llvm::StringRef>) const ParseDecl.cpp:0:0
+#5 0x0000594076ffaf80 
+
+*** Signal 11: Backtracing from 0x7184cdb16b2c... done ***
+
+*** Program crashed: Bad pointer dereference at 0x0000000000390816 ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.3 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+  0      0x00007184cdb16b2c <unknown> in libc.so.6
+  1 [ra] 0x00007184cdabd27e <unknown> in libc.so.6
+...
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000390816  3737622
+rcx 0x00007184cdb16b2c  41 89 c6 41 f7 de 3d 00 f0 ff ff b8 00 00 00 00  A·ÆA÷Þ=·ðÿÿ¸····
+rbx 0x000000000000000b  11
+rsi 0x0000000000390816  3737622
+rdi 0x0000000000390816  3737622
+rbp 0x0000594076fdfb40  60 fb fd 76 40 59 00 00 7e d2 ab cd 84 71 00 00  `ûýv@Y··~Ò«Í·q··
+rsp 0x0000594076fdfb00  00 00 00 00 00 00 00 00 00 a8 10 47 f8 fb 68 59  ·········¨·GøûhY
+ r8 0x0000594076f72010  02 00 07 00 04 00 06 00 06 00 06 00 04 00 04 00  ················
+ r9 0x0000000000000007  7
+r10 0x00007184cda8e750  d4 01 00 00 12 00 11 00 60 52 04 00 00 00 00 00  Ô·······`R······
+r11 0x0000000000000246  582
+r12 0x000000000000000b  11
+r13 0x0000000000000007  7
+r14 0x0000000000000016  22
+r15 0x0000594076fdfc08  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007184cdb16b2c  41 89 c6 41 f7 de 3d 00 f0 ff ff b8 00 00 00 00  A·ÆA÷Þ=·ðÿÿ¸····
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000

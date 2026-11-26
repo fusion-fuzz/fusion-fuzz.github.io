@@ -1,0 +1,41 @@
+HloModule Test
+
+%xla.sdy.manual_computation_body.4 (Arg_0.5: f32[1,8]) -> f32[1,8] {
+  %Arg_0.5 = f32[1,8]{1,0} parameter(0)
+  ROOT %add.6 = f32[1,8]{1,0} add(f32[1,8]{1,0} %Arg_0.5, f32[1,8]{1,0} %Arg_0.5), metadata={source_file="-" source_line=11}
+}
+
+%xla.sdy.manual_computation_body.4.d (Arg_0.5: f32[1,8]) -> f32[1,8] {
+  %Arg_0.5 = f32[1,8]{1,0} parameter(0)
+  ROOT %add.6 = f32[1,8]{1,0} add(f32[1,8]{1,0} %Arg_0.5, f32[1,8]{1,0} %Arg_0.5), metadata={source_file="-" source_line=11}
+}
+
+ENTRY %Test {
+  %input = f8e4m3fn[1,128,6,6] parameter(0)
+  %filter = f8e4m3fn[3,3,128,16] parameter(1)
+  %input_f32 = f32[1,128,6,6] convert(input)
+  %filter_f32 = f32[3,3,128,16] convert(filter)
+  %z_scale = f32[] parameter(2)
+  %z_scale_bcast = f32[1,16,6,6] broadcast(z_scale), dimensions={}
+  %c = f32[] constant(0)
+  %c_bcast = f32[1,16,6,6] broadcast(c), dimensions={}
+  %Arg_0.1 = f32[8,8]{1,0} parameter(3)
+  %custom-call.3 = f32[1,8]{1,0} custom-call(f32[8,8]{1,0} %Arg_0.1), custom_call_target="SPMDFullToShardShape", sharding={manual}, metadata={source_file="-" source_line=4}
+  %call.7 = f32[1,8]{1,0} call(f32[1,8]{1,0} %custom-call.3), to_apply=%xla.sdy.manual_computation_body.4
+  %custom-call.9 = f32[8,8]{1,0} custom-call(f32[1,8]{1,0} %call.7), custom_call_target="SPMDShardToFullShape", sharding={devices=[8,1]<=[8]}, metadata={source_file="-" source_line=7}
+  %conv_a = f32[1,16,6,6] convolution(input_f32, filter_f32), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_01io->bf01, feature_group_count=1
+  %relu_a = f32[1,16,6,6] maximum(conv_a, c_bcast)
+  %relu_a_scaled = f32[1,16,6,6] multiply(relu_a, z_scale_bcast)
+  %c1 = f32[] constant(-448.)
+  %c1_bcast = f32[1,16,6,6] broadcast(c1), dimensions={}
+  %c2 = f32[] constant(448.)
+  %c2_bcast = f32[1,16,6,6] broadcast(c2), dimensions={}
+  %relu_a_clamped = f32[1,16,6,6] clamp(c1_bcast, relu_a_scaled, c2_bcast)
+  %conv_f8 = f8e4m3fn[1,16,6,6] convert(relu_a_clamped)
+  %ffl.root = (f8e4m3fn[1,16,6,6], f32[8,8]{1,0}) tuple(%conv_f8, %custom-call.9)
+  %Arg_0.1.d = f32[8,8]{1,0} parameter(4)
+  %custom-call.3.d = f32[1,8]{1,0} custom-call(f32[8,8]{1,0} %Arg_0.1.d), custom_call_target="SPMDFullToShardShape", sharding={manual}, metadata={source_file="-" source_line=4}
+  %call.7.d = f32[1,8]{1,0} call(f32[1,8]{1,0} %custom-call.3.d), to_apply=%xla.sdy.manual_computation_body.4.d
+  %custom-call.9.d = f32[8,8]{1,0} custom-call(f32[1,8]{1,0} %custom-call.3), custom_call_target="SPMDShardToFullShape", sharding={devices=[8,1]<=[8]}, metadata={source_file="-" source_line=7}
+  ROOT %ffl.root.1 = (f8e4m3fn[1,16,6,6], f32[8,8]{1,0}, f32[8,8]{1,0}) tuple(%conv_f8, %custom-call.9, %custom-call.9.d)
+}

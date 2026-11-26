@@ -1,0 +1,13 @@
+HloModule module, num_partitions=2
+
+ENTRY %entry {
+  %lhs = f32[16,8]{1,0} parameter(0), sharding={devices=[1,2]<=[2]}
+  %rhs = f32[4,8]{1,0} parameter(1), sharding={devices=[1,2]<=[2]}
+  %dot = f32[16,4]{1,0} dot(lhs, rhs), lhs_contracting_dims={1}, rhs_contracting_dims={1}, sharding={devices=[2,1]<=[2]}
+  %input = f32[2,9,8] parameter(2), sharding={mesh['x'=2,'y'=2] replicated}
+  %indices = s32[4,2,4] parameter(3), sharding={mesh['x'=2,'y'=2] [{'x'}, {'y'}, {}]}
+  %gather = f32[8,4,4] gather(%input, %lhs), offset_dims={0}, collapsed_slice_dims={0,1}, start_index_map={0,1}, index_vector_dim=1, slice_sizes={1,1,8}, sharding={mesh['x'=2,'y'=2] [{}, {'x', 'y'}, {}]}
+  %gather.d = f32[8,4,4] gather(%input, %indices), offset_dims={0}, collapsed_slice_dims={0,1}, start_index_map={0,1}, index_vector_dim=1, slice_sizes={1,1,8}, sharding={mesh['x'=2,'y'=2] [{}, {'x', 'y'}, {}]}
+  %ffl.root = (f32[16,4]{1,0}, f32[8,4,4]) tuple(%dot, %gather)
+  ROOT %ffl.root.1 = (f32[16,4]{1,0}, f32[8,4,4], f32[8,4,4]) tuple(%dot, %gather, %gather.d)
+}

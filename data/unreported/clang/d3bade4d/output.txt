@@ -1,0 +1,59 @@
+clang: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/MC/MCSymbolXCOFF.cpp:15: llvm::MCSectionXCOFF *llvm::MCSymbolXCOFF::getRepresentedCsect() const: Assertion `RepresentedCsect && "Trying to get csect representation of this symbol but none was set."' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -c -o /dev/null -O0 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -fno-elide-constructors -target powerpc64-unknown-aix -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprpfplreh/3f4ae8c6.c
+1.	<eof> parser at end of file
+2.	Code generation
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x0000649f2f77366b __interceptor_backtrace + 91
+1  clang     0x0000649f353ce027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang     0x0000649f353c7cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang     0x0000649f353cc9c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang     0x0000649f3521acc5
+5  clang     0x0000649f3521b4d3
+6  libc.so.6 0x0000789056e96520
+7  libc.so.6 0x0000789056eea9bc pthread_kill + 300
+8  libc.so.6 0x0000789056e96476 raise + 22
+9  libc.so.6 0x0000789056e7c7f3 abort + 211
+10 libc.so.6 0x0000789056e7c71b
+11 libc.so.6 0x0000789056e8de96
+12 clang     0x0000649f34bfee5c llvm::MCSymbolXCOFF::getRepresentedCsect() const + 428
+13 clang     0x0000649f34c9bdc3
+14 clang     0x0000649f34aec9f4 llvm::MCAssembler::layout() + 2852
+15 clang     0x0000649f34aef9be llvm::MCAssembler::Finish() + 14
+16 clang     0x0000649f34be0476 llvm::MCStreamer::finish(llvm::SMLoc) + 790
+17 clang     0x0000649f3837df80 llvm::AsmPrinter::doFinalization(llvm::Module&) + 14256
+18 clang     0x0000649f3440f6d2 llvm::FPPassManager::doFinalization(llvm::Module&) + 130
+19 clang     0x0000649f343fe40c llvm::legacy::PassManagerImpl::run(llvm::Module&) + 14908
+20 clang     0x0000649f382dc52b llvm::runCodeGenPipeline(llvm::TargetMachine&, llvm::Module&, llvm::raw_pwrite_stream&, std::unique_ptr<llvm::ToolOutputFile, std::default_delete<llvm::ToolOutputFile>>&, llvm::CodeGenFileType, bool, bool, bool, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) + 4299
+21 clang     0x0000649f35f3a0db
+22 clang     0x0000649f35f351b8 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 6936
+23 clang     0x0000649f3710ba08 clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 4744
+24 clang     0x0000649f3b8ef804 clang::ParseAST(clang::Sema&, bool, bool) + 1716
+25 clang     0x0000649f371139bc clang::CodeGenAction::ExecuteAction() + 4124
+26 clang     0x0000649f377ce2fe clang::FrontendAction::Execute() + 222
+27 clang     0x0000649f376605f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+28 clang     0x0000649f379b2989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+29 clang     0x0000649f2f8091a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+30 clang     0x0000649f2f7fd0f9
+31 clang     0x0000649f2f807637
+32 clang     0x0000649f37237317
+33 clang     0x0000649f3521aa7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+34 clang     0x0000649f3723481a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+35 clang     0x0000649f3718529c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+36 clang     0x0000649f37186a2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+37 clang     0x0000649f371d6060 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+38 clang     0x0000649f2f7fb517 clang_main(int, char**, llvm::ToolContext const&) + 12295
+39 clang     0x0000649f2f82ae27 main + 567
+40 libc.so.6 0x0000789056e7dd90
+41 libc.so.6 0x0000789056e7de40 __libc_start_main + 128
+42 clang     0x0000649f2f737b35 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git e996ce0d9ad6443a7ea3f88ccb0a8e114b0e840e)
+Target: powerpc64-unknown-aix
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang: error: unable to execute command: Segmentation fault (core dumped)
+clang: note: diagnostic msg: Error generating preprocessed source(s).
+Aborted (core dumped)

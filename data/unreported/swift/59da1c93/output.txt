@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift:88:14: error: consecutive statements on a line must be separated by ';'
+ 86 |       defer { // expected-warning {{'defer' statement at end of scope always executes immediately}}{{7-12=do}}
+ 87 |         // FIXME: this recovery is terrible
+ 88 |         yield ""
+    |              `- error: consecutive statements on a line must be separated by ';'
+ 89 |         // expected-error@-1 {{function is unused}}
+ 90 |         // expected-error@-2 {{consecutive statements on a line must be separated by ';'}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift:101:13: error: unexpected label in 'yield' statement
+ 99 |   var property: String {
+100 |     _read {
+101 |       yield(x: "test") // expected-error {{unexpected label in 'yield' statement}} {{13-16=}}
+    |             `- error: unexpected label in 'yield' statement
+102 |       yield(x: "test", y:   {0}) // expected-error {{expected 1 yield value(s)}}
+103 |       // expected-error@-1 {{unexpected label in 'yield' statement}} {{13-16=}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift:102:13: error: unexpected label in 'yield' statement
+100 |     _read {
+101 |       yield(x: "test") // expected-error {{unexpected label in 'yield' statement}} {{13-16=}}
+102 |       yield(x: "test", y:   {0}) // expected-error {{expected 1 yield value(s)}}
+    |             `- error: unexpected label in 'yield' statement
+103 |       // expected-error@-1 {{unexpected label in 'yield' statement}} {{13-16=}}
+104 |       // expected-error@-2 {{unexpected label in 'yield' statement}} {{24-29=}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift:102:24: error: unexpected label in 'yield' statement
+100 |     _read {
+101 |       yield(x: "test") // expected-error {{unexpected label in 'yield' statement}} {{13-16=}}
+102 |       yield(x: "test", y:   {0}) // expected-error {{expected 1 yield value(s)}}
+    |                        `- error: unexpected label in 'yield' statement
+103 |       // expected-error@-1 {{unexpected label in 'yield' statement}} {{13-16=}}
+104 |       // expected-error@-2 {{unexpected label in 'yield' statement}} {{24-29=}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift:105:13: error: unexpected label in 'yield' statement
+103 |       // expected-error@-1 {{unexpected label in 'yield' statement}} {{13-16=}}
+104 |       // expected-error@-2 {{unexpected label in 'yield' statement}} {{24-29=}}
+105 |       yield(_: "test") // expected-error {{unexpected label in 'yield' statement}} {{13-16=}}
+    |             `- error: unexpected label in 'yield' statement
+106 |     }
+107 |   }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift:25:13: error: cannot convert value of type 'Int' to expected yield type 'String'
+ 23 |   var wrongTypes: String {
+ 24 |     _read {
+ 25 |       yield 0 // expected-error {{cannot convert value of type 'Int' to expected yield type 'String'}}
+    |             `- error: cannot convert value of type 'Int' to expected yield type 'String'
+ 26 |     }
+ 27 |     _modify {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift:29:14: error: cannot yield reference to storage of type 'Int' as an inout yield of type 'String'
+ 27 |     _modify {
+ 28 |       var x = 0
+ 29 |       yield &x // expected-error {{cannot yield reference to storage of type 'Int' as an inout yield of type 'String'}}
+    |              `- error: cannot yield reference to storage of type 'Int' as an inout yield of type 'String'
+ 30 |     }
+ 31 |   }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift:36:14: error: cannot yield immutable value of type 'String' as an inout yield
+ 34 |     get {}
+ 35 |     _modify {
+ 36 |       yield &"" // expected-error {{cannot yield immutable value of type 'String' as an inout yield}}
+    |              `- error: cannot yield immutable value of type 'String' as an inout yield
+ 37 |     }
+ 38 |   }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift:44:13: error: yielding mutable value of type 'String' requires explicit '&'
+ 42 |     _modify {
+ 43 |       var x = ""
+ 44 |       yield x // expected-error {{yielding mutable value of type 'String' requires explicit '&'}}
+    |             `- error: yielding mutable value of type 'String' requires explicit '&'
+ 45 |     }
+ 46 |   }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift:86:7: warning: 'defer' statement at end of scope always executes immediately; replace with 'do' statement to silence this warning
+ 84 |   var property: String {
+ 85 |     _read {
+ 86 |       defer { // expected-warning {{'defer' statement at end of scope always executes immediately}}{{7-12=do}}
+    |       `- warning: 'defer' statement at end of scope always executes immediately; replace with 'do' statement to silence this warning
+ 87 |         // FIXME: this recovery is terrible
+ 88 |         yield ""
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift:88:9: error: function is unused [#NoUsage]
+ 86 |       defer { // expected-warning {{'defer' statement at end of scope always executes immediately}}{{7-12=do}}
+ 87 |         // FIXME: this recovery is terrible
+ 88 |         yield ""
+    |         `- error: function is unused [#NoUsage]
+ 89 |         // expected-error@-1 {{function is unused}}
+ 90 |         // expected-error@-2 {{consecutive statements on a line must be separated by ';'}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift:88:15: warning: string literal is unused [#NoUsage]
+ 86 |       defer { // expected-warning {{'defer' statement at end of scope always executes immediately}}{{7-12=do}}
+ 87 |         // FIXME: this recovery is terrible
+ 88 |         yield ""
+    |               `- warning: string literal is unused [#NoUsage]
+ 89 |         // expected-error@-1 {{function is unused}}
+ 90 |         // expected-error@-2 {{consecutive statements on a line must be separated by ';'}}
+
+swift-frontend: /home/build-user/swift/include/swift/AST/Type.h:232: TypeBase *swift::Type::operator->() const: Assertion `Ptr && "Cannot dereference a null Type!"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-silgen -Osize -sil-verify-all /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift")
+4.	While evaluating request EmitPerformanceHints(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift")
+5.	While walking into 'InvalidYieldParsing' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift:98:1)
+6.	While walking into body of read for property (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu0g44a6j/ecdd846d.swift:99:7)
+ #0 0x000056317e431bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000056317e42f2e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000056317e4328c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f03f571d330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f03f5776c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f03f571d27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f03f57008ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007f03f570081b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007f03f5713517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x0000563177c0da31 (/usr/bin/swift-frontend+0x23f3a31)
+#10 0x0000563178387827 (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#11 0x000056317838aaa3 swift::ASTVisitor<(anonymous namespace)::Traversal, swift::Expr*, swift::Stmt*, bool, swift::Pattern*, bool, void>::visit(swift::Stmt*) ASTWalker.cpp:0:0
+#12 0x000056317838a758 swift::ASTVisitor<(anonymous namespace)::Traversal, swift::Expr*, swift::Stmt*, bool, swift::Pattern*, bool, void>::visit(swift::Stmt*) ASTWalker.cpp:0:0
+#13 0x000056317838e202 (anonymous namespace)::Traversal::visitAbstractFunctionDecl(swift::AbstractFunctionDecl*) ASTWalker.cpp:0:0
+[... 73 more lines ...]

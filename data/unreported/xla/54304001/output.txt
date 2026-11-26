@@ -1,0 +1,25 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791796674.746120  125925 dot_op_emitter.cc:101] Check failed: !output_shape.has_layout() || IsSimpleLayout(output_shape.layout()) f32[1024,1024]
+*** Check failure stack trace: ***
+    @     0x5eaa50af5a84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5eaa50af5a06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5eaa4f0bb04e  xla::cpu::(anonymous namespace)::IsAlignedGemm()
+    @     0x5eaa4f0b7adb  xla::cpu::(anonymous namespace)::GetNonBatchDotImplementationStrategy()
+    @     0x5eaa4f0b75e3  xla::cpu::GetDotImplementationStrategy()
+    @     0x5eaa476314ab  xla::cpu::CpuCompiler::RunHloPassesThroughLayoutAssn()::$_1::operator()()
+    @     0x5eaa4763140f  std::_Function_handler<>::_M_invoke()
+    @     0x5eaa4e7e899b  xla::OpExpanderPass::RunImpl()
+    @     0x5eaa4fc79007  xla::HloPassInterface::Run()
+    @     0x5eaa4f4afa3c  xla::HloPassPipeline::RunHelper<>()
+    @     0x5eaa4f4aae4d  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5eaa4f4aa265  xla::HloPassPipeline::RunImpl()
+    @     0x5eaa4fc79007  xla::HloPassInterface::Run()
+    @     0x5eaa4760e211  xla::cpu::CpuCompiler::RunHloPassesThroughLayoutAssn()
+    @     0x5eaa47611371  xla::cpu::CpuCompiler::RunHloPasses()
+    @     0x5eaa47611ff7  xla::cpu::CpuCompiler::RunHloPasses()
+    @     0x5eaa474a0144  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5eaa4749fb83  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5eaa4748709e  xla::(anonymous namespace)::CpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5eaa50b3bbc6  main
+    @     0x7f111850cd90  (unknown)
+Aborted (core dumped)

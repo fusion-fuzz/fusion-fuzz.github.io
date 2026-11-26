@@ -1,0 +1,7 @@
+HloModule m, allow_spmd_sharding_propagation_to_output={true}, num_partitions=8
+
+ENTRY %main {
+  %p = s32[8,2] parameter(0), sharding={devices=[4,2]<=[8]}
+  %cc = () custom-call(), custom_call_target="foo"
+  ROOT %r = (s32[8,2], ()) tuple(%p, %cc)
+}

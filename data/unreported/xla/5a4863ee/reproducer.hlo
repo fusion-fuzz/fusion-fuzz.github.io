@@ -1,0 +1,24 @@
+HloModule m
+
+host_computation {
+  val = s32[] parameter(0)
+  one = s32[] constant(1)
+  ROOT add = s32[] add(val, one)
+}
+
+branch0 {
+  p = f32[4] parameter(0)
+  ROOT c = f32[4] ceil(p)
+}
+
+branch1 {
+  p = f32[4] parameter(0)
+  ROOT a = f32[4] abs(p)
+}
+
+ENTRY main {
+  i = s32[] parameter(0)
+  idx = s32[] call(i), to_apply=host_computation, backend_config={"device_type":"DEVICE_TYPE_HOST"}
+  p0 = f32[4] parameter(1)
+  ROOT r = f32[4] conditional(idx, p0, p0), branch_computations={branch0, branch1}
+}

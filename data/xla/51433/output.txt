@@ -1,0 +1,16 @@
+F hlo_sharding.cc:880] Check failed: device Sharding does not have a unique device: {}
+*** Check failure stack trace: ***
+    xla::HloSharding::GetUniqueDevice()
+    xla::spmd::SpmdPartitioningVisitor::HandleSingleDevice()
+    xla::spmd::SpmdPartitioningVisitor::HandleCustomCall()
+    xla::HloInstruction::Visit<>()
+    xla::PostOrderDFS<>()
+    xla::HloInstruction::Accept<>()
+    xla::HloComputation::Accept<>()
+    xla::spmd::SpmdPartitioningVisitor::DoPartition()
+    xla::spmd::SpmdPartitioner::PartitionComputation()
+    xla::CallGraph::VisitNodes()
+    xla::spmd::SpmdPartitioner::RunImpl()
+    xla::HloPassPipeline::RunImpl()
+    xla::gpu::GpuCompiler::OptimizeHloModule()
+    xla::gpu::GpuCompiler::RunHloPasses()

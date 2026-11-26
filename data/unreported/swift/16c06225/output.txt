@@ -1,0 +1,84 @@
+swift-frontend: /home/build-user/swift/lib/SILOptimizer/Mandatory/Differentiation.cpp:535: SILFunction *(anonymous namespace)::DifferentiationTransformer::getUnwrappedCurryThunkFunction(SILFunction *): Assertion `wasEmplace && "Expect all 'afdToSILFn' cache entries to be " "filled at once on the first access attempt"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -Osize -sil-verify-all -strict-concurrency=complete -enable-experimental-feature VariadicGenerics /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpssi_n599/d7f7fe30.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ExecuteSILPipelineRequest(Run pipelines { Mandatory Diagnostic Passes + Enabling Optimization Passes } on SIL for d7f7fe30)
+4.	While running pass #384 SILModuleTransform "Differentiation".
+5.	While canonicalizing `differentiable_function` SIL node   %3 = differentiable_function [parameters 0] [results 0] %2 : $@callee_guaranteed @substituted <τ_0_0, τ_0_1> (@in_guaranteed Struct<τ_0_0>) -> @out Struct<τ_0_1> for <Scalar, Scalar> // user: %4
+6.	While ...in SIL function "@$s8d7f7fe301f_9reductionAA6StructVyxGAF_A2FYjrXEt16_Differentiation14DifferentiableRzlFfA0_".
+ for expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpssi_n599/d7f7fe30.swift:36:76 - line:36:83] RangeText="Struct."
+ #0 0x00005722a4644658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x00005722a4641e75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x00005722a4645411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007d9d25681330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007d9d256dac0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007d9d2568127e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007d9d256648ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007d9d2566481b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007d9d25677517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x000057229d7e4658 (anonymous namespace)::DifferentiationTransformer::processDifferentiableFunctionInst(swift::DifferentiableFunctionInst*) Differentiation.cpp:0:0
+#10 0x000057229d7dd91b (anonymous namespace)::Differentiation::run() Differentiation.cpp:0:0
+#11 0x000057229d395442 swift::SILPassManager::runModulePass(unsigned int) (/usr/bin/swift-frontend+0x19a0442)
+#12 0x000057229d3984cb swift::SILPassManager::execute() (/usr/bin/swift-frontend+0x19a34cb)
+#13 0x000057229d391068 swift::SILPassManager::executePassPipelinePlan(swift::SILPassPipelinePlan const&) (/usr/bin/swift-frontend+0x199c068)
+#14 0x000057229d39101d swift::ExecuteSILPipelineRequest::evaluate(swift::Evaluator&, swift::SILPipelineExecutionDescriptor) const (/usr/bin/swift-frontend+0x199c01d)
+#15 0x000057229d3b8e6a swift::SimpleRequest<swift::ExecuteSILPipelineRequest, std::tuple<> (swift::SILPipelineExecutionDescriptor), (swift::RequestFlags)1>::evaluateRequest(swift::ExecuteSILPipelineRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#16 0x000057229d39fdfa swift::ExecuteSILPipelineRequest::OutputType swift::Evaluator::getResultUncached<swift::ExecuteSILPipelineRequest, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()>(swift::ExecuteSILPipelineRequest const&, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()) crtstuff.c:0:0
+#17 0x000057229d39125f swift::executePassPipelinePlan(swift::SILModule*, swift::SILPassPipelinePlan const&, bool, swift::irgen::IRGenModule*) (/usr/bin/swift-frontend+0x199c25f)
+#18 0x000057229d3a12fc swift::runSILDiagnosticPasses(swift::SILModule&, bool) (/usr/bin/swift-frontend+0x19ac2fc)
+#19 0x000057229c5c9bb9 swift::CompilerInstance::performSILProcessing(swift::SILModule*) (/usr/bin/swift-frontend+0xbd4bb9)
+#20 0x000057229c428e3d performCompileStepsPostSILGen(swift::CompilerInstance&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, swift::PrimarySpecificPaths const&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>, llvm::ArrayRef<swift::PrimarySpecificPaths>) FrontendTool.cpp:0:0
+#21 0x000057229c4279d3 swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xa329d3)
+#22 0x000057229c44088a withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#23 0x000057229c42d595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#24 0x000057229c42a21e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#25 0x000057229c131b21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#26 0x00007d9d256661ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#27 0x00007d9d2566628b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#28 0x000057229c130a15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x7d9d2576338d... done ***
+
+*** Program crashed: Aborted at 0x00007d9d2576338d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007d9d2576338d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007d9d2576338d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x00000000000120a9  73897
+rdi 0x00000000000120a9  73897
+rbp 0x00000000000120a9  73897
+rsp 0x00005722cc0d42e8  3b 54 64 a4 22 57 00 00 70 45 0d cc 22 57 00 00  ;Td¤"W··pE·Ì"W··
+ r8 0x00005722cc0d4570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x00005722cc0d4570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x00005722cc0d4570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x00005722a60137f7  2f 68 6f 6d 65 2f 62 75 69 6c 64 2d 75 73 65 72  /home/build-user
+r14 0x0000000000000000  0
+r15 0x00005722cc0d4388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007d9d2576338d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (32 omitted):
+
+0x00007d9d2563c000–0x00007d9d257ebeb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

@@ -1,0 +1,48 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp2u_9mocq/9756039b.cc: In function 'void foo()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp2u_9mocq/9756039b.cc:9:29: internal compiler error: in gimplify_var_or_parm_decl, at gimplify.cc:3298
+    9 |         if (2 * sizeof(int) != sizeof((*({ int N = 2; int (*x)[9][N] = 0; x; })[1])))
+      |             ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x9396e5 gimplify_var_or_parm_decl
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:3298
+0x1672677 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20983
+0x16803b0 internal_get_tmp_var
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:694
+0x168366e get_initialized_tmp_var(tree_node*, gimple**, gimple**, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:754
+0x168366e gimplify_save_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:7683
+0x1673605 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20817
+0x1671f5d gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20619
+0x1671ec1 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:21341
+0x1671ec1 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:21341
+0x167ced8 gimplify_cond_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:5552
+0x16740eb gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20470
+0x1675c8a gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x16772f4 gimplify_bind_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:1561
+0x1672ef0 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20717
+0x1675c8a gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x16772f4 gimplify_bind_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:1561
+0x1672ef0 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20717
+0x167eea6 gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp2u_9mocq/9756039b.cc -quiet -dumpbase 9756039b.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Os -O2 -Wunused-variable -std=c++20 -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

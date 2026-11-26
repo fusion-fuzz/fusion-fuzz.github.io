@@ -1,0 +1,38 @@
+/tmp/test.c:1:44: error: implicit declaration of function 'step' [-Wimplicit-function-declaration]
+    1 | #pragma omp declare simd linear (val (x) : step (1))    /* { dg-error "is neither constant nor a parameter" } */
+      |                                            ^~~~
+/tmp/test.c:1:33: warning: specifying the list items as arguments to the modifiers is deprecated since OpenMP 5.2 [-Wdeprecated-openmp]
+    1 | #pragma omp declare simd linear (val (x) : step (1))    /* { dg-error "is neither constant nor a parameter" } */
+      |                                 ^
+      |                                  ----- -   --------
+      |                                            val, step (step (1))
+/tmp/test.c:1:33: error: 'linear' clause step 'step(1)' is neither constant nor a parameter
+/tmp/test.c:2:1: internal compiler error: in temp_pop_parm_decls, at c/c-decl.cc:11539
+    2 | int bar (int x, int y, int z);
+      | ^~~
+0x2cb9bab internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xcdc9e4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x785265 temp_pop_parm_decls()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-decl.cc:11539
+0xd92e69 c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3133
+0xd958c9 c_parser_omp_declare_simd
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:27827
+0xd6660f c_parser_omp_declare
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:29811
+0xd6660f c_parser_pragma
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:16248
+0xda23ca c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2237
+0xda3080 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xda3080 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xe28b99 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu -D_REENTRANT /tmp/test.c -quiet -dumpdir a- -dumpbase test.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O1 -std=c99 -fsyntax-only -fstack-protector-all -fopenmp -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

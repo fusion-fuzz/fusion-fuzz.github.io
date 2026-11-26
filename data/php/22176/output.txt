@@ -1,0 +1,15 @@
+=================================================================
+==822037==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 8 byte(s) in 1 object(s) allocated from:
+    #0 0x68077d in malloc (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x68077d)
+    #1 0x7f8a776926f9 in zip_close (/lib/x86_64-linux-gnu/libzip.so.4+0xd6f9)
+    #2 0x64e07e5 in zend_objects_store_call_destructors /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_objects_API.c:55:7
+    #3 0x58c5119 in shutdown_destructors /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_execute_API.c:261:3
+    #4 0x66414eb in zend_call_destructors /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend.c:1340:3
+    #5 0x4eb1f13 in php_request_shutdown /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:1983:3
+    #6 0x666da26 in do_cli /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:1166:3
+    #7 0x6662aef in main /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:1370:18
+    #8 0x7f8a77465d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+SUMMARY: AddressSanitizer: 8 byte(s) leaked in 1 allocation(s).

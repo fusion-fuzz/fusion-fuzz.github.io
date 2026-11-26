@@ -1,0 +1,51 @@
+/tmp/test.cc: In member function 'auto S::f()':
+/tmp/test.cc:6:12: error: 'e' was not declared in this scope
+    6 |   { return e; }
+      |            ^
+/tmp/test.cc:6:15: internal compiler error: in check_noexcept_r, at cp/except.cc:1063
+    6 |   { return e; }
+      |               ^
+0x3046dcb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xdd9a1e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x8047c6 check_noexcept_r
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/except.cc:1063
+0x1c31643 walk_tree_1(tree_node**, tree_node* (*)(tree_node**, int*, void*), void*, hash_set<tree_node*, false, default_hash_traits<tree_node*> >*, tree_node* (*)(tree_node**, int*, tree_node* (*)(tree_node**, int*, void*), void*, hash_set<tree_node*, false, default_hash_traits<tree_node*> >*))
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:11868
+0x1c35347 walk_tree_without_duplicates_1(tree_node**, tree_node* (*)(tree_node**, int*, void*), void*, tree_node* (*)(tree_node**, int*, tree_node* (*)(tree_node**, int*, void*), void*, hash_set<tree_node*, false, default_hash_traits<tree_node*> >*))
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:12131
+0xf0bcf3 expr_noexcept_p(tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/except.cc:1168
+0xe963d1 build_contract_check(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/contracts.cc:2968
+0xe7cb1f cp_genericize_r
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/cp-gimplify.cc:2188
+0x1c31643 walk_tree_1(tree_node**, tree_node* (*)(tree_node**, int*, void*), void*, hash_set<tree_node*, false, default_hash_traits<tree_node*> >*, tree_node* (*)(tree_node**, int*, tree_node* (*)(tree_node**, int*, void*), void*, hash_set<tree_node*, false, default_hash_traits<tree_node*> >*))
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:11868
+0x1c31885 walk_tree_1(tree_node**, tree_node* (*)(tree_node**, int*, void*), void*, hash_set<tree_node*, false, default_hash_traits<tree_node*> >*, tree_node* (*)(tree_node**, int*, tree_node* (*)(tree_node**, int*, void*), void*, hash_set<tree_node*, false, default_hash_traits<tree_node*> >*))
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:12105
+0xe7b871 cp_genericize_tree
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/cp-gimplify.cc:2626
+0xe7bc08 cp_genericize(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/cp-gimplify.cc:2768
+0xed6897 finish_function(bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:20982
+0xfe0b46 cp_parser_function_definition_after_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36367
+0xfe100c cp_parser_late_parsing_for_member
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:37247
+0xfe224b cp_parser_class_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:30300
+0xfe274f cp_parser_type_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:22507
+0xfff5e4 cp_parser_decl_specifier_seq
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18986
+0x10124af cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18086
+0x10221cf cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17744
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /tmp/test.cc -quiet -dumpdir a- -dumpbase test.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Og -ffast-math -fno-strict-aliasing -fcontracts -o /tmp/cct6ynpn.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

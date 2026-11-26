@@ -1,0 +1,115 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:16:35: error: 'A' was not declared in this scope
+   16 | static_assert (!__cxa_bad_typeid <A> ());
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:16:38: error: no matching function for call to '__cxa_bad_typeid<<expression error> >()'
+   16 | static_assert (!__cxa_bad_typeid <A> ());
+      |                 ~~~~~~~~~~~~~~~~~~~~~^~
+  • there is 1 candidate
+    • candidate 1: 'template<class to> constexpr bool __cxa_bad_typeid()'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:7:16:
+          7 | constexpr bool __cxa_bad_typeid ()
+            |                ^~~~~~~~~~~~~~~~
+      • template argument deduction/substitution failed:
+        • error: template argument 1 is invalid
+          /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:16:38:
+             16 | static_assert (!__cxa_bad_typeid <A> ());
+                |                 ~~~~~~~~~~~~~~~~~~~~~^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:17:38: error: 'B' was not declared in this scope
+   17 | constexpr bool a = __cxa_bad_typeid <B> ();     // { dg-message "in 'constexpr' expansion of" "" { target c++23_down } }
+      |                                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:17:41: error: no matching function for call to '__cxa_bad_typeid<<expression error> >()'
+   17 | constexpr bool a = __cxa_bad_typeid <B> ();     // { dg-message "in 'constexpr' expansion of" "" { target c++23_down } }
+      |                    ~~~~~~~~~~~~~~~~~~~~~^~
+  • there is 1 candidate
+    • candidate 1: 'template<class to> constexpr bool __cxa_bad_typeid()'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:7:16:
+          7 | constexpr bool __cxa_bad_typeid ()
+            |                ^~~~~~~~~~~~~~~~
+      • template argument deduction/substitution failed:
+        • error: template argument 1 is invalid
+          /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:17:41:
+             17 | constexpr bool a = __cxa_bad_typeid <B> ();     // { dg-message "in 'constexpr' expansion of" "" { target c++23_down } }
+                |                    ~~~~~~~~~~~~~~~~~~~~~^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:39:16: error: redefinition of 'constexpr const bool a'
+   39 | constexpr bool a = key <B> ();  // { dg-message "in 'constexpr' expansion of" "" { target c++23_down } }
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:17:16: note: 'constexpr const bool a' previously defined here
+   17 | constexpr bool a = __cxa_bad_typeid <B> ();     // { dg-message "in 'constexpr' expansion of" "" { target c++23_down } }
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc: In function 'constexpr bool i()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:72:26: error: declaration of 'const std::type_info& s' shadows template parameter [-Wtemplate-body]
+   72 |    const std::type_info &s = typeid( (a = true), *(s *) 0);     // { dg-error "call to non-'constexpr' function 'void __cxa_bad_typeid\\\(\\\)'" "" { target c++23_down } }
+      |                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:68:11: note: template parameter 's' declared here
+   68 | template <class s>
+      |           ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:72:41: error: assignment of read-only variable 'a' [-Wtemplate-body]
+   72 |    const std::type_info &s = typeid( (a = true), *(s *) 0);     // { dg-error "call to non-'constexpr' function 'void __cxa_bad_typeid\\\(\\\)'" "" { target c++23_down } }
+      |                                       ~~^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:72:55: error: expected primary-expression before ')' token [-Wtemplate-body]
+   72 |    const std::type_info &s = typeid( (a = true), *(s *) 0);     // { dg-error "call to non-'constexpr' function 'void __cxa_bad_typeid\\\(\\\)'" "" { target c++23_down } }
+      |                                                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:72:56: error: expected ')' before numeric constant [-Wtemplate-body]
+   72 |    const std::type_info &s = typeid( (a = true), *(s *) 0);     // { dg-error "call to non-'constexpr' function 'void __cxa_bad_typeid\\\(\\\)'" "" { target c++23_down } }
+      |                                    ~                   ^~
+      |                                                        )
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:77:16: error: non-constant condition for static assertion
+   77 | static_assert (!i <int> ());
+      |                ^~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:77:25: error: 'constexpr bool i() [with s = int]' called in a constant expression
+   77 | static_assert (!i <int> ());
+      |                 ~~~~~~~~^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:69:16: note: 'constexpr bool i() [with s = int]' is not usable as a 'constexpr' function because:
+   69 | constexpr bool i ()
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:78:16: error: non-constant condition for static assertion
+   78 | static_assert (!i <A> ());
+      |                ^~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:78:23: error: 'constexpr bool i() [with s = A]' called in a constant expression
+   78 | static_assert (!i <A> ());
+      |                 ~~~~~~^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:69:16: note: 'constexpr bool i() [with s = A]' is not usable as a 'constexpr' function because:
+   69 | constexpr bool i ()
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:79:16: error: redefinition of 'constexpr const bool a'
+   79 | constexpr bool a = i <B> ();    // { dg-message "in 'constexpr' expansion of" "" { target c++23_down } }
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:17:16: note: 'constexpr const bool a' previously defined here
+   17 | constexpr bool a = __cxa_bad_typeid <B> ();     // { dg-message "in 'constexpr' expansion of" "" { target c++23_down } }
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc: In instantiation of 'constexpr bool key() [with T = B]':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:39:28:   required from here
+   39 | constexpr bool a = key <B> ();  // { dg-message "in 'constexpr' expansion of" "" { target c++23_down } }
+      |                    ~~~~~~~~^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:30:30: error: overloaded function with no contextual type information
+   30 |    const std::type_info &s = typeid( (r = true), *(T *) 0);     // { dg-error "call to non-'constexpr' function 'void __cxa_bad_typeid\\\(\\\)'" "" { target c++23_down } }
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuqxwxen_/de9ee231.cc:30:30: internal compiler error: in build_call_a, at cp/call.cc:372
+0x306c5cb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00e5e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7b4590 build_call_a(tree_node*, int, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:372
+0xe10361 build_cxx_call(tree_node*, int, tree_node**, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:11606
+0x10dd0a3 throw_bad_typeid
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/rtti.cc:222
+0x10dd0a3 build_typeid(tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/rtti.cc:403
+0x107b40b tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:23147
+0x1080b0e tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:21649
+0x1080b0e tsubst_init
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:18655
+0x10ac309 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:20050
+0x10a9e61 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:19867
+0x10a8411 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:20308
+0x10b2892 tsubst_stmt
+	/hom
+[... truncated ...]

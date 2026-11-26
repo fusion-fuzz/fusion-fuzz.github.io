@@ -1,0 +1,14 @@
+F host_offloader.cc:351] Check failed: leaf.has_layout() Expecting output shape of entry computation to have a layout.
+*** Check failure stack trace: ***
+    @  absl::functional_internal::InvokeObject<>()
+    @  xla::ShapeUtil::ForEachLeafShape()
+    @  xla::HostOffloader::WalkDownHostMemoryOffloadPaths()
+    @  xla::HostOffloader::HandleMoveToHostCustomCall()
+    @  xla::HostOffloader::ProcessNextMoveToHostInstr()
+    @  xla::HostOffloader::RunImpl()
+    @  xla::HloPassInterface::Run()
+    @  xla::HloPassPipeline::RunHelper<>()
+    @  xla::HloPassPipeline::RunPassesInternal<>()
+    @  xla::HloPassPipeline::RunImpl()
+    @  xla::HloPassInterface::Run()
+    @  xla::gpu::GpuCompiler::OptimizeHloPostLayoutAssignment()

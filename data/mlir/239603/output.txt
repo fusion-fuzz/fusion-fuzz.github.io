@@ -1,0 +1,30 @@
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /opt/compiler-explorer/mlir-trunk/bin/mlir-opt -o /app/example.out.mlir --allow-unregistered-dialect <source>
+ #0 0x000000000211f158 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x211f158)
+ #1 0x000000000211c0bd SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #2 0x0000731737045330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #3 0x0000000009d6815b mlir::gpu::LaunchFuncOp::verifySymbolUses(mlir::SymbolTableCollection&) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x9d6815b)
+ #4 0x0000000009d68809 mlir::detail::SymbolUserOpInterfaceInterfaceTraits::Model<mlir::gpu::LaunchFuncOp>::verifySymbolUses(mlir::detail::SymbolUserOpInterfaceInterfaceTraits::Concept const*, mlir::Operation*, mlir::SymbolTableCollection&) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x9d68809)
+ #5 0x000000000ad90f57 std::optional<mlir::WalkResult> llvm::function_ref<std::optional<mlir::WalkResult> (mlir::Operation*)>::callback_fn<mlir::detail::verifySymbolTable(mlir::Operation*)::'lambda'(mlir::Operation*)>(long, mlir::Operation*) SymbolTable.cpp:0:0
+ #6 0x000000000ad92dd1 walkSymbolTable(llvm::MutableArrayRef<mlir::Region>, llvm::function_ref<std::optional<mlir::WalkResult> (mlir::Operation*)>) SymbolTable.cpp:0:0
+ #7 0x000000000ad98ccf mlir::detail::verifySymbolTable(mlir::Operation*) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0xad98ccf)
+ #8 0x000000000acebb28 mlir::RegisteredOperationName::Model<mlir::ModuleOp>::verifyRegionInvariants(mlir::Operation*) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0xacebb28)
+ #9 0x000000000ada467b (anonymous namespace)::OperationVerifier::verifyOperation(mlir::Operation&) Verifier.cpp:0:0
+#10 0x000000000ada4f12 (anonymous namespace)::OperationVerifier::verifyOperation(mlir::Operation&) Verifier.cpp:0:0
+#11 0x000000000ada57f5 mlir::verify(mlir::Operation*, bool) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0xada57f5)
+#12 0x000000000a7f7d92 mlir::parseAsmSourceFile(llvm::SourceMgr const&, mlir::Block*, mlir::ParserConfig const&, mlir::AsmParserState*, mlir::AsmParserCodeCompleteContext*) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0xa7f7d92)
+#13 0x0000000009536d54 mlir::parseSourceFile(std::shared_ptr<llvm::SourceMgr> const&, mlir::Block*, mlir::ParserConfig const&, mlir::LocationAttr*) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x9536d54)
+#14 0x00000000021d5895 performActions(llvm::raw_ostream&, std::shared_ptr<llvm::SourceMgr> const&, mlir::MLIRContext*, mlir::MlirOptMainConfig const&) MlirOptMain.cpp:0:0
+#15 0x00000000021d8bf5 processBuffer(llvm::raw_ostream&, std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, llvm::MemoryBufferRef, mlir::MlirOptMainConfig const&, mlir::DialectRegistry&, mlir::SourceMgrDiagnosticVerifierHandler*, llvm::ThreadPoolInterface*) MlirOptMain.cpp:0:0
+#16 0x00000000021d8d47 llvm::LogicalResult llvm::function_ref<llvm::LogicalResult (std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, llvm::MemoryBufferRef const&, llvm::raw_ostream&)>::callback_fn<mlir::MlirOptMain(llvm::raw_ostream&, std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, mlir::DialectRegistry&, mlir::MlirOptMainConfig const&)::'lambda'(std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, llvm::MemoryBufferRef, llvm::raw_ostream&)>(long, std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, llvm::MemoryBufferRef const&, llvm::raw_ostream&) MlirOptMain.cpp:0:0
+#17 0x000000000adbdbce mlir::splitAndProcessBuffer(std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, llvm::function_ref<llvm::LogicalResult (std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, llvm::MemoryBufferRef const&, llvm::raw_ostream&)>, llvm::raw_ostream&, llvm::StringRef, llvm::StringRef) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0xadbdbce)
+#18 0x00000000021cf250 mlir::MlirOptMain(llvm::raw_ostream&, std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, mlir::DialectRegistry&, mlir::MlirOptMainConfig const&) (.part.0) MlirOptMain.cpp:0:0
+#19 0x00000000021d927c mlir::MlirOptMain(int, char**, llvm::StringRef, llvm::StringRef, mlir::DialectRegistry&) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x21d927c)
+#20 0x00000000021d94ac mlir::MlirOptMain(int, char**, llvm::StringRef, mlir::DialectRegistry&) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x21d94ac)
+#21 0x00000000020a5215 main (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x20a5215)
+#22 0x000073173702a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#23 0x000073173702a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#24 0x00000000020fe7f5 _start (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x20fe7f5)
+Program terminated with signal SIGSEGV (11)
+Compiler returned: 139

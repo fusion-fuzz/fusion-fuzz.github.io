@@ -1,0 +1,81 @@
+HloModule m
+
+%add_a {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  %s = u64[2] rng-get-and-update-state(), delta=16
+  ROOT %r = f32[] add(x, y)
+}
+
+%fused_a {
+  %p0 = f32[16] parameter(0)
+  %zero = f32[] constant(0)
+  ROOT %r = f32[] reduce(p0, zero), dimensions={0}, to_apply=add_a
+}
+
+%call_a {
+  %p0 = f32[16] parameter(0)
+  ROOT %f = f32[] fusion(p0), kind=kLoop, calls=fused_a
+}
+
+%add_b {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  %s = u64[2] rng-get-and-update-state(), delta=16
+  ROOT %r = f32[] add(x, y)
+}
+
+%fused_b {
+  %p0 = f32[16] parameter(0)
+  %zero = f32[] constant(0)
+  ROOT %r = f32[] reduce(p0, zero), dimensions={0}, to_apply=add_b
+}
+
+%call_b {
+  %p0 = f32[16] parameter(0)
+  ROOT %f = f32[] fusion(p0), kind=kLoop, calls=fused_b
+}
+
+%InnerFn {
+  %c0 = f32[] constant(0)
+  %c1 = f32[] constant(1)
+  ROOT %rng = f32[10] rng(c0, c1), distribution=rng_uniform
+}
+
+%Fn {
+  ROOT %fusion = f32[10] fusion(), kind=kLoop, calls=%InnerFn
+}
+
+%InnerFn.d {
+  %c0 = f32[] constant(0)
+  %c1 = f32[] constant(1)
+  ROOT %rng = f32[10] rng(c0, c1), distribution=rng_uniform
+}
+
+%Fn.d {
+  ROOT %fusion = f32[10] fusion(), kind=kLoop, calls=%InnerFn.d
+}
+
+%InnerFn.d.1 {
+  %c0 = f32[] constant(0)
+  %c1 = f32[] constant(1)
+  ROOT %rng = f32[10] rng(c0, c1), distribution=rng_uniform
+}
+
+%Fn.d.1 {
+  ROOT %fusion = f32[10] fusion(), kind=kLoop, calls=%InnerFn.d.1
+}
+
+ENTRY %e {
+  %p0 = f32[16] parameter(0)
+  %p1 = f32[16] parameter(1)
+  %c0 = f32[] call(p0), to_apply=call_a
+  %c1 = f32[] call(p1), to_apply=call_b
+  %t = (f32[], f32[]) tuple(c0, c1)
+  %ffl.call = f32[10] call(), to_apply=%Fn
+  %call.d = f32[10] call(), to_apply=%Fn.d.1
+  %ffl.root = ((f32[], f32[]), f32[10]) tuple(%t, %ffl.call)
+  %call = f32[10] call(), to_apply=%Fn.d
+  %ffl.root.1 = ((f32[], f32[]), f32[10], f32[10]) tuple(%t, %ffl.call, %call)
+  ROOT %ffl.root.2 = ((f32[], f32[]), f32[10], f32[10], f32[10]) tuple(%t, %ffl.call, %call, %call.d)
+}

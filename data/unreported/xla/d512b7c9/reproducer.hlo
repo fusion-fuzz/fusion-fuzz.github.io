@@ -1,0 +1,61 @@
+HloModule module
+
+%add {
+  ROOT %add = f32[] add(f32[] parameter(0), f32[] parameter(1))
+}
+
+%condition {
+  %param = (s32[], f32[4,128], f32[512]) parameter(0)
+  %indvar = s32[] get-tuple-element(param), index=0
+  %limit = s32[] constant(4)
+  ROOT %result = pred[] compare(indvar, limit), direction=LT
+}
+
+%body {
+  %param = (s32[], f32[4,128], f32[512]) parameter(0)
+  %indvar = s32[] get-tuple-element(param), index=0
+  %buffer = f32[4,128] get-tuple-element(param), index=1
+  %input = f32[512] get-tuple-element(param), index=2
+  %one = s32[] constant(1)
+  %next_indvar = s32[] add(indvar, one)
+  %rs = f32[128] reduce-scatter(input), channel_id=1, replica_groups={{0,1,2,3}}, use_global_device_ids=true, dimensions={0}, to_apply=add
+  %update = f32[1,128] reshape(rs)
+  %zero = s32[] constant(0)
+  %buffer_updated = f32[4,128] dynamic-update-slice(buffer, update, indvar, zero)
+  ROOT %tuple = (s32[], f32[4,128], f32[512]) tuple(next_indvar, buffer_updated, input)
+}
+
+%add.d {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  ROOT %sum = f32[] add(x, y)
+}
+
+%add.d.1 {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  ROOT %sum = f32[] add(x, y)
+}
+
+%add.d.2 {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  ROOT %sum = f32[] add(x, y)
+}
+
+ENTRY %entry {
+  %p0 = f32[512] parameter(0)
+  %p1 = f32[4,128] parameter(1)
+  %c0 = s32[] constant(0)
+  %init = (s32[], f32[4,128], f32[512]) tuple(c0, p1, p0)
+  %loop = (s32[], f32[4,128], f32[512]) while(init), condition=condition, body=body
+  %result = f32[4,128] get-tuple-element(loop), index=1
+  %p0.d = f32[1] parameter(2)
+  %start = f32[1] all-reduce-start(%p0.d), to_apply=%add.d.1, frontend_attributes={collective_communication_domain="scale_up_fabric"}
+  %done = f32[1] all-reduce-done(%start)
+  %ffl.root = (f32[4,128], f32[1]) tuple(%result, %done)
+  %p0.d.1 = f32[1] parameter(3)
+  %start.d = f32[1] all-reduce-start(%p0.d), to_apply=%add.d.2, frontend_attributes={collective_communication_domain="scale_up_fabric"}
+  %done.d = f32[1] all-reduce-done(%start.d)
+  ROOT %ffl.root.1 = (f32[4,128], f32[1], f32[1]) tuple(%result, %done, %done.d)
+}

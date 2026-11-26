@@ -1,0 +1,33 @@
+HloModule module, num_partitions=2
+
+ENTRY %entry {
+  %lhs = f32[4,4]{1,0} parameter(0), sharding={replicated}
+  %rhs = f32[1,4]{1,0} parameter(1), sharding={replicated}
+  %param0 = f32[20,8]{1,0} parameter(2)
+  %reshape0 = f32[8,20]{1,0} reshape(%param0)
+  %param1 = f32[] parameter(3)
+  %broadcast0 = f32[8,20]{1,0} broadcast(%param1), dimensions={}
+  %param2 = f32[20,8]{1,0} parameter(4)
+  %reshape1 = f32[8,20]{1,0} reshape(%param2)
+  %param3 = f32[20,8]{1,0} parameter(5)
+  %reshape2 = f32[8,20]{1,0} reshape(%param3)
+  %add0 = f32[8,20]{1,0} add(%reshape0, %broadcast0)
+  %add1 = f32[8,20]{1,0} add(%reshape0, %reshape1)
+  %add2 = f32[8,20]{1,0} add(%reshape1, %reshape2)
+  %tuple = (f32[8,20]{1,0},f32[8,20]{1,0}, f32[8,20]{1,0}) tuple(%add0, %add1, %add2)
+  %dot = f32[4,1]{1,0} dot(lhs, rhs), lhs_contracting_dims={1}, rhs_contracting_dims={1}, sharding={devices=[2,1]<=[2]}
+  %ffl.root = (f32[4,1]{1,0}, (f32[8,20]{1,0},f32[8,20]{1,0}, f32[8,20]{1,0})) tuple(%dot, %tuple)
+  %param0.d = f32[20,8]{1,0} parameter(6)
+  %reshape0.d = f32[8,20]{1,0} reshape(%param0.d)
+  %param1.d = f32[] parameter(7)
+  %broadcast0.d = f32[8,20]{1,0} broadcast(%param1.d), dimensions={}
+  %param2.d = f32[20,8]{1,0} parameter(8)
+  %reshape1.d = f32[8,20]{1,0} reshape(%param2.d)
+  %param3.d = f32[20,8]{1,0} parameter(9)
+  %reshape2.d = f32[8,20]{1,0} reshape(%param3.d)
+  %add0.d = f32[8,20]{1,0} add(%reshape0.d, %broadcast0.d)
+  %add1.d = f32[8,20]{1,0} add(%reshape0.d, %ffl.root)
+  %add2.d = f32[8,20]{1,0} add(%reshape1.d, %reshape2.d)
+  %tuple.d = (f32[8,20]{1,0},f32[8,20]{1,0}, f32[8,20]{1,0}) tuple(%add0.d, %add1.d, %add2.d)
+  ROOT %ffl.root.1 = (f32[4,1]{1,0}, (f32[8,20]{1,0},f32[8,20]{1,0}, f32[8,20]{1,0}), (f32[8,20]{1,0},f32[8,20]{1,0}, f32[8,20]{1,0})) tuple(%dot, %tuple, %tuple.d)
+}

@@ -1,0 +1,42 @@
+triton-opt: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-src/third_party/nvidia/lib/TritonNVIDIAGPUToLLVM/DotOpToLLVM/MMAv5.cpp:738: llvm::LogicalResult (anonymous namespace)::convertDot(const mlir::LLVMTypeConverter &, mlir::ConversionPatternRewriter &, mlir::Location, ttng::TCGen5MMAOp, ttng::TCGen5MMAOpAdaptor &, const ttng::TargetFeatures &): Assertion `twoCTAs == op.getTwoCtas()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmpe1c_wptj/d730ed5f.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic --allocate-shared-memory --tritongpu-global-scratch-memory-allocation --convert-triton-gpu-to-llvm
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x00005fa7f80d948a
+1  triton-opt 0x00005fa7f80d638e
+2  triton-opt 0x00005fa7f80da38b
+3  libc.so.6  0x00007db1c52ff520
+4  libc.so.6  0x00007db1c53539bc pthread_kill + 300
+5  libc.so.6  0x00007db1c52ff476 raise + 22
+6  libc.so.6  0x00007db1c52e57f3 abort + 211
+7  libc.so.6  0x00007db1c52e571b
+8  libc.so.6  0x00007db1c52f6e96
+9  triton-opt 0x00005fa7f0769937
+10 triton-opt 0x00005fa7f0775b13
+11 triton-opt 0x00005fa7f0770c7f
+12 triton-opt 0x00005fa7f7447d74
+13 triton-opt 0x00005fa7f74a3482
+14 triton-opt 0x00005fa7f749faf4
+15 triton-opt 0x00005fa7f7449b3e
+16 triton-opt 0x00005fa7f7449315
+17 triton-opt 0x00005fa7f744a5ee
+18 triton-opt 0x00005fa7f7459df8
+19 triton-opt 0x00005fa7f7450475
+20 triton-opt 0x00005fa7f745054b
+21 triton-opt 0x00005fa7f07cb21d
+22 triton-opt 0x00005fa7f0aa789b
+23 triton-opt 0x00005fa7f0aa8419
+24 triton-opt 0x00005fa7f0aaf432
+25 triton-opt 0x00005fa7f0aaeca2
+26 triton-opt 0x00005fa7f0a99d37
+27 triton-opt 0x00005fa7f0a98fcc
+28 triton-opt 0x00005fa7f7cf76b1
+29 triton-opt 0x00005fa7f0a8f332
+30 triton-opt 0x00005fa7f0a8f731
+31 triton-opt 0x00005fa7f0a8f96d
+32 triton-opt 0x00005fa7f0a7a92c
+33 libc.so.6  0x00007db1c52e6d90
+34 libc.so.6  0x00007db1c52e6e40 __libc_start_main + 128
+35 triton-opt 0x00005fa7f0021df5
+Aborted (core dumped)

@@ -1,0 +1,7 @@
+$ lfortran -S -o /dev/null repro.f90        # ok
+$ lfortran --show-llvm repro.f90 >/dev/null # ok
+$ lfortran --show-asm repro.f90
+src/libasr/codegen/asr_to_llvm.cpp:13424:28: runtime error: member call on misaligned address 0x7e6a2ac051a4 for type 'struct Value', ...
+  File "src/libasr/codegen/asr_to_llvm.cpp", line 14783, in ASRToLLVMVisitor::visit_Assignment(ASR::Assignment_t const&)
+  File "src/libasr/codegen/asr_to_llvm.cpp", line 13424, in ASRToLLVMVisitor::logical_store_val(llvm::Value*, ASR::expr_t*)
+Segfault: Signal SIGSEGV (segmentation fault) received

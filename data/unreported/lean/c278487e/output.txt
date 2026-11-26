@@ -1,0 +1,79 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpboffq96z/2b49fa2b.lean:11:8: warning: declaration uses `sorry`
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpboffq96z/2b49fa2b.lean:37:8: warning: declaration uses `sorry`
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpboffq96z/2b49fa2b.lean:84:58: error: Application type mismatch: The argument
+  a
+has type
+  α
+of sort `Type` but is expected to have type
+  Type ?u.9
+of sort `Type (?u.9 + 1)` in the application
+  LT.{?u.9} a
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpboffq96z/2b49fa2b.lean:86:77: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  LT.{0} α_ffl2
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpboffq96z/2b49fa2b.lean:90:4: warning: declaration uses `sorry`
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpboffq96z/2b49fa2b.lean:95:17: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  LT.{0} α_ffl2
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpboffq96z/2b49fa2b.lean:97:0: warning: declaration uses `sorry`
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpboffq96z/2b49fa2b.lean:100:2: error: `grind` failed
+case grind
+inst : Preorder_ffl α_ffl
+inst_1 : Preorder α
+inst_2 : Preorder_ffl2.{u_1} α_ffl2
+h : ¬LE.le.{0} a_ffl2 b_ffl2
+⊢ False
+[grind] Goal diagnostics
+  [facts] Asserted facts
+    [prop] ¬LE.le.{0} a_ffl2 b_ffl2
+  [eqc] False propositions
+    [prop] LE.le.{0} a_ffl2 b_ffl2
+PANIC at _private.Lean.Meta.SynthInstance.0.Lean.Meta.panicCacheHitDiffers Lean.Meta.SynthInstance:1198:9: type class resolution cache hit differs from recomputation for
+  LE.{0} α_ffl2
+cached: Preorder_ffl2.toLE.{?_uniq.2114} α_ffl2 _uniq.2115
+recomputed: Preorder_ffl2.toLE.{u_1} α_ffl2 _uniq.2115
+a dependency of the entry was not recorded
+backtrace:
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(+0x9b66cc5) [0x7fcfd9d66cc5]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(+0x9b58353) [0x7fcfd9d58353]
+[... 11 lines / 1,833 bytes of output truncated — no crash signature found; head and tail kept ...]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Sym.Canon.canon.canonInst' [private]+0x34d) [0x7fcfd762610d]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Sym.Canon.canon.canonInst [private]+0x7c9) [0x7fcfd7626b39]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(WellFounded.opaqueFix₃ [λ, arity↓] spec at Lean.Meta.Sym.Canon.canon.canonAppDefault+0x579) [0x7fcfd762a9c9]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(WellFounded.opaqueFix₃ [arity↓] spec at Lean.Meta.Sym.Canon.canon.canonAppDefault+0x602) [0x7fcfd762b3d2]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Expr.withAppAux spec at Lean.Meta.Sym.Canon.canon.canonAppDefault+0xce9) [0x7fcfd762c9f9]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Sym.Canon.canon.canonAppDefault [private]+0xf0) [0x7fcfd7625d40]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Sym.Canon.canon.canonAppAndPost [private]+0x26) [0x7fcfd762de36]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Sym.Canon.canon.canonApp [private]+0x6bd) [0x7fcfd763005d]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Sym.Canon.canon [private]+0x2699) [0x7fcfd7623099]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(WellFounded.opaqueFix₃ [λ, arity↓] spec at Lean.Meta.Sym.Canon.canon.canonAppDefault+0x20c) [0x7fcfd762a65c]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(WellFounded.opaqueFix₃ [arity↓] spec at Lean.Meta.Sym.Canon.canon.canonAppDefault+0x602) [0x7fcfd762b3d2]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Expr.withAppAux spec at Lean.Meta.Sym.Canon.canon.canonAppDefault+0xce9) [0x7fcfd762c9f9]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Sym.Canon.canon.canonAppDefault [private]+0xf0) [0x7fcfd7625d40]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Sym.Canon.canon.canonAppAndPost [private]+0x26) [0x7fcfd762de36]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Sym.Canon.canon.canonApp [private]+0x6bd) [0x7fcfd763005d]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Sym.Canon.canon [private]+0x2699) [0x7fcfd7623099]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Sym.canon [λ]+0x85) [0x7fcfd7634985]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Sym.canon [boxed, λ]+0x3c) [0x7fcfd7634dfc]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(<apply/1>+0x2077) [0x7fcfd9d6cb27]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.profileitIOUnsafe [λ, arity↓]+0xb) [0x7fcfd3ff3d8b]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(lean_profileit+0x7d) [0x7fcfd9d2e19d]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.profileitIOUnsafe [arity↓]+0x82) [0x7fcfd3ff3f12]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Sym.canon+0x8e) [0x7fcfd7634f9e]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(lean_grind_preprocess+0x1646) [0x7fcfd7bc05b6]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Grind.preprocessHypothesis+0x68a) [0x7fcfd7e037fa]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Grind.introNext [λ, private]+0xa0a) [0x7fcfd7e10b5a]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Grind.introNext [boxed, λ, private]+0x3d) [0x7fcfd7e133ed]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(<apply/10>+0x81c) [0x7fcfd9da2dbc]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MVarId.withContext [λ, arity↓] spec at Lean.Meta.Grind.introNext+0x73) [0x7fcfd7e0a943]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MVarId.withContext [boxed, λ, arity↓] spec at Lean.Meta.Grind.introNext+0x34) [0x7fcfd7e0a9d4]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(<apply/5>+0x11f5) [0x7fcfd9d8cb35]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.withMVarContextImp [arity↓, private]+0x153) [0x7fcfd4289833]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MVarId.withContext [arity↓] spec at Lean.Meta.Grind.introNext+0xf4) [0x7fcfd7e0ab94]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Grind.introNext [private]+0x96) [0x7fcfd7e0fd86]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Grind.Action.intro+0x3bd) [0x7fcfd7e1c62d]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Grind.Action.intro [boxed]+0x44) [0x7fcfd7e1e684]
+/home/fuzz/WorkSpace/fusion-fuzz/proj
+[... truncated ...]

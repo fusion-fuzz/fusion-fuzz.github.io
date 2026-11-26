@@ -1,0 +1,66 @@
+[... 204 lines / 32,697 bytes of output truncated — no crash signature found; showing tail ...]
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:544:19
+        97: std::panic::catch_unwind::<core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}::{closure#0}>, ()>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panic.rs:359:14
+        98: rustc_interface::interface::run_compiler::<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/interface.rs:504:23
+        99: rustc_interface::util::run_in_thread_pool_with_globals::<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/util.rs:219:17
+       100: rustc_interface::util::run_in_thread_with_globals::<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/util.rs:176:24
+       101: <scoped_tls::ScopedKey<rustc_span::SessionGlobals>>::set::<rustc_interface::util::run_in_thread_with_globals<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}::{closure#0}, ()>
+                   at /home/fuzz/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/scoped-tls-1.0.1/src/lib.rs:137:9
+       102: rustc_span::create_session_globals_then::<(), rustc_interface::util::run_in_thread_with_globals<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}::{closure#0}>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_span/src/lib.rs:156:21
+       103: rustc_interface::util::run_in_thread_with_globals::<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/util.rs:172:17
+       104: std::sys::backtrace::__rust_begin_short_backtrace::<rustc_interface::util::run_in_thread_with_globals<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}, ()>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/sys/backtrace.rs:166:18
+       105: std::thread::lifecycle::spawn_unchecked::<rustc_interface::util::run_in_thread_with_globals<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}, ()>::{closure#1}::{closure#0}
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/lifecycle.rs:70:13
+       106: <core::panic::unwind_safe::AssertUnwindSafe<std::thread::lifecycle::spawn_unchecked<rustc_interface::util::run_in_thread_with_globals<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}, ()>::{closure#1}::{closure#0}> as core::ops::function::FnOnce<()>>::call_once
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panic/unwind_safe.rs:275:9
+       107: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<std::thread::lifecycle::spawn_unchecked<rustc_interface::util::run_in_thread_with_globals<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}, ()>::{closure#1}::{closure#0}>, ()>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:576:43
+       108: std::panicking::catch_unwind::<(), core::panic::unwind_safe::AssertUnwindSafe<std::thread::lifecycle::spawn_unchecked<rustc_interface::util::run_in_thread_with_globals<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}, ()>::{closure#1}::{closure#0}>>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:544:19
+       109: std::panic::catch_unwind::<core::panic::unwind_safe::AssertUnwindSafe<std::thread::lifecycle::spawn_unchecked<rustc_interface::util::run_in_thread_with_globals<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}, ()>::{closure#1}::{closure#0}>, ()>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panic.rs:359:14
+       110: std::thread::lifecycle::spawn_unchecked::<rustc_interface::util::run_in_thread_with_globals<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}, ()>::{closure#1}
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/lifecycle.rs:68:26
+       111: <std::thread::lifecycle::spawn_unchecked<rustc_interface::util::run_in_thread_with_globals<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}, ()>::{closure#1} as core::ops::function::FnOnce<()>>::call_once::{shim:vtable#0}
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/ops/function.rs:250:5
+       112: <alloc::boxed::Box<dyn core::ops::function::FnOnce<(), Output = ()> + core::marker::Send> as core::ops::function::FnOnce<()>>::call_once
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/alloc/src/boxed.rs:2320:9
+       113: <std::sys::thread::unix::Thread>::new::thread_start
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/sys/thread/unix.rs:123:17
+       114: <unknown>
+       115: clone
+      
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmptyzi8bei/b9c3f071.rs:7:18
+  |
+7 | #![register_tool(rustc)] //~ ERROR reserved
+  |                  ^^^^^
+
+error: internal compiler error: tool `rustc` is reserved and cannot be registered
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmptyzi8bei/b9c3f071.rs:7:18
+  |
+7 | #![register_tool(rustc)] //~ ERROR reserved
+  |                  ^^^^^
+  |
+note: delayed at compiler/rustc_attr_parsing/src/attributes/crate_level.rs:365:36
+         0: <rustc_errors::DiagCtxtInner>::emit_diagnostic
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1284:41
+         1: <rustc_errors::DiagCtxtHandle>::emit_diagnostic
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:876:33
+         2: <rustc_errors::diagnostic::Diag>::emit_producing_error_guaranteed
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1312:29
+         3: <rustc_errors::diagnostic::Diag>::emit
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1319:9
+         4: <rustc_errors::diagnostic::Diag>::delay_as_bug
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1367:14
+         5: <rustc_attr_parsing::context::ShouldEmit>::emit_err
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_attr_parsing/src/context.rs:903:41
+         6: rustc_attr_parsing::attributes::crate_level::parse_register_tool
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_attr_parsi
+[... truncated ...]

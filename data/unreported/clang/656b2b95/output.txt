@@ -1,0 +1,75 @@
+clang: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp:775: void getCopyToPartsVector(llvm::SelectionDAG &, const llvm::SDLoc &, llvm::SDValue, llvm::SDValue *, unsigned int, llvm::MVT, const llvm::Value *, std::optional<CallingConv::ID>): Assertion `RegisterVT == PartVT && "Part type doesn't match vector breakdown!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -c -o /dev/null -O3 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -target powerpc64-unknown-aix -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmps1q3lhjb/0fdea12b.c
+1.	<eof> parser at end of file
+2.	Code generation
+3.	Running pass 'Function Pass Manager' on module '/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmps1q3lhjb/0fdea12b.c'.
+4.	Running pass 'PowerPC DAG->DAG Pattern Instruction Selection' on function '@foo'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x00005e73267da8cb __interceptor_backtrace + 91
+1  clang     0x00005e732c488037 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang     0x00005e732c481d03 llvm::sys::RunSignalHandlers() + 275
+3  clang     0x00005e732c4869d4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang     0x00005e732c2d20d5
+5  clang     0x00005e732c2d28e3
+6  libc.so.6 0x00007cfb45028520
+7  libc.so.6 0x00007cfb4507c9bc pthread_kill + 300
+8  libc.so.6 0x00007cfb45028476 raise + 22
+9  libc.so.6 0x00007cfb4500e7f3 abort + 211
+10 libc.so.6 0x00007cfb4500e71b
+11 libc.so.6 0x00007cfb4501fe96
+12 clang     0x00005e732fe61e43
+13 clang     0x00005e732fe5c832 llvm::RegsForValue::getCopyToRegs(llvm::SDValue, llvm::SelectionDAG&, llvm::SDLoc const&, llvm::SDValue&, llvm::SDValue*, llvm::Value const*, llvm::ISD::NodeType) const + 1506
+14 clang     0x00005e732ff54fd8
+15 clang     0x00005e732fec9db6 llvm::SelectionDAGBuilder::visitInlineAsm(llvm::CallBase const&, llvm::BasicBlock const*) + 11814
+16 clang     0x00005e732fe90938 llvm::SelectionDAGBuilder::visitCall(llvm::CallInst const&) + 232
+17 clang     0x00005e732fe6e530 llvm::SelectionDAGBuilder::visit(llvm::Instruction const&) + 1040
+18 clang     0x00005e73300c51db llvm::SelectionDAGISel::SelectBasicBlock(llvm::ilist_iterator_w_bits<llvm::ilist_detail::node_options<llvm::Instruction, true, false, void, true, llvm::BasicBlock>, false, true>, llvm::ilist_iterator_w_bits<llvm::ilist_detail::node_options<llvm::Instruction, true, false, void, true, llvm::BasicBlock>, false, true>, bool&) + 603
+19 clang     0x00005e73300c2958 llvm::SelectionDAGISel::SelectAllBasicBlocks(llvm::Function const&) + 17096
+20 clang     0x00005e73300bad77 llvm::SelectionDAGISel::runOnMachineFunction(llvm::MachineFunction&) + 2359
+21 clang     0x00005e732921a5c2
+22 clang     0x00005e73300b5e33 llvm::SelectionDAGISelLegacy::runOnMachineFunction(llvm::MachineFunction&) + 835
+23 clang     0x00005e732a2f5235 llvm::MachineFunctionPass::runOnFunction(llvm::Function&) + 1333
+24 clang     0x00005e732b49959e llvm::FPPassManager::runOnFunction(llvm::Function&) + 2030
+25 clang     0x00005e732b4aeb84 llvm::FPPassManager::runOnModule(llvm::Module&) + 276
+26 clang     0x00005e732b49b9e3 llvm::legacy::PassManagerImpl::run(llvm::Module&) + 6291
+27 clang     0x00005e732f3b124f llvm::runCodeGenPipeline(llvm::TargetMachine&, llvm::Module&, llvm::raw_pwrite_stream&, std::unique_ptr<llvm::ToolOutputFile, std::default_delete<llvm::ToolOutputFile>>&, llvm::CodeGenFileType, bool, bool, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) + 3231
+28 clang     0x00005e732d004c67
+29 clang     0x00005e732cfffd78 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 6936
+30 clang     0x00005e732e1d3c28 clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 4744
+31 clang     0x00005e73329e2f74 clang::ParseAST(clang::Sema&, bool, bool) + 1716
+32 clang     0x00005e732e1db2ab clang::CodeGenAction::ExecuteAction() + 1771
+33 clang     0x00005e732e89952e clang::FrontendAction::Execute() + 222
+34 clang     0x00005e732e72a900 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+35 clang     0x00005e732ea7e2df clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 751
+36 clang     0x00005e73268703e6 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4390
+37 clang     0x00005e7326864349
+38 clang     0x00005e732686e887
+39 clang     0x00005e732e301d37
+40 clang     0x00005e732c2d1e8d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+41 clang     0x00005e732e2ff23a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+42 clang     0x00005e732e24fbbc clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+43 clang     0x00005e732e25134b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+44 clang     0x00005e732e2a0940 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+45 clang     0x00005e7326862777 clang_main(int, char**, llvm::ToolContext const&) + 12295
+46 clang     0x00005e73268920f7 main + 567
+47 libc.so.6 0x00007cfb4500fd90
+48 libc.so.6 0x00007cfb4500fe40 __libc_start_main + 128
+49 clang     0x00005e732679ed95 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git cd9c8d090c1a87ebc619e7aba9a036f06466be5e)
+Target: powerpc64-unknown-aix
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang: note: diagnostic msg: /tmp/0fdea12b-5c6fdf.c
+clang: note: diagnostic msg: /tmp/0fdea12b-5c6fdf.sh
+clang: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

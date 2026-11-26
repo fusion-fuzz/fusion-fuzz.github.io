@@ -1,0 +1,79 @@
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGStmt.cpp:1756: void clang::CodeGen::CodeGenFunction::EmitBreakStmt(const clang::BreakStmt&): Assertion `!BreakContinueStack.empty() && "break stmt not in a loop or switch!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -Os -std=c++23 -fblocks -fobjc-runtime=gnustep-2.0 -fno-objc-arc -fno-elide-constructors -fsanitize=undefined -target x86_64-pc-win32 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpx40uvg_7/0a76fff0.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpx40uvg_7/0a76fff0.mm:44:1: current parser token 'int'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpx40uvg_7/0a76fff0.mm:19:6: LLVM IR generation of declaration 'f1'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpx40uvg_7/0a76fff0.mm:19:6: Generating code for declaration 'f1'
+4.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpx40uvg_7/0a76fff0.mm:22:13: LLVM IR generation of compound statement ('{}')
+5.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpx40uvg_7/0a76fff0.mm:34:16: LLVM IR generation of compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000060dafcba8329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000060dafcba4fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000060dafcba58a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000060dafcae7218
+4  libc.so.6 0x000075f0b46f7520
+5  libc.so.6 0x000075f0b474b9bc pthread_kill + 300
+6  libc.so.6 0x000075f0b46f7476 raise + 22
+7  libc.so.6 0x000075f0b46dd7f3 abort + 211
+8  libc.so.6 0x000075f0b46dd71b
+9  libc.so.6 0x000075f0b46eee96
+10 clang++   0x000060dafd223fe9
+11 clang++   0x000060dafd23e455 clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 309
+12 clang++   0x000060dafd23587a clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 138
+13 clang++   0x000060dafd23df3c clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+14 clang++   0x000060dafd23e2d4 clang::CodeGen::CodeGenFunction::EmitCompoundStmt(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 244
+15 clang++   0x000060dafd23e513 clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 499
+16 clang++   0x000060dafd23587a clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 138
+17 clang++   0x000060dafd234c32 clang::CodeGen::CodeGenFunction::GenerateCapturedStmtFunction(clang::CapturedStmt const&) + 2194
+18 clang++   0x000060dafd2352ab clang::CodeGen::CodeGenFunction::EmitCapturedStmt(clang::CapturedStmt const&, clang::CapturedRegionKind) + 379
+19 clang++   0x000060dafd18a19b clang::CodeGen::CGObjCRuntime::EmitTryCatchStmt(clang::CodeGen::CodeGenFunction&, clang::ObjCAtTryStmt const&, llvm::FunctionCallee, llvm::FunctionCallee, llvm::FunctionCallee) + 3563
+20 clang++   0x000060dafd64f30e
+21 clang++   0x000060dafd23df3c clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+22 clang++   0x000060dafd23e2d4 clang::CodeGen::CodeGenFunction::EmitCompoundStmt(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 244
+23 clang++   0x000060dafd23e513 clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 499
+24 clang++   0x000060dafd23587a clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 138
+25 clang++   0x000060dafd23c0ef clang::CodeGen::CodeGenFunction::EmitWhileStmt(clang::WhileStmt const&, llvm::ArrayRef<clang::Attr const*>) + 1791
+26 clang++   0x000060dafd23df3c clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+27 clang++   0x000060dafd2a7901 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) + 177
+28 clang++   0x000060dafd2be9d4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 1396
+29 clang++   0x000060dafd328ce8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 2152
+30 clang++   0x000060dafd321f64 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 580
+31 clang++   0x000060dafd322e60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+32 clang++   0x000060dafd32e335
+33 clang++   0x000060dafd6d1ef1
+34 clang++   0x000060dafd6c10f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+35 clang++   0x000060daff39e61c clang::ParseAST(clang::Sema&, bool, bool) + 508
+36 clang++   0x000060dafda3f061 clang::FrontendAction::Execute() + 65
+37 clang++   0x000060dafd9c8e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+38 clang++   0x000060dafdb16de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+39 clang++   0x000060dafa97233e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+40 clang++   0x000060dafa96813a
+41 clang++   0x000060dafa9682cf
+42 clang++   0x000060dafd74dcfd
+43 clang++   0x000060dafcae7630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+44 clang++   0x000060dafd74eb53
+45 clang++   0x000060dafd703607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+46 clang++   0x000060dafd707ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+47 clang++   0x000060dafd716004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+48 clang++   0x000060dafa96d923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+49 clang++   0x000060dafa8a97f1 main + 113
+50 libc.so.6 0x000075f0b46ded90
+51 libc.so.6 0x000075f0b46dee40 __libc_start_main + 128
+52 clang++   0x000060dafa967765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-pc-windows-msvc
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/0a76fff0-fb08bd.mm
+clang++: note: diagnostic msg: /tmp/0a76fff0-fb08bd.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

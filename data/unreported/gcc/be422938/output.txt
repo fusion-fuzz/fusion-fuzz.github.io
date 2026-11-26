@@ -1,0 +1,32 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnu7xhyn2/afd295e7.c: In function 'foo2':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnu7xhyn2/afd295e7.c:31:1: warning: AVX vector return without AVX enabled changes the ABI [-Wpsabi]
+   31 | {
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnu7xhyn2/afd295e7.c:50:1: error: unrecognizable insn:
+   50 | }
+      | ^
+(insn 3 2 4 2 (set (reg:V8SI 101)
+        (mem:V8SI (reg:SI 5 di) [0 ptr S256 A256])) -1
+     (nil))
+during RTL pass: vregs
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnu7xhyn2/afd295e7.c:50:1: internal compiler error: in extract_insn, at recog.cc:2895
+0x2cb9bab internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xcdc9e4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x8c565f _fatal_insn(char const*, rtx_def const*, char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/rtl-error.cc:108
+0x8c56e9 _fatal_insn_not_found(rtx_def const*, char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/rtl-error.cc:116
+0x8b3dcc extract_insn(rtx_insn*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/recog.cc:2895
+0x1081478 instantiate_virtual_regs_in_insn
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/function.cc:1610
+0x1081478 instantiate_virtual_regs
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/function.cc:1986
+0x1081478 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/function.cc:2033
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnu7xhyn2/afd295e7.c -quiet -dumpbase afd295e7.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Os -O2 -std=gnu11 -o /tmp/cckwZEA2.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

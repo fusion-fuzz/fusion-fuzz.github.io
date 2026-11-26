@@ -1,0 +1,115 @@
+[... 70 lines omitted ...]
+  [SendableMetatype] => { conforms_to: [SendableMetatype] }
+  [Hashable] => { conforms_to: [Hashable Equatable Deinitable] }
+  [Deinitable] => { conforms_to: [Deinitable] }
+  [Equatable] => { conforms_to: [Equatable Deinitable] }
+  τ_0_0 => { conforms_to: [GamePlayer Sendable Identifiable Copyable Escapable SendableMetatype Deinitable] }
+}
+Conformance paths: {
+}
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-sil -wmo -sil-verify-all -enable-library-evolution -disable-availability-checking /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpa3u9acqm/4a5480bd.swift
+1.	Swift version 6.5-dev (LLVM 9b3700c0bd7ce7a, Swift f62414fd1d17227)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module main)
+4.	While silgen visitDecl extension of GamePlayer (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpa3u9acqm/4a5480bd.swift:17:1)
+5.	While evaluating request GetDistributedThunkRequest(main.(file).GamePlayer extension.startGame(with:)@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpa3u9acqm/4a5480bd.swift:18:20)
+6.	Abort: function verify at GenericSignatureQueries.cpp:880
+| 	Term verification failed
+| 	Initial term:    τ_0_0.[DistributedActor:ActorSystem]
+| 	Erased term:     τ_0_0.ActorSystem
+| 	Simplified term: τ_0_0.ActorSystem
+| 	
+| 	Requirement machine for <τ_0_0 where τ_0_0 : GamePlayer>
+| 	Rewrite system: {
+| 	- [GamePlayer].[GamePlayer] => [GamePlayer] [permanent]
+| 	- [GamePlayer].ID => [GamePlayer:ID] [permanent]
+| 	- [GamePlayer].[Sendable] => [GamePlayer] [explicit]
+| 	- [GamePlayer].[Identifiable] => [GamePlayer] [explicit]
+| 	- [GamePlayer:ID].[concrete: LocalTestingActorID] => [GamePlayer:ID] [explicit]
+| 	- [GamePlayer].[Copyable] => [GamePlayer] [explicit]
+| 	- [GamePlayer].[Escapable] => [GamePlayer] [explicit]
+| 	- [GamePlayer].[GamePlayer:ID] => [GamePlayer:ID]
+| 	- [GamePlayer].[SendableMetatype] => [GamePlayer]
+| 	- [GamePlayer].[Identifiable:ID] => [GamePlayer:ID]
+| 	- [GamePlayer].[Deinitable] => [GamePlayer]
+| 	- [GamePlayer:ID].[Copyable] => [GamePlayer:ID]
+| 	- [GamePlayer:ID].[Escapable] => [GamePlayer:ID]
+| 	- [GamePlayer:ID].[Hashable] => [GamePlayer:ID]
+| 	- [GamePlayer:ID].[Deinitable] => [GamePlayer:ID]
+| 	- [GamePlayer:ID].[Equatable] => [GamePlayer:ID]
+| 	- [GamePlayer:ID].[concrete: LocalTestingActorID : Copyable] => [GamePlayer:ID]
+| 	- [GamePlayer:ID].[concrete: LocalTestingActorID : Escapable] => [GamePlayer:ID]
+| 	- [GamePlayer:ID].[concrete: LocalTestingActorID : Hashable] => [GamePlayer:ID]
+| 	- [GamePlayer:ID].[concrete: LocalTestingActorID : Deinitable] => [GamePlayer:ID]
+| 	- [GamePlayer:ID].[concrete: LocalTestingActorID : Equatable] => [GamePlayer:ID]
+| 	- [Sendable].[Sendable] => [Sendable] [permanent]
+| 	- [Sendable].[SendableMetatype] => [Sendable] [explicit]
+| 	- [Identifiable].[Identifiable] => [Identifiable] [permanent]
+| 	- [Identifiable].ID => [Identifiable:ID] [permanent]
+| 	- [Identifiable].[Copyable] => [Identifiable] [explicit]
+| 	- [Identifiable].[Escapable] => [Identifiable] [explicit]
+| 	- [Identifiable:ID].[Copyable] => [Identifiable:ID] [explicit]
+| 	- [Identifiable:ID].[Escapable] => [Identifiable:ID] [explicit]
+| 	- [Identifiable:ID].[Hashable] => [Identifiable:ID] [explicit]
+| 	- [Identifiable].[Identifiable:ID] => [Identifiable:ID]
+| 	- [Identifiable].[Deinitable] => [Identifiable]
+| 	- [Identifiable:ID].[Deinitable] => [Identifiable:ID]
+| 	- [Identifiable:ID].[Equatable] => [Identifiable:ID]
+| 	- [Copyable].[Copyable] => [Copyable] [permanent]
+| 	- [Copyable].[Deinitable] => [Copyable] [explicit]
+| 	- [Escapable].[Escapable] => [Escapable] [permanent]
+| 	- [SendableMetatype].[SendableMetatype] => [SendableMetatype] [permanent]
+| 	- [Hashable].[Hashable] => [Hashable] [permanent]
+| 	- [Hashable].[Equatable] => [Hashable] [explicit]
+| 	- [Hashable].[Deinitable] => [Hashable]
+| 	- [Deinitable].[Deinitable] => [Deinitable] [permanent]
+| 	- [Equatable].[Equatable] => [Equatable] [permanent]
+| 	- [Equatable].[Deinitable] => [Equatable] [explicit]
+| 	- τ_0_0.[GamePlayer] => τ_0_0 [explicit]
+| 	- τ_0_0.ID => τ_0_0.[GamePlayer:ID]
+| 	- τ_0_0.[Sendable] => τ_0_0
+| 	- τ_0_0.[Identifiable] => τ_0_0
+| 	- τ_0_0.[Copyable] => τ_0_0
+| 	- τ_0_0.[Escapable] => τ_0_0
+| 	- τ_0_0.[SendableMetatype] => τ_0_0
+| 	- τ_0_0.[Identifiable:ID] => τ_0_0.[GamePlayer:ID]
+| 	- τ_0_0.[Deinitable] => τ_0_0
+| 	}
+| 	Property map: {
+| 	  [GamePlayer] => { conforms_to: [GamePlayer Sendable Identifiable Copyable Escapable SendableMetatype Deinitable] }
+| 	  [GamePlayer:ID] => { conforms_to: [Copyable Escapable Hashable Deinitable Equatable] concrete_type: [concrete: LocalTestingActorID] }
+| 	  [Sendable] => { conforms_to: [Sendable SendableMetatype] }
+| 	  [Identifiable] => { conforms_to: [Identifiable Copyable Escapable Deinitable] }
+| 	  [Identifiable:ID] => { conforms_to: [Copyable Escapable Hashable Deinitable Equatable] }
+| 	  [Copyable] => { conforms_to: [Copyable Deinitable] }
+| 	  [Escapable] => { conforms_to: [Escapable] }
+| 	  [SendableMetatype] => { conforms_to: [SendableMetatype] }
+| 	  [Hashable] => { conforms_to: [Hashable Equatable Deinitable] }
+| 	  [Deinitable] => { conforms_to: [Deinitable] }
+| 	  [Equatable] => { conforms_to: [Equatable Deinitable] }
+| 	  τ_0_0 => { conforms_to: [GamePlayer Sendable Identifiable Copyable Escapable SendableMetatype Deinitable] }
+| 	}
+| 	Conformance paths: {
+| 	}
+ #0 0x000060df7b89c78b llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x929e78b)
+ #1 0x000060df7b899671 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x929b671)
+ #2 0x000060df7b89d53b SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007b1e30a05330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007b1e30a5ec0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007b1e30a0527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007b1e309e88ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000060df75770922 (/usr/bin/swift-frontend+0x3172922)
+ #8 0x000060df75770a0c (/usr/bin/swift-frontend+0x3172a0c)
+ #9 0x000060df755758de swift::rewriting::RequirementMachine::verify(swift::rewriting::MutableTerm const&) const (/usr/bin/swift-frontend+0x2f778de)
+#10 0x000060df755760b7 swift::rewriting::RequirementMachine::getConcreteType(swift::Type, llvm::ArrayRef<swift::GenericTypeParamType*>, swift::ProtocolDecl const*) const (/usr/bin/swift-frontend+0x2f780b7)
+#11 0x000060df74d5f79e swift::distributedThunkShouldBeNonisolatedNonsending(swift::FuncDecl*) (/usr/bin/swift-frontend+0x276179e)
+#12 0x000060df74d6273e createDistributedThunkFunction(swift::FuncDecl*) CodeSynthesisDistributedActor.cpp:0:0
+#13 0x000060df7542ee08 swift::GetDistributedThunkRequest::OutputType swift::Evaluator::getResultUncached<swift::GetDistributedThunkRequest, swift::GetDistributedThunkRequest::OutputType swift::evaluateOrDefault<swift::GetDistributedThunkRequest>(swift::Evaluator&, swift::GetDistributedThunkRequest, swift::GetDistributedThunkRequest::OutputType)::'lambda'()>(swift::GetDistributedThunkRequest const&, swift::GetDistributedThunkRequest::OutputType swift::evaluateOrDefault<swift::GetDistributedThunkRequest>(swift::Evaluator&, swift::GetDistributedThunkRequest, swift::GetDistributedThunkRequest::OutputType)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#14 0x000060df7542db3c swift::GetDistributedThunkRequest::OutputType swift::Evaluator::getResultUncached<swift::GetDistributedThunkRequest, swift::GetDistributedThunkRequest::OutputType swift::evaluateOrDefault<swift::GetDistributedThunkRequest>(swift::Evaluator&, swift::GetDistributedThunkRequest, swift::GetDistributedThunkRequest::OutputType)::'lambda'()>(swift::GetDistributedThunkRequest const&, swift::GetDistributedThunkRequest::OutputType swift::evaluateOrDefault<swift::GetDistributedThunkRequest>(swift::Evaluator&, swift::GetDistributedThunkRequest, swift::GetDistributedThunkRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#15 0x000060df7542d97a swift::GetDistributedThunkRequest::OutputType swift::Evaluator::getResultCached<swift::GetDistributedThunkRequest, swift::GetDistributedThunkRequest::OutputType swift::evaluateOrDefault<swift::GetDistributedThunkRequest>(swift::Evaluator&, swift::GetDistributedThunkRequest, swift::GetDistributedThunkRequest::OutputType)::'lambda'(), (void*)0>(swift::GetDistributedThunkRequest const&, swift::GetDistributedThunkRequest::OutputType swift::evaluateOrDefault<swift::GetDistributedThunkRequest>(swift::Evaluator&, swift::GetDistributedThunkRequest, swift::GetDistributedThunkRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#16 0x000060df7541d86b swift::AbstractFunctionDecl::getDistributedThunk() const (/usr/bin/swift-frontend+0x2e1f86b)
+#17 0x000060df74246a54 swift::Lowering::SILGenModule::emitDistributedThunkForDecl(swift::AbstractFunctionDecl*
+[... truncated ...]

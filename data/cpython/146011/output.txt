@@ -1,0 +1,14 @@
+=================================================================
+==ERROR: AddressSanitizer: heap-use-after-free on address ... in signaldict_repr
+READ of size 4 at ... thread T0
+    #0 signaldict_repr  Include/internal/pycore_moduleobject.h
+    #1 PyObject_Str     Objects/object.c:823
+    #2 PyFile_WriteObject
+    #3 builtin_print_impl
+...
+freed by thread T0 here:
+    #0 free
+    #1 context_dealloc  Modules/_decimal/_decimal.c:1512
+    #2 _Py_Dealloc
+    #3 Py_DECREF / Py_XDECREF
+    #4 insertdict        Objects/dictobject.c:1998

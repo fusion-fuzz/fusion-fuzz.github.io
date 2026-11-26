@@ -1,0 +1,81 @@
+Traceback (most recent call last):
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/runner.py", line 645, in main
+    lib = tvm.compile(mod, target=_make_target(target), **kw)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/driver/build_module.py", line 72, in compile
+    return tvm.relax.build(
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/relax/vm_build.py", line 261, in build
+    mod = relax_pipeline(mod)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/transform/core.py", line 365, in __call__
+    return _ffi_transform_api.RunPass(self, mod)
+  File "python/tvm_ffi/cython/function.pxi", line 1038, in tvm_ffi.core.Function.__call__
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 573, in operator()
+    [](Pass pass, ffi::RValueRef<IRModule> mod) { return pass(*std::move(mod)); });
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 294, in tvm::transform::Pass::operator()(tvm::IRModule) const
+    return this->operator()(std::move(mod), PassContext::Current());
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 397, in tvm::transform::Pass::operator()(tvm::IRModule, tvm::transform::PassContext const&) const
+    ret = node->operator()(std::move(mod), pass_ctx);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 494, in tvm::transform::ModulePassObj::operator()(tvm::IRModule, tvm::transform::PassContext const&) const
+    mod = pass_func(std::move(mod), pass_ctx);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 568, in operator()
+    return pass_func(ffi::RValueRef<IRModule>(std::move(mod)), ctx);
+  File "<unknown>", line 0, in TVMFFIPyCallback(void*, TVMFFIAny const*, int, TVMFFIAny*)
+  File "<unknown>", line 0, in TVMFFIPyCallManager::ForwardPyErrorToFFI()
+  File "<unknown>", line 0, in TVMFFICyErrorSetRaisedFromPyError(_object*)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/relax/backend/cuda/pipeline.py", line 87, in _pipeline
+    mod = seq(mod)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/transform/core.py", line 365, in __call__
+    return _ffi_transform_api.RunPass(self, mod)
+  File "python/tvm_ffi/cython/function.pxi", line 1038, in tvm_ffi.core.Function.__call__
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 573, in operator()
+    [](Pass pass, ffi::RValueRef<IRModule> mod) { return pass(*std::move(mod)); });
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 294, in tvm::transform::Pass::operator()(tvm::IRModule) const
+    return this->operator()(std::move(mod), PassContext::Current());
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 397, in tvm::transform::Pass::operator()(tvm::IRModule, tvm::transform::PassContext const&) const
+    ret = node->operator()(std::move(mod), pass_ctx);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 530, in tvm::transform::SequentialObj::operator()(tvm::IRModule, tvm::transform::PassContext const&) const
+    mod = pass(std::move(mod), pass_ctx);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 397, in tvm::transform::Pass::operator()(tvm::IRModule, tvm::transform::PassContext const&) const
+    ret = node->operator()(std::move(mod), pass_ctx);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 494, in tvm::transform::ModulePassObj::operator()(tvm::IRModule, tvm::transform::PassContext const&) const
+    mod = pass_func(std::move(mod), pass_ctx);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/ir/transform.cc", line 568, in operator()
+    return pass_func(ffi::RValueRef<IRModule>(std::move(mod)), ctx);
+  File "<unknown>", line 0, in TVMFFIPyCallback(void*, TVMFFIAny const*, int, TVMFFIAny*)
+  File "<unknown>", line 0, in TVMFFIPyCallManager::ForwardPyErrorToFFI()
+  File "<unknown>", line 0, in TVMFFICyErrorSetRaisedFromPyError(_object*)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/transform/core.py", line 422, in _pass_func
+    return inst.transform_module(mod, ctx)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/s_tir/dlight/base/transform.py", line 70, in transform_module
+    sch = _apply_rules(func, target, self.rules, tunable=False)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/s_tir/dlight/base/transform.py", line 88, in _apply_rules
+    space = rule.apply(func, target, tunable)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/s_tir/dlight/gpu/reduction.py", line 171, in apply
+    self._sch_inner_reduction(
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/s_tir/dlight/gpu/reduction.py", line 270, in _sch_inner_reduction
+    rf = sch.rfactor(tx, 0)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/s_tir/schedule/_type_checker.py", line 368, in wrap
+    return func(*args, **kwargs)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/python/tvm/s_tir/schedule/schedule.py", line 2653, in rfactor
+    return _ffi_api.ScheduleRFactor(self, loop, factor_axis)  # type: ignore
+  File "python/tvm_ffi/cython/function.pxi", line 1038, in tvm_ffi.core.Function.__call__
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/3rdparty/tvm-ffi/include/tvm/ffi/reflection/registry.h", line 491, in tvm::ffi::reflection::ReflectionDefBase::WrapFunction<tvm::s_tir::ScheduleObj, tvm::s_tir::SBlockRV, tvm::s_tir::LoopRV const&, int>(tvm::s_tir::SBlockRV (tvm::s_tir::ScheduleObj::*)(tvm::s_tir::LoopRV const&, int))::{lambda(tvm::s_tir::ScheduleObj const*, tvm::s_tir::LoopRV const&, int)#1}::operator()(tvm::s_tir::ScheduleObj const*, tvm::s_tir::LoopRV const&, int) const
+    return (const_cast<Class*>(target)->*func)(std::forward<Args>(params)...);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/s_tir/schedule/traced_schedule.cc", line 577, in tvm::s_tir::TracedScheduleObj::RFactor(tvm::s_tir::LoopRV const&, int)
+    SBlockRV result = ConcreteScheduleObj::RFactor(loop_rv, factor_axis);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/s_tir/schedule/concrete_schedule.cc", line 902, in tvm::s_tir::ConcreteScheduleObj::RFactor(tvm::s_tir::LoopRV const&, int)
+    result = s_tir::RFactor(state_, this->GetSRef(loop_rv), factor_axis);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/s_tir/schedule/primitive/reduction.cc", line 1458, in tvm::s_tir::RFactor(tvm::s_tir::ScheduleState, tvm::tirx::StmtSRef const&, int)
+    ffi::GetRef<For>(rf_loop), reduce_loop_vars, loop_vars2loop, rf_tensors);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/s_tir/schedule/primitive/reduction.cc", line 1294, in tvm::s_tir::BlockReplacer::Replace(tvm::s_tir::SBlock, tvm::Stmt, tvm::For, tvm::s_tir::SBlockRealize, tvm::s_tir::SBlockRealize, tvm::For, std::unordered_set<tvm::VarNode const*, std::hash<tvm::VarNode const*>, std::equal_to<tvm::VarNode const*>, std::allocator<tvm::VarNode const*> >, std::unordered_map<tvm::VarNode const*, tvm::For, std::hash<tvm::VarNode const*>, std::equal_to<tvm::VarNode const*>, std::allocator<std::pair<tvm::VarNode const* const, tvm::For> > >, tvm::ffi::Array<tvm::tirx::TensorVar, void> const&)
+    SBlock new_scope_root = replacer->Mutate(scope_root_block, InplaceMode::kAllow)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/include/tvm/tirx/stmt_functor.h", line 237, in tvm::tirx::StmtExprMutator::Mutate(tvm::Stmt const&, tvm::ffi::InplaceMode)
+    ffi::details::UnchangedOrUnsafe::MoveToTVMFFIAny(Mutate(ffi::AnyView(stmt), inplace_mode)));
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/src/s_tir/schedule/primitive/reduction.cc", line 1260, in tvm::s_tir::BlockReplacer::Mutate(tvm::ffi::AnyView, tvm::ffi::InplaceMode)
+    return StmtExprMutator::Mutate(value, inplace_mode);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/include/tvm/ir/object_functor.h", line 387, in tvm::ObjectMutator::Mutate(tvm::ffi::AnyView, tvm::ffi::InplaceMode)
+    return (*native_vtable_)(object, this, inplace_mode);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/include/tvm/ir/object_functor.h", line 120, in tvm::ObjectFunctor<tvm::ffi::UnchangedOr<tvm::ffi::Any> (tvm::ffi::Object const*, tvm::ObjectMutator*, tvm::ffi::InplaceMode)>::operator()(tvm::ffi::Object const*, tvm::ObjectMutator*, tvm::ffi::InplaceMode) const
+    return (*func_[index])(n, std::forward<Args>(args)...);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/tvm/tvm/include/tvm/ir/object_functor.h", line 478, in tvm::ffi::UnchangedOr<tvm::ffi::Any> tvm::ObjectMutator::DispatchNode<tvm::s_tir::StmtExprMutator, tvm::s_tir::SBlockNode>(tvm::ffi::Object const*, tvm::ObjectMutator*, tvm::ffi::InplaceMode)
+    static_cast<Self*>(self)->Mu
+[... truncated ...]

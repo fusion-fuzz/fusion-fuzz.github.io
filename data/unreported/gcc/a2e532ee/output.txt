@@ -1,0 +1,35 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpvpfuqp18/f774e831.cc:5:8: internal compiler error: in import_entity_index, at cp/module.cc:4341
+    5 | export module test;
+      |        ^~~~~~
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x81ab2f import_entity_index
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:4341
+0x81ab2f import_entity_index
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:4336
+0x111496e decl_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:9593
+0x1115455 tree_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:10389
+0x1112751 decl_value
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:8616
+0x1113ba8 decl_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:9569
+0x1115455 tree_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:10389
+0x111b4f8 module_state::write_cluster(elf_out*, depset**, unsigned int, depset::hash&, unsigned int*, unsigned int*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:17538
+0x111d979 module_state::write_begin(elf_out*, cpp_reader*, module_state_config&, unsigned int&)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:21247
+0x111ead4 finish_module_processing(cpp_reader*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:23979
+0x1094a50 c_parse_final_cleanups()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl2.cc:6129
+0x1357358 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1455
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpvpfuqp18/f774e831.cc -quiet -dumpbase f774e831.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Os -Wunused -fmodules -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

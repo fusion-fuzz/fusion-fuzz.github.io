@@ -1,0 +1,56 @@
+[... 16 lines omitted ...]
+  20: rustc_middle::query::calls::query_ensure_ok::<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:170:13
+  21: <rustc_middle::query::calls::TyCtxtEnsureOk>::mir_borrowck::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:304:21
+  22: rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1166:33
+  23: <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners::<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/hir/map.rs:378:79
+  24: rustc_data_structures::sync::parallel::par_for_each_in::<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:182:30
+  25: <core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panic/unwind_safe.rs:275:9
+  26: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>, ()>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:576:43
+  27: std::panicking::catch_unwind::<(), core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:544:19
+  28: std::panic::catch_unwind::<core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>, ()>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panic.rs:359:14
+  29: <rustc_data_structures::sync::parallel::ParallelGuard>::run::<(), rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:23:9
+  30: rustc_data_structures::sync::parallel::par_for_each_in::<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:182:23
+  31: <core::slice::iter::Iter<rustc_span::def_id::LocalDefId> as core::iter::traits::iterator::Iterator>::for_each::<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/slice/iter/macros.rs:296:21
+  32: rustc_data_structures::sync::parallel::par_for_each_in::<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:181:27
+  33: rustc_data_structures::sync::parallel::parallel_guard::<(), rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:39:15
+  34: rustc_data_structures::sync::parallel::par_for_each_in::<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:176:5
+  35: <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners::<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/hir/map.rs:378:9
+  36: rustc_interface::passes::run_required_analyses::{closure#2}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1156:13
+  37: <rustc_data_structures::profiling::VerboseTimingGuard>::run::<(), rustc_interface::passes::run_required_analyses::{closure#2}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/profiling.rs:847:9
+  38: <rustc_session::session::Session>::time::<(), rustc_interface::passes::run_required_analyses::{closure#2}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_session/src/utils.rs:17:50
+  39: rustc_interface::passes::run_required_analyses
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1155:10
+  40: rustc_interface::passes::analysis
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1202:5
+      [... omitted 13 frames ...]
+  41: rustc_middle::query::calls::query_ensure_ok::<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 0]>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:170:13
+  42: <rustc_middle::query::calls::TyCtxtEnsureOk>::analysis
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:304:21
+  43: rustc_driver_impl::run_compiler::{closure#0}::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_driver_impl/src/lib.rs:316:29
+  44: rustc_interface::passes::create_and_enter_global_ctxt::<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1043:80
+  45: <core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}::{closure#0}> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panic/unwind_safe.rs:275:9
+  46: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<rust
+[... truncated ...]

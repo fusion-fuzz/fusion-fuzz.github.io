@@ -1,0 +1,114 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:15:10: error: out-of-line definition of 'foo' does not match any declaration in 'S1'
+   15 | void S1::foo(){}
+      |          ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:10:8: note: S1 defined here
+   10 | struct S1 {
+      |        ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:33:10: error: out-of-line definition of 'foo' does not match any declaration in 'S2'
+   33 | void S2::foo(){}
+      |          ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:28:8: note: S2 defined here
+   28 | struct S2 {
+      |        ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:57:17: warning: nested designators are a C99 extension [-Wc99-designator]
+   57 |   Foo F{.x = 2, .b.t = 0};
+      |                 ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:57:7: error: initialization of non-aggregate type 'Foo' with a designated initializer list
+   57 |   Foo F{.x = 2, .b.t = 0};
+      |       ^~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:68:8: error: initialization of non-aggregate type 'Base' with a designated initializer list
+   68 |   Base B = {.t = 2};
+      |        ^   ~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:70:3: error: no matching function for call to object of type '(lambda at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:69:12)'
+   70 |   z({.t = 1});
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:69:12: note: candidate function not viable: cannot convert initializer list argument to 'Base'
+   69 |   auto z = [](Base B) {};
+      |            ^  ~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:69:12: note: conversion candidate of type 'void (*)(Base)'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:71:5: error: initialization of non-aggregate type 'Base' with a designated initializer list
+   71 |   z(Base{.t = 2});
+      |     ^   ~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:72:5: error: initialization of non-aggregate type 'Base' with a designated initializer list
+   72 |   z((Base){.t = 2});
+      |     ^     ~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:79:3: error: no matching function for call to object of type '(lambda at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:78:13)'
+   79 |   zr({.t = 1});
+      |   ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:78:13: note: candidate function not viable: cannot convert initializer list argument to 'const Base'
+   78 |   auto zr = [](const Base &B) {};
+      |             ^  ~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:78:13: note: conversion candidate of type 'void (*)(const Base &)'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:83:7: error: initialization of non-aggregate type 'Foo' with a designated initializer list
+   83 |   Foo G1{.b = {.t = 0}};
+      |       ^ ~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:84:7: error: initialization of non-aggregate type 'Foo' with a designated initializer list
+   84 |   Foo G2{.b{.t = 0}};
+      |       ^ ~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:85:10: warning: use of GNU old-style field designator extension [-Wgnu-designator]
+   85 |   Foo G3{b: {.t = 0}};
+      |          ^~
+      |          .b = 
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:85:7: error: initialization of non-aggregate type 'Foo' with a designated initializer list
+   85 |   Foo G3{b: {.t = 0}};
+      |       ^ ~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:102:14: warning: unused variable 'T' [-Wunused-variable]
+  102 |   Test<char> T{.x = 2};
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:105:13: warning: unused variable 'X' [-Wunused-variable]
+  105 |   Test<int> X{.x = 2};
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:128:6: error: use of undeclared identifier 'other'
+  128 | void other::mv() {}
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:131:1: error: a type specifier is required for all declarations
+  131 | outer((cpu_specific(ivybridge)))
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:131:21: error: use of undeclared identifier 'ivybridge'
+  131 | outer((cpu_specific(ivybridge)))
+      |                     ^~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:131:33: error: expected ';' after top level declarator
+  131 | outer((cpu_specific(ivybridge)))
+      |                                 ^
+      |                                 ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:132:6: error: use of undeclared identifier 'other'
+  132 | void other::mv() {}
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:157:44: warning: nested designators are a C99 extension [-Wc99-designator]
+  157 | auto TestWithAnonRecord = WithAnonRecord { .anon.leaf = 2 }
+      |                                            ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:169:44: warning: nested designators are a C99 extension [-Wc99-designator]
+  169 | auto TestWithArrayField = WithArrayField { .bases[0].t = 2 }
+      |                                            ^~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:169:50: warning: array designators are a C99 extension [-Wc99-designator]
+  169 | auto TestWithArrayField = WithArrayField { .bases[0].t = 2 }
+      |                                                  ^~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/CheckExprLifetime.cpp:794: void clang::sema::visitLocalsRetainedByInitializer(clang::sema::{anonymous}::IndirectLocalPath&, clang::Expr*, clang::sema::{anonymous}::LocalVisitor, bool): Assertion `RD->isAggregate() && "aggregate init on non-aggregate"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -Oz -fblocks -g -ffp-contract=fast -Wall -target x86_64-windows-pc -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj1t42a5n/72d6904a.cpp:170:1: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005662d6d6b329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005662d6d67fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005662d6d688a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005662d6caa218
+4  libc.so.6 0x00007d1bf1d60520
+5  libc.so.6 0x00007d1bf1db49bc pthread_kill + 300
+6  libc.so.6 0x00007d1bf1d60476 raise + 22
+7  libc.so.6 0x00007d1bf1d467f3 abort + 211
+8  libc.so.6 0x00007d1bf1d4671b
+9  libc.so.6 0x00007d1bf1d57e96
+10 clang++   0x00005662da2fe22e
+11 clang++   0x00005662da2fd78d
+12 clang++   0x00005662da2fdb0f
+13 clang++   0x00005662da2fde64
+14 clang++   0x00005662da30109c
+15 clang++   0x00005662da301408 clang::sema::checkInitLifetime(clang::Sema&, clang::InitializedEntity const&, clang::Expr*) + 72
+16 clang++   0x00005662d9cb1c9a clang::InitializationSequence::Perform(clang::Sema&, clang::InitializedEntity const&, clang::InitializationKind const&, llvm::MutableArrayRef<clang::Expr*>, clang::QualType*) + 1354
+17 clang++   0x00005662d99a5a1f clang::Sema::AddInitializerToDecl(clang::Decl*, clang::Expr*, bool) + 4063
+18 clang++   0x00005662d95ad7d1 clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 3313
+19 clang++   0x00005662d95c736c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+20 clang++   0x00005662d9576fac clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+21 clang++   0x00005662d957778f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpe
+[... truncated ...]

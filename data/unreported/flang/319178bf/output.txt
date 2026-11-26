@@ -1,0 +1,44 @@
+flang: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-project/flang/lib/Semantics/openmp-utils.cpp:2126: LoopSequence::Depth Fortran::semantics::omp::LoopSequence::getNestedDepths() const: Assertion `entry_->owner && parser::Unwrap<parser::DoConstruct>(entry_->owner) && "Expecting DO construct"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-flang-build/bin/flang -fc1 -emit-fir -o /dev/null -O2 -ffree-form -std=f2018 -fopenmp -freciprocal-math /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpjajobtgk/dbe89dd7.f90
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  flang     0x000062d49fe8633a ___interceptor_backtrace + 74
+1  flang     0x000062d4a23a0833 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 323
+2  flang     0x000062d4a239a677 llvm::sys::RunSignalHandlers() + 455
+3  flang     0x000062d4a23a319f
+4  libc.so.6 0x000076335bca3330
+5  libc.so.6 0x000076335bcfcc0c pthread_kill + 284
+6  libc.so.6 0x000076335bca327e gsignal + 30
+7  libc.so.6 0x000076335bc868ff abort + 223
+8  libc.so.6 0x000076335bc8681b
+9  libc.so.6 0x000076335bc99517
+10 flang     0x000062d4a3e8c614 Fortran::semantics::omp::LoopSequence::getNestedDepths() const + 1892
+11 flang     0x000062d4a3e88e1f Fortran::semantics::omp::LoopSequence::calculateDepths() const + 447
+12 flang     0x000062d4a3e868e9 Fortran::semantics::omp::LoopSequence::precalculate() + 441
+13 flang     0x000062d4a3e874a1 Fortran::semantics::omp::LoopSequence::createChildrenFromRange(std::_List_const_iterator<Fortran::parser::ExecutionPartConstruct>, std::_List_const_iterator<Fortran::parser::ExecutionPartConstruct>) + 1057
+14 flang     0x000062d4a3e84fc1
+15 flang     0x000062d4a3e8482d Fortran::semantics::omp::CollectAffectedDoLoops(Fortran::parser::OpenMPLoopConstruct const&, llvm::omp::Version, Fortran::semantics::SemanticsContext*) + 733
+16 flang     0x000062d4a431f61a Fortran::semantics::OmpAttributeVisitor::PrivatizeAssociatedLoopIndex(Fortran::parser::OpenMPLoopConstruct const&) + 746
+17 flang     0x000062d4a431f24f Fortran::semantics::OmpAttributeVisitor::Pre(Fortran::parser::OpenMPLoopConstruct const&) + 575
+18 flang     0x000062d4a4390d98
+19 flang     0x000062d4a438d255
+20 flang     0x000062d4a43840f5
+21 flang     0x000062d4a43a0cfe
+22 flang     0x000062d4a43a1f26
+23 flang     0x000062d4a4313de3 Fortran::semantics::ResolveOmpParts(Fortran::semantics::SemanticsContext&, Fortran::parser::ProgramUnit const&) + 1059
+24 flang     0x000062d4a41a15f6 Fortran::semantics::ResolveNamesVisitor::Pre(Fortran::parser::ProgramUnit const&) + 1734
+25 flang     0x000062d4a42af40e
+26 flang     0x000062d4a41a9185 Fortran::semantics::ResolveNames(Fortran::semantics::SemanticsContext&, Fortran::parser::Program const&, Fortran::semantics::Scope&) + 533
+27 flang     0x000062d4a44476a7 Fortran::semantics::Semantics::Perform() + 2439
+28 flang     0x000062d4a2473b81 Fortran::frontend::FrontendAction::runSemanticChecks() + 785
+29 flang     0x000062d4a248333a Fortran::frontend::CodeGenAction::beginSourceFileAction() + 4218
+30 flang     0x000062d4a2470d6c Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) + 2764
+31 flang     0x000062d4a2438370 Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) + 2448
+32 flang     0x000062d4a24803c3 Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) + 10211
+33 flang     0x000062d49ff2715b fc1_main(llvm::ArrayRef<char const*>, char const*) + 1355
+34 flang     0x000062d49ff1ed87 main + 3031
+35 libc.so.6 0x000076335bc881ca
+36 libc.so.6 0x000076335bc8828b __libc_start_main + 139
+37 flang     0x000062d49fe3e0e5 _start + 37
+Aborted

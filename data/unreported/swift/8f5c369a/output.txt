@@ -1,0 +1,92 @@
+Abort: function verify at Mangler.cpp:176
+Can't demangle: $ss16IndexingIteratorVys11InlineArrayVyxq_GAESl4main_HCg_G_SitD
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -Onone -sil-verify-all -enable-experimental-feature Macros -g -debug-info-format=dwarf /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmptg_w9seh/65b4a196.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request IRGenRequest(IR Generation for module main)
+4.	While emitting IR SIL function "@$ss11InlineArrayVyxq_GST4mainST13_copyContents12initializing8IteratorQz_SitSry7ElementQzG_tFTW".
+ for '_copyContents(initializing:)' (in module 'Swift')
+5.	While mangling type for debugger type '(IndexingIterator<InlineArray<τ_0_0, τ_0_1>>, Int)'
+6.	Abort: function verify at Mangler.cpp:176
+| 	Can't demangle: $ss16IndexingIteratorVys11InlineArrayVyxq_GAESl4main_HCg_G_SitD
+ #0 0x0000560c5a1acbab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x0000560c5a1aa2e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x0000560c5a1ad8c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007fc08abcc330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007fc08ac25c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007fc08abcc27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007fc08abaf8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x0000560c545ea622 (/usr/bin/swift-frontend+0x3055622)
+ #8 0x0000560c545ea70c (/usr/bin/swift-frontend+0x305570c)
+ #9 0x0000560c545ffc53 swift::Mangle::Mangler::verify(llvm::StringRef, swift::Mangle::ManglingFlavor) (/usr/bin/swift-frontend+0x306ac53)
+#10 0x0000560c545ff867 swift::Mangle::Mangler::finalize[abi:cxx11]() (/usr/bin/swift-frontend+0x306a867)
+#11 0x0000560c5409dfd5 swift::Mangle::ASTMangler::mangleTypeForDebugger[abi:cxx11](swift::Type, swift::GenericSignature) (/usr/bin/swift-frontend+0x2b08fd5)
+#12 0x0000560c528557e5 (anonymous namespace)::IRGenDebugInfoImpl::getMangledName(swift::irgen::DebugTypeInfo) IRGenDebugInfo.cpp:0:0
+#13 0x0000560c52851c32 (anonymous namespace)::IRGenDebugInfoImpl::getOrCreateType(swift::irgen::DebugTypeInfo, llvm::DIScope*) IRGenDebugInfo.cpp:0:0
+#14 0x0000560c52852d97 (anonymous namespace)::IRGenDebugInfoImpl::createParameterTypes(swift::CanTypeWrapper<swift::SILFunctionType>) IRGenDebugInfo.cpp:0:0
+#15 0x0000560c5284a30a (anonymous namespace)::IRGenDebugInfoImpl::emitFunction(swift::SILDebugScope const*, llvm::Function*, swift::SILFunctionTypeRepresentation, swift::SILType, swift::DeclContext*, llvm::StringRef) IRGenDebugInfo.cpp:0:0
+#16 0x0000560c5284afdb (anonymous namespace)::IRGenDebugInfoImpl::emitFunction(swift::SILFunction&, llvm::Function*) IRGenDebugInfo.cpp:0:0
+#17 0x0000560c5286bec9 (anonymous namespace)::IRGenSILFunction::emitSILFunction() IRGenSIL.cpp:0:0
+#18 0x0000560c5286b0f6 swift::irgen::IRGenModule::emitSILFunction(swift::SILFunction*) (/usr/bin/swift-frontend+0x12d60f6)
+#19 0x0000560c52700b7b swift::irgen::IRGenerator::emitLazyDefinitions() (/usr/bin/swift-frontend+0x116bb7b)
+#20 0x0000560c5255b1dc swift::IRGenRequest::evaluate(swift::Evaluator&, swift::IRGenDescriptor) const (/usr/bin/swift-frontend+0xfc61dc)
+#21 0x0000560c525c96da swift::GeneratedModule swift::SimpleRequest<swift::IRGenRequest, swift::GeneratedModule (swift::IRGenDescriptor), (swift::RequestFlags)17>::callDerived<0ul>(swift::Evaluator&, std::integer_sequence<unsigned long, 0ul>) const crtstuff.c:0:0
+#22 0x0000560c525c95a9 swift::SimpleRequest<swift::IRGenRequest, swift::GeneratedModule (swift::IRGenDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::IRGenRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#23 0x0000560c51f69095 swift::IRGenRequest::OutputType swift::Evaluator::getResultUncached<swift::IRGenRequest, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()>(swift::IRGenRequest const&, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()) crtstuff.c:0:0
+#24 0x0000560c5255c253 swift::performIRGeneration(swift::ModuleDecl*, swift::IRGenOptions const&, swift::TBDGenOptions const&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::StringRef, swift::PrimarySpecificPaths const&, std::shared_ptr<llvm::cas::ObjectStore>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::GlobalVariable**, swift::cas::SwiftCASOutputBackend*, std::optional<llvm::cas::ObjectRef>) (/usr/bin/swift-frontend+0xfc7253)
+#25 0x0000560c52277469 generateIR(swift::IRGenOptions const&, swift::TBDGenOptions const&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, swift::PrimarySpecificPaths const&, std::shared_ptr<llvm::cas::ObjectStore>, swift::cas::SwiftCASOutputBackend*, llvm::StringRef, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, llvm::GlobalVariable*&, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, std::optional<llvm::cas::ObjectRef>) FrontendTool.cpp:0:0
+#26 0x0000560c5227011f performCompileStepsPostSILGen(swift::CompilerInstance&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, swift::PrimarySpecificPaths const&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>, llvm::ArrayRef<swift::PrimarySpecificPaths>) FrontendTool.cpp:0:0
+#27 0x0000560c5226e77b swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xcd977b)
+#28 0x0000560c52288581 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#29 0x0000560c522740cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#30 0x0000560c52270fef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcdbfef)
+#31 0x0000560c51f4024b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9ab24b)
+#32 0x00007fc08abb11ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#33 0x00007fc08abb128b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#34 0x0000560c51f3f2a5 _start (/usr/bin/swift-frontend+0x9aa2a5)
+
+*** Signal 6: Backtracing from 0x7fc08acae38d... done ***
+
+*** Program crashed: Aborted at 0x00007fc08acae38d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007fc08acae38d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007fc08acae38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x00000000003db9fa  4045306
+rdi 0x00000000003db9fa  4045306
+rbp 0x00000000003db9fa  4045306
+rsp 0x0000560c6016d4e8  eb d8 1a 5a 0c 56 00 00 70 d7 16 60 0c 56 00 00  ëØ·Z·V··p×·`·V··
+ r8 0x0000560c6016d770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x0000560c6016d770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x0000560c6016d770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x0000560c5b84e534  76 65 72 69 66 79 00 76 65 72 69 66 79 20 64 69  verify·verify di
+r14 0x0000000000000000  0
+r15 0x0000560c6016d588  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007fc08acae38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007fc08ab87000–0x00007fc08ad36eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

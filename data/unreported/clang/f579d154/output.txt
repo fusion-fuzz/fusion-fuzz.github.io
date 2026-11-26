@@ -1,0 +1,75 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpqtvbmm_q/22106441.c:23:10: warning: GCC does not allow variable declarations in for loop initializers before C99 [-Wgcc-compat]
+   23 |     for (size_t i = 0; i < sizeof(classes) / sizeof(classes[0]); i++) {
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpqtvbmm_q/22106441.c:25:14: warning: GCC does not allow variable declarations in for loop initializers before C99 [-Wgcc-compat]
+   25 |         for (size_t j = i; ; ) {
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpqtvbmm_q/22106441.c:31:18: warning: GCC does not allow variable declarations in for loop initializers before C99 [-Wgcc-compat]
+   31 |             for (size_t k = 0; k < sizeof(classes) / sizeof(classes[0]); k++) {
+      |                  ^
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -emit-llvm -S -o /dev/null -O1 -std=c89 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpqtvbmm_q/22106441.c
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpqtvbmm_q/22106441.c:13:5: LLVM IR generation of declaration 'main'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpqtvbmm_q/22106441.c:13:5: Generating code for declaration 'main'
+4.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpqtvbmm_q/22106441.c:23:71: LLVM IR generation of compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x00005d7ab5da6329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x00005d7ab5da2fec llvm::sys::RunSignalHandlers() + 76
+2  clang     0x00005d7ab5da38a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x00005d7ab5ce5218
+4  libc.so.6 0x000074fea970f520
+5  clang     0x00005d7ab5626e08 llvm::BasicBlock::getContext() const + 8
+6  clang     0x00005d7ab5742c62 llvm::UncondBrInst::UncondBrInst(llvm::BasicBlock*, llvm::InsertPosition) + 34
+7  clang     0x00005d7ab67f8ce2 clang::CodeGen::CodeGenFunction::PopCleanupBlock(bool, bool) + 4258
+8  clang     0x00005d7ab67fa733 clang::CodeGen::CodeGenFunction::PopCleanupBlocks(clang::CodeGen::EHScopeStack::stable_iterator, std::initializer_list<llvm::Value**>) + 147
+9  clang     0x00005d7ab67fad2f clang::CodeGen::CodeGenFunction::PopCleanupBlocks(clang::CodeGen::EHScopeStack::stable_iterator, unsigned long, std::initializer_list<llvm::Value**>) + 63
+10 clang     0x00005d7ab61fd2f4 clang::CodeGen::CodeGenFunction::LexicalScope::~LexicalScope() + 884
+11 clang     0x00005d7ab643c2e2 clang::CodeGen::CodeGenFunction::EmitCompoundStmt(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 258
+12 clang     0x00005d7ab643c513 clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 499
+13 clang     0x00005d7ab643387a clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 138
+14 clang     0x00005d7ab64388f1 clang::CodeGen::CodeGenFunction::EmitForStmt(clang::ForStmt const&, llvm::ArrayRef<clang::Attr const*>) + 1697
+15 clang     0x00005d7ab643bf3c clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+16 clang     0x00005d7ab64a5901 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) + 177
+17 clang     0x00005d7ab64bc9d4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 1396
+18 clang     0x00005d7ab6526ce8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 2152
+19 clang     0x00005d7ab651ff64 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 580
+20 clang     0x00005d7ab6520e60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+21 clang     0x00005d7ab652c335
+22 clang     0x00005d7ab68cfef1
+23 clang     0x00005d7ab68bf0f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+24 clang     0x00005d7ab859c61c clang::ParseAST(clang::Sema&, bool, bool) + 508
+25 clang     0x00005d7ab6c3d061 clang::FrontendAction::Execute() + 65
+26 clang     0x00005d7ab6bc6e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+27 clang     0x00005d7ab6d14de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+28 clang     0x00005d7ab3b7033e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+29 clang     0x00005d7ab3b6613a
+30 clang     0x00005d7ab3b662cf
+31 clang     0x00005d7ab694bcfd
+32 clang     0x00005d7ab5ce5630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+33 clang     0x00005d7ab694cb53
+34 clang     0x00005d7ab6901607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+35 clang     0x00005d7ab6905ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+36 clang     0x00005d7ab6914004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+37 clang     0x00005d7ab3b6b923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+38 clang     0x00005d7ab3aa77f1 main + 113
+39 libc.so.6 0x000074fea96f6d90
+40 libc.so.6 0x000074fea96f6e40 __libc_start_main + 128
+41 clang     0x00005d7ab3b65765 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang: note: diagnostic msg: /tmp/22106441-d2bb0a.c
+clang: note: diagnostic msg: /tmp/22106441-d2bb0a.sh
+clang: note: diagnostic msg: 
+
+********************
+Segmentation fault (core dumped)

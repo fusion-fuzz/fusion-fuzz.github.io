@@ -1,0 +1,23 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791858552.784256 3895234 hlo_replication_analysis.cc:329] Check failed: source_node != source.end() source tree ends before {0}
+*** Check failure stack trace: ***
+    @     0x5757015eda84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5757015eda06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5756f80b8230  xla::HloReplicationAnalysis::CombineReplication()
+    @     0x5756f80b86c8  xla::HloReplicationAnalysis::AssignOrCombineReplication()
+    @     0x5756f80baf55  xla::HloReplicationAnalysis::ComputeHloReplicationOnComputation()
+    @     0x5756f80ba0c8  xla::HloReplicationAnalysis::ComputeHloReplicationOnComputation()
+    @     0x5756f80bbea5  xla::HloReplicationAnalysis::ComputeHloReplication()
+    @     0x5756f80be4a7  xla::HloReplicationAnalysis::Run()
+    @     0x5756f80be3ad  xla::HloReplicationAnalysis::Run()
+    @     0x5756f80b098b  xla::ArCrsCombiner::KeepProvablyEqualInstructionGroupsSPMD()
+    @     0x5756f80b1e5c  xla::ArCrsCombiner::RunImpl()
+    @     0x575700771007  xla::HloPassInterface::Run()
+    @     0x5756fffa7a3c  xla::HloPassPipeline::RunHelper<>()
+    @     0x5756fffa2e4d  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5756fffa2265  xla::HloPassPipeline::RunImpl()
+    @     0x575700771007  xla::HloPassInterface::Run()
+    @     0x5756f7fffd9d  xla::OptProvider::BuildAndRunTransformPipeline()
+    @     0x575701633af8  main
+    @     0x7e81b03c0d90  (unknown)
+Aborted (core dumped)

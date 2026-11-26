@@ -1,0 +1,31 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1792003496.494117 3353541 shape_util.cc:1030] Check failed: pointer_size > 0 (-1 vs. 0) 
+*** Check failure stack trace: ***
+    @     0x5e82af829a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5e82af8299e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5e82af39f136  xla::ShapeUtil::ByteSizeOfTupleIndexTable()
+    @     0x5e82af39ee55  xla::ShapeUtil::ByteSizeOf()
+    @     0x5e82a58764ad  xla::gpu::(anonymous namespace)::GemmWorkspaceRewriteVisitor::HandleCustomCall()
+    @     0x5e82af15eaa2  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x5e82af15def7  xla::HloInstruction::Visit<>()
+    @     0x5e82af16046e  xla::PostOrderDFS<>()
+    @     0x5e82af15ccf8  xla::HloInstruction::Accept<>()
+    @     0x5e82a42bef07  xla::HloComputation::Accept<>()
+    @     0x5e82a58333cc  xla::gpu::GemmRewriter::RunImpl()
+    @     0x5e82ab8e0be7  xla::HloPassInterface::Run()
+    @     0x5e82a745e3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5e82a74597bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5e82a7458bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5e82ab8e0be7  xla::HloPassInterface::Run()
+    @     0x5e82a43b7de7  xla::gpu::GpuCompiler::OptimizeHloPostLayoutAssignment()
+    @     0x5e82a439b84a  xla::gpu::NVPTXCompiler::OptimizeHloPostLayoutAssignment()
+    @     0x5e82a43afe57  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5e82a43ba06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5e82a42ee934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5e82a42e2e5e  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x5e82a42e0dc7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5e82af87a466  main
+    @     0x79ac929d4d90  (unknown)
+Aborted (core dumped)

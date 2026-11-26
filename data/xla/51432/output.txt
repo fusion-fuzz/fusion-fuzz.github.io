@@ -1,0 +1,14 @@
+F hlo_rematerialization.cc:2207] Check failed: !place_before_list.empty() Have nothing to place this before!
+*** Check failure stack trace: ***
+    xla::(anonymous namespace)::OffloadInstruction()
+    xla::(anonymous namespace)::RematerializeBestBlock()
+    xla::HloRematerialization::RematerializeComputation()
+    xla::HloRematerialization::RematerializeComputation()
+    xla::HloRematerialization::RunImpl()
+    xla::HloPassInterface::Run()
+    xla::HloPassPipeline::RunHelper<>()
+    xla::HloPassPipeline::RunPassesInternal<>()
+    xla::HloPassPipeline::RunImpl()
+    xla::gpu::GpuCompiler::RunPostSchedulingPipelines()
+    xla::gpu::GpuCompiler::CompileToBackendResult()
+    xla::gpu::GpuCompiler::RunBackend()

@@ -1,0 +1,121 @@
+error[E0658]: the `optimize` attribute is an experimental feature
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpng2sqgac/2dd2922f.rs:5:3
+  |
+5 | #[optimize(size)] //~ ERROR the `optimize` attribute is an experimental feature
+  |   ^^^^^^^^
+  |
+  = note: see issue #54882 <https://github.com/rust-lang/rust/issues/54882> for more information
+  = help: add `#![feature(optimize_attribute)]` to the crate attributes to enable
+
+error[E0658]: the `optimize` attribute is an experimental feature
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpng2sqgac/2dd2922f.rs:8:3
+  |
+8 | #[optimize(speed)] //~ ERROR the `optimize` attribute is an experimental feature
+  |   ^^^^^^^^
+  |
+  = note: see issue #54882 <https://github.com/rust-lang/rust/issues/54882> for more information
+  = help: add `#![feature(optimize_attribute)]` to the crate attributes to enable
+
+error[E0658]: the `optimize` attribute is an experimental feature
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpng2sqgac/2dd2922f.rs:11:3
+   |
+11 | #[optimize(none)] //~ ERROR the `optimize` attribute is an experimental feature
+   |   ^^^^^^^^
+   |
+   = note: see issue #54882 <https://github.com/rust-lang/rust/issues/54882> for more information
+   = help: add `#![feature(optimize_attribute)]` to the crate attributes to enable
+
+error: unsafe attribute used without unsafe
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpng2sqgac/2dd2922f.rs:36:3
+   |
+36 | #[no_mangle]
+   |   ^^^^^^^^^ usage of unsafe attribute
+   |
+help: wrap the attribute in `unsafe(...)`
+   |
+36 | #[unsafe(no_mangle)]
+   |   +++++++         +
+
+error[E0658]: the `optimize` attribute is an experimental feature
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpng2sqgac/2dd2922f.rs:49:3
+   |
+49 | #[optimize(banana)]
+   |   ^^^^^^^^
+   |
+   = note: see issue #54882 <https://github.com/rust-lang/rust/issues/54882> for more information
+   = help: add `#![feature(optimize_attribute)]` to the crate attributes to enable
+
+error[E0539]: malformed `optimize` attribute input
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpng2sqgac/2dd2922f.rs:49:3
+   |
+49 | #[optimize(banana)]
+   |   ^^^^^^^^^------^
+   |            |
+   |            valid arguments are `size`, `speed` or `none`
+   |
+help: try changing it to one of the following valid forms of the attribute
+   |
+49 - #[optimize(banana)]
+49 + #[optimize(none)]
+   |
+49 - #[optimize(banana)]
+49 + #[optimize(size)]
+   |
+49 - #[optimize(banana)]
+49 + #[optimize(speed)]
+   |
+
+error[E0658]: the `optimize` attribute is an experimental feature
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpng2sqgac/2dd2922f.rs:56:3
+   |
+56 | #[optimize(size_d61d685)] //~ ERROR the `optimize` attribute is an experimental ...
+   |   ^^^^^^^^
+   |
+   = note: see issue #54882 <https://github.com/rust-lang/rust/issues/54882> for more information
+   = help: add `#![feature(optimize_attribute)]` to the crate attributes to enable
+
+error[E0539]: malformed `optimize` attribute input
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpng2sqgac/2dd2922f.rs:56:3
+   |
+56 | #[optimize(size_d61d685)] //~ ERROR the `optimize` attribute is an experimental ...
+   |   ^^^^^^^^^------------^
+   |            |
+   |            valid arguments are `size`, `speed` or `none`
+   |
+help: try changing it to one of the following valid forms of the attribute
+   |
+56 - #[optimize(size_d61d685)] //~ ERROR the `optimize` attribute is an experimental feature
+56 + #[optimize(none)] //~ ERROR the `optimize` attribute is an experimental feature
+   |
+56 - #[optimize(size_d61d685)] //~ ERROR the `optimize` attribute is an experimental feature
+56 + #[optimize(size)] //~ ERROR the `optimize` attribute is an experimental feature
+   |
+56 - #[optimize(size_d61d685)] //~ ERROR the `optimize` attribute is an experimental feature
+56 + #[optimize(speed)] //~ ERROR the `optimize` attribute is an experimental feature
+   |
+
+error[E0658]: the `optimize` attribute is an experimental feature
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpng2sqgac/2dd2922f.rs:59:3
+   |
+59 | #[optimize(speed_d61d685)] //~ ERROR the `optimize` attribute is an experimental...
+   |   ^^^^^^^^
+   |
+   = note: see issue #54882 <https://github.com/rust-lang/rust/issues/54882> for more information
+   = help: add `#![feature(optimize_attribute)]` to the crate attributes to enable
+
+error[E0539]: malformed `optimize` attribute input
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpng2sqgac/2dd2922f.rs:59:3
+   |
+59 | #[optimize(speed_d61d685)] //~ ERROR the `optimize` attribute is an experimental...
+   |   ^^^^^^^^^-------------^
+   |            |
+   |            valid arguments are `size`, `speed` or `none`
+   |
+help: try changing it to one of the following valid forms of the attribute
+   |
+59 - #[optimize(speed_d61d685)] //~ ERROR the `optimize` attribute is an experimental feature
+59 + #[optimize(none)] //~ ERROR the `optimize` attribute is an experimental feature
+   |
+59 - #[optimize(speed_d61d685)] //~ ERROR the `optimize` attribute is an experimental feature
+59 + #[optimize(size)] //~ ERROR the `optimize` attribute is an experimental feature
+[... 220 more lines ...]

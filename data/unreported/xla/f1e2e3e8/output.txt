@@ -1,0 +1,48 @@
+
+=== Iteration 1
+Running HLO module with runner HloRunner...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791802756.830319  512374 shape_util.cc:1721] Check failed: output_shape.has_layout() s32[3,2]
+*** Check failure stack trace: ***
+    @     0x5eb2ddfa28a4  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5eb2ddfa2826  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5eb2ddb19a06  xla::ShapeUtil::TransposeIsBitcast()
+    @     0x5eb2dd896a3f  xla::HloCostAnalysis::HandleTranspose()
+    @     0x5eb2dd8ee45b  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x5eb2dd8ecac7  xla::HloInstruction::Visit<>()
+    @     0x5eb2dd8ebc90  xla::HloInstruction::Accept<>()
+    @     0x5eb2d46807b2  xla::HloComputation::Accept<>()
+    @     0x5eb2dd89c64a  xla::HloCostAnalysis::ProcessSubcomputation()
+    @     0x5eb2dd899759  xla::HloCostAnalysis::HandleFusion()
+    @     0x5eb2dd8eea61  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x5eb2dd8ecac7  xla::HloInstruction::Visit<>()
+    @     0x5eb2dd8ebc90  xla::HloInstruction::Accept<>()
+    @     0x5eb2d4902114  xla::cpu::ParallelTaskAssignment::ParallelTaskAssignment()
+    @     0x5eb2d4902886  xla::cpu::ParallelTaskAssigner::ComputeTargetParallelTasks()
+    @     0x5eb2d4902658  xla::cpu::ParallelTaskAssigner::RunImpl()
+    @     0x5eb2dd704f97  xla::HloPassInterface::Run()
+    @     0x5eb2dce16d5c  xla::HloPassPipeline::RunHelper<>()
+    @     0x5eb2dce121ad  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5eb2dce115c5  xla::HloPassPipeline::RunImpl()
+    @     0x5eb2dd704f97  xla::HloPassInterface::Run()
+    @     0x5eb2d48baf26  xla::cpu::CpuCompiler::RunHloPassesAfterLayoutAssn()
+    @     0x5eb2d48bb855  xla::cpu::CpuCompiler::RunHloPasses()
+    @     0x5eb2d48bc247  xla::cpu::CpuCompiler::RunHloPasses()
+    @     0x5eb2d46d7ba5  xla::CompileCpuExecutableInternal()
+    @     0x5eb2d46d6a2c  xla::PjRtCpuRawClient::CompileInternal()
+    @     0x5eb2d46d66af  xla::PjRtCpuRawClient::Compile()
+    @     0x5eb2d46f31f5  xla::cpu::CpuPjRtCompiler::Compile()
+    @     0x5eb2dcabbc3b  xla::PjRtCompile()
+    @     0x5eb2d47e8918  xla::CommonPjRtClient::Compile()
+    @     0x5eb2dcaa1c9a  xla::HloRunner::CreateExecutable()
+    @     0x5eb2dca9fd3c  xla::HloRunner::Execute()
+    @     0x5eb2dcaa982e  xla::HloRunnerInterface::Execute()
+    @     0x5eb2d468c5e7  xla::(anonymous namespace)::ExecuteWithRunner()
+    @     0x5eb2d4686ee7  xla::(anonymous namespace)::RunAndCompareInternal()
+    @     0x5eb2d4684e67  xla::RunAndCompare()
+    @     0x5eb2d468844e  xla::RunAndCompare()
+    @     0x5eb2d468204f  main
+    @     0x758d251f6d90  (unknown)
+Aborted (core dumped)
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmpjrb3jv0o/07dc2a47.hlo**

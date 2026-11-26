@@ -1,0 +1,60 @@
+/tmp/test.mm:1:17: warning: cannot find interface declaration for 'ISDPropertyChangeGroup'
+    1 | @implementation ISDPropertyChangeGroup
+      |                 ^
+/tmp/test.mm:5:33: error: expected a type
+    5 | - (id)lastModifiedGeneration : (ISDClientState *) obj
+      |                                 ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Parse/ParseObjc.cpp:2469: clang::Decl* clang::Parser::ParseObjCMethodDefinition(): Assertion `CurParsedObjCImpl && "ParseObjCMethodDefinition - Method out of @implementation"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O3 -std=c++20 /tmp/test.mm
+1.	/tmp/test.mm:6:1: current parser token '{'
+2.	/tmp/test.mm:6:1: parsing Objective-C method 'ISDPropertyChangeGroup::lastModifiedGeneration:'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005564885340f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000556488530dcc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000556488531678 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000556488473f88
+4  libc.so.6 0x00007fbc92e67520
+5  libc.so.6 0x00007fbc92ebb9fc pthread_kill + 300
+6  libc.so.6 0x00007fbc92e67476 raise + 22
+7  libc.so.6 0x00007fbc92e4d7f3 abort + 211
+8  libc.so.6 0x00007fbc92e4d71b
+9  libc.so.6 0x00007fbc92e5ee96
+10 clang++   0x000055648ad8493b clang::Parser::ParseObjCMethodDefinition() + 1867
+11 clang++   0x000055648acd3f4b clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2939
+12 clang++   0x000055648acd47df clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+13 clang++   0x000055648acb170a clang::ParseAST(clang::Sema&, bool, bool) + 586
+14 clang++   0x000055648922a071 clang::FrontendAction::Execute() + 65
+15 clang++   0x00005564891b3c65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+16 clang++   0x0000556489305ea3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+17 clang++   0x0000556486f08c96 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7046
+18 clang++   0x0000556486efea2a
+19 clang++   0x0000556486efebbf
+20 clang++   0x0000556488f3b35d
+21 clang++   0x00005564884743a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+22 clang++   0x0000556488f3c1b3
+23 clang++   0x0000556488ef1987 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+24 clang++   0x0000556488ef61e0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+25 clang++   0x0000556488f03e44 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+26 clang++   0x0000556486f042d3 clang_main(int, char**, llvm::ToolContext const&) + 7267
+27 clang++   0x0000556486e567a1 main + 113
+28 libc.so.6 0x00007fbc92e4ed90
+29 libc.so.6 0x00007fbc92e4ee40 __libc_start_main + 128
+30 clang++   0x0000556486efe055 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git aefba88f46a6e55645c848f58f6ba56944d5ae62)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/test-a583e6.mm
+clang++: note: diagnostic msg: /tmp/test-a583e6.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

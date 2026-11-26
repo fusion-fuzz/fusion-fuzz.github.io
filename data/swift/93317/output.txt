@@ -1,0 +1,15 @@
+$ swift-frontend -typecheck repro.swift
+swift-frontend: lib/Sema/TypeCheckAttr.cpp:4133: void lookupReplacedDecl(DeclNameRef, const DeclAttribute *, const ValueDecl *, SmallVectorImpl<ValueDecl *> &): Assertion `declCtxt->isTypeContext()' failed.
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "repro.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(repro.(file).h()@repro.swift:2:6)
+5.	While type-checking statement at [repro.swift:2:10 - line:4:1] RangeText="{ ..."
+6.	While type-checking 'r()' (at repro.swift:3:32)
+7.	While evaluating request DynamicallyReplacedDeclRequest(repro.(file).h().r()@repro.swift:3:37)
+ #9  lookupReplacedDecl(swift::DeclNameRef, swift::DeclAttribute const*, swift::ValueDecl const*, llvm::SmallVectorImpl<swift::ValueDecl*>&) TypeCheckAttr.cpp
+ #10 findSimilarFunction(swift::DeclNameRefWithLoc, swift::AbstractFunctionDecl const*, swift::DeclAttribute*, swift::DiagnosticEngine*, bool) TypeCheckAttr.cpp
+ #11 swift::DynamicallyReplacedDeclRequest::evaluate(swift::Evaluator&, swift::ValueDecl*) const
+ #14 swift::ValueDecl::getDynamicallyReplacedDecl() const
+ #15 (anonymous namespace)::DeclChecker::visitFuncDecl(swift::FuncDecl*) TypeCheckDeclPrimary.cpp
+ #17 swift::TypeChecker::typeCheckDecl(swift::Decl*)
+ #18 swift::ASTVisitor<(anonymous namespace)::StmtChecker, ...>::visit(swift::Stmt*) TypeCheckStmt.cpp
+ #21 swift::TypeCheckFunctionBodyRequest::evaluate(swift::Evaluator&, swift::AbstractFunctionDecl*) const

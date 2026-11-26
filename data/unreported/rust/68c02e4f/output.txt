@@ -1,0 +1,94 @@
+[... 67 lines omitted ...]
+   |
+97 | pub type Test3_dd90466 = Wrapper3_dd90466<Tuple_dd90466>;
+   |          ^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `Test3Dd90466`
+
+warning: type `Test4_dd90466` should have an upper camel case name
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpahyx3aco/6b359e94.rs:101:10
+    |
+101 | pub type Test4_dd90466 = WrapperUnion_dd90466<Tuple_dd90466>;
+    |          ^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `Test4Dd90466`
+
+error[E0322]: explicit impls for the `DiscriminantKind` trait are not permitted
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpahyx3aco/6b359e94.rs:52:1
+   |
+52 | impl DiscriminantKind for NewType {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ impl of `DiscriminantKind` not allowed
+
+error: homogeneous_aggregate: Ok(Homogeneous(Reg { kind: Float, size: Size(4 bytes) }))
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpahyx3aco/6b359e94.rs:27:1
+   |
+27 | pub type Test0 = Tuple;
+   | ^^^^^^^^^^^^^^
+
+error: homogeneous_aggregate: Ok(Homogeneous(Reg { kind: Float, size: Size(4 bytes) }))
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpahyx3aco/6b359e94.rs:31:1
+   |
+31 | pub type Test1 = Wrapper1<Tuple>;
+   | ^^^^^^^^^^^^^^
+
+error: homogeneous_aggregate: Ok(Homogeneous(Reg { kind: Float, size: Size(4 bytes) }))
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpahyx3aco/6b359e94.rs:35:1
+   |
+35 | pub type Test2 = Wrapper2<Tuple>;
+   | ^^^^^^^^^^^^^^
+
+error: homogeneous_aggregate: Ok(Homogeneous(Reg { kind: Float, size: Size(4 bytes) }))
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpahyx3aco/6b359e94.rs:39:1
+   |
+39 | pub type Test3 = Wrapper3<Tuple>;
+   | ^^^^^^^^^^^^^^
+
+
+thread 'rustc' (2773709) panicked at compiler/rustc_abi/src/callconv.rs:101:33:
+internal error: entered unreachable code: aggregates can't have `FieldsShape::Primitive`
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panicking.rs:80:14
+   2: <rustc_abi::layout::ty::TyAndLayout<rustc_middle::ty::Ty>>::homogeneous_aggregate::<rustc_passes::layout_test::UnwrapLayoutCx>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_abi/src/callconv.rs:101:33
+   3: <rustc_abi::layout::ty::TyAndLayout<rustc_middle::ty::Ty>>::homogeneous_aggregate::<rustc_passes::layout_test::UnwrapLayoutCx>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_abi/src/callconv.rs:147:47
+   4: rustc_passes::layout_test::dump_layout_of
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_passes/src/layout_test.rs:85:39
+   5: rustc_passes::layout_test::test_layout
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_passes/src/layout_test.rs:25:17
+   6: rustc_interface::passes::run_required_analyses::{closure#3}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1195:36
+   7: <rustc_data_structures::profiling::VerboseTimingGuard>::run::<(), rustc_interface::passes::run_required_analyses::{closure#3}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/profiling.rs:845:9
+   8: <rustc_session::session::Session>::time::<(), rustc_interface::passes::run_required_analyses::{closure#3}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_session/src/utils.rs:17:50
+   9: rustc_interface::passes::run_required_analyses
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1195:10
+  10: rustc_interface::passes::analysis
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1202:5
+      [... omitted 13 frames ...]
+  11: rustc_middle::query::calls::query_ensure_ok::<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 0]>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:170:13
+  12: <rustc_middle::query::calls::TyCtxtEnsureOk>::analysis
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:302:21
+  13: rustc_driver_impl::run_compiler::{closure#0}::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_driver_impl/src/lib.rs:316:29
+  14: rustc_interface::passes::create_and_enter_global_ctxt::<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1045:80
+  15: <core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}::{closure#0}> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panic/unwind_safe.rs:275:9
+  16: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}::{closure#0}>, core::option::Option<rustc_interface::queries::Linker>>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:576:43
+  17: std::panicking::catch_unwind::<core::option::Option<rustc_interface::queries::Linker>, core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}::{closure#0}>>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:544:19
+  18: std::panic::catch_unwind::<core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}::{closure#0}>, core::option::Option<rustc_interface::queries::Linker>>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panic.rs:359:14
+  19: rustc_interface::passes::create_and_enter_global_ctxt::<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1045:23
+  20: <rustc_middle::ty::context::GlobalCtxt>::enter::<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}, core::option::Option<rustc_interface::queries::Linker>>::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context.rs:804:37
+  21: rustc_middle::ty::context::tls::enter_context::<<rustc_middle::ty::context::GlobalCtxt>::enter<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}, core::option::Option<rustc_interface::queries::Linker>>::{closure#1}, core::option::Option<rustc_interface::queries::Linker>>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:56:9
+  22: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::try_with::<rustc_middle::ty::context::tls::enter_context<<rustc_middle::ty::context::GlobalCtxt>::enter<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}, core::option::Option<rustc_interface::queries::Linker>>::{closure#1}, core::option::Option<rustc_interface::queries::Linker>>::{closure#0}, core::option::Option<rustc_interface::queries::Linker>>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:464:12
+  23: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::with::<rustc_middle::ty::context::tls::enter_context<<rustc_middle::ty::context::GlobalCtxt>::enter<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}, core::option::Option<rustc
+[... truncated ...]

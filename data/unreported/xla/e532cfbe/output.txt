@@ -1,0 +1,29 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+W0000 00:00:1791990001.228670 2228451 sharding_propagation.cc:3202] GSPMD sharding propagation is going to be deprecated and not supported in the future. Please consider migrating to Shardy (https://openxla.org/shardy). For reference, Shardy is already the default partitioner in JAX.
+F0000 00:00:1791990001.228798 2228451 hlo_sharding_util.cc:1857] Check failed: dim < sharding.TiledDataRank() (2 vs. 2) Dimension 2 is out of bounds for number dimensions 2
+*** Check failure stack trace: ***
+    @     0x628d90169a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x628d901699e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x628d87f59814  xla::hlo_sharding_util::PartiallyReplicateTiledShardingOnDims()
+    @     0x628d87f70d62  xla::hlo_sharding_util::InferDotOperandSharding()
+    @     0x628d87f714bc  xla::hlo_sharding_util::InferDotOperandSharding()
+    @     0x628d87db96fc  xla::ShardingPropagation::GetShardingFromUser()
+    @     0x628d87dc12d8  xla::ShardingPropagation::InferShardingFromUsers()
+    @     0x628d87dc35b7  xla::ShardingPropagation::RunToFixPoint()
+    @     0x628d87dc8dc3  xla::ShardingPropagation::RunImpl()
+    @     0x628d8c220be7  xla::HloPassInterface::Run()
+    @     0x628d87d9e3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x628d87d997bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x628d87d98bd5  xla::HloPassPipeline::RunImpl()
+    @     0x628d8c220be7  xla::HloPassInterface::Run()
+    @     0x628d84cecfd2  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x628d84cfa06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x628d84c2e934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x628d84c2ee85  xla::CompiledOptProvider::GetExecutable()
+    @     0x628d84c2e245  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x628d84c20d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x628d901ba466  main
+    @     0x77c4671d4d90  (unknown)
+Aborted (core dumped)

@@ -1,0 +1,28 @@
+during IPA pass: analyzer
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuxi4d2zn/fd8bff6b.c:131:1: internal compiler error: in remove_edge, at analyzer/supergraph-simplify.cc:121
+  131 | }
+      | ^
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x9a12d0 remove_edge
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/analyzer/supergraph-simplify.cc:121
+0x9a12d0 remove_edge
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/analyzer/supergraph-simplify.cc:115
+0x1bf0b30 remove_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/analyzer/supergraph-simplify.cc:109
+0x1bf0b30 consider_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/analyzer/supergraph-simplify.cc:154
+0x1bf0b30 ana::supergraph::simplify(ana::logger*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/analyzer/supergraph-simplify.cc:308
+0x1b3fd33 ana::impl_run_checkers(ana::logger*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/analyzer/engine.cc:4798
+0x1b40776 ana::run_checkers()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/analyzer/engine.cc:4937
+0x1b32a1c execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/analyzer/analyzer-pass.cc:81
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuxi4d2zn/fd8bff6b.c -quiet -dumpbase fd8bff6b.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O2 -fanalyzer -o /tmp/ccfFycKe.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

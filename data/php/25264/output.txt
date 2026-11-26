@@ -1,0 +1,19 @@
+==3131447==ERROR: AddressSanitizer: SEGV on unknown address 0x000041edea00 (pc 0x0000067b27b3 bp 0x7ffdec2ce520 sp 0x7ffdec2ce1f0 T0)
+==3131447==The signal is caused by a WRITE memory access.
+    #0 0x67b27b3 in inherit_property_hook Zend/zend_inheritance.c:1402:26
+    #1 0x6766a31 in do_inherit_property Zend/zend_inheritance.c:1540:6
+    #2 0x6772941 in do_interface_implementation Zend/zend_inheritance.c:2199:3
+    #3 0x67a0914 in zend_do_implement_interfaces Zend/zend_inheritance.c:2303:3
+    #4 0x678eb7d in zend_do_link_class Zend/zend_inheritance.c:3746:4
+    #5 0x5d8adcd in zend_bind_class_in_slot Zend/zend_compile.c:1340:7
+    #6 0x5d8bc9e in do_bind_class Zend/zend_compile.c:1372:9
+    #7 0x6431c6f in ZEND_DECLARE_CLASS_SPEC_CONST_HANDLER Zend/zend_vm_execute.h:5946:2
+    #8 0x5fabacc in execute_ex Zend/zend_vm_execute.h:110621:12
+    #9 0x5fad941 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #10 0x6b9a226 in zend_execute_script Zend/zend.c:1980:3
+    #11 0x550f6d6 in php_execute_script_ex main/main.c:2636:13
+    #12 0x5510358 in php_execute_script main/main.c:2676:9
+    #13 0x6bab555 in do_cli sapi/cli/php_cli.c:943:5
+    ...
+
+SUMMARY: AddressSanitizer: SEGV Zend/zend_inheritance.c:1402:26 in inherit_property_hook

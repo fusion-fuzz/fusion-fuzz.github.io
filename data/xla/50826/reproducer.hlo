@@ -1,0 +1,9 @@
+HloModule m
+
+ENTRY e {
+  p0 = f32[2,128] parameter(0)
+  c = s32[] constant(3)
+  r = f32[1,2,128] reshape(p0)
+  a = f32[1,2,128] add(r, r), control-predecessors={c}
+  ROOT n = f32[1,2,128] negate(a)
+}

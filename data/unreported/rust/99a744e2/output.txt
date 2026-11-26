@@ -1,0 +1,31 @@
+warning: struct `Struct` is never constructed
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpw5c7skdz/67315bc6.rs:49:8
+   |
+49 | struct Struct<S, T> {
+   |        ^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `main_ee4befc9` is never used
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpw5c7skdz/67315bc6.rs:57:4
+   |
+57 | fn main_ee4befc9() {
+   |    ^^^^^^^^^^^^^
+
+Undefined behavior: Buffer overflow
+  %12 = load i8, ptr getelementptr inbounds nuw (i8, ptr @0, i64 1), align 1, !dbg !16
+Undefined behavior: Buffer overflow
+  %27 = load i8, ptr getelementptr inbounds nuw (i8, ptr @0, i64 1), align 1, !dbg !23
+Unusual: Address one pointer dereference
+  %60 = load i8, ptr inttoptr (i64 1 to ptr), align 1, !dbg !48
+Unusual: Address one pointer dereference
+  %63 = load i8, ptr getelementptr inbounds nuw (i8, ptr inttoptr (i64 1 to ptr), i64 1), align 1, !dbg !48
+Unusual: Address one pointer dereference
+  %68 = load i8, ptr inttoptr (i64 1 to ptr), align 1, !dbg !48
+Unusual: Address one pointer dereference
+  %72 = load i8, ptr inttoptr (i64 1 to ptr), align 1, !dbg !52
+Unusual: Address one pointer dereference
+  %75 = load i8, ptr getelementptr inbounds nuw (i8, ptr inttoptr (i64 1 to ptr), i64 1), align 1, !dbg !52
+Unusual: Address one pointer dereference
+  %80 = load i8, ptr inttoptr (i64 1 to ptr), align 1, !dbg !52
+rustc-LLVM ERROR: linter found errors, aborting. (enabled by abort-on-error)

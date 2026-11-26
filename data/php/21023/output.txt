@@ -1,0 +1,22 @@
+Warning: Undefined variable $callback in /tmp/test.php on line 8
+/home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_API.h:847:6: runtime error: member access within null pointer of type 'zend_function' (aka 'union _zend_function')
+    #0 0xf216d7 in zend_call_known_fcc /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_API.h:847:6
+    #1 0xf25f59 in curl_xferinfo /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/curl/interface.c:659:2
+    #2 0x7fcf70347052  (/lib/x86_64-linux-gnu/libcurl.so.4+0x4f052)
+    #3 0x7fcf7033e487  (/lib/x86_64-linux-gnu/libcurl.so.4+0x46487)
+    #4 0x7fcf703414cd in curl_multi_perform (/lib/x86_64-linux-gnu/libcurl.so.4+0x494cd)
+    #5 0x7fcf7031deb2 in curl_easy_perform (/lib/x86_64-linux-gnu/libcurl.so.4+0x25eb2)
+    #6 0xefdd9a in zif_curl_exec /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/curl/interface.c:2342:10
+    #7 0x5feecbf in ZEND_DO_ICALL_SPEC_RETVAL_USED_HANDLER /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_vm_execute.h:1421:2
+    #8 0x5aff3fb in execute_ex /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_vm_execute.h:116245:12
+    #9 0x5b0198c in zend_execute /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_vm_execute.h:121962:2
+    #10 0x6894569 in zend_execute_script /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend.c:1980:3
+    #11 0x5056eca in php_execute_script_ex /home/phpfuzz/WorkSpace/flowfusion/php-src/main/main.c:2645:13
+    #12 0x5058008 in php_execute_script /home/phpfuzz/WorkSpace/flowfusion/php-src/main/main.c:2685:9
+    #13 0x68a947a in do_cli /home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php_cli.c:951:5
+    #14 0x68a385f in main /home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php_cli.c:1362:18
+    #15 0x7fcf6fb10d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #16 0x7fcf6fb10e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #17 0x606244 in _start (/home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php+0x606244)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_API.h:847:6 in

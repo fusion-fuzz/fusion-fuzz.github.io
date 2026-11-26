@@ -1,0 +1,83 @@
+[... 24 lines omitted ...]
+      (<conditional requirements unable to be computed>)
+      (normal_conformance type="Array<Element>" protocol="Hashable" explicit nonisolated lazy
+        (requirement "Element" conforms_to "Hashable"))))
+  (conformance type="BaseValue"
+    (self_conformance type="any Copyable" protocol="Copyable" explicit nonisolated))
+  (conformance type="BaseValue"
+    (self_conformance type="any Escapable" protocol="Escapable" explicit nonisolated))
+  (conformance type="BaseValue"
+    (invalid_conformance)))
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -O -sil-verify-all -enable-experimental-feature ThenStatements -enable-experimental-feature Macros /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpi1vr2n4d/e0102c8a.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module e0102c8a)
+4.	While silgen emitApplyExpr expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpi1vr2n4d/e0102c8a.swift:46:5 - line:46:61] RangeText="Set([Set(nested_b7a7942)]).contains(Set(letters_b7a7942)"
+5.	While silgen emitApplyExpr expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpi1vr2n4d/e0102c8a.swift:46:5 - line:46:30] RangeText="Set([Set(nested_b7a7942)]"
+6.	Abort: function emitApplyOfLibraryIntrinsic at SILGenApply.cpp:7080
+| 	Invalid conformance in substitution map for call to #_setUpCast:
+| 	(substitution_map generic_signature=<DerivedValue, BaseValue where DerivedValue : Copyable, DerivedValue : Escapable, DerivedValue : Hashable, BaseValue : Copyable, BaseValue : Escapable, BaseValue : Hashable>
+| 	  (substitution DerivedValue -> 
+| 	    (bound_generic_struct_type decl="Swift.(file).Array"
+| 	      (struct_type decl="Swift.(file).Character")))
+| 	  (substitution BaseValue -> 
+| 	    (existential_type
+| 	      (protocol_composition_type)))
+| 	  (conformance type="DerivedValue"
+| 	    (builtin_conformance type="Array<Character>" protocol="Copyable" synthesized nonisolated))
+| 	  (conformance type="DerivedValue"
+| 	    (builtin_conformance type="Array<Character>" protocol="Escapable" synthesized nonisolated))
+| 	  (conformance type="DerivedValue"
+| 	    (specialized_conformance type="Array<Character>" protocol="Hashable" explicit nonisolated
+| 	      (substitution_map generic_signature=<Element where Element : Copyable, Element : Escapable, Element : Hashable>
+| 	        (substitution Element -> 
+| 	          (struct_type decl="Swift.(file).Character"))
+| 	        (conformance type="Element"
+| 	          (builtin_conformance type="Character" protocol="Copyable" synthesized nonisolated))
+| 	        (conformance type="Element"
+| 	          (builtin_conformance type="Character" protocol="Escapable" synthesized nonisolated))
+| 	        (conformance type="Element"
+| 	          (normal_conformance type="Character" protocol="Hashable" explicit nonisolated lazy)))
+| 	      (<conditional requirements unable to be computed>)
+| 	      (normal_conformance type="Array<Element>" protocol="Hashable" explicit nonisolated lazy
+| 	        (requirement "Element" conforms_to "Hashable"))))
+| 	  (conformance type="BaseValue"
+| 	    (self_conformance type="any Copyable" protocol="Copyable" explicit nonisolated))
+| 	  (conformance type="BaseValue"
+| 	    (self_conformance type="any Escapable" protocol="Escapable" explicit nonisolated))
+| 	  (conformance type="BaseValue"
+| 	    (invalid_conformance)))
+ #0 0x000055c4dc7b7bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055c4dc7b52e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055c4dc7b88c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007ff45d48d330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007ff45d4e6c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007ff45d48d27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007ff45d4708ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000055c4d6bf5622 (/usr/bin/swift-frontend+0x3055622)
+ #8 0x000055c4d6bf570c (/usr/bin/swift-frontend+0x305570c)
+ #9 0x000055c4d5083947 swift::Lowering::SILGenFunction::emitApplyOfLibraryIntrinsic(swift::SILLocation, swift::SILDeclRef, swift::SubstitutionMap, llvm::ArrayRef<swift::Lowering::ManagedValue>, swift::Lowering::SGFContext) crtstuff.c:0:0
+#10 0x000055c4d5083002 swift::Lowering::SILGenFunction::emitApplyOfLibraryIntrinsic(swift::SILLocation, swift::FuncDecl*, swift::SubstitutionMap, llvm::ArrayRef<swift::Lowering::ManagedValue>, swift::Lowering::SGFContext) crtstuff.c:0:0
+#11 0x000055c4d4f70436 swift::Lowering::SILGenFunction::emitCollectionConversion(swift::SILLocation, swift::FuncDecl*, swift::CanType, swift::CanType, swift::Lowering::ManagedValue, swift::Lowering::SGFContext) crtstuff.c:0:0
+#12 0x000055c4d4f8eb2a (anonymous namespace)::RValueEmitter::visitCollectionUpcastConversionExpr(swift::CollectionUpcastConversionExpr*, swift::Lowering::SGFContext) SILGenExpr.cpp:0:0
+#13 0x000055c4d4f7fc15 swift::ASTVisitor<(anonymous namespace)::RValueEmitter, swift::Lowering::RValue, void, void, void, void, void, swift::Lowering::SGFContext>::visit(swift::Expr*, swift::Lowering::SGFContext) SILGenExpr.cpp:0:0
+#14 0x000055c4d4f6e5cb swift::Lowering::SILGenFunction::emitExprInto(swift::Expr*, swift::Lowering::Initialization*, std::optional<swift::SILLocation>) crtstuff.c:0:0
+#15 0x000055c4d5056382 swift::Lowering::ArgumentSource::forwardInto(swift::Lowering::SILGenFunction&, swift::Lowering::Initialization*) && (/usr/bin/swift-frontend+0x14b6382)
+#16 0x000055c4d5056b42 swift::Lowering::ArgumentSource::forwardInto(swift::Lowering::SILGenFunction&, swift::Lowering::AbstractionPattern, swift::Lowering::Initialization*, swift::Lowering::TypeLowering const&) && (/usr/bin/swift-frontend+0x14b6b42)
+#17 0x000055c4d4f96f54 (anonymous namespace)::RValueEmitter::visitCollectionExpr(swift::CollectionExpr*, swift::Lowering::SGFContext) SILGenExpr.cpp:0:0
+#18 0x000055c4d4f7fa2b swift::ASTVisitor<(anonymous namespace)::RValueEmitter, swift::Lowering::RValue, void, void, void, void, void, swift::Lowering::SGFContext>::visit(swift::Expr*, swift::Lowering::SGFContext) SILGenExpr.cpp:0:0
+#19 0x000055c4d4f7dbbc swift::Lowering::SILGenFunction::emitRValueAsSingleValue(swift::Expr*, swift::Lowering::SGFContext) crtstuff.c:0:0
+#20 0x000055c4d5093591 (anonymous namespace)::ArgEmitter::emit(swift::Lowering::ArgumentSource&&, swift::Lowering::AbstractionPattern, bool, std::optional<swift::AnyFunctionType::Param>) SILGenApply.cpp:0:0
+#21 0x000055c4d507c040 (anonymous namespace)::ArgEmitter::emitSingleArg(swift::Lowering::ArgumentSource&&, swift::Lowering::AbstractionPattern, bool, std::optional<swift::AnyFunctionType::Param>) SILGenApply.cpp:0:0
+#22 0x000055c4d5091302 (anonymous namespace)::ArgEmitter::emitPreparedArgs(swift::Lowering::PreparedArguments&&, swift::Lowering::AbstractionPattern, llvm::ArrayRef<swift::LifetimeDependenceInfo>) SILGenApply.cpp:0:0
+#23 0x000055c4d50a1626 (anonymous namespace)::CallSite::emit(swift::Lowering::SILGenFunction&, swift::Lowering::AbstractionPattern, swift::CanTypeWrapper<swift::SILFunctionType>, llvm::ArrayRef<swift::LifetimeDependenceInfo>, (anonymous namespace)::ParamLowering&, llvm::SmallVectorImpl<swift::Lowering::ManagedValue>&, llvm::SmallVectorImpl<(anonymous namespace)::DelayedArgument>&, swift::ForeignInfo const&) && SILGenApply.cpp:0:0
+#24 0x000055c4d50a09e5 (anonymous namespace)::CallEmission::emitArgumentsForNormalApply(swift::Lowering::AbstractionPattern, swift::CanTypeWrapper<swift::SILFunctionType>, llvm::ArrayRef<swift::LifetimeDependenceInfo>, swift::ForeignInfo const&, llvm::SmallVectorImpl<swift::Lowering::ManagedValue>&, std::optional<swift::SILLocation>&) SILGenApply.cpp:0:0
+#25 0x000055c4d5081b89 (anonymous namespace)::CallEmission::apply(swift::Lowering::SGFContext) SILGenApply.cpp:0:0
+#26 0x000055c4d507e5dc swift::Lowering::SILGenFunction::emitApplyExpr(swift::ApplyExpr*, swift::Lowering::SGFContext) crtstuff.c:0:0
+#27 0x000055c4d4f7fa08 swift::ASTVisitor<(anonymous namespace)::RValueEmitter, swift::Lowering::RValue, void, void, void, void, void, swift::Lowering::SGFContext>::visit(swift::Expr*, swift::Lowering::SGFContext) SILGenExpr.cpp:0:0
+#28 0x000055c4d4f7dbbc swift::Lowering::SILGenFunction::emitRValueAsSingleValue(swift::Expr*, swift::Lowering::SGFContext) crtstuff.c:0:0
+#29 0x000055c4d5093377 (anonymous namespace)::ArgEmitter::emit(swift::Lowering::ArgumentSource&&, swift::Lowering::AbstractionPattern, bool, std::optional<swift::AnyFunctionType::Param>) SILGenApply.cpp:0:0
+#30 0x000055c4d507c040 (anonymous namespace)::ArgEmitter::emitSingleArg(swift::Lowering::ArgumentSource&&, swift::Lowering::AbstractionPattern, bool, std::optional<swift::AnyFunctionType::Param>) SILGen
+[... truncated ...]

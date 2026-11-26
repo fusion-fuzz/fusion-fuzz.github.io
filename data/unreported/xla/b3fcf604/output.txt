@@ -1,0 +1,29 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1792013491.623434 4164593 shape_util.h:141] Check failed: !shape.is_unbounded_dynamic_dimension(dim) 
+*** Check failure stack trace: ***
+    @     0x5f9d456f9a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5f9d456f99e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5f9d3a203d92  xla::ShapeUtil::ExtentProduct<>()
+    @     0x5f9d3cc59c7e  xla::AlgebraicSimplifierVisitor::HandleBroadcast()
+    @     0x5f9d4502e202  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x5f9d4502def7  xla::HloInstruction::Visit<>()
+    @     0x5f9d4503046e  xla::PostOrderDFS<>()
+    @     0x5f9d4502ccf8  xla::HloInstruction::Accept<>()
+    @     0x5f9d3a18ef07  xla::HloComputation::Accept<>()
+    @     0x5f9d3cc2face  xla::AlgebraicSimplifierVisitor::Run()
+    @     0x5f9d3a766e4a  xla::gpu::GpuAlgebraicSimplifier::RunImpl()
+    @     0x5f9d417b0be7  xla::HloPassInterface::Run()
+    @     0x5f9d3d32e3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5f9d3d3297bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5f9d3d328bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5f9d417b0be7  xla::HloPassInterface::Run()
+    @     0x5f9d3a27ce11  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5f9d3a28a06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5f9d3a1be934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5f9d3a1b2e5e  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x5f9d3a1b0dc7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5f9d4574a466  main
+    @     0x7b42787d4d90  (unknown)
+Aborted (core dumped)

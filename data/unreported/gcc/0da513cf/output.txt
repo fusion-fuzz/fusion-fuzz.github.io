@@ -1,0 +1,45 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpntkx7_33/deb2c3f6.c:44:5: error: '__GIMPLE' only valid with '-fgimple'
+   44 | int __GIMPLE (ssa,startwith("vrp1"),guessed_local(1073741824))
+      |     ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpntkx7_33/deb2c3f6.c: In function 'main':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpntkx7_33/deb2c3f6.c:133:1: internal compiler error: in as_a, at is-a.h:255
+  133 | }
+      | ^
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x9346b1 gimple_statement_with_ops* as_a<gimple_statement_with_ops*, gimple>(gimple*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/is-a.h:255
+0x18961d7 gimple_statement_with_memory_ops* as_a<gimple_statement_with_memory_ops*, gimple>(gimple*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-ssa-operands.cc:330
+0x18961d7 gimple_set_vuse(gimple*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple.h:2283
+0x18961d7 operands_scanner::finalize_ssa_uses()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-ssa-operands.cc:442
+0x189579f operands_scanner::finalize_ssa_stmt_operands()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-ssa-operands.cc:506
+0x189579f operands_scanner::build_ssa_operands()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-ssa-operands.cc:1015
+0x18958b4 update_stmt_operands(function*, gimple*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-ssa-operands.cc:1163
+0xf4ddf6 update_stmt(gimple*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-ssa.h:177
+0xf4ddf6 update_stmt(gimple*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-ssa.h:172
+0xf4ddf6 c_parser_parse_gimple_body(c_parser*, char*, c_declspec_il, profile_count)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:384
+0xf3625e c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3348
+0xf43529 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2256
+0xf44470 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xf44470 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xfc9e09 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpntkx7_33/deb2c3f6.c -quiet -dumpdir a- -dumpbase deb2c3f6.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Ofast -O2 -std=c23 -fsyntax-only -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

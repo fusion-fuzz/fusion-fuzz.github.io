@@ -1,0 +1,41 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmpyqk_hnth/b9f82280.mlir:14:5: error: failed to legalize operation 'tt.return' that was explicitly marked illegal: "tt.return"(%2660) : (tensor<64xf32, #ttg.slice<{dim = 1, parent = #ttg.blocked<{sizePerThread = [1, 1], threadsPerWarp = [2, 16], warpsPerCTA = [2, 1], order = [1, 0]}>}>>) -> ()
+    tt.return %1 : tensor<64xf32, #ttg.slice<{dim = 1, parent = #H_37e5ec5d_blocked1}>>
+    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmpyqk_hnth/b9f82280.mlir:14:5: note: see current operation: "tt.return"(%2660) : (tensor<64xf32, #ttg.slice<{dim = 1, parent = #ttg.blocked<{sizePerThread = [1, 1], threadsPerWarp = [2, 16], warpsPerCTA = [2, 1], order = [1, 0]}>}>>) -> ()
+triton-opt: /home/runner/work/triton/triton/llvm-project/llvm/include/llvm/ADT/ilist_iterator.h:168: llvm::ilist_iterator::reference llvm::ilist_iterator<llvm::ilist_detail::node_options<mlir::Operation, true, false, void, false, void>, false, false>::operator*() const [OptionsT = llvm::ilist_detail::node_options<mlir::Operation, true, false, void, false, void>, IsReverse = false, IsConst = false]: Assertion `!NodePtr->isKnownSentinel()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmpyqk_hnth/b9f82280.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic --allocate-shared-memory --tritongpu-global-scratch-memory-allocation --convert-triton-gpu-to-llvm --convert-builtin-func-to-llvm
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x00006014c6f3048a
+1  triton-opt 0x00006014c6f2d38e
+2  triton-opt 0x00006014c6f3138b
+3  libc.so.6  0x000079abcef13520
+4  libc.so.6  0x000079abcef679bc pthread_kill + 300
+5  libc.so.6  0x000079abcef13476 raise + 22
+6  libc.so.6  0x000079abceef97f3 abort + 211
+7  libc.so.6  0x000079abceef971b
+8  libc.so.6  0x000079abcef0ae96
+9  triton-opt 0x00006014c6b0b7b0
+10 triton-opt 0x00006014c62b61a9
+11 triton-opt 0x00006014c629737b
+12 triton-opt 0x00006014c62a170a
+13 triton-opt 0x00006014c62b0df8
+14 triton-opt 0x00006014c62a7475
+15 triton-opt 0x00006014c62a754b
+16 triton-opt 0x00006014bf62221d
+17 triton-opt 0x00006014bf8fe89b
+18 triton-opt 0x00006014bf8ff419
+19 triton-opt 0x00006014bf906432
+20 triton-opt 0x00006014bf905ca2
+21 triton-opt 0x00006014bf8f0d37
+22 triton-opt 0x00006014bf8effcc
+23 triton-opt 0x00006014c6b4e6b1
+24 triton-opt 0x00006014bf8e6332
+25 triton-opt 0x00006014bf8e6731
+26 triton-opt 0x00006014bf8e696d
+27 triton-opt 0x00006014bf8d192c
+28 libc.so.6  0x000079abceefad90
+29 libc.so.6  0x000079abceefae40 __libc_start_main + 128
+30 triton-opt 0x00006014bee78df5
+Aborted (core dumped)

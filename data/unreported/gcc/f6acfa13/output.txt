@@ -1,0 +1,67 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4bpmobyu/1bc0bf7a.cc:26:18: error: '#pragma omp declare simd' not immediately followed by a single function declaration or definition
+   26 | foo (T... x (int))
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4bpmobyu/1bc0bf7a.cc: In function 'int foo(double, double)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4bpmobyu/1bc0bf7a.cc:70:5: error: 'a' cannot be used as a function
+   70 |   a ((char *) &c2 + 1, &c2);
+      |   ~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4bpmobyu/1bc0bf7a.cc:72:5: error: 'a' cannot be used as a function
+   72 |   a (b, a);
+      |   ~~^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4bpmobyu/1bc0bf7a.cc:73:5: error: 'b' cannot be used as a function
+   73 |   b (((union U) { .d = c1 }).s, ((union U) { .d = c2 }).s);
+      |   ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4bpmobyu/1bc0bf7a.cc:74:5: error: 'b' cannot be used as a function
+   74 |   b (*(struct S *)&c1, *(struct S *)&c2);
+      |   ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4bpmobyu/1bc0bf7a.cc: In substitution of 'template<class ... T> void foo(T(int) ...) [with T = {int, double}]':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4bpmobyu/1bc0bf7a.cc:85:21:   required from here
+   85 |   foo <int, double> (f1, f2);
+      |   ~~~~~~~~~~~~~~~~~~^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4bpmobyu/1bc0bf7a.cc:26:7: internal compiler error: tree check: expected function_decl, have parm_decl in tsubst_attribute, at cp/pt.cc:12545
+   26 | foo (T... x (int))
+      |      ~^~~~~~~~~~~~
+0x306c5cb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xa68714 tree_check_failed(tree_node const*, char const*, int, char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:9246
+0x860c69 tree_check(tree_node*, char const*, int, char const*, tree_code)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:3837
+0x860c69 tsubst_attribute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:12545
+0x1084cad apply_late_template_attributes
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:12821
+0x108dd3d tsubst_decl
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:16082
+0x1088222 tsubst(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:17253
+0x1095d0a tsubst_function_decl
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:15478
+0x108de26 tsubst_decl
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:15988
+0x10a4f5d instantiate_template(tree_node*, tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:24015
+0x10b680a fn_type_unification(tree_node*, tree_node*, tree_node*, tree_node* const*, unsigned int, tree_node*, unification_kind_t, int, conversion**, bool, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:24565
+0xe222aa add_template_candidate_real
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:3786
+0xe233ef add_template_candidate
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:3876
+0xe233ef add_candidates
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:6967
+0xe296aa add_candidates
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:5194
+0xe296aa perform_overload_resolution
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:5194
+0xe2cc0f build_new_function_call(tree_node*, vec<tree_node*, va_gc, vl_embed>**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:5300
+0x10f1aa2 finish_call_expr(tree_node*, vec<tree_node*, va_gc, vl_embed>**, bool, bool, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:3605
+0x100fa28 cp_parser_postfix_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:9281
+0x100c146 cp_parser_unary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:10799
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4bpmobyu/1bc0bf7a.cc -quiet -dumpdir a- -dumpbase 1bc0bf7a.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O3 -O2 -std=c++17 -fsyntax-only -fopenmp-simd -fno-strict-aliasing -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

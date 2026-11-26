@@ -1,0 +1,10 @@
+HloModule m
+
+ENTRY %main {
+  %d = f32[2048] parameter(0)
+  %h = f32[2048] custom-call(%d), custom_call_target="MoveToHost"
+  %tok = token[] after-all()
+  %s = (f32[2048], u32[], token[]) send(%h, %tok), channel_id=2, frontend_attributes={_xla_send_recv_source_target_pairs="{{0,1}}"}
+  %sd = token[] send-done(%s), channel_id=2
+  ROOT %r = (token[]) tuple(%sd)
+}

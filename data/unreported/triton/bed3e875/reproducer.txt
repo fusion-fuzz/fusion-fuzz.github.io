@@ -1,0 +1,83 @@
+module {
+llvm.mlir.global external @global_smem() {addr_space = 3 : i32, alignment = 16 : i64} : !llvm.array<0 x i8>
+
+// COMMON-LABEL: @capture_function_arg
+llvm.func @capture_function_arg(%arg0: i32) attributes {allocation.offset = 0 : i32} {
+  ttg.warp_specialize(%arg0) attributes {allocation.offset = 0 : i32, warpGroupStartIds = array<i32: 4>}
+  default {
+    ttg.warp_yield
+  }
+  partition0(%arg1: i32) num_warps(1) {
+    // COMMON: "use"(%arg0)
+    "use"(%arg1) : (i32) -> ()
+    ttg.warp_return
+  } : (i32) -> ()
+  llvm.return
+}
+
+// COMMON-LABEL: @type_conversion_func_arg
+llvm.func @type_conversion_func_arg(%arg0: !llvm.ptr<1>) attributes {allocation.offset = 0 : i32} {
+  %0 = builtin.unrealized_conversion_cast %arg0 : !llvm.ptr<1> to !tt.ptr<i32>
+  ttg.warp_specialize(%0) attributes {allocation.offset = 0 : i32, warpGroupStartIds = array<i32: 4>}
+  default {
+    ttg.warp_yield
+  }
+  partition0(%arg1: !tt.ptr<i32>) num_warps(1) {
+    %1 = builtin.unrealized_conversion_cast %arg1 : !tt.ptr<i32> to !llvm.ptr<1>
+    // COMMON: "use"(%arg0)
+    "use"(%1) : (!llvm.ptr<1>) -> ()
+    ttg.warp_return
+  } : (!tt.ptr<i32>) -> ()
+  llvm.return
+}
+
+// COMMON-LABEL: @trivial_remat
+llvm.func @trivial_remat() attributes {allocation.offset = 0 : i32} {
+  // COMMON-DAG: [[CAP0:%.*]] = llvm.mlir.constant(0 : i32)
+  // COMMON-DAG: [[CAP1:%.*]] = llvm.mlir.addressof @global_smem : !llvm.ptr<3>
+
+  %0 = llvm.mlir.constant(0 : i32) : i32
+  %1 = llvm.mlir.addressof @global_smem : !llvm.ptr<3>
+  ttg.warp_specialize(%0, %1) attributes {allocation.offset = 0 : i32, warpGroupStartIds = array<i32: 4>}
+  default {
+    ttg.warp_yield
+  }
+  partition0(%arg0: i32, %arg1: !llvm.ptr<3>) num_warps(1) {
+  // AMD: ^bb4:
+    // AMD-NEXT: rocdl.barrier
+    // AMD-NEXT: "use"([[CAP0]], [[CAP1]])
+    "use"(%arg0, %arg1) : (i32, !llvm.ptr<3>) -> ()
+    // AMD-NEXT: rocdl.barrier
+    ttg.warp_return
+  } : (i32, !llvm.ptr<3>) -> ()
+  llvm.return
+}
+
+// COMMON-LABEL: @remat_subgraph
+llvm.func @remat_subgraph(%arg0: i32, %arg1: i32) attributes {allocation.offset = 0 : i32} {
+  // COMMON-DAG: [[ADDR:%.*]] = llvm.mlir.addressof @global_smem : !llvm.ptr<3>
+
+  %0 = llvm.mlir.addressof @global_smem : !llvm.ptr<3>
+  %1 = llvm.getelementptr %0[%arg0] : (!llvm.ptr<3>, i32) -> !llvm.ptr<3>, i32
+  %2 = llvm.add %arg0, %arg1 : i32
+  %3 = llvm.mul %2, %arg1 : i32
+  %4 = llvm.urem %2, %3 : i32
+  ttg.warp_specialize(%1, %4) attributes {allocation.offset = 0 : i32, warpGroupStartIds = array<i32: 4>}
+  default {
+    ttg.warp_yield
+  }
+  partition0(%arg2: !llvm.ptr<3>, %arg3: i32) num_warps(1) {
+  // AMD: ^bb4:
+    // AMD-NEXT: rocdl.barrier
+    // AMD-NEXT: [[ADD:%.*]] = llvm.add %arg0, %arg1 : i32
+    // AMD-NEXT: [[MUL:%.*]] = llvm.mul [[ADD]], %arg1 : i32
+    // AMD-NEXT: [[UREM:%.*]] = llvm.urem [[ADD]], [[MUL]] : i32
+    // AMD-NEXT: [[PTR:%.*]] = llvm.getelementptr [[ADDR]][%arg0]
+    // AMD-NEXT: "use"([[PTR]], [[UREM]])
+    "use"(%arg2, %arg3) : (!llvm.ptr<3>, i32) -> ()
+    // AMD-NEXT: rocdl.barrier
+    ttg.warp_return
+  } : (!llvm.ptr<3>, i32) -> ()
+  llvm.return
+}
+}

@@ -1,0 +1,68 @@
+[... 14 lines omitted ...]
+   |    ^^^^^^^^^^^^^
+
+warning: function `main` is never used
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpf781vizm/a0c2520d.rs:27:4
+   |
+27 | fn main() {}
+   |    ^^^^
+
+warning: 3 warnings emitted
+
+note: no errors encountered even though delayed bugs were created
+
+note: those delayed bugs will now be shown as internal compiler errors
+
+error: internal compiler error: `['?0, T/#1, std::slice::Iter<'a/#0, T/#1>]` is not fully resolved
+  |
+  = note: delayed at compiler/rustc_infer/src/infer/mod.rs:1452:43
+             0: <rustc_errors::DiagCtxtInner>::emit_diagnostic
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1284:41
+             1: <rustc_errors::DiagCtxtHandle>::emit_diagnostic
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:876:33
+             2: <rustc_errors::diagnostic::Diag>::emit_producing_error_guaranteed
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1312:29
+             3: <rustc_errors::diagnostic::Diag>::emit
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1319:9
+             4: <rustc_errors::DiagCtxtHandle>::delayed_bug::<alloc::string::String>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1084:68
+             5: <rustc_infer::infer::InferCtxt>::fully_resolve::<&rustc_middle::ty::list::RawList<(), rustc_middle::ty::generic_args::GenericArg>>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_infer/src/infer/mod.rs:1452:43
+             6: rustc_hir_analysis::impl_wf_check::min_specialization::get_impl_args
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/impl_wf_check/min_specialization.rs:194:32
+             7: rustc_hir_analysis::impl_wf_check::min_specialization::check_always_applicable
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/impl_wf_check/min_specialization.rs:123:36
+             8: rustc_hir_analysis::impl_wf_check::min_specialization::check_min_specialization
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/impl_wf_check/min_specialization.rs:90:9
+             9: rustc_hir_analysis::impl_wf_check::check_impl_wf
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/impl_wf_check.rs:72:23
+            10: rustc_hir_analysis::check::wfcheck::check_item
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/check/wfcheck.rs:285:13
+            11: rustc_hir_analysis::check::check::check_item_type
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/check/check.rs:1201:34
+            12: rustc_hir_analysis::check::wfcheck::check_well_formed
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/check/wfcheck.rs:232:19
+            13: rustc_query_impl::query_vtables::check_well_formed::invoke_provider_fn::__rust_begin_short_backtrace
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/query_vtables.rs:130:46
+            14: rustc_query_impl::execution::execute_job_non_incr::<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:391:59
+            15: rustc_middle::ty::context::tls::enter_context::<rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 1]>>::{closure#0}
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:56:9
+            16: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::try_with::<rustc_middle::ty::context::tls::enter_context<rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 1]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 1]>>
+                       at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:464:12
+            17: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::with::<rustc_middle::ty::context::tls::enter_context<rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 1]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 1]>>
+                       at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:428:20
+            18: rustc_middle::ty::context::tls::enter_context::<rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 1]>>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:53:9
+            19: rustc_query_impl::execution::start_query::<rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}>::{closure#0}
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:375:9
+            20: rustc_middle::ty::context::tls::with_context::<rustc_query_impl::execution::start_query<rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 1]>>::{closure#0}
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:86:36
+            21: rustc_middle::ty::context::tls::with_context_opt::<rustc_middle::ty::context::tls::with_context<rustc_query_impl::execution::start_query<rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 1]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 1]>>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:75:18
+            22: rustc_middle::ty::context::tls::with_context::<rustc_query_impl::execution::start_query<rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 1]>>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:86:5
+            23: rustc_query_impl::execution::start_query::<rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:362:5
+            24: rust
+[... truncated ...]

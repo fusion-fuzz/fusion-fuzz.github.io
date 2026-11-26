@@ -1,0 +1,101 @@
+[... 5 lines omitted ...]
+      |                                          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:34:38: warning: expression result unused [-Wunused-value]
+   34 |   A c = ({ A a(1); A a1(2); A a2(3); a1; a2; a; A a3(4); a2; a3; });
+      |                                      ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:34:42: warning: expression result unused [-Wunused-value]
+   34 |   A c = ({ A a(1); A a1(2); A a2(3); a1; a2; a; A a3(4); a2; a3; });
+      |                                          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:34:46: warning: expression result unused [-Wunused-value]
+   34 |   A c = ({ A a(1); A a1(2); A a2(3); a1; a2; a; A a3(4); a2; a3; });
+      |                                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:34:58: warning: expression result unused [-Wunused-value]
+   34 |   A c = ({ A a(1); A a1(2); A a2(3); a1; a2; a; A a3(4); a2; a3; });
+      |                                                          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:216:3: warning: expression result unused [-Wunused-value]
+  216 |   ({[[gsl::suppress("foo")]] n;});
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:253:3: warning: expression result unused [-Wunused-value]
+  253 |   ({[[gsl::suppress("foo")]] n;});
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:334:15: note: in instantiation of function template specialization 'volatile_load_template<int>' requested here
+  334 | template void volatile_load_template<int>();
+      |               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:606:13: error: call to implicitly-deleted default constructor of 'Base1'
+  606 |   constexpr Derived3(){}
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:591:16: note: default constructor of 'Base1' is implicitly deleted because base class 'A' has no default constructor
+  591 | struct Base1 : public A { virtual void a() {} }
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:610:7: error: call to implicitly-deleted default constructor of 'Base1'
+  610 | Base1 g_b1;
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:591:16: note: default constructor of 'Base1' is implicitly deleted because base class 'A' has no default constructor
+  591 | struct Base1 : public A { virtual void a() {} }
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:612:10: error: call to implicitly-deleted default constructor of 'Derived1'
+  612 | Derived1 g_d1;
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:595:19: note: default constructor of 'Derived1' is implicitly deleted because base class 'Base1' has a deleted default constructor
+  595 | struct Derived1 : public Base1, public Base2 {
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:591:16: note: default constructor of 'Base1' is implicitly deleted because base class 'A' has no default constructor
+  591 | struct Base1 : public A { virtual void a() {} }
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:613:10: error: call to implicitly-deleted default constructor of 'Derived2'
+  613 | Derived2 g_d2;
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:600:33: note: default constructor of 'Derived2' is implicitly deleted because base class 'Base1' has a deleted default constructor
+  600 | struct Derived2 : public Base2, public Base1 {
+      |                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:591:16: note: default constructor of 'Base1' is implicitly deleted because base class 'A' has no default constructor
+  591 | struct Base1 : public A { virtual void a() {} }
+      |                ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/AST/APValue.h:671: clang::APValue &clang::APValue::getStructBase(unsigned int): Assertion `i < getStructNumBases() && "base class index OOB"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O0 -std=c++17 -fblocks -target arm64-apple-ios -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_ijd44e0/1fb422f0.cpp:614:14: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005b046705766b __interceptor_backtrace + 91
+1  clang++   0x00005b046ccb2027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005b046ccabcf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005b046ccb09c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005b046cafecc5
+5  clang++   0x00005b046caff4d3
+6  libc.so.6 0x000073e5f15cd520
+7  libc.so.6 0x000073e5f16219bc pthread_kill + 300
+8  libc.so.6 0x000073e5f15cd476 raise + 22
+9  libc.so.6 0x000073e5f15b37f3 abort + 211
+10 libc.so.6 0x000073e5f15b371b
+11 libc.so.6 0x000073e5f15c4e96
+12 clang++   0x00005b046db53a54
+13 clang++   0x00005b047683e04d
+14 clang++   0x00005b047683e11c
+15 clang++   0x00005b0476790153
+16 clang++   0x00005b04767916fe clang::Expr::EvaluateAsInitializer(clang::ASTContext const&, clang::VarDecl const*, clang::Expr::EvalResult&, bool) const + 3166
+17 clang++   0x00005b04763609bf clang::VarDecl::evaluateValueImpl(llvm::SmallVectorImpl<std::pair<clang::SourceLocation, clang::PartialDiagnostic>>*, bool) const + 895
+18 clang++   0x00005b04763613e2 clang::VarDecl::checkForConstantInitialization(llvm::SmallVectorImpl<std::pair<clang::SourceLocation, clang::PartialDiagnostic>>&) const + 274
+19 clang++   0x00005b0473c3aea6 clang::Sema::CheckCompleteVariableDeclaration(clang::VarDecl*) + 7686
+20 clang++   0x00005b0473bcf6e6 clang::Sema::ActOnUninitializedDecl(clang::Decl*) + 11222
+21 clang++   0x00005b04732642dc clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 4220
+22 clang++   0x00005b047325f93f clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 7215
+23 clang++   0x00005b0473202680 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 2224
+24 clang++   0x00005b04732014f1 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 529
+25 clang++   0x00005b04731ff3d3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 3907
+26 clang++   0x00005b04731fafe5 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1765
+27 clang++   0x00005b04731d3a7f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+28 clang++   0x00005b046e9f79bc clang::CodeGenAction::ExecuteAction() + 4124
+29 clang++   0x00005b046f0b22fe clang::FrontendAction::Execute() + 222
+30 clang++   0x00005b046ef445f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+31 clang++   0x00005b046f296989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+32 clang++   0x00005b04670ed1a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+33 clang++   0x00005b04670e10f9
+34 clang++   0x00005b04670eb637
+35 clang++   0x00005b046eb1b317
+36 clang++   0x00005b046cafea7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+37 clang++   0x00005b046eb1881a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+38 clang++   0x00005b046ea6929c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+39 clang++   0x00005b046ea6aa2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+40 clang++   0x00005b046eaba060 clang::driver::Driver::ExecuteCompilati
+[... truncated ...]

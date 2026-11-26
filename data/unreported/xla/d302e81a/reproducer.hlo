@@ -1,0 +1,23 @@
+HloModule module
+
+ENTRY %entry {
+  %foo = f32[8,2048]{1,0:T(8,128)} parameter(0)
+  %bar = f32[8,2048]{1,0:T(8,128)} constant(0)
+  %baz = f32[8,2048]{1,0:T(8,128)} parameter(1)
+  %add_1 = f32[8,2048]{1,0:T(8,128)} add(foo, bar)
+  %add_0 = f32[8,2048]{1,0:T(8,128)} add(add_1, baz)
+  %param.d = f32[6,7,32] parameter(3)
+  %constant.d = f32[] constant(0)
+  %pad.d = f32[8,7,32] pad(%param.d, %constant.d), padding=1_1x0_0x0_0
+  %rev.d = f32[8,7,32] reverse(%pad.d), dimensions={0,1,2}
+  %slice.d = f32[1,2,7] slice(%rev.d), slice={[2:3:2], [0:7:4], [0:32:5]}
+  %tuple.d = (f32[1,2,7]) tuple(%slice.d)
+  %param = f32[6,7,32] parameter(2)
+  %constant = f32[] constant(0)
+  %pad = f32[8,7,32] pad(%bar, %constant), padding=1_1x0_0x0_0
+  %rev = f32[8,7,32] reverse(%pad), dimensions={0,1,2}
+  %slice = f32[1,2,7] slice(%rev), slice={[2:3:2], [0:7:4], [0:32:5]}
+  %tuple = (f32[1,2,7]) tuple(%slice)
+  %ffl.root = (f32[8,2048]{1,0:T(8,128)}, (f32[1,2,7])) tuple(%add_0, %tuple)
+  ROOT %ffl.root.1 = (f32[8,2048]{1,0:T(8,128)}, (f32[1,2,7]), (f32[1,2,7])) tuple(%add_0, %tuple, %tuple.d)
+}

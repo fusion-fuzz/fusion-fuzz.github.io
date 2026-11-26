@@ -1,0 +1,14 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791800837.532375  414914 literal_util.cc:120] Unhandled primitive type 13
+*** Check failure stack trace: ***
+    @     0x576d1549a8a4  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x576d1549a826  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x576d14edd93e  xla::(anonymous namespace)::CreateScalar<>()::{lambda()#1}::operator()<>()
+    @     0x576d14ea9a2d  xla::LiteralUtil::Zero()
+    @     0x576d0bd9e1ec  xla::MakeFakeArguments()
+    @     0x576d0bb7e67e  xla::(anonymous namespace)::RunAndCompareInternal()
+    @     0x576d0bb7ce67  xla::RunAndCompare()
+    @     0x576d0bb8044e  xla::RunAndCompare()
+    @     0x576d0bb7a04f  main
+    @     0x7dfc27ef9d90  (unknown)
+Aborted (core dumped)

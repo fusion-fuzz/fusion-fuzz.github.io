@@ -1,0 +1,36 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe6snyah9/0875db3c.c: In function 'main':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe6snyah9/0875db3c.c:19:3: error: 'fract32' undeclared (first use in this function)
+   19 |   fract32 = __PHI (__BB2: 0, __BB3: 12);
+      |   ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe6snyah9/0875db3c.c:19:3: note: each undeclared identifier is reported only once for each function it appears in
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe6snyah9/0875db3c.c:21:1: internal compiler error: in make_ssa_name_fn, at tree-ssanames.cc:355
+   21 | }
+      | ^
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x949d6a make_ssa_name_fn(function*, tree_node*, gimple*, unsigned int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-ssanames.cc:355
+0x177f05b make_ssa_name(tree_node*, gimple*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-ssanames.h:100
+0x177f05b make_phi_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-phinodes.cc:193
+0x177f05b create_phi_node(tree_node*, basic_block_def*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-phinodes.cc:348
+0xf4df42 c_parser_parse_gimple_body(c_parser*, char*, c_declspec_il, profile_count)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:370
+0xf3625e c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3348
+0xf43529 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2256
+0xf44470 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xf44470 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xfc9e09 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe6snyah9/0875db3c.c -quiet -dumpdir a- -dumpbase 0875db3c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O3 -O2 -std=c17 -fsyntax-only -ffast-math -funroll-loops -fno-strict-aliasing -fgimple -fdump-tree-optimized -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

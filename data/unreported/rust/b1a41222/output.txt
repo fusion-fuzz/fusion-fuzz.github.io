@@ -1,0 +1,74 @@
+[... 14 lines omitted ...]
+warning: unused variable: `make`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpq51ld2rp/2e54b142.rs:34:5
+   |
+34 |     make: Make,
+   |     ^^^^ help: if this is intentional, prefix it with an underscore: `_make`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: 3 warnings emitted
+
+note: no errors encountered even though delayed bugs were created
+
+note: those delayed bugs will now be shown as internal compiler errors
+
+error: internal compiler error: failure to relate an opaque to itself should result in an error later on
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpq51ld2rp/2e54b142.rs:39:15
+   |
+39 |     delay(|()| delay(|()| ()))
+   |               ^
+   |
+note: delayed at compiler/rustc_borrowck/src/type_check/relate_tys.rs:431:37
+         0: <rustc_errors::DiagCtxtInner>::emit_diagnostic
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1248:41
+         1: <rustc_errors::DiagCtxtHandle>::emit_diagnostic
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:867:37
+         2: <rustc_errors::diagnostic::Diag>::emit_err
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1227:29
+         3: <rustc_errors::DiagCtxtHandle>::span_delayed_bug::<rustc_span::span_encoding::Span, &str>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1085:63
+         4: <rustc_borrowck::type_check::relate_tys::NllTypeRelating as rustc_type_ir::relate::TypeRelation<rustc_middle::ty::context::TyCtxt>>::tys::{closure#1}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/relate_tys.rs:431:37
+         5: <core::result::Result<(), rustc_type_ir::error::TypeError<rustc_middle::ty::context::TyCtxt>>>::or_else::<rustc_type_ir::error::TypeError<rustc_middle::ty::context::TyCtxt>, <rustc_borrowck::type_check::relate_tys::NllTypeRelating as rustc_type_ir::relate::TypeRelation<rustc_middle::ty::context::TyCtxt>>::tys::{closure#1}>
+                   at /rustc/e3feeb59cd1bdd011a2bfcc0747b55125d9b8527/library/core/src/result.rs:1562:23
+         6: <rustc_borrowck::type_check::relate_tys::NllTypeRelating as rustc_type_ir::relate::TypeRelation<rustc_middle::ty::context::TyCtxt>>::tys
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/relate_tys.rs:426:73
+         7: <rustc_middle::ty::Ty as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate::<rustc_borrowck::type_check::relate_tys::NllTypeRelating>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/relate.rs:17:18
+         8: <rustc_borrowck::type_check::relate_tys::NllTypeRelating as rustc_type_ir::relate::TypeRelation<rustc_middle::ty::context::TyCtxt>>::relate::<rustc_middle::ty::Ty>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/relate.rs:61:9
+         9: <rustc_borrowck::type_check::TypeChecker>::relate_types
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/relate_tys.rs:41:14
+        10: <rustc_borrowck::type_check::TypeChecker>::eq_types
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/mod.rs:446:14
+        11: <rustc_borrowck::type_check::TypeChecker>::equate_normalized_input_or_output
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/input_output.rs:236:18
+        12: <rustc_borrowck::type_check::TypeChecker>::equate_inputs_and_outputs
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/input_output.rs:212:14
+        13: rustc_borrowck::type_check::type_check
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/mod.rs:167:12
+        14: rustc_borrowck::borrowck_collect_region_constraints
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/lib.rs:362:9
+        15: <rustc_borrowck::root_cx::BorrowCheckRootCtxt>::do_mir_borrowck
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/root_cx.rs:280:26
+        16: rustc_borrowck::mir_borrowck
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/lib.rs:144:17
+        17: rustc_query_impl::query_vtables::mir_borrowck::invoke_provider_fn::__rust_begin_short_backtrace
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/query_vtables.rs:130:46
+        18: rustc_query_impl::execution::execute_job_non_incr::<rustc_data_structures::vec_cache::VecCache<rustc_hir_id::OwnerId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:452:59
+        19: rustc_middle::ty::context::tls::enter_context::<rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_hir_id::OwnerId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:56:9
+        20: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::try_with::<rustc_middle::ty::context::tls::enter_context<rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_hir_id::OwnerId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>
+                   at /rustc/e3feeb59cd1bdd011a2bfcc0747b55125d9b8527/library/std/src/thread/local.rs:463:12
+        21: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::with::<rustc_middle::ty::context::tls::enter_context<rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_hir_id::OwnerId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>
+                   at /rustc/e3feeb59cd1bdd011a2bfcc0747b55125d9b8527/library/std/src/thread/local.rs:427:20
+        22: rustc_middle::ty::context::tls::enter_context::<rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:53:9
+        23: rustc_query_impl::execution::start_query::<rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:436:9
+        24: rustc_middle::ty::context::tls::with_context::<rustc_query_impl::execution::start_query<rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:86:36
+        25: rustc_middle::ty::context::tls::with_context_opt::<rustc_middle::ty::context::tls::with_context<rustc_query_impl::execution::start_query<rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}>::{closure#0}
+[... truncated ...]

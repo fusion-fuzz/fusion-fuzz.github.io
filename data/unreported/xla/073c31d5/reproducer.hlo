@@ -1,0 +1,28 @@
+HloModule TestModule
+
+%add_computation {
+  %p0 = bf16[] parameter(0)
+  %p1 = bf16[] parameter(1)
+  %p2 = bf16[] parameter(2)
+  %p3 = bf16[] parameter(3)
+  %add0 = bf16[] add(p0, p2)
+  %add1 = bf16[] add(p1, p3)
+  ROOT %tuple = (bf16[], bf16[]) tuple(add0, add1)
+}
+
+ENTRY %main {
+  %param_0 = bf16[8,1024,24,256] parameter(0)
+  %init = bf16[] constant(0)
+  %reduce = (bf16[8,1024], bf16[8,1024]) reduce(param_0, param_0, init, init), dimensions={2,3}, to_apply=add_computation
+  %gte0 = bf16[8,1024] get-tuple-element(reduce), index=0
+  %input = f32[2,9,8] parameter(1), sharding={replicated}
+  %indices = s32[4,2,4] parameter(2), sharding={devices=[2,1,2,2]<=[8] last_tile_dim_replicate}
+  %gather = f32[8,4,4] gather(%input, %indices), offset_dims={0}, collapsed_slice_dims={0,1}, start_index_map={0,1}, index_vector_dim=1, slice_sizes={1,1,8}, sharding={devices=[1,2,2,2]<=[8] last_tile_dim_replicate}
+  %gte1 = bf16[8,1024] get-tuple-element(reduce), index=1
+  %tuple = (bf16[8,1024], bf16[8,1024]) tuple(gte0, gte1)
+  %ffl.root = ((bf16[8,1024], bf16[8,1024]), f32[8,4,4]) tuple(%tuple, %gather)
+  %input.d = f32[2,9,8] parameter(3), sharding={replicated}
+  %indices.d = s32[4,2,4] parameter(4), sharding={devices=[2,1,2,2]<=[8] last_tile_dim_replicate}
+  %gather.d = f32[8,4,4] gather(%input.d, %indices), offset_dims={0}, collapsed_slice_dims={0,1}, start_index_map={0,1}, index_vector_dim=1, slice_sizes={1,1,8}, sharding={devices=[1,2,2,2]<=[8] last_tile_dim_replicate}
+  ROOT %ffl.root.1 = ((bf16[8,1024], bf16[8,1024]), f32[8,4,4], f32[8,4,4]) tuple(%tuple, %gather, %gather.d)
+}

@@ -1,0 +1,89 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:8:57: error: no template named 'z'
+    8 |   template<typename Outer> template<typename Inner> int z<Outer>::y<Outer>; // expected-error {{cannot be deduced}} expected-note {{'Inner'}}
+      |                                                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:9:57: error: no template named 'z'
+    9 |   template<typename Outer> template<typename Inner> int z<Outer>::y<Inner>; // expected-error {{does not specialize}}
+      |                                                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:10:43: error: no template named 'z'
+   10 |   template<> template<typename Inner> int z<int>::y<Inner>; // expected-error {{does not specialize}} expected-note {{instantiation of}}
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:12:3: error: no template named 'z'
+   12 |   z<int> xi;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:13:3: error: no template named 'z'
+   13 |   z<int*> xf; // expected-note {{instantiation of}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:25:61: error: variable template partial specialization does not specialize any template argument; to define the primary template, remove the template argument list
+   25 | template<typename T, int N, template<typename> class z> int v1<T, N, z>;
+      |                                                             ^ ~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:29:28: error: variable template partial specialization does not specialize any template argument; to define the primary template, remove the template argument list
+   29 | template<typename...T> int v2<T...>;
+      |                            ^ ~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:33:23: error: variable template partial specialization does not specialize any template argument; to define the primary template, remove the template argument list
+   33 | template<int...N> int v3<N...>;
+      |                       ^ ~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:37:47: error: use of undeclared identifier 'z'
+   37 | template<template<typename> class...X> int v4<z...>;
+      |                                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:43:39: error: variable template partial specialization contains a template parameter that cannot be deduced; this partial specialization will never be used [-Wunusable-partial-specialization]
+   43 |   template<typename Inner> static int y<Outer>; // expected-error 3{{cannot be deduced}} expected-note 3{{'Inner'}}
+      |                                       ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:43:21: note: non-deducible template parameter 'Inner'
+   43 |   template<typename Inner> static int y<Outer>; // expected-error 3{{cannot be deduced}} expected-note 3{{'Inner'}}
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:44:39: error: variable template partial specialization does not specialize any template argument; to declare the primary template, remove the template argument list
+   44 |   template<typename Inner> static int y<Inner>; // expected-error {{does not specialize}}
+      |                                       ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:46:38: error: member 'z' has the same name as its class
+   46 |   template<typename, int> static int z;
+      |                                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:47:32: error: reference to 'z' is ambiguous
+   47 |   template<Outer N> static int z<int, N>; // expected-error {{not implicitly convertible}}
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:46:38: note: candidate found by name lookup is 'z::z'
+   46 |   template<typename, int> static int z;
+      |                                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:40:33: note: candidate found by name lookup is 'z::z'
+   40 | template<typename Outer> struct z {
+      |                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:47:32: error: member 'z' has the same name as its class
+   47 |   template<Outer N> static int z<int, N>; // expected-error {{not implicitly convertible}}
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:49:65: error: variable template partial specialization contains a template parameter that cannot be deduced; this partial specialization will never be used [-Wunusable-partial-specialization]
+   49 | template<typename Outer> template<typename Inner> int z<Outer>::y<Outer>; // expected-error {{cannot be deduced}} expected-note {{'Inner'}}
+      |                                                                 ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:49:44: note: non-deducible template parameter 'Inner'
+   49 | template<typename Outer> template<typename Inner> int z<Outer>::y<Outer>; // expected-error {{cannot be deduced}} expected-note {{'Inner'}}
+      |                                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:50:65: error: variable template partial specialization does not specialize any template argument; to define the primary template, remove the template argument list
+   50 | template<typename Outer> template<typename Inner> int z<Outer>::y<Inner>; // expected-error {{does not specialize}}
+      |                                                                 ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:43:39: error: variable template partial specialization contains a template parameter that cannot be deduced; this partial specialization will never be used [-Wunusable-partial-specialization]
+   43 |   template<typename Inner> static int y<Outer>; // expected-error 3{{cannot be deduced}} expected-note 3{{'Inner'}}
+      |                                       ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:51:41: note: in instantiation of template class 'z<int>' requested here
+   51 | template<> template<typename Inner> int z<int>::y<Inner>; // expected-error {{does not specialize}} expected-note {{instantiation of}}
+      |                                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:43:21: note: non-deducible template parameter 'Inner'
+   43 |   template<typename Inner> static int y<Outer>; // expected-error 3{{cannot be deduced}} expected-note 3{{'Inner'}}
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:46:38: error: redefinition of 'z' as different kind of symbol
+   46 |   template<typename, int> static int z;
+      |                                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:40:33: note: previous definition is here
+   40 | template<typename Outer> struct z {
+      |                                 ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaTemplateInstantiateDecl.cpp:2766: clang::Decl* clang::TemplateDeclInstantiator::VisitVarTemplatePartialSpecializationDecl(clang::VarTemplatePartialSpecializationDecl*): Assertion `InstVarTemplate && "Instantiation did not find a variable template?"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O0 -std=c++20 -fblocks -fno-strict-aliasing -fsanitize=address -target x86_64-linux-gnu -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:51:49: current parser token 'y'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv5qv59ou/4159b59d.cpp:40:33: instantiating class definition 'z<int>'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000061b4b4375329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000061b4b4371fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000061b4b43728a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000061b4b42b4218
+4  libc.so.6 0x00007bc049494520
+5  libc.so.6 0x0
+[... truncated ...]

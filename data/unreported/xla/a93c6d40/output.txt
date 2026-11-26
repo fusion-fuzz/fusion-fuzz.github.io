@@ -1,0 +1,27 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1792911612.285190  950232 hlo_dataflow_analysis.cc:322] Check failed: ty == input->shape().element_type() && (!is_array || ShapeUtil::ElementsIn(shape) == ShapeUtil::ElementsIn(input->shape()) || ShapeUtil::ArraySize(shape) == ShapeUtil::ArraySize(input->shape())) f32[] vs.u32[]
+*** Check failure stack trace: ***
+    @     0x5ede3cc02a24  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5ede3cc029a6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5ede3c1e0bc7  xla::HloDataflowAnalysis::Phi()
+    @     0x5ede3c1e49f0  xla::HloDataflowAnalysis::UpdateParameterValueSet()
+    @     0x5ede3c1e64ad  xla::HloDataflowAnalysis::Propagate()
+    @     0x5ede3c1e9f66  xla::HloDataflowAnalysis::RunImpl()
+    @     0x5ede3c1e9b0d  xla::HloDataflowAnalysis::Run()
+    @     0x5ede318d854e  xla::CollectivePipeliner::RunPipeliner()
+    @     0x5ede318f69cd  xla::CollectivePipeliner::RunImpl()
+    @     0x5ede39536a01  xla::HloPassInterface::Run()
+    @     0x5ede34d0fcdc  xla::HloPassPipeline::RunHelper()
+    @     0x5ede34d10820  xla::HloPassPipeline::RunPassesInternal()
+    @     0x5ede34d127f5  xla::HloPassPipeline::RunImpl()
+    @     0x5ede39536a01  xla::HloPassInterface::Run()
+    @     0x5ede31427bbb  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5ede314311ab  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5ede31365744  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5ede31365183  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5ede31357b38  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5ede3cc531d6  main
+    @     0x72ca1a1d4d90  (unknown)
+Aborted (core dumped)

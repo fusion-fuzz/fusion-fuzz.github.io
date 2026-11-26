@@ -1,0 +1,93 @@
+unexpected dtor kind
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGObjCRuntime.cpp:460!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O2 -std=gnu++20 -fblocks -fobjc-runtime=macosx-10.14 -fno-objc-arc -target x86_64-pc-windows-msvc -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpqxze5fxi/a365bd17.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpqxze5fxi/a365bd17.mm:59:1: current parser token 'using'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpqxze5fxi/a365bd17.mm:42:1: LLVM IR generation of declaration 'MyDerived::instanceMethod'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005b666fb23329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005b666fb1ffec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005b666fb208a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005b666fa62218
+4  libc.so.6 0x00007f640e2c8520
+5  libc.so.6 0x00007f640e31c9bc pthread_kill + 300
+6  libc.so.6 0x00007f640e2c8476 raise + 22
+7  libc.so.6 0x00007f640e2ae7f3 abort + 211
+8  clang++   0x00005b666fa6d11e
+9  clang++   0x00005b66701041c9 clang::CodeGen::CGObjCRuntime::destroyCalleeDestroyedArguments(clang::CodeGen::CodeGenFunction&, clang::ObjCMethodDecl const*, clang::CodeGen::CallArgList const&) + 1065
+10 clang++   0x00005b66705f5ce2
+11 clang++   0x00005b6670613eea
+12 clang++   0x00005b667061deab
+13 clang++   0x00005b66700ff7e5 clang::CodeGen::CodeGenFunction::EmitObjCMessageExpr(clang::ObjCMessageExpr const*, clang::CodeGen::ReturnValueSlot) + 2661
+14 clang++   0x00005b667000d669
+15 clang++   0x00005b6670018b09
+16 clang++   0x00005b667001c760
+17 clang++   0x00005b667001d34b
+18 clang++   0x00005b667001d76e clang::CodeGen::CodeGenFunction::EmitAggExpr(clang::Expr const*, clang::CodeGen::AggValueSlot) + 1006
+19 clang++   0x00005b666ffe5c0e clang::CodeGen::CodeGenFunction::EmitAnyExprToMem(clang::Expr const*, clang::CodeGen::Address, clang::Qualifiers, bool) + 846
+20 clang++   0x00005b6670008b41 clang::CodeGen::CodeGenFunction::EmitMaterializeTemporaryExpr(clang::MaterializeTemporaryExpr const*) + 3089
+21 clang++   0x00005b667000c9f4 clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t) + 516
+22 clang++   0x00005b667000d53e
+23 clang++   0x00005b6673f1a395 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+24 clang++   0x00005b666ffd03ca clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t) + 202
+25 clang++   0x00005b666fff4680 clang::CodeGen::CodeGenFunction::EmitCheckedLValue(clang::Expr const*, clang::CodeGen::CodeGenFunction::TypeCheckKind) + 320
+26 clang++   0x00005b66700012a8
+27 clang++   0x00005b6670007ede clang::CodeGen::CodeGenFunction::EmitMemberExpr(clang::MemberExpr const*) + 286
+28 clang++   0x00005b667000d018 clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t) + 2088
+29 clang++   0x00005b667000d53e
+30 clang++   0x00005b6673f1a395 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+31 clang++   0x00005b666ffd03ca clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t) + 202
+32 clang++   0x00005b666fff4680 clang::CodeGen::CodeGenFunction::EmitCheckedLValue(clang::Expr const*, clang::CodeGen::CodeGenFunction::TypeCheckKind) + 320
+33 clang++   0x00005b6670079f23
+34 clang++   0x00005b667007a316
+35 clang++   0x00005b6670075c4b
+36 clang++   0x00005b667007a75b
+37 clang++   0x00005b66700797fd clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 141
+38 clang++   0x00005b666ffdf6be clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) + 238
+39 clang++   0x00005b666ffe0635 clang::CodeGen::CodeGenFunction::EmitAnyExprToTemp(clang::Expr const*) + 213
+40 clang++   0x00005b667053e4c9 clang::CodeGen::CodeGenFunction::EmitCallArg(clang::CodeGen::CallArgList&, clang::Expr const*, clang::QualType) + 4473
+41 clang++   0x00005b667053f728 clang::CodeGen::CodeGenFunction::EmitCallArgs(clang::CodeGen::CallArgList&, clang::CodeGen::CodeGenFunction::PrototypeWrapper, llvm::iterator_range<clang::Stmt::CastIterator<clang::Expr, clang::Expr const* const, clang::Stmt const* const>>, clang::CodeGen::CodeGenFunction::AbstractCallee, unsigned int, clang::CodeGen::CodeGenFunction::EvaluationOrder) + 1128
+42 clang++   0x00005b66700ff323 clang::CodeGen::CodeGenFunction::EmitObjCMessageExpr(clang::ObjCMessageExpr const*, clang::CodeGen::ReturnValueSlot) + 1443
+43 clang++   0x00005b667007a0d5
+44 clang++   0x00005b66700797fd clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 141
+45 clang++   0x00005b66701a83f9 clang::CodeGen::CodeGenFunction::EmitReturnStmt(clang::ReturnStmt const&) + 1273
+46 clang++   0x00005b66701b8f3c clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+47 clang++   0x00005b66700f37a3 clang::CodeGen::CodeGenFunction::GenerateObjCMethod(clang::ObjCMethodDecl const*) + 355
+48 clang++   0x00005b66702aa0a2
+49 clang++   0x00005b667064cef1
+50 clang++   0x00005b667063c0f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+51 clang++   0x00005b667231961c clang::ParseAST(clang::Sema&, bool, bool) + 508
+52 clang++   0x00005b66709ba061 clang::FrontendAction::Execute() + 65
+53 clang++   0x00005b6670943e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+54 clang++   0x00005b6670a91de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+55 clang++   0x00005b666d8ed33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+56 clang++   0x00005b666d8e313a
+57 clang++   0x00005b666d8e32cf
+58 clang++   0x00005b66706c8cfd
+59 clang++   0x00005b666fa62630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+60 clang++   0x00005b66706c9b53
+61 clang++   0x00005b667067e607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+62 clang++   0x00005b6670682ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+63 clang++   0x00005b6670691004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+64 clang++   0x00005b666d8e8923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+65 clang++   0x00005b666d8247f1 main + 113
+66 libc.so.6 0x00007f640e2afd90
+67 libc.so.6 0x00007f640e2afe40 __libc_start_main + 128
+68 clang++   0x00005b666d8e2765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-pc-windows-msvc
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/a365bd17-c04dc7.mm
+clang++: note: diagnostic msg: /tmp/a365bd17-c04dc7.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

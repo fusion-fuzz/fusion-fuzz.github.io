@@ -1,0 +1,14 @@
+$ mlir-opt --allow-unregistered-dialect repro.mlir
+==ERROR: AddressSanitizer: SEGV on unknown address 0x7fff564b4fd8 ... The signal is caused by a WRITE memory access.
+ #10 mlir::isMemoryEffectFree(mlir::Operation*) mlir/lib/Interfaces/SideEffectInterfaces.cpp:322:9
+ #11 mlir::affine::isValidSymbol(mlir::Value, mlir::Region*) mlir/lib/Dialect/Affine/IR/AffineOps.cpp:476:21
+ #17 llvm::all_of<mlir::OperandRange, mlir::affine::isValidSymbol(mlir::Value, mlir::Region*)::$_0>(...)
+ #18 mlir::affine::isValidSymbol(mlir::Value, mlir::Region*) mlir/lib/Dialect/Affine/IR/AffineOps.cpp:476:24
+ ... (isValidSymbol -> all_of -> isValidSymbol repeated ~15,000 times)
+#109882 mlir::affine::isValidDim(mlir::Value, mlir::Region*) AffineOps.cpp:320
+#109883 mlir::affine::AffineApplyOp::verify() AffineOps.cpp:598
+#109886 (anonymous namespace)::OperationVerifier::verifyOnEntrance(mlir::Operation&) Verifier.cpp:315
+#109889 (anonymous namespace)::OperationVerifier::verifyOperation(mlir::Operation&) Verifier.cpp:438
+#109890 (anonymous namespace)::OperationVerifier::verifyOpAndDominance(mlir::Operation&) Verifier.cpp:91
+#109903 mlir::verify(mlir::Operation*, bool) Verifier.cpp:568
+#109904 (anonymous namespace)::OperationParser::finalize() Parser.cpp:982

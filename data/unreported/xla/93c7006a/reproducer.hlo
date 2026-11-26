@@ -1,0 +1,40 @@
+HloModule module, num_partitions=8
+
+%condition {
+  %input_tuple = (s32[], f32[8,4], f32[1,4]) parameter(0)
+  %ivar = s32[] get-tuple-element(input_tuple), index=0
+  %limit = s32[] constant(4)
+  ROOT %done = pred[] compare(ivar, limit), direction=LT
+}
+
+%body {
+  %input_tuple = (s32[], f32[8,4], f32[1,4]) parameter(0)
+  %ivar = s32[] get-tuple-element(input_tuple), index=0
+  %buffer = f32[8,4] get-tuple-element(input_tuple), index=1
+  %update = f32[1,4] get-tuple-element(input_tuple), index=2
+  %c0 = s32[] constant(0)
+  %updated = f32[8,4] dynamic-update-slice(buffer, update, ivar, c0), backend_config={"dynamic_slice_config":{"loop_index":0,"byte_offset":16,"byte_stride":32}}
+  %one = s32[] constant(1)
+  %ivar_plus_1 = s32[] add(ivar, one)
+  ROOT %output_tuple = (s32[], f32[8,4], f32[1,4]) tuple(ivar_plus_1, updated, update)
+}
+
+ENTRY %entry {
+  %param = bf16[8,32,8,128] parameter(0)
+  %collective-broadcast = bf16[8,32,8,128] collective-broadcast(param), replica_groups={{0,1,2,3,4,5,6,7}}, channel_id=1
+  %scale = bf16[] parameter(1), sharding={replicated}
+  %scale_bcast = bf16[8,32,8,128] broadcast(scale), dimensions={}
+  %divide = bf16[8,32,8,128] divide(collective-broadcast, scale_bcast)
+  %clamp_lower = bf16[] constant(-448.0)
+  %clamp_lower_bcast = bf16[8,32,8,128] broadcast(clamp_lower), dimensions={}
+  %clamp_upper = bf16[] constant(448.0)
+  %clamp_upper_bcast = bf16[8,32,8,128] broadcast(clamp_upper), dimensions={}
+  %clamp = bf16[8,32,8,128] clamp(clamp_lower_bcast, divide, clamp_upper_bcast)
+  %buffer = f32[8,4] parameter(2)
+  %update = f32[1,4] parameter(3)
+  %init = s32[] constant(0)
+  %tuple = (s32[], f32[8,4], f32[1,4]) tuple(%init, %buffer, %update)
+  %while = (s32[], f32[8,4], f32[1,4]) while(%tuple), condition=%condition, body=%body, backend_config={"known_trip_count":{"n":"4"}, "known_init_step":{"init":"0","step":"1"}, "known_induction_variable":{"tuple_index":"0"}}
+  %convert = f8e4m3fn[8,32,8,128] convert(clamp)
+  ROOT %ffl.root = (f8e4m3fn[8,32,8,128], (s32[], f32[8,4], f32[1,4])) tuple(%convert, %while)
+}

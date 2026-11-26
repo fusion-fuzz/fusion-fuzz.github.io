@@ -1,0 +1,20 @@
+during GIMPLE pass: ealias
+t.cc: In constructor 'constexpr arg::arg()':
+t.cc:2:20: internal compiler error: in type_contains_placeholder_1, at tree.cc:4463
+    2 | void f () { arg a; }
+      |                    ^
+0x3046dcb internal_error(char const*, ...)
+	diagnostic-global-context.cc:787
+0xdd9a1e fancy_abort(char const*, int, char const*)
+	diagnostics/context.cc:1813
+0xa6207d type_contains_placeholder_1
+	tree.cc:4463
+0xa6207d type_contains_placeholder_p(tree_node*)
+	tree.cc:4484
+0x1c0deb5 type_contains_placeholder_1
+	tree.cc:4456
+0x1c0deb5 type_contains_placeholder_p(tree_node*)
+	tree.cc:4484
+0x1b01516 create_variable_info_for_1
+	gimple-ssa-pta-constraints.cc:3412
+0x1b06863 intra_create_variable_infos

@@ -1,0 +1,13 @@
+Assertion failed: (!getABIDecl(decl) && "caller should make sure we get ABI decls"), function appendDeclName at ASTMangler.cpp:1223.
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: swift-frontend -typecheck repro.swift
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "repro.swift")
+#10 swift::Mangle::ASTMangler::appendAnyGenericType(swift::GenericTypeDecl const*, swift::Mangle::ASTMangler::BaseEntitySignature&)
+#11 swift::Mangle::ASTMangler::appendContext(swift::DeclContext const*, swift::Mangle::ASTMangler::BaseEntitySignature&, llvm::StringRef)
+#12 swift::Mangle::ASTMangler::appendAccessorEntity(llvm::StringRef, swift::AbstractStorageDecl const*, bool)
+#13 swift::Mangle::ASTMangler::mangleOpaqueTypeDecl(swift::OpaqueTypeDecl const*)
+#14 swift::OpaqueTypeDecl::getOpaqueReturnTypeIdentifier() const
+#15 swift::SourceFile::getOpaqueReturnTypeDecls()
+#16 swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const

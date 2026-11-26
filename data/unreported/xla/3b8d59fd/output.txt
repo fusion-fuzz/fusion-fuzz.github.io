@@ -1,0 +1,24 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1793439106.028113 2619061 layout_assignment.cc:1203] Check failed: ShapeUtil::Compatible(shape_with_layout, instruction->shape()) s8[10,20,30,42,4] s8[2,2,41,4,168] instruction: %filter = s8[2,2,41,4,168]{4,3,2,1,0} parameter(1)
+*** Check failure stack trace: ***
+    @     0x62d88d02aa24  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x62d88d02a9a6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x62d884f2470d  xla::LayoutAssignment::CreateCopyWithNewLayout()
+    @     0x62d884f2505d  xla::LayoutAssignment::CopyOperandIfLayoutsDiffer()
+    @     0x62d884f30001  xla::LayoutAssignment::AssignLayouts()
+    @     0x62d884f366bd  xla::LayoutAssignment::RunImpl()
+    @     0x62d88995ea01  xla::HloPassInterface::Run()
+    @     0x62d885137cdc  xla::HloPassPipeline::RunHelper()
+    @     0x62d885138820  xla::HloPassPipeline::RunPassesInternal()
+    @     0x62d88513a7f5  xla::HloPassPipeline::RunImpl()
+    @     0x62d88995ea01  xla::HloPassInterface::Run()
+    @     0x62d88184ffea  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x62d8818591ab  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x62d88178d744  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x62d88178d183  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x62d88177fb38  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x62d88d07b1d6  main
+    @     0x7d4cec1d4d90  (unknown)
+Aborted (core dumped)

@@ -1,0 +1,51 @@
+HloModule m, num_partitions=4
+
+%add {
+  %param_0 = f32[] parameter(0)
+  %param_1 = f32[] parameter(1)
+  ROOT %t = f32[] add(param_0, param_1)
+}
+
+%async_computation {
+  %param_3 = f32[4096] parameter(0)
+  %param_4 = f32[2048] parameter(1)
+  ROOT %r = (f32[1024],f32[512]) reduce-scatter(param_3, param_4), dimensions={0}, to_apply=add, use_global_device_ids=true, replica_groups={{0,1,2,3}}, channel_id=1
+}
+
+%add.d {
+  %param_0 = f32[] parameter(0)
+  %param_1 = f32[] parameter(1)
+  ROOT %t = f32[] add(param_0, param_1)
+}
+
+%async_computation.d {
+  %param_3 = f32[4096] parameter(0)
+  %param_4 = f32[2048] parameter(1)
+  ROOT %r = (f32[1024],f32[512]) reduce-scatter(param_3, param_4), dimensions={0}, to_apply=%add.d, use_global_device_ids=true, replica_groups={{0,1,2,3}}, channel_id=1
+}
+
+%add.d.d {
+  %param_0 = f32[] parameter(0)
+  %param_1 = f32[] parameter(1)
+  ROOT %t = f32[] add(param_0, param_1)
+}
+
+%async_computation.d.d {
+  %param_3 = f32[4096] parameter(0)
+  %param_4 = f32[2048] parameter(1)
+  ROOT %r = (f32[1024],f32[512]) reduce-scatter(param_3, param_4), dimensions={0}, to_apply=%add.d.d, use_global_device_ids=true, replica_groups={{0,1,2,3}}, channel_id=1
+}
+
+ENTRY %entry_computation {
+  %p.0 = f32[4096] parameter(0)
+  %p.1 = f32[2048] parameter(1)
+  %rs-start = ((f32[4096],f32[2048]),(f32[1024],f32[512])) async-start(p.0, p.1), calls=async_computation
+  %_ = (f32[1024],f32[512]) async-done(rs-start)
+  %token0 = token[] after-all(), sharding={maximal device=0}
+  %infeed = ((f32[9,2]{1,0}, f32[2]{0}), token[]) infeed(%token0), sharding={{devices=[2,1]<=[2]}, {replicated}, {maximal device=0}}
+  %infeed.data = (f32[9,2]{1,0}, f32[2]{0}) get-tuple-element(%infeed), index=0, sharding={{devices=[2,1]<=[2]}, {replicated}}
+  %rs-start.d = ((f32[4096],f32[2048]),(f32[1024],f32[512])) async-start(%infeed, %p.1), calls=%async_computation.d.d
+  %_.d = (f32[1024],f32[512]) async-done(%rs-start.d)
+  %ffl.root = ((f32[9,2]{1,0}, f32[2]{0}), (f32[1024],f32[512])) tuple(%infeed.data, %_.d)
+  ROOT %ffl.root.1 = ((f32[1024],f32[512]), (f32[9,2]{1,0}, f32[2]{0}), (f32[1024],f32[512])) tuple(%_, %infeed.data, %_.d)
+}

@@ -1,0 +1,63 @@
+In file included from <built-in>:1:
+In file included from /usr/lib/llvm-14/lib/clang/14.0.0/include/__clang_cuda_runtime_wrapper.h:209:
+/usr/local/cuda/include/crt/math_functions.hpp:2994:40: error: expected function body after function declarator
+__func__(double rsqrt(const double a)) _NV_RSQRT_SPECIFIER
+                                       ^
+In file included from <built-in>:1:
+In file included from /usr/lib/llvm-14/lib/clang/14.0.0/include/__clang_cuda_runtime_wrapper.h:365:
+/usr/lib/llvm-14/lib/clang/14.0.0/include/__clang_cuda_texture_intrinsics.h:696:13: error: no template named 'texture'
+            texture<__DataT, __TexT, cudaReadModeNormalizedFloat> __handle,
+            ^
+/usr/lib/llvm-14/lib/clang/14.0.0/include/__clang_cuda_texture_intrinsics.h:709:13: error: no template named 'texture'
+            texture<__DataT, __TexT, cudaReadModeElementType> __handle,
+            ^
+In file included from <built-in>:1:
+/usr/lib/llvm-14/lib/clang/14.0.0/include/__clang_cuda_runtime_wrapper.h:387:10: fatal error: 'texture_fetch_functions.h' file not found
+#include "texture_fetch_functions.h"
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace, preprocessed source, and associated run script.
+Stack dump:
+0.	Program arguments: /usr/bin/clang++ -x cuda --cuda-path=/usr/local/cuda --cuda-gpu-arch=sm_80 -Wno-unknown-cuda-version -Wno-everything -ferror-limit=5 -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/libcudacxx/include -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/thrust -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/cub -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/thrust/testing -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/libcudacxx/test/support -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/c2h/include -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cuda-samples/Common -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cuda-samples/_ffl_inc --cuda-device-only -fsyntax-only -O3 -std=c++20 -fstrict-enums -fvectorize /home/fuzz/WorkSpace/fusion-fuzz/.fused/cuda/tmpelheiu0o/f681dcea.cu
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/cuda/tmpelheiu0o/f681dcea.cu:68:73: current parser token ';'
+2.	/usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/unique_ptr.h:45:1: parsing namespace 'std'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/libcudacxx/include/cuda/std/__memory/unique_ptr.h:57:1 <Spelling=/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/libcudacxx/include/cuda/std/__internal/namespaces.h:38:34>: parsing namespace 'std::cuda'
+4.	/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/thrust/thrust/system/detail/sequential/sort.h:29:1 <Spelling=/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/thrust/thrust/detail/config/namespace.h:124:3>: parsing namespace 'std::cuda::std::thrust'
+5.	/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/thrust/thrust/system/detail/sequential/sort.h:29:1 <Spelling=/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/thrust/thrust/detail/config/namespace.h:105:16>: parsing namespace 'std::cuda::std::thrust::_V_300600_SM___CUDA_ARCH_LIST__'
+6.	/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/thrust/thrust/system/detail/sequential/sort.h:30:1: parsing namespace 'std::cuda::std::thrust::system'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+/lib/x86_64-linux-gnu/libLLVM-14.so.1(_ZN4llvm3sys15PrintStackTraceERNS_11raw_ostreamEi+0x31)[0x7f23c2a0bd01]
+/lib/x86_64-linux-gnu/libLLVM-14.so.1(_ZN4llvm3sys17RunSignalHandlersEv+0xee)[0x7f23c2a09a3e]
+/lib/x86_64-linux-gnu/libLLVM-14.so.1(_ZN4llvm3sys15CleanupOnSignalEm+0xfb)[0x7f23c2a0b0ab]
+/lib/x86_64-linux-gnu/libLLVM-14.so.1(+0xd6bdff)[0x7f23c2937dff]
+/lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7f23c16b0520]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang4Sema15BuildVectorTypeENS_8QualTypeEPNS_4ExprENS_14SourceLocationE+0x315)[0x7f23c9cd9985]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(+0x184c03d)[0x7f23c9cea03d]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(+0x18462da)[0x7f23c9ce42da]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang4Sema20GetTypeForDeclaratorERNS_10DeclaratorEPNS_5ScopeE+0x28e)[0x7f23c9cdc37e]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang4Sema16HandleDeclaratorEPNS_5ScopeERNS_10DeclaratorEN4llvm15MutableArrayRefIPNS_21TemplateParameterListEEE+0x441)[0x7f23c9716941]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang4Sema15ActOnDeclaratorEPNS_5ScopeERNS_10DeclaratorE+0x15)[0x7f23c97164a5]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser44ParseDeclarationAfterDeclaratorAndAttributesERNS_10DeclaratorERKNS0_18ParsedTemplateInfoEPNS0_12ForRangeInitE+0x94)[0x7f23c8ebca54]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser14ParseDeclGroupERNS_15ParsingDeclSpecENS_17DeclaratorContextEPNS_14SourceLocationEPNS0_12ForRangeInitE+0x38f)[0x7f23c8ebae2f]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser22ParseSimpleDeclarationENS_17DeclaratorContextERNS_14SourceLocationERNS_25ParsedAttributesWithRangeEbPNS0_12ForRangeInitEPS2_+0x2e8)[0x7f23c8eb5c58]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser16ParseDeclarationENS_17DeclaratorContextERNS_14SourceLocationERNS_25ParsedAttributesWithRangeEPS2_+0x1b4)[0x7f23c8eb5614]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser24ParseExternalDeclarationERNS_25ParsedAttributesWithRangeEPNS_15ParsingDeclSpecE+0xc4)[0x7f23c8f60c64]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser19ParseInnerNamespaceERKN4llvm11SmallVectorINS0_18InnerNamespaceInfoELj4EEEjRNS_14SourceLocationERNS_16ParsedAttributesERNS_24BalancedDelimiterTrackerE+0xbc)[0x7f23c8ecfcac]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser19ParseInnerNamespaceERKN4llvm11SmallVectorINS0_18InnerNamespaceInfoELj4EEEjRNS_14SourceLocationERNS_16ParsedAttributesERNS_24BalancedDelimiterTrackerE+0x1b5)[0x7f23c8ecfda5]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser19ParseInnerNamespaceERKN4llvm11SmallVectorINS0_18InnerNamespaceInfoELj4EEEjRNS_14SourceLocationERNS_16ParsedAttributesERNS_24BalancedDelimiterTrackerE+0x1b5)[0x7f23c8ecfda5]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser14ParseNamespaceENS_17DeclaratorContextERNS_14SourceLocationES2_+0x14b9)[0x7f23c8ecf7f9]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser16ParseDeclarationENS_17DeclaratorContextERNS_14SourceLocationERNS_25ParsedAttributesWithRangeEPS2_+0x41e)[0x7f23c8eb587e]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser24ParseExternalDeclarationERNS_25ParsedAttributesWithRangeEPNS_15ParsingDeclSpecE+0xc4)[0x7f23c8f60c64]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser19ParseInnerNamespaceERKN4llvm11SmallVectorINS0_18InnerNamespaceInfoELj4EEEjRNS_14SourceLocationERNS_16ParsedAttributesERNS_24BalancedDelimiterTrackerE+0xbc)[0x7f23c8ecfcac]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser14ParseNamespaceENS_17DeclaratorContextERNS_14SourceLocationES2_+0x14b9)[0x7f23c8ecf7f9]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser16ParseDeclarationENS_17DeclaratorContextERNS_14SourceLocationERNS_25ParsedAttributesWithRangeEPS2_+0x41e)[0x7f23c8eb587e]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser24ParseExternalDeclarationERNS_25ParsedAttributesWithRangeEPNS_15ParsingDeclSpecE+0xc4)[0x7f23c8f60c64]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser19ParseInnerNamespaceERKN4llvm11SmallVectorINS0_18InnerNamespaceInfoELj4EEEjRNS_14SourceLocationERNS_16ParsedAttributesERNS_24BalancedDelimiterTrackerE+0xbc)[0x7f23c8ecfcac]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser14ParseNamespaceENS_17DeclaratorContextERNS_14SourceLocationES2_+0x14b9)[0x7f23c8ecf7f9]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser16ParseDeclarationENS_17DeclaratorContextERNS_14SourceLocationERNS_25ParsedAttributesWithRangeEPS2_+0x41e)[0x7f23c8eb587e]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser24ParseExternalDeclarationERNS_25ParsedAttributesWithRangeEPNS_15ParsingDeclSpecE+0xc4)[0x7f23c8f60c64]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser19ParseInnerNamespaceERKN4llvm11SmallVectorINS0_18InnerNamespaceInfoELj4EEEjRNS_14SourceLocationERNS_16ParsedAttributesERNS_24BalancedDelimiterTrackerE+0xbc)[0x7f23c8ecfcac]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser19ParseInnerNamespaceERKN4llvm11SmallVectorINS0_18InnerNamespaceInfoELj4EEEjRNS_14SourceLocationERNS_16ParsedAttributesERNS_24BalancedDelimiterTrackerE+0x1b5)[0x7f23c8ecfda5]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser14ParseNamespaceENS_17DeclaratorContextERNS_14SourceLocationES2_+0x14b9)[0x7f23c8ecf7f9]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser16ParseDeclarationENS_17DeclaratorContextERNS_14SourceLocationERNS_25ParsedAttributesWithRangeEPS2_+0x41e)[0x7f23c8eb587e]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_Z
+[... truncated ...]

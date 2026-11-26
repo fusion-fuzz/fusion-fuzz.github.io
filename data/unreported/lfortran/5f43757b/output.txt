@@ -1,0 +1,93 @@
+style suggestion: Use '/=' instead of '.ne.'
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/lfortran/tmpko25yhn0/f9e78b70.f90:45:13
+   |
+45 |   where (aa .ne. 0) cc = bb / aa
+   |             ^^^^ help: write this as '/='
+
+style suggestion: Use '<' instead of '.lt.'
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/lfortran/tmpko25yhn0/f9e78b70.f90:47:12
+   |
+47 |   where (b .lt. 2) b = sum(a)
+   |            ^^^^ help: write this as '<'
+
+style suggestion: Use '>=' instead of '.ge.'
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/lfortran/tmpko25yhn0/f9e78b70.f90:49:13
+   |
+49 |   where (aa .ge. 2.0)
+   |             ^^^^ help: write this as '>='
+
+style suggestion: Use '/=' instead of '.ne.'
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/lfortran/tmpko25yhn0/f9e78b70.f90:95:13
+   |
+95 |   where (aa .ne. 0) cc = bb / aa
+   |             ^^^^ help: write this as '/='
+
+style suggestion: Use '<' instead of '.lt.'
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/lfortran/tmpko25yhn0/f9e78b70.f90:97:12
+   |
+97 |   where (b .lt. 2) b = sum(a)
+   |            ^^^^ help: write this as '<'
+
+style suggestion: Use '>=' instead of '.ge.'
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/lfortran/tmpko25yhn0/f9e78b70.f90:99:13
+   |
+99 |   where (aa .ge. 2.0)
+   |             ^^^^ help: write this as '>='
+
+warning: Assuming implicit save attribute for variable declaration
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/lfortran/tmpko25yhn0/f9e78b70.f90:7:14
+  |
+7 |   integer :: i = 0
+  |              ^^^^^ help: add explicit save attribute or parameter attribute or initialize in a separate statement
+
+
+Note: Please report unclear, confusing or incorrect messages as bugs at
+https://github.com/lfortran/lfortran/issues.
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3276, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3088, in main_app(int, char**)
+    int result = compile_to_assembly_file(opts.arg_file, outfile,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 1459, in (anonymous namespace)::compile_to_assembly_file(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool, LCompilers::CompilerOptions&, LCompilers::PassManager&, bool)
+    return compile_src_to_object_file(infile, outfile, time_report, true,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 1409, in (anonymous namespace)::compile_src_to_object_file(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool, bool, LCompilers::CompilerOptions&, LCompilers::PassManager&, bool, bool*, bool)
+    LCompilers::compile_asr_to_object(
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/pipeline.cpp", line 79, in LCompilers::compile_asr_to_object(LCompilers::ASR::TranslationUnit_t&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool, LCompilers::CompilerOptions&, LCompilers::PassManager&, LCompilers::FortranEvaluator&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&)
+    &result.optimization_time_us);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 868, in LCompilers::FortranEvaluator::get_llvm3(LCompilers::ASR::TranslationUnit_t&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&, LCompilers::LocationManager&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, long*)
+    compiler_options, run_fn, "", infile, lm);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp", line 29825, in LCompilers::asr_to_llvm(LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, llvm::LLVMContext&, LCompilers::LLVMTargetConfig const&, Allocator&, LCompilers::PassManager&, LCompilers::CompilerOptions&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&)
+    v.visit_asr((ASR::asr_t&)asr);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 386, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToLLVMVisitor>::visit_asr(LCompilers::ASR::asr_t const&)
+    void visit_asr(const asr_t &b) { visit_asr_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 360, in void LCompilers::ASR::visit_asr_t<LCompilers::ASRToLLVMVisitor>(LCompilers::ASR::asr_t const&, LCompilers::ASRToLLVMVisitor&)
+    case asrType::unit: { v.visit_unit((const unit_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 387, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToLLVMVisitor>::visit_unit(LCompilers::ASR::unit_t const&)
+    void visit_unit(const unit_t &b) { visit_unit_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 22, in void LCompilers::ASR::visit_unit_t<LCompilers::ASRToLLVMVisitor>(LCompilers::ASR::unit_t const&, LCompilers::ASRToLLVMVisitor&)
+    case unitType::TranslationUnit: { v.visit_TranslationUnit((const TranslationUnit_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp", line 2414, in LCompilers::ASRToLLVMVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&)
+    visit_symbol(*item.second);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 389, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToLLVMVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&)
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 32, in void LCompilers::ASR::visit_symbol_t<LCompilers::ASRToLLVMVisitor>(LCompilers::ASR::symbol_t const&, LCompilers::ASRToLLVMVisitor&)
+    case symbolType::Function: { v.visit_Function((const Function_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp", line 10575, in LCompilers::ASRToLLVMVisitor::visit_Function(LCompilers::ASR::Function_t const&)
+    generate_function(x);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp", line 11381, in LCompilers::ASRToLLVMVisitor::generate_function(LCompilers::ASR::Function_t const&)
+    define_function_exit(x);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp", line 11349, in LCompilers::ASRToLLVMVisitor::define_function_exit(LCompilers::ASR::Function_t const&)
+    llvm_symtab_finalizer.finalize_symtab(x.m_symtab);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/llvm_utils.h", line 3030, in LCompilers::LLVMFinalize::finalize_symtab(LCompilers::SymbolTable*, bool)
+    with_final_subroutines(call_final_subroutines, [&]() {
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/llvm_utils.h", line 2357, in void LCompilers::LLVMFinalize::with_final_subroutines<LCompilers::LLVMFinalize::finalize_symtab(LCompilers::SymbolTable*, bool)::'lambda'()>(bool, LCompilers::LLVMFinalize::finalize_symtab(LCompilers::SymbolTable*, bool)::'lambda'())
+    fin();
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/llvm_utils.h", line 3034, in LCompilers::LLVMFinalize::finalize_symtab(LCompilers::SymbolTable*, bool)::'lambda'()::operator()() const
+    finalize_variable(ASR::down_cast<ASR::Variable_t>(sym));
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/llvm_utils.h", line 1154, in LCompilers::LLVMFinalize::finalize_variable(LCompilers::ASR::Variable_t*)
+    check_userDefinedFinalizer_then_finalize(llvm_var, 
+[... truncated ...]

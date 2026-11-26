@@ -1,0 +1,104 @@
+error[E0428]: the name `bar` is defined multiple times
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpl6zphita/b6d73de9.rs:40:9
+   |
+39 |         reuse foo::<>as bar;
+   |         -------------------- previous definition of the value `bar` here
+40 |         reuse bar;
+   |         ^^^^^^^^^^ `bar` redefined here
+   |
+   = note: `bar` must be defined only once in the value namespace of this block
+
+warning: the feature `fn_delegation` is incomplete and may not be safe to use and/or cause compiler crashes
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpl6zphita/b6d73de9.rs:1:12
+  |
+1 | #![feature(fn_delegation)]
+  |            ^^^^^^^^^^^^^
+  |
+  = note: see issue #118212 <https://github.com/rust-lang/rust/issues/118212> for more information
+  = note: `#[warn(incomplete_features)]` on by default
+
+warning: the feature `gca_min_const_items` is incomplete and may not be safe to use and/or cause compiler crashes
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpl6zphita/b6d73de9.rs:2:12
+  |
+2 | #![feature(gca_min_const_items)]
+  |            ^^^^^^^^^^^^^^^^^^^
+  |
+  = note: see issue #132980 <https://github.com/rust-lang/rust/issues/132980> for more information
+
+error: expected type, found `gca!()` constant
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpl6zphita/b6d73de9.rs:36:5
+   |
+36 | /     gca!({
+37 | |         //~^ ERROR: expected type, found `gca!()` constant
+38 | |         fn foo() {}
+39 | |         reuse foo::<>as bar;
+...  |
+42 | |     })
+   | |______^
+
+
+thread 'rustc' (1411875) panicked at compiler/rustc_ast_pretty/src/pp.rs:266:9:
+BoxMarker not ended with `Printer::end()`
+stack backtrace:
+   0:     0x729dc042ab91 - std[4207b579a9c607b]::backtrace_rs::backtrace::libunwind::trace
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/../../backtrace/src/backtrace/libunwind.rs:117:9
+   1:     0x729dc042ab91 - std[4207b579a9c607b]::backtrace_rs::backtrace::trace_unsynchronized::<std[4207b579a9c607b]::sys::backtrace::_print_fmt::{closure#1}>
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/../../backtrace/src/backtrace/mod.rs:66:14
+   2:     0x729dc042ab91 - std[4207b579a9c607b]::sys::backtrace::_print_fmt
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/sys/backtrace.rs:74:9
+   3:     0x729dc042ab91 - <<std[4207b579a9c607b]::sys::backtrace::BacktraceLock>::print::DisplayBacktrace as core[fd799f6b9e91069b]::fmt::Display>::fmt
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/sys/backtrace.rs:44:26
+   4:     0x729dc0471eea - <core[fd799f6b9e91069b]::fmt::rt::Argument>::fmt
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/fmt/rt.rs:152:76
+   5:     0x729dc0471eea - core[fd799f6b9e91069b]::fmt::write
+   6:     0x729dc043cb9c - core[fd799f6b9e91069b]::io::write::default_write_fmt::<std[4207b579a9c607b]::sys::stdio::unix::Stderr>
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/io/write.rs:402:11
+   7:     0x729dc043cb9c - <std[4207b579a9c607b]::sys::stdio::unix::Stderr as core[fd799f6b9e91069b]::io::write::Write>::write_fmt
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/io/write.rs:335:13
+   8:     0x729dc03f4516 - <std[4207b579a9c607b]::sys::backtrace::BacktraceLock>::print
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/sys/backtrace.rs:47:9
+   9:     0x729dc03f4516 - std[4207b579a9c607b]::panicking::default_hook::{closure#0}
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:292:27
+  10:     0x729dc041b5e1 - std[4207b579a9c607b]::panicking::default_hook
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:319:9
+  11:     0x729dbc147aca - rustc_driver_impl[98a60174218db9d7]::install_ice_hook::{closure#1}
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_driver_impl/src/lib.rs:1485:17
+  12:     0x729dbc147aca - <alloc[8a49909e139efdf9]::boxed::Box<rustc_driver_impl[98a60174218db9d7]::install_ice_hook::{closure#1}> as core[fd799f6b9e91069b]::ops::function::Fn<(&dyn for<'a, 'b> core[fd799f6b9e91069b]::ops::function::Fn<(&'a std[4207b579a9c607b]::panic::PanicHookInfo<'b>,), Output = ()> + core[fd799f6b9e91069b]::marker::Send + core[fd799f6b9e91069b]::marker::Sync, &std[4207b579a9c607b]::panic::PanicHookInfo)>>::call
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/alloc/src/boxed.rs:2334:9
+  13:     0x729dc041b942 - <alloc[8a49909e139efdf9]::boxed::Box<dyn for<'a, 'b> core[fd799f6b9e91069b]::ops::function::Fn<(&'a std[4207b579a9c607b]::panic::PanicHookInfo<'b>,), Output = ()> + core[fd799f6b9e91069b]::marker::Send + core[fd799f6b9e91069b]::marker::Sync> as core[fd799f6b9e91069b]::ops::function::Fn<(&std[4207b579a9c607b]::panic::PanicHookInfo,)>>::call
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/alloc/src/boxed.rs:2334:9
+  14:     0x729dc041b942 - std[4207b579a9c607b]::panicking::panic_with_hook
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:823:13
+  15:     0x729dc03f45f4 - std[4207b579a9c607b]::panicking::panic_handler::{closure#0}
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:681:13
+  16:     0x729dc03ece19 - std[4207b579a9c607b]::sys::backtrace::__rust_end_short_backtrace::<std[4207b579a9c607b]::panicking::panic_handler::{closure#0}, !>
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/sys/backtrace.rs:182:18
+  17:     0x729dc03f5ecd - __rustc[84be79524b836da9]::rust_begin_unwind
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:679:5
+  18:     0x729dc047297c - core[fd799f6b9e91069b]::panicking::panic_fmt
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panicking.rs:80:14
+  19:     0x729dc002735d - <rustc_ast_pretty[d14e36d20e7007f9]::pp::BoxMarker as core[fd799f6b9e91069b]::ops::drop::Drop>::drop
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_ast_pretty/src/pp.rs:266:9
+  20:     0x729dbf646f9c - core[fd799f6b9e91069b]::ptr::drop_glue::<rustc_ast_pretty[d14e36d20e7007f9]::pp::BoxMarker>
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/ptr/mod.rs:847:1
+  21:     0x729dbf646f9c - core[fd799f6b9e91069b]::ptr::drop_glue::<core[fd799f6b9e91069b]::option::Option<rustc_ast_pretty[d14e36d20e7007f9]::pp::BoxMarker>>
+                               at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/ptr/mod.rs:847:1
+  22:     0x729dbf646f9c - <rustc_hir_pretty[e9e6c674a5358d92]::State>::print_block_maybe_unclosed
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_pretty/src/lib.rs:1129:5
+  23:     0x729dbf63fabc - <rustc_hir_pretty[e9e6c674a5358d92]::State>::print_block
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_pretty/src/lib.rs:1098:14
+  24:     0x729dbf63fabc - <rustc_hir_pretty[e9e6c674a5358d92]::State>::print_expr
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_pretty/src/lib.rs:1703:22
+  25:     0x729dbf6413a2 - <rustc_hir_pretty[e9e6c674a5358d92]::State>::print_item
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_pretty/src/lib.rs:659:26
+  26:     0x729dbf63db3b - <rustc_hir_pretty[e9e6c674a5358d92]::State>::print_mod
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_pretty/src/lib.rs:379:22
+  27:     0x729dbf63db3b - rustc_hir_pretty[e9e6c674a5358d92]::print_crate
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_pretty/src/lib.rs:300:7
+  28:     0x729dbc0f15fe - rustc_driver_impl[98a60174218db9d7]::pretty::print::{closure#2}
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_driver_impl/src/pretty.rs:277:17
+  29:     0x729dbc0f51c6 - rustc_driver_impl[98a60174218db9d7]::pretty::print
+  30:     0x729dbc0a5093 - rustc_driver_impl[98a60174218db9d7]::run_compiler::{closure#0}::{closure#0}
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_driver_impl/src/lib.rs:276:21
+  31:     0x729dbc0a5093 - rustc_interface
+[... truncated ...]

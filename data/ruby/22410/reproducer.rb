@@ -1,0 +1,1 @@
+IO.allocate.external_encoding

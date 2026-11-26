@@ -1,0 +1,46 @@
+<source>:1:53: warning: if statement has empty body [-Wempty-body]
+    1 | void f() { if (__builtin_available(macos 10.12, *)) ; if consteval { } }
+      |                                                     ^
+<source>:1:53: note: put the semicolon on a separate line to silence this warning
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24 -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -dumpdir /app/output.s- -disable-free -clear-ast-before-backend -main-file-name example.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -fno-verbose-asm -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debug-info-kind=constructor -dwarf-version=5 -debugger-tuning=gdb -fdebug-compilation-dir=/app -fcoverage-compilation-dir=/app -resource-dir /cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/lib/clang/24 -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0 -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0/x86_64-linux-gnu -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0/backward -internal-isystem /cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/lib/clang/24/include -internal-isystem /cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/../include/x86_64-unknown-linux-gnu -internal-isystem /usr/local/include -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -std=c++23 -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fno-implicit-modules -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fcolor-diagnostics -faddrsig -fdwarf2-cfi-asm -o /tmp/example-51ff80.o -x c++ <source>
+1.	<eof> parser at end of file
+2.	<source>:1:10: parsing function body 'f'
+ #0 0x0000000004414e58 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x4414e58)
+ #1 0x0000000004411d04 llvm::sys::RunSignalHandlers() (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x4411d04)
+ #2 0x0000000004411e7e SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x0000000004411f28 SignalHandlerTerminate(int, siginfo_t*, void*) Signals.cpp:0:0
+ #4 0x000071c09d445330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x00000000080f8bc8 clang::Expr::IgnoreParens() (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x80f8bc8)
+ #6 0x0000000007abf47e (anonymous namespace)::DiagnoseUnguardedAvailability::TraverseIfStmt(clang::IfStmt*) SemaAvailability.cpp:0:0
+ #7 0x00000000080ba729 clang::RecursiveASTVisitor<(anonymous namespace)::Impl<false>>::TraverseStmt(clang::Stmt*, llvm::SmallVectorImpl<llvm::PointerIntPair<clang::Stmt*, 1u, bool, llvm::PointerLikeTypeTraits<clang::Stmt*>, llvm::PointerIntPairInfo<clang::Stmt*, 1u, llvm::PointerLikeTypeTraits<clang::Stmt*>>>>*) (.constprop.0) DynamicRecursiveASTVisitor.cpp:0:0
+ #8 0x00000000080ba843 clang::DynamicRecursiveASTVisitorBase<false>::TraverseStmt(clang::Stmt*) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x80ba843)
+ #9 0x0000000007abefa5 (anonymous namespace)::DiagnoseUnguardedAvailability::TraverseStmt(clang::Stmt*) SemaAvailability.cpp:0:0
+#10 0x0000000008025289 clang::DynamicRecursiveASTVisitorBase<false>::TraverseCompoundStmt(clang::CompoundStmt*) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x8025289)
+#11 0x00000000080ba729 clang::RecursiveASTVisitor<(anonymous namespace)::Impl<false>>::TraverseStmt(clang::Stmt*, llvm::SmallVectorImpl<llvm::PointerIntPair<clang::Stmt*, 1u, bool, llvm::PointerLikeTypeTraits<clang::Stmt*>, llvm::PointerIntPairInfo<clang::Stmt*, 1u, llvm::PointerLikeTypeTraits<clang::Stmt*>>>>*) (.constprop.0) DynamicRecursiveASTVisitor.cpp:0:0
+#12 0x00000000080ba843 clang::DynamicRecursiveASTVisitorBase<false>::TraverseStmt(clang::Stmt*) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x80ba843)
+#13 0x0000000007abf31f clang::Sema::DiagnoseUnguardedAvailabilityViolations(clang::Decl*) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x7abf31f)
+#14 0x0000000007189b2b clang::Sema::ActOnFinishFunctionBody(clang::Decl*, clang::Stmt*, bool, bool) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x7189b2b)
+#15 0x0000000006e70e54 clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x6e70e54)
+#16 0x0000000006d6d22d clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x6d6d22d)
+#17 0x0000000006db6be6 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x6db6be6)
+#18 0x0000000006d6130b clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x6d6130b)
+#19 0x0000000006d61aff clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x6d61aff)
+#20 0x0000000006d6e618 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x6d6e618)
+#21 0x0000000006d6f555 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x6d6f555)
+#22 0x0000000006d6f940 clang::Parser::ParseFirstTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x6d6f940)
+#23 0x0000000006d4b90c clang::ParseAST(clang::Sema&, bool, bool) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x6d4b90c)
+#24 0x0000000004f21c78 clang::CodeGenAction::ExecuteAction() (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x4f21c78)
+#25 0x000000000524ec78 clang::FrontendAction::Execute() (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x524ec78)
+#26 0x00000000051dc4fd clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x51dc4fd)
+#27 0x000000000532324d clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0x532324d)
+#28 0x0000000000d91d0c cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0xd91d0c)
+#29 0x0000000000d88a0a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#30 0x0000000000d8ce1b clang_main(int, char**, llvm::ToolContext const&) (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0xd8ce1b)
+#31 0x0000000000ccc14a main (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0xccc14a)
+#32 0x000071c09d42a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#33 0x000071c09d42a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#34 0x0000000000d883b5 _start (/cefs/fc/fc84883d6260285471aa9b2c_clang-assertions-trunk-20260830/bin/clang-24+0xd883b5)
+clang++: error: unable to execute command: Segmentation fault (core dumped)
+clang++: error: clang frontend command failed with exit code -2 (use -v to see invocation)

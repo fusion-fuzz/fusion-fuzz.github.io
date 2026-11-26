@@ -1,0 +1,79 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:6:16: warning: input conversion stopped due to an input byte that does not belong to the input codeset UTF-8 [-WCFString-literal]
+    6 | NSString *S = @"\xff\xff___WAIT___"; // expected-warning {{input conversion stopped due to an input byte that does not belong to the input codeset UTF-8}}
+      |                ^~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:26:6: error: no viable overloaded operator[] for type 'S'
+   26 |   S{}[1]; // expected-error {{no viable overloaded operator[] for type 'S'}}
+      |   ~~~^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:22:9: note: candidate function not viable: requires 0 arguments, but 1 was provided
+   22 |     int operator[](); // expected-note{{not viable: requires 0 arguments, but 1 was provided}}
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:35:20: error: no viable overloaded operator[] for type 'S'
+   35 |   static_assert(S{}[1, 2] == 1); // expected-error {{no viable overloaded operator[] for type 'S'}}
+      |                 ~~~^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:31:19: note: candidate function not viable: allows at most single argument 'i', but 2 arguments were provided
+   31 |     constexpr int operator[](int i = 42) { return i; } // expected-note {{not viable: allows at most single argument 'i'}}
+      |                   ^          ~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:66:20: error: call to subscript operator of type 'S' is ambiguous
+   66 |   static_assert(S{}[] == 0); // expected-error{{call to subscript operator of type 'S' is ambiguous}}
+      |                 ~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:62:19: note: candidate function
+   62 |     constexpr int operator[]() { return 0; }         // expected-note{{candidate function}}
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:63:19: note: candidate function
+   63 |     constexpr int operator[](int = 0) { return 1; }; // expected-note{{candidate function}}
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:81:29: error: no viable overloaded operator[] for type 'T1<int, int>'
+   81 | static_assert(T1<int, int>{}[1] == 3);
+      |               ~~~~~~~~~~~~~~^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:73:18: note: candidate function not viable: requires 2 arguments, but 1 was provided
+   73 |   constexpr auto operator[](T... arg) { // expected-note {{candidate function not viable: requires 2 arguments, but 1 was provided}}
+      |                  ^          ~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:111:10: error: expression contains unexpanded parameter pack 'Is'
+  111 |   return foo[Is]; // expected-error {{expression contains unexpanded parameter pack 'Is'}}
+      |          ^   ~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaExprObjC.cpp:829: clang::ExprResult clang::SemaObjC::BuildObjCSubscriptExpression(clang::SourceLocation, clang::Expr *, clang::Expr *, clang::ObjCMethodDecl *, clang::ObjCMethodDecl *): Assertion `(!BaseExpr->isTypeDependent() && !IndexExpr->isTypeDependent()) && "base or index cannot have dependent type here"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O0 -std=c++23 -fblocks -fobjc-runtime=macosx-10.14 -fno-objc-arc /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:117:17: current parser token ']'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:93:1: parsing namespace 'test_packs'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:115:25: parsing function body 'test_packs::c_array'
+4.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpxx2gm6rq/8120a381.mm:115:25: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005afd7f65966b __interceptor_backtrace + 91
+1  clang++   0x00005afd852b4027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005afd852adcf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005afd852b29c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005afd85100cc5
+5  clang++   0x00005afd851014d3
+6  libc.so.6 0x00007c39b4373520
+7  libc.so.6 0x00007c39b43c79bc pthread_kill + 300
+8  libc.so.6 0x00007c39b4373476 raise + 22
+9  libc.so.6 0x00007c39b43597f3 abort + 211
+10 libc.so.6 0x00007c39b435971b
+11 libc.so.6 0x00007c39b436ae96
+12 clang++   0x00005afd8c9b3ddf clang::SemaObjC::BuildObjCSubscriptExpression(clang::SourceLocation, clang::Expr*, clang::Expr*, clang::ObjCMethodDecl*, clang::ObjCMethodDecl*) + 671
+13 clang++   0x00005afd8c5b85b2 clang::Sema::CreateBuiltinArraySubscriptExpr(clang::Expr*, clang::SourceLocation, clang::Expr*, clang::SourceLocation) + 7426
+14 clang++   0x00005afd8c5b3963 clang::Sema::ActOnArraySubscriptExpr(clang::Scope*, clang::Expr*, clang::SourceLocation, llvm::MutableArrayRef<clang::Expr*>, clang::SourceLocation) + 7971
+15 clang++   0x00005afd8b8f3b6c clang::Parser::ParsePostfixExpressionSuffix(clang::ActionResult<clang::Expr*, true>) + 14044
+16 clang++   0x00005afd8b8f7f41 clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 4257
+17 clang++   0x00005afd8b8eff1e clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 238
+18 clang++   0x00005afd8b8ecb0d clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 333
+19 clang++   0x00005afd8b8ec99e clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 14
+20 clang++   0x00005afd8ba17c3c clang::Parser::ParseReturnStatement() + 780
+21 clang++   0x00005afd8ba0a1ac clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 7996
+22 clang++   0x00005afd8ba07cca clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 970
+23 clang++   0x00005afd8ba1d6ef clang::Parser::ParseCompoundStatementBody(bool) + 5887
+24 clang++   0x00005afd8ba2201b clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 811
+25 clang++   0x00005afd8b8072d7 clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 7351
+26 clang++   0x00005afd8b8625f6 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 10470
+27 clang++   0x00005afd8ba34482 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 1970
+28 clang++   0x00005afd8ba32424 clang::Parser::ParseTemplateDeclarationOrSpecialization(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2932
+29 clang++   0x00005afd8ba31478 clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) + 328
+30 clang++   0x00005afd8b85de5f clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 975
+31 clang++   0x00005afd8b80087a clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 1002
+32 clang++   0x00005afd8b8b1084 clang::Parser::ParseInnerNamespace(llvm::SmallVector<clang::Parser::InnerNamespaceInfo, 4u> const&, unsigned int, clang::SourceLocation&, clang::ParsedAttributes&, clang::BalancedDelimiterTracker&) + 612
+33 clang++   0x00005afd8b8aeb4a clang::Parser::ParseNamespace(clang::DeclaratorContext, clang::SourceLocation&, clang::SourceLocation) + 6970
+34 clang++   0x00005afd8b85e122 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 1682
+35 clang++   0x00005afd8b80087
+[... truncated ...]

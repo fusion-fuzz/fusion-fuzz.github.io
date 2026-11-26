@@ -1,0 +1,104 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m:29:13: error: implicit conversion of Objective-C pointer type 'Protocol *' to C pointer type 'void *' requires a bridged cast
+   29 |   void *p = @protocol(P3);
+      |             ^~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m:29:13: note: use __bridge to convert directly (no change in ownership)
+   29 |   void *p = @protocol(P3);
+      |             ^            
+      |             (__bridge void *)( )
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m:29:13: note: use __bridge_retained to make an ARC object available as a +1 'void *'
+   29 |   void *p = @protocol(P3);
+      |             ^            
+      |             (__bridge_retained void *)( )
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m:39:10: error: receiver type 'Protocol' for instance message is a forward declaration
+   39 |   Pbool([P0 conformsTo: P1]);
+      |          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m:40:10: error: receiver type 'Protocol' for instance message is a forward declaration
+   40 |   Pbool([P1 conformsTo: P0]);
+      |          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m:41:10: error: receiver type 'Protocol' for instance message is a forward declaration
+   41 |   Pbool([P1 conformsTo: P2]);
+      |          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m:42:10: error: receiver type 'Protocol' for instance message is a forward declaration
+   42 |   Pbool([P2 conformsTo: P1]);
+      |          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m:43:10: error: receiver type 'Protocol' for instance message is a forward declaration
+   43 |   Pbool([P3 conformsTo: P1]);
+      |          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m:44:10: error: receiver type 'Protocol' for instance message is a forward declaration
+   44 |   Pbool([P1 conformsTo: P3]);
+      |          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m:39:3: error: cannot compile this scalar expression yet
+   39 |   Pbool([P0 conformsTo: P1]);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m:38:18: note: expanded from macro 'Pbool'
+   38 | #define Pbool(X) p(#X ": %s\n", X ? "yes" : "no");
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Unexpected placeholder builtin type!
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CodeGenTypes.cpp:602!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -S -o /dev/null -O1 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -fobjc-runtime=macosx-10.14 -fobjc-arc -fstrict-enums -ffp-contract=fast -fsanitize=address /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m:49:1: current parser token 'typedef'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m:32:5: LLVM IR generation of declaration 'main'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprgby4sj4/739608b8.m:32:5: Generating code for declaration 'main'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x00005a6a6e87e329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x00005a6a6e87afec llvm::sys::RunSignalHandlers() + 76
+2  clang     0x00005a6a6e87b8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x00005a6a6e7bd218
+4  libc.so.6 0x0000744e4e1de520
+5  libc.so.6 0x0000744e4e2329bc pthread_kill + 300
+6  libc.so.6 0x0000744e4e1de476 raise + 22
+7  libc.so.6 0x0000744e4e1c47f3 abort + 211
+8  clang     0x00005a6a6e7c811e
+9  clang     0x00005a6a6f05108a clang::CodeGen::CodeGenTypes::ConvertType(clang::QualType) + 2682
+10 clang     0x00005a6a6edb634c
+11 clang     0x00005a6a6edd0c4b
+12 clang     0x00005a6a6edd575b
+13 clang     0x00005a6a6edd47fd clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 141
+14 clang     0x00005a6a6ed3a6be clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) + 238
+15 clang     0x00005a6a6ed60e3a clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) + 282
+16 clang     0x00005a6a6ef0b974 clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 388
+17 clang     0x00005a6a6ef13f3c clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+18 clang     0x00005a6a6ef7d901 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) + 177
+19 clang     0x00005a6a6ef949d4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 1396
+20 clang     0x00005a6a6effece8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 2152
+21 clang     0x00005a6a6eff7f64 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 580
+22 clang     0x00005a6a6eff8e60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+23 clang     0x00005a6a6f004335
+24 clang     0x00005a6a6f3a7ef1
+25 clang     0x00005a6a6f3970f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+26 clang     0x00005a6a7107461c clang::ParseAST(clang::Sema&, bool, bool) + 508
+27 clang     0x00005a6a6f715061 clang::FrontendAction::Execute() + 65
+28 clang     0x00005a6a6f69ee65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+29 clang     0x00005a6a6f7ecde3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+30 clang     0x00005a6a6c64833e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+31 clang     0x00005a6a6c63e13a
+32 clang     0x00005a6a6c63e2cf
+33 clang     0x00005a6a6f423cfd
+34 clang     0x00005a6a6e7bd630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+35 clang     0x00005a6a6f424b53
+36 clang     0x00005a6a6f3d9607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+37 clang     0x00005a6a6f3ddef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+38 clang     0x00005a6a6f3ec004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+39 clang     0x00005a6a6c643923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+40 clang     0x00005a6a6c57f7f1 main + 113
+41 libc.so.6 0x0000744e4e1c5d90
+42 libc.so.6 0x0000744e4e1c5e40 __libc_start_main + 128
+43 clang     0x00005a6a6c63d765 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang: note: diagnostic msg: /tmp/739608b8-61c79d.m
+clang: note: diagnostic msg: /tmp/739608b8-61c79d.sh
+clang: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

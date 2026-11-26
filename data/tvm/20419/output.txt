@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "min.py", line 18, in <module>
+  File "src/relax/transform/to_mixed_precision.cc", line 620, in operator()
+  File "src/relax/transform/to_mixed_precision.cc", line 612, in tvm::relax::ToMixedPrecision(tvm::relax::Function const&, DLDataType, tvm::ffi::Optional<tvm::ffi::Array<tvm::ffi::String, void>, void>)
+  File "src/relax/transform/to_mixed_precision.cc", line 590, in tvm::relax::ToMixedPrecisionRewriter::VisitExpr_(tvm::relax::FunctionNode const*)
+  File "src/relax/transform/to_mixed_precision.cc", line 576, in tvm::relax::ToMixedPrecisionRewriter::VisitBindingBlock_(tvm::relax::DataflowBlockNode const*)
+  File "src/relax/transform/to_mixed_precision.cc", line 450, in tvm::relax::ToMixedPrecisionRewriter::VisitBinding(tvm::relax::Binding const&)
+  File "src/relax/transform/to_mixed_precision.cc", line 444, in tvm::relax::ToMixedPrecisionRewriter::VisitExpr_(tvm::VarNode const*)
+  File "src/relax/transform/to_mixed_precision.cc", line 435, in tvm::relax::ToMixedPrecisionRewriter::VisitVar_(tvm::Var const&)
+  File "src/relax/transform/infer_amp_utils.cc", line 39, in tvm::relax::NTypeFrom(tvm::Expr const&, DLDataType)
+  File "src/relax/transform/infer_amp_utils.cc", line 36, in tvm::relax::NTypeFrom(tvm::Type const&, DLDataType)
+  File "src/relax/transform/infer_amp_utils.cc", line 28, in tvm::relax::NTypeFrom(const tvm::Type&, DLDataType)::<lambda(const tvm::Type&)>
+tvm.error.InternalError: Check failed: (tensor) is false: Expected TensorType, but got R.Callable((R.Tensor((), dtype="float32"),), R.Tensor((), dtype="float32"), True)

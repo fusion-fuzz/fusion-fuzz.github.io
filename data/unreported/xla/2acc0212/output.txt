@@ -1,0 +1,15 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1790066036.586632 1399902 collectives_schedule_linearizer.cc:66] Check failed: start->user_count() == 1 (2 vs. 1) 
+*** Check failure stack trace: ***
+    @     0x56f785a75a34  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x56f785a759b6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x56f77bd14579  xla::CollectivesScheduleLinearizer::RunImpl()
+    @     0x56f784bcb277  xla::HloPassInterface::Run()
+    @     0x56f783b454ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x56f783b4091f  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x56f783b3fd45  xla::HloPassPipeline::RunImpl()
+    @     0x56f784bcb277  xla::HloPassInterface::Run()
+    @     0x56f77bc81376  xla::OptProvider::BuildAndRunTransformPipeline()
+    @     0x56f785abba78  main
+    @     0x7af4214d1d90  (unknown)
+Aborted (core dumped)

@@ -1,0 +1,69 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp01370yky/7f25d7e9.mm:67:17: warning: cannot find interface declaration for 'Foo'
+   67 | @implementation Foo
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp01370yky/7f25d7e9.mm:66:16: warning: 'objc_direct_members' attribute isn't implemented by this Objective-C runtime [-Wignored-attributes]
+   66 | __attribute__((objc_direct_members))
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp01370yky/7f25d7e9.mm:67:17: warning: class 'Foo' defined without specifying a base class [-Wobjc-root-class]
+   67 | @implementation Foo
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp01370yky/7f25d7e9.mm:67:20: note: add a super class to fix this problem
+   67 | @implementation Foo
+      |                    ^
+Direct method precondition checks not supported in GNU runtime yet
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGObjCGNU.cpp:4260!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O2 -std=c++03 -fblocks -fno-objc-arc -ffp-contract=fast /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp01370yky/7f25d7e9.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp01370yky/7f25d7e9.mm:79:1: current parser token '@'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp01370yky/7f25d7e9.mm:69:1: LLVM IR generation of declaration 'Foo::directMethodInExtension'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000562fb0de84f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000562fb0de51bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000562fb0de5a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000562fb0d27e88
+4  libc.so.6 0x00007f77857d9520
+5  libc.so.6 0x00007f778582d9bc pthread_kill + 300
+6  libc.so.6 0x00007f77857d9476 raise + 22
+7  libc.so.6 0x00007f77857bf7f3 abort + 211
+8  clang++   0x0000562fb0d3287e
+9  clang++   0x0000562fb16e4f62
+10 clang++   0x0000562fb120e32c clang::CodeGen::CodeGenFunction::StartObjCMethod(clang::ObjCMethodDecl const*, clang::ObjCContainerDecl const*) + 1388
+11 clang++   0x0000562fb120ef2e clang::CodeGen::CodeGenFunction::GenerateObjCMethod(clang::ObjCMethodDecl const*) + 62
+12 clang++   0x0000562fb13c6202
+13 clang++   0x0000562fb17693e1
+14 clang++   0x0000562fb1758bc1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+15 clang++   0x0000562fb35cecdc clang::ParseAST(clang::Sema&, bool, bool) + 508
+16 clang++   0x0000562fb1ad6e51 clang::FrontendAction::Execute() + 65
+17 clang++   0x0000562fb1a60df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+18 clang++   0x0000562fb1baec03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+19 clang++   0x0000562faf7f7d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+20 clang++   0x0000562faf7edada
+21 clang++   0x0000562faf7edc6f
+22 clang++   0x0000562fb17e542d
+23 clang++   0x0000562fb0d282a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+24 clang++   0x0000562fb17e6283
+25 clang++   0x0000562fb179ad17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+26 clang++   0x0000562fb179f600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+27 clang++   0x0000562fb17ad714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+28 clang++   0x0000562faf7f3383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+29 clang++   0x0000562faf743901 main + 113
+30 libc.so.6 0x00007f77857c0d90
+31 libc.so.6 0x00007f77857c0e40 __libc_start_main + 128
+32 clang++   0x0000562faf7ed105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/7f25d7e9-56c2b8.mm
+clang++: note: diagnostic msg: /tmp/7f25d7e9-56c2b8.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

@@ -1,0 +1,91 @@
+HloModule m
+
+%add.1 {
+  %x.47 = bf16[] parameter(0)
+  %y.47 = bf16[] parameter(1)
+  ROOT %add.2532 = bf16[] add(x.47, y.47)
+}
+
+%max.1 {
+  %x.48 = bf16[] parameter(0)
+  %y.48 = bf16[] parameter(1)
+  ROOT %max.2533 = bf16[] maximum(x.48, y.48)
+}
+
+%min.1 {
+  %x.49 = bf16[] parameter(0)
+  %y.49 = bf16[] parameter(1)
+  ROOT %min.2534 = bf16[] minimum(x.49, y.49)
+}
+
+%mul.1 {
+  %x.50 = bf16[] parameter(0)
+  %y.50 = bf16[] parameter(1)
+  ROOT %mul.2535 = bf16[] multiply(x.50, y.50)
+}
+
+%compare {
+  %p0.lhs = f32[] parameter(0)
+  %p0.rhs = f32[] parameter(1)
+  %p1.lhs = f32[] parameter(2)
+  %p1.rhs = f32[] parameter(3)
+  ROOT %lt = pred[] compare(p0.lhs, p0.rhs), direction=LT
+}
+
+%fused_computation {
+  %p0 = f32[8] parameter(0)
+  %p1 = f32[8] parameter(1)
+  ROOT %sort = (f32[8], f32[8]) sort(p0, p1), dimensions={0}, to_apply=%compare
+}
+
+%compare.d {
+  %p0.lhs = f32[] parameter(0)
+  %p0.rhs = f32[] parameter(1)
+  %p1.lhs = f32[] parameter(2)
+  %p1.rhs = f32[] parameter(3)
+  ROOT %lt = pred[] compare(p0.lhs, p0.rhs), direction=LT
+}
+
+%fused_computation.d {
+  %p0 = f32[8] parameter(0)
+  %p1 = f32[8] parameter(1)
+  ROOT %sort = (f32[8], f32[8]) sort(p0, p1), dimensions={0}, to_apply=%compare.d
+}
+
+%compare.d.1 {
+  %p0.lhs = f32[] parameter(0)
+  %p0.rhs = f32[] parameter(1)
+  %p1.lhs = f32[] parameter(2)
+  %p1.rhs = f32[] parameter(3)
+  ROOT %lt = pred[] compare(p0.lhs, p0.rhs), direction=LT
+}
+
+%fused_computation.d.1 {
+  %p0 = f32[8] parameter(0)
+  %p1 = f32[8] parameter(1)
+  ROOT %sort = (f32[8], f32[8]) sort(p0, p1), dimensions={0}, to_apply=%compare.d.1
+}
+
+ENTRY %main {
+  %p0 = bf16[8] parameter(0)
+  %p1 = bf16[8] parameter(1)
+  %p2 = bf16[8] parameter(2)
+  %p3 = bf16[8] parameter(3)
+  %ar0 = bf16[8] all-reduce(p0), replica_groups={}, to_apply=add.1
+  %ar1 = bf16[8] all-reduce(p1), replica_groups={}, to_apply=max.1
+  %ar2 = bf16[8] all-reduce(p2), replica_groups={}, to_apply=min.1
+  %ar3 = bf16[8] all-reduce(p3), replica_groups={}, to_apply=mul.1
+  %convert0 = f32[8] convert(ar0)
+  %convert1 = f32[8] convert(ar1)
+  %add0 = f32[8] add(convert0, convert1)
+  %convert2 = f32[8] convert(ar2)
+  %add1 = f32[8] add(add0, convert2)
+  %convert3 = f32[8] convert(ar3)
+  %fusion.d = (f32[8], f32[8]) fusion(%convert1, %convert2), kind=kLoop, calls=%fused_computation.d.1
+  %add2 = f32[8] add(add1, convert3)
+  %convert4 = bf16[8] convert(add2)
+  %p0.d = f32[8] parameter(4)
+  %fusion = (f32[8], f32[8]) fusion(%p0.d, %convert1), kind=kLoop, calls=%fused_computation.d
+  %ffl.root = (bf16[8], (f32[8], f32[8])) tuple(%convert4, %fusion)
+  ROOT %ffl.root.1 = (bf16[8], (f32[8], f32[8]), (f32[8], f32[8])) tuple(%convert4, %fusion, %fusion.d)
+}

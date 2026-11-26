@@ -1,0 +1,14 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==416684==ERROR: AddressSanitizer: SEGV on unknown address 0x000000400000 (pc 0x7f9afed0cb68 bp 0x7ffc32ff4b60 sp 0x7ffc32ff3a50 T0)
+==416684==The signal is caused by a READ memory access.
+    #0 0x7f9afed0cb68 in CheckODRViolationViaIndicator ../../../../src/libsanitizer/asan/asan_globals.cpp:142
+    #1 0x7f9afed0cb68 in RegisterGlobal ../../../../src/libsanitizer/asan/asan_globals.cpp:201
+    #2 0x7f9afed0cb68 in __asan_register_globals ../../../../src/libsanitizer/asan/asan_globals.cpp:370
+    #3 0x564b87313b7c in _sub_I_00099_1 (/opt/lfortran/bin/lfortran+0x2c9beb7c)
+    #4 0x7f9afe11eeba in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29eba)
+    #5 0x564b86cd49b4 in _start (/opt/lfortran/bin/lfortran+0x2c37f9b4)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV ../../../../src/libsanitizer/asan/asan_globals.cpp:142 in CheckODRViolationViaIndicator
+==416684==ABORTING

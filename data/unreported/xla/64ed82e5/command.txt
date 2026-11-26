@@ -1,0 +1,1 @@
+ulimit -n 4096; ulimit -v 8388608; hlo-opt --platform=cpu --passes=async-collective-creator,dot_dimension_merger,ar-crs-combiner,zero_sized_hlo_elimination,spmd-partitioning,fusion_constant_sinking --xla_cpu_fast_math_honor_nans=false --o=/dev/null ./reproducer.hlo

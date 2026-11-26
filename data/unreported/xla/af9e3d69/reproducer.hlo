@@ -1,0 +1,65 @@
+HloModule test_module
+
+%mapper {
+  %x = f32[] parameter(0)
+  %abs_x = f32[] abs(x)
+  ROOT %add_x = f32[] add(abs_x, abs_x)
+}
+
+%cond1 {
+  %cond1_param = (f32[], u32[]) parameter(0)
+  %i = u32[] get-tuple-element(cond1_param), index=1
+  %limit = u32[] constant(4)
+  ROOT %lt = pred[] compare(i, limit), direction=LT
+}
+
+%cond2 {
+  %cond2_param = (f32[], u32[]) parameter(0)
+  %i = u32[] get-tuple-element(cond2_param), index=1
+  %limit = u32[] constant(4)
+  ROOT %lt = pred[] compare(i, limit), direction=LT
+}
+
+%body {
+  ROOT %body_param = (f32[], u32[]) parameter(0)
+}
+
+%callee1 {
+  %a = f32[] parameter(0)
+  %zero = u32[] constant(0)
+  %init1 = (f32[], u32[]) tuple(a, zero)
+  %while1 = (f32[], u32[]) while(init1), condition=%cond1, body=%body
+  ROOT %r1 = f32[] get-tuple-element(while1), index=0
+}
+
+%callee2 {
+  %b = f32[] parameter(0)
+  %zero = u32[] constant(0)
+  %init2 = (f32[], u32[]) tuple(b, zero)
+  %while2 = (f32[], u32[]) while(init2), condition=%cond2, body=%body
+  ROOT %r2 = f32[] get-tuple-element(while2), index=0
+}
+
+%outer_cond {
+  %outer_cond_param = (f32[], f32[], u32[], f32[]) parameter(0)
+  %j = u32[] get-tuple-element(outer_cond_param), index=2
+  %limit = u32[] constant(3)
+  ROOT %lt = pred[] compare(j, limit), direction=LT
+}
+
+%outer_body {
+  %outer_param = (f32[], f32[], u32[], f32[]) parameter(0)
+  %outer_a = f32[] get-tuple-element(outer_param), index=0
+  %outer_b = f32[] get-tuple-element(outer_param), index=1
+  %outer_j = u32[] get-tuple-element(outer_param), index=2
+  %call1 = f32[] call(outer_a), to_apply=%callee1
+  %one = u32[] constant(1)
+  %next_j = u32[] add(outer_j, one)
+  %call2 = f32[] call(outer_b), to_apply=%callee2
+  ROOT %outer_tuple = (f32[], f32[], u32[], f32[]) tuple(call1, outer_b, next_j, call2)
+}
+
+ENTRY %main {
+  %input = f32[128]{0} parameter(0)
+  ROOT %mapped = f32[128]{0} map(input), dimensions={0}, to_apply=%callee1
+}

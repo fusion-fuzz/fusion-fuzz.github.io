@@ -1,0 +1,107 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:45:43: error: class member cannot be redeclared
+   45 |   int __attribute__((cpu_specific(atom))) redecl1(void) { return 1; }
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:44:43: note: previous declaration is here
+   44 |   int __attribute__((cpu_specific(atom))) redecl1(void);
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:48:43: error: class member cannot be redeclared
+   48 |   int __attribute__((cpu_dispatch(atom))) redecl2(void) { }
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:47:43: note: previous declaration is here
+   47 |   int __attribute__((cpu_dispatch(atom))) redecl2(void);
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:51:43: error: class member cannot be redeclared
+   51 |   int __attribute__((cpu_dispatch(atom))) redecl2(void) { }
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:47:43: note: previous declaration is here
+   47 |   int __attribute__((cpu_dispatch(atom))) redecl2(void);
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:54:43: error: class member cannot be redeclared
+   54 |   int __attribute__((cpu_dispatch(atom))) allow_fwd_decl(void) {}
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:53:7: note: previous declaration is here
+   53 |   int allow_fwd_decl(void);
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:62:43: error: class member cannot be redeclared
+   62 |   int __attribute__((cpu_dispatch(atom))) allow_fwd_decl2(void) {}
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:56:7: note: previous declaration is here
+   56 |   int allow_fwd_decl2(void);
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:67:7: error: function declaration is missing 'cpu_specific' or 'cpu_dispatch' attribute in a multiversioned function
+   67 |   int redecl4(void);
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:70:22: warning: CPU list contains duplicate entries; attribute ignored [-Wfunction-multiversion]
+   70 |   int __attribute__((cpu_specific(atom, atom))) dup_procs(void);
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:75:43: error: multiple 'cpu_specific' functions cannot specify the same CPU: 'atom'
+   75 |   int __attribute__((cpu_specific(atom))) dup_procs2(void);
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:72:54: note: previous declaration is here
+   72 |   int __attribute__((cpu_specific(ivybridge, atom))) dup_procs2(void);
+      |                                                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:80:54: error: multiple 'cpu_specific' functions cannot specify the same CPU: 'ivybridge'
+   80 |   int __attribute__((cpu_specific(atom, ivybridge))) dup_procs3(void);
+      |                                                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:77:54: note: previous declaration is here
+   77 |   int __attribute__((cpu_specific(ivybridge, atom))) dup_procs3(void);
+      |                                                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:85:43: error: class member cannot be redeclared
+   85 |   int __attribute__((cpu_specific(atom))) redef(void) { return 2; }
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:82:43: note: previous definition is here
+   82 |   int __attribute__((cpu_specific(atom))) redef(void) { return 1; }
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:90:46: error: 'cpu_dispatch' function redeclared with different CPUs
+   90 |   int __attribute((cpu_dispatch(ivybridge))) mult_dispatch(void) {}
+      |                                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:87:41: note: previous declaration is here
+   87 |   int __attribute((cpu_dispatch(atom))) mult_dispatch(void) {}
+      |                                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:93:20: error: 'cpu_dispatch' attribute takes at least 1 argument
+   93 |   int __attribute((cpu_dispatch())) no_dispatch(void) {}
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:95:20: error: 'cpu_specific' attribute takes at least 1 argument
+   95 |   int __attribute((cpu_specific())) no_specific(void) {}
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:98:57: error: attribute 'cpu_specific' multiversioning cannot be combined with attribute 'used'
+   98 |   void __attribute__((used,cpu_specific(sandybridge)))  addtl_attrs(void);
+      |                                                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:103:51: error: multiversioning attributes cannot be combined
+  103 |   void __attribute__((cpu_specific(sandybridge))) addtl_attrs2(void);
+      |                                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:100:43: note: previous declaration is here
+  100 |   void __attribute__((target("default"))) addtl_attrs2(void);
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:107:48: error: 'cpu_dispatch' and 'cpu_specific' attributes are not compatible
+  107 |   void __attribute((cpu_specific(sandybridge), cpu_dispatch(atom, sandybridge)))
+      |                                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:107:21: note: conflicting attribute is here
+  107 |   void __attribute((cpu_specific(sandybridge), cpu_dispatch(atom, sandybridge)))
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:112:63: error: multiversioned function declaration has a different calling convention
+  112 |   __vectorcall int __attribute__((cpu_specific(sandybridge))) diff_cc(void);
+      |                                                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:120:35: error: invalid option 'INVALID' for cpu_specific
+  120 |   int __attribute__((cpu_specific(INVALID))) called_invalid_value(void){ return 1;}
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:124:50: error: class member cannot be redeclared
+  124 |   int __attribute__((cpu_specific(pentium_iii))) called_invalid_value(void){ return 2;}
+      |                                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:120:46: note: previous definition is here
+  120 |   int __attribute__((cpu_specific(INVALID))) called_invalid_value(void){ return 1;}
+      |                                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:132:22: warning: CPU list contains duplicate entries; attribute ignored [-Wfunction-multiversion]
+  132 |   int __attribute__((cpu_dispatch(pentium_iii, pentium_iii_no_xmm_regs))) dupe_p3(void);
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp:134:52: error: 'nonnull' attribute is invalid for the implicit this argument
+  134 |   void __attribute__((cpu_specific(atom), nothrow, nonnull(1))) addtl_attrs(int*);
+      |                                                    ^       ~
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+No way to get here unless both had cpu_dispatch
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaOverload.cpp:10870!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Oz -std=c++14 -fblocks -Wall -fstrict-enums -fno-elide-constructors /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj2j9oylf/caf10313.cpp
+1.	/home/fuzz/Wor
+[... truncated ...]

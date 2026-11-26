@@ -1,0 +1,79 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj4ref__f/ba436051.cpp:31:9: error: unknown type name 'S'
+   31 |         S s = {[0] = 0, .y = 0, .x = 0};
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj4ref__f/ba436051.cpp:31:16: warning: array designators are a C99 extension [-Wc99-designator]
+   31 |         S s = {[0] = 0, .y = 0, .x = 0};
+      |                ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj4ref__f/ba436051.cpp:48:8: warning: array designators are a C99 extension [-Wc99-designator]
+   48 | S s = {[0] = 0, .y = 0, .x = 0};
+      |        ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj4ref__f/ba436051.cpp:48:8: error: array designator cannot initialize non-array type 'S'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj4ref__f/ba436051.cpp:48:30: warning: ISO C++ requires field designators to be specified in declaration order; field 'y' will be initialized after field 'x' [-Wreorder-init-list]
+   48 | S s = {[0] = 0, .y = 0, .x = 0};
+      |                         ~~~~~^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/Expr.cpp:4801: const clang::IdentifierInfo* clang::DesignatedInitExpr::Designator::getFieldName() const: Assertion `isFieldDesignator() && "Only valid on a field designator"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O0 -std=c++17 -g -Wall -fstrict-enums /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj4ref__f/ba436051.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj4ref__f/ba436051.cpp:48:32: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055838605b4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005583860581bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000558386058a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000558385f9ae88
+4  libc.so.6 0x00007ffb5ae2d520
+5  libc.so.6 0x00007ffb5ae819bc pthread_kill + 300
+6  libc.so.6 0x00007ffb5ae2d476 raise + 22
+7  libc.so.6 0x00007ffb5ae137f3 abort + 211
+8  libc.so.6 0x00007ffb5ae1371b
+9  libc.so.6 0x00007ffb5ae24e96
+10 clang++   0x0000558389c48ee3
+11 clang++   0x0000558388fa2a79
+12 clang++   0x0000558388f9e45d
+13 clang++   0x0000558388f9b4dd
+14 clang++   0x0000558388f887ed
+15 clang++   0x0000558388f89267
+16 clang++   0x0000558388f895b5
+17 clang++   0x0000558388f8f91f clang::InitializationSequence::Diagnose(clang::Sema&, clang::InitializedEntity const&, clang::InitializationKind const&, llvm::ArrayRef<clang::Expr*>) + 3775
+18 clang++   0x0000558388f91e95 clang::InitializationSequence::Perform(clang::Sema&, clang::InitializedEntity const&, clang::InitializationKind const&, llvm::MutableArrayRef<clang::Expr*>, clang::QualType*) + 1221
+19 clang++   0x0000558388c8600f clang::Sema::AddInitializerToDecl(clang::Decl*, clang::Expr*, bool) + 4063
+20 clang++   0x000055838888de91 clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 3313
+21 clang++   0x00005583888a7a2c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+22 clang++   0x000055838885766c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+23 clang++   0x0000558388857e4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+24 clang++   0x0000558388863d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+25 clang++   0x0000558388864dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+26 clang++   0x0000558388841cf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+27 clang++   0x0000558386d49e51 clang::FrontendAction::Execute() + 65
+28 clang++   0x0000558386cd3df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+29 clang++   0x0000558386e21c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+30 clang++   0x0000558384a6ad3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+31 clang++   0x0000558384a60ada
+32 clang++   0x0000558384a60c6f
+33 clang++   0x0000558386a5842d
+34 clang++   0x0000558385f9b2a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+35 clang++   0x0000558386a59283
+36 clang++   0x0000558386a0dd17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+37 clang++   0x0000558386a12600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+38 clang++   0x0000558386a20714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+39 clang++   0x0000558384a66383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+40 clang++   0x00005583849b6901 main + 113
+41 libc.so.6 0x00007ffb5ae14d90
+42 libc.so.6 0x00007ffb5ae14e40 __libc_start_main + 128
+43 clang++   0x0000558384a60105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/ba436051-341888.cpp
+clang++: note: diagnostic msg: /tmp/ba436051-341888.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

@@ -1,0 +1,93 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkdyiiuic/87f73566.cpp:27:1: error: imports must immediately follow the module declaration
+   27 | import foo;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkdyiiuic/87f73566.cpp:29:3: error: redefinition of 'v'
+   29 | T v; // expected-error {{declaration of 'v' in the global module follows declaration in module foo}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkdyiiuic/87f73566.cpp:15:3: note: previous definition is here
+   15 | T v;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkdyiiuic/87f73566.cpp:33:5: error: redefinition of 'v2'
+   33 | int v2; // expected-error {{declaration of 'v2' in the global module follows declaration in module foo}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkdyiiuic/87f73566.cpp:18:5: note: previous definition is here
+   18 | int v2;
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkdyiiuic/87f73566.cpp:37:7: error: redefinition of 'my_array'
+   37 | class my_array {}; // expected-error {{declaration of 'my_array' in the global module follows declaration in module foo}}
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkdyiiuic/87f73566.cpp:21:7: note: previous definition is here
+   21 | class my_array {};
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkdyiiuic/87f73566.cpp:41:5: error: redefinition of 'v3'
+   41 | int v3; // expected-error {{declaration of 'v3' in the global module follows declaration in module foo}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkdyiiuic/87f73566.cpp:24:5: note: previous definition is here
+   24 | int v3;
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkdyiiuic/87f73566.cpp:44:33: error: use of undeclared identifier 'import'
+   44 | static long ffl_fusion = (long)(import);
+      |                                 ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkdyiiuic/87f73566.cpp:64:28: error: use of undeclared identifier 'x'
+   64 | static_assert(sizeof(probe<x>(0)) == sizeof(char), "");
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkdyiiuic/87f73566.cpp:68:36: error: called object type 'long' is not a function or function pointer
+   68 | template<class T, bool = ffl_fusion(FIELD_OFFSET(T, y) > 0, true, false)>
+      |                          ~~~~~~~~~~^
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O3 -std=c++23 -fblocks -target x86_64-windows-msvc -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkdyiiuic/87f73566.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkdyiiuic/87f73566.cpp:69:16: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000056a7d2634329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000056a7d2630fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000056a7d26318a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000056a7d2573218
+4  libc.so.6 0x00007ff5d8c25520
+5  clang++   0x000056a7d69f8b08 clang::Module::getFullModuleName[abi:cxx11](bool) const + 104
+6  clang++   0x000056a7d58d34a0 clang::Sema::CheckTemplateParameterList(clang::TemplateParameterList*, clang::TemplateParameterList*, clang::Sema::TemplateParamListContext, clang::SkipBodyInfo*) + 4096
+7  clang++   0x000056a7d527a8d6 clang::Sema::ActOnFunctionDeclarator(clang::Scope*, clang::Declarator&, clang::DeclContext*, clang::TypeSourceInfo*, clang::LookupResult&, llvm::MutableArrayRef<clang::TemplateParameterList*>, bool&) + 9574
+8  clang++   0x000056a7d527feab clang::Sema::HandleDeclarator(clang::Scope*, clang::Declarator&, llvm::MutableArrayRef<clang::TemplateParameterList*>) + 1387
+9  clang++   0x000056a7d58c2192 clang::Sema::ActOnTemplateDeclarator(clang::Scope*, llvm::MutableArrayRef<clang::TemplateParameterList*>, clang::Declarator&) + 34
+10 clang++   0x000056a7d4e75dd1 clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 753
+11 clang++   0x000056a7d4e9036c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+12 clang++   0x000056a7d4f62102 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2514
+13 clang++   0x000056a7d4f6e338
+14 clang++   0x000056a7d4f6e75a clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) + 250
+15 clang++   0x000056a7d4e93bb1 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 641
+16 clang++   0x000056a7d4e4c66e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+17 clang++   0x000056a7d4e4d6ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+18 clang++   0x000056a7d4e2a632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+19 clang++   0x000056a7d34cb061 clang::FrontendAction::Execute() + 65
+20 clang++   0x000056a7d3454e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+21 clang++   0x000056a7d35a2de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+22 clang++   0x000056a7d03fe33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+23 clang++   0x000056a7d03f413a
+24 clang++   0x000056a7d03f42cf
+25 clang++   0x000056a7d31d9cfd
+26 clang++   0x000056a7d2573630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+27 clang++   0x000056a7d31dab53
+28 clang++   0x000056a7d318f607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+29 clang++   0x000056a7d3193ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+30 clang++   0x000056a7d31a2004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+31 clang++   0x000056a7d03f9923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+32 clang++   0x000056a7d03357f1 main + 113
+33 libc.so.6 0x00007ff5d8c0cd90
+34 libc.so.6 0x00007ff5d8c0ce40 __libc_start_main + 128
+35 clang++   0x000056a7d03f3765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-windows-msvc
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/87f73566-c039f6.cpp
+clang++: note: diagnostic msg: /tmp/87f73566-c039f6.sh
+clang++: note: diagnostic msg: 
+
+********************
+Segmentation fault (core dumped)

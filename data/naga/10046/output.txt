@@ -1,0 +1,42 @@
+thread 'main' panicked at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/storage.rs:274:18:
+internal error: entered unreachable code
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/std/src/panicking.rs:697:5
+   1: core::panicking::panic_fmt
+             at /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/core/src/panicking.rs:75:14
+   2: core::panicking::panic
+             at /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/core/src/panicking.rs:145:5
+   3: naga::back::hlsl::storage::<impl naga::back::hlsl::Writer<W>>::write_storage_load
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/storage.rs:274:18
+   4: naga::back::hlsl::storage::<impl naga::back::hlsl::Writer<W>>::write_storage_load_sequence
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/storage.rs:163:13
+   5: naga::back::hlsl::storage::<impl naga::back::hlsl::Writer<W>>::write_storage_load
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/storage.rs:271:17
+   6: naga::back::hlsl::storage::<impl naga::back::hlsl::Writer<W>>::write_storage_load_sequence
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/storage.rs:163:13
+   7: naga::back::hlsl::storage::<impl naga::back::hlsl::Writer<W>>::write_storage_load
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/storage.rs:271:17
+   8: naga::back::hlsl::storage::<impl naga::back::hlsl::Writer<W>>::write_storage_load_sequence
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/storage.rs:163:13
+   9: naga::back::hlsl::storage::<impl naga::back::hlsl::Writer<W>>::write_storage_load
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/storage.rs:271:17
+  10: naga::back::hlsl::writer::<impl naga::back::hlsl::Writer<W>>::write_expr
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/writer.rs:4363:25
+  11: naga::back::hlsl::writer::<impl naga::back::hlsl::Writer<W>>::write_named_expr
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/writer.rs:4846:9
+  12: naga::back::hlsl::writer::<impl naga::back::hlsl::Writer<W>>::write_stmt
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/writer.rs:2230:25
+  13: naga::back::hlsl::writer::<impl naga::back::hlsl::Writer<W>>::write_function
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/writer.rs:1901:13
+  14: naga::back::hlsl::writer::<impl naga::back::hlsl::Writer<W>>::write
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/writer.rs:497:13
+  15: naga::write_output
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga-cli/src/bin/naga.rs:999:13
+  16: naga::run
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga-cli/src/bin/naga.rs:724:9
+  17: naga::main
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga-cli/src/bin/naga.rs:468:21
+  18: core::ops::function::FnOnce::call_once
+             at /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/core/src/ops/function.rs:250:5
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.

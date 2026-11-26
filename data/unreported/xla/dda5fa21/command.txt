@@ -1,0 +1,1 @@
+ulimit -n 4096; ulimit -v 16777216; LD_LIBRARY_PATH=gpu_lib hlo-opt.gpu --platform=gpu --stage=llvm --xla_gpu_target_config_filename=gpu_specs/b200__small.txtpb --xla_gpu_autotune_level=0 --xla_gpu_experimental_gemm_fusion_v2=true --xla_gpu_generate_line_info=true --xla_gpu_cuda_data_dir=cuda_sdk --o=/dev/null ./reproducer.hlo

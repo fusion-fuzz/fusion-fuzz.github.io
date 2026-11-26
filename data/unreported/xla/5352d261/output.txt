@@ -1,0 +1,28 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1792944249.156787  172705 hlo_replication_analysis.cc:79] Check failed: rid < num_replicas (2 vs. 1) Got replica ID 2 which is greater or equal to the number of replicas: 1
+*** Check failure stack trace: ***
+    @     0x617ab92dca24  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x617ab92dc9a6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x617aade0ecc1  xla::HloReplicationAnalysis::GroupsForReplicas()
+    @     0x617aade1041b  xla::HloReplicationAnalysis::DetermineHloInstructionIsReplicated()::$_1::operator()()
+    @     0x617aade0f4e1  xla::HloReplicationAnalysis::DetermineHloInstructionIsReplicated()
+    @     0x617aade141da  xla::HloReplicationAnalysis::ComputeHloReplicationOnComputation()
+    @     0x617aade15375  xla::HloReplicationAnalysis::ComputeHloReplication()
+    @     0x617aade17b8f  xla::HloReplicationAnalysis::RunWithPartialReplication()
+    @     0x617aaddedde9  xla::(anonymous namespace)::InstrIsReplicated()
+    @     0x617aaddea5ad  xla::CollectiveQuantizer::RunImpl()
+    @     0x617ab5c10a01  xla::HloPassInterface::Run()
+    @     0x617ab13e9cdc  xla::HloPassPipeline::RunHelper()
+    @     0x617ab13ea820  xla::HloPassPipeline::RunPassesInternal()
+    @     0x617ab13ec7f5  xla::HloPassPipeline::RunImpl()
+    @     0x617ab5c10a01  xla::HloPassInterface::Run()
+    @     0x617aadb01bbb  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x617aadb0b1ab  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x617aada3f744  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x617aada3f183  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x617aada31b38  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x617ab932d1d6  main
+    @     0x7e611c3d4d90  (unknown)
+Aborted (core dumped)

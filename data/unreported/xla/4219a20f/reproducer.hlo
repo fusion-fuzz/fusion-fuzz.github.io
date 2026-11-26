@@ -1,0 +1,43 @@
+HloModule m
+
+%update_computation {
+  %a_val = f32[] parameter(0)
+  %b_val = f32[] parameter(1)
+  ROOT %add = f32[] add(a_val, b_val)
+}
+
+%update_computation.d {
+  %a_val = f32[] parameter(0)
+  %b_val = f32[] parameter(1)
+  ROOT %add = f32[] add(a_val, b_val)
+}
+
+%update_computation.d.d {
+  %a_val = f32[] parameter(0)
+  %b_val = f32[] parameter(1)
+  ROOT %add = f32[] add(a_val, b_val)
+}
+
+ENTRY %test {
+  %operand = f32[10, 20] parameter(0)
+  %indices = s32[5, 1] parameter(1)
+  %updates = f32[5, 1, 20] parameter(2)
+  %p0 = f32[16,64,256]{2,1,0} parameter(3)
+  %p1 = f32[16,64,256]{2,1,0} parameter(4)
+  %p2 = f32[1024,2048,2048]{2,1,0} parameter(5)
+  %p3 = f32[2048,2048,2048]{2,1,0} parameter(6)
+  %cp1s = (f32[1024,2048,2048]{2,1,0}, f32[1024,2048,2048]{2,1,0}, u32[], u32[]) collective-permute-start(%p2), source_target_pairs={{1,0},{0,3},{3,2}}
+  %cp2s = (f32[2048,2048,2048]{2,1,0}, f32[2048,2048,2048]{2,1,0}, u32[], u32[]) collective-permute-start(%p3), source_target_pairs={{1,0},{0,3},{3,2}}
+  %c0 = f32[16,256,256]{2,1,0} convolution(%p0, %p1), window={size=16 stride=15 lhs_dilate=16}, dim_labels=0fb_0io->0fb
+  %cp1d = f32[1024,2048,2048]{2,1,0} collective-permute-done(%cp1s)
+  %cp2d = f32[2048,2048,2048]{2,1,0} collective-permute-done(%cp2s)
+  %tuple.2 = (f32[16,256,256]{2,1,0}, f32[1024,2048,2048]{2,1,0}, f32[2048,2048,2048]{2,1,0}) tuple(%c0, %cp1d, %cp2d)
+  %ffl.call = f32[] call(%cp1d, %cp2s), to_apply=%update_computation.d
+  %ffl.root = ((f32[16,256,256]{2,1,0}, f32[1024,2048,2048]{2,1,0}, f32[2048,2048,2048]{2,1,0}), f32[]) tuple(%tuple.2, %ffl.call)
+  %scatter.d = f32[10, 20] scatter(%c0, %indices, %updates), update_window_dims={1, 2}, inserted_window_dims={}, scatter_dims_to_operand_dims={0}, index_vector_dim=1, to_apply=%update_computation.d.d
+  %transpose.d = f32[20, 10] transpose(%scatter.d), dimensions={1, 0}
+  %ffl.root.1 = ((f32[16,256,256]{2,1,0}, f32[1024,2048,2048]{2,1,0}, f32[2048,2048,2048]{2,1,0}), f32[], f32[20, 10]) tuple(%tuple.2, %ffl.call, %transpose.d)
+  %scatter = f32[10, 20] scatter(operand, indices, updates), update_window_dims={1, 2}, inserted_window_dims={}, scatter_dims_to_operand_dims={0}, index_vector_dim=1, to_apply=update_computation
+  %transpose = f32[20, 10] transpose(scatter), dimensions={1, 0}
+  ROOT %ffl.root.2 = (f32[20, 10], (f32[16,256,256]{2,1,0}, f32[1024,2048,2048]{2,1,0}, f32[2048,2048,2048]{2,1,0}), f32[], f32[20, 10]) tuple(%transpose, %tuple.2, %ffl.call, %transpose.d)
+}

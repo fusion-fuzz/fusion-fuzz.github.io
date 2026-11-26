@@ -1,0 +1,109 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:8:1: error: missing '@end'
+    8 | @implementation A // expected-error {{missing '@end'}}
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:4:1: note: class started here
+    4 | @interface A // expected-note {{class started here}}
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:8:17: warning: method definition for 'im0' not found [-Wincomplete-implementation]
+    8 | @implementation A // expected-error {{missing '@end'}}
+      |                 ^
+    9 | @end
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:5:1: note: method 'im0' declared here
+    5 | -(void) im0; // expected-note {{method 'im0' declared here}}
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:4:12: warning: class 'A' defined without specifying a base class [-Wobjc-root-class]
+    4 | @interface A // expected-note {{class started here}}
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:4:13: note: add a super class to fix this problem
+    4 | @interface A // expected-note {{class started here}}
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:14:1: error: missing '@end'
+   14 | @implementation B // expected-error {{missing '@end'}}
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:11:1: note: class started here
+   11 | @interface B { // expected-note {{class started here}}
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:11:12: warning: class 'B' defined without specifying a base class [-Wobjc-root-class]
+   11 | @interface B { // expected-note {{class started here}}
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:11:13: note: add a super class to fix this problem
+   11 | @interface B { // expected-note {{class started here}}
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:21:1: error: missing '@end'
+   21 | @implementation C // expected-error 2 {{missing '@end'}}
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:17:1: note: class started here
+   17 | @interface C // expected-note 1 {{class started here}}
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:32:1: error: export declaration can only be used within a module interface
+   32 | export module A;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:32:8: error: module declaration can only appear at the top level
+   32 | export module A;
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:33:1: error: export declaration can only be used within a module interface
+   33 | export extern "C" void foo(struct Bar);
+      | ^
+Unexpected context
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaDecl.cpp:7522!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O2 -std=gnu++20 -fblocks -fobjc-runtime=macosx-10.14 -fobjc-arc -g -fsanitize=address -ffast-math /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdfash7r8/c5f70dfa.mm:33:39: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005c7fee3db329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005c7fee3d7fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005c7fee3d88a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005c7fee31a218
+4  libc.so.6 0x00007d95576c6520
+5  libc.so.6 0x00007d955771a9bc pthread_kill + 300
+6  libc.so.6 0x00007d95576c6476 raise + 22
+7  libc.so.6 0x00007d95576ac7f3 abort + 211
+8  clang++   0x00005c7fee32511e
+9  clang++   0x00005c7ff1023e69 clang::Sema::ActOnFunctionDeclarator(clang::Scope*, clang::Declarator&, clang::DeclContext*, clang::TypeSourceInfo*, clang::LookupResult&, llvm::MutableArrayRef<clang::TemplateParameterList*>, bool&) + 19193
+10 clang++   0x00005c7ff1026eab clang::Sema::HandleDeclarator(clang::Scope*, clang::Declarator&, llvm::MutableArrayRef<clang::TemplateParameterList*>) + 1387
+11 clang++   0x00005c7ff1027d8b clang::Sema::ActOnDeclarator(clang::Scope*, clang::Declarator&) + 123
+12 clang++   0x00005c7ff0c1cbcb clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 235
+13 clang++   0x00005c7ff0c3736c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+14 clang++   0x00005c7ff0be6fac clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+15 clang++   0x00005c7ff0be7436 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 118
+16 clang++   0x00005c7ff0bf3646 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+17 clang++   0x00005c7ff0c52fb4 clang::Parser::ParseLinkage(clang::ParsingDeclSpec&, clang::DeclaratorContext) + 996
+18 clang++   0x00005c7ff0be720b clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 1531
+19 clang++   0x00005c7ff0be778f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+20 clang++   0x00005c7ff0bf3646 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+21 clang++   0x00005c7ff0c53fbb clang::Parser::ParseExportDeclaration() + 475
+22 clang++   0x00005c7ff0bf38d3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 1251
+23 clang++   0x00005c7ff0c9ebc1 clang::Parser::ParseObjCAtImplementationDeclaration(clang::SourceLocation, clang::ParsedAttributes&) + 785
+24 clang++   0x00005c7ff0bf3df3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2563
+25 clang++   0x00005c7ff0bf46ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+26 clang++   0x00005c7ff0bd1632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+27 clang++   0x00005c7fef272061 clang::FrontendAction::Execute() + 65
+28 clang++   0x00005c7fef1fbe65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+29 clang++   0x00005c7fef349de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+30 clang++   0x00005c7fec1a533e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+31 clang++   0x00005c7fec19b13a
+32 clang++   0x00005c7fec19b2cf
+33 clang++   0x00005c7feef80cfd
+34 clang++   0x00005c7fee31a630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+35 clang++   0x00005c7feef81b53
+36 clang++   0x00005c7feef36607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+37 clang++   0x00005c7feef3aef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+38 clang++   0x00005c7feef49004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+39 clang++   0x00005c7fec1a0923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+40 clang++   0x00005c7fec0dc7f1 main + 113
+41 libc.so.6 0x00007d95576add90
+42 libc.so.6 0x00007d95576ade40 __libc_start_main + 128
+43 clang++   0x00005c7fec19a765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/c5f70dfa-6b3430.
+[... truncated ...]

@@ -1,0 +1,22 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuy6wy4wo/f5a947b8.c: In function 'foo':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuy6wy4wo/f5a947b8.c:27:1: error: PHI argument on abnormal edge is not SSA_NAME
+   27 | foo (int b, int c)
+      | ^~~
+PHI argument
+0
+for PHI node
+b_1(ab) = PHI <0(2), 0(5), 0(3)>
+during GIMPLE pass: vrp
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuy6wy4wo/f5a947b8.c:27:1: internal compiler error: verify_ssa failed
+0x2cdd1bb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0x17d0ada verify_ssa(bool, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-ssa.cc:1226
+0x13b7bd4 execute_function_todo
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/passes.cc:2107
+0x13b830b execute_todo
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/passes.cc:2152
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuy6wy4wo/f5a947b8.c -quiet -dumpbase f5a947b8.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Ofast -O2 -Wall -std=c11 -fwrapv -fno-omit-frame-pointer -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

@@ -1,0 +1,60 @@
+unexpected OS type
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/MC/MCStreamer.cpp:1759!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -c -o /dev/null -Os -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -fobjc-runtime=macosx-10.14 -fno-objc-arc -ffp-contract=fast -target arm64-apple-firmware -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpndw5ji5a/c24dfc04.m
+1.	<eof> parser at end of file
+2.	Code generation
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x00005f1bb6133329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x00005f1bb612ffec llvm::sys::RunSignalHandlers() + 76
+2  clang     0x00005f1bb61308a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x00005f1bb6072218
+4  libc.so.6 0x00007b3030f9e520
+5  libc.so.6 0x00007b3030ff29bc pthread_kill + 300
+6  libc.so.6 0x00007b3030f9e476 raise + 22
+7  libc.so.6 0x00007b3030f847f3 abort + 211
+8  clang     0x00005f1bb607d11e
+9  clang     0x00005f1bb5dffb89 llvm::MCStreamer::emitVersionForTarget(llvm::Triple const&, llvm::VersionTuple const&, llvm::Triple const*, llvm::VersionTuple const&) + 217
+10 clang     0x00005f1bb741adbe llvm::AsmPrinter::doInitialization(llvm::Module&) + 3566
+11 clang     0x00005f1bb5b07779 llvm::FPPassManager::doInitialization(llvm::Module&) + 89
+12 clang     0x00005f1bb5b13e94
+13 clang     0x00005f1bb5b149eb llvm::legacy::PassManagerImpl::run(llvm::Module&) + 219
+14 clang     0x00005f1bb655615f
+15 clang     0x00005f1bb656aecf
+16 clang     0x00005f1bb656b2f3 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::StringRef, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 483
+17 clang     0x00005f1bb6c5a3ca clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 1866
+18 clang     0x00005f1bb892984c clang::ParseAST(clang::Sema&, bool, bool) + 1068
+19 clang     0x00005f1bb6fca061 clang::FrontendAction::Execute() + 65
+20 clang     0x00005f1bb6f53e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+21 clang     0x00005f1bb70a1de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+22 clang     0x00005f1bb3efd33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+23 clang     0x00005f1bb3ef313a
+24 clang     0x00005f1bb3ef32cf
+25 clang     0x00005f1bb6cd8cfd
+26 clang     0x00005f1bb6072630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+27 clang     0x00005f1bb6cd9b53
+28 clang     0x00005f1bb6c8e607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+29 clang     0x00005f1bb6c92ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+30 clang     0x00005f1bb6ca1004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+31 clang     0x00005f1bb3ef8923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+32 clang     0x00005f1bb3e347f1 main + 113
+33 libc.so.6 0x00007b3030f85d90
+34 libc.so.6 0x00007b3030f85e40 __libc_start_main + 128
+35 clang     0x00005f1bb3ef2765 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: arm64-apple-firmware
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang: note: diagnostic msg: /tmp/c24dfc04-061df1.m
+clang: note: diagnostic msg: /tmp/c24dfc04-061df1.sh
+clang: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

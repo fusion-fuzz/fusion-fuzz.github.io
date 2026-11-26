@@ -1,0 +1,101 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:29:14: error: base class has incomplete type
+   29 |   struct B : NonConstCopy { ConstCopy a; };
+      |              ^~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:17:8: note: definition of 'NonConstCopy' is not complete until the closing '}'
+   17 | struct NonConstCopy {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:30:39: error: field has incomplete type 'NonConstCopy'
+   30 |   struct C : ConstCopy { NonConstCopy a; };
+      |                                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:17:8: note: definition of 'NonConstCopy' is not complete until the closing '}'
+   17 | struct NonConstCopy {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:31:14: error: unknown class name 'DeletedConstCopy'; did you mean 'DeletedNonConstCopy'?
+   31 |   struct D : DeletedConstCopy {};
+      |              ^~~~~~~~~~~~~~~~
+      |              DeletedNonConstCopy
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:19:10: note: 'DeletedNonConstCopy' declared here
+   19 |   struct DeletedNonConstCopy {
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:38:13: error: friend declaration of 'B' does not match any declaration in 'NonConstCopy::B'
+   38 |   friend B::B(B &);
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:29:10: note: candidate constructor (the implicit copy constructor) has type mismatch at 1st parameter (expected 'B &' but has 'const B &')
+   29 |   struct B : NonConstCopy { ConstCopy a; };
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:29:10: note: candidate constructor (the implicit move constructor) has type mismatch at 1st parameter (expected 'B &' but has 'B &&')
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:29:10: note: candidate constructor (the implicit default constructor) has different number of parameters (expected 1 but has 0)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:39:13: error: friend declaration of 'C' does not match any declaration in 'NonConstCopy::C'
+   39 |   friend C::C(C &);
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:30:10: note: candidate constructor (the implicit copy constructor) has type mismatch at 1st parameter (expected 'C &' but has 'const C &')
+   30 |   struct C : ConstCopy { NonConstCopy a; };
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:30:10: note: candidate constructor (the implicit move constructor) has type mismatch at 1st parameter (expected 'C &' but has 'C &&')
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:30:10: note: candidate constructor (the implicit default constructor) has different number of parameters (expected 1 but has 0)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:40:13: error: friend declaration of 'D' does not match any declaration in 'NonConstCopy::D'
+   40 |   friend D::D(const D &);
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:31:10: note: candidate constructor (the implicit copy constructor) has type mismatch at 1st parameter (expected 'const D &' but has 'D &')
+   31 |   struct D : DeletedConstCopy {};
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:31:10: note: candidate constructor (the implicit move constructor) has type mismatch at 1st parameter (expected 'const D &' but has 'D &&')
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:31:10: note: candidate constructor (the implicit default constructor) has different number of parameters (expected 1 but has 0)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:42:23: error: 'F' is missing exception specification 'noexcept'
+   42 |   constexpr friend F::F(const F &);
+      |                       ^           
+      |                                    noexcept
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:33:10: note: previous declaration is here
+   33 |   struct F { foo a; };
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:43:13: error: friend declaration of 'G' does not match any declaration in 'NonConstCopy::G'
+   43 |   friend G::G(G &);
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:34:10: note: candidate constructor (the implicit default constructor) has different number of parameters (expected 1 but has 0)
+   34 |   struct G : virtual B {};
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:34:10: note: candidate constructor (the implicit copy constructor) has type mismatch at 1st parameter (expected 'G &' but has 'const G &')
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:34:10: note: candidate constructor (the implicit move constructor) has type mismatch at 1st parameter (expected 'G &' but has 'G &&')
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:78:40: error: expected class name
+   78 |   struct Derived : public Base, public X {
+      |                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:86:12: error: non-friend class member 'Derived' cannot have a qualified name
+   86 |   Derived::Derived() {}
+      |   ~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:87:12: error: non-friend class member 'Derived' cannot have a qualified name
+   87 |   Derived::Derived(const Derived &d) : Base(d) {}
+      |   ~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:88:12: error: non-friend class member 'Derived' cannot have a qualified name
+   88 |   Derived::Derived(Derived &&d) : Base(static_cast<Base&&>(d)) {}
+      |   ~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:89:21: error: non-friend class member 'operator=' cannot have a qualified name
+   89 |   Derived& Derived::operator=(const Derived &d) {
+      |            ~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:93:21: error: non-friend class member 'operator=' cannot have a qualified name
+   93 |   Derived& Derived::operator=(Derived &&d) {
+      |            ~~~~~~~~~^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaLookup.cpp:3533: clang::Sema::SpecialMemberOverloadResult clang::Sema::LookupSpecialMember(clang::CXXRecordDecl*, clang::CXXSpecialMemberKind, bool, bool, bool, bool, bool): Assertion `SM == CXXSpecialMemberKind::DefaultConstructor && "lookup for a constructor or assignment operator was empty"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O3 -fblocks -ffp-contract=fast -g /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:113:41: current parser token ';'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5_x83_yh/4ed375c9.cpp:113:1: parsing struct/union/class body 'B'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000064e72e84e329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000064e72e84afec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000064e72e84b8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000064e72e78d218
+4  libc.so.6 0x0000785b969e7520
+5  libc.so.6 0x0000785b96a3b9bc pthread_kill + 300
+6  libc.so.6 0x0000785b969e7476 raise + 22
+7  libc.so.6 0x0000785b969cd7f3 abort + 211
+8  libc.so.6 0x0000785b969cd71b
+9  libc.so.6 0x0000785b969dee96
+10 clang++   0x000064e7317f4b2a clang::Sema::LookupSpecialMember(clang::CXXRecordDecl*, clang::CXXSpecialMemberKind, bool, bool, bool, bool, bool) + 5450
+11 clang++   0x000064e7315416eb
+12 clang++   0x000064e731554220
+13 clang++   0x000064e731558f95 clang::Sema::DeclareImplicitCopyAssignment(clang::CXXRecordDecl*) + 757
+14 clang++   0x000064e73155947c clang::Sema::AddImplicitlyDeclaredMembersToClass(clang::CXXRecordDecl*) + 444
+15 clang++   0x000064e73145c8bb clang::Sema::ActOnFields(clang::Scope*, clang::SourceLocation, clang::Decl*, llvm::ArrayRef<clang::Decl*>, clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributesView const&) + 1579
+16 clang++   0x000064e731565a83 clang::Sema::ActOnFinishCXXMemberSpecifica
+[... truncated ...]

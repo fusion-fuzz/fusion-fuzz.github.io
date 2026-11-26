@@ -1,0 +1,111 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:44:13: error: synthesized property 'prop' must either be named the same as a compatible instance variable or must explicitly name an instance variable
+   44 | @synthesize prop = _prop;
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:34:12: warning: class 'I' defined without specifying a base class [-Wobjc-root-class]
+   34 | @interface I
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:34:13: note: add a super class to fix this problem
+   34 | @interface I
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:48:16: warning: unknown attribute 'something' ignored [-Wunknown-attributes]
+   48 | __attribute__((something)) @interface I2 @end
+      |                ^~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:48:39: error: Objective-C declarations may only appear in global scope
+   48 | __attribute__((something)) @interface I2 @end
+      |                                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:57:3: error: use of undeclared identifier '_auto_prop'
+   57 |   _auto_prop = 0;
+      |   ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:55:17: warning: property 'auto_prop' requires method 'auto_prop' to be defined - use @synthesize, @dynamic or provide a method implementation in this class implementation [-Wobjc-property-implementation]
+   55 | @implementation I3
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:52:33: note: property declared here
+   52 | @property (assign,readwrite) id auto_prop;
+      |                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:55:17: warning: property 'auto_prop' requires method 'setAuto_prop:' to be defined - use @synthesize, @dynamic or provide a method implementation in this class implementation [-Wobjc-property-implementation]
+   55 | @implementation I3
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:52:33: note: property declared here
+   52 | @property (assign,readwrite) id auto_prop;
+      |                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:51:12: warning: class 'I3' defined without specifying a base class [-Wobjc-root-class]
+   51 | @interface I3
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:51:14: note: add a super class to fix this problem
+   51 | @interface I3
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:75:13: error: synthesized property 'prop' must either be named the same as a compatible instance variable or must explicitly name an instance variable
+   75 | @synthesize prop = _prop;
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:68:12: warning: class 'I4' defined without specifying a base class [-Wobjc-root-class]
+   68 | @interface I4
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:68:14: note: add a super class to fix this problem
+   68 | @interface I4
+      |              ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaConcept.cpp:2618: bool clang::Sema::IsAtLeastAsConstrained(const clang::NamedDecl*, llvm::MutableArrayRef<clang::AssociatedConstraint>, const clang::NamedDecl*, llvm::MutableArrayRef<clang::AssociatedConstraint>, bool&): Assertion `IsExpectedEntity(FD1) && FD2 && IsExpectedEntity(FD2) && "use non-instantiated function declaration for constraints partial " "ordering"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -Os -fblocks -fno-objc-arc /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpoa8ptwzu/de10ab8d.mm:14:25: instantiating function definition 'A::f<X>'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055b756b2a4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055b756b271bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055b756b27a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055b756a69e88
+4  libc.so.6 0x00007f59e5ae2520
+5  libc.so.6 0x00007f59e5b369bc pthread_kill + 300
+6  libc.so.6 0x00007f59e5ae2476 raise + 22
+7  libc.so.6 0x00007f59e5ac87f3 abort + 211
+8  libc.so.6 0x00007f59e5ac871b
+9  libc.so.6 0x00007f59e5ad9e96
+10 clang++   0x000055b75969080c clang::Sema::IsAtLeastAsConstrained(clang::NamedDecl const*, llvm::MutableArrayRef<clang::AssociatedConstraint>, clang::NamedDecl const*, llvm::MutableArrayRef<clang::AssociatedConstraint>, bool&) + 1164
+11 clang++   0x000055b759e33a2f clang::Sema::getMoreConstrainedFunction(clang::FunctionDecl*, clang::FunctionDecl*) + 399
+12 clang++   0x000055b759c93deb clang::isBetterOverloadCandidate(clang::Sema&, clang::OverloadCandidate const&, clang::OverloadCandidate const&, clang::SourceLocation, clang::OverloadCandidateSet::CandidateSetKind, bool) + 1803
+13 clang++   0x000055b759ca012c clang::OverloadCandidateSet::BestViableFunctionImpl(clang::Sema&, clang::SourceLocation, clang::OverloadCandidate*&) + 364
+14 clang++   0x000055b759cd33a7 clang::Sema::CreateOverloadedBinOp(clang::SourceLocation, clang::BinaryOperatorKind, clang::UnresolvedSetImpl const&, clang::Expr*, clang::Expr*, bool, bool, clang::FunctionDecl*) + 1239
+15 clang++   0x000055b759ef1529
+16 clang++   0x000055b759f8b2ce
+17 clang++   0x000055b759f70f7c
+18 clang++   0x000055b759f46051
+19 clang++   0x000055b759f46c05 clang::Sema::SubstStmt(clang::Stmt*, clang::MultiLevelTemplateArgumentList const&) + 133
+20 clang++   0x000055b75a00482f clang::Sema::InstantiateFunctionDefinition(clang::SourceLocation, clang::FunctionDecl*, bool, bool, bool) + 6207
+21 clang++   0x000055b75a001f2d clang::Sema::PerformPendingInstantiations(bool, bool) + 301
+22 clang++   0x000055b7594d5fdd
+23 clang++   0x000055b7594d6316 clang::Sema::ActOnEndOfTranslationUnit() + 182
+24 clang++   0x000055b759333f32 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 946
+25 clang++   0x000055b759310cf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+26 clang++   0x000055b757818e51 clang::FrontendAction::Execute() + 65
+27 clang++   0x000055b7577a2df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+28 clang++   0x000055b7578f0c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+29 clang++   0x000055b755539d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+30 clang++   0x000055b75552fada
+31 clang++   0x000055b75552fc6f
+32 clang++   0x000055b75752742d
+33 clang++   0x000055b756a6a2a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+34 clang++   0x000055b757528283
+35 clang++   0x000055b7574dcd17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+36 clang++   0x000055b7574e1600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+37 clang++   0x000055b7574ef714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+38 clang++   0x000055b755535383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+39 clang++   0x000055b755485901 main + 113
+40 libc.so.6 0x00007f59e5ac9d90
+41 libc.so.6 0x00007f59e5ac9e40 __libc_start_main + 128
+42 clang++   0x000055b75552f105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/de10ab8d-443e3e.mm
+clang++: note: diagnostic msg: /tmp/de10ab8d-443e3e.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

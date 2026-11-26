@@ -1,0 +1,40 @@
+HloModule module
+
+%cmp {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  %abs_a = f32[] abs(%a)
+  %abs_b = f32[] abs(%b)
+  %sum_a = f32[] add(%abs_a, %abs_a)
+  %sum_b = f32[] add(%abs_b, %abs_b)
+  ROOT %lt = pred[] compare(%sum_a, %sum_b), direction=LT
+}
+
+%cmp.d {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  %abs_a = f32[] abs(%a)
+  %abs_b = f32[] abs(%b)
+  %sum_a = f32[] add(%abs_a, %abs_a)
+  %sum_b = f32[] add(%abs_b, %abs_b)
+  ROOT %lt = pred[] compare(%sum_a, %sum_b), direction=LT
+}
+
+ENTRY %main {
+  %input = f32[128]{0} parameter(0)
+  %sorted = f32[128]{0} sort(%input), dimensions={0}, to_apply=%cmp
+  %p1 = bf16[2,24,24,32]{3,2,1,0} parameter(1), sharding={replicated}
+  %p2 = bf16[2,4,4,32]{3,2,1,0} parameter(2), sharding={replicated}
+  %c1 = bf16[2,24,24,32]{3,2,1,0} copy(%p1), sharding={devices=[2,2,2,1]<=[8]}
+  %c2 = bf16[2,4,4,32]{3,2,1,0} copy(%p2), sharding={devices=[2,2,2,1]<=[8]}
+  %constant.1163 = bf16[] constant(0), sharding={replicated}
+  %constant.1165 = s32[] constant(0), sharding={replicated}
+  %pad.179 = bf16[2,56,56,32]{3,2,1,0} pad(%input, %constant.1163), padding=0_0x16_16x16_16x0_0, sharding={devices=[2,2,2,1]<=[8]}
+  %add.439 = bf16[2,4,4,32]{3,2,1,0} add(%c2, %c2), sharding={devices=[2,2,2,1]<=[8]}
+  %constant.1070 = s32[] constant(48), sharding={replicated}
+  %dynamic-update-slice.128 = bf16[2,56,56,32]{3,2,1,0} dynamic-update-slice(%pad.179, %add.439, %constant.1165, %constant.1070, %constant.1070, /*index=5*/%constant.1165), sharding={devices=[2,2,2,1]<=[8]}
+  %c = bf16[2,56,56,32]{3,2,1,0} copy(%dynamic-update-slice.128), sharding={devices=[2,2,2,1]<=[8]}
+  %ffl.call = pred[] call(%pad.179, %c2), to_apply=%cmp.d
+  %ffl.root = (bf16[2,56,56,32]{3,2,1,0}, pred[]) tuple(%c, %ffl.call)
+  ROOT %ffl.root.1 = (f32[128]{0}, bf16[2,56,56,32]{3,2,1,0}, pred[]) tuple(%sorted, %c, %ffl.call)
+}

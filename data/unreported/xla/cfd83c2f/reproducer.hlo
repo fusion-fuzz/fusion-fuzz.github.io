@@ -1,0 +1,37 @@
+HloModule C64_rewrite
+
+%fusion {
+  %p0 = f32[100, 100] parameter(0)
+  %p1 = f32[100, 100] parameter(1)
+  ROOT %minimum = f32[100, 100] minimum(p0, p1)
+}
+
+%fusion.d {
+  %p0 = f32[100, 100] parameter(0)
+  %p1 = f32[100, 100] parameter(1)
+  ROOT %minimum = f32[100, 100] minimum(p0, p1)
+}
+
+%fusion.d.1 {
+  %p0 = f32[100, 100] parameter(0)
+  %p1 = f32[100, 100] parameter(1)
+  ROOT %minimum = f32[100, 100] minimum(p0, p1)
+}
+
+ENTRY %AddDotsFunc {
+  %x = c64[2,2] parameter(0)
+  %y = c64[2,2] parameter(1)
+  %k = c64[] constant((3.0, 3.0))
+  %p0.d = f32[100,100] parameter(3)
+  %p1 = f32[100,100] parameter(4)
+  %fusion.d = f32[100,100] fusion(%p0.d, %p1), kind=kLoop, calls=%fusion.d.1, backend_config={ "fusion_backend_config":{ "block_level_fusion_config":{ "output_tiles":[{"sizes":["16", "32"]}], "num_ctas":"1" } } }
+  %k_broadcast = c64[2, 2] broadcast(k), dimensions={}
+  %dot_a = c64[2,2] dot(x, y), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %dot_a_multiplied = c64[2, 2] multiply(dot_a, k_broadcast)
+  %ffl.call = f32[100, 100] call(%k, %y), to_apply=%fusion
+  %ffl.root = (c64[2, 2], f32[100, 100]) tuple(%dot_a_multiplied, %ffl.call)
+  %p0 = f32[100,100] parameter(2)
+  %fusion = f32[100,100] fusion(%p0, %ffl.call), kind=kLoop, calls=%fusion.d, backend_config={ "fusion_backend_config":{ "block_level_fusion_config":{ "output_tiles":[{"sizes":["16", "32"]}], "num_ctas":"1" } } }
+  %ffl.root.1 = (c64[2, 2], f32[100, 100], f32[100,100]) tuple(%dot_a_multiplied, %ffl.call, %fusion)
+  ROOT %ffl.root.2 = (c64[2, 2], f32[100, 100], f32[100,100], f32[100,100]) tuple(%dot_a_multiplied, %ffl.call, %fusion, %fusion.d)
+}

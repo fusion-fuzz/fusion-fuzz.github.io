@@ -1,0 +1,8 @@
+HloModule m
+ENTRY e {
+  a = f32[] constant(2)
+  b = f32[] constant(2)
+  p = f32[] parameter(0)
+  c = f32[] negate(p), control-predecessors={b}
+  ROOT t = (f32[], f32[], f32[]) tuple(a, b, c)
+}

@@ -1,0 +1,11 @@
+repro.swift:2:6: error: invalid redeclaration of 'E'
+repro.swift:3:28: error: 'E' is ambiguous for type lookup in this context
+
+swift-frontend: swift/lib/Sema/TypeCheckEffects.cpp:1157: static Classification (anonymous namespace)::Classification::forThrows(Type, ConditionalEffectKind, PotentialEffectReason): Assertion `!thrownError->hasError()' failed.
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: swift-frontend -emit-silgen repro.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "repro.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(h.getter)

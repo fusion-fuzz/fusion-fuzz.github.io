@@ -1,0 +1,84 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1790073463.689484 2453420 run_hlo_module.cc:483] !!! Warning !!! When running decomposed module, running HLO passes is likely not what you want. If you have unoptimized HLO, first convert it to the optimized e.g. using the hlo-opt tool, and then isolate without HLO passes.
+Running HLO module with runner HloRunner...
+E0000 00:00:1790073463.694982 2453420 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/literal_util.cc:1095) ShapeUtil::SameDimensions(values.shape(), indices.shape()) Values shape f32[2,1] must have the same dimensions as indices shape f32[2,3]
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+... compiled and ran in 0.00444985s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.000529827s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.0144207s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.00160129s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.000960673s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.000963586s.
+INTERNAL: during context [Unknown]: Async start sc-start has no matching async done
+	(on HloRunner)
+=== Source Location Trace: === 
+xla/service/hlo_verifier.cc:4798
+xla/tools/run_hlo_module.cc:326
+
+1/1 runs failed.
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmpyv0rhxoi/0f82e3e2.hlo** 
+ Reference            | Test                 | Module                        | Status
+-----------------------------------------------------------------------------------------------------------
+ MATCHED              | MATCHED              | call                          | OK
+ MATCHED              | MATCHED              | abs                           | OK
+ DIDN'T RUN           | RUNTIME ERROR        | sc-start                      | INTERNAL: during context [Unknown]: Async start sc-start has no matching async done
+                                                                             |	(on HloRunner)
+ DIDN'T RUN           | RUNTIME ERROR        | done                          | INTERNAL: during context [Unknown]: Async done done does not trace back to an async start
+                                                                             |	(on HloRunner)
+ DIDN'T RUN           | RUNTIME ERROR        | convolution.1                 | INTERNAL: RET_CHECK failure (xla/literal_util.cc:1095) ShapeUtil::SameDimensions(values.shape(), indices.shape()) Values shape f32[2,1] must have the same dimensions as indices shape f32[2,3]
+                                                                             |	Failed to execute on HloRunner
+ DIDN'T RUN           | RUNTIME ERROR        | convolution.1.d               | INVALID_ARGUMENT: Invalid position in block: -401926838, must be in [0, 4)
+                                                                             |	Failed to execute on HloRunner
+-----------------------------------------------------------------------------------------------------------
+ Reference            | Test                 | Module                        | Status
+-----------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------
+ Reference            | Test                 | Total count                   | 
+-----------------------------------------------------------------------------
+ MATCHED              | MATCHED              | 2                             | 
+ DIDN'T RUN           | RUNTIME ERROR        | 4                             | 
+-----------------------------------------------------------------------------

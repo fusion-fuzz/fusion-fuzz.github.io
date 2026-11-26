@@ -1,0 +1,78 @@
+[... 10 lines omitted ...]
+   |
+72 | trait Identity_bcdbb40 {
+   |       ^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `IdentityBcdbb40`
+
+warning: type `Bar_bcdbb40` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpe9pqa0pr/8ae25957.rs:79:8
+   |
+79 | struct Bar_bcdbb40<T, U> {
+   |        ^^^^^^^^^^^ help: convert the identifier to upper camel case: `BarBcdbb40`
+
+error[E0034]: multiple applicable items in scope
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpe9pqa0pr/8ae25957.rs:84:64
+   |
+84 |     field: Foo_bcdbb40<T, U, <u16 as Identity_bcdbb40>::This>::IAT,
+   |                                                                ^^^ multiple `IAT` found
+   |
+note: candidate #1 is defined in an impl for the type `Foo_bcdbb40<T, T, u8>`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpe9pqa0pr/8ae25957.rs:65:5
+   |
+65 |     type IAT = u8;
+   |     ^^^^^^^^
+note: candidate #2 is defined in an impl for the type `Foo_bcdbb40<T, U, u16>`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpe9pqa0pr/8ae25957.rs:69:5
+   |
+69 |     type IAT = u16;
+   |     ^^^^^^^^
+
+error[E0271]: type mismatch resolving `Foo<T, U, u16>::IAT == _`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpe9pqa0pr/8ae25957.rs:50:12
+   |
+50 |     field: Foo<T, U, <u16 as Identity>::This>::IAT,
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ types differ
+
+error: internal compiler error: Foo<!1, !0, Alias(No, Alias { kind: Projection { def_id: DefId(0:16 ~ 8ae25957[83ae]::Identity::This) }, args: [u16], .. })> was equal to Foo<?0t, ?0t, u8> during selection but now it is not
+
+
+thread 'rustc' (3355861) panicked at compiler/rustc_trait_selection/src/traits/project.rs:634:23:
+Box<dyn Any>
+stack backtrace:
+   0: std::panicking::begin_panic::<rustc_errors::ExplicitBug>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:751:5
+   1: std::panic::panic_any::<rustc_errors::ExplicitBug>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panic.rs:260:5
+   2: <rustc_errors::diagnostic::BugAbort as rustc_errors::diagnostic::EmissionGuarantee>::emit_producing_guarantee
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:58:9
+   3: <rustc_errors::diagnostic::Diag<rustc_errors::diagnostic::BugAbort>>::emit
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1319:9
+   4: <rustc_errors::DiagCtxtHandle>::span_bug::<rustc_span::span_encoding::Span, alloc::string::String>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:982:48
+   5: rustc_trait_selection::traits::project::compute_inherent_assoc_term_args
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/project.rs:634:23
+   6: <rustc_trait_selection::traits::wf::WfPredicates>::add_wf_preds_for_inherent_projection
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/wf.rs:510:24
+   7: <rustc_trait_selection::traits::wf::WfPredicates as rustc_type_ir::visit::TypeVisitor<rustc_middle::ty::context::TyCtxt>>::visit_ty
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/wf.rs:830:22
+   8: <rustc_trait_selection::traits::wf::WfPredicates>::add_wf_preds_for_term
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/wf.rs:568:14
+   9: rustc_trait_selection::traits::wf::unnormalized_obligations
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/wf.rs:120:8
+  10: <rustc_trait_selection::solve::delegate::SolverDelegate as rustc_next_trait_solver::delegate::SolverDelegate>::well_formed_goals
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/solve/delegate.rs:355:9
+  11: <rustc_next_trait_solver::solve::eval_ctxt::EvalCtxt<rustc_trait_selection::solve::delegate::SolverDelegate, rustc_middle::ty::context::TyCtxt>>::well_formed_goals
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_next_trait_solver/src/solve/eval_ctxt/mod.rs:1352:23
+  12: <rustc_next_trait_solver::solve::eval_ctxt::EvalCtxt<rustc_trait_selection::solve::delegate::SolverDelegate, rustc_middle::ty::context::TyCtxt>>::compute_well_formed_goal
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_next_trait_solver/src/solve/mod.rs:180:20
+  13: <rustc_next_trait_solver::solve::eval_ctxt::EvalCtxt<rustc_trait_selection::solve::delegate::SolverDelegate, rustc_middle::ty::context::TyCtxt>>::compute_goal::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_next_trait_solver/src/solve/eval_ctxt/mod.rs:922:25
+  14: <rustc_next_trait_solver::solve::eval_ctxt::EvalCtxt<rustc_trait_selection::solve::delegate::SolverDelegate, rustc_middle::ty::context::TyCtxt>>::enter_forall_with_assumptions::<rustc_type_ir::predicate_kind::PredicateKind<rustc_middle::ty::context::TyCtxt>, core::result::Result<rustc_type_ir::canonical::Canonical<rustc_middle::ty::context::TyCtxt, rustc_type_ir::solve::Response<rustc_middle::ty::context::TyCtxt>>, rustc_type_ir::solve::NoSolutionOrRerunNonErased>, <rustc_next_trait_solver::solve::eval_ctxt::EvalCtxt<rustc_trait_selection::solve::delegate::SolverDelegate, rustc_middle::ty::context::TyCtxt>>::compute_goal::{closure#0}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_next_trait_solver/src/solve/eval_ctxt/mod.rs:1297:13
+  15: <rustc_infer::infer::InferCtxt>::enter_forall::<rustc_type_ir::predicate_kind::PredicateKind<rustc_middle::ty::context::TyCtxt>, core::result::Result<rustc_type_ir::canonical::Canonical<rustc_middle::ty::context::TyCtxt, rustc_type_ir::solve::Response<rustc_middle::ty::context::TyCtxt>>, rustc_type_ir::solve::NoSolutionOrRerunNonErased>, <rustc_next_trait_solver::solve::eval_ctxt::EvalCtxt<rustc_trait_selection::solve::delegate::SolverDelegate, rustc_middle::ty::context::TyCtxt>>::enter_forall_with_assumptions<rustc_type_ir::predicate_kind::PredicateKind<rustc_middle::ty::context::TyCtxt>, core::result::Result<rustc_type_ir::canonical::Canonical<rustc_middle::ty::context::TyCtxt, rustc_type_ir::solve::Response<rustc_middle::ty::context::TyCtxt>>, rustc_type_ir::solve::NoSolutionOrRerunNonErased>, <rustc_next_trait_solver::solve::eval_ctxt::EvalCtxt<rustc_trait_selection::solve::delegate::SolverDelegate, rustc_middle::ty::context::TyCtxt>>::compute_goal::{closure#0}>::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_infer/src/infer/relate/higher_ranked.rs:76:9
+  16: <rustc_infer::infer::InferCtxt as rustc_type_ir::infer_ctxt::InferCtxtLike>::enter_forall_without_assumptions::<rustc_type_ir::predicate_kind::PredicateKind<rustc_middle::ty::context::TyCtxt>, core::result::Result<rustc_type_ir::canonical::Canonical<rustc_middle::ty::context::TyCtxt, rustc_type_ir::solve::Response<rustc_middle::ty::context::TyCtxt>>, rustc_type_ir::solve::NoSolutionOrRerunNonErased>, <rustc_next_trait_solver::solve::eval_ctxt::EvalCtxt<rustc_trait_selection::solve::delegate::SolverDelegate, rustc_middle::ty::context::TyCtxt>>::enter_forall_with_assumptions<rustc_type_ir::predicate_kind::PredicateKind<rustc_middle::ty::context::TyCtxt>, core::result::Result<rustc_type_ir::canonical::Canonical<rustc_middle::ty::context::TyCtxt, rustc_type_ir::solve::Response<rustc_middle::ty::context::TyCtxt>>, rustc_type_ir::solve::NoSolutionOrRerunNonErased>, <rustc_next_trait_solver::solve::eval_ctxt::EvalCtxt<rustc_trait_selection::solve::delegate::SolverDelegate, rustc_middle::ty::context::TyCtxt>>::compute_goal::{closure#0}>::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_infer/src/infer/context.rs:183:14
+  17: <rustc_next_trait_solver::solve::eval_ctxt::EvalCtxt<rustc_trait_selection::solve::delegate::SolverDelegate, rustc_middle::ty::context::TyCtxt>>::enter_forall_with_assumptions::<rustc_type_ir::predicate_kind::PredicateKind<rustc_middle::ty::context::TyCtxt>, core::result::Result<rustc_type_ir::canonical::Canonical<rustc_middle::ty::context::TyCtxt, rustc_type_ir::solve::Response<rustc_middle::ty::context::TyCtxt>>, rustc_type_ir::solve::NoSolutionOrRerunNonErased>, <rustc_next_trait_solver::solve::eval_ctxt::EvalCtxt<rustc_trait_selection::solve::delegate::SolverDelegate, rustc_middle::ty::context::TyCtxt>>::compute_goal::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_next_trait_solver/src/solve/eval_ctxt/mod.rs:1289:23
+  18: <rustc_next_trait_solver::solve::eval_ctxt::Eva
+[... truncated ...]

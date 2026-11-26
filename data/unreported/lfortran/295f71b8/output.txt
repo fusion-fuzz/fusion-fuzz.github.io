@@ -1,0 +1,32 @@
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3000, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 2817, in main_app(int, char**)
+    return emit_c(opts.arg_file, lfortran_pass_manager, compiler_options);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 899, in (anonymous namespace)::emit_c(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::PassManager&, LCompilers::CompilerOptions&)
+    pass_manager, 1);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 576, in LCompilers::FortranEvaluator::get_c3[abi:cxx11](LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::PassManager&, long)
+    pass_manager.apply_passes(al, &asr, compiler_options.po, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/pass_manager.h", line 324, in LCompilers::PassManager::apply_passes(Allocator&, LCompilers::ASR::TranslationUnit_t*, LCompilers::PassOptions&, LCompilers::diag::Diagnostics&)
+    apply_passes(al, asr, _passes, pass_options, diagnostics, cummulative_time_taken_by_passes_in_microseconds);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/pass_manager.h", line 193, in LCompilers::PassManager::apply_passes(Allocator&, LCompilers::ASR::TranslationUnit_t*, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >&, LCompilers::PassOptions&, LCompilers::diag::Diagnostics&, double&)
+    _passes_db[passes[i]](al, *asr, pass_options);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/intent_out_deallocate.cpp", line 493, in LCompilers::pass_intent_out_deallocate(Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::PassOptions const&)
+    iod.visit_TranslationUnit(unit);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_walk_visitor.h", line 28, in LCompilers::ASR::BaseWalkVisitor<LCompilers::IntentOutDeallocateVisitor>::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&)
+    this->visit_symbol(*a.second);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 375, in LCompilers::ASR::BaseVisitor<LCompilers::IntentOutDeallocateVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&)
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 32, in void LCompilers::ASR::visit_symbol_t<LCompilers::IntentOutDeallocateVisitor>(LCompilers::ASR::symbol_t const&, LCompilers::IntentOutDeallocateVisitor&)
+    case symbolType::Function: { v.visit_Function((const Function_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/intent_out_deallocate.cpp", line 483, in LCompilers::IntentOutDeallocateVisitor::visit_Function(LCompilers::ASR::Function_t const&)
+    visit_symbol(*a.second);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 375, in LCompilers::ASR::BaseVisitor<LCompilers::IntentOutDeallocateVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&)
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 32, in void LCompilers::ASR::visit_symbol_t<LCompilers::IntentOutDeallocateVisitor>(LCompilers::ASR::symbol_t const&, LCompilers::IntentOutDeallocateVisitor&)
+    case symbolType::Function: { v.visit_Function((const Function_t &)x); return; }
+AssertFailed: final_sym != nullptr

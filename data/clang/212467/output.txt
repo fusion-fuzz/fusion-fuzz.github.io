@@ -1,0 +1,60 @@
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaDeclAttr.cpp:4059: clang::ErrorAttr* clang::Sema::mergeErrorAttr(clang::Decl*, const clang::AttributeCommonInfo&, llvm::StringRef): Assertion `(NewAttr == "error" || NewAttr == "warning") && "unexpected normalized full name"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O3 -std=c++20 /tmp/test.cpp
+1.	/tmp/test.cpp:3:33: current parser token '{'
+ #0 0x0000559ee45d23e7 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x24923e7)
+ #1 0x0000559ee45cfdc4 llvm::sys::CleanupOnSignal(unsigned long) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x248fdc4)
+ #2 0x0000559ee450e218 CrashRecoverySignalHandler(int) CrashRecoveryContext.cpp:0:0
+ #3 0x00007fa320d62970 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x40970)
+ #4 0x00007fa320db91dc (/usr/lib/x86_64-linux-gnu/libc.so.6+0x971dc)
+ #5 0x00007fa320d62842 raise (/usr/lib/x86_64-linux-gnu/libc.so.6+0x40842)
+ #6 0x00007fa320d4a4b2 abort (/usr/lib/x86_64-linux-gnu/libc.so.6+0x284b2)
+ #7 0x00007fa320d4a424 __assert_perror_fail (/usr/lib/x86_64-linux-gnu/libc.so.6+0x28424)
+ #8 0x0000559ee2d59b25 clang::Sema::mergeErrorAttr(clang::Decl*, clang::AttributeCommonInfo const&, llvm::StringRef) (.cold) SemaDeclAttr.cpp:0:0
+ #9 0x0000559ee706e797 ProcessDeclAttribute(clang::Sema&, clang::Scope*, clang::Decl*, clang::ParsedAttr const&, clang::Sema::ProcessDeclAttributeOptions const&) SemaDeclAttr.cpp:0:0
+#10 0x0000559ee707005a clang::Sema::ProcessDeclAttributes(clang::Scope*, clang::Decl*, clang::Declarator const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x4f3005a)
+#11 0x0000559ee702253d clang::Sema::ActOnFunctionDeclarator(clang::Scope*, clang::Declarator&, clang::DeclContext*, clang::TypeSourceInfo*, clang::LookupResult&, llvm::MutableArrayRef<clang::TemplateParameterList*>, bool&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x4ee253d)
+#12 0x0000559ee7027752 clang::Sema::HandleDeclarator(clang::Scope*, clang::Declarator&, llvm::MutableArrayRef<clang::TemplateParameterList*>) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x4ee7752)
+#13 0x0000559ee702819f clang::Sema::ActOnStartOfFunctionDef(clang::Scope*, clang::Declarator&, llvm::MutableArrayRef<clang::TemplateParameterList*>, clang::SkipBodyInfo*, clang::Sema::FnBodyKind) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x4ee819f)
+#14 0x0000559ee6c400e3 clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x4b000e3)
+#15 0x0000559ee6c91671 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x4b51671)
+#16 0x0000559ee6c399af clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x4af99af)
+#17 0x0000559ee6c3a10f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x4afa10f)
+#18 0x0000559ee6c453ea clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x4b053ea)
+#19 0x0000559ee6c4638d clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x4b0638d)
+#20 0x0000559ee6c46791 clang::Parser::ParseFirstTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x4b06791)
+#21 0x0000559ee6c2550c clang::ParseAST(clang::Sema&, bool, bool) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x4ae550c)
+#22 0x0000559ee521c65a clang::FrontendAction::Execute() (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x30dc65a)
+#23 0x0000559ee51a370a clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x306370a)
+#24 0x0000559ee52ea71a clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x31aa71a)
+#25 0x0000559ee30a88f3 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0xf688f3)
+#26 0x0000559ee30a02b8 ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#27 0x0000559ee30a048a int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::'lambda'(llvm::SmallVectorImpl<char const*>&)>(long, llvm::SmallVectorImpl<char const*>&) driver.cpp:0:0
+#28 0x0000559ee4f16529 void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const::'lambda'()>(long) Job.cpp:0:0
+#29 0x0000559ee450e5d1 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x23ce5d1)
+#30 0x0000559ee4f1799b clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const (.part.0) Job.cpp:0:0
+#31 0x0000559ee4ecaef8 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x2d8aef8)
+#32 0x0000559ee4ed018d clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x2d9018d)
+#33 0x0000559ee4ee30e5 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0x2da30e5)
+#34 0x0000559ee30a5534 clang_main(int, char**, llvm::ToolContext const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0xf65534)
+#35 0x0000559ee2feabc5 main (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0xeaabc5)
+#36 0x00007fa320d4bf77 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x29f77)
+#37 0x00007fa320d4c027 __libc_start_main (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a027)
+#38 0x0000559ee309f521 _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang+++0xf5f521)
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 353729bbe4c53086c9acf3a9d1a4a88a61eec997)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/test-5d1304.cpp
+clang++: note: diagnostic msg: /tmp/test-5d1304.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

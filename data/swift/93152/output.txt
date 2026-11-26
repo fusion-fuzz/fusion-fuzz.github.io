@@ -1,0 +1,180 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpz7wbnohj/97f771ed.swift:48:17: error: public protocol cannot refine an internal protocol
+18 | // Strict concurrency checking should reject this since the inherited
+19 | // conformance to Sendable has an unsatisfied conditional requirement.
+20 | protocol ConditionalDerived : Sendable {}
+   |          `- note: type declared here
+21 | 
+22 | extension ConditionalG : ConditionalDerived {}
+   :
+46 | }
+47 | 
+48 | public protocol P2: ConditionalDerived {
+   |                 `- error: public protocol cannot refine an internal protocol
+49 |   func f()
+50 | }
+
+Abort: function verify at GenericSignatureQueries.cpp:880
+Term verification failed
+Initial term:    τ_0_0.[P1:A].[P1:A]
+Erased term:     τ_0_0.A.A
+Simplified term: τ_0_0.[P1:A].A
+
+Requirement machine for <τ_0_0 where τ_0_0 : P1, τ_0_0.A == Int>
+Rewrite system: {
+- [P1].[P1] => [P1] [permanent]
+- [P1].A => [P1:A] [permanent]
+- [P1].[Copyable] => [P1] [explicit]
+- [P1].[Escapable] => [P1] [explicit]
+- [P1:A].[Copyable] => [P1:A] [explicit]
+- [P1:A].[Escapable] => [P1:A] [explicit]
+- [P1].[P1:A] => [P1:A]
+- [Copyable].[Copyable] => [Copyable] [permanent]
+- [Escapable].[Escapable] => [Escapable] [permanent]
+- τ_0_0.[P1] => τ_0_0 [explicit]
+- τ_0_0.A.[concrete: Int] => τ_0_0.A [explicit] [lhs↓] [rhs↓]
+- τ_0_0.[Copyable] => τ_0_0 [explicit]
+- τ_0_0.[Escapable] => τ_0_0 [explicit]
+- τ_0_0.A => τ_0_0.[P1:A] [explicit]
+- τ_0_0.A.[concrete: Int] => τ_0_0.[P1:A] [explicit] [lhs↓]
+- τ_0_0.[P1:A].[concrete: Int] => τ_0_0.[P1:A] [explicit]
+- τ_0_0.[P1:A].[concrete: Int : Copyable] => τ_0_0.[P1:A]
+- τ_0_0.[P1:A].[concrete: Int : Escapable] => τ_0_0.[P1:A]
+}
+Property map: {
+  [P1] => { conforms_to: [P1 Copyable Escapable] }
+  [P1:A] => { conforms_to: [Copyable Escapable] }
+  [Copyable] => { conforms_to: [Copyable] }
+  [Escapable] => { conforms_to: [Escapable] }
+  τ_0_0 => { conforms_to: [P1 Copyable Escapable] }
+  τ_0_0.[P1:A] => { conforms_to: [Copyable Escapable] concrete_type: [concrete: Int] }
+}
+Conformance paths: {
+}
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-silgen -Osize -sil-verify-all -enable-experimental-feature Macros -enforce-exclusivity=checked /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpz7wbnohj/97f771ed.swift
+1.	Swift version 6.5-dev (LLVM 449e14042c067af, Swift 3c721e148da715b)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpz7wbnohj/97f771ed.swift")
+4.	While type-checking extension of G (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpz7wbnohj/97f771ed.swift:52:1)
+5.	While type-checking protocol conformance G<T>: Sendable at extension of G (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpz7wbnohj/97f771ed.swift:52:1)
+6.	Abort: function verify at GenericSignatureQueries.cpp:880
+| 	Term verification failed
+| 	Initial term:    τ_0_0.[P1:A].[P1:A]
+| 	Erased term:     τ_0_0.A.A
+| 	Simplified term: τ_0_0.[P1:A].A
+| 	
+| 	Requirement machine for <τ_0_0 where τ_0_0 : P1, τ_0_0.A == Int>
+| 	Rewrite system: {
+| 	- [P1].[P1] => [P1] [permanent]
+| 	- [P1].A => [P1:A] [permanent]
+| 	- [P1].[Copyable] => [P1] [explicit]
+| 	- [P1].[Escapable] => [P1] [explicit]
+| 	- [P1:A].[Copyable] => [P1:A] [explicit]
+| 	- [P1:A].[Escapable] => [P1:A] [explicit]
+| 	- [P1].[P1:A] => [P1:A]
+| 	- [Copyable].[Copyable] => [Copyable] [permanent]
+| 	- [Escapable].[Escapable] => [Escapable] [permanent]
+| 	- τ_0_0.[P1] => τ_0_0 [explicit]
+| 	- τ_0_0.A.[concrete: Int] => τ_0_0.A [explicit] [lhs↓] [rhs↓]
+| 	- τ_0_0.[Copyable] => τ_0_0 [explicit]
+| 	- τ_0_0.[Escapable] => τ_0_0 [explicit]
+| 	- τ_0_0.A => τ_0_0.[P1:A] [explicit]
+| 	- τ_0_0.A.[concrete: Int] => τ_0_0.[P1:A] [explicit] [lhs↓]
+| 	- τ_0_0.[P1:A].[concrete: Int] => τ_0_0.[P1:A] [explicit]
+| 	- τ_0_0.[P1:A].[concrete: Int : Copyable] => τ_0_0.[P1:A]
+| 	- τ_0_0.[P1:A].[concrete: Int : Escapable] => τ_0_0.[P1:A]
+| 	}
+| 	Property map: {
+| 	  [P1] => { conforms_to: [P1 Copyable Escapable] }
+| 	  [P1:A] => { conforms_to: [Copyable Escapable] }
+| 	  [Copyable] => { conforms_to: [Copyable] }
+| 	  [Escapable] => { conforms_to: [Escapable] }
+| 	  τ_0_0 => { conforms_to: [P1 Copyable Escapable] }
+| 	  τ_0_0.[P1:A] => { conforms_to: [Copyable Escapable] concrete_type: [concrete: Int] }
+| 	}
+| 	Conformance paths: {
+| 	}
+ #0 0x00005f60e884a8bb llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x92388bb)
+ #1 0x00005f60e88477a1 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x92357a1)
+ #2 0x00005f60e884b66b SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x000071a7b8842330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x000071a7b889bc0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x000071a7b884227e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x000071a7b88258ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00005f60e277d572 (/usr/bin/swift-frontend+0x316b572)
+ #8 0x00005f60e277d65c (/usr/bin/swift-frontend+0x316b65c)
+ #9 0x00005f60e257ee6e swift::rewriting::RequirementMachine::verify(swift::rewriting::MutableTerm const&) const (/usr/bin/swift-frontend+0x2f6ce6e)
+#10 0x00005f60e257f1a9 swift::rewriting::RequirementMachine::requiresProtocol(swift::Type, swift::ProtocolDecl const*) const (/usr/bin/swift-frontend+0x2f6d1a9)
+#11 0x00005f60e2626d12 swift::SubstitutionMap::lookupConformance(swift::CanType, swift::ProtocolDecl*) const (/usr/bin/swift-frontend+0x3014d12)
+#12 0x00005f60e2674d06 swift::LookUpConformanceInSubstitutionMap::operator()(swift::InFlightSubstitution&, swift::Type, swift::ProtocolDecl*) const (/usr/bin/swift-frontend+0x3062d06)
+#13 0x00005f60e2675c2f swift::InFlightSubstitution::lookupConformance(swift::Type, swift::ProtocolDecl*, unsigned int) (/usr/bin/swift-frontend+0x3063c2f)
+#14 0x00005f60e2626b2c swift::SubstitutionMap::get(swift::GenericSignature, llvm::ArrayRef<swift::Type>, swift::InFlightSubstitution&) (/usr/bin/swift-frontend+0x3014b2c)
+#15 0x00005f60e26268ac swift::SubstitutionMap::get(swift::GenericSignature, swift::InFlightSubstitution&) (/usr/bin/swift-frontend+0x30148ac)
+#16 0x00005f60e25627e0 swift::ProtocolConformance::subst(swift::InFlightSubstitution&) const (/usr/bin/swift-frontend+0x2f507e0)
+#17 0x00005f60e2571443 swift::ProtocolConformanceRef::subst(swift::SubstitutionMap, swift::SubstOptions) const (/usr/bin/swift-frontend+0x2f5f443)
+#18 0x00005f60e1c59cbb ensureRequirementsAreSatisfied(swift::ASTContext&, swift::NormalProtocolConformance*) TypeCheckProtocol.cpp:0:0
+#19 0x00005f60e1c56dc0 (anonymous namespace)::MultiConformanceChecker::checkIndividualConformance(swift::NormalProtocolConformance*) TypeCheckProtocol.cpp:0:0
+#20 0x00005f60e1c4b10f swift::TypeChecker::checkConformancesInContext(swift::IterableDeclContext*) (/usr/bin/swift-frontend+0x263910f)
+#21 0x00005f60e1bc548c (anonymous namespace)::DeclChecker::visitExtensionDecl(swift::ExtensionDecl*) TypeCheckDeclPrimary.cpp:0:0
+#22 0x00005f60e1bb9df4 (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#23 0x00005f60e1bb9c38 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x25a7c38)
+#24 0x00005f60e1cfd645 swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x26eb645)
+#25 0x00005f60e1d02828 swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#26 0x00005f60e1d01f2f swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#27 0x00005f60e1cfd575 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x26eb575)
+#28 0x00005f60e04c8c29 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_0>(long, swift::SourceFile&) Frontend.cpp:0:0
+#29 0x00005f60e04be37e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xeac37e)
+#30 0x00005f60e04be10b swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xeac10b)
+#31 0x00005f60e032bafe withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#32 0x00005f60e03151ed performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#33 0x00005f60e0310468 swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcfe468)
+#34 0x00005f60dffb7aab swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9a5aab)
+#35 0x000071a7b88271ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#36 0x000071a7b882728b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#37 0x00005f60dffb6b35 _start (/usr/bin/swift-frontend+0x9a4b35)
+
+*** Signal 6: Backtracing from 0x71a7b892452d... done ***
+
+*** Program crashed: Aborted at 0x000071a7b892452d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.5 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x000071a7b892452d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x000071a7b892452d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d bb c8 0d 00  H=·ðÿÿs·ÃH··»È··
+rbx 0x0000000000000006  6
+rsi 0x00000000000e490b  936203
+rdi 0x00000000000e490b  936203
+rbp 0x00000000000e490b  936203
+rsp 0x00005f611988afd8  96 b6 84 e8 60 5f 00 00 00 00 00 00 00 00 00 00  ·¶·è`_··········
+ r8 0x0000000000000000  0
+ r9 0x0000000000000000  0
+r10 0x00005f611988b270  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x00005f60e9f74312  76 65 72 69 66 79 00 76 65 72 69 66 79 20 64 69  verify·verify di
+r14 0x0000000000000016  22
+r15 0x00005f611988b088  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x000071a7b892452d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d bb c8 0d 00  H=·ðÿÿs·ÃH··»È··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x000071a7b87fd000–0x000071a7b89ad039 a4a7992a8e66555c8141ab2a08a8465ff6e0ea65 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.01s
+
+Aborted (core dumped)

@@ -1,0 +1,55 @@
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3276, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3040, in main_app(int, char**)
+    return emit_llvm(opts.arg_file, lfortran_pass_manager,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 1268, in (anonymous namespace)::emit_llvm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::PassManager&, LCompilers::CompilerOptions&, bool)
+    nullptr);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 868, in LCompilers::FortranEvaluator::get_llvm3(LCompilers::ASR::TranslationUnit_t&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&, LCompilers::LocationManager&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, long*)
+    compiler_options, run_fn, "", infile, lm);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp", line 29765, in LCompilers::asr_to_llvm(LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, llvm::LLVMContext&, LCompilers::LLVMTargetConfig const&, Allocator&, LCompilers::PassManager&, LCompilers::CompilerOptions&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&)
+    pass_manager.apply_passes(al, &asr, co.po, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/pass_manager.h", line 480, in LCompilers::PassManager::apply_passes(Allocator&, LCompilers::ASR::TranslationUnit_t*, LCompilers::PassOptions&, LCompilers::diag::Diagnostics&)
+    apply_passes(al, asr, _passes, pass_options, diagnostics, cummulative_time_taken_by_passes_in_microseconds);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/pass_manager.h", line 243, in LCompilers::PassManager::apply_passes(Allocator&, LCompilers::ASR::TranslationUnit_t*, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >&, LCompilers::PassOptions&, LCompilers::diag::Diagnostics&, double&)
+    _passes_db[passes[i]](al, *asr, pass_options);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/array_struct_temporary.cpp", line 5211, in LCompilers::pass_array_struct_temporary(Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::PassOptions const&)
+    b.visit_TranslationUnit(unit);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_expr_call_replacer_visitor.h", line 43, in LCompilers::ASR::CallReplacerOnExpressionsVisitor<LCompilers::ArgSimplifier>::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&)
+    this->visit_symbol(*a.second);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 389, in LCompilers::ASR::BaseVisitor<LCompilers::ArgSimplifier>::visit_symbol(LCompilers::ASR::symbol_t const&)
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 32, in void LCompilers::ASR::visit_symbol_t<LCompilers::ArgSimplifier>(LCompilers::ASR::symbol_t const&, LCompilers::ArgSimplifier&)
+    case symbolType::Function: { v.visit_Function((const Function_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_expr_call_replacer_visitor.h", line 81, in LCompilers::ASR::CallReplacerOnExpressionsVisitor<LCompilers::ArgSimplifier>::visit_Function(LCompilers::ASR::Function_t const&)
+    self().transform_stmts(xx.m_body, xx.n_body);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/array_struct_temporary.cpp", line 2000, in LCompilers::ArgSimplifier::transform_stmts(LCompilers::ASR::stmt_t**&, unsigned long&)
+    transform_stmts_impl(al, m_body, n_body, current_body, inside_where,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/array_struct_temporary.cpp", line 1450, in LCompilers::transform_stmts_impl(Allocator&, LCompilers::ASR::stmt_t**&, unsigned long&, LCompilers::Vec<LCompilers::ASR::stmt_t*>*&, bool, std::function<void (LCompilers::ASR::stmt_t const&)>, LCompilers::Vec<LCompilers::ASR::stmt_t*>**)
+    visit_stmt(*m_body[i]);
+  File "/usr/include/c++/11/bits/std_function.h", line 590, in std::function<void (LCompilers::ASR::stmt_t const&)>::operator()(LCompilers::ASR::stmt_t const&) const
+    return _M_invoker(_M_functor, std::forward<_ArgTypes>(__args)...);
+  File "/usr/include/c++/11/bits/std_function.h", line 290, in std::_Function_handler<void (LCompilers::ASR::stmt_t const&), LCompilers::ArgSimplifier::transform_stmts(LCompilers::ASR::stmt_t**&, unsigned long&)::'lambda'(LCompilers::ASR::stmt_t const&)>::_M_invoke(std::_Any_data const&, LCompilers::ASR::stmt_t const&)
+    return std::__invoke_r<_Res>(*_Base::_M_get_pointer(__functor),
+  File "/usr/include/c++/11/bits/invoke.h", line 111, in std::enable_if<is_invocable_r_v<void, LCompilers::ArgSimplifier::transform_stmts(LCompilers::ASR::stmt_t**&, unsigned long&)::'lambda'(LCompilers::ASR::stmt_t const&)&, LCompilers::ASR::stmt_t const&>, void>::type std::__invoke_r<void, LCompilers::ArgSimplifier::transform_stmts(LCompilers::ASR::stmt_t**&, unsigned long&)::'lambda'(LCompilers::ASR::stmt_t const&)&, LCompilers::ASR::stmt_t const&>(LCompilers::ArgSimplifier::transform_stmts(LCompilers::ASR::stmt_t**&, unsigned long&)::'lambda'(LCompilers::ASR::stmt_t const&)&, LCompilers::ASR::stmt_t const&)
+    std::__invoke_impl<__type>(__tag{}, std::forward<_Callable>(__fn),
+  File "/usr/include/c++/11/bits/invoke.h", line 61, in void std::__invoke_impl<void, LCompilers::ArgSimplifier::transform_stmts(LCompilers::ASR::stmt_t**&, unsigned long&)::'lambda'(LCompilers::ASR::stmt_t const&)&, LCompilers::ASR::stmt_t const&>(std::__invoke_other, LCompilers::ArgSimplifier::transform_stmts(LCompilers::ASR::stmt_t**&, unsigned long&)::'lambda'(LCompilers::ASR::stmt_t const&)&, LCompilers::ASR::stmt_t const&)
+    { return std::forward<_Fn>(__f)(std::forward<_Args>(__args)...); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/array_struct_temporary.cpp", line 2001, in LCompilers::ArgSimplifier::transform_stmts(LCompilers::ASR::stmt_t**&, unsigned long&)::'lambda'(LCompilers::ASR::stmt_t const&)::operator()(LCompilers::ASR::stmt_t const&) const
+    [this](const ASR::stmt_t& stmt) { visit_stmt(stmt); },
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 408, in LCompilers::ASR::BaseVisitor<LCompilers::ArgSimplifier>::visit_stmt(LCompilers::ASR::stmt_t const&)
+    void visit_stmt(const stmt_t &b) { visit_stmt_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 90, in void LCompilers::ASR::visit_stmt_t<LCompilers::ArgSimplifier>(LCompilers::ASR::stmt_t const&, LCompilers::ArgSimplifier&)
+    case stmtType::Where: { v.visit_Where((const Where_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/array_struct_temporary.cpp", line 2525, in LCompilers::ArgSimplifier::visit_Where(LCompilers::ASR::Where_t const&)
+    transform_stmts(xx.m_orelse, xx.n_orelse);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/array_struct_temporary.cpp", line 2000, in LCompilers::ArgSimplifier::transform_stmts(LCompilers::ASR::stmt_t**&, unsigned long&)
+    transform_stmts_impl(al, m_body, n_body, current_body, inside_where,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/array_struct_temporary.cpp", line 1435, in LCompilers::transform_stmts_impl(Allocator&, LCompilers::ASR::stmt_t**&, unsigned long&, LCompilers::Vec<LCompilers::ASR::stmt_t*>*&, bool, std::function<void (LCompilers::ASR::stmt_t const&)>, LCompilers::Vec<LCompilers::ASR::stmt_t*>**)
+    visit_stmt(*m_body[i]);
+  File "/usr/include/c++/11/bits/std_function.h", line 590, in std::function<v
+[... truncated ...]

@@ -1,0 +1,60 @@
+HloModule module
+
+ENTRY %entry {
+  %param0 = f64[1536] parameter(0), sharding={devices=[2]<=[2]}
+  %input = f8e4m3fn[1,128,6,6] parameter(1)
+  %filter = f8e4m3fn[3,3,128,16] parameter(2)
+  %input_f32 = f32[1,128,6,6] convert(%input)
+  %filter_f32 = f32[3,3,128,16] convert(%filter)
+  %z_scale0 = f32[] parameter(3)
+  %z_scale0_bcast = f32[1,16,6,6] broadcast(%z_scale0), dimensions={}
+  %z_scale1 = f32[] parameter(4)
+  %z_scale1_bcast = f32[1,16,6,6] broadcast(%z_scale1), dimensions={}
+  %z_scale2 = f32[] parameter(5)
+  %z_scale2_bcast = f32[1,16,6,6] broadcast(%z_scale2), dimensions={}
+  %z_scale3 = f32[] parameter(6)
+  %z_scale3_bcast = f32[1,16,6,6] broadcast(%z_scale3), dimensions={}
+  %conv_a = f32[1,16,6,6] convolution(%input_f32, %filter_f32), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_01io->bf01, feature_group_count=1
+  %conv_a_scaled0 = f32[1,16,6,6] multiply(%conv_a, %z_scale0_bcast)
+  %conv_a_scaled1 = f32[1,16,6,6] multiply(%conv_a, %z_scale1_bcast)
+  %conv_a_scaled_sum0 = f32[1,16,6,6] add(%conv_a_scaled0, %conv_a_scaled1)
+  %conv_a_scaled2 = f32[1,16,6,6] multiply(%conv_a, %z_scale2_bcast)
+  %conv_a_scaled3 = f32[1,16,6,6] multiply(%conv_a, %z_scale3_bcast)
+  %conv_a_scaled_sum1 = f32[1,16,6,6] add(%conv_a_scaled2, %conv_a_scaled3)
+  %conv_a_scaled_sum2 = f32[1,16,6,6] add(%conv_a_scaled_sum0, %conv_a_scaled_sum1)
+  %c1 = f32[] constant(-448.)
+  %c1_bcast = f32[1,16,6,6] broadcast(%c1), dimensions={}
+  %c2 = f32[] constant(448.)
+  %c2_bcast = f32[1,16,6,6] broadcast(%c2), dimensions={}
+  %conv_a_clamped = f32[1,16,6,6] clamp(%c1_bcast, %conv_a_scaled_sum2, %c2_bcast)
+  %conv_f8 = f8e4m3fn[1,16,6,6] convert(%conv_a_clamped)
+  %custom-call = (f64[1520]{0}, f64[1520]{0}, f64[1520]{0}) custom-call(%param0), custom_call_target="_SPMDInternalOp_MultiSlice", sharding={{devices=[2]<=[2]}, {devices=[2]<=[2]}, {devices=[2]<=[2]}}, backend_config="dimension=0,amount=2,start_indices=[5],limit_indices=[1525],strides=[1],bufferize=0"
+  %ffl.root = ((f64[1520]{0}, f64[1520]{0}, f64[1520]{0}), f8e4m3fn[1,16,6,6]) tuple(%custom-call, %conv_f8)
+  %input.d = f8e4m3fn[1,128,6,6] parameter(7)
+  %filter.d = f8e4m3fn[3,3,128,16] parameter(8)
+  %input_f32.d = f32[1,128,6,6] convert(%input.d)
+  %filter_f32.d = f32[3,3,128,16] convert(%filter.d)
+  %z_scale0.d = f32[] parameter(9)
+  %z_scale0_bcast.d = f32[1,16,6,6] broadcast(%z_scale0.d), dimensions={}
+  %z_scale1.d = f32[] parameter(10)
+  %z_scale1_bcast.d = f32[1,16,6,6] broadcast(%z_scale1.d), dimensions={}
+  %z_scale2.d = f32[] parameter(11)
+  %z_scale2_bcast.d = f32[1,16,6,6] broadcast(%z_scale2.d), dimensions={}
+  %z_scale3.d = f32[] parameter(12)
+  %z_scale3_bcast.d = f32[1,16,6,6] broadcast(%z_scale3.d), dimensions={}
+  %conv_a.d = f32[1,16,6,6] convolution(%input_f32.d, %filter_f32.d), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_01io->bf01, feature_group_count=1
+  %conv_a_scaled0.d = f32[1,16,6,6] multiply(%conv_a.d, %z_scale0_bcast.d)
+  %conv_a_scaled1.d = f32[1,16,6,6] multiply(%conv_a.d, %z_scale1_bcast.d)
+  %conv_a_scaled_sum0.d = f32[1,16,6,6] add(%conv_a_scaled0.d, %conv_a_scaled1.d)
+  %conv_a_scaled2.d = f32[1,16,6,6] multiply(%conv_a.d, %z_scale2_bcast.d)
+  %conv_a_scaled3.d = f32[1,16,6,6] multiply(%conv_a.d, %z_scale3_bcast.d)
+  %conv_a_scaled_sum1.d = f32[1,16,6,6] add(%conv_a_scaled2.d, %conv_a_scaled0)
+  %conv_a_scaled_sum2.d = f32[1,16,6,6] add(%conv_a_scaled_sum0.d, %conv_a_scaled_sum1.d)
+  %c1.d = f32[] constant(-448.)
+  %c1_bcast.d = f32[1,16,6,6] broadcast(%c1.d), dimensions={}
+  %c2.d = f32[] constant(448.)
+  %c2_bcast.d = f32[1,16,6,6] broadcast(%c2.d), dimensions={}
+  %conv_a_clamped.d = f32[1,16,6,6] clamp(%c1_bcast.d, %conv_a_scaled_sum2.d, %c2_bcast.d)
+  %conv_f8.d = f8e4m3fn[1,16,6,6] convert(%conv_a_clamped.d)
+  ROOT %ffl.root.1 = ((f64[1520]{0}, f64[1520]{0}, f64[1520]{0}), f8e4m3fn[1,16,6,6], f8e4m3fn[1,16,6,6]) tuple(%custom-call, %conv_f8, %conv_f8.d)
+}

@@ -1,0 +1,1 @@
+ulimit -n 4096; ulimit -v 16777216; LD_LIBRARY_PATH=gpu_lib hlo-opt.gpu --platform=gpu --stage=hlo --xla_gpu_target_config_filename=gpu_specs/a100_pcie_80__small.txtpb --xla_gpu_autotune_level=0 --xla_gpu_triton_gemm_any=true --xla_gpu_cuda_data_dir=cuda_sdk --o=/dev/null ./reproducer.hlo

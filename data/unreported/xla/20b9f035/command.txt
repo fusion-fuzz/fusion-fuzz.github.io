@@ -1,0 +1,1 @@
+ulimit -n 4096; ulimit -v 16777216; LD_LIBRARY_PATH=gpu_lib hlo-opt.gpu --platform=gpu --stage=llvm --xla_gpu_target_config_filename=gpu_specs/b200__narrow.txtpb --xla_gpu_autotune_level=0 --xla_gpu_experimental_max_unroll_factor=8 --xla_gpu_experimental_enable_triton_heroless_priority_fusion=true --xla_gpu_cuda_data_dir=cuda_sdk --o=/dev/null ./reproducer.hlo

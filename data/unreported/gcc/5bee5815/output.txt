@@ -1,0 +1,48 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplv7_n98y/439a0e19.cc: In function 'int (* resolver())()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplv7_n98y/439a0e19.cc:17:10: error: invalid conversion from 'void*' to 'int (*)()' [-fpermissive]
+   17 |   return (void *)implementation;
+      |          ^~~~~~~~~~~~~~~~~~~~~~
+      |          |
+      |          void*
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplv7_n98y/439a0e19.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplv7_n98y/439a0e19.cc:39:39: internal compiler error: in discriminator_for_local_entity, at cp/mangle.cc:2337
+   39 |   [[gnu::section(".foo")]] static int var;
+      |                                       ^~~
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x80d457 discriminator_for_local_entity
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:2337
+0x10d7120 write_local_name
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:2436
+0x10d7120 write_name
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:1172
+0x10d7297 write_encoding
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:945
+0x10d7460 write_mangled_name
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:834
+0x10db7f8 mangle_decl_string
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:4853
+0x10db989 get_mangled_id
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:4869
+0x10db989 mangle_decl(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:4907
+0x1da3985 decl_assembler_name(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:858
+0x141a99e symbol_table::insert_to_assembler_name_hash(symtab_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/symtab.cc:175
+0x141ab23 symbol_table::symtab_initialize_asm_name_hash()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/symtab.cc:267
+0x141b5e4 symbol_table::symtab_initialize_asm_name_hash()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/symtab.cc:1093
+0x141b5e4 symtab_node::get_for_asmname(tree_node const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/symtab.cc:1081
+0x1433cc8 handle_alias_pairs
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:1561
+0x1438bcb symbol_table::finalize_compilation_unit()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2578
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplv7_n98y/439a0e19.cc -quiet -dumpbase 439a0e19.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O0 -std=c++17 -fpie -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

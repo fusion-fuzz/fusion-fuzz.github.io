@@ -1,0 +1,10 @@
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O3 -std=gnu++17 -fblocks -fsanitize=address -fno-inline -fno-elide-constructors /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprcbpw_e2/6d9493e6.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprcbpw_e2/6d9493e6.cpp:8:23: at annotation token
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000059aa54cf7329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000059aa54cf3fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000059aa54cf48a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000059aa54c36218
+4  libc.so.6

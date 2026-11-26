@@ -1,0 +1,5 @@
+mlir/lib/IR/AffineMap.cpp:55:59: runtime error: signed integer overflow: 9223372036854775807 + 6 cannot be represented in type 'int64_t' (aka 'long')
+ #0 (anonymous namespace)::AffineExprConstantFolder::constantFoldImpl(mlir::AffineExpr)::'lambda'(long, long)::operator()  mlir/lib/IR/AffineMap.cpp:55
+ #3 (anonymous namespace)::AffineExprConstantFolder::constantFoldBinExpr(...)                                               AffineMap.cpp
+ #4 (anonymous namespace)::AffineExprConstantFolder::constantFoldImpl(mlir::AffineExpr)                                     AffineMap.cpp:54
+ ...  mlir::AffineMap::constantFold -> AffineForOp bound canonicalization -> Canonicalizer

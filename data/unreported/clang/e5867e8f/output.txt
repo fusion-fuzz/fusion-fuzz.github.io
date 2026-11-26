@@ -1,0 +1,65 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj8qt1g2_/2f026fc9.cpp:43:1: error: imports must immediately follow the module declaration
+   43 | import p7;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj8qt1g2_/2f026fc9.cpp:69:33: error: use of undeclared identifier 'h'
+   69 | static long ffl_fusion = (long)(h);
+      |                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj8qt1g2_/2f026fc9.cpp:81:46: error: default template argument for a template template parameter must be a class template
+   81 | template<template<class> class j = ffl_fusion, template<class> class sv> using B2t = j<sv<int>>;
+      |                                              ^
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -Os -std=c++23 -fblocks -g -fsanitize=address -fstrict-enums /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj8qt1g2_/2f026fc9.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpj8qt1g2_/2f026fc9.cpp:93:1: current parser token 'template'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005c6c319b3329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005c6c319affec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005c6c319b08a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005c6c318f2218
+4  libc.so.6 0x00007ba6cbfc1520
+5  clang++   0x00005c6c35d77b08 clang::Module::getFullModuleName[abi:cxx11](bool) const + 104
+6  clang++   0x00005c6c34c524a0 clang::Sema::CheckTemplateParameterList(clang::TemplateParameterList*, clang::TemplateParameterList*, clang::Sema::TemplateParamListContext, clang::SkipBodyInfo*) + 4096
+7  clang++   0x00005c6c34678be1 clang::Sema::ActOnAliasDeclaration(clang::Scope*, clang::AccessSpecifier, llvm::MutableArrayRef<clang::TemplateParameterList*>, clang::SourceLocation, clang::UnqualifiedId&, clang::ParsedAttributesView const&, clang::ActionResult<clang::OpaquePtr<clang::QualType>, false>, clang::Decl*) + 1265
+8  clang++   0x00005c6c3421f33a clang::Parser::ParseAliasDeclarationAfterDeclarator(clang::Parser::ParsedTemplateInfo const&, clang::SourceLocation, clang::Parser::UsingDeclarator&, clang::SourceLocation&, clang::AccessSpecifier, clang::ParsedAttributes&, clang::Decl**) + 602
+9  clang++   0x00005c6c3422ccda clang::Parser::ParseUsingDeclaration(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo const&, clang::SourceLocation, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2458
+10 clang++   0x00005c6c3422da35 clang::Parser::ParseUsingDirectiveOrDeclaration(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo const&, clang::SourceLocation&, clang::ParsedAttributes&) + 1285
+11 clang++   0x00005c6c342e0b43 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 1043
+12 clang++   0x00005c6c342ed338
+13 clang++   0x00005c6c342ed75a clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) + 250
+14 clang++   0x00005c6c34212bb1 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 641
+15 clang++   0x00005c6c341cb66e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+16 clang++   0x00005c6c341cc6ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+17 clang++   0x00005c6c341a9632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+18 clang++   0x00005c6c3284a061 clang::FrontendAction::Execute() + 65
+19 clang++   0x00005c6c327d3e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+20 clang++   0x00005c6c32921de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+21 clang++   0x00005c6c2f77d33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+22 clang++   0x00005c6c2f77313a
+23 clang++   0x00005c6c2f7732cf
+24 clang++   0x00005c6c32558cfd
+25 clang++   0x00005c6c318f2630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+26 clang++   0x00005c6c32559b53
+27 clang++   0x00005c6c3250e607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+28 clang++   0x00005c6c32512ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+29 clang++   0x00005c6c32521004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+30 clang++   0x00005c6c2f778923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+31 clang++   0x00005c6c2f6b47f1 main + 113
+32 libc.so.6 0x00007ba6cbfa8d90
+33 libc.so.6 0x00007ba6cbfa8e40 __libc_start_main + 128
+34 clang++   0x00005c6c2f772765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/2f026fc9-ddebe1.cpp
+clang++: note: diagnostic msg: /tmp/2f026fc9-ddebe1.sh
+clang++: note: diagnostic msg: 
+
+********************
+Segmentation fault (core dumped)

@@ -1,0 +1,73 @@
+clang: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/CodeGen/AsmPrinter/DwarfExpression.cpp:587: bool llvm::DwarfExpression::addExpression(llvm::DIExpressionCursor&&, llvm::function_ref<bool(unsigned int, llvm::DIExpressionCursor&)>): Assertion `SizeInBits >= OffsetInBits - FragmentOffset && "size underflow"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -S -o /dev/null -O1 -std=c11 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -fno-inline -g -funroll-loops -target x86_64-apple-darwin10 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzz91cjy3/265111dd.c
+1.	<eof> parser at end of file
+2.	Code generation
+3.	Running pass 'Function Pass Manager' on module '/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzz91cjy3/265111dd.c'.
+4.	Running pass 'X86 Assembly Printer' on function '@testIndexOverflow64'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x000062502303b329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x0000625023037fec llvm::sys::RunSignalHandlers() + 76
+2  clang     0x00006250230388a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x0000625022f7a218
+4  libc.so.6 0x00007dd82afe0520
+5  libc.so.6 0x00007dd82b0349bc pthread_kill + 300
+6  libc.so.6 0x00007dd82afe0476 raise + 22
+7  libc.so.6 0x00007dd82afc67f3 abort + 211
+8  libc.so.6 0x00007dd82afc671b
+9  libc.so.6 0x00007dd82afd7e96
+10 clang     0x0000625024379a1c llvm::DwarfExpression::addExpression(llvm::DIExpressionCursor&&, llvm::function_ref<bool (unsigned int, llvm::DIExpressionCursor&)>) + 2828
+11 clang     0x0000625024379b09 llvm::DwarfExpression::addExpression(llvm::DIExpressionCursor&&) + 41
+12 clang     0x00006250243e613b llvm::DwarfCompileUnit::applyConcreteDbgVariableAttributes(llvm::Loc::Single const&, llvm::DbgVariable const&, llvm::DIE&) + 1643
+13 clang     0x00006250243e1ecc llvm::DwarfCompileUnit::constructVariableDIE(llvm::DbgVariable&, bool) + 348
+14 clang     0x00006250243e1fa7 llvm::DwarfCompileUnit::constructVariableDIE(llvm::DbgVariable&, llvm::LexicalScope const&, llvm::DIE*&) + 23
+15 clang     0x00006250243e8ac9 llvm::DwarfCompileUnit::createAndAddScopeChildren(llvm::LexicalScope*, llvm::DIE&) + 2793
+16 clang     0x00006250243ec0ca llvm::DwarfCompileUnit::constructSubprogramScopeDIE(llvm::DISubprogram const*, llvm::Function const&, llvm::LexicalScope*, llvm::MCSymbol*) + 74
+17 clang     0x000062502436b3fd llvm::DwarfDebug::endFunctionImpl(llvm::MachineFunction const*) + 749
+18 clang     0x00006250243d140a llvm::DebugHandlerBase::endFunction(llvm::MachineFunction const*) + 106
+19 clang     0x00006250243381e0 llvm::AsmPrinter::emitFunctionBody() + 12336
+20 clang     0x0000625020e14147
+21 clang     0x00006250223622ec
+22 clang     0x0000625022a1b2e5 llvm::FPPassManager::runOnFunction(llvm::Function&) + 1397
+23 clang     0x0000625022a1b8c9 llvm::FPPassManager::runOnModule(llvm::Module&) + 57
+24 clang     0x0000625022a1c2b2
+25 clang     0x0000625022a1c9eb llvm::legacy::PassManagerImpl::run(llvm::Module&) + 219
+26 clang     0x000062502345e15f
+27 clang     0x0000625023472ecf
+28 clang     0x00006250234732f3 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::StringRef, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 483
+29 clang     0x0000625023b623ca clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 1866
+30 clang     0x000062502583184c clang::ParseAST(clang::Sema&, bool, bool) + 1068
+31 clang     0x0000625023ed2061 clang::FrontendAction::Execute() + 65
+32 clang     0x0000625023e5be65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+33 clang     0x0000625023fa9de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+34 clang     0x0000625020e0533e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+35 clang     0x0000625020dfb13a
+36 clang     0x0000625020dfb2cf
+37 clang     0x0000625023be0cfd
+38 clang     0x0000625022f7a630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+39 clang     0x0000625023be1b53
+40 clang     0x0000625023b96607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+41 clang     0x0000625023b9aef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+42 clang     0x0000625023ba9004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+43 clang     0x0000625020e00923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+44 clang     0x0000625020d3c7f1 main + 113
+45 libc.so.6 0x00007dd82afc7d90
+46 libc.so.6 0x00007dd82afc7e40 __libc_start_main + 128
+47 clang     0x0000625020dfa765 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-apple-darwin10
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang: note: diagnostic msg: /tmp/265111dd-f6e729.c
+clang: note: diagnostic msg: /tmp/265111dd-f6e729.sh
+clang: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

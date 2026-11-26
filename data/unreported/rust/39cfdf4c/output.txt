@@ -1,0 +1,96 @@
+[... 16 lines omitted ...]
+   |       ^^^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `ClonableFnB37c0b6`
+   |
+   = note: `#[warn(non_camel_case_types)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: type `Foo_b37c0b6` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpp7zy1oiq/a27993dc.rs:70:8
+   |
+70 | struct Foo_b37c0b6(Box<dyn for<'a> ClonableFn_b37c0b6<&'a bool>>);
+   |        ^^^^^^^^^^^ help: convert the identifier to upper camel case: `FooB37c0b6`
+
+error: internal compiler error: compiler/rustc_middle/src/ty/sty.rs:194:33: upvar_tys called before capture types are inferred
+
+
+thread 'rustc' (84797) panicked at compiler/rustc_middle/src/ty/sty.rs:194:33:
+Box<dyn Any>
+stack backtrace:
+   0: std::panicking::begin_panic::<rustc_errors::ExplicitBug>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:751:5
+   1: std::panic::panic_any::<rustc_errors::ExplicitBug>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panic.rs:260:5
+   2: <rustc_errors::diagnostic::BugAbort as rustc_errors::diagnostic::EmissionGuarantee>::emit_producing_guarantee
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:59:9
+   3: <rustc_errors::diagnostic::Diag<rustc_errors::diagnostic::BugAbort>>::emit
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1316:9
+   4: <rustc_errors::DiagCtxtHandle>::bug::<alloc::string::String>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:966:30
+   5: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:39:48
+   6: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:109:23
+   7: rustc_middle::ty::context::tls::with_context_opt::<rustc_middle::ty::context::tls::with_opt<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}, !>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:75:18
+   8: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:107:5
+   9: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:33:5
+  10: rustc_middle::util::bug::bug_fmt
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:16:5
+  11: <rustc_middle::ty::sty::UpvarArgs>::upvar_tys
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/macros.rs:18:9
+  12: <rustc_trait_selection::error_reporting::TypeErrCtxt>::note_closure_capture::<rustc_span::ErrorGuaranteed>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/error_reporting/traits/suggestions.rs:3793:36
+  13: <rustc_trait_selection::error_reporting::TypeErrCtxt>::note_obligation_cause_code_inner::<rustc_span::ErrorGuaranteed, rustc_middle::ty::predicate::Predicate>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/error_reporting/traits/suggestions.rs:4497:38
+  14: <rustc_trait_selection::error_reporting::TypeErrCtxt>::note_obligation_cause_code::<rustc_span::ErrorGuaranteed, rustc_middle::ty::predicate::Predicate>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/error_reporting/traits/suggestions.rs:3836:14
+  15: <rustc_trait_selection::error_reporting::TypeErrCtxt>::note_obligation_cause
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/error_reporting/traits/fulfillment_errors.rs:3084:18
+  16: <rustc_trait_selection::error_reporting::TypeErrCtxt>::report_selection_error
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/error_reporting/traits/fulfillment_errors.rs:831:14
+  17: <rustc_trait_selection::error_reporting::TypeErrCtxt>::report_fulfillment_error
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/error_reporting/traits/mod.rs:414:71
+  18: <rustc_trait_selection::error_reporting::TypeErrCtxt>::report_fulfillment_errors
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/error_reporting/traits/mod.rs:355:45
+  19: <rustc_hir_typeck::fn_ctxt::FnCtxt>::select_obligations_where_possible::<<rustc_hir_typeck::fn_ctxt::FnCtxt>::check_argument_types::{closure#2}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/_impl.rs:742:29
+  20: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_argument_types
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:441:22
+  21: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_argument_types_maybe_method_like::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/callee.rs:670:18
+  22: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_argument_types_maybe_method_like
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/callee.rs:687:20
+  23: <rustc_hir_typeck::fn_ctxt::FnCtxt>::confirm_builtin_call
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/callee.rs:623:14
+  24: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_call
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/callee.rs:164:22
+  25: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_kind
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:369:50
+  26: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_expectation_and_args
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:272:23
+  27: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_expectation
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:212:14
+  28: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:191:14
+  29: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_stmt
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1268:31
+  30: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_block::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1317:22
+  31: <rustc_hir_typeck::fn_ctxt::FnCtxt>::with_breakable_ctxt::<<rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_block::{closure#0}, ()>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/_impl.rs:1579:22
+  32: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_block
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1315:31
+  33: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_kind
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:368:46
+  34: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_expectation_and_args
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:272:23
+  35: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_expectation
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:212:14
+  36: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_hint
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:167:14
+  37: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_return_or_body_tail
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:969:35
+  38: rustc_hir_typeck::check::check_fn
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compi
+[... truncated ...]

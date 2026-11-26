@@ -1,0 +1,66 @@
+<source>:5:3: error: destructor cannot be declared constexpr
+    5 |   constexpr ~vector() {
+      |   ^
+<source>:7:23: error: implicit instantiation of template 'allocator<array<2>>' within its own definition
+    7 |   allocator<array<2>> __alloc_;
+      |                       ^
+<source>:7:32: error: expected '}'
+    7 |   allocator<array<2>> __alloc_;
+      |                                ^
+<source>:4:32: note: to match this '{'
+    4 | template <class> struct vector {
+      |                                ^
+<source>:7:32: error: expected ';' after struct
+    7 |   allocator<array<2>> __alloc_;
+      |                                ^
+      |                                ;
+<source>:7:32: error: expected '}'
+<source>:3:35: note: to match this '{'
+    3 | template <class> struct allocator {
+      |                                   ^
+clang-22: /root/llvm-project/clang/include/clang/AST/DeclCXX.h:463: clang::CXXRecordDecl::DefinitionData& clang::CXXRecordDecl::data() const: Assertion `DD && "queried property of class with no definition"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace, preprocessed source, and associated run script.
+Stack dump:
+0.	Program arguments: /cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22 -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -dumpdir /app/output.s- -disable-free -clear-ast-before-backend -main-file-name example.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -fno-verbose-asm -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debug-info-kind=constructor -dwarf-version=5 -debugger-tuning=gdb -fdebug-compilation-dir=/app -fcoverage-compilation-dir=/app -resource-dir /cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/lib/clang/22 -internal-isystem /opt/compiler-explorer/gcc-15.2.0/lib/gcc/x86_64-linux-gnu/15.2.0/../../../../include/c++/15.2.0 -internal-isystem /opt/compiler-explorer/gcc-15.2.0/lib/gcc/x86_64-linux-gnu/15.2.0/../../../../include/c++/15.2.0/x86_64-linux-gnu -internal-isystem /opt/compiler-explorer/gcc-15.2.0/lib/gcc/x86_64-linux-gnu/15.2.0/../../../../include/c++/15.2.0/backward -internal-isystem /cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/lib/clang/22/include -internal-isystem /usr/local/include -internal-isystem /opt/compiler-explorer/gcc-15.2.0/lib/gcc/x86_64-linux-gnu/15.2.0/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fcolor-diagnostics -faddrsig -fdwarf2-cfi-asm -o /tmp/example-d4bceb.o -x c++ <source>
+1.	<eof> parser at end of file
+2.	<source>:3:18: parsing struct/union/class body 'allocator'
+3.	<source>:5:23: parsing function body 'allocator::vector::~vector<type-parameter-1-0>'
+ #0 0x0000000004281028 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x4281028)
+ #1 0x000000000427dee4 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #2 0x000076de87645330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #3 0x000076de8769eb2c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9eb2c)
+ #4 0x000076de8764527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #5 0x000076de876288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #6 0x000076de8762881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #7 0x000076de8763b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #8 0x0000000004554c76 clang::CXXRecordDecl::data() const (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x4554c76)
+ #9 0x0000000007b35db8 clang::CXXRecordDecl::hasConstexprDestructor() const (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x7b35db8)
+#10 0x0000000006e11bf6 clang::Sema::CheckConstexprFunctionDefinition(clang::FunctionDecl const*, clang::Sema::CheckConstexprKind) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x6e11bf6)
+#11 0x0000000006d96f8b clang::Sema::ActOnFinishFunctionBody(clang::Decl*, clang::Stmt*, bool, bool) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x6d96f8b)
+#12 0x0000000006ab44d4 clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x6ab44d4)
+#13 0x00000000069c93a0 clang::Parser::ParseLexedMethodDef(clang::Parser::LexedMethod&) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x69c93a0)
+#14 0x00000000069c8eed clang::Parser::LateParsedClass::ParseLexedMethodDefs() (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x69c8eed)
+#15 0x00000000069c908d clang::Parser::ParseLexedMethodDefs(clang::Parser::ParsingClass&) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x69c908d)
+#16 0x0000000006a1d026 clang::Parser::ParseCXXMemberSpecification(clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributes&, unsigned int, clang::Decl*) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x6a1d026)
+#17 0x0000000006a1f6a0 clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x6a1f6a0)
+#18 0x00000000069f297e clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::Parser::LateParsedAttrList*, clang::ImplicitTypenameContext) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x69f297e)
+#19 0x0000000006ac0391 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x6ac0391)
+#20 0x0000000006acd8d9 clang::Parser::ParseTemplateDeclarationOrSpecialization(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) (.part.0) ParseTemplate.cpp:0:0
+#21 0x0000000006acdcea clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x6acdcea)
+#22 0x00000000069f96d0 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x69f96d0)
+#23 0x00000000069b611c clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x69b611c)
+#24 0x00000000069b7005 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x69b7005)
+#25 0x000000000699808a clang::ParseAST(clang::Sema&, bool, bool) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x699808a)
+#26 0x0000000004be6888 clang::CodeGenAction::ExecuteAction() (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x4be6888)
+#27 0x0000000004edfeb5 clang::FrontendAction::Execute() (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x4edfeb5)
+#28 0x0000000004e5fc8e clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x4e5fc8e)
+#29 0x0000000004fda60d clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0x4fda60d)
+#30 0x0000000000dcffde cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0xdcffde)
+#31 0x0000000000dc69ca ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#32 0x0000000000dcadd8 clang_main(int, char**, llvm::ToolContext const&) (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0xdcadd8)
+#33 0x0000000000c89a84 main (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0xc89a84)
+#34 0x000076de8762a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#35 0x000076de8762a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#36 0x0000000000dc6465 _start (/cefs/26/26ccf7a2fd1f9d4667de2307_consolidated/compilers_c++_clang_assertions-22.1.0/bin/clang-22+0xdc6465)
+clang++: error: unable to execute command: Aborted (core dumped)
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)

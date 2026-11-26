@@ -1,0 +1,36 @@
+HloModule pjit__unnamed_wrapped_function_, allow_spmd_sharding_propagation_to_parameters={false,false,false,false}, num_partitions=4
+
+ENTRY %main {
+  %lhs = f8e4m3fn[2,16,48]{2,1,0} parameter(0), sharding={devices=[1,4,1]<=[4]}
+  %rhs = f8e4m3fn[48,192]{1,0} parameter(1), sharding={devices=[1,4]<=[4]}
+  %scale_lhs = bf16[] parameter(2)
+  %scale_rhs = bf16[] parameter(3)
+  %scale_lhs_bcast = bf16[2,16,48]{2,1,0} broadcast(scale_lhs), dimensions={}
+  %scale_rhs_bcast = bf16[48,192]{1,0} broadcast(scale_rhs), dimensions={}
+  %lhs_bf16 = bf16[2,16,48]{2,1,0} convert(lhs)
+  %rhs_bf16 = bf16[48,192]{1,0} convert(rhs)
+  %lhs_scaled = bf16[2,16,48]{2,1,0} multiply(scale_lhs_bcast, lhs_bf16)
+  %x = f32[2,3] parameter(4)
+  %y = f32[3,4] parameter(5)
+  %dot.d = f32[2,4] dot(%x, %y), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %neg = f32[2,4] negate(%dot.d)
+  %exp = f32[2,4] exponential(%neg)
+  %one = f32[] constant(1)
+  %one_bcast = f32[2,4] broadcast(%one), dimensions={}
+  %denom = f32[2,4] add(%one_bcast, %exp)
+  %sigmoid = f32[2,4] divide(%one_bcast, %denom)
+  %swish = f32[2,4] multiply(%dot.d, %sigmoid)
+  %scale_lhs_bcast.d = bf16[2,16,48]{2,1,0} broadcast(%scale_rhs), dimensions={}
+  %scale_rhs_bcast.d = bf16[48,192]{1,0} broadcast(%scale_lhs), dimensions={}
+  %lhs_bf16.d = bf16[2,16,48]{2,1,0} convert(%lhs)
+  %rhs_bf16.d = bf16[48,192]{1,0} convert(%rhs)
+  %lhs_scaled.d = bf16[2,16,48]{2,1,0} multiply(%scale_lhs_bcast.d, %lhs_bf16.d)
+  %rhs_scaled.d = bf16[48,192]{1,0} multiply(%scale_rhs_bcast.d, %rhs_bf16.d)
+  %dot.d.d = bf16[2,16,192]{2,1,0} dot(%lhs_scaled.d, %rhs_scaled.d), lhs_contracting_dims={2}, rhs_contracting_dims={0}
+  %custom-call.d = bf16[2,16,192]{2,1,0} custom-call(%denom), custom_call_target="Sharding", sharding={devices=[1,1,4]<=[4]}
+  %ffl.root = (f32[2,4], bf16[2,16,192]{2,1,0}) tuple(%swish, %custom-call.d)
+  %rhs_scaled = bf16[48,192]{1,0} multiply(scale_rhs_bcast, rhs_bf16)
+  %dot = bf16[2,16,192]{2,1,0} dot(lhs_scaled, rhs_scaled), lhs_contracting_dims={2}, rhs_contracting_dims={0}
+  %custom-call = bf16[2,16,192]{2,1,0} custom-call(dot), custom_call_target="Sharding", sharding={devices=[1,1,4]<=[4]}
+  ROOT %ffl.root.1 = (bf16[2,16,192]{2,1,0}, f32[2,4], bf16[2,16,192]{2,1,0}) tuple(%custom-call, %swish, %custom-call.d)
+}

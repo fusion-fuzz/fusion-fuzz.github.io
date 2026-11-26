@@ -1,0 +1,70 @@
+[... 14 lines omitted ...]
+   |      ^^^
+
+warning: function `main_4057b072` is never used
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpu6roro4j/ae34268c.rs:55:4
+   |
+55 | fn main_4057b072() {
+   |    ^^^^^^^^^^^^^
+
+warning: 11 warnings emitted
+
+note: no errors encountered even though delayed bugs were created
+
+note: those delayed bugs will now be shown as internal compiler errors
+
+error: internal compiler error: encountered regular consts in the old solver's const normalization
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpu6roro4j/ae34268c.rs:31:5
+   |
+31 |     const ASSOC: usize = 32;
+   |     ^^^^^^^^^^^^^^^^^^
+   |
+note: delayed at compiler/rustc_trait_selection/src/traits/project.rs:513:27
+         0: <rustc_errors::DiagCtxtInner>::emit_diagnostic
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1248:41
+         1: <rustc_errors::DiagCtxtHandle>::emit_diagnostic
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:867:37
+         2: <rustc_errors::diagnostic::Diag>::emit_err
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1213:29
+         3: <rustc_errors::DiagCtxtHandle>::span_delayed_bug::<rustc_span::span_encoding::Span, &str>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1085:63
+         4: rustc_trait_selection::traits::project::const_of_item_or_delayed_bug::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/project.rs:513:27
+         5: <core::option::Option<rustc_type_ir::binder::EarlyBinder<rustc_middle::ty::context::TyCtxt, rustc_type_ir::sty::consts::Const<rustc_middle::ty::context::TyCtxt>>>>::unwrap_or_else::<rustc_trait_selection::traits::project::const_of_item_or_delayed_bug::{closure#0}>
+                   at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/option.rs:1065:21
+         6: rustc_trait_selection::traits::project::const_of_item_or_delayed_bug
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/project.rs:512:31
+         7: rustc_trait_selection::traits::project::confirm_impl_candidate
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/project.rs:2131:13
+         8: rustc_trait_selection::traits::project::confirm_select_candidate
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/project.rs:1339:42
+         9: rustc_trait_selection::traits::project::confirm_candidate
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/project.rs:1314:13
+        10: rustc_trait_selection::traits::project::project
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/project.rs:773:13
+        11: rustc_trait_selection::traits::project::opt_normalize_projection_term
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/project.rs:377:11
+        12: rustc_trait_selection::traits::project::normalize_projection_term
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/project.rs:269:5
+        13: rustc_traits::normalize_projection_ty::normalize_canonicalized_projection::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_traits/src/normalize_projection_ty.rs:54:35
+        14: <rustc_infer::infer::InferCtxtBuilder as rustc_trait_selection::infer::InferCtxtBuilderExt>::enter_canonical_trait_query::<rustc_middle::ty::ParamEnvAnd<rustc_type_ir::ty::alias::Alias<rustc_middle::ty::context::TyCtxt, rustc_type_ir::term_kind::AliasTermKind<rustc_middle::ty::context::TyCtxt>>>, rustc_middle::traits::query::NormalizationResult, rustc_traits::normalize_projection_ty::normalize_canonicalized_projection::{closure#0}>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/infer.rs:178:21
+        15: rustc_traits::normalize_projection_ty::normalize_canonicalized_projection
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_traits/src/normalize_projection_ty.rs:47:22
+        16: rustc_query_impl::query_vtables::normalize_canonicalized_projection::invoke_provider_fn::__rust_begin_short_backtrace
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/query_vtables.rs:130:46
+        17: rustc_query_impl::execution::execute_job_non_incr::<rustc_middle::query::caches::DefaultCache<rustc_type_ir::canonical::CanonicalQueryInput<rustc_middle::ty::context::TyCtxt, rustc_middle::ty::ParamEnvAnd<rustc_type_ir::ty::alias::Alias<rustc_middle::ty::context::TyCtxt, rustc_type_ir::term_kind::AliasTermKind<rustc_middle::ty::context::TyCtxt>>>>, rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:452:59
+        18: rustc_middle::ty::context::tls::enter_context::<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefaultCache<rustc_type_ir::canonical::CanonicalQueryInput<rustc_middle::ty::context::TyCtxt, rustc_middle::ty::ParamEnvAnd<rustc_type_ir::ty::alias::Alias<rustc_middle::ty::context::TyCtxt, rustc_type_ir::term_kind::AliasTermKind<rustc_middle::ty::context::TyCtxt>>>>, rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:56:9
+        19: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::try_with::<rustc_middle::ty::context::tls::enter_context<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefaultCache<rustc_type_ir::canonical::CanonicalQueryInput<rustc_middle::ty::context::TyCtxt, rustc_middle::ty::ParamEnvAnd<rustc_type_ir::ty::alias::Alias<rustc_middle::ty::context::TyCtxt, rustc_type_ir::term_kind::AliasTermKind<rustc_middle::ty::context::TyCtxt>>>>, rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>
+                   at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/thread/local.rs:464:12
+        20: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::with::<rustc_middle::ty::context::tls::enter_context<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefaultCache<rustc_type_ir::canonical::CanonicalQueryInput<rustc_middle::ty::context::TyCtxt, rustc_middle::ty::ParamEnvAnd<rustc_type_ir::ty::alias::Alias<rustc_middle::ty::context::TyCtxt, rustc_type_ir::term_kind::AliasTermKind<rustc_middle::ty::context::TyCtxt>>>>, rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>
+                   at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/thread/local.rs:428:20
+        21: rustc_middle::ty::context::tls::enter_context::<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefaultCache<rustc_type_ir::canonical::CanonicalQueryInput<rustc_middle::ty::context::TyCtxt, rustc_middle::ty::ParamEnvAnd<rustc_type_ir::ty::alias::Alias<rustc_middle::ty::context::TyCtxt, rustc_type_ir::term_kind::AliasTermKind<rustc_middle::ty::context::TyCtxt>>>>, rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:53:9
+        22: rustc_query_impl::execution::start_query::<rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefaultCache<rustc_type_ir::canonical::CanonicalQueryInput<rustc_middle::ty::context::TyCtxt, rustc_middle::ty::ParamEnvAnd<rustc_type_ir::ty::alias::Alias<rustc_middle::ty::context::TyCtxt, rustc_type_ir::term_kind::AliasTermKind<rustc_middle::ty::context::TyCtxt>>>>, rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:436:9
+        23: rustc_middle::ty::context::tls::with_context::<rustc_query_i
+[... truncated ...]

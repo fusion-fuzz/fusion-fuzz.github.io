@@ -1,0 +1,14 @@
+HloModule TestModule
+
+ENTRY %Test {
+  %lhs = f32[3,3,7,7] parameter(0)
+  %rhs = f32[5,11,11,7] parameter(1)
+  %convolution = f32[5,11,4,7] convolution(lhs, rhs), window={size=11x11 pad=3_25x3_6 lhs_dilate=1x2 rhs_dilate=2x1}, dim_labels=01bf_o01i->f01b
+  %param = f32[8,128]{1,0} parameter(2), sharding={unreduced}
+  %lhs.d = f32[3,3,7,7] parameter(3)
+  %rhs.d = f32[5,11,11,7] parameter(4)
+  %convolution.d = f32[5,11,4,7] convolution(%lhs.d, %lhs), window={size=11x11 pad=3_25x3_6 lhs_dilate=1x2 rhs_dilate=2x1}, dim_labels=01bf_o01i->f01b
+  %cc = f32[8,128]{0,1} custom-call(%param), custom_call_target="LayoutConstraint", operand_layout_constraints={f32[8,128]{0,1}}, sharding={devices=[2,1]0,1}
+  %ffl.root = (f32[8,128]{0,1}, f32[5,11,4,7]) tuple(%cc, %convolution.d)
+  ROOT %ffl.root.1 = (f32[5,11,4,7], f32[8,128]{0,1}, f32[5,11,4,7]) tuple(%convolution, %cc, %convolution.d)
+}

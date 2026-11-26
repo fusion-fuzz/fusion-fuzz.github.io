@@ -1,0 +1,21 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/haskell/tmpy5uyculq/5c35e3e3.hs:16:51: error: [GHC-83865]
+    • Couldn't match expected type: Char -> Char
+                  with actual type: IO ()
+    • The function ‘fflMain_db31a5e3’
+      is applied to one visible argument,
+        but its type ‘IO ()’ has none
+      In the expression: fflMain_db31a5e3 b
+      In an equation for ‘sanitize’:
+          sanitize a b
+            | not (isLetter a) && a /= '\'' && isLetter b = fflMain_db31a5e3 b
+            | isLower a && isUpper b = b
+            | otherwise = ' '
+   |
+16 |   | not (isLetter a) && a /= '\'' && isLetter b = fflMain_db31a5e3 b
+   |                                                   ^^^^^^^^^^^^^^^^^^
+
+ghc-9.14.1: internal error: evacuate: stack frame at 0x4200e80238
+
+    (GHC version 9.14.1 for x86_64_unknown_linux)
+    Please report this as a GHC bug:  https://www.haskell.org/ghc/reportabug
+Aborted (core dumped)

@@ -1,0 +1,69 @@
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/CodeGen/SelectionDAG/LegalizeDAG.cpp:1356: void {anonymous}::SelectionDAGLegalize::LegalizeOp(llvm::SDNode*): Assertion `(Res.getValueType() == Node->getValueType(0) || Node->getValueType(0) == MVT::Glue) && "Type mismatch for custom legalized operation"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O2 -fblocks -target powerpc64-lv2 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpqp4za_8i/01a84f6d.cpp
+1.	<eof> parser at end of file
+2.	Code generation
+3.	Running pass 'Function Pass Manager' on module '/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpqp4za_8i/01a84f6d.cpp'.
+4.	Running pass 'PowerPC DAG->DAG Pattern Instruction Selection' on function '@_Z14test_all_sizesv'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005e422b0df329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005e422b0dbfec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005e422b0dc8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005e422b01e218
+4  libc.so.6 0x00007f8a7291f520
+5  libc.so.6 0x00007f8a729739bc pthread_kill + 300
+6  libc.so.6 0x00007f8a7291f476 raise + 22
+7  libc.so.6 0x00007f8a729057f3 abort + 211
+8  libc.so.6 0x00007f8a7290571b
+9  libc.so.6 0x00007f8a72916e96
+10 clang++   0x00005e422c7382f8
+11 clang++   0x00005e422c748fa1 llvm::SelectionDAG::Legalize() + 833
+12 clang++   0x00005e422c8508af llvm::SelectionDAGISel::CodeGenAndEmitDAG() + 2703
+13 clang++   0x00005e422c853d9b llvm::SelectionDAGISel::SelectAllBasicBlocks(llvm::Function const&) + 2347
+14 clang++   0x00005e422c8557f3 llvm::SelectionDAGISel::runOnMachineFunction(llvm::MachineFunction&) + 259
+15 clang++   0x00005e4229ea6afb
+16 clang++   0x00005e422c83e168 llvm::SelectionDAGISelLegacy::runOnMachineFunction(llvm::MachineFunction&) + 168
+17 clang++   0x00005e422a4062ec
+18 clang++   0x00005e422aabf2e5 llvm::FPPassManager::runOnFunction(llvm::Function&) + 1397
+19 clang++   0x00005e422aabf8c9 llvm::FPPassManager::runOnModule(llvm::Module&) + 57
+20 clang++   0x00005e422aac02b2
+21 clang++   0x00005e422aac09eb llvm::legacy::PassManagerImpl::run(llvm::Module&) + 219
+22 clang++   0x00005e422b50215f
+23 clang++   0x00005e422b516ecf
+24 clang++   0x00005e422b5172f3 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::StringRef, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 483
+25 clang++   0x00005e422bc063ca clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 1866
+26 clang++   0x00005e422d8d584c clang::ParseAST(clang::Sema&, bool, bool) + 1068
+27 clang++   0x00005e422bf76061 clang::FrontendAction::Execute() + 65
+28 clang++   0x00005e422beffe65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+29 clang++   0x00005e422c04dde3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+30 clang++   0x00005e4228ea933e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+31 clang++   0x00005e4228e9f13a
+32 clang++   0x00005e4228e9f2cf
+33 clang++   0x00005e422bc84cfd
+34 clang++   0x00005e422b01e630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+35 clang++   0x00005e422bc85b53
+36 clang++   0x00005e422bc3a607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+37 clang++   0x00005e422bc3eef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+38 clang++   0x00005e422bc4d004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+39 clang++   0x00005e4228ea4923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+40 clang++   0x00005e4228de07f1 main + 113
+41 libc.so.6 0x00007f8a72906d90
+42 libc.so.6 0x00007f8a72906e40 __libc_start_main + 128
+43 clang++   0x00005e4228e9e765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: powerpc64-unknown-lv2
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/01a84f6d-c2b537.cpp
+clang++: note: diagnostic msg: /tmp/01a84f6d-c2b537.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

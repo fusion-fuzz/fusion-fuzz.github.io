@@ -1,0 +1,90 @@
+swift-frontend: /home/build-user/swift/lib/Sema/DerivedConformance/DerivedConformanceDifferentiable.cpp:120: Type getTangentVectorInterfaceType(Type, DeclContext *): Assertion `conf && "Contextual type must conform to `Differentiable`"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-silgen -Onone -sil-verify-all -strict-concurrency=complete /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpe71yy0aj/0ff6dd3a.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpe71yy0aj/0ff6dd3a.swift")
+4.	While type-checking extension of F_b5cda78 (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpe71yy0aj/0ff6dd3a.swift:308:1)
+5.	While type-checking protocol conformance F_b5cda78<I, D>: Differentiable at extension of F_b5cda78 (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpe71yy0aj/0ff6dd3a.swift:308:1)
+6.	While evaluating request ResolveValueWitnessesRequest(<I, D where I : SProtocol_b5cda78, D : ZProtocol_b5cda78, D.TangentVector == _> F_b5cda78<I, D>: Differentiable module main)
+ #0 0x000055e614acabab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055e614ac82e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055e614acb8c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f23e1a43330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f23e1a9cc0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f23e1a4327e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f23e1a268ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007f23e1a2681b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007f23e1a39517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x000055e60e604eb2 getTangentVectorInterfaceType(swift::Type, swift::DeclContext*) DerivedConformanceDifferentiable.cpp:0:0
+#10 0x000055e60e603226 swift::DerivedConformance::deriveDifferentiable(swift::ValueDecl*) (/usr/bin/swift-frontend+0x2750226)
+#11 0x000055e60e450907 swift::ConformanceChecker::resolveWitnessViaDerivation(swift::ValueDecl*) (/usr/bin/swift-frontend+0x259d907)
+#12 0x000055e60e450b6f swift::ConformanceChecker::resolveWitnessTryingAllStrategies(swift::ValueDecl*) (/usr/bin/swift-frontend+0x259db6f)
+#13 0x000055e60e45163b swift::ConformanceChecker::resolveValueWitnesses() (/usr/bin/swift-frontend+0x259e63b)
+#14 0x000055e60e45212e swift::ResolveValueWitnessesRequest::evaluate(swift::Evaluator&, swift::NormalProtocolConformance*) const (/usr/bin/swift-frontend+0x259f12e)
+#15 0x000055e60ed01a01 swift::ResolveValueWitnessesRequest::OutputType swift::Evaluator::getResultUncached<swift::ResolveValueWitnessesRequest, swift::ResolveValueWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveValueWitnessesRequest>(swift::Evaluator&, swift::ResolveValueWitnessesRequest, swift::ResolveValueWitnessesRequest::OutputType)::'lambda'()>(swift::ResolveValueWitnessesRequest const&, swift::ResolveValueWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveValueWitnessesRequest>(swift::Evaluator&, swift::ResolveValueWitnessesRequest, swift::ResolveValueWitnessesRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#16 0x000055e60ed01838 swift::ResolveValueWitnessesRequest::OutputType swift::Evaluator::getResultCached<swift::ResolveValueWitnessesRequest, swift::ResolveValueWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveValueWitnessesRequest>(swift::Evaluator&, swift::ResolveValueWitnessesRequest, swift::ResolveValueWitnessesRequest::OutputType)::'lambda'(), (void*)0>(swift::ResolveValueWitnessesRequest const&, swift::ResolveValueWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveValueWitnessesRequest>(swift::Evaluator&, swift::ResolveValueWitnessesRequest, swift::ResolveValueWitnessesRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#17 0x000055e60ecf8233 swift::NormalProtocolConformance::resolveValueWitnesses() const (/usr/bin/swift-frontend+0x2e45233)
+#18 0x000055e60e460397 (anonymous namespace)::MultiConformanceChecker::checkIndividualConformance(swift::NormalProtocolConformance*) TypeCheckProtocol.cpp:0:0
+#19 0x000055e60e454ebc swift::TypeChecker::checkConformancesInContext(swift::IterableDeclContext*) (/usr/bin/swift-frontend+0x25a1ebc)
+#20 0x000055e60e3d162c (anonymous namespace)::DeclChecker::visitExtensionDecl(swift::ExtensionDecl*) TypeCheckDeclPrimary.cpp:0:0
+#21 0x000055e60e3c6e44 (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#22 0x000055e60e3c6172 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x2513172)
+#23 0x000055e60e502e15 swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x264fe15)
+#24 0x000055e60e5073a4 swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#25 0x000055e60e502d45 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x264fd45)
+#26 0x000055e60cd35639 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_0>(long, swift::SourceFile&) Frontend.cpp:0:0
+#27 0x000055e60cd2935e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xe7635e)
+#28 0x000055e60cd290eb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xe760eb)
+#29 0x000055e60cba651e withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#30 0x000055e60cb920cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#31 0x000055e60cb8efef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcdbfef)
+#32 0x000055e60c85e24b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9ab24b)
+#33 0x00007f23e1a281ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#34 0x00007f23e1a2828b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#35 0x000055e60c85d2a5 _start (/usr/bin/swift-frontend+0x9aa2a5)
+
+*** Signal 6: Backtracing from 0x7f23e1b2538d... done ***
+
+*** Program crashed: Aborted at 0x00007f23e1b2538d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007f23e1b2538d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007f23e1b2538d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x00000000000dfb3b  916283
+rdi 0x00000000000dfb3b  916283
+rbp 0x00000000000dfb3b  916283
+rsp 0x000055e61a0344e8  eb b8 ac 14 e6 55 00 00 70 47 03 1a e6 55 00 00  ë¸¬·æU··pG··æU··
+ r8 0x000055e61a034770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x000055e61a034770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x000055e61a034770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x000055e61689796e  2f 68 6f 6d 65 2f 62 75 69 6c 64 2d 75 73 65 72  /home/build-user
+r14 0x0000000000000000  0
+r15 0x000055e61a034588  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007f23e1b2538d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (32 omitted):
+
+0x00007f23e19fe000–0x00007f23e1badeb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

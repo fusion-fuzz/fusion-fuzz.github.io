@@ -1,0 +1,101 @@
+[... 4 lines omitted ...]
+note: for a trait to be dyn compatible it needs to allow building a vtable
+      for more information, visit <https://doc.rust-lang.org/reference/items/traits.html#dyn-compatibility>
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp28hy77rs/79bbcacd.rs:122:11
+    |
+121 | trait Trait_b88f8db37 {
+    |       --------------- this trait is not dyn compatible...
+122 |     const ASSOC<const N: usize>: usize;
+    |           ^^^^^ ...because it contains generic associated const `ASSOC`
+    = help: consider moving `ASSOC` to another trait
+
+error[E0284]: type annotations needed for `[String; _]`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp28hy77rs/79bbcacd.rs:84:9
+   |
+84 |     let a = [const { String::new() }; _];
+   |         ^   ---------------------------- type must be known at this point
+   |
+   = note: the length of array `[String; _]` must be type `usize`
+help: consider giving `a` an explicit type, where the placeholders `_` are specified
+   |
+84 |     let a: [_; _] = [const { String::new() }; _];
+   |          ++++++++
+
+error: internal compiler error: compiler/rustc_const_eval/src/const_eval/valtrees.rs:479:14: shouldn't have created a ValTree for pattern_type!(*const u8 is !null)
+
+
+thread 'rustc' (1543191) panicked at compiler/rustc_const_eval/src/const_eval/valtrees.rs:479:14:
+Box<dyn Any>
+stack backtrace:
+   0: std::panicking::begin_panic::<rustc_errors::ExplicitBug>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:751:5
+   1: std::panic::panic_any::<rustc_errors::ExplicitBug>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panic.rs:260:5
+   2: <rustc_errors::diagnostic::BugAbort as rustc_errors::diagnostic::EmissionGuarantee>::emit_producing_guarantee
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:59:9
+   3: <rustc_errors::diagnostic::Diag<rustc_errors::diagnostic::BugAbort>>::emit
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1316:9
+   4: <rustc_errors::DiagCtxtHandle>::bug::<alloc::string::String>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:966:30
+   5: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:39:48
+   6: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:109:23
+   7: rustc_middle::ty::context::tls::with_context_opt::<rustc_middle::ty::context::tls::with_opt<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}, !>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:75:18
+   8: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:107:5
+   9: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:33:5
+  10: rustc_middle::util::bug::bug_fmt
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:16:5
+  11: rustc_const_eval::const_eval::valtrees::valtree_into_mplace
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/valtrees.rs:479:14
+  12: rustc_const_eval::const_eval::valtrees::valtree_into_mplace
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/valtrees.rs:464:17
+  13: rustc_const_eval::const_eval::valtrees::valtree_into_mplace
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/valtrees.rs:464:17
+  14: rustc_const_eval::const_eval::valtrees::valtree_into_mplace
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/valtrees.rs:464:17
+  15: rustc_const_eval::const_eval::valtrees::valtree_into_mplace
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/valtrees.rs:464:17
+  16: rustc_const_eval::const_eval::valtrees::valtree_into_mplace
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/valtrees.rs:464:17
+  17: rustc_const_eval::const_eval::valtrees::valtree_into_mplace
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/valtrees.rs:464:17
+  18: rustc_const_eval::const_eval::valtrees::valtree_to_const_value::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/valtrees.rs:358:13
+  19: rustc_const_eval::const_eval::valtrees::valtree_to_const_value
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/valtrees.rs:294:1
+  20: rustc_const_eval::provide::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/lib.rs:58:19
+  21: <rustc_const_eval::provide::{closure#1} as core::ops::function::FnOnce<(rustc_middle::ty::context::TyCtxt, rustc_middle::ty::consts::valtree::Value)>>::call_once
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/ops/function.rs:250:5
+      [... omitted 13 frames ...]
+  22: rustc_middle::query::calls::query_get_at::<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::consts::valtree::Value, rustc_middle::query::erase::ErasedData<[u8; 24]>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:154:17
+  23: <rustc_middle::query::calls::TyCtxtAt>::valtree_to_const_val
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:287:61
+  24: <rustc_middle::ty::context::TyCtxt>::valtree_to_const_val
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:277:39
+  25: <rustc_middle::mir::consts::Const>::eval
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/consts.rs:334:52
+  26: <rustc_const_eval::interpret::eval_context::InterpCx<rustc_const_eval::const_eval::dummy_machine::DummyMachine>>::eval_mir_constant
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/eval_context.rs:604:29
+  27: <rustc_mir_transform::known_panics_lint::ConstPropagator>::eval_constant::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:270:38
+  28: <rustc_mir_transform::known_panics_lint::ConstPropagator>::use_ecx::<<rustc_mir_transform::known_panics_lint::ConstPropagator>::eval_constant::{closure#0}, rustc_const_eval::interpret::operand::OpTy>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:237:9
+  29: <rustc_mir_transform::known_panics_lint::ConstPropagator>::eval_constant
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:270:14
+  30: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::visit_const_operand
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:687:14
+  31: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::super_rvalue
+  32: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::visit_rvalue
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/visit.rs:144:22
+  33: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::super_assign
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/visit.rs:513:22
+  34: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::visit_assign
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:691:14
+  35: <rustc_mir_transfo
+[... truncated ...]

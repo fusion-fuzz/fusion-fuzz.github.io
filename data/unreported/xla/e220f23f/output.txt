@@ -1,0 +1,15 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791953450.299200 1183139 hlo_element_type_converter.cc:77] Check failed: !subshape.IsTuple() 
+*** Check failure stack trace: ***
+    @     0x57f0d3e95a84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x57f0d3e95a06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x57f0ca9999f8  xla::HloElementTypeConverter::RunImpl()
+    @     0x57f0d3019007  xla::HloPassInterface::Run()
+    @     0x57f0d284fa3c  xla::HloPassPipeline::RunHelper<>()
+    @     0x57f0d284ae4d  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x57f0d284a265  xla::HloPassPipeline::RunImpl()
+    @     0x57f0d3019007  xla::HloPassInterface::Run()
+    @     0x57f0ca8a7d9d  xla::OptProvider::BuildAndRunTransformPipeline()
+    @     0x57f0d3edbaf8  main
+    @     0x7d4f71944d90  (unknown)
+Aborted (core dumped)

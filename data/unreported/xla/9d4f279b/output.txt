@@ -1,0 +1,23 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791801700.338455  459520 hlo_casting_utils.h:55] Check failed: T::ClassOf(instr) HloInstruction 'barrier1' is of type 'N3xla14HloInstructionE' and cannot be downcasted to 'N3xla19HloAsyncInstructionE.'
+*** Check failure stack trace: ***
+    @     0x62277353da84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x62277353da06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x62276a273a7a  xla::cast_internal::CastImpl<>()
+    @     0x62276a2663b4  xla::CopyInsertion::AddCopiesToResolveInterference()
+    @     0x62276a26dedf  xla::CopyInsertion::RunImpl()
+    @     0x6227726c1007  xla::HloPassInterface::Run()
+    @     0x622771ef7a3c  xla::HloPassPipeline::RunHelper<>()
+    @     0x622771ef2e4d  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x622771ef2265  xla::HloPassPipeline::RunImpl()
+    @     0x6227726c1007  xla::HloPassInterface::Run()
+    @     0x62276a058a86  xla::cpu::CpuCompiler::RunHloPassesAfterLayoutAssn()
+    @     0x62276a0593a5  xla::cpu::CpuCompiler::RunHloPasses()
+    @     0x62276a059ff7  xla::cpu::CpuCompiler::RunHloPasses()
+    @     0x622769ee8144  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x622769ee8725  xla::CompiledOptProvider::GetExecutable()
+    @     0x622769ee7a55  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x622769ecf09e  xla::(anonymous namespace)::CpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x622773583bc6  main
+    @     0x770e0d9a4d90  (unknown)
+Aborted (core dumped)

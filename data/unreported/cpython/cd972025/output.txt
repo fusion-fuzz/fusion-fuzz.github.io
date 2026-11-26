@@ -1,0 +1,26 @@
+../Python/sysmodule.c:1323:31: runtime error: inf is outside the range of representable values of type 'unsigned long'
+    #0 0x63432949a3a4 in sys_setswitchinterval_impl /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/sysmodule.c:1323:31
+    #1 0x63432949a3a4 in sys_setswitchinterval /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/clinic/sysmodule.c.h:526:20
+    #2 0x634328aef47a in cfunction_vectorcall_O /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Objects/methodobject.c:535:24
+    #3 0x634328933b75 in _PyObject_VectorcallTstate /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Include/internal/pycore_call.h:143:11
+    #4 0x634328e71fec in _Py_VectorCallInstrumentation_StackRefSteal /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/ceval.c:770:11
+    #5 0x634328ebaf62 in _PyEval_EvalFrameDefault /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/generated_cases.c.h:1906:35
+    #6 0x634328e70db1 in _PyEval_Vector /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/ceval.c:2176:12
+    #7 0x634328e70db1 in PyEval_EvalCode /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/ceval.c:681:21
+    #8 0x63432942a72a in run_eval_code_obj /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/pythonrun.c:1406:12
+    #9 0x634329429e4c in run_mod /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/pythonrun.c:1509:19
+    #10 0x634329424b4c in _PyRun_File /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/pythonrun.c:1332:15
+    #11 0x634329422e1f in _PyRun_SimpleFile /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/pythonrun.c:544:15
+    #12 0x634329422477 in _PyRun_AnyFile /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Python/pythonrun.c:92:18
+    #13 0x6343294f088f in pymain_run_file_obj /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Modules/main.c:478:24
+    #14 0x6343294f088f in pymain_run_file /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Modules/main.c:494:20
+    #15 0x6343294ef068 in pymain_run_python /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Modules/main.c:812:21
+    #16 0x6343294ef068 in Py_RunMain /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Modules/main.c:900:5
+    #17 0x6343294efd17 in pymain_main /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Modules/main.c:927:12
+    #18 0x6343294effaf in Py_BytesMain /home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/../Modules/main.c:951:12
+    #19 0x7f575bf0ad8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #20 0x7f575bf0ae3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #21 0x634328470324 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/cpython/cpython/build/python+0xa0d324) (BuildId: 0da8b9de55509ef86630cf64a1572c2fb63b1639)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior ../Python/sysmodule.c:1323:31 
+Aborted (core dumped)

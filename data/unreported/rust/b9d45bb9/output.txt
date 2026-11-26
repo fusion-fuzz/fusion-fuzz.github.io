@@ -1,0 +1,64 @@
+
+thread 'rustc' (2021943) panicked at compiler/rustc_data_structures/src/graph/dominators/mod.rs:384:17:
+node Time { start: 0, finish: 0 } is not reachable
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panicking.rs:80:14
+   2: <rustc_data_structures::graph::dominators::Dominators<rustc_middle::mir::BasicBlock>>::dominates
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/graph/dominators/mod.rs:384:17
+   3: <rustc_middle::mir::Location>::dominates
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/mod.rs:1642:24
+   4: <rustc_borrowck::MirBorrowckCtxt>::get_moved_indexes::{closure#3}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/diagnostics/conflict_errors.rs:3981:29
+   5: core::iter::traits::iterator::Iterator::for_each::call::<rustc_middle::mir::Location, <rustc_borrowck::MirBorrowckCtxt>::get_moved_indexes::{closure#3}>::{closure#0}
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/iter/traits/iterator.rs:884:29
+   6: core::iter::adapters::map::map_fold::<rustc_middle::mir::BasicBlock, rustc_middle::mir::Location, (), <rustc_borrowck::MirBorrowckCtxt>::get_moved_indexes::predecessor_locations::{closure#0}, core::iter::traits::iterator::Iterator::for_each::call<rustc_middle::mir::Location, <rustc_borrowck::MirBorrowckCtxt>::get_moved_indexes::{closure#3}>::{closure#0}>::{closure#0}
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/iter/adapters/map.rs:88:21
+   7: <alloc::vec::into_iter::IntoIter<rustc_middle::mir::BasicBlock> as core::iter::traits::iterator::Iterator>::fold::<(), core::iter::adapters::map::map_fold<rustc_middle::mir::BasicBlock, rustc_middle::mir::Location, (), <rustc_borrowck::MirBorrowckCtxt>::get_moved_indexes::predecessor_locations::{closure#0}, core::iter::traits::iterator::Iterator::for_each::call<rustc_middle::mir::Location, <rustc_borrowck::MirBorrowckCtxt>::get_moved_indexes::{closure#3}>::{closure#0}>::{closure#0}>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/alloc/src/vec/into_iter.rs:367:25
+   8: <core::iter::adapters::map::Map<alloc::vec::into_iter::IntoIter<rustc_middle::mir::BasicBlock>, <rustc_borrowck::MirBorrowckCtxt>::get_moved_indexes::predecessor_locations::{closure#0}> as core::iter::traits::iterator::Iterator>::fold::<(), core::iter::traits::iterator::Iterator::for_each::call<rustc_middle::mir::Location, <rustc_borrowck::MirBorrowckCtxt>::get_moved_indexes::{closure#3}>::{closure#0}>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/iter/adapters/map.rs:128:19
+   9: <rustc_borrowck::MirBorrowckCtxt>::get_moved_indexes
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/diagnostics/conflict_errors.rs:3980:56
+  10: <rustc_borrowck::MirBorrowckCtxt>::report_use_of_moved_or_uninitialized
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/diagnostics/conflict_errors.rs:91:67
+  11: <rustc_borrowck::MirBorrowckCtxt>::check_if_full_path_is_moved
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/lib.rs:2082:18
+  12: <rustc_borrowck::MirBorrowckCtxt>::check_if_path_or_subpath_is_moved
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/lib.rs:2164:14
+  13: <rustc_borrowck::MirBorrowckCtxt>::consume_rvalue
+  14: <rustc_borrowck::MirBorrowckCtxt as rustc_mir_dataflow::framework::visitor::ResultsVisitor<rustc_borrowck::dataflow::Borrowck>>::visit_after_early_statement_effect
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/lib.rs:824:22
+  15: <rustc_mir_dataflow::framework::direction::Forward as rustc_mir_dataflow::framework::direction::Direction>::visit_results_in_block::<rustc_borrowck::dataflow::Borrowck, rustc_borrowck::MirBorrowckCtxt>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_dataflow/src/framework/direction.rs:234:17
+  16: rustc_mir_dataflow::framework::visitor::visit_results::<rustc_borrowck::dataflow::Borrowck, core::iter::adapters::map::Map<core::iter::adapters::map::Map<core::slice::iter::Iter<rustc_middle::mir::BasicBlock>, rustc_middle::mir::traversal::reverse_postorder::{closure#0}>, rustc_borrowck::borrowck_check_region_constraints::{closure#1}>, rustc_borrowck::MirBorrowckCtxt>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_dataflow/src/framework/visitor.rs:26:9
+  17: rustc_borrowck::borrowck_check_region_constraints
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/lib.rs:549:5
+  18: <rustc_borrowck::root_cx::BorrowCheckRootCtxt>::apply_closure_requirements_modulo_opaques
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/root_cx.rs:229:30
+  19: <rustc_borrowck::root_cx::BorrowCheckRootCtxt>::do_mir_borrowck
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/root_cx.rs:293:14
+  20: rustc_borrowck::mir_borrowck
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/lib.rs:146:17
+      [... omitted 13 frames ...]
+  21: rustc_middle::query::calls::query_ensure_ok::<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:170:13
+  22: <rustc_middle::query::calls::TyCtxtEnsureOk>::mir_borrowck::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:302:21
+  23: rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1166:33
+  24: <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners::<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/hir/map.rs:378:79
+  25: rustc_data_structures::sync::parallel::par_for_each_in::<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:182:30
+  26: <core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panic/unwind_safe.rs:275:9
+  27: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>, ()>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:576:43
+  28: std::panicking::catch_unwind::<(), core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:544:19
+  29: std::panic::catch_unwind::<core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0
+[... truncated ...]

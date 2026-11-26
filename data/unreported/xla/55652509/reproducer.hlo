@@ -1,0 +1,90 @@
+HloModule test_module
+
+%reduce.add {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  ROOT %add = f32[] add(a, b)
+}
+
+%apply {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  ROOT %c = f32[] add(a, b)
+}
+
+%apply.d {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  ROOT %c = f32[] add(a, b)
+}
+
+ENTRY %entry_computation {
+  %constant1 = f32[] constant(1.1)
+  %b1 = f32[1024]{0} broadcast(constant1), dimensions={}
+  %iota.1 = f32[1024]{0} iota(), iota_dimension=0
+  %add.1 = f32[1024]{0} add(b1, iota.1)
+  %p0 = f32[1024]{0} parameter(0), sharding={devices=[4]0,1,2,3}
+  %custom-call.0 = f32[256]{0} custom-call(p0), custom_call_target="SPMDFullToShardShape", sharding={manual}
+  %constant0 = f32[] constant(0)
+  %reduce.1 = f32[] reduce(custom-call.0, constant0), dimensions={0}, to_apply=reduce.add
+  %b3 = f32[1024]{0} broadcast(reduce.1), dimensions={}
+  %add.2 = f32[1024]{0} add(add.1, b3)
+  %input.d = f32[2,4,6,8] parameter(4)
+  %input_square.d = f32[2,4,6,8] multiply(%input.d, %input.d)
+  %c0.d = f32[] constant(0)
+  %input_square_sum.d = f32[2,8] reduce(%input_square.d, %c0.d), dimensions={1,2}, to_apply=%apply.d
+  %r_nelems.d = f32[] constant(0.041667)
+  %r_nelems_bcast.d = f32[2,8] broadcast(%r_nelems.d), dimensions={}
+  %input_square_mean.d = f32[2,8] multiply(%input_square_sum.d, %r_nelems_bcast.d)
+  %reduce.d = f32[2,8] reduce(%input.d, %c0.d), dimensions={1,2}, to_apply=%apply.d
+  %input_mean.d = f32[2,8] multiply(%reduce.d, %r_nelems_bcast.d)
+  %input_mean_square.d = f32[2,8] multiply(%input_mean.d, %input_mean.d)
+  %variance.d = f32[2,8] subtract(%input_square_mean.d, %input_mean_square.d)
+  %epsilon.d = f32[] constant(0.001)
+  %epsilon_bcast.d = f32[2,8] broadcast(%epsilon.d), dimensions={}
+  %variance_plus_epsilon.d = f32[2,8] add(%variance.d, %epsilon_bcast.d)
+  %norm_factor.d = f32[2,8] rsqrt(%variance_plus_epsilon.d)
+  %norm_factor_bcast.d = f32[2,4,6,8] broadcast(%norm_factor.d), dimensions={0,3}
+  %input_mean_bcast.d = f32[2,4,6,8] broadcast(%input_mean.d), dimensions={0,3}
+  %input_center.d = f32[2,4,6,8] subtract(%input.d, %input_mean_bcast.d)
+  %norm.d = f32[2,4,6,8] multiply(%norm_factor_bcast.d, %input_center.d)
+  %scale.d = f32[4,6] parameter(5)
+  %scale_bcast.d = f32[2,4,6,8] broadcast(%scale.d), dimensions={1,2}
+  %norm_scale.d = f32[2,4,6,8] multiply(%norm.d, %scale_bcast.d)
+  %bias.d = f32[4,6] parameter(6)
+  %bias_broadcast.d = f32[2,4,6,8] broadcast(%bias.d), dimensions={1,2}
+  %out.d = f32[2,4,6,8] add(%norm_scale.d, %bias_broadcast.d)
+  %custom-call.1 = f32[4096]{0} custom-call(add.2), custom_call_target="SPMDShardToFullShape", sharding={devices=[4]0,1,2,3}
+  %reshape = f32[4,1024]{1,0} reshape(custom-call.1)
+  %reduce.2 = f32[1024]{0} reduce(reshape, constant0), dimensions={0}, to_apply=reduce.add
+  %iota.2 = f32[1024]{0} iota(), iota_dimension=0
+  %mul = f32[1024]{0} multiply(b1, iota.2)
+  %sub = f32[1024]{0} subtract(reduce.2, mul), sharding={devices=[4]0,1,2,3}
+  %input = f32[2,4,6,8] parameter(1)
+  %input_square = f32[2,4,6,8] multiply(%input, %input)
+  %c0 = f32[] constant(0)
+  %input_square_sum = f32[2,8] reduce(%input_square, %c0), dimensions={1,2}, to_apply=%apply
+  %r_nelems = f32[] constant(0.041667)
+  %r_nelems_bcast = f32[2,8] broadcast(%reduce.1), dimensions={}
+  %input_square_mean = f32[2,8] multiply(%input_square_sum, %r_nelems_bcast)
+  %reduce = f32[2,8] reduce(%input, %c0), dimensions={1,2}, to_apply=%apply
+  %input_mean = f32[2,8] multiply(%reduce, %r_nelems_bcast)
+  %input_mean_square = f32[2,8] multiply(%input_mean, %input_mean)
+  %variance = f32[2,8] subtract(%input_square_mean, %input_mean_square)
+  %epsilon = f32[] constant(0.001)
+  %epsilon_bcast = f32[2,8] broadcast(%epsilon), dimensions={}
+  %variance_plus_epsilon = f32[2,8] add(%variance, %epsilon_bcast)
+  %norm_factor = f32[2,8] rsqrt(%variance_plus_epsilon)
+  %norm_factor_bcast = f32[2,4,6,8] broadcast(%norm_factor), dimensions={0,3}
+  %input_mean_bcast = f32[2,4,6,8] broadcast(%input_mean), dimensions={0,3}
+  %input_center = f32[2,4,6,8] subtract(%input, %input_mean_bcast)
+  %norm = f32[2,4,6,8] multiply(%norm_factor_bcast, %input_center)
+  %scale = f32[4,6] parameter(2)
+  %scale_bcast = f32[2,4,6,8] broadcast(%scale), dimensions={1,2}
+  %norm_scale = f32[2,4,6,8] multiply(%norm, %scale_bcast)
+  %bias = f32[4,6] parameter(3)
+  %bias_broadcast = f32[2,4,6,8] broadcast(%bias), dimensions={1,2}
+  %out = f32[2,4,6,8] add(%norm_scale, %bias_broadcast)
+  %ffl.root = (f32[1024]{0}, f32[2,4,6,8]) tuple(%sub, %out)
+  ROOT %ffl.root.1 = (f32[1024]{0}, f32[2,4,6,8], f32[2,4,6,8]) tuple(%sub, %out, %out.d)
+}

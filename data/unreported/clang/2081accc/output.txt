@@ -1,0 +1,70 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkrsqw8l2/332c5eed.mm:9:20: warning: cannot find protocol definition for 'MadeUpProtocol'
+    9 | @interface Object <MadeUpProtocol> @end
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkrsqw8l2/332c5eed.mm:7:11: note: protocol 'MadeUpProtocol' has no definition
+    7 | @protocol MadeUpProtocol;
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkrsqw8l2/332c5eed.mm:9:12: warning: class 'Object' defined without specifying a base class [-Wobjc-root-class]
+    9 | @interface Object <MadeUpProtocol> @end
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkrsqw8l2/332c5eed.mm:9:18: note: add a super class to fix this problem
+    9 | @interface Object <MadeUpProtocol> @end
+      |                  ^
+Declaration may not be in a Comdat!
+ptr @"_OBJC_PROTOCOL_$_MadeUpProtocol"
+fatal error: error in backend: Broken module found, compilation aborted!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -Oz -std=c++03 -fblocks -fobjc-runtime=ios-7 -fobjc-arc -Wextra -fsanitize=undefined /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkrsqw8l2/332c5eed.mm
+1.	<eof> parser at end of file
+2.	Optimizer
+3.	Running pass "verify" on module "/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkrsqw8l2/332c5eed.mm"
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000563c251a04f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000563c2519d1bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000563c2519da78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000563c250e036a llvm::CrashRecoveryContext::HandleExit(int) + 122
+4  clang++   0x0000563c25197d02 llvm::sys::Process::Exit(int, bool) + 34
+5  clang++   0x0000563c23bad531
+6  clang++   0x0000563c250ea420 llvm::report_fatal_error(llvm::Twine const&, bool) + 112
+7  clang++   0x0000563c250ea5a5
+8  clang++   0x0000563c24c13fd0 llvm::VerifierPass::run(llvm::Function&, llvm::AnalysisManager<llvm::Function>&) + 0
+9  clang++   0x0000563c25414856
+10 clang++   0x0000563c24be1b96 llvm::PassManager<llvm::Module, llvm::AnalysisManager<llvm::Module>>::run(llvm::Module&, llvm::AnalysisManager<llvm::Module>&) + 934
+11 clang++   0x0000563c2542919e
+12 clang++   0x0000563c2542b62e
+13 clang++   0x0000563c2542e223 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::StringRef, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 483
+14 clang++   0x0000563c25b1e8aa clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 1866
+15 clang++   0x0000563c27986f0c clang::ParseAST(clang::Sema&, bool, bool) + 1068
+16 clang++   0x0000563c25e8ee51 clang::FrontendAction::Execute() + 65
+17 clang++   0x0000563c25e18df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+18 clang++   0x0000563c25f66c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+19 clang++   0x0000563c23bafd3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+20 clang++   0x0000563c23ba5ada
+21 clang++   0x0000563c23ba5c6f
+22 clang++   0x0000563c25b9d42d
+23 clang++   0x0000563c250e02a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+24 clang++   0x0000563c25b9e283
+25 clang++   0x0000563c25b52d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+26 clang++   0x0000563c25b57600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+27 clang++   0x0000563c25b65714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+28 clang++   0x0000563c23bab383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+29 clang++   0x0000563c23afb901 main + 113
+30 libc.so.6 0x00007f4ace6ded90
+31 libc.so.6 0x00007f4ace6dee40 __libc_start_main + 128
+32 clang++   0x0000563c23ba5105 _start + 37
+clang++: error: clang frontend command failed with exit code 70 (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/332c5eed-de616d.mm
+clang++: note: diagnostic msg: /tmp/332c5eed-de616d.sh
+clang++: note: diagnostic msg: 
+
+********************

@@ -1,0 +1,25 @@
+HloModule module, num_partitions=2
+
+%add {
+  %accum = f32[] parameter(0)
+  %op = f32[] parameter(1)
+  ROOT %out = f32[] add(accum, op)
+}
+
+ENTRY %entry_spmd {
+  %param = f32[24,64]{1,0} parameter(0), sharding={mesh[], replicated}
+  %lhs.copy.1 = f32[24,64]{1,0} copy(%param)
+  %param.1 = f32[39296,64]{1,0} parameter(1), sharding={mesh[], replicated}
+  %constant = s32[2]{0} constant({0, 19648})
+  %partition-id = u32[] partition-id()
+  %dynamic-slice = s32[1]{0} dynamic-slice(%constant, %partition-id), dynamic_slice_sizes={1}
+  %input = f32[100,10,32,3]{3,2,1,0} parameter(2)
+  %zero = f32[] constant(0)
+  %out = f32[100,10]{0,1} reduce(%input, %zero), dimensions={2,3}, to_apply=%add
+  %reshape = s32[] reshape(%dynamic-slice)
+  %constant.1 = s32[] constant(0)
+  %dynamic-slice.1 = f32[19648,64]{1,0} dynamic-slice(%param.1, %reshape, %constant.1), dynamic_slice_sizes={19648,64}
+  %rhs.copy.1 = f32[19648,64]{1,0} copy(%dynamic-slice.1)
+  %dot.1 = f32[24,19648]{1,0} dot(%lhs.copy.1, %rhs.copy.1), lhs_contracting_dims={1}, rhs_contracting_dims={1}
+  ROOT %ffl.root = (f32[24,19648]{1,0}, f32[100,10]{0,1}) tuple(%dot.1, %out)
+}

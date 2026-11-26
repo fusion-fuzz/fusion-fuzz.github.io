@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:52:7: error: editor placeholder in source file
+ 50 | func testEditorPlaceholder() -> Int {
+ 51 |   func foo(_ x: String) {}
+ 52 |   foo(<#T##x: String##String#>) // expected-error {{editor placeholder in source file}})
+    |       `- error: editor placeholder in source file
+ 53 | 
+ 54 |   // Make sure we don't try to parse this as an editor placeholder.
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:57:10: error: editor placeholder in source file
+ 55 |   _ = `<#foo#>` // expected-error {{cannot find '<#foo#>' in scope}}
+ 56 | 
+ 57 |   return <#T##Int#> // expected-error {{editor placeholder in source file}}
+    |          `- error: editor placeholder in source file
+ 58 | }
+ 59 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:60:15: error: 'async' may only occur before '->'
+ 58 | }
+ 59 | 
+ 60 | _ = [(Int) -> async throws Int]()
+    |               `- error: 'async' may only occur before '->'
+ 61 | // expected-error@-1{{'async throws' must precede '->'}}
+ 62 | // expected-note@-2{{move 'async throws' in front of '->'}}{{15-21=}} {{21-28=}} {{12-12=async }} {{12-12=throws }}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:60:21: error: 'throws' may only occur before '->'
+ 58 | }
+ 59 | 
+ 60 | _ = [(Int) -> async throws Int]()
+    |                     `- error: 'throws' may only occur before '->'
+ 61 | // expected-error@-1{{'async throws' must precede '->'}}
+ 62 | // expected-note@-2{{move 'async throws' in front of '->'}}{{15-21=}} {{21-28=}} {{12-12=async }} {{12-12=throws }}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:65:1: error: expected '(' in 'freestanding' attribute
+ 63 | 
+ 64 | @freestanding // expected-error {{expected arguments for 'freestanding' attribute}}
+ 65 | func dummy() {}
+    | `- error: expected '(' in 'freestanding' attribute
+ 66 | 
+ 67 | @_silgen_name("whatever", extra)  // expected-error@:27 {{unexpected arguments in '_silgen_name' attribute}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:67:2: error: expected ')' in '_silgen_name' attribute
+ 65 | func dummy() {}
+ 66 | 
+ 67 | @_silgen_name("whatever", extra)  // expected-error@:27 {{unexpected arguments in '_silgen_name' attribute}}
+    |  `- error: expected ')' in '_silgen_name' attribute
+ 68 | func _whatever()
+ 69 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:67:25: error: expected declaration
+ 65 | func dummy() {}
+ 66 | 
+ 67 | @_silgen_name("whatever", extra)  // expected-error@:27 {{unexpected arguments in '_silgen_name' attribute}}
+    |                         `- error: expected declaration
+ 68 | func _whatever()
+ 69 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:71:23: error: expected '->' for subscript element type
+ 69 | 
+ 70 | struct S {
+ 71 |     subscript(x: Int) { _ = 1 } // expected-error@:23 {{expected '->' and return type in subscript}}
+    |                       `- error: expected '->' for subscript element type
+ 72 |                                 // expected-note@-1:23 {{insert '->' and return type}}
+ 73 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:71:23: error: expected subscripting element type
+ 69 | 
+ 70 | struct S {
+ 71 |     subscript(x: Int) { _ = 1 } // expected-error@:23 {{expected '->' and return type in subscript}}
+    |                       `- error: expected subscripting element type
+ 72 |                                 // expected-note@-1:23 {{insert '->' and return type}}
+ 73 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:79:10: warning: this is a warning
+ 77 | 
+ 78 | 
+ 79 | #warning("this is a warning") // expected-warning {{this is a warning}}
+    |          `- warning: this is a warning
+ 80 | 
+ 81 | func testDiagnosticInFunc() {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:82:10: error: this is an error
+ 80 | 
+ 81 | func testDiagnosticInFunc() {
+ 82 |   #error("this is an error") // expected-error {{this is an error}}
+    |          `- error: this is an error
+ 83 | }
+ 84 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:86:10: error: this is an error member
+ 84 | 
+ 85 | class TestDiagnosticInNominalTy {
+ 86 |   #error("this is an error member") // expected-error {{this is an error member}}
+    |          `- error: this is an error member
+ 87 | }
+ 88 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:95:14: error: expected expression in list of expressions
+ 93 | func misisngExprTest() {
+ 94 |   func fn(x: Int, y: Int) {}
+ 95 |   fn(x: 1, y:) // expected-error {{expected value in function call}}
+    |              `- error: expected expression in list of expressions
+ 96 |                // expected-note@-1 {{insert value}} {{14-14= <#expression#>}}
+ 97 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:100:16: error: expected type for function result
+ 98 | 
+ 99 | func misisngTypeTest() {
+100 |   func fn() -> {} // expected-error {{expected return type in function signature}}
+    |                `- error: expected type for function result
+101 |                   // expected-note@-1 {{insert return type}} {{16-16=<#type#> }}
+102 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpadtb9hug/ced04a3a.swift:104:7: error: expected pattern
+102 | }
+103 | func misisngPatternTest(arr: [Int]) {
+104 |   for {} // expected-error {{expected pattern, 'in', and expression in 'for' statement}}
+    |       `- error: expected pattern
+105 |          // expected-note@-1 {{insert pattern, 'in', and expression}} {{7-7=<#pattern#> }} {{7-7=in }} {{7-7=<#expression#> }}
+106 | }
+
+[... 217 more lines ...]

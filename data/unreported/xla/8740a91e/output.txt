@@ -1,0 +1,29 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1791990100.702342 2236695 literal.cc:2340] Check failed: subshape().element_type() == scalar.shape().element_type() (16 vs. 11) 
+*** Check failure stack trace: ***
+    @     0x5c628f3c1a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5c628f3c19e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5c628ede3523  xla::LiteralBase::Piece::IsAll()
+    @     0x5c628691b48b  xla::AlgebraicSimplifierVisitor::HandleMaximum()
+    @     0x5c628ecf6700  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x5c628ecf5ef7  xla::HloInstruction::Visit<>()
+    @     0x5c628ecf846e  xla::PostOrderDFS<>()
+    @     0x5c628ecf4cf8  xla::HloInstruction::Accept<>()
+    @     0x5c6283e56f07  xla::HloComputation::Accept<>()
+    @     0x5c62868f7ace  xla::AlgebraicSimplifierVisitor::Run()
+    @     0x5c628442ee4a  xla::gpu::GpuAlgebraicSimplifier::RunImpl()
+    @     0x5c628b478be7  xla::HloPassInterface::Run()
+    @     0x5c6286ff63ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5c6286ff17bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5c6286ff0bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5c628b478be7  xla::HloPassInterface::Run()
+    @     0x5c6283f44e11  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5c6283f5206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5c6283e86934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5c6283e7ae5e  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x5c6283e78dc7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5c628f412466  main
+    @     0x7f83b0fd4d90  (unknown)
+Aborted (core dumped)

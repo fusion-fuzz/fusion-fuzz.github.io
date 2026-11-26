@@ -1,0 +1,1 @@
+ulimit -n 4096; ulimit -v 8388608; hlo-opt --platform=cpu --passes=convolution_4d_expander,reorder-reduce-transpose,host-offloader,simplify-conditional,all-gather-cse,dynamic_padder --xla_cpu_enable_fast_math=true --o=/dev/null ./reproducer.hlo

@@ -1,0 +1,49 @@
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/asr_to_c_cpp.h:326:54: runtime error: signed integer overflow: 7999999999999999996 + 7999999999999999996 cannot be represented in type 'long int'
+    #0 0x5109241 in LCompilers::BaseCCPPVisitor<LCompilers::ASRToCVisitor>::place_common_variable(LCompilers::ASR::Variable_t const&, LCompilers::BaseCCPPVisitor<LCompilers::ASRToCVisitor>::CommonStorage&, long, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/asr_to_c_cpp.h:326
+    #1 0x50aaaab in LCompilers::BaseCCPPVisitor<LCompilers::ASRToCVisitor>::layout_common_block(LCompilers::ASR::CommonBlock_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/asr_to_c_cpp.h:376
+    #2 0x507e7e9 in LCompilers::BaseCCPPVisitor<LCompilers::ASRToCVisitor>::layout_common_blocks(LCompilers::ASR::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/asr_to_c_cpp.h:405
+    #3 0x5031898 in LCompilers::ASRToCVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:657
+    #4 0x4ff4aa0 in visit_unit_t<LCompilers::ASRToCVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:22
+    #5 0x5145f0e in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_unit(LCompilers::ASR::unit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:380
+    #6 0x4fe285f in visit_asr_t<LCompilers::ASRToCVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:353
+    #7 0x50a7d38 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_asr(LCompilers::ASR::asr_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:379
+    #8 0x4fb16d6 in LCompilers::asr_to_c[abi:cxx11](Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:2108
+    #9 0x25ed383 in LCompilers::FortranEvaluator::get_c3[abi:cxx11](LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::PassManager&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:990
+    #10 0x1d79e9a in emit_c /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:956
+    #11 0x1db28c0 in main_app(int, char**) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3011
+    #12 0x1db9a13 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3214
+    #13 0x79495554dd8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #14 0x79495554de3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #15 0x17769e4 in _start (/opt/lfortran/bin/lfortran+0x17769e4)
+
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/asr_to_c_cpp.h:377:20: runtime error: signed integer overflow: 7999999999999999996 + 7999999999999999996 cannot be represented in type 'long int'
+    #0 0x50aab42 in LCompilers::BaseCCPPVisitor<LCompilers::ASRToCVisitor>::layout_common_block(LCompilers::ASR::CommonBlock_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/asr_to_c_cpp.h:377
+    #1 0x507e7e9 in LCompilers::BaseCCPPVisitor<LCompilers::ASRToCVisitor>::layout_common_blocks(LCompilers::ASR::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/asr_to_c_cpp.h:405
+    #2 0x5031898 in LCompilers::ASRToCVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:657
+    #3 0x4ff4aa0 in visit_unit_t<LCompilers::ASRToCVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:22
+    #4 0x5145f0e in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_unit(LCompilers::ASR::unit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:380
+    #5 0x4fe285f in visit_asr_t<LCompilers::ASRToCVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:353
+    #6 0x50a7d38 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_asr(LCompilers::ASR::asr_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:379
+    #7 0x4fb16d6 in LCompilers::asr_to_c[abi:cxx11](Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:2108
+    #8 0x25ed383 in LCompilers::FortranEvaluator::get_c3[abi:cxx11](LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::PassManager&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:990
+    #9 0x1d79e9a in emit_c /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:956
+    #10 0x1db28c0 in main_app(int, char**) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3011
+    #11 0x1db9a13 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3214
+    #12 0x79495554dd8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #13 0x79495554de3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #14 0x17769e4 in _start (/opt/lfortran/bin/lfortran+0x17769e4)
+
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/asr_to_c_cpp.h:302:18: runtime error: signed integer overflow: 3000000000000000000 * 4 cannot be represented in type 'long int'
+    #0 0x510a93e in LCompilers::BaseCCPPVisitor<LCompilers::ASRToCVisitor>::common_size(LCompilers::ASR::Variable_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/asr_to_c_cpp.h:302
+    #1 0x51091da in LCompilers::BaseCCPPVisitor<LCompilers::ASRToCVisitor>::place_common_variable(LCompilers::ASR::Variable_t const&, LCompilers::BaseCCPPVisitor<LCompilers::ASRToCVisitor>::CommonStorage&, long, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/asr_to_c_cpp.h:325
+    #2 0x50aaaab in LCompilers::BaseCCPPVisitor<LCompilers::ASRToCVisitor>::layout_common_block(LCompilers::ASR::CommonBlock_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/asr_to_c_cpp.h:376
+    #3 0x507e7e9 in LCompilers::BaseCCPPVisitor<LCompilers::ASRToCVisitor>::layout_common_blocks(LCompilers::ASR::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/codegen/asr_to_c_cpp.h:405
+    #4 0x5031898 in LCompilers::ASRToCVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:657
+    #5 0x4ff4aa0 in visit_unit_t<LCompilers::ASRToCVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:22
+    #6 0x5145f0e in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_unit(LCompilers::ASR::unit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:380
+    #7 0x4fe285f in visit_asr_t<LCompilers::ASRToCVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:353
+    #8 0x50a7d38 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_asr(LCompilers::ASR::asr_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:379
+    #9 0x4fb16d6 in LCompilers::asr_to_c[abi:cxx11](Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:2108
+    #10 0x25ed383 in LCompilers::FortranEvaluator::get_c3[abi:cxx11](LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::PassManager&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:990
+    #11 0x1d79e9a in emit_c /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.c
+[... truncated ...]

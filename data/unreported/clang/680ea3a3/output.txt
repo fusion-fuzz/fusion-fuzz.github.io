@@ -1,0 +1,77 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp615kpf4v/69aaf59c.cpp:6:32: error: use of undeclared identifier 'id'
+    6 | void bar() { foo<int, foo<int, id>>(42); }
+      |                                ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp615kpf4v/69aaf59c.cpp:35:51: error: no viable conversion from returned value of type 'S (*)(int)' to function return type 'S'
+   35 | template <class T, S (*F)(T)> S foo(T t) { return F; }
+      |                                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp615kpf4v/69aaf59c.cpp:39:27: note: in instantiation of function template specialization 'foo<int, &id>' requested here
+   39 | void bar_ffl() { foo<int, foo<int, id>>(42); }
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp615kpf4v/69aaf59c.cpp:33:8: note: candidate constructor (the implicit copy constructor) not viable: no known conversion from 'S (*)(int)' to 'const S &' for 1st argument
+   33 | struct S {};
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp615kpf4v/69aaf59c.cpp:33:8: note: candidate constructor (the implicit move constructor) not viable: no known conversion from 'S (*)(int)' to 'S &&' for 1st argument
+   33 | struct S {};
+      |        ^
+unexpected conversion required for non-type template argument
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaTemplate.cpp:8042!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O2 -std=c++14 -Wall /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp615kpf4v/69aaf59c.cpp
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp615kpf4v/69aaf59c.cpp:35:33: instantiating function definition 'foo<int, &foo>'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005555f88ac4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005555f88a91bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005555f88a9a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005555f87ebe88
+4  libc.so.6 0x00007f50a73e3520
+5  libc.so.6 0x00007f50a74379bc pthread_kill + 300
+6  libc.so.6 0x00007f50a73e3476 raise + 22
+7  libc.so.6 0x00007f50a73c97f3 abort + 211
+8  clang++   0x00005555f87f687e
+9  clang++   0x00005555fbb2cc90 clang::Sema::BuildExpressionFromDeclTemplateArgument(clang::TemplateArgument const&, clang::QualType, clang::SourceLocation) + 2528
+10 clang++   0x00005555fbb2e435 clang::Sema::BuildSubstNonTypeTemplateParmExpr(clang::Decl*, unsigned int, clang::QualType, clang::SourceLocation, clang::TemplateArgument, clang::OptionalUnsigned<unsigned int>, bool) + 389
+11 clang++   0x00005555fbd0f458
+12 clang++   0x00005555fbcf2f7c
+13 clang++   0x00005555fbcc8051
+14 clang++   0x00005555fbcc8c05 clang::Sema::SubstStmt(clang::Stmt*, clang::MultiLevelTemplateArgumentList const&) + 133
+15 clang++   0x00005555fbd8682f clang::Sema::InstantiateFunctionDefinition(clang::SourceLocation, clang::FunctionDecl*, bool, bool, bool) + 6207
+16 clang++   0x00005555fbd83f2d clang::Sema::PerformPendingInstantiations(bool, bool) + 301
+17 clang++   0x00005555fb257fdd
+18 clang++   0x00005555fb258316 clang::Sema::ActOnEndOfTranslationUnit() + 182
+19 clang++   0x00005555fb0b5f32 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 946
+20 clang++   0x00005555fb092cf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+21 clang++   0x00005555f959ae51 clang::FrontendAction::Execute() + 65
+22 clang++   0x00005555f9524df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+23 clang++   0x00005555f9672c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+24 clang++   0x00005555f72bbd3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+25 clang++   0x00005555f72b1ada
+26 clang++   0x00005555f72b1c6f
+27 clang++   0x00005555f92a942d
+28 clang++   0x00005555f87ec2a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+29 clang++   0x00005555f92aa283
+30 clang++   0x00005555f925ed17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+31 clang++   0x00005555f9263600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+32 clang++   0x00005555f9271714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+33 clang++   0x00005555f72b7383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+34 clang++   0x00005555f7207901 main + 113
+35 libc.so.6 0x00007f50a73cad90
+36 libc.so.6 0x00007f50a73cae40 __libc_start_main + 128
+37 clang++   0x00005555f72b1105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/69aaf59c-566c1b.cpp
+clang++: note: diagnostic msg: /tmp/69aaf59c-566c1b.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

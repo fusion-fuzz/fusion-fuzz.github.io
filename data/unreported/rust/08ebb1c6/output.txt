@@ -1,0 +1,86 @@
+error: internal compiler error: stashing CallIntoMethod
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp5zky6rqb/4aac4432.rs:81:5
+   |
+81 |     test_bdf17f1::<dyn for<'a> Fn(&'a ()) -> &'a (), dyn FnOnce(&'static ()) -> &'static ()>();
+   |     ^^^^^^^^^^^^
+
+
+thread 'rustc' (140630) panicked at compiler/rustc_errors/src/lib.rs:1545:17:
+aborting due to `-Z treat-err-as-bug=1`
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panicking.rs:80:14
+   2: <rustc_errors::DiagCtxtInner>::panic_if_treat_err_as_bug
+   3: <rustc_errors::DiagCtxtInner>::emit_diagnostic::{closure#3}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1416:22
+   4: rustc_interface::callbacks::track_diagnostic::<core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/callbacks.rs:47:46
+   5: rustc_middle::ty::context::tls::enter_context::<rustc_interface::callbacks::track_diagnostic<core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}::{closure#0}, core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:56:9
+   6: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::try_with::<rustc_middle::ty::context::tls::enter_context<rustc_interface::callbacks::track_diagnostic<core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}::{closure#0}, core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}, core::option::Option<rustc_span::ErrorGuaranteed>>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:464:12
+   7: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::with::<rustc_middle::ty::context::tls::enter_context<rustc_interface::callbacks::track_diagnostic<core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}::{closure#0}, core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}, core::option::Option<rustc_span::ErrorGuaranteed>>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:428:20
+   8: rustc_middle::ty::context::tls::enter_context::<rustc_interface::callbacks::track_diagnostic<core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}::{closure#0}, core::option::Option<rustc_span::ErrorGuaranteed>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:53:9
+   9: rustc_interface::callbacks::track_diagnostic::<core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/callbacks.rs:47:13
+  10: rustc_middle::ty::context::tls::with_context_opt::<rustc_interface::callbacks::track_diagnostic<core::option::Option<rustc_span::ErrorGuaranteed>>::{closure#0}, core::option::Option<rustc_span::ErrorGuaranteed>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:75:18
+  11: rustc_interface::callbacks::track_diagnostic::<core::option::Option<rustc_span::ErrorGuaranteed>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/callbacks.rs:41:5
+  12: <rustc_errors::DiagCtxtInner>::emit_diagnostic
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1335:9
+  13: <rustc_errors::DiagCtxtHandle>::emit_diagnostic
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:876:33
+  14: <rustc_errors::diagnostic::Diag>::emit_producing_error_guaranteed
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1312:29
+  15: <rustc_errors::diagnostic::Diag>::emit
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1319:9
+  16: <rustc_errors::DiagCtxtHandle>::span_delayed_bug::<rustc_span::span_encoding::Span, alloc::string::String>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1097:82
+  17: <rustc_errors::DiagCtxtHandle>::stash_diagnostic
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:619:32
+  18: <rustc_errors::diagnostic::Diag>::stash
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1351:18
+  19: <rustc_resolve::Resolver>::report_with_use_injections
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_resolve/src/diagnostics/impls.rs:425:21
+  20: <rustc_resolve::Resolver>::report_errors
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_resolve/src/diagnostics/impls.rs:342:14
+  21: <rustc_resolve::Resolver>::resolve_crate::{closure#0}::{closure#7}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_resolve/src/lib.rs:2084:56
+  22: <rustc_data_structures::profiling::VerboseTimingGuard>::run::<(), <rustc_resolve::Resolver>::resolve_crate::{closure#0}::{closure#7}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/profiling.rs:845:9
+  23: <rustc_session::session::Session>::time::<(), <rustc_resolve::Resolver>::resolve_crate::{closure#0}::{closure#7}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_session/src/utils.rs:17:50
+  24: <rustc_resolve::Resolver>::resolve_crate::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_resolve/src/lib.rs:2084:18
+  25: <rustc_data_structures::profiling::VerboseTimingGuard>::run::<(), <rustc_resolve::Resolver>::resolve_crate::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/profiling.rs:845:9
+  26: <rustc_session::session::Session>::time::<(), <rustc_resolve::Resolver>::resolve_crate::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_session/src/utils.rs:17:50
+  27: <rustc_resolve::Resolver>::resolve_crate
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_resolve/src/lib.rs:2069:23
+  28: rustc_interface::passes::configure_and_expand
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:309:14
+  29: rustc_interface::passes::resolver_for_lowering_raw
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:811:17
+      [... omitted 13 frames ...]
+  30: rustc_middle::query::calls::query_get_at::<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 24]>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:154:17
+  31: <rustc_middle::query::calls::TyCtxtAt>::resolver_for_lowering_raw
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:287:61
+  32: <rustc_middle::ty::context::TyCtxt>::resolver_for_lowering_raw
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:277:39
+  33: <rustc_middle::ty::context::TyCtxt>::resolver_for_lowering
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context.rs:2779:41
+  34: rustc_driver_impl::run_compiler::{closure#0}::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_driver_impl/src/lib.rs:296:25
+  35: rustc_interface::passes::create_and_enter_global_ctxt::<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1045:80
+  36: <core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}::{closure#0}> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panic/unwind_safe.rs:275:9
+  37: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::q
+[... truncated ...]

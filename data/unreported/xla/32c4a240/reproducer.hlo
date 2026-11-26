@@ -1,0 +1,22 @@
+HloModule pjit_f_, num_partitions=2, frontend_attributes={xla.sdy.meshes={maximal_mesh_0 = #sdy.mesh<[], device_ids=[0]>, mesh = #sdy.mesh<["x"=2]>}}
+
+ENTRY %main.5 {
+  %Arg_0.0 = s64[2,2,2]{2,1,0} parameter(0), sharding={devices=[2,1,1]<=[2]}, metadata={op_name="x"}
+  %tuple.0 = () tuple()
+  %k1 = u8[4]{0} constant({75,69,89,49})
+  %v1 = u8[6]{0} constant({86,65,76,85,69,49})
+  %k2 = u8[4]{0} constant({75,69,89,50})
+  %v2 = u8[6]{0} constant({86,65,76,85,69,50})
+  %k1.d = u8[4]{0} constant({75,69,89,49})
+  %v1.d = u8[6]{0} constant({86,65,76,85,69,49})
+  %k2.d = u8[4]{0} constant({75,69,89,50})
+  %v2.d = u8[6]{0} constant({86,65,76,85,69,50})
+  %k3.d = u8[4]{0} constant({75,69,89,51})
+  %v3.d = u8[6]{0} constant({86,65,76,85,69,51})
+  %result.d = u8[30]{0} concatenate(%k1.d, %v1.d, %k2.d, %v2.d, %k3.d, %v3.d), dimensions={0}
+  %k3 = u8[4]{0} constant({75,69,89,51})
+  %v3 = u8[6]{0} constant({86,65,76,85,69,51})
+  %result = u8[30]{0} concatenate(%tuple.0, %v1, %k2, %v2, %k3, %v3), dimensions={0}
+  %ffl.root = ((), u8[30]{0}) tuple(%tuple.0, %result)
+  ROOT %ffl.root.1 = ((), u8[30]{0}, u8[30]{0}) tuple(%tuple.0, %result, %result.d)
+}

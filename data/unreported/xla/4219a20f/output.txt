@@ -1,0 +1,31 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1793070507.272891  348344 repeated_field.h:830] Check failed: index < size() (2 vs. 2) 
+*** Check failure stack trace: ***
+    @     0x62c6f453fa24  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x62c6f453f9a6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x62c6e8d385f8  google::protobuf::RepeatedField<>::Get()
+    @     0x62c6ec475964  xla::ScatterSimplifier::WriteRunLength()
+    @     0x62c6ebfa38fe  xla::AlgebraicSimplifierVisitor::TryFoldTransposeIntoScatter()
+    @     0x62c6ebfa3f2d  xla::AlgebraicSimplifierVisitor::HandleTranspose()
+    @     0x62c6f3e6f2b7  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x62c6f3e6eae7  xla::HloInstruction::Visit<>()
+    @     0x62c6f3e7107e  xla::PostOrderDFS<>()
+    @     0x62c6f3e6d8e8  xla::HloInstruction::Accept<>()
+    @     0x62c6e8c72d47  xla::HloComputation::Accept<>()
+    @     0x62c6ebf58bde  xla::AlgebraicSimplifierVisitor::Run()
+    @     0x62c6e927d2ca  xla::gpu::GpuAlgebraicSimplifier::RunImpl()
+    @     0x62c6f0e73a01  xla::HloPassInterface::Run()
+    @     0x62c6ec64ccdc  xla::HloPassPipeline::RunHelper()
+    @     0x62c6ec64d820  xla::HloPassPipeline::RunPassesInternal()
+    @     0x62c6ec64f7f5  xla::HloPassPipeline::RunImpl()
+    @     0x62c6f0e73a01  xla::HloPassInterface::Run()
+    @     0x62c6e8d60edb  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x62c6e8d6e1ab  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x62c6e8ca2744  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x62c6e8ca2183  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x62c6e8c94b38  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x62c6f45901d6  main
+    @     0x74dbecdd4d90  (unknown)
+Aborted (core dumped)

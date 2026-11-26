@@ -1,0 +1,79 @@
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp:372: void {anonymous}::CGRecordLowering::lowerUnion(bool): Assertion `(Layout.getSize().isMultipleOf(StorageAlignment) || !Layout.getDataSize().isMultipleOf(StorageAlignment)) && "Union's standard layout and no_unique_address layout must agree on " "packedness"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O0 -fblocks -fno-elide-constructors -fno-inline -target i686-unknown-windows-msvc -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbzwv84z4/4eaecf23.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbzwv84z4/4eaecf23.cpp:28:1: current parser token 'static'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbzwv84z4/4eaecf23.cpp:22:8: LLVM IR generation of declaration 'b'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbzwv84z4/4eaecf23.cpp:22:8: Generating code for declaration 'b'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005bcfbbcd4329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005bcfbbcd0fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005bcfbbcd18a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005bcfbbc13218
+4  libc.so.6 0x000073f4e38c2520
+5  libc.so.6 0x000073f4e39169bc pthread_kill + 300
+6  libc.so.6 0x000073f4e38c2476 raise + 22
+7  libc.so.6 0x000073f4e38a87f3 abort + 211
+8  libc.so.6 0x000073f4e38a871b
+9  libc.so.6 0x000073f4e38b9e96
+10 clang++   0x00005bcfbc348541
+11 clang++   0x00005bcfbc34bba9
+12 clang++   0x00005bcfbc34cf3d clang::CodeGen::CodeGenTypes::ComputeRecordLayout(clang::RecordDecl const*, llvm::StructType*) + 77
+13 clang++   0x00005bcfbc4a5284 clang::CodeGen::CodeGenTypes::ConvertRecordDeclType(clang::RecordDecl const*) + 1124
+14 clang++   0x00005bcfbc4a7fdd clang::CodeGen::CodeGenTypes::ConvertTypeForMem(clang::QualType) + 413
+15 clang++   0x00005bcfbc34b78b
+16 clang++   0x00005bcfbc34cf3d clang::CodeGen::CodeGenTypes::ComputeRecordLayout(clang::RecordDecl const*, llvm::StructType*) + 77
+17 clang++   0x00005bcfbc4a5284 clang::CodeGen::CodeGenTypes::ConvertRecordDeclType(clang::RecordDecl const*) + 1124
+18 clang++   0x00005bcfbc4a5264 clang::CodeGen::CodeGenTypes::ConvertRecordDeclType(clang::RecordDecl const*) + 1092
+19 clang++   0x00005bcfbc4a7fdd clang::CodeGen::CodeGenTypes::ConvertTypeForMem(clang::QualType) + 413
+20 clang++   0x00005bcfbc6474d2
+21 clang++   0x00005bcfbc64b00e
+22 clang++   0x00005bcfbc6e5cce clang::CodeGen::CodeGenTypes::findOrInsertCGFunctionInfo(bool, bool, bool, unsigned int, clang::FunctionType::ExtInfo const&, llvm::ArrayRef<clang::FunctionType::ExtParameterInfo>, clang::CodeGen::RequiredArgs, clang::CanQual<clang::Type>, llvm::ArrayRef<clang::CanQual<clang::Type>>) + 1774
+23 clang++   0x00005bcfbc6e8cc9
+24 clang++   0x00005bcfbc6ead82 clang::CodeGen::CodeGenTypes::arrangeBlockFunctionDeclaration(clang::FunctionProtoType const*, clang::CodeGen::FunctionArgList const&) + 402
+25 clang++   0x00005bcfbc685f7e clang::CodeGen::CodeGenFunction::GenerateBlockFunction(clang::GlobalDecl, clang::CodeGen::CGBlockInfo const&, llvm::DenseMap<clang::Decl const*, clang::CodeGen::Address, llvm::DenseMapInfo<clang::Decl const*, void>, llvm::detail::DenseMapPair<clang::Decl const*, clang::CodeGen::Address>> const&, bool, bool) + 1790
+26 clang++   0x00005bcfbc687fa5 clang::CodeGen::CodeGenModule::GetAddrOfGlobalBlock(clang::BlockExpr const*, llvm::StringRef) + 261
+27 clang++   0x00005bcfbc20187b
+28 clang++   0x00005bcfbc203586 clang::CodeGen::ConstantEmitter::tryEmitPrivate(clang::APValue const&, clang::QualType, bool) + 5798
+29 clang++   0x00005bcfbc2043df clang::CodeGen::ConstantEmitter::tryEmitPrivateForMemory(clang::APValue const&, clang::QualType) + 47
+30 clang++   0x00005bcfbc209c02 clang::CodeGen::ConstantEmitter::tryEmitForInitializer(clang::VarDecl const&) + 82
+31 clang++   0x00005bcfbc430261 clang::CodeGen::CodeGenModule::EmitGlobalVarDefinition(clang::VarDecl const*, bool) + 2161
+32 clang++   0x00005bcfbc44df01 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 481
+33 clang++   0x00005bcfbc44ee60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+34 clang++   0x00005bcfbc45b2cb
+35 clang++   0x00005bcfbc7fdef1
+36 clang++   0x00005bcfbc7ed0f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+37 clang++   0x00005bcfbe4ca61c clang::ParseAST(clang::Sema&, bool, bool) + 508
+38 clang++   0x00005bcfbcb6b061 clang::FrontendAction::Execute() + 65
+39 clang++   0x00005bcfbcaf4e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+40 clang++   0x00005bcfbcc42de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+41 clang++   0x00005bcfb9a9e33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+42 clang++   0x00005bcfb9a9413a
+43 clang++   0x00005bcfb9a942cf
+44 clang++   0x00005bcfbc879cfd
+45 clang++   0x00005bcfbbc13630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+46 clang++   0x00005bcfbc87ab53
+47 clang++   0x00005bcfbc82f607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+48 clang++   0x00005bcfbc833ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+49 clang++   0x00005bcfbc842004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+50 clang++   0x00005bcfb9a99923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+51 clang++   0x00005bcfb99d57f1 main + 113
+52 libc.so.6 0x000073f4e38a9d90
+53 libc.so.6 0x000073f4e38a9e40 __libc_start_main + 128
+54 clang++   0x00005bcfb9a93765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: i686-unknown-windows-msvc
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/4eaecf23-415aeb.cpp
+clang++: note: diagnostic msg: /tmp/4eaecf23-415aeb.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

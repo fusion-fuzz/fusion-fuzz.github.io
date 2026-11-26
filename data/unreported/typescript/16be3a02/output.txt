@@ -1,0 +1,76 @@
+panic: Unhandled case in Node.Text: *ast.KeywordExpression [recovered, repanicked]
+
+goroutine 115 [running]:
+sync.(*WaitGroup).Go.func1.1()
+	/usr/local/go/src/sync/waitgroup.go:251 +0x45
+panic({0xdefd20?, 0x2f653d778210?})
+	/usr/local/go/src/runtime/panic.go:860 +0x13a
+github.com/microsoft/TypeScript/tsc/internal/ast.(*Node).Text(0x2f653a581308?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/ast/ast.go:308 +0x42d
+github.com/microsoft/TypeScript/tsc/internal/binder.(*referenceResolver).getReferencedValueSymbol(0x2f6539a991d0, 0x2f65396e8b28, 0x0?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/binder/referenceresolver.go:95 +0x15f
+github.com/microsoft/TypeScript/tsc/internal/binder.(*referenceResolver).GetReferencedValueDeclaration(0x2f6539a991d0, 0x2f65399e6cf8?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/binder/referenceresolver.go:203 +0x1a
+github.com/microsoft/TypeScript/tsc/internal/checker.(*EmitResolver).GetReferencedValueDeclarationUnsafe(0x8ff89c?, 0x2f653d6ecd01?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/emitresolver.go:901 +0x2dc
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*SymbolTrackerImpl).isBoundExpando(0x2f653d7155c0, 0x2f65399e6d58?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/tracker.go:64 +0x6f
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*SymbolTrackerImpl).ReportInferenceFallback.(*SymbolTrackerImpl).isChildOfBoundExpando.func1(...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/tracker.go:76
+github.com/microsoft/TypeScript/tsc/internal/ast.FindAncestorOrQuit(...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/ast/utilities.go:969
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*SymbolTrackerImpl).isChildOfBoundExpando(...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/tracker.go:72
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*SymbolTrackerImpl).ReportInferenceFallback(0x2f653d7155c0, 0x62480a?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/tracker.go:91 +0xd4
+github.com/microsoft/TypeScript/tsc/internal/checker.(*SymbolTrackerImpl).ReportInferenceFallback(0x81ad05?, 0x2f65399e6e38?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/symboltracker.go:114 +0x22
+github.com/microsoft/TypeScript/tsc/internal/checker.(*NodeBuilderImpl).pseudoTypeToNodeWithCheckerFallback(0x2f653c28a200, 0x2f653ad5c608?, 0x2f653992da40)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/pseudotypenodebuilder.go:23 +0x7f
+github.com/microsoft/TypeScript/tsc/internal/checker.(*NodeBuilderImpl).serializeReturnTypeForSignature(0x2f653c28a200, 0x2f653ad5c608, 0x1)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/nodebuilderimpl.go:2128 +0x2f6
+github.com/microsoft/TypeScript/tsc/internal/checker.(*NodeBuilder).SerializeReturnTypeForSignature(0x2f653d72b740, 0x2f65396546e0, 0x2f65396546e0?, 0xed7560?, 0x0?, {0x15e75d0?, 0x2f653d7155c0?})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/nodebuilder.go:121 +0x85
+github.com/microsoft/TypeScript/tsc/internal/checker.(*EmitResolver).CreateReturnTypeOfSignatureDeclaration(0x2f653d6ecd80, 0x2f653d6fb040, 0x2f65396546e0?, 0x2f65396546e0, 0x81c0d, 0x8, {0x15e75d0, 0x2f653d7155c0})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/emitresolver.go:959 +0x145
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*DeclarationTransformer).ensureType(0x2f653d4e9680, 0x2f65396546e0, 0xe0?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/transform.go:1675 +0x3fa
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*DeclarationTransformer).transformMethodDeclaration(0x2f653d4e9680, 0x2f65396546e0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/transform.go:1143 +0x159
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*DeclarationTransformer).visitDeclarationSubtree(0x2f653d4e9680, 0x2f65396546e0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/transform.go:632 +0x89a
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*DeclarationTransformer).visit(0xfdbaa0?, 0x620f16?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/transform.go:272 +0xe6
+github.com/microsoft/TypeScript/tsc/internal/ast.(*NodeVisitor).VisitSlice(0x2f653d715620, {0x2f6539654628, 0x1, 0x1})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/ast/visitor.go:148 +0xc2
+github.com/microsoft/TypeScript/tsc/internal/ast.(*NodeVisitor).VisitNodes(0x2f653d715620, 0x2f65396ecda8)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/ast/visitor.go:99 +0x37
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*DeclarationTransformer).buildClassMembers(0x2f653d4e9680, 0x2f6539697320, {0x0, 0x0, 0x81a4c5?})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/transform.go:1972 +0x454
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*DeclarationTransformer).transformClassDeclaration(0x2f653d4e9680, 0x2f6539697320)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/transform.go:1997 +0x20c
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*DeclarationTransformer).transformTopLevelDeclaration(0x2f653d4e9680, 0x2f6539697320)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/transform.go:1763 +0x4e7
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*DeclarationTransformer).visitDeclarationStatements(0x2f653d4e9680, 0x2f6539697320)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/transform.go:1175 +0x485
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*DeclarationTransformer).visit(0xf1c880?, 0x2f6539646d01?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/transform.go:247 +0xcb
+github.com/microsoft/TypeScript/tsc/internal/ast.(*NodeVisitor).VisitSlice(0x2f653d715620, {0x2f6539679bf0, 0x18, 0x18})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/ast/visitor.go:148 +0xc2
+github.com/microsoft/TypeScript/tsc/internal/ast.(*NodeVisitor).VisitNodes(0x2f653d715620, 0x2f6539646d68)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/ast/visitor.go:99 +0x37
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*DeclarationTransformer).transformSourceFile(0x2f653d4e9680, 0x2f653970f888)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/transform.go:353 +0x117
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*DeclarationTransformer).visitSourceFile(0x2f653d4e9680, 0x2f653970f888)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/transform.go:305 +0x2f1
+github.com/microsoft/TypeScript/tsc/internal/transformers/declarations.(*DeclarationTransformer).visit(0x50?, 0x0?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/declarations/transform.go:232 +0xaf
+github.com/microsoft/TypeScript/tsc/internal/ast.(*NodeVisitor).VisitNode(0x2f65395fe008?, 0x70e9000fb4f8?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/ast/visitor.go:51 +0x27
+github.com/microsoft/TypeScript/tsc/internal/ast.(*NodeVisitor).VisitSourceFile(...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/ast/visitor.go:36
+github.com/microsoft/TypeScript/tsc/internal/transformers.(*Transformer).TransformSourceFile(...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/transformers/transformer.go:40
+github.com/microsoft/TypeScript/tsc/internal/compiler.(*emitter).runDeclarationTransformers(0x0?, 0x2f65396365e0?, 0x2f653970f888, {0x2f653955c140?, 0x2f65396365f0?}, {0x0?, 0x2f65399e7b20?})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/int
+[... truncated ...]

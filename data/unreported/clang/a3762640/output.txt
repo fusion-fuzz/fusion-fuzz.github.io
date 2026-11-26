@@ -1,0 +1,92 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:29:17: error: static assertion expression is not an integral constant expression
+   29 |   static_assert(__builtin_bit_cast(p4, test_vec_fp80) == test_str_fp80, "");
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:29:17: note: constexpr bit cast involving type 'long double' is not yet supported
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:33:17: error: static assertion expression is not an integral constant expression
+   33 |   static_assert(__builtin_bit_cast(p4, __builtin_bit_cast(fp80x2_v, test_str_fp80)) == test_str_fp80, "");
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:33:40: note: constexpr bit cast involving type 'long double' is not yet supported
+   33 |   static_assert(__builtin_bit_cast(p4, __builtin_bit_cast(fp80x2_v, test_str_fp80)) == test_str_fp80, "");
+      |                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:37:25: error: constexpr variable 'bad_str_fp80_0' must be initialized by a constant expression
+   37 |   constexpr static char bad_str_fp80_0 = __builtin_bit_cast(p4, test_vec_fp80)._pad[0];
+      |                         ^                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:37:42: note: constexpr bit cast involving type 'long double' is not yet supported
+   37 |   constexpr static char bad_str_fp80_0 = __builtin_bit_cast(p4, test_vec_fp80)._pad[0];
+      |                                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:41:25: error: constexpr variable 'bad_str_fp80_1' must be initialized by a constant expression
+   41 |   constexpr static char bad_str_fp80_1 = __builtin_bit_cast(p4, test_vec_fp80)._pad[1];
+      |                         ^                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:41:42: note: constexpr bit cast involving type 'long double' is not yet supported
+   41 |   constexpr static char bad_str_fp80_1 = __builtin_bit_cast(p4, test_vec_fp80)._pad[1];
+      |                                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:45:25: error: constexpr variable 'bad_str_fp80_11' must be initialized by a constant expression
+   45 |   constexpr static char bad_str_fp80_11 = __builtin_bit_cast(p4, test_vec_fp80)._pad[11];
+      |                         ^                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:45:43: note: constexpr bit cast involving type 'long double' is not yet supported
+   45 |   constexpr static char bad_str_fp80_11 = __builtin_bit_cast(p4, test_vec_fp80)._pad[11];
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:49:29: error: constexpr variable 'struct2v' must be initialized by a constant expression
+   49 |   constexpr static fp80x2_v struct2v = __builtin_bit_cast(fp80x2_v, test_str_fp80);
+      |                             ^          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:49:40: note: constexpr bit cast involving type 'long double' is not yet supported
+   49 |   constexpr static fp80x2_v struct2v = __builtin_bit_cast(fp80x2_v, test_str_fp80);
+      |                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:61:27: error: constexpr variable 'b' must be initialized by a constant expression
+   61 |   constexpr static v12i16 b = (v12i16)(v2f80){1,2};
+      |                           ^   ~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:61:39: note: constexpr bit cast involving type 'long double' is not yet supported
+   61 |   constexpr static v12i16 b = (v12i16)(v2f80){1,2};
+      |                                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:65:26: error: constexpr variable 'c' must be initialized by a constant expression
+   65 |   constexpr static v2f80 c = (v2f80)(v12i16){0,0,0,-32768,16383,0,0,0,0,-32768,16384,0};
+      |                          ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:65:37: note: constexpr bit cast involving type 'long double' is not yet supported
+   65 |   constexpr static v2f80 c = (v2f80)(v12i16){0,0,0,-32768,16383,0,0,0,0,-32768,16384,0};
+      |                                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:83:3: error: no matching function for call to 'open'
+   83 |   open("path", O_CREAT);  // expected-error{{no matching function for call to 'open'}}
+      |   ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:76:5: note: candidate disabled: must specify mode when using O_CREAT
+   76 | int open(const char *pathname, int flags) __attribute__((enable_if(!(flags & O_CREAT), "must specify mode when using O_CREAT"))) __attribute__((overloadable));
+      |     ^                                                              ~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:78:5: note: candidate function not viable: requires 3 arguments, but 2 were provided
+   78 | int open(const char *pathname, int flags, mode_t mode) __attribute__((overloadable));
+      |     ^    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:127:3: error: 'strnlen' is unavailable: 'maxlen' is larger than the buffer size
+  127 |   strnlen(c, 999);  // expected-error{{'strnlen' is unavailable: 'maxlen' is larger than the buffer size}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:108:8: note: 'strnlen' has been explicitly marked unavailable here
+  108 | size_t strnlen(const char *s, size_t maxlen) // expected-note {{'strnlen' has been explicitly marked unavailable here}}
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:138:3: error: 'isdigit' is unavailable: 'c' must have the value of an unsigned char or EOF
+  138 |   isdigit(-10);  // expected-error{{'isdigit' is unavailable: 'c' must have the value of an unsigned char or EOF}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:131:5: note: 'isdigit' has been explicitly marked unavailable here
+  131 | int isdigit(int c) __attribute__((overloadable)) // expected-note {{'isdigit' has been explicitly marked unavailable here}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:143:50: error: expected ';' after top level declarator
+  143 | int isdigit2(int c) __attribute__((overloadable)) // expected-note {{'isdigit2' has been explicitly marked unavailable here}
+      |                                                  ^
+      |                                                  ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:144:8: error: redefinition of 'p4'
+  144 | struct p4 {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:11:8: note: previous definition is here
+   11 | struct p4 {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:155:1: error: extraneous closing brace ('}')
+  155 | }
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:156:32: error: use of undeclared identifier 'c'; did you mean 'c_cast::c'?
+  156 |   __attribute__((__enable_if__(c <= -1 || c > 255, "'c' must have the value of an unsigned char or EOF")))
+      |                                ^
+      |                                c_cast::c
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3pvfs_4l/be1889b8.cpp:65:26: note: 'c_cast::c' declared here
+   65 |   constexpr static v2f80 c = (v2f80)(v12i16){0,0,0,-32768,16383,0,0,0,0,-32768,16384,0};
+      |                          ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaExpr.cpp:13469: clang::QualType clang::Sema::GetSignedVectorType(clang::QualType): Assertion `TypeSize == Context.getTypeSize(Context.CharTy) && "Unhandled vector element size in vector compare"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O
+[... truncated ...]

@@ -1,0 +1,49 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpu3e8aux1/f79b5a41.cc:17:5: error: conflicting declaration 'int a'
+   17 | int a;
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpu3e8aux1/f79b5a41.cc:9:13: note: previous declaration as 'bool a []'
+    9 | extern bool a[];
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpu3e8aux1/f79b5a41.cc:19:44: error: expected '}' before 'd'
+   19 | template <typename = enum struct b { c = a d }
+      |                                    ~       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpu3e8aux1/f79b5a41.cc:19:44: error: expected '>' before 'd'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpu3e8aux1/f79b5a41.cc:19:46: error: expected unqualified-id before '}' token
+   19 | template <typename = enum struct b { c = a d }
+      |                                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpu3e8aux1/f79b5a41.cc:19:46: error: expected declaration before '}' token
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpu3e8aux1/f79b5a41.cc:19:38: internal compiler error: in fold_convert_loc, at fold-const.cc:2620
+   19 | template <typename = enum struct b { c = a d }
+      |                                      ^
+0x305a98b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00d26 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x924aeb fold_convert_loc(unsigned long, tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/fold-const.cc:2620
+0xeeba4c finish_enum_value_list(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:19506
+0x10411f4 cp_parser_enum_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:24359
+0x100a9e1 cp_parser_type_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:22552
+0x1027b24 cp_parser_decl_specifier_seq
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:19061
+0x103a4c9 cp_parser_single_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36791
+0x103b500 cp_parser_explicit_specialization
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:22463
+0x104b011 cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17809
+0x104d7d3 cp_parser_toplevel_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17923
+0x104d7d3 cp_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:5685
+0x104d7d3 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:58096
+0x11e1879 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1442
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpu3e8aux1/f79b5a41.cc -quiet -dumpbase f79b5a41.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O0 -O3 -std=gnu++20 -o /tmp/ccw6pYoD.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

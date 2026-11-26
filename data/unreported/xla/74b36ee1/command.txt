@@ -1,0 +1,1 @@
+ulimit -n 4096; ulimit -v 8388608; hlo-opt --platform=cpu --passes=algsimp,gather_simplifier,bf16-mixed-precision-removal,shardy-xla --xla_cpu_prefer_vector_width=256 --xla_cpu_fast_math_honor_infs=false --xla_llvm_disable_expensive_passes=true --o=/dev/null ./reproducer.hlo

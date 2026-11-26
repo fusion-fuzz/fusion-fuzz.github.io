@@ -1,0 +1,49 @@
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pickle.cpp:112:31: runtime error: division by zero
+    #0 0x562d1542192c in LCompilers::ASRPickleVisitor::visit_ArrayConstant(LCompilers::ASR::ArrayConstant_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pickle.cpp:112
+    #1 0x562d153fb1aa in visit_expr_t<LCompilers::ASRPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:191
+    #2 0x562d15458c7c in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_expr(LCompilers::ASR::expr_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:460
+    #3 0x562d1563ec71 in LCompilers::ASR::PickleBaseVisitor<LCompilers::ASRPickleVisitor>::visit_ArrayBroadcast(LCompilers::ASR::ArrayBroadcast_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_pickle_visitor.h:7830
+    #4 0x562d153fb7e0 in visit_expr_t<LCompilers::ASRPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:201
+    #5 0x562d15458c7c in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_expr(LCompilers::ASR::expr_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:460
+    #6 0x562d15511ecd in LCompilers::ASR::PickleBaseVisitor<LCompilers::ASRPickleVisitor>::visit_Assignment(LCompilers::ASR::Assignment_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_pickle_visitor.h:1949
+    #7 0x562d153f5ec5 in visit_stmt_t<LCompilers::ASRPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:56
+    #8 0x562d15458c2c in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_stmt(LCompilers::ASR::stmt_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:397
+    #9 0x562d15463a30 in LCompilers::ASR::PickleBaseVisitor<LCompilers::ASRPickleVisitor>::visit_Program(LCompilers::ASR::Program_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_pickle_visitor.h:231
+    #10 0x562d153f3dcb in visit_symbol_t<LCompilers::ASRPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:30
+    #11 0x562d1543caa6 in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:380
+    #12 0x562d15509a59 in LCompilers::ASR::PickleBaseVisitor<LCompilers::ASRPickleVisitor>::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_pickle_visitor.h:102
+    #13 0x562d153f589a in visit_unit_t<LCompilers::ASRPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:22
+    #14 0x562d15458bdc in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_unit(LCompilers::ASR::unit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:378
+    #15 0x562d153e68ae in visit_asr_t<LCompilers::ASRPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:351
+    #16 0x562d15432882 in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_asr(LCompilers::ASR::asr_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:377
+    #17 0x562d153a726d in LCompilers::pickle[abi:cxx11](LCompilers::ASR::asr_t&, bool, bool, bool, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pickle.cpp:210
+    #18 0x562d153a7500 in LCompilers::pickle[abi:cxx11](LCompilers::ASR::TranslationUnit_t&, bool, bool, bool, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pickle.cpp:215
+    #19 0x562d0b5c6722 in emit_asr /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:892
+    #20 0x562d0b5fe220 in main_app(int, char**) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:2901
+    #21 0x562d0b605e60 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3149
+    #22 0x7f880116bd8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #23 0x7f880116be3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #24 0x562d0b0bd9b4 in _start (/opt/lfortran/bin/lfortran+0x2c37f9b4)
+
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==36239==ERROR: AddressSanitizer: FPE on unknown address 0x562d154219ba (pc 0x562d154219ba bp 0x7fffe6b8c270 sp 0x7fffe6b8bea0 T0)
+    #0 0x562d154219ba in LCompilers::ASRPickleVisitor::visit_ArrayConstant(LCompilers::ASR::ArrayConstant_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pickle.cpp:112
+    #1 0x562d153fb1aa in visit_expr_t<LCompilers::ASRPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:191
+    #2 0x562d15458c7c in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_expr(LCompilers::ASR::expr_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:460
+    #3 0x562d1563ec71 in LCompilers::ASR::PickleBaseVisitor<LCompilers::ASRPickleVisitor>::visit_ArrayBroadcast(LCompilers::ASR::ArrayBroadcast_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_pickle_visitor.h:7830
+    #4 0x562d153fb7e0 in visit_expr_t<LCompilers::ASRPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:201
+    #5 0x562d15458c7c in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_expr(LCompilers::ASR::expr_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:460
+    #6 0x562d15511ecd in LCompilers::ASR::PickleBaseVisitor<LCompilers::ASRPickleVisitor>::visit_Assignment(LCompilers::ASR::Assignment_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_pickle_visitor.h:1949
+    #7 0x562d153f5ec5 in visit_stmt_t<LCompilers::ASRPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:56
+    #8 0x562d15458c2c in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_stmt(LCompilers::ASR::stmt_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:397
+    #9 0x562d15463a30 in LCompilers::ASR::PickleBaseVisitor<LCompilers::ASRPickleVisitor>::visit_Program(LCompilers::ASR::Program_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_pickle_visitor.h:231
+    #10 0x562d153f3dcb in visit_symbol_t<LCompilers::ASRPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:30
+    #11 0x562d1543caa6 in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:380
+    #12 0x562d15509a59 in LCompilers::ASR::PickleBaseVisitor<LCompilers::ASRPickleVisitor>::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_pickle_visitor.h:102
+    #13 0x562d153f589a in visit_unit_t<LCompilers::ASRPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:22
+    #14 0x562d15458bdc in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_unit(LCompilers::ASR::unit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:378
+    #15 0x562d153e68ae in visit_asr_t<LCompilers::ASRPickleVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:351
+    #16 0x562d15432882 in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_asr(LCompilers::ASR::asr_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:377
+    #17 0x562d153a726d in LCompilers::pickle[abi:cxx11](LCompilers::ASR::asr_t&, bool, bool, bool, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pickle.cpp
+[... truncated ...]

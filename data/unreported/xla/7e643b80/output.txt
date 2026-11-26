@@ -1,0 +1,32 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1791995378.258274 2672733 symbolic_map.cc:196] Check failed: GetNumDims() == other.GetNumResults() (2 vs. 3) Number of dimensions of this map must match number of results of other map
+*** Check failure stack trace: ***
+    @     0x5ce10c8b1a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5ce10c8b19e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5ce10327a4ee  xla::SymbolicMap::Compose()
+    @     0x5ce103260ae8  xla::ComposeIndexingMaps()
+    @     0x5ce10320ab8f  xla::emitters::PartitionedComputation::PartitionedComputation()
+    @     0x5ce10320d6c8  xla::emitters::PartitionedComputations::PartitionedComputations()
+    @     0x5ce102b70a6d  xla::emitters::LoopFusionKernelEmitter::EmitKernelDefinition()
+    @     0x5ce101c6d5b0  xla::gpu::LoopFusion::CreateMLIRModule()
+    @     0x5ce101ca1576  xla::gpu::MlirKernelEmitter::Emit()
+    @     0x5ce101ca3008  xla::gpu::MlirKernelFusion::CreateLLVMModule()
+    @     0x5ce101ca1d0f  xla::gpu::MlirKernelFusion::EmitLlvmModule()
+    @     0x5ce101cabacb  absl::lts_20260526::functional_internal::InvokeObject<>()
+    @     0x5ce1028a0629  xla::gpu::KernelReuseCache::GetWithStatus()
+    @     0x5ce1028a041a  xla::gpu::KernelReuseCache::GetWithStatus()
+    @     0x5ce101ca35f7  xla::gpu::MlirKernelFusion::Emit()
+    @     0x5ce1014abcf9  xla::gpu::ThunkEmitter::EmitFusion()
+    @     0x5ce1014ae8ca  xla::gpu::ThunkEmitter::EmitHloInstruction()
+    @     0x5ce1014a5a02  xla::gpu::ThunkEmitter::EmitHloComputation()
+    @     0x5ce1014bba02  xla::gpu::ThunkEmitter::EmitHloEntryComputation()
+    @     0x5ce101472087  xla::gpu::CompileModuleToLlvmIr()
+    @     0x5ce10144818b  xla::gpu::GpuCompiler::CompileToBackendResult()
+    @     0x5ce10144cac3  xla::gpu::GpuCompiler::RunBackend()
+    @     0x5ce10136b028  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x5ce101368dc7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5ce10c902466  main
+    @     0x7ad7bd7d4d90  (unknown)
+Aborted (core dumped)

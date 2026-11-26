@@ -1,0 +1,24 @@
+/home/phpfuzz/WorkSpace/flowfusion/php-src/main/streams/streams.c:1728:7: runtime error: member access within null pointer of type 'php_stream' (aka 'struct _php_stream')
+    #0 0x57390c2 in _php_stream_copy_to_stream_ex /home/phpfuzz/WorkSpace/flowfusion/php-src/main/streams/streams.c:1728:7
+    #1 0x3b18b1d in phar_zip_changed_apply_int /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/phar/zip.c:1154:66
+    #2 0x3b073ce in phar_zip_changed_apply /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/phar/zip.c:1177:9
+    #3 0x685bd7d in zend_hash_apply_with_argument /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_hash.c:2357:13
+    #4 0x3b0472e in phar_zip_flush /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/phar/zip.c:1425:2
+    #5 0x3a0deac in phar_flush_ex /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/phar/phar.c:2543:10
+    #6 0x39efcc4 in phar_flush /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/phar/phar.c:2496:9
+    #7 0x398c460 in phar_add_file /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/phar/phar_object.c:3635:3
+    #8 0x3991ce8 in zim_Phar_addFromString /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/phar/phar_object.c:3839:2
+    #9 0x62da021 in ZEND_DO_FCALL_SPEC_RETVAL_UNUSED_HANDLER /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_vm_execute.h:2017:4
+    #10 0x6093917 in execute_ex /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_vm_execute.h:110617:12
+    #11 0x6095f88 in zend_execute /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_vm_execute.h:116055:2
+    #12 0x6ce3c0c in zend_execute_script /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend.c:1986:3
+    #13 0x55c5f4d in php_execute_script_ex /home/phpfuzz/WorkSpace/flowfusion/php-src/main/main.c:2636:13
+    #14 0x55c7058 in php_execute_script /home/phpfuzz/WorkSpace/flowfusion/php-src/main/main.c:2676:9
+    #15 0x6cf7182 in do_cli /home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php_cli.c:941:5
+    #16 0x6cf193a in do_php_cli /home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php_cli.c:1354:18
+    #17 0x6cefd41 in main /home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php_cli_main.c:18:9
+    #18 0x7f5f3a596d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #19 0x7f5f3a596e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #20 0x606524 in _start (/home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php+0x606524)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior /home/phpfuzz/WorkSpace/flowfusion/php-src/main/streams/streams.c:1728:7

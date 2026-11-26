@@ -1,0 +1,50 @@
+Running HLO module with runner HloRunner...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1790069433.602549 2155022 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/hlo/evaluator/hlo_evaluator.cc:3319) broadcast->shape().element_type() == operand.shape().element_type()  broadcast from a different data type is not supported
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+... compiled and ran in 0.0017182s.
+INTERNAL: RET_CHECK failure (xla/hlo/evaluator/hlo_evaluator.cc:3319) broadcast->shape().element_type() == operand.shape().element_type()  broadcast from a different data type is not supported
+	Failed to execute on HloRunner
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+xla/hlo/ir/hlo_instruction.cc:5263
+xla/hlo/ir/hlo_instruction.cc:5334
+./xla/hlo/ir/hlo_computation.h:1223
+xla/hlo/evaluator/hlo_evaluator.cc:1010
+xla/pjrt/interpreter/interpreter_client.cc:338
+xla/service/hlo_runner.cc:467
+xla/tools/run_hlo_module.cc:326
+
+1/1 runs failed.
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmpdqw7mok5/283c99c0.hlo**

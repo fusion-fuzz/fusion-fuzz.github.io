@@ -1,0 +1,88 @@
+swift-frontend: /home/build-user/llvm-project/llvm/include/llvm/Support/Casting.h:578: decltype(auto) llvm::cast(From *) [To = swift::ProtocolCompositionType, From = swift::TypeBase]: Assertion `isa<To>(Val) && "cast<Ty>() argument of incompatible type!"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -Onone -sil-verify-all /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4capy9_o/aba49b20.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4capy9_o/aba49b20.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(aba49b20.(file).FakeActorSystem_d76bc08.invokeHandlerOnReturn(handler:resultBuffer:metatype:))
+5.	While evaluating request ParseAbstractFunctionBodyRequest(aba49b20.(file).FakeActorSystem_d76bc08.invokeHandlerOnReturn(handler:resultBuffer:metatype:))
+ #0 0x000055f2e2e3cbab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055f2e2e3a2e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055f2e2e3d8c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f2035582330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f20355dbc0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f203558227e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f20355658ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007f203556581b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007f2035578517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x000055f2dd13021e (/usr/bin/swift-frontend+0x2f0b21e)
+#10 0x000055f2dd12ef65 swift::TypeBase::getExistentialLayout() (/usr/bin/swift-frontend+0x2f09f65)
+#11 0x000055f2dc979f43 deriveBodyDistributed_invokeHandlerOnReturn(swift::AbstractFunctionDecl*, void*) DerivedConformanceDistributedActor.cpp:0:0
+#12 0x000055f2dcbcf047 swift::ParseAbstractFunctionBodyRequest::evaluate(swift::Evaluator&, swift::AbstractFunctionDecl*) const (/usr/bin/swift-frontend+0x29aa047)
+#13 0x000055f2dcbd3d2c swift::SimpleRequest<swift::ParseAbstractFunctionBodyRequest, swift::BodyAndFingerprint (swift::AbstractFunctionDecl*), (swift::RequestFlags)4>::evaluateRequest(swift::ParseAbstractFunctionBodyRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#14 0x000055f2dcef856c swift::ParseAbstractFunctionBodyRequest::OutputType swift::Evaluator::getResultUncached<swift::ParseAbstractFunctionBodyRequest, swift::ParseAbstractFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::ParseAbstractFunctionBodyRequest>(swift::Evaluator&, swift::ParseAbstractFunctionBodyRequest, swift::ParseAbstractFunctionBodyRequest::OutputType)::'lambda'()>(swift::ParseAbstractFunctionBodyRequest const&, swift::ParseAbstractFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::ParseAbstractFunctionBodyRequest>(swift::Evaluator&, swift::ParseAbstractFunctionBodyRequest, swift::ParseAbstractFunctionBodyRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#15 0x000055f2dcef83d2 swift::ParseAbstractFunctionBodyRequest::OutputType swift::Evaluator::getResultCached<swift::ParseAbstractFunctionBodyRequest, swift::ParseAbstractFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::ParseAbstractFunctionBodyRequest>(swift::Evaluator&, swift::ParseAbstractFunctionBodyRequest, swift::ParseAbstractFunctionBodyRequest::OutputType)::'lambda'(), (void*)0>(swift::ParseAbstractFunctionBodyRequest const&, swift::ParseAbstractFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::ParseAbstractFunctionBodyRequest>(swift::Evaluator&, swift::ParseAbstractFunctionBodyRequest, swift::ParseAbstractFunctionBodyRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#16 0x000055f2dce49b3c swift::AbstractFunctionDecl::getBody(bool) const (/usr/bin/swift-frontend+0x2c24b3c)
+#17 0x000055f2dce499d0 swift::AbstractFunctionDecl::getMacroExpandedBody() const (/usr/bin/swift-frontend+0x2c249d0)
+#18 0x000055f2dc7f2c13 swift::TypeCheckFunctionBodyRequest::evaluate(swift::Evaluator&, swift::AbstractFunctionDecl*) const (/usr/bin/swift-frontend+0x25cdc13)
+#19 0x000055f2dcef9a37 swift::TypeCheckFunctionBodyRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()>(swift::TypeCheckFunctionBodyRequest const&, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#20 0x000055f2dce49c86 swift::AbstractFunctionDecl::getTypecheckedBody() const (/usr/bin/swift-frontend+0x2c24c86)
+#21 0x000055f2dcfe0b18 swift::SourceFile::typeCheckDelayedFunctions() (/usr/bin/swift-frontend+0x2dbbb18)
+#22 0x000055f2dc874ede swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x264fede)
+#23 0x000055f2dc8793a4 swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#24 0x000055f2dc874d45 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x264fd45)
+#25 0x000055f2db0a7639 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_0>(long, swift::SourceFile&) Frontend.cpp:0:0
+#26 0x000055f2db09b35e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xe7635e)
+#27 0x000055f2db09b0eb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xe760eb)
+#28 0x000055f2daf1851e withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#29 0x000055f2daf040cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#30 0x000055f2daf00fef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcdbfef)
+#31 0x000055f2dabd024b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9ab24b)
+#32 0x00007f20355671ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#33 0x00007f203556728b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#34 0x000055f2dabcf2a5 _start (/usr/bin/swift-frontend+0x9aa2a5)
+
+*** Signal 6: Backtracing from 0x7f203566438d... done ***
+
+*** Program crashed: Aborted at 0x00007f203566438d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007f203566438d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007f203566438d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x000000000030ac74  3189876
+rdi 0x000000000030ac74  3189876
+rbp 0x000000000030ac74  3189876
+rsp 0x000055f2e8e204e8  eb d8 e3 e2 f2 55 00 00 70 07 e2 e8 f2 55 00 00  ëØãâòU··p·âèòU··
+ r8 0x000055f2e8e20770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x000055f2e8e20770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x000055f2e8e20770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x000055f2e44e05eb  2f 68 6f 6d 65 2f 62 75 69 6c 64 2d 75 73 65 72  /home/build-user
+r14 0x0000000000000000  0
+r15 0x000055f2e8e20588  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007f203566438d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (34 omitted):
+
+0x00007f203553d000–0x00007f20356eceb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

@@ -1,0 +1,8 @@
+llvm: OK
+  File "python/tvm/relax/vm_build.py", line 149, in _vmlink
+  File "python/tvm/tirx/build.py", line 236, in build
+  File "python/tvm/s_tir/pipeline.py", line 153, in _pipeline
+  File "src/tirx/transform/flatten_tensor.cc", line 248, in tvm::tirx::TensorFlattener::Mutate_(tvm::TensorStoreNode const*, tvm::ffi::InplaceMode)
+  File "src/tirx/transform/flatten_tensor.cc", line 302, in tvm::TensorStore tvm::tirx::TensorFlattener::VisitTensorAccess<tvm::TensorStore>(...)
+  File "src/tirx/transform/flatten_tensor.cc", line 180, in const tvm::tirx::TensorFlattener::FlatInfo& tvm::tirx::TensorFlattener::Lookup(const tvm::tirx::TensorVar&)
+tvm.error.InternalError: Check failed: (it != flat_map_.end()) is false: Tensor T_gather is used before its definition (AllocTensor/DeclTensor/Function param)

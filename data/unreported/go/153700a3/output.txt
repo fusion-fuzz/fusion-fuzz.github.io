@@ -1,0 +1,30 @@
+# fflfuzz
+./main.go:70:15: internal compiler error: 'EqualMap_dc4a898[go.shape.map[go.shape.struct { main.hi uint64; main.lo uint64; main.z *uint8 }]struct {},go.shape.map[go.shape.struct { main.hi uint64; main.lo uint64; main.z *uint8 }]struct {},go.shape.struct { main.hi uint64; main.lo uint64; main.z *uint8 },go.shape.struct {}]': unknown aux type for LoweredZero
+
+goroutine 65 [running]:
+runtime/debug.Stack()
+	../../../projects/go/go-src/src/runtime/debug/stack.go:26 +0x5e
+cmd/compile/internal/base.FatalfAt({0xd81c1250?, 0x236b?}, {0x236bd81c11f0, 0x1d}, {0x236bd81b8e40, 0x2, 0x2})
+	../../../projects/go/go-src/src/cmd/compile/internal/base/print.go:232 +0x18b
+cmd/compile/internal/base.Fatalf(...)
+	../../../projects/go/go-src/src/cmd/compile/internal/base/print.go:197
+cmd/compile/internal/ssagen.(*ssafn).Fatalf(0x4804100000002?, {0xd7a80008?, 0x236b?}, {0x105e447, 0x17}, {0x236bd81a3b10, 0x1, 0x4?})
+	../../../projects/go/go-src/src/cmd/compile/internal/ssagen/ssa.go:8056 +0x185
+cmd/compile/internal/ssa.(*Func).FatalfWithPos(0x236bd7b5a540, {0x1982408?, 0x0?}, {0x105e447, 0x17}, {0x236bd81a3b10, 0x1, 0x1})
+	../../../projects/go/go-src/src/cmd/compile/internal/ssa/func.go:801 +0x190
+cmd/compile/internal/ssa.(*Func).Fatalf(...)
+	../../../projects/go/go-src/src/cmd/compile/internal/ssa/func.go:791
+cmd/compile/internal/ssacompile.checkFunc(0x236bd7b5a540)
+	../../../projects/go/go-src/src/cmd/compile/internal/ssacompile/check.go:227 +0x349c
+cmd/compile/internal/ssacompile.Compiler.Compile({}, 0x236bd7b5a540, {0x1a42978, 0x0})
+	../../../projects/go/go-src/src/cmd/compile/internal/ssacompile/compile.go:155 +0xff8
+cmd/compile/internal/ssagen.buildssa({0x1a40040, 0x1ceab80}, 0x236bd7db6dc0, 0x0, 0x0)
+	../../../projects/go/go-src/src/cmd/compile/internal/ssagen/ssa.go:605 +0x308e
+cmd/compile/internal/ssagen.Compile({0x1a40040, 0x1ceab80}, 0x236bd7db6dc0, 0x0, 0x0?)
+	../../../projects/go/go-src/src/cmd/compile/internal/ssagen/pgen.go:306 +0xac
+cmd/compile/internal/gc.compileFunctions.func2()
+	../../../projects/go/go-src/src/cmd/compile/internal/gc/compile.go:174 +0x1b9
+sync.(*WaitGroup).Go.func1()
+	../../../projects/go/go-src/src/sync/waitgroup.go:258 +0x4a
+created by sync.(*WaitGroup).Go in goroutine 1
+	../../../projects/go/go-src/src/sync/waitgroup.go:238 +0x7d

@@ -1,0 +1,25 @@
+HloModule module
+
+%fused_computation {
+  ROOT %p0 = f32[10] parameter(0)
+}
+
+%fused_computation.d {
+  ROOT %p0 = f32[10] parameter(0)
+}
+
+ENTRY %module {
+  %parameter.0 = s32[8,4,2,2]{3,2,1,0} parameter(0), sharding={devices=[8,1,1,1]0,1,4,5,2,3,6,7 metadata={op_name="a"}}
+  %iota = s32[1,8,4]{2,1,0} iota(), iota_dimension=1
+  %iota2 = s32[1,8,4]{2,1,0} iota(), iota_dimension=2
+  %p0 = f32[10] parameter(1)
+  %p1 = f32[10] parameter(2)
+  %out = f32[10] fusion(%p0, %p1), kind=kInput, calls=%fused_computation
+  %concatenate.19 = s32[2,8,4]{2,1,0} concatenate(s32[1,8,4]{2,1,0} %iota, s32[1,8,4]{2,1,0} %iota2), dimensions={0}
+  %gather = s32[8,4,2,2]{3,2,1,0} gather(s32[8,4,2,2]{3,2,1,0} %parameter.0, s32[2,8,4]{2,1,0} %concatenate.19), offset_dims={2,3}, collapsed_slice_dims={0,1}, start_index_map={0,1}, index_vector_dim=0, slice_sizes={1,1,2,2}
+  %copy = s32[8,4,2,2]{3,2,1,0} copy(%gather)
+  %ffl.root = (s32[8,4,2,2]{3,2,1,0}, f32[10]) tuple(%copy, %out)
+  %p0.d = f32[10] parameter(3)
+  %out.d = f32[10] fusion(%p0.d, %p1), kind=kInput, calls=%fused_computation.d
+  ROOT %ffl.root.1 = (s32[8,4,2,2]{3,2,1,0}, f32[10], f32[10]) tuple(%copy, %out, %out.d)
+}

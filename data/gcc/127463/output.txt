@@ -1,0 +1,36 @@
+/tmp/test.cc:18:1: error: expected initializer before 'extern'
+   18 | extern void * foo (void);
+      | ^~~~~~
+/tmp/test.cc:21:46: internal compiler error: in merge_weak, at varasm.cc:6268
+   21 | extern void * foo (void) __attribute__((weak));
+      |                                              ^
+0x3046dcb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xdd9a1e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0xa7eb2a merge_weak(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/varasm.cc:6268
+0xeb8cf0 duplicate_decls(tree_node*, tree_node*, bool, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:3047
+0xfaabcf pushdecl(tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/name-lookup.cc:4089
+0xed26dd start_decl(cp_declarator const*, cp_decl_specifier_seq*, int, tree_node*, tree_node*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:6822
+0x10105fa cp_parser_init_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:26383
+0x10125cb cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18207
+0x10221cf cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17744
+0x1024c33 cp_parser_toplevel_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17848
+0x1024c33 cp_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:5610
+0x1024c33 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:57910
+0x11b8619 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /tmp/test.cc -quiet -dumpdir a- -dumpbase test.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Os -std=c++17 -fsyntax-only -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

@@ -1,0 +1,55 @@
+note: no errors encountered even though delayed bugs were created
+
+note: those delayed bugs will now be shown as internal compiler errors
+
+error: internal compiler error: unexpected rigid alias in layout_of after normalization: Alias(Yes, Alias { kind: Projection { def_id: DefId(0:4 ~ bb3bf024[b537]::MyFnOnce::Output) }, args: [Alias(Yes, Alias { kind: Opaque { def_id: DefId(0:21 ~ bb3bf024[b537]::my_fn_1::{opaque#0}) }, args: [], .. })], .. })
+  |
+  = note: delayed at compiler/rustc_ty_utils/src/layout.rs:835:61
+             0: <rustc_errors::DiagCtxtInner>::emit_diagnostic
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1284:41
+             1: <rustc_errors::DiagCtxtHandle>::emit_diagnostic
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:876:33
+             2: <rustc_errors::diagnostic::Diag>::emit_producing_error_guaranteed
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1312:29
+             3: <rustc_errors::diagnostic::Diag>::emit
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1319:9
+             4: <rustc_errors::DiagCtxtHandle>::delayed_bug::<alloc::string::String>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1084:68
+             5: rustc_ty_utils::layout::layout_of_uncached
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_ty_utils/src/layout.rs:835:61
+             6: rustc_ty_utils::layout::layout_of
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_ty_utils/src/layout.rs:100:18
+             7: rustc_query_impl::query_vtables::layout_of::invoke_provider_fn::__rust_begin_short_backtrace
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/query_vtables.rs:130:46
+             8: rustc_query_impl::execution::execute_job_non_incr::<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::Ty>, rustc_middle::query::erase::ErasedData<[u8; 16]>>>::{closure#0}
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:391:59
+             9: rustc_middle::ty::context::tls::enter_context::<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::Ty>, rustc_middle::query::erase::ErasedData<[u8; 16]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 16]>>::{closure#0}
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:56:9
+            10: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::try_with::<rustc_middle::ty::context::tls::enter_context<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::Ty>, rustc_middle::query::erase::ErasedData<[u8; 16]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 16]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 16]>>
+                       at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:464:12
+            11: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::with::<rustc_middle::ty::context::tls::enter_context<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::Ty>, rustc_middle::query::erase::ErasedData<[u8; 16]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 16]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 16]>>
+                       at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:428:20
+            12: rustc_middle::ty::context::tls::enter_context::<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::Ty>, rustc_middle::query::erase::ErasedData<[u8; 16]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 16]>>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:53:9
+            13: rustc_query_impl::execution::start_query::<rustc_middle::query::erase::ErasedData<[u8; 16]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::Ty>, rustc_middle::query::erase::ErasedData<[u8; 16]>>>::{closure#0}>::{closure#0}
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:375:9
+            14: rustc_middle::ty::context::tls::with_context::<rustc_query_impl::execution::start_query<rustc_middle::query::erase::ErasedData<[u8; 16]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::Ty>, rustc_middle::query::erase::ErasedData<[u8; 16]>>>::{closure#0}>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 16]>>::{closure#0}
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:86:36
+            15: rustc_middle::ty::context::tls::with_context_opt::<rustc_middle::ty::context::tls::with_context<rustc_query_impl::execution::start_query<rustc_middle::query::erase::ErasedData<[u8; 16]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::Ty>, rustc_middle::query::erase::ErasedData<[u8; 16]>>>::{closure#0}>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 16]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 16]>>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:75:18
+            16: rustc_middle::ty::context::tls::with_context::<rustc_query_impl::execution::start_query<rustc_middle::query::erase::ErasedData<[u8; 16]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::Ty>, rustc_middle::query::erase::ErasedData<[u8; 16]>>>::{closure#0}>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 16]>>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:86:5
+            17: rustc_query_impl::execution::start_query::<rustc_middle::query::erase::ErasedData<[u8; 16]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::Ty>, rustc_middle::query::erase::ErasedData<[u8; 16]>>>::{closure#0}>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:362:5
+            18: rustc_query_impl::execution::execute_job_non_incr::<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::Ty>, rustc_middle::query::erase::ErasedData<[u8; 16]>>>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:391:17
+            19: rustc_query_impl::execution::try_execute_query::<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::Ty>, rustc_middle::query::erase::ErasedData<[u8; 16]>>, false>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:262:17
+            20: rustc_query_impl::execution::execute_query_non_incr_inner::<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::Ty>, rustc_middle::query::erase::ErasedData<[u8; 16]>>>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:576:5
+            21: rustc_query_impl::query_vtables::layout_of::execute_query_non_incr::__rust_end_short_backtrace
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/query_vtables.rs:94:30
+            22: rustc_middle::query::calls::query_get_at::<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::Ty>, rustc_middle::query::erase::ErasedData<[u8; 16]>>>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:154:17
+   
+[... truncated ...]

@@ -1,0 +1,61 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5v31tls0/902ded8b.mm:11:37: warning: 'pcs' calling convention is not supported for this target [-Wignored-attributes]
+   11 |                    __attribute__ (( pcs("aapcs") )) { };
+      |                                     ^
+unexpected calling convention in pcs attribute
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaDeclAttr.cpp:5596!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O2 -fblocks -fobjc-runtime=ios-7 -fobjc-arc /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5v31tls0/902ded8b.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp5v31tls0/902ded8b.mm:11:53: current parser token '{'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005dfe105d9329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005dfe105d5fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005dfe105d68a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005dfe10518218
+4  libc.so.6 0x0000730e835b9520
+5  libc.so.6 0x0000730e8360d9bc pthread_kill + 300
+6  libc.so.6 0x0000730e835b9476 raise + 22
+7  libc.so.6 0x0000730e8359f7f3 abort + 211
+8  clang++   0x00005dfe1052311e
+9  clang++   0x00005dfe13267f43
+10 clang++   0x00005dfe13275d20 clang::Sema::ProcessDeclAttributeList(clang::Scope*, clang::Decl*, clang::ParsedAttributesView const&, clang::Sema::ProcessDeclAttributeOptions const&) + 80
+11 clang++   0x00005dfe13313a4d clang::SemaObjC::ActOnMethodDeclaration(clang::Scope*, clang::SourceLocation, clang::SourceLocation, clang::tok::TokenKind, clang::ObjCDeclSpec&, clang::OpaquePtr<clang::QualType>, llvm::ArrayRef<clang::SourceLocation>, clang::Selector, clang::ParmVarDecl**, clang::DeclaratorChunk::ParamInfo*, unsigned int, clang::ParsedAttributesView const&, clang::tok::ObjCKeywordKind, bool, bool) + 1213
+12 clang++   0x00005dfe12ea18ca clang::Parser::ParseObjCMethodDecl(clang::SourceLocation, clang::tok::TokenKind, clang::tok::ObjCKeywordKind, bool) + 4442
+13 clang++   0x00005dfe12ea2911 clang::Parser::ParseObjCInterfaceDeclList(clang::tok::ObjCKeywordKind, clang::Decl*) + 929
+14 clang++   0x00005dfe12ea37d4 clang::Parser::ParseObjCAtProtocolDeclaration(clang::SourceLocation, clang::ParsedAttributes&) + 484
+15 clang++   0x00005dfe12df1df3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2563
+16 clang++   0x00005dfe12df26ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+17 clang++   0x00005dfe12dcf632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+18 clang++   0x00005dfe11470061 clang::FrontendAction::Execute() + 65
+19 clang++   0x00005dfe113f9e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+20 clang++   0x00005dfe11547de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+21 clang++   0x00005dfe0e3a333e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+22 clang++   0x00005dfe0e39913a
+23 clang++   0x00005dfe0e3992cf
+24 clang++   0x00005dfe1117ecfd
+25 clang++   0x00005dfe10518630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+26 clang++   0x00005dfe1117fb53
+27 clang++   0x00005dfe11134607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+28 clang++   0x00005dfe11138ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+29 clang++   0x00005dfe11147004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+30 clang++   0x00005dfe0e39e923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+31 clang++   0x00005dfe0e2da7f1 main + 113
+32 libc.so.6 0x0000730e835a0d90
+33 libc.so.6 0x0000730e835a0e40 __libc_start_main + 128
+34 clang++   0x00005dfe0e398765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/902ded8b-5ca253.mm
+clang++: note: diagnostic msg: /tmp/902ded8b-5ca253.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

@@ -1,0 +1,34 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+W0000 00:00:1792004000.955137 3392109 sharding_propagation.cc:3202] GSPMD sharding propagation is going to be deprecated and not supported in the future. Please consider migrating to Shardy (https://openxla.org/shardy). For reference, Shardy is already the default partitioner in JAX.
+F0000 00:00:1792004000.955320 3392109 spmd_partitioner.cc:1394] Check failed: !shape.IsTuple() && shape.element_type() != TOKEN 
+*** Check failure stack trace: ***
+    @     0x592ce4ef1a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x592ce4ef19e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x592cdca87982  xla::spmd::PartitionedHlo::Replicate()
+    @     0x592cdcac9708  xla::spmd::SpmdPartitioningVisitor::HandleReduce()
+    @     0x592ce48268c2  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x592ce4825ef7  xla::HloInstruction::Visit<>()
+    @     0x592ce482846e  xla::PostOrderDFS<>()
+    @     0x592ce4824cf8  xla::HloInstruction::Accept<>()
+    @     0x592cd9986f07  xla::HloComputation::Accept<>()
+    @     0x592cdcad331c  xla::spmd::SpmdPartitioningVisitor::DoPartition()
+    @     0x592cdcad7992  xla::spmd::SpmdPartitioner::PartitionComputation()
+    @     0x592cdcaf47a6  absl::lts_20260526::functional_internal::InvokeObject<>()
+    @     0x592ce459a21b  xla::CallGraph::VisitNodesInternal()
+    @     0x592ce459a5b0  xla::CallGraph::VisitNodes()
+    @     0x592cdcad8eda  xla::spmd::SpmdPartitioner::RunImpl()
+    @     0x592ce0fa8be7  xla::HloPassInterface::Run()
+    @     0x592cdcb263ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x592cdcb217bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x592cdcb20bd5  xla::HloPassPipeline::RunImpl()
+    @     0x592ce0fa8be7  xla::HloPassInterface::Run()
+    @     0x592cd9a74fd2  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x592cd9a8206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x592cd99b6934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x592cd99aae5e  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x592cd99a927d  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x592ce4f42466  main
+    @     0x7f57455d4d90  (unknown)
+Aborted (core dumped)

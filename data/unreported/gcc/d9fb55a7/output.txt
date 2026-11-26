@@ -1,0 +1,58 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpje21jpz4/ffde661f.cc: In function 'void foo(int)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpje21jpz4/ffde661f.cc:63:9: error: declaration of 'auto j' shadows a parameter [-Wtemplate-body]
+   63 |   auto [j] = A{j};      // { dg-error "shadows a parameter" }
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpje21jpz4/ffde661f.cc:61:10: note: 'int j' previously declared here
+   61 | foo (int j)
+      |      ~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpje21jpz4/ffde661f.cc: In instantiation of 'void foo(int) [with int <anonymous> = 0]':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpje21jpz4/ffde661f.cc:75:10:   required from here
+   75 |   foo<0> (0);
+      |   ~~~~~~~^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpje21jpz4/ffde661f.cc:63:8: internal compiler error: in convert_like_internal, at cp/call.cc:8738
+   63 |   auto [j] = A{j};      // { dg-error "shadows a parameter" }
+      |        ^~~
+0x3046dcb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xdd9a1e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7add59 convert_like_internal
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:8738
+0xe0535e convert_like
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:9527
+0xe0535e initialize_reference(tree_node*, tree_node*, int, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:14570
+0x1127ce0 convert_for_initialization(tree_node*, tree_node*, tree_node*, int, impl_conv_rhs, tree_node*, int, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck.cc:11037
+0x1133aec digest_init_r
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck2.cc:1674
+0x1134bd8 massage_init_elt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck2.cc:1816
+0x113508d process_init_constructor_record
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck2.cc:2059
+0x113465a process_init_constructor
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck2.cc:2354
+0x113465a digest_init_r
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck2.cc:1644
+0x10c5745 finish_compound_literal(tree_node*, tree_node*, int, fcl_t)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:4013
+0x104fd5c tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:23074
+0x105746e tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:21611
+0x105746e tsubst_init
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:18630
+0x1082baa tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:20012
+0x10806e1 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:19833
+0x107ec9e tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:20270
+0x10890c2 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:19819
+0x10890c2 instantiate_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:28986
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpje21jpz4/ffde661f.cc -quiet -dumpdir a- -dumpbase ffde661f.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Og -O2 -std=c++20 -fsyntax-only -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

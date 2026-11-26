@@ -1,0 +1,68 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpp4ochnep/d3276141.swift:5:5: error: keyword 'init' cannot be used as an identifier here
+  3 | // --- Seed A ---
+  4 | var data = Array(repeating: false, count: 128)
+  5 | let init: Bool = true
+    |     |- error: keyword 'init' cannot be used as an identifier here
+    |     `- note: if this name is unavoidable, use backticks to escape it
+  6 | for i in 0..<128 {
+  7 |     data[i] = init
+
+swift-frontend: /home/build-user/llvm-project/llvm/include/llvm/Support/Casting.h:662: decltype(auto) llvm::dyn_cast(From *) [To = swift::ClassDecl, From = swift::NominalTypeDecl]: Assertion `detail::isPresent(Val) && "dyn_cast on a non-existent value"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -wmo -sil-verify-all -enforce-exclusivity=checked /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpp4ochnep/d3276141.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpp4ochnep/d3276141.swift")
+4.	While type-checking extension of _ (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpp4ochnep/d3276141.swift:61:1)
+5.	While type-checking declaration 0x564781ef6020 (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpp4ochnep/d3276141.swift:63:3)
+6.	While type-checking didset for _replacement_z (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpp4ochnep/d3276141.swift:63:7)
+7.	While evaluating request InterfaceTypeRequest(d3276141.(file).HeapStored extension._replacement_z.didSet observer@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpp4ochnep/d3276141.swift:67:5)
+8.	While evaluating request SimpleDidSetRequest(d3276141.(file).HeapStored extension._replacement_z.didSet observer@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpp4ochnep/d3276141.swift:67:5)
+9.	While evaluating request TypeCheckFunctionBodyRequest(d3276141.(file).HeapStored extension._replacement_z.didSet observer@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpp4ochnep/d3276141.swift:67:5)
+10.	While type-checking statement at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpp4ochnep/d3276141.swift:67:12 - line:69:5] RangeText="{
+      print("HeapStored.z.didSet from \(init) to \(z) replacement")
+    "
+11.	While type-checking expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpp4ochnep/d3276141.swift:68:7 - line:68:67] RangeText="print("HeapStored.z.didSet from \(init) to \(z) replacement""
+12.	While type-checking-target starting at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpp4ochnep/d3276141.swift:68:7
+ #0 0x000056477adb9bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000056477adb72e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000056477adba8c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007ffa645b7330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007ffa64610c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007ffa645b727e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007ffa6459a8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007ffa6459a81b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007ffa645ad517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x0000564774599c42 resolveDeclRefExpr(swift::UnresolvedDeclRefExpr*, swift::DeclContext*, swift::optionset::OptionSet<swift::NLFlags, unsigned int>) PreCheckTarget.cpp:0:0
+#10 0x00005647745963ec swift::TypeChecker::resolveDeclRefExpr(swift::UnresolvedDeclRefExpr*, swift::DeclContext*) (/usr/bin/swift-frontend+0x23f43ec)
+#11 0x000056477459f64f (anonymous namespace)::PreCheckTarget::walkToExprPre(swift::Expr*) PreCheckTarget.cpp:0:0
+#12 0x0000564774d0f74c (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#13 0x0000564774d16548 (anonymous namespace)::Traversal::visit(swift::ArgumentList*) ASTWalker.cpp:0:0
+#14 0x0000564774d12125 (anonymous namespace)::Traversal::visitApplyExpr(swift::ApplyExpr*) ASTWalker.cpp:0:0
+#15 0x0000564774d0f87e (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#16 0x0000564774d126b6 swift::ASTVisitor<(anonymous namespace)::Traversal, swift::Expr*, swift::Stmt*, bool, swift::Pattern*, bool, void>::visit(swift::Stmt*) ASTWalker.cpp:0:0
+#17 0x0000564774d11d5d (anonymous namespace)::Traversal::visitTapExpr(swift::TapExpr*) ASTWalker.cpp:0:0
+#18 0x0000564774d0f94a (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#19 0x0000564774d108c2 (anonymous namespace)::Traversal::visitInterpolatedStringLiteralExpr(swift::InterpolatedStringLiteralExpr*) ASTWalker.cpp:0:0
+#20 0x0000564774d0fad4 (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#21 0x0000564774d16548 (anonymous namespace)::Traversal::visit(swift::ArgumentList*) ASTWalker.cpp:0:0
+#22 0x0000564774d12125 (anonymous namespace)::Traversal::visitApplyExpr(swift::ApplyExpr*) ASTWalker.cpp:0:0
+#23 0x0000564774d0f87e (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#24 0x0000564774d0f723 swift::Expr::walk(swift::ASTWalker&) (/usr/bin/swift-frontend+0x2b6d723)
+#25 0x00005647745a93a1 swift::constraints::SyntacticElementTarget::walk(swift::ASTWalker&) const (/usr/bin/swift-frontend+0x24073a1)
+#26 0x000056477459a6d9 swift::constraints::ConstraintSystem::preCheckTarget(swift::constraints::SyntacticElementTarget&) (/usr/bin/swift-frontend+0x23f86d9)
+#27 0x000056477466394d swift::TypeChecker::typeCheckTarget(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x24c194d)
+#28 0x000056477466386d swift::TypeChecker::typeCheckExpression(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x24c186d)
+#29 0x0000564774663741 swift::TypeChecker::typeCheckExpression(swift::Expr*&, swift::DeclContext*, swift::constraints::ContextualTypeInfo, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>) (/usr/bin/swift-frontend+0x24c1741)
+#30 0x000056477476ebe7 (anonymous namespace)::StmtChecker::typeCheckASTNode(swift::ASTNode&) TypeCheckStmt.cpp:0:0
+#31 0x00005647747754ac swift::ASTVisitor<(anonymous namespace)::StmtChecker, void, swift::Stmt*, void, void, void, void>::visit(swift::Stmt*) TypeCheckStmt.cpp:0:0
+#32 0x0000564774778a8c bool (anonymous namespace)::StmtChecker::typeCheckStmt<swift::BraceStmt>(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#33 0x0000564774770444 (anonymous namespace)::StmtChecker::typeCheckBody(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#34 0x000056477477003d swift::TypeCheckFunctionBodyRequest::evaluate(swift::Evaluator&, swift::AbstractFunctionDecl*) const (/usr/bin/swift-frontend+0x25ce03d)
+#35 0x0000564774e76a37 swift::TypeCheckFunctionBodyRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()>(swift::TypeCheckFunctionBodyRequest const&, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#36 0x0000564774dc6c86 swift::AbstractFunctionDecl::getTypecheckedBody() const (/usr/bin/swift-frontend+0x2c24c86)
+#37 0x000056477478a9a4 swift::SimpleDidSetRequest::evaluate(swift::Evaluator&, swift::AccessorDecl*) const (/usr/bin/swift-frontend+0x25e89a4)
+#38 0x0000564774e806a5 swift::SimpleDidSetRequest::OutputType swift::Evaluator::getResultUncached<swift::SimpleDidSetRequest, swift::SimpleDidSetRequest::OutputType swift::evaluateOrDefault<swift::SimpleDidSetRequest>(swift::Evaluator&, swift::SimpleDidSetRequest, swift::SimpleDidSetRequest::OutputType)::'lambda'()>(swift::SimpleDidSetRequest const&, swift::SimpleDidSetRequest::OutputType swift::evaluateOrDefault<swift::SimpleDidSetRequest>(swift::Evaluator&, swift::SimpleDidSetRequest, swift::SimpleDidSetRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#39 0x0000564774e804bb swift::SimpleDidSetRequest::OutputType swift::Evaluator::getResultCached<swift::SimpleDidSetRequest, swift::SimpleDidSetRequest::OutputType swift::evaluateOrDefault<swift::SimpleDidSetRequest>(swift::Evaluator&, swift::SimpleDidSetRequest, swift::SimpleDidSetRequest::OutputType)::'lambda'(), (void*)0>(swift::SimpleDidSetRequest const&, swift::SimpleDidSetRequest::OutputType swift::evaluateOrDefault<swift::SimpleDidSetRequest>(swift::Evaluator&, swift
+[... truncated ...]

@@ -1,0 +1,9 @@
+HloModule sub1
+
+ENTRY %sub1_entry {
+  %param0 = f32[100] parameter(0)
+  %custom-call = f32[100] custom-call(param0), custom_call_target="_xla_multi_module_call", backend_config="shared_sub", api_version=API_VERSION_TYPED_FFI
+  %input = f32[6,4,3]{0,1,2} parameter(1)
+  %output = f32[6,4,3]{2,0,1} custom-call(%custom-call), custom_call_target="LayoutConstraint"
+  ROOT %ffl.root = (f32[100], f32[6,4,3]{2,0,1}) tuple(%custom-call, %output)
+}

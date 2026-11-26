@@ -1,0 +1,49 @@
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpr90e_4t8/029963c7.cc:30:16: error: size of array element is not a multiple of its alignment
+   30 |       Bar bar[4];       /* { dg-error "size of array element is not a multiple of its alignment" } */
+      |                ^
+
+internal compiler error: error reporting routines re-entered.
+0x32cdb89 error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:614
+0x1a061f0 layout_type(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/stor-layout.cc:2768
+0x12a1bd3 build_cplus_array_type(tree_node*, tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/tree.cc:1294
+0x12a5a1f build_cplus_array_type(tree_node*, tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/tree.cc:1814
+0x12a5a1f strip_typedefs(tree_node*, bool*, unsigned int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/tree.cc:1814
+0x109b206 type_to_string
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/error.cc:3860
+0x10a5227 cp_printer
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/error.cc:5085
+0x3340603 format_phase_2
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/pretty-print.cc:2303
+0x3340603 pretty_printer::format(text_info&)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/pretty-print.cc:1846
+0x32d9973 pp_format(pretty_printer*, text_info*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/pretty-print.h:599
+0x32d9973 diagnostics::context::report_diagnostic(diagnostics::diagnostic_info*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1530
+0x32da08d diagnostics::context::diagnostic_impl(rich_location*, diagnostics::metadata const*, diagnostics::option_id, char const*, __va_list_tag (*) [1], diagnostics::kind)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1689
+0x32ce0ed error_at(unsigned long, char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:655
+0x108844a grok_array_decl(unsigned long, tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl2.cc:573
+0x1172d3b cp_parser_postfix_open_square_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:9527
+0x1185e26 cp_parser_postfix_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:8996
+0x11826d6 cp_parser_unary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:10713
+0x1167e8a cp_parser_cast_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:11628
+0x118251c cp_parser_unary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:10630
+0x1167e8a cp_parser_cast_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:11628
+/home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -iprefix /home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../lib/gcc/x86_64-pc-linux-gnu/17.0.0/ -D_GNU_SOURCE /home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpr90e_4t8/029963c7.cc -quiet -dumpbase 029963c7.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O1 -o /tmp/cc9nfM2w.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

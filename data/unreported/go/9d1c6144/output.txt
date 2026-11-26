@@ -1,0 +1,113 @@
+# fflfuzz
+The following panic happened checking types near:
+	./main.go:31:6
+	./main.go:32:6
+	./main.go:17:6
+./main.go:19:5: cannot declare init - must be func
+<unknown line number>: internal compiler error: panic: known implementation limitation: encountered an incomplete alias (see go.dev/issue/78296)
+
+goroutine 1 [running]:
+runtime/debug.Stack()
+	../../../projects/go/go-src/src/runtime/debug/stack.go:26 +0x5e
+cmd/compile/internal/base.FatalfAt({0xcc71c1c0?, 0x2d96?}, {0x102e5e8, 0x9}, {0x2d96cc71c1f0, 0x1, 0x1})
+	../../../projects/go/go-src/src/cmd/compile/internal/base/print.go:232 +0x18b
+cmd/compile/internal/base.Fatalf(...)
+	../../../projects/go/go-src/src/cmd/compile/internal/base/print.go:197
+cmd/compile/internal/gc.handlePanic()
+	../../../projects/go/go-src/src/cmd/compile/internal/gc/main.go:59 +0x95
+panic({0x19d7608?, 0x109fba0?})
+	../../../projects/go/go-src/src/runtime/panic.go:859 +0x11f
+cmd/compile/internal/types2.(*Checker).handleBailout(0x2d96cc426600, 0x2d96cc71ee18)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/check.go:396 +0x286
+panic({0x19d7608?, 0x109fba0?})
+	../../../projects/go/go-src/src/runtime/panic.go:859 +0x11f
+cmd/compile/internal/types2.(*Checker).objDecl.func1()
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/decl.go:54 +0x58
+panic({0x19d7608?, 0x109fba0?})
+	../../../projects/go/go-src/src/runtime/panic.go:859 +0x11f
+cmd/compile/internal/types2.(*Checker).objDecl.func1()
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/decl.go:54 +0x58
+panic({0x19d7608?, 0x109fba0?})
+	../../../projects/go/go-src/src/runtime/panic.go:859 +0x11f
+cmd/compile/internal/types2.(*Checker).objDecl.func1()
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/decl.go:54 +0x58
+panic({0x19d7608?, 0x109fba0?})
+	../../../projects/go/go-src/src/runtime/panic.go:859 +0x11f
+cmd/compile/internal/types2.(*typeWriter).typ(0x2d96cc938990, {0x1a40338, 0x2d96cc885c80})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typestring.go:341 +0x106a
+cmd/compile/internal/types2.(*typeWriter).typeList(0x2d96cc938990, {0x2d96cc3be390, 0x1, 0xeab701?})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typestring.go:395 +0x45
+cmd/compile/internal/types2.(*Context).instanceHash(0x2d96cc8860a0, {0x1a40310, 0x2d96cc940280}, {0x2d96cc3be390, 0x1, 0x1})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/context.go:79 +0xe9
+cmd/compile/internal/types2.(*Checker).instance(0x2d96cc426600, {0x2d96cc938360, 0x1f, 0x8}, {0x1a41680, 0x2d96cc940280}, {0x2d96cc3be390, 0x1, 0x1}, 0x0, ...)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/instantiate.go:113 +0x245
+cmd/compile/internal/types2.(*Checker).instantiatedType(0x2d96cc426600, {0x1a42228, 0x2d96cc93f400}, {0x2d96cc3be380, 0x1, 0x1})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:430 +0x495
+cmd/compile/internal/types2.(*Checker).typInternal(0x2d96cc426600, {0x1a422b8, 0x2d96cc93cd80}, 0x2d96cc93d080)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:279 +0x955
+cmd/compile/internal/types2.(*Checker).declaredType(0x2d96cc426600, {0x1a422b8, 0x2d96cc93cd80}, 0x41a22d?)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:184 +0x2f
+cmd/compile/internal/types2.(*Checker).typeDecl(0x2d96cc426600, 0x2d96cc93d080, 0x2d96cc93cd20)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/decl.go:496 +0x8cc
+cmd/compile/internal/types2.(*Checker).objDecl(0x2d96cc426600, {0x1a42c68, 0x2d96cc93d080})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/decl.go:158 +0x9b1
+cmd/compile/internal/types2.(*Checker).ident(...)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:69
+cmd/compile/internal/types2.(*Checker).typInternal(0x2d96cc426600, {0x1a42228, 0x2d96cc93f540}, 0x0)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:249 +0xc1e
+cmd/compile/internal/types2.(*Checker).declaredType(0x2d96cc426600, {0x1a42228, 0x2d96cc93f540}, 0x1027c2a?)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:184 +0x2f
+cmd/compile/internal/types2.(*Checker).varType(0x2d96cc426600, {0x1a42228, 0x2d96cc93f540})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:148 +0x31
+cmd/compile/internal/types2.(*Checker).typeList(0x2d96cc426600, {0x2d96cc3be350, 0x1, 0x2d96cc3917e8?})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:517 +0x85
+cmd/compile/internal/types2.(*Checker).instantiatedType(0x2d96cc426600, {0x1a42228, 0x2d96cc93f4f0}, {0x2d96cc3be350, 0x1, 0x1})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:421 +0x359
+cmd/compile/internal/types2.(*Checker).typInternal(0x2d96cc426600, {0x1a422b8, 0x2d96cc93ce40}, 0x2d96cc93d0e0)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:279 +0x955
+cmd/compile/internal/types2.(*Checker).declaredType(0x2d96cc426600, {0x1a422b8, 0x2d96cc93ce40}, 0x2d96cc426600?)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:184 +0x2f
+cmd/compile/internal/types2.(*Checker).typeDecl(0x2d96cc426600, 0x2d96cc93d0e0, 0x2d96cc93cde0)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/decl.go:470 +0x5d6
+cmd/compile/internal/types2.(*Checker).objDecl(0x2d96cc426600, {0x1a42c68, 0x2d96cc93d0e0})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/decl.go:158 +0x9b1
+cmd/compile/internal/types2.(*Checker).ident(...)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:69
+cmd/compile/internal/types2.(*Checker).typInternal(0x2d96cc426600, {0x1a42228, 0x2d96cc93f0e0}, 0x0)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:249 +0xc1e
+cmd/compile/internal/types2.(*Checker).declaredType(0x2d96cc426600, {0x1a42228, 0x2d96cc93f0e0}, 0x2d96cc9402a0?)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:184 +0x2f
+cmd/compile/internal/types2.(*Checker).varType(0x2d96cc426600, {0x1a42228, 0x2d96cc93f0e0})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:148 +0x31
+cmd/compile/internal/types2.(*Checker).typeList(0x2d96cc426600, {0x2d96cc3be2c0, 0x1, 0x2d96cc392428?})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:517 +0x85
+cmd/compile/internal/types2.(*Checker).instantiatedType(0x2d96cc426600, {0x1a42228, 0x2d96cc93f090}, {0x2d96cc3be2c0, 0x1, 0x1})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:421 +0x359
+cmd/compile/internal/types2.(*Checker).typInternal(0x2d96cc426600, {0x1a422b8, 0x2d96cc93cb40}, 0x2d96cc93cfc0)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:279 +0x955
+cmd/compile/internal/types2.(*Checker).declaredType(0x2d96cc426600, {0x1a422b8, 0x2d96cc93cb40}, 0x41a22d?)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/typexpr.go:184 +0x2f
+cmd/compile/internal/types2.(*Checker).typeDecl(0x2d96cc426600, 0x2d96cc93cfc0, 0x2d96cc93cae0)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/decl.go:496 +0x8cc
+cmd/compile/internal/types2.(*Checker).objDecl(0x2d96cc426600, {0x1a42c68, 0x2d96cc93cfc0})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/decl.go:158 +0x9b1
+cmd/compile/internal/types2.(*Checker).packageObjects(0x2d96cc426600)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/resolver.go:687 +0x32b
+cmd/compile/internal/types2.(*Checker).checkFiles(0x2d96cc426600, {0x2d96cc392fb0?, 0x424565?, 0x2d96cc380808?})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/check.go:443 +0x3f7
+cmd/compile/internal/types2.(*Checker).Files(0x7fff4c656394?, {0x2d96cc392fb0?, 0x0?, 0x0?})
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/check.go:414 +0x71
+cmd/compile/internal/types2.(*Config).Check(0x2d96cc93cea0, {0x7fff4c656394?, 0x2d96cc260057?}, {0x2d96cc392fb0, 0x1, 0x1}, 0x2d96cc93cf00)
+	../../../projects/go/go-src/src/cmd/compile/internal/types2/api.go:478 +0x19d
+cmd/compile/internal/noder.checkFiles({0x0, {0x0, 0x0}}, {0x2d96cc782008, 0x1, 0x2000?})
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/irgen.go:100 +0x65f
+cmd/compile/internal/noder.writePkgStub({0x0?, {0x0?, 0x0?}}, {0x2d96cc782008, 0x1, 0x1})
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/unified.go:322 +0x6a
+cmd/compile/internal/noder.unified({0x0?, {0x0?, 0x0?}}, {0x2d96cc782008?, 0x1949380?, 0x1b26338?})
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/unified.go:198 +0xb6
+cmd/compile/internal/noder.LoadPackage({0x2d96cc3ce170, 0x1, 0x1})
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/noder.go:76 +0x525
+cmd/compile/internal/gc.Main(0x1a46b60)
+	../../../projects/go/go-src/src/cmd/compile/internal/gc/main.go:219 +0xd05
+main.main()
+	../../../projects/go/go-src/src/cmd/compile/main.go:57 +0x105

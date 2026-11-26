@@ -1,0 +1,64 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmppn5fsfj0/0960739f.cc: In function 'b e()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmppn5fsfj0/0960739f.cc:11:25: warning: invalid conversion from 'const char*' to 'char' [-fpermissive]
+   11 |     struct b f[] = {{}, "", f, a};
+      |                         ^~
+      |                         |
+      |                         const char*
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmppn5fsfj0/0960739f.cc:11:32: warning: narrowing conversion of 'a' from 'int' to 'char' [-Wnarrowing]
+   11 |     struct b f[] = {{}, "", f, a};
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmppn5fsfj0/0960739f.cc:12:1: warning: no return statement in function returning non-void [-Wreturn-type]
+   12 | }
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmppn5fsfj0/0960739f.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmppn5fsfj0/0960739f.cc:54:19: warning: expected primary-expression before ')' token [-Wtemplate-body]
+   54 |     B() noexcept(b);
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmppn5fsfj0/0960739f.cc: In constructor 'S3::A::A()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmppn5fsfj0/0960739f.cc:57:13: internal compiler error: in maybe_instantiate_noexcept, at cp/pt.cc:28866
+   57 |     A() : B() {}
+      |             ^
+0x305a98b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00d26 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x85b261 maybe_instantiate_noexcept(tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:28866
+0x106dc6f maybe_instantiate_noexcept(tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:28784
+0xf18f6a mark_used(tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl2.cc:6724
+0xe18202 build_over_call
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:11096
+0xe156e3 build_new_method_call(tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, tree_node*, int, tree_node**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:12385
+0xe16a3d build_special_member_call(tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, tree_node*, int, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:11868
+0xf3d49f expand_default_init
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/init.cc:2257
+0xf3d49f expand_aggr_init_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/init.cc:2376
+0xf45807 emit_mem_initializers(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/init.cc:1616
+0x103e69c cp_parser_mem_initializer_list
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:20053
+0x103e69c cp_parser_ctor_initializer_opt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:19961
+0x103e69c cp_parser_ctor_initializer_opt_and_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29139
+0x1008cee cp_parser_function_definition_after_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36476
+0x10091bc cp_parser_late_parsing_for_member
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:37359
+0x100a40b cp_parser_class_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:30399
+0x100a94f cp_parser_type_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:22582
+0x1027b24 cp_parser_decl_specifier_seq
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:19061
+0x103d17f cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18161
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmppn5fsfj0/0960739f.cc -quiet -dumpdir a- -dumpbase 0960739f.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Og -fsyntax-only -frounding-math -fno-strict-aliasing -fpermissive -fstack-check=specific -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

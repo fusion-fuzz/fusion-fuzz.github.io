@@ -1,0 +1,24 @@
+during RTL pass: expand
+dump file: 93e08855.cc.273r.expand
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6j6fd5lr/93e08855.cc: In function 'void load()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6j6fd5lr/93e08855.cc:90:3: internal compiler error: in expand_asm_stmt, at cfgexpand.cc:3803
+   90 |   asm volatile ("" : : "m" (C));
+      |   ^~~
+0x3046dcb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xdd9a1e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x8d3393 expand_asm_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:3803
+0x1247ed1 expand_gimple_stmt_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:4280
+0x1247ed1 expand_gimple_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:4430
+0x124e647 expand_gimple_basic_block
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:6547
+0x1250497 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:7298
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6j6fd5lr/93e08855.cc -quiet -dumpbase 93e08855.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Og -O2 -std=gnu++11 -fnon-call-exceptions -fdump-rtl-expand -o /tmp/ccQgT2b8.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

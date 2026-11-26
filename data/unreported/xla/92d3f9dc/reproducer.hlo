@@ -1,0 +1,12 @@
+HloModule module
+
+ENTRY %fusion {
+  %input = f32[100,32,64] parameter(0)
+  %transpose = f32[100,64,32] transpose(%input), dimensions={0,2,1}
+  %lhs = f8e4m3fn[4,16,224] parameter(1)
+  %rhs = f8e4m3fn[4,32,224] parameter(2)
+  %lhs_scale = f8e5m2[4,16,8] parameter(3)
+  %rhs_scale = f8e5m2[4,32,8] parameter(4)
+  %result = f32[4,16,32] custom-call(%lhs, %rhs, %lhs_scale, %transpose), custom_call_target="__op$block_scaled_dot", backend_config={"block_scaled_dot_backend_config":{block_size:32}}
+  ROOT %ffl.root = (f32[100,64,32], f32[4,16,32]) tuple(%transpose, %result)
+}

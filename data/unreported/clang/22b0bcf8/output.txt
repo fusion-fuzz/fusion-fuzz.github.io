@@ -1,0 +1,119 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:22:7: error: no setter method 'setX:' for assignment to property
+   22 |   a.x = check4(); // expected-error {{no setter method 'setX:' for assignment to property}}
+      |   ~~~ ^ ~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:37:16: error: expression is not assignable
+   37 |   b.value.data = 17; // expected-error {{not assignable}}
+      |   ~~~~~~~~~~~~ ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:47:5: error: 'operator+' is not a valid property name (accessing an object of type 'B *')
+   47 |   b.operator+ = 17; // expected-error{{'operator+' is not a valid property name (accessing an object of type 'B *')}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:48:6: error: 'B' does not have a member named 'operator+'
+   48 |   b->operator+ = 17; // expected-error{{'B' does not have a member named 'operator+'}}
+      |   ~  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:42:12: warning: class 'C' defined without specifying a base class [-Wobjc-root-class]
+   42 | @interface C
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:42:13: note: add a super class to fix this problem
+   42 | @interface C
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:63:5: error: use of undeclared identifier 'Forward'
+   63 |   d.Forward::property = 17; // expected-error{{property access cannot be qualified with 'i'}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:64:6: error: use of undeclared identifier 'Forward'
+   64 |   d->Forward::ivar = 12; // expected-error{{instance variable access cannot be qualified with 'i'}}
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:65:5: error: 'D' is not a class, namespace, or enumeration
+   65 |   d.D::property = 17; // expected-error{{'D' is not a class, namespace, or enumeration}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:54:12: note: 'D' declared here
+   54 | @interface D { // expected-note 2 {{'D' declared here}}
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:66:6: error: 'D' is not a class, namespace, or enumeration
+   66 |   d->D::ivar = 12; // expected-error{{'D' is not a class, namespace, or enumeration}}
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:54:12: note: 'D' declared here
+   54 | @interface D { // expected-note 2 {{'D' declared here}}
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:100:14: error: implicit instantiation of undefined template 'S<42>'
+  100 |     typename S<i2>::T check5; // expected-error {{undefined template}}
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:71:24: note: template is declared here
+   71 | template<int n> struct S;
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:106:14: error: implicit instantiation of undefined template 'S<2>'
+  106 |     typename S<true ? 2 : y.n>::T check7; // expected-error {{undefined template}}
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:71:24: note: template is declared here
+   71 | template<int n> struct S;
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:109:14: error: implicit instantiation of undefined template 'S<3>'
+  109 |     typename S<true ? 3 : z.n>::T check8; // expected-error {{undefined template}}
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:71:24: note: template is declared here
+   71 | template<int n> struct S;
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:113:33: error: use of undeclared identifier 'check7'; did you mean 'check8'?
+  113 | static long ffl_fusion = (long)(check7);
+      |                                 ^~~~~~
+      |                                 check8
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:21:6: note: 'check8' declared here
+   21 | void check8(A* a) {
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:128:1: error: duplicate interface definition for class 'A'
+  128 | @interface A {
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:13:12: note: previous definition is here
+   13 | @interface A {
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:136:7: error: no setter method 'setX:' for assignment to property
+  136 |   a.x = X(); // expected-error {{no setter method 'setX:' for assignment to property}}
+      |   ~~~ ^ ~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:142:1: error: duplicate interface definition for class 'B'
+  142 | @interface B {
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:27:12: note: previous definition is here
+   27 | @interface B {
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:148:13: error: property has a previous declaration
+  148 | @property Y value;
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:33:18: note: property declared here
+   33 | @property check2 value;
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:152:16: error: expression is not assignable
+  152 |   b.value.data = 17; // expected-error {{not assignable}}
+      |   ~~~~~~~~~~~~ ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:156:1: error: duplicate interface definition for class 'C'
+  156 | @interface C
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:42:12: note: previous definition is here
+   42 | @interface C
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:159:17: error: reimplementation of class 'C'
+  159 | @implementation C
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:45:17: note: previous definition is here
+   45 | @implementation C
+      |                 ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -Oz -std=c++17 -fblocks -fobjc-runtime=macosx-10.14 -fno-objc-arc -fno-elide-constructors -fstrict-enums -ffast-math /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:162:16: current parser token '='
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:160:32: parsing function body '-[C method:]'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2mnmsk0q/961563c0.mm:160:32: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000058f6f640e329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000058f6f640afec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000058f6f640b8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000058f6f634d218
+4  libc.so.6 0x00007b4a2945c520
+5  clang++   0x000058f6f92d93fa
+6  clang++   0x000058f6f92ddd88 clang::Sema::BuildMemberReferenceExpr(clang::Expr*, clang::QualType, clang::SourceLocation, bool, clang::CXXScopeSpec&, clang::SourceLocation, clang::NamedDecl*, clang::DeclarationNameInfo const&, clang::TemplateArgumentListInfo const*, clang::Scope const*, clang::Sema::ActOnMemberAccessExtraArgs*) + 344
+7  clang++   0x000058f6f92de1d0 clang::Sema::ActOnMemberAccessExpr(clang::Scope*, clang::Expr*, clang::SourceLocation, clang::tok::TokenKind, clang::CXXScopeSpec&, clang::SourceLocation, clang::UnqualifiedId&, clang::Decl*) + 448
+8  clang++   0x000058f6f8c9d5e4 clang::Parser::ParsePostfixExpressionSuffix(clang::ActionResult<clang::Expr*, true>) + 2644
+9  clang++   0x000058f6f8c9697b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 1259
+10 clang++   0x000058f6f8c9885b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+11 clang++   0x000058f6f8c988fd clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 61
+12 clang++   0x000058f6f8c9cb7d clang::Parser::ParseExpression(clang::TypoCorrection
+[... truncated ...]

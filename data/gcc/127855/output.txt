@@ -1,0 +1,19 @@
+gcc-alias-ctad-cxx17-const-alias-of-alias.cc:5:7: warning: alias template deduction only available with '-std=c++20' or '-std=gnu++20'
+    5 | W w (s);
+      |       ^
+gcc-alias-ctad-cxx17-const-alias-of-alias.cc:5:7: note: use 'template<class T> using Z = const Y<T>' directly instead
+gcc-alias-ctad-cxx17-const-alias-of-alias.cc:5:7: internal compiler error: in set_constraints, at cp/constraint.cc:1053
+0x7cf067 set_constraints(tree_node*, tree_node*)
+	gcc/cp/constraint.cc:1053
+0x104ac47 alias_ctad_tweaks
+	gcc/cp/pt.cc:32433
+0x106af9f deduction_guides_for
+	gcc/cp/pt.cc:32735
+0x104b912 do_class_deduction
+	gcc/cp/pt.cc:32907
+0x104b912 do_auto_deduction(tree_node*, tree_node*, tree_node*, int, auto_deduction_context, tree_node*, int, tree_node*)
+	gcc/cp/pt.cc:33129
+0xedf561 cp_finish_decl(tree_node*, tree_node*, bool, tree_node*, int, cp_decomp*)
+	gcc/cp/decl.cc:9714
+0x1010250 cp_parser_init_declarator
+	gcc/cp/parser.cc:26526

@@ -1,0 +1,25 @@
+Failed to initialize Crashpad.  Crash reporting will not be available.  Cause: while locating crashpad handler: unable to locate crashpad handler executable
+/home/fuzz/WorkSpace/fusion-fuzz/output/bugs/mojo/compiler_crash__Crash_resolving_decl_signature_at_loc___home_fuzz_WorkSpace_fusion-fuz/./min.mojo:6:8: error: invalid redefinition of 'MemType_d'
+struct MemType_d:
+       ^
+/home/fuzz/WorkSpace/fusion-fuzz/output/bugs/mojo/compiler_crash__Crash_resolving_decl_signature_at_loc___home_fuzz_WorkSpace_fusion-fuz/./min.mojo:2:8: note: conflicts with this previous struct declaration
+struct MemType_d:
+       ^
+Please submit a bug report to https://github.com/modular/modular/issues and include the crash backtrace along with all the relevant source codes.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo build ./min.mojo
+1.	Crash resolving decl body at loc("/home/fuzz/WorkSpace/fusion-fuzz/output/bugs/mojo/compiler_crash__Crash_resolving_decl_signature_at_loc___home_fuzz_WorkSpace_fusion-fuz/./min.mojo":9:5)
+    >> def main():
+           ^      
+2.	Crash parsing statement at loc("/home/fuzz/WorkSpace/fusion-fuzz/output/bugs/mojo/compiler_crash__Crash_resolving_decl_signature_at_loc___home_fuzz_WorkSpace_fusion-fuz/./min.mojo":12:5)
+    >>     def func() {var t^}:
+           ^                   
+3.	Crash resolving decl signature at loc("/home/fuzz/WorkSpace/fusion-fuzz/output/bugs/mojo/compiler_crash__Crash_resolving_decl_signature_at_loc___home_fuzz_WorkSpace_fusion-fuz/./min.mojo":12:9)
+    >>     def func() {var t^}:
+               ^               
+#0 0x0000559d97bd959e (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x853959e)
+#1 0x0000559d97bd65fe (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x85365fe)
+#2 0x0000559d97bda110 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x853a110)
+#3 0x00007f276df87520 (/lib/x86_64-linux-gnu/libc.so.6+0x42520)
+#4 0x0000559d93771ac6 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x40d1ac6)
+Trace/breakpoint trap (core dumped)

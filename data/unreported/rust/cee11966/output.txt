@@ -1,0 +1,121 @@
+error[E0658]: `impl Trait` in associated types is unstable
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppjx5cbfl/93cfa49c.rs:13:22
+   |
+13 |     type AssocType = impl Send;
+   |                      ^^^^^^^^^
+   |
+   = note: see issue #63063 <https://github.com/rust-lang/rust/issues/63063> for more information
+   = help: add `#![feature(impl_trait_in_assoc_type)]` to the crate attributes to enable
+
+warning: the feature `inherent_associated_types` is incomplete and may not be safe to use and/or cause compiler crashes
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppjx5cbfl/93cfa49c.rs:2:12
+  |
+2 | #![feature(inherent_associated_types)]
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: see issue #8995 <https://github.com/rust-lang/rust/issues/8995> for more information
+  = note: `#[warn(incomplete_features)]` on by default
+
+warning: the feature `rustc_attrs` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppjx5cbfl/93cfa49c.rs:3:12
+  |
+3 | #![feature(rustc_attrs)]
+  |            ^^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+  = note: `#[warn(internal_features)]` on by default
+
+warning: trait `Foo_b449496` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppjx5cbfl/93cfa49c.rs:59:7
+   |
+59 | trait Foo_b449496 {
+   |       ^^^^^^^^^^^ help: convert the identifier to upper camel case: `FooB449496`
+   |
+   = note: `#[warn(non_camel_case_types)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: trait `Mirror_b449496` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppjx5cbfl/93cfa49c.rs:68:7
+   |
+68 | trait Mirror_b449496 { type Assoc; }
+   |       ^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `MirrorB449496`
+
+warning: trait `MirrorRegion_b449496` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppjx5cbfl/93cfa49c.rs:71:7
+   |
+71 | trait MirrorRegion_b449496<'a> { type Assoc; }
+   |       ^^^^^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `MirrorRegionB449496`
+
+error[E0392]: type parameter `T` is never used
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppjx5cbfl/93cfa49c.rs:8:20
+  |
+8 | pub struct Windows<T> {}
+  |                    ^ unused type parameter
+  |
+  = help: consider removing `T`, referring to it in a field, or using a marker such as `PhantomData`
+  = help: if you intended `T` to be a const parameter, use `const T: /* Type */` instead
+
+error[E0207]: the type parameter `T` is not constrained by the impl trait, self type, or predicates
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppjx5cbfl/93cfa49c.rs:11:6
+   |
+11 | impl<T> Windows<fn(&())> {
+   |     -^-
+   |     ||
+   |     |unconstrained type parameter
+   |     help: remove the unused type parameter `T`
+
+error[E0277]: the size for values of type `Windows<for<'a> fn(&'a ())>::AssocType` cannot be known at compilation time
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppjx5cbfl/93cfa49c.rs:16:22
+   |
+16 |     fn ret(&self) -> Self::AssocType {
+   |                      ^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+   |
+   = help: the trait `Sized` is not implemented for `Windows<for<'a> fn(&'a ())>::AssocType`
+   = note: the return type of a function must have a statically known size
+
+error: unconstrained opaque type
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmppjx5cbfl/93cfa49c.rs:13:22
+   |
+13 |     type AssocType = impl Send;
+   |                      ^^^^^^^^^
+   |
+   = note: `AssocType` must be used in combination with a concrete type within the same impl
+
+
+thread 'rustc' (3369606) panicked at compiler/rustc_traits/src/normalize_erasing_regions.rs:46:17:
+Alias(Yes, Alias { kind: Opaque { def_id: DefId(0:8 ~ 93cfa49c[4e43]::{impl#0}::AssocType::{opaque#0}) }, args: [?1t], .. })
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panicking.rs:80:14
+   2: rustc_traits::normalize_erasing_regions::try_normalize_after_erasing_regions::<rustc_middle::ty::generic_args::GenericArg>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_traits/src/normalize_erasing_regions.rs:46:17
+   3: rustc_traits::normalize_erasing_regions::provide::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_traits/src/normalize_erasing_regions.rs:14:13
+   4: <rustc_traits::normalize_erasing_regions::provide::{closure#0} as core::ops::function::FnOnce<(rustc_middle::ty::context::TyCtxt, rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::generic_args::GenericArg>)>>::call_once
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/ops/function.rs:250:5
+      [... omitted 13 frames ...]
+   5: rustc_middle::query::calls::query_get_at::<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::ty::generic_args::GenericArg>, rustc_middle::query::erase::ErasedData<[u8; 8]>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:154:17
+   6: <rustc_middle::query::calls::TyCtxtAt>::try_normalize_generic_arg_after_erasing_regions
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:287:61
+   7: <rustc_middle::ty::context::TyCtxt>::try_normalize_generic_arg_after_erasing_regions
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:277:39
+   8: <rustc_middle::ty::normalize_erasing_regions::TryNormalizeAfterErasingRegionsFolder>::try_normalize_generic_arg_after_erasing_regions
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/normalize_erasing_regions.rs:241:18
+   9: <rustc_middle::ty::normalize_erasing_regions::TryNormalizeAfterErasingRegionsFolder as rustc_type_ir::fold::FallibleTypeFolder<rustc_middle::ty::context::TyCtxt>>::try_fold_ty
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/normalize_erasing_regions.rs:253:20
+  10: <rustc_middle::ty::context::TyCtxt>::try_normalize_erasing_regions::<rustc_middle::ty::Ty>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/normalize_erasing_regions.rs:123:19
+  11: <rustc_middle::ty::inhabitedness::inhabited_predicate::InhabitedPredicate>::apply_inner::<!, <rustc_middle::ty::inhabitedness::inhabited_predicate::InhabitedPredicate>::apply_revealing_opaque<<rustc_middle::ty::inhabitedness::inhabited_predicate::InhabitedPredicate>::apply::{closure#0}>::{closure#0}, <rustc_middle::ty::inhabitedness::inhabited_predicate::InhabitedPredicate>::apply::{closure#0}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/inhabitedness/inhabited_predicate.rs:102:22
+  12: <rustc_middle::ty::inhabitedness::inhabited_predicate::InhabitedPredicate>::apply_inner::<!, <rustc_middle::ty::inhabitedness::inhabited_predicate::InhabitedPredicate>::apply_revealing_opaque<<rustc_middle::ty::inhabitedness::inhabited_predicate::InhabitedPredicate>::apply::{closure#0}>::{closure#0}, <rustc_middle::ty::inhabitedness::inhabited_predicate::InhabitedPredicate>::apply::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/inhabitedness/inhabited_predicate.rs:81:5
+  13: <rustc_middle::ty::inhabitedness::inhabited_predicate::InhabitedPredicate>::apply_revealing_opaque::<<rustc_middle::ty::inhabitedness::inhabited_predicate::InhabitedPredicate>::apply::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/inhabitedness/inhabited_predicate.rs:56:31
+  14: <rustc_middle::ty::inhabitedness::inhabited_predicate::InhabitedPredicate>::apply
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/inhabitedness/inhabited_predicate.rs:44:14
+  15: <rustc_middle::ty::Ty>::is_inhabited_from
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/inhabitedness/mod.rs:199:39
+  16: <rustc_mir_transform::lint_and_remove_uninhabited::LintAndRemoveUninhabited as rustc_mir_transform::pass_manager::MirPass>::run_pass
+[... 162 more lines ...]

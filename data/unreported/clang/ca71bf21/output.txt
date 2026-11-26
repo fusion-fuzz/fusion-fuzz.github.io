@@ -1,0 +1,84 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmq_uf9u8/4c306c7a.mm:61:21: warning: 'fastcall' calling convention is not supported for this target [-Wignored-attributes]
+   61 | void __attribute__((fastcall)) test3() {}
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmq_uf9u8/4c306c7a.mm:63:21: warning: 'stdcall' calling convention is not supported for this target [-Wignored-attributes]
+   63 | void __attribute__((stdcall)) test4() {}
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmq_uf9u8/4c306c7a.mm:65:21: warning: 'vectorcall' calling convention is not supported for this target [-Wignored-attributes]
+   65 | void __attribute__((vectorcall)) test5() {}
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmq_uf9u8/4c306c7a.mm:67:21: warning: 'regcall' calling convention is not supported for this target [-Wignored-attributes]
+   67 | void __attribute__((regcall)) test6() {}
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmq_uf9u8/4c306c7a.mm:69:21: warning: 'm68k_rtd' calling convention is not supported for this target [-Wignored-attributes]
+   69 | void __attribute__((m68k_rtd)) test7() {}
+      |                     ^
+TLS not implemented for this target.
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/Target/X86/X86ISelLowering.cpp:20159!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O1 -std=c++23 -fblocks -fobjc-runtime=gnustep-2.0 -fobjc-arc -fstrict-enums -Wall -target x86_64-uefi -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmq_uf9u8/4c306c7a.mm
+1.	<eof> parser at end of file
+2.	Code generation
+3.	Running pass 'Function Pass Manager' on module '/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmq_uf9u8/4c306c7a.mm'.
+4.	Running pass 'X86 DAG->DAG Instruction Selection' on function '@"?GetDestUser@@YAPEAUCPDestUser@@XZ"'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005d4201cf3329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005d4201ceffec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005d4201cf08a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005d4201c32218
+4  libc.so.6 0x00007140397f2520
+5  libc.so.6 0x00007140398469bc pthread_kill + 300
+6  libc.so.6 0x00007140397f2476 raise + 22
+7  libc.so.6 0x00007140397d87f3 abort + 211
+8  clang++   0x00005d4201c3d11e
+9  clang++   0x00005d41ffcd7df0
+10 clang++   0x00005d420334b1d6
+11 clang++   0x00005d420335cfa1 llvm::SelectionDAG::Legalize() + 833
+12 clang++   0x00005d42034648af llvm::SelectionDAGISel::CodeGenAndEmitDAG() + 2703
+13 clang++   0x00005d4203467d9b llvm::SelectionDAGISel::SelectAllBasicBlocks(llvm::Function const&) + 2347
+14 clang++   0x00005d42034697f3 llvm::SelectionDAGISel::runOnMachineFunction(llvm::MachineFunction&) + 259
+15 clang++   0x00005d4203452168 llvm::SelectionDAGISelLegacy::runOnMachineFunction(llvm::MachineFunction&) + 168
+16 clang++   0x00005d420101a2ec
+17 clang++   0x00005d42016d32e5 llvm::FPPassManager::runOnFunction(llvm::Function&) + 1397
+18 clang++   0x00005d42016d38c9 llvm::FPPassManager::runOnModule(llvm::Module&) + 57
+19 clang++   0x00005d42016d42b2
+20 clang++   0x00005d42016d49eb llvm::legacy::PassManagerImpl::run(llvm::Module&) + 219
+21 clang++   0x00005d420211615f
+22 clang++   0x00005d420212aecf
+23 clang++   0x00005d420212b2f3 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::StringRef, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 483
+24 clang++   0x00005d420281a3ca clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 1866
+25 clang++   0x00005d42044e984c clang::ParseAST(clang::Sema&, bool, bool) + 1068
+26 clang++   0x00005d4202b8a061 clang::FrontendAction::Execute() + 65
+27 clang++   0x00005d4202b13e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+28 clang++   0x00005d4202c61de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+29 clang++   0x00005d41ffabd33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+30 clang++   0x00005d41ffab313a
+31 clang++   0x00005d41ffab32cf
+32 clang++   0x00005d4202898cfd
+33 clang++   0x00005d4201c32630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+34 clang++   0x00005d4202899b53
+35 clang++   0x00005d420284e607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+36 clang++   0x00005d4202852ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+37 clang++   0x00005d4202861004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+38 clang++   0x00005d41ffab8923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+39 clang++   0x00005d41ff9f47f1 main + 113
+40 libc.so.6 0x00007140397d9d90
+41 libc.so.6 0x00007140397d9e40 __libc_start_main + 128
+42 clang++   0x00005d41ffab2765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-uefi
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/4c306c7a-d42a5d.mm
+clang++: note: diagnostic msg: /tmp/4c306c7a-d42a5d.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

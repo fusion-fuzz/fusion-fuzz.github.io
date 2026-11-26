@@ -1,0 +1,77 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:7:11: error: expected identifier before '[:' token
+    7 | namespace [:^^N:] { } // { dg-error "expected" }
+      |           ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:7:11: error: expected unqualified-id before '[:' token
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc: In function 'void f(int)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:37:11: error: call of overloaded 'foo()' is ambiguous
+   37 |       foo ();
+      |       ~~~~^~
+  • there are 2 candidates
+    • candidate 1: 'void foo()'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:19:6:
+         19 | void foo (void);
+            |      ^~~
+    • candidate 2: 'void N::foo()'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:4:20:
+          4 | namespace N { void foo (); }
+            |                    ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:52:11: error: call of overloaded 'foo()' is ambiguous
+   52 |       foo ();
+      |       ~~~~^~
+  • there are 2 candidates
+    • candidate 1: 'void foo()'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:19:6:
+         19 | void foo (void);
+            |      ^~~
+    • candidate 2: 'void N::foo()'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:4:20:
+          4 | namespace N { void foo (); }
+            |                    ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:57:4: error: 'void g()' redeclared as different kind of entity
+   57 | g ()
+      |    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:21:5: note: previous declaration 'int g'
+   21 | int g;
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc: In function 'void g()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:59:7: error: call of overloaded 'foo()' is ambiguous
+   59 |   foo ();
+      |   ~~~~^~
+  • there are 2 candidates
+    • candidate 1: 'void foo()'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:19:6:
+         19 | void foo (void);
+            |      ^~~
+    • candidate 2: 'void N::foo()'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:4:20:
+          4 | namespace N { void foo (); }
+            |                    ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:69:11: error: expected identifier before '[:' token
+   69 | namespace [:^^g:] { } // { dg-error "expected" }
+      |           ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:69:11: error: expected unqualified-id before '[:' token
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc:72:22: internal compiler error: in do_namespace_alias, at cp/name-lookup.cc:6906
+   72 | namespace A = [:^^g:];
+      |                      ^
+0x3046dcb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xdd9a1e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x830960 do_namespace_alias(unsigned long, tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/name-lookup.cc:6906
+0x10221cf cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17744
+0x1024c33 cp_parser_toplevel_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17848
+0x1024c33 cp_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:5610
+0x1024c33 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:57910
+0x11b8619 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmplxety7lk/718a1d5a.cc -quiet -dumpbase 718a1d5a.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Os -Wextra -std=c++26 -fno-strict-aliasing -fPIC -freflection -o /tmp/ccZ2TAob.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

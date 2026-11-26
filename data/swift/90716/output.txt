@@ -1,0 +1,82 @@
+swift-frontend: /home/build-user/swift/include/swift/AST/Identifier.h:591: Identifier swift::DeclName::getBaseIdentifier() const: Assertion `!baseName.isSpecial() && "Can't retrieve the identifier of a special base name"' failed.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -frontend -interpret /tmp/test.swift -disable-objc-interop -no-color-diagnostics -Xcc -fno-color-diagnostics -empty-abi-descriptor -no-auto-bridging-header-chaining -module-name test -in-process-plugin-server-path /usr/lib/swift/host/libSwiftInProcPluginServer.so -plugin-path /usr/lib/swift/host/plugins -plugin-path /usr/local/lib/swift/host/plugins
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/tmp/test.swift")
+4.	While type-checking 'B' (at /tmp/test.swift:13:1)
+5.	While type-checking 'subscript(_:)' (at /tmp/test.swift:14:14)
+ #0 0x000055a0c3d9d658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x000055a0c3d9ae75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x000055a0c3d9e411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f43a0a70330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f43a0ac9b2c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9eb2c)
+ #5 0x00007f43a0a7027e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f43a0a538ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007f43a0a5381b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007f43a0a66517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x000055a0bd5fa393 checkSingleOverride(swift::ValueDecl*, swift::ValueDecl*) TypeCheckDeclOverride.cpp:0:0
+#10 0x000055a0bd5f6266 (anonymous namespace)::OverrideMatcher::checkPotentialOverrides(llvm::SmallVectorImpl<(anonymous namespace)::OverrideMatch>&, (anonymous namespace)::OverrideCheckingAttempt) TypeCheckDeclOverride.cpp:0:0
+#11 0x000055a0bd5f1fc1 checkPotentialOverrides(swift::ValueDecl*, llvm::TinyPtrVector<swift::ValueDecl*>&, bool) TypeCheckDeclOverride.cpp:0:0
+#12 0x000055a0bd5f1a84 swift::checkOverrides(swift::ValueDecl*) (/usr/bin/swift-frontend+0x24a3a84)
+#13 0x000055a0bd375a50 (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#14 0x000055a0bd37b5fc (anonymous namespace)::DeclChecker::visitClassDecl(swift::ClassDecl*) TypeCheckDeclPrimary.cpp:0:0
+#15 0x000055a0bd3765ab (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#16 0x000055a0bd375864 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x2227864)
+#17 0x000055a0bd4b0885 swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x2362885)
+#18 0x000055a0bd4b523b swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#19 0x000055a0bd4b07b8 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x23627b8)
+#20 0x000055a0bbd2efd9 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_10>(long, swift::SourceFile&) Frontend.cpp:0:0
+#21 0x000055a0bbd2273e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xbd473e)
+#22 0x000055a0bbd224bb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xbd44bb)
+#23 0x000055a0bbb99822 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#24 0x000055a0bbb86595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#25 0x000055a0bbb8321e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#26 0x000055a0bb88ab21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#27 0x00007f43a0a551ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#28 0x00007f43a0a5528b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#29 0x000055a0bb889a15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x7f43a0b5228d... done ***
+
+*** Program crashed: Aborted at 0x00007f43a0b5228d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007f43a0b5228d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007f43a0b5228d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b bb 0d 00  H=·ðÿÿs·ÃH··[»··
+rbx 0x0000000000000006  6
+rsi 0x00000000000b2b7c  732028
+rdi 0x00000000000b2b7c  732028
+rbp 0x00000000000b2b7c  732028
+rsp 0x000055a0ca3962e8  3b e4 d9 c3 a0 55 00 00 70 65 39 ca a0 55 00 00  ;äÙÃ U··pe9Ê U··
+ r8 0x000055a0ca396570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x000055a0ca396570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x000055a0ca396570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x000055a0c524134c  2f 68 6f 6d 65 2f 62 75 69 6c 64 2d 75 73 65 72  /home/build-user
+r14 0x0000000000000000  0
+r15 0x000055a0ca396388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007f43a0b5228d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b bb 0d 00  H=·ðÿÿs·ÃH··[»··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007f43a0a2b000–0x00007f43a0bdad39 8e9fd827446c24067541ac5390e6f527fb5947bb libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

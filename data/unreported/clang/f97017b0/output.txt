@@ -1,0 +1,84 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv4ymtpn_/c13546a8.mm:22:16: error: expected ';' at end of declaration list
+   22 |     void bar() { foo<>(); }
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv4ymtpn_/c13546a8.mm:22:10: error: field 'bar' declared as a function
+   22 |     void bar() { foo<>(); }
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv4ymtpn_/c13546a8.mm:17:12: warning: class 'C1' defined without specifying a base class [-Wobjc-root-class]
+   17 | @interface C1 { id isa; } @end
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv4ymtpn_/c13546a8.mm:17:14: note: add a super class to fix this problem
+   17 | @interface C1 { id isa; } @end
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv4ymtpn_/c13546a8.mm:33:13: error: synthesized property 'i1' must either be named the same as a compatible instance variable or must explicitly name an instance variable
+   33 | @synthesize i1;
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv4ymtpn_/c13546a8.mm:34:13: error: synthesized property 'i2' must either be named the same as a compatible instance variable or must explicitly name an instance variable
+   34 | @synthesize i2;
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv4ymtpn_/c13546a8.mm:42:22: error: 'diagnose_if' attribute takes at least 3 arguments
+   42 |   ([]() __attribute((diagnose_if(b, "error"))) {}(), ...);
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv4ymtpn_/c13546a8.mm:42:54: warning: pack fold expression is a C++17 extension [-Wc++17-extensions]
+   42 |   ([]() __attribute((diagnose_if(b, "error"))) {}(), ...);
+      |                                                      ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/TreeTransform.h:17118: clang::ExprResult clang::TreeTransform<Derived>::TransformCXXFoldExpr(clang::CXXFoldExpr*) [with Derived = {anonymous}::TemplateInstantiator; clang::ExprResult = clang::ActionResult<clang::Expr*>]: Assertion `!Unexpanded.empty() && "Pack expansion without parameter packs?"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O3 -std=c++14 -fblocks -fno-objc-arc -ffast-math -Wextra /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv4ymtpn_/c13546a8.mm
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpv4ymtpn_/c13546a8.mm:41:27: instantiating function definition 'foo<>'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000564a8b50f4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000564a8b50c1bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000564a8b50ca78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000564a8b44ee88
+4  libc.so.6 0x00007f9815ebd520
+5  libc.so.6 0x00007f9815f119bc pthread_kill + 300
+6  libc.so.6 0x00007f9815ebd476 raise + 22
+7  libc.so.6 0x00007f9815ea37f3 abort + 211
+8  libc.so.6 0x00007f9815ea371b
+9  libc.so.6 0x00007f9815eb4e96
+10 clang++   0x0000564a8e95c311
+11 clang++   0x0000564a8e92a80b
+12 clang++   0x0000564a8e92b051
+13 clang++   0x0000564a8e92bc05 clang::Sema::SubstStmt(clang::Stmt*, clang::MultiLevelTemplateArgumentList const&) + 133
+14 clang++   0x0000564a8e9e982f clang::Sema::InstantiateFunctionDefinition(clang::SourceLocation, clang::FunctionDecl*, bool, bool, bool) + 6207
+15 clang++   0x0000564a8e9e6f2d clang::Sema::PerformPendingInstantiations(bool, bool) + 301
+16 clang++   0x0000564a8debafdd
+17 clang++   0x0000564a8debb316 clang::Sema::ActOnEndOfTranslationUnit() + 182
+18 clang++   0x0000564a8dd18f32 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 946
+19 clang++   0x0000564a8dcf5cf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+20 clang++   0x0000564a8c1fde51 clang::FrontendAction::Execute() + 65
+21 clang++   0x0000564a8c187df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+22 clang++   0x0000564a8c2d5c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+23 clang++   0x0000564a89f1ed3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+24 clang++   0x0000564a89f14ada
+25 clang++   0x0000564a89f14c6f
+26 clang++   0x0000564a8bf0c42d
+27 clang++   0x0000564a8b44f2a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+28 clang++   0x0000564a8bf0d283
+29 clang++   0x0000564a8bec1d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+30 clang++   0x0000564a8bec6600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+31 clang++   0x0000564a8bed4714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+32 clang++   0x0000564a89f1a383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+33 clang++   0x0000564a89e6a901 main + 113
+34 libc.so.6 0x00007f9815ea4d90
+35 libc.so.6 0x00007f9815ea4e40 __libc_start_main + 128
+36 clang++   0x0000564a89f14105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/c13546a8-2c3df8.mm
+clang++: note: diagnostic msg: /tmp/c13546a8-2c3df8.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

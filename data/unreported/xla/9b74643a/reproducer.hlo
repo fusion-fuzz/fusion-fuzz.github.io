@@ -1,0 +1,54 @@
+HloModule Module
+
+%while_cond {
+  %p = ((f32[2,3]), f32[2,3], u32[]) parameter(0)
+  ROOT %cond = pred[] constant(true)
+}
+
+%while_body {
+  %p = ((f32[2,3]), f32[2,3], u32[]) parameter(0)
+  %p0 = f32[2,3] get-tuple-element(p), index=1
+  %async-start = ((f32[2,3]), f32[2,3], u32[]) custom-call-start(p0), custom_call_target="foo"
+  ROOT %async-update = ((f32[2,3]), f32[2,3], u32[]) custom-call-update(async-start)
+}
+
+%while_cond.d {
+  %p = ((f32[2,3]), f32[2,3], u32[]) parameter(0)
+  ROOT %cond = pred[] constant(true)
+}
+
+%while_body.d {
+  %p = ((f32[2,3]), f32[2,3], u32[]) parameter(0)
+  %p0 = f32[2,3] get-tuple-element(p), index=1
+  %async-start = ((f32[2,3]), f32[2,3], u32[]) custom-call-start(p0), custom_call_target="foo"
+  ROOT %async-update = ((f32[2,3]), f32[2,3], u32[]) custom-call-update(async-start)
+}
+
+%while_cond.d.1 {
+  %p = ((f32[2,3]), f32[2,3], u32[]) parameter(0)
+  ROOT %cond = pred[] constant(true)
+}
+
+%while_body.d.1 {
+  %p = ((f32[2,3]), f32[2,3], u32[]) parameter(0)
+  %p0 = f32[2,3] get-tuple-element(p), index=1
+  %async-start = ((f32[2,3]), f32[2,3], u32[]) custom-call-start(p0), custom_call_target="foo"
+  ROOT %async-update = ((f32[2,3]), f32[2,3], u32[]) custom-call-update(async-start)
+}
+
+ENTRY %entry {
+  %p0 = f32[2,3] parameter(0)
+  %start0 = ((f32[2,3]), f32[2,3], u32[]) custom-call-start(%p0), custom_call_target="foo"
+  %init = ((f32[2,3]), f32[2,3], u32[]) custom-call-update(%start0)
+  %loop = ((f32[2,3]), f32[2,3], u32[]) while(%init), condition=%while_cond, body=%while_body
+  %foreign-call-start = ((), s32[], s32[]) custom-call-start(), custom_call_target="ThreadSpecificCustomCall", async_execution_thread="foreign_thread"
+  %foreign-call-done = s32[] custom-call-done(foreign-call-start)
+  %ffl.root = (s32[], ((f32[2,3]), f32[2,3], u32[])) tuple(%foreign-call-done, %loop)
+  %ffl.call = pred[] call(%loop), to_apply=%while_cond.d
+  %ffl.root.1 = (s32[], ((f32[2,3]), f32[2,3], u32[]), pred[]) tuple(%foreign-call-done, %loop, %ffl.call)
+  %p0.d = f32[2,3] parameter(1)
+  %start0.d = ((f32[2,3]), f32[2,3], u32[]) custom-call-start(%p0.d), custom_call_target="foo"
+  %init.d = ((f32[2,3]), f32[2,3], u32[]) custom-call-update(%loop)
+  %loop.d = ((f32[2,3]), f32[2,3], u32[]) while(%init.d), condition=%while_cond.d.1, body=%while_body.d.1
+  ROOT %ffl.root.2 = (s32[], ((f32[2,3]), f32[2,3], u32[]), pred[], ((f32[2,3]), f32[2,3], u32[])) tuple(%foreign-call-done, %loop, %ffl.call, %loop.d)
+}

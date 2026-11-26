@@ -1,0 +1,86 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfl1iocyb/6e0c5394.cpp:10:5: error: a type specifier is required for all declarations
+   10 |     printf("%dM / %dD %dH %dM\n", months, days, hours, mins);
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfl1iocyb/6e0c5394.cpp:10:35: error: use of undeclared identifier 'months'
+   10 |     printf("%dM / %dD %dH %dM\n", months, days, hours, mins);
+      |                                   ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfl1iocyb/6e0c5394.cpp:10:43: error: use of undeclared identifier 'days'
+   10 |     printf("%dM / %dD %dH %dM\n", months, days, hours, mins);
+      |                                           ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfl1iocyb/6e0c5394.cpp:10:49: error: use of undeclared identifier 'hours'
+   10 |     printf("%dM / %dD %dH %dM\n", months, days, hours, mins);
+      |                                                 ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfl1iocyb/6e0c5394.cpp:10:56: error: use of undeclared identifier 'mins'
+   10 |     printf("%dM / %dD %dH %dM\n", months, days, hours, mins);
+      |                                                        ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfl1iocyb/6e0c5394.cpp:11:5: error: expected unqualified-id
+   11 |     return 0;
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfl1iocyb/6e0c5394.cpp:12:5: error: no member named 'baz' in 'bar::S'; did you mean 'bar'?
+   12 | int ::bar::S::baz::*foo;
+      |     ^~~~~~~~~~~~~
+      |     bar
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfl1iocyb/6e0c5394.cpp:6:11: note: 'bar' declared here
+    6 | namespace bar {
+      |           ^
+invalid prefix for namespace
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/AST/NestedNameSpecifier.h:76!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O1 -fsanitize=undefined -fsanitize=address /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfl1iocyb/6e0c5394.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfl1iocyb/6e0c5394.cpp:12:20: current parser token '*'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005619600644f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005619600611bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000561960061a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000056195ffa3e88
+4  libc.so.6 0x00007f6c8e19d520
+5  libc.so.6 0x00007f6c8e1f19bc pthread_kill + 300
+6  libc.so.6 0x00007f6c8e19d476 raise + 22
+7  libc.so.6 0x00007f6c8e1837f3 abort + 211
+8  clang++   0x000056195ffae87e
+9  clang++   0x000056196405ee08 clang::NestedNameSpecifierLocBuilder::Extend(clang::ASTContext&, clang::NamespaceBaseDecl const*, clang::SourceLocation, clang::SourceLocation) + 712
+10 clang++   0x00005619629a572e clang::CXXScopeSpec::Extend(clang::ASTContext&, clang::NamespaceBaseDecl*, clang::SourceLocation, clang::SourceLocation) + 46
+11 clang++   0x0000561962a9f816 clang::Sema::BuildCXXNestedNameSpecifier(clang::Scope*, clang::Sema::NestedNameSpecInfo&, bool, clang::CXXScopeSpec&, clang::NamedDecl*, bool, bool*, bool) + 4438
+12 clang++   0x0000561962aa12a6 clang::Sema::ActOnCXXNestedNameSpecifier(clang::Scope*, clang::Sema::NestedNameSpecInfo&, bool, clang::CXXScopeSpec&, bool*, bool) + 54
+13 clang++   0x00005619628fd8f3 clang::Parser::ParseOptionalCXXScopeSpecifier(clang::CXXScopeSpec&, clang::OpaquePtr<clang::QualType>, bool, bool, bool*, bool, clang::IdentifierInfo const**, bool, bool, bool, bool, bool) + 4643
+14 clang++   0x000056196286a7a0 clang::Parser::TryAnnotateCXXScopeToken(bool) + 224
+15 clang++   0x00005619628a561d clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 5565
+16 clang++   0x0000561962860398 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 200
+17 clang++   0x0000561962860e4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+18 clang++   0x000056196286cd06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+19 clang++   0x000056196286ddbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+20 clang++   0x000056196284acf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+21 clang++   0x0000561960d52e51 clang::FrontendAction::Execute() + 65
+22 clang++   0x0000561960cdcdf5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+23 clang++   0x0000561960e2ac03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+24 clang++   0x000056195ea73d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+25 clang++   0x000056195ea69ada
+26 clang++   0x000056195ea69c6f
+27 clang++   0x0000561960a6142d
+28 clang++   0x000056195ffa42a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+29 clang++   0x0000561960a62283
+30 clang++   0x0000561960a16d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+31 clang++   0x0000561960a1b600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+32 clang++   0x0000561960a29714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+33 clang++   0x000056195ea6f383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+34 clang++   0x000056195e9bf901 main + 113
+35 libc.so.6 0x00007f6c8e184d90
+36 libc.so.6 0x00007f6c8e184e40 __libc_start_main + 128
+37 clang++   0x000056195ea69105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/6e0c5394-abb27c.cpp
+clang++: note: diagnostic msg: /tmp/6e0c5394-abb27c.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

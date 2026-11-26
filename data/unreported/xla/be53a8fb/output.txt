@@ -1,0 +1,43 @@
+
+=== Iteration 1
+Running HLO module with runner HloRunner...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1790111615.540330 1195404 primitive_util.cc:276] Check failed: t >= PrimitiveType_MIN (-103008876 vs. 0) 
+*** Check failure stack trace: ***
+    @     0x64ea99d66e84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x64ea99d66e06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x64ea998d2be9  xla::primitive_util::PrimitiveTypeNameGenerator::LowercaseName[abi:cxx11]()
+    @     0x64ea998e11c1  xla::ShapeUtil::PrintHumanString()
+    @     0x64ea998e097d  xla::ShapeUtil::HumanString[abi:cxx11]()
+    @     0x64ea998d7089  xla::Shape::ToString[abi:cxx11]()
+    @     0x64ea8fc5728a  xla::Shape::IsArrayExcludingBuffer()
+    @     0x64ea998d8a35  xla::Shape::Equal::operator()()
+    @     0x64ea998e1f1d  xla::ShapeUtil::Compatible()
+    @     0x64ea98a60798  xla::LayoutAssignment::CalculateComputationLayout()::$_0::operator()()
+    @     0x64ea98a56151  xla::LayoutAssignment::CalculateComputationLayout()::$_1::operator()()
+    @     0x64ea98a555ec  xla::LayoutAssignment::CalculateComputationLayout()
+    @     0x64ea98a57765  xla::LayoutAssignment::RunOnComputation()
+    @     0x64ea98a5ab30  xla::LayoutAssignment::RunImpl()
+    @     0x64ea994a9457  xla::HloPassInterface::Run()
+    @     0x64ea9830871c  xla::HloPassPipeline::RunHelper<>()
+    @     0x64ea98303bcf  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x64ea98302ff5  xla::HloPassPipeline::RunImpl()
+    @     0x64ea994a9457  xla::HloPassInterface::Run()
+    @     0x64ea8fc8739e  xla::RunInterpreterHloPasses()
+    @     0x64ea8fc87d10  xla::(anonymous namespace)::CompileInterpreterExecutableInternal()
+    @     0x64ea8fc87813  xla::CompileInterpreterExecutable()
+    @     0x64ea8fc83aa7  xla::InterpreterPjRtCompiler::Compile()
+    @     0x64ea9822bb6b  xla::PjRtCompile()
+    @     0x64ea8fc73915  xla::InterpreterClient::Compile()
+    @     0x64ea982112ca  xla::HloRunner::CreateExecutable()
+    @     0x64ea9820f24c  xla::HloRunner::Execute()
+    @     0x64ea9821974e  xla::HloRunnerInterface::Execute()
+    @     0x64ea8fc4c057  xla::(anonymous namespace)::ExecuteWithRunner()
+    @     0x64ea8fc46927  xla::(anonymous namespace)::RunAndCompareInternal()
+    @     0x64ea8fc448a7  xla::RunAndCompare()
+    @     0x64ea8fc47e8e  xla::RunAndCompare()
+    @     0x64ea8fc41a8f  main
+    @     0x7535b8376d90  (unknown)
+Aborted (core dumped)
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmp83d9kcuc/8e99adc2.hlo**

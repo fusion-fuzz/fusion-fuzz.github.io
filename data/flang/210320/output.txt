@@ -1,0 +1,40 @@
+/app/example.f90:23:7: portability: 'test_component_followed_by_ref' is use-associated into a subprogram of the same name [-Wuse-association-into-same-name-subprogram]
+    use m
+        ^
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang -fc1 -triple x86_64-unknown-linux-gnu -emit-obj -mrelocation-model pic -pic-level 2 -pic-is-pie -target-cpu x86-64 -debug-info-kind=standalone -resource-dir /cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/lib/clang/23 -fintrinsic-modules-path /cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/lib/clang/23/finclude/flang/x86_64-unknown-linux-gnu -mframe-pointer=all -o /tmp/example-3cbca0.o -x f95 /app/example.f90
+ #0 0x0000000004b89cc8 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x4b89cc8)
+ #1 0x0000000004b86e04 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #2 0x000079573ca45330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #3 0x0000000007fe7db0 fir::factory::CharacterExprHelper::readLengthFromBox(mlir::Value) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x7fe7db0)
+ #4 0x000000000519ef29 Fortran::lower::mapSymbolAttributes(Fortran::lower::AbstractConverter&, Fortran::lower::pft::Variable const&, Fortran::lower::SymMap&, Fortran::lower::StatementContext&, mlir::Value) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x519ef29)
+ #5 0x000000000519f63c Fortran::lower::instantiateVariable(Fortran::lower::AbstractConverter&, Fortran::lower::pft::Variable const&, Fortran::lower::SymMap&, llvm::DenseMap<std::tuple<Fortran::semantics::Scope const*, unsigned long>, mlir::Value, llvm::DenseMapInfo<std::tuple<Fortran::semantics::Scope const*, unsigned long>, void>, llvm::detail::DenseMapPair<std::tuple<Fortran::semantics::Scope const*, unsigned long>, mlir::Value>>&) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x519f63c)
+ #6 0x000000000505bab2 (anonymous namespace)::FirConverter::startNewFunction(Fortran::lower::pft::FunctionLikeUnit&) Bridge.cpp:0:0
+ #7 0x000000000507a147 (anonymous namespace)::FirConverter::lowerFunc(Fortran::lower::pft::FunctionLikeUnit&) Bridge.cpp:0:0
+ #8 0x000000000507c294 Fortran::lower::LoweringBridge::lower(Fortran::parser::Program const&, Fortran::semantics::SemanticsContext const&) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x507c294)
+ #9 0x0000000004eda12b Fortran::frontend::CodeGenAction::beginSourceFileAction() (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x4eda12b)
+#10 0x0000000004bedf75 Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x4bedf75)
+#11 0x0000000004bdb16f Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x4bdb16f)
+#12 0x0000000004bf9b1f Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x4bf9b1f)
+#13 0x0000000002e8be05 fc1_main(llvm::ArrayRef<char const*>, char const*) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x2e8be05)
+#14 0x0000000002d85f79 main (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x2d85f79)
+#15 0x000079573ca2a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#16 0x000079573ca2a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#17 0x0000000002e8a6d5 _start (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x2e8a6d5)
+flang-23: error: unable to execute command: Segmentation fault (core dumped)
+flang-23: error: flang frontend command failed with exit code -2 (use -v to see invocation)
+flang version 23.0.0git (https://github.com/llvm/llvm-project.git 8d61da2569a975346150371cb0d317fb9339be0c)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin
+flang-23: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+flang-23: note: diagnostic msg: /tmp/example-cf9186
+flang-23: note: diagnostic msg: /tmp/example-cf9186.sh
+flang-23: note: diagnostic msg: 
+
+********************
+Compiler returned: 254

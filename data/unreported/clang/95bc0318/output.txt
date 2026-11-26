@@ -1,0 +1,93 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpo12_41kc/37598dad.cpp:232:25: error: class template partial specialization contains a template parameter that cannot be deduced; this partial specialization will never be used [-Wunusable-partial-specialization]
+  232 | template <int I> struct A<I+5, I*2> {}
+      |                         ^~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpo12_41kc/37598dad.cpp:232:15: note: non-deducible template parameter 'I'
+  232 | template <int I> struct A<I+5, I*2> {}
+      |               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpo12_41kc/37598dad.cpp:235:46: error: unknown type name 'StructWithPtrTag'
+  235 | template <int I, int J, typename _FflDeclT = StructWithPtrTag> struct B {}
+      |                                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpo12_41kc/37598dad.cpp:237:25: error: too few template arguments for class template 'B'
+  237 | template <int I> struct B<I, I> {}
+      |                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpo12_41kc/37598dad.cpp:235:71: note: template is declared here
+  235 | template <int I, int J, typename _FflDeclT = StructWithPtrTag> struct B {}
+      | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpo12_41kc/37598dad.cpp:245:32: error: non-type template argument specializes a template parameter with dependent type 'T'
+  245 | template <class T> struct C<T, 1>;
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpo12_41kc/37598dad.cpp:242:22: note: template parameter is declared here
+  242 | template <class T, T t> struct C {}
+      |                      ^
+unexpected conversion required for non-type template argument
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaTemplate.cpp:8097!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O3 -std=c++23 -fblocks -Wall -ffp-contract=fast -target powerpc64le-unknown-unknown -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpo12_41kc/37598dad.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpo12_41kc/37598dad.cpp:254:39: current parser token '{'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005d96cbcd465b __interceptor_backtrace + 91
+1  clang++   0x00005d96d1a151b7 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005d96d1a0ee83 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005d96d1a13b54 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005d96d185ce35
+5  clang++   0x00005d96d185d643
+6  libc.so.6 0x00007e8e92eb3520
+7  libc.so.6 0x00007e8e92f079bc pthread_kill + 300
+8  libc.so.6 0x00007e8e92eb3476 raise + 22
+9  libc.so.6 0x00007e8e92e997f3 abort + 211
+10 clang++   0x00005d96d187c458 llvm::llvm_unreachable_internal(char const*, char const*, unsigned int) + 216
+11 clang++   0x00005d96dde77cc7 clang::Sema::BuildExpressionFromDeclTemplateArgument(clang::TemplateArgument const&, clang::QualType, clang::SourceLocation) + 6839
+12 clang++   0x00005d96ddf836aa clang::Sema::getTrivialTemplateArgumentLoc(clang::TemplateArgument const&, clang::QualType, clang::SourceLocation) + 1786
+13 clang++   0x00005d96ddfca5c1
+14 clang++   0x00005d96ddf8cc2b
+15 clang++   0x00005d96de0ace56
+16 clang++   0x00005d96de0b6339
+17 clang++   0x00005d96de0b753b
+18 clang++   0x00005d96e0a18162 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 274
+19 clang++   0x00005d96ddfb91dc clang::Sema::isMoreSpecializedThanPrimary(clang::ClassTemplatePartialSpecializationDecl*, clang::sema::TemplateDeductionInfo&) + 2604
+20 clang++   0x00005d96dde4614a clang::Sema::CheckTemplatePartialSpecialization(clang::ClassTemplatePartialSpecializationDecl*) + 746
+21 clang++   0x00005d96dde7ed10 clang::Sema::ActOnClassTemplateSpecialization(clang::Scope*, unsigned int, clang::TagUseKind, clang::SourceLocation, clang::SourceLocation, clang::CXXScopeSpec&, clang::TemplateIdAnnotation&, clang::ParsedAttributesView const&, llvm::MutableArrayRef<clang::TemplateParameterList*>, clang::SkipBodyInfo*) + 10944
+22 clang++   0x00005d96dc37a2fb clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 19867
+23 clang++   0x00005d96dc31f3c1 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 5793
+24 clang++   0x00005d96dc3135fd
+25 clang++   0x00005d96dc4ea6b4 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 1236
+26 clang++   0x00005d96dc4e8934 clang::Parser::ParseTemplateDeclarationOrSpecialization(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2932
+27 clang++   0x00005d96dc4e7988 clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) + 328
+28 clang++   0x00005d96dc31251f clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 975
+29 clang++   0x00005d96dc2af54a clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 1002
+30 clang++   0x00005d96dc2abc45 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1701
+31 clang++   0x00005d96dc28482f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+32 clang++   0x00005d96d3e1977e clang::FrontendAction::Execute() + 222
+33 clang++   0x00005d96d3caa360 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+34 clang++   0x00005d96d3fff043 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1395
+35 clang++   0x00005d96cbd6a217 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4551
+36 clang++   0x00005d96cbd5e0d9
+37 clang++   0x00005d96cbd68617
+38 clang++   0x00005d96d387ed47
+39 clang++   0x00005d96d185cbed llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+40 clang++   0x00005d96d387c24a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+41 clang++   0x00005d96d37cb70c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+42 clang++   0x00005d96d37ccfcc clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4732
+43 clang++   0x00005d96d381d3b0 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+44 clang++   0x00005d96cbd5c507 clang_main(int, char**, llvm::ToolContext const&) + 12295
+45 clang++   0x00005d96cbd8c7e7 main + 567
+46 libc.so.6 0x00007e8e92e9ad90
+47 libc.so.6 0x00007e8e92e9ae40 __libc_start_main + 128
+48 clang++   0x00005d96cbc98b25 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git f9c45b362c71ac659c96ed0b70e84d19d64b13fb)
+Target: powerpc64le-unknown-unknown
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/37598dad-6afe8a.cpp
+clang++: note: diagnostic msg: /tmp/37598dad-6afe8a.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

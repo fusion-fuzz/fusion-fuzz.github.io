@@ -1,0 +1,122 @@
+[... 20 lines omitted ...]
+      | ^~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:35:12: warning: scoped enums only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   35 | enum class E5 : int { a = -1, b = 1 };
+      |            ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:36:1: warning: scoped enums only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   36 | enum class main : long { c = __LONG_MAX__ };
+      | ^~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:36:12: warning: scoped enums only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   36 | enum class main : long { c = __LONG_MAX__ };
+      |            ^~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:40:10: error: conflicting declaration of template 'template<class T1, class T2> struct C1'
+   40 |   struct C1
+      |          ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:11:11: note: previous declaration 'template<class T> concept C1'
+   11 |   concept C1 = __is_class(T);
+      |           ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:44:10: error: 'C1' is not a class template
+   44 |   struct C1<T, T>
+      |          ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:44:17: error: conflicting declaration of template 'template<class T> struct C1'
+   44 |   struct C1<T, T>
+      |                 ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:11:11: note: previous declaration 'template<class T> concept C1'
+   11 |   concept C1 = __is_class(T);
+      |           ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:47:6: warning: scoped enums only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   47 | enum C3 : unsigned { };
+      |      ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:47:11: error: 'enum C3' redeclared as different kind of entity
+   47 | enum C3 : unsigned { };
+      |           ^~~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:14:11: note: previous declaration 'template<class T> concept C3'
+   14 |   concept C3 = requires (T a) { ++a; };
+      |           ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:48:6: warning: scoped enums only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   48 | enum E2 : char { };
+      |      ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:48:6: error: multiple definition of 'enum E2'
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:32:6: note: previous definition here
+   32 | enum E2 : char { };
+      |      ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:49:1: warning: scoped enums only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   49 | enum class E3 { };
+      | ^~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:49:12: error: multiple definition of 'enum class E3'
+   49 | enum class E3 { };
+      |            ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:33:12: note: previous definition here
+   33 | enum class E3 { };
+      |            ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:57:28: error: expected primary-expression before 'int'
+   57 | __underlying_type(E5) i5 = int(E5::b);
+      |                            ^~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:58:19: error: 'E6' does not name a type; did you mean 'E5'?
+   58 | __underlying_type(E6) i6 = __LONG_MAX__;
+      |                   ^~
+      |                   E5
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:58:21: error: expected unqualified-id before ')' token
+   58 | __underlying_type(E6) i6 = __LONG_MAX__;
+      |                     ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:60:14: error: expected constructor, destructor, or type conversion before '(' token
+   60 | static_assert(is_same<__underlying_type(E1), unsigned>::value, "Error");
+      |              ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:61:14: error: expected constructor, destructor, or type conversion before '(' token
+   61 | static_assert(is_same<__underlying_type(E2), char>::value, "Error");
+      |              ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:62:14: error: expected constructor, destructor, or type conversion before '(' token
+   62 | static_assert(is_same<__underlying_type(E3), int>::value, "Error");
+      |              ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:63:14: error: expected constructor, destructor, or type conversion before '(' token
+   63 | static_assert(is_same<__underlying_type(E4), unsigned char>::value, "Error");
+      |              ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:64:14: error: expected constructor, destructor, or type conversion before '(' token
+   64 | static_assert(is_same<__underlying_type(E5), int>::value, "Error");
+      |              ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:65:41: error: 'E6' was not declared in this scope; did you mean 'E5'?
+   65 | static_assert(is_same<__underlying_type(E6), long>::value, "Error");
+      |                                         ^~
+      |                                         E5
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:65:43: error: a function call cannot appear in a constant-expression
+   65 | static_assert(is_same<__underlying_type(E6), long>::value, "Error");
+      |                                           ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:65:50: error: template argument 1 is invalid
+   65 | static_assert(is_same<__underlying_type(E6), long>::value, "Error");
+      |                                                  ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:65:60: error: expected type-name before string constant
+   65 | static_assert(is_same<__underlying_type(E6), long>::value, "Error");
+      |                                                            ^~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:65:60: error: ISO C++ forbids declaration of 'parameter' with no type [-fpermissive]
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:65:60: error: expected ',' or '...' before string constant
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:65:68: error: expected constructor, destructor, or type conversion before ';' token
+   65 | static_assert(is_same<__underlying_type(E6), long>::value, "Error");
+      |                                                                    ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:66:1: warning: scoped enums only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   66 | enum class E4 : unsigned char { c = 1 };
+      | ^~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:66:12: warning: scoped enums only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   66 | enum class E4 : unsigned char { c = 1 };
+      |            ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:66:12: error: multiple definition of 'enum class E4'
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:34:12: note: previous definition here
+   34 | enum class E4 : unsigned char { c = 1 };
+      |            ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:67:1: warning: scoped enums only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   67 | enum class E5 : int { a = -1, b = 1 };
+      | ^~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:67:12: warning: scoped enums only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   67 | enum class E5 : int { a = -1, b = 1 };
+      |            ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:67:12: error: multiple definition of 'enum class E5'
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:35:12: note: previous definition here
+   35 | enum class E5 : int { a = -1, b = 1 };
+      |            ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:68:1: warning: scoped enums only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   68 | enum class E6 : long { c = __LONG_MAX__ };
+      | ^~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:68:12: warning: scoped enums only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   68 | enum class E6 : long { c = __LONG_MAX__ };
+      |            ^~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp7s833ait/d038645d.cc:70:19: error: 'C3' does not name a type; did you mean 'E3'?
+[... 102 more lines ...]

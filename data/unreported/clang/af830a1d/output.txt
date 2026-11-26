@@ -1,0 +1,84 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpd8r9ua4l/9faefed2.m:5:23: error: cannot capture __autoreleasing variable in a block
+    5 |   takeBlock(^{ (void) p; }); // expected-error {{cannot capture __autoreleasing variable in a block}}
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpd8r9ua4l/9faefed2.m:4:22: note: 'p' declared here
+    4 |   __autoreleasing id p; // expected-note {{'p' declared here}}
+      |                      ^
+DeclRefExpr for Decl not entered in LocalDeclMap?
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGExpr.cpp:3748!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -c -o /dev/null -O3 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -fobjc-runtime=macosx-10.14 -fobjc-arc -fno-strict-aliasing -funroll-loops /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpd8r9ua4l/9faefed2.m
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpd8r9ua4l/9faefed2.m:8:1: current parser token '@'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpd8r9ua4l/9faefed2.m:3:6: LLVM IR generation of declaration 'test1'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpd8r9ua4l/9faefed2.m:3:6: Generating code for declaration 'test1'
+4.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpd8r9ua4l/9faefed2.m:5:14: LLVM IR generation of compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x00006319dfd47329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x00006319dfd43fec llvm::sys::RunSignalHandlers() + 76
+2  clang     0x00006319dfd448a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x00006319dfc86218
+4  libc.so.6 0x0000710e39391520
+5  libc.so.6 0x0000710e393e59bc pthread_kill + 300
+6  libc.so.6 0x0000710e39391476 raise + 22
+7  libc.so.6 0x0000710e393777f3 abort + 211
+8  clang     0x00006319dfc9111e
+9  clang     0x00006319e0223c58 clang::CodeGen::CodeGenFunction::EmitDeclRefLValue(clang::DeclRefExpr const*) + 5736
+10 clang     0x00006319e0230b04 clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t) + 788
+11 clang     0x00006319e023153e
+12 clang     0x00006319e413e395 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+13 clang     0x00006319e01f43ca clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t) + 202
+14 clang     0x00006319e0218680 clang::CodeGen::CodeGenFunction::EmitCheckedLValue(clang::Expr const*, clang::CodeGen::CodeGenFunction::TypeCheckKind) + 320
+15 clang     0x00006319e029df23
+16 clang     0x00006319e0299c4b
+17 clang     0x00006319e029e75b
+18 clang     0x00006319e029d7fd clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 141
+19 clang     0x00006319e02036be clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) + 238
+20 clang     0x00006319e0229e3a clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) + 282
+21 clang     0x00006319e029fa07
+22 clang     0x00006319e029d7fd clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 141
+23 clang     0x00006319e02036be clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) + 238
+24 clang     0x00006319e0229e3a clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) + 282
+25 clang     0x00006319e03d4974 clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 388
+26 clang     0x00006319e03dcf3c clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+27 clang     0x00006319e03dd2d4 clang::CodeGen::CodeGenFunction::EmitCompoundStmt(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 244
+28 clang     0x00006319e03dd513 clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 499
+29 clang     0x00006319e03d487a clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 138
+30 clang     0x00006319e06fa884 clang::CodeGen::CodeGenFunction::GenerateBlockFunction(clang::GlobalDecl, clang::CodeGen::CGBlockInfo const&, llvm::DenseMap<clang::Decl const*, clang::CodeGen::Address, llvm::DenseMapInfo<clang::Decl const*, void>, llvm::detail::DenseMapPair<clang::Decl const*, clang::CodeGen::Address>> const&, bool, bool) + 8196
+31 clang     0x00006319e06fb2d3 clang::CodeGen::CodeGenFunction::EmitBlockLiteral(clang::CodeGen::CGBlockInfo const&) + 355
+32 clang     0x00006319e06fce7a clang::CodeGen::CodeGenFunction::EmitBlockLiteral(clang::BlockExpr const*) + 298
+33 clang     0x00006319e029d7fd clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 141
+34 clang     0x00006319e02036be clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) + 238
+35 clang     0x00006319e0204635 clang::CodeGen::CodeGenFunction::EmitAnyExprToTemp(clang::Expr const*) + 213
+36 clang     0x00006319e07624c9 clang::CodeGen::CodeGenFunction::EmitCallArg(clang::CodeGen::CallArgList&, clang::Expr const*, clang::QualType) + 4473
+37 clang     0x00006319e0763728 clang::CodeGen::CodeGenFunction::EmitCallArgs(clang::CodeGen::CallArgList&, clang::CodeGen::CodeGenFunction::PrototypeWrapper, llvm::iterator_range<clang::Stmt::CastIterator<clang::Expr, clang::Expr const* const, clang::Stmt const* const>>, clang::CodeGen::CodeGenFunction::AbstractCallee, unsigned int, clang::CodeGen::CodeGenFunction::EvaluationOrder) + 1128
+38 clang     0x00006319e022e66d clang::CodeGen::CodeGenFunction::EmitCall(clang::QualType, clang::CodeGen::CGCallee const&, clang::CallExpr const*, clang::CodeGen::ReturnValueSlot, llvm::Value*, llvm::CallBase**, clang::CodeGen::CGFunctionInfo const**) + 1853
+39 clang     0x00006319e02303ad clang::CodeGen::CodeGenFunction::EmitCallExpr(clang::CallExpr const*, clang::CodeGen::ReturnValueSlot, llvm::CallBase**) + 717
+40 clang     0x00006319e02a2b61
+41 clang     0x00006319e029d7fd clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 141
+42 clang     0x00006319e02036be clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) + 238
+43 clang     0x00006319e0229e3a clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) + 282
+44 clang     0x00006319e03d4974 clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 388
+45 clang     0x00006319e03dcf3c clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+46 clang     0x00006319e0446901 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) + 177
+47 clang     0x00006319e045d9d4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 1396
+48 clang     0x00006319e04c7ce8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 2152
+49 clang     0x00006319e04c0f64 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 580
+50 clang     0x00006319e04c1e60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+51 clang     0x00006319e04cd335
+52 clang     0x00006319e0870ef1
+53 clang     0x00006319e08600f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+54 clang     0x00006319e253d61c clang::ParseAST(clang::Sema&, bool, bool) + 508
+55 clang     0x00006319e0bde061 clang::FrontendAction::Execute() + 65
+56 clang     0x00006319e0b67e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+57 clang     0x00006319e0cb5de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+58 clang     0x00006319ddb1133e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+59 clang     0x00006319ddb0713a
+60 clang     0x00006319ddb072cf
+61 clang     0x00006319e08eccfd
+62 clang     0x00006319dfc86630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+63 clang     0x00006319e08edb53
+64 clang     0x00006319e08a2607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+65 clang     0x00006319e08a6ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+66 clang     0x00006319e08b5004 clang::driver::Driver::ExecuteCompilation(clang::driv
+[... truncated ...]

@@ -1,0 +1,127 @@
+...
+Assertion failed: (isAdmissibleType(First)), function Constraint at Constraint.cpp:65.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -frontend -interpret /tmp/test.swift -disable-objc-interop -no-color-diagnostics -Xcc -fno-color-diagnostics -empty-abi-descriptor -no-auto-bridging-header-chaining -module-name test -in-process-plugin-server-path /usr/lib/swift/host/libSwiftInProcPluginServer.so -plugin-path /usr/lib/swift/host/plugins -plugin-path /usr/local/lib/swift/host/plugins
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/tmp/test.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(test.(file).InheritsAsyncSequence extension.blah()@/tmp/test.swift:3:8)
+5.	While type-checking statement at [/tmp/test.swift:3:43 - line:9:26] RangeText="{
+    @propertyWrapper
+    struct SomeLongFooName<Holder, T> {
+    var wrappedValue: T
+    struct Bar {
+    typealias Foo<T> = SomeLongFooName<Self, T>
+    @Foo var baz: Bool = "
+6.	While type-checking 'SomeLongFooName' (at /tmp/test.swift:5:5)
+7.	While type-checking 'Bar' (at /tmp/test.swift:7:5)
+8.	While evaluating request StoredPropertiesRequest(test.(file).InheritsAsyncSequence extension.blah().SomeLongFooName.Bar@/tmp/test.swift:7:12)
+9.	While evaluating request PropertyWrapperInitializerInfoRequest(test.(file).InheritsAsyncSequence extension.blah().SomeLongFooName.Bar.baz@/tmp/test.swift:9:14)
+10.	While evaluating request PropertyWrapperBackingPropertyTypeRequest(test.(file).InheritsAsyncSequence extension.blah().SomeLongFooName.Bar.baz@/tmp/test.swift:9:14)
+11.	While type-checking expression at [/tmp/test.swift:9:6 - line:9:26] RangeText="Foo var baz: Bool = "
+12.	While type-checking-target starting at /tmp/test.swift:9:6
+13.	Assertion failed: (isAdmissibleType(First)), function Constraint at Constraint.cpp:65.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+ #0 0x000055d2d96bf658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x000055d2d96bce75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x000055d2d96c0411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007fe3eae16330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007fe3eae6fb2c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9eb2c)
+ #5 0x00007fe3eae1627e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007fe3eadf98ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000055d2d37ea5c2 (/usr/bin/swift-frontend+0x2d7a5c2)
+ #8 0x000055d2d37ea574 (/usr/bin/swift-frontend+0x2d7a574)
+ #9 0x000055d2d2b0cc91 swift::constraints::Constraint::Constraint(swift::constraints::ConstraintKind, swift::Type, swift::Type, swift::constraints::ConstraintLocator*, llvm::SmallPtrSetImpl<swift::TypeVariableType*>&) (/usr/bin/swift-frontend+0x209cc91)
+#10 0x000055d2d2b0f1c6 swift::constraints::Constraint::create(swift::constraints::ConstraintSystem&, swift::constraints::ConstraintKind, swift::Type, swift::Type, swift::constraints::ConstraintLocator*, llvm::ArrayRef<swift::TypeVariableType*>) (/usr/bin/swift-frontend+0x209f1c6)
+#11 0x000055d2d2a2e81f swift::constraints::ConstraintSystem::addConstraint(swift::constraints::ConstraintKind, swift::Type, swift::Type, swift::constraints::ConstraintLocatorBuilder, bool, swift::constraints::PreparedOverloadBuilder*) (/usr/bin/swift-frontend+0x1fbe81f)
+#12 0x000055d2d29fc631 swift::constraints::ConstraintSystem::generateWrappedPropertyTypeConstraints(swift::VarDecl*, swift::Type, swift::Type) (/usr/bin/swift-frontend+0x1f8c631)
+#13 0x000055d2d29fd899 swift::constraints::ConstraintSystem::generateConstraints(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x1f8d899)
+#14 0x000055d2d2a7f9a0 swift::constraints::ConstraintSystem::solveImpl(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x200f9a0)
+#15 0x000055d2d2a7f2b6 swift::constraints::ConstraintSystem::solve(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x200f2b6)
+#16 0x000055d2d2c494e1 swift::TypeChecker::typeCheckTarget(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x21d94e1)
+#17 0x000055d2d2c49361 swift::TypeChecker::typeCheckExpression(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x21d9361)
+#18 0x000055d2d2c4b225 swift::TypeChecker::typeCheckBinding(swift::Pattern*&, swift::Expr*&, swift::DeclContext*, swift::Type, swift::PatternBindingDecl*, unsigned int, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>) (/usr/bin/swift-frontend+0x21db225)
+#19 0x000055d2d2c4b51a swift::TypeChecker::typeCheckPatternBinding(swift::PatternBindingDecl*, unsigned int, swift::Type, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>) (/usr/bin/swift-frontend+0x21db51a)
+#20 0x000055d2d2d12482 swift::PropertyWrapperBackingPropertyTypeRequest::evaluate(swift::Evaluator&, swift::VarDecl*) const (/usr/bin/swift-frontend+0x22a2482)
+#21 0x000055d2d343d5cf swift::PropertyWrapperBackingPropertyTypeRequest::OutputType swift::Evaluator::getResultUncached<swift::PropertyWrapperBackingPropertyTypeRequest, swift::PropertyWrapperBackingPropertyTypeRequest::OutputType swift::evaluateOrDefault<swift::PropertyWrapperBackingPropertyTypeRequest>(swift::Evaluator&, swift::PropertyWrapperBackingPropertyTypeRequest, swift::PropertyWrapperBackingPropertyTypeRequest::OutputType)::'lambda'()>(swift::PropertyWrapperBackingPropertyTypeRequest const&, swift::PropertyWrapperBackingPropertyTypeRequest::OutputType swift::evaluateOrDefault<swift::PropertyWrapperBackingPropertyTypeRequest>(swift::Evaluator&, swift::PropertyWrapperBackingPropertyTypeRequest, swift::PropertyWrapperBackingPropertyTypeRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#22 0x000055d2d343d3af swift::PropertyWrapperBackingPropertyTypeRequest::OutputType swift::Evaluator::getResultCached<swift::PropertyWrapperBackingPropertyTypeRequest, swift::PropertyWrapperBackingPropertyTypeRequest::OutputType swift::evaluateOrDefault<swift::PropertyWrapperBackingPropertyTypeRequest>(swift::Evaluator&, swift::PropertyWrapperBackingPropertyTypeRequest, swift::PropertyWrapperBackingPropertyTypeRequest::OutputType)::'lambda'(), (void*)0>(swift::PropertyWrapperBackingPropertyTypeRequest const&, swift::PropertyWrapperBackingPropertyTypeRequest::OutputType swift::evaluateOrDefault<swift::PropertyWrapperBackingPropertyTypeRequest>(swift::Evaluator&, swift::PropertyWrapperBackingPropertyTypeRequest, swift::PropertyWrapperBackingPropertyTypeRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#23 0x000055d2d339a18d swift::VarDecl::getPropertyWrapperBackingPropertyType() const (/usr/bin/swift-frontend+0x292a18d)
+#24 0x000055d2d2d69190 swift::PropertyWrapperInitializerInfoRequest::evaluate(swift::Evaluator&, swift::VarDecl*) const (/usr/bin/swift-frontend+0x22f9190)
+#25 0x000055d2d2d4accc swift::SimpleRequest<swift::PropertyWrapperInitializerInfoRequest, swift::PropertyWrapperInitializerInfo (swift::VarDecl*), (swift::RequestFlags)2>::evaluateRequest(swift::PropertyWrapperInitializerInfoRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#26 0x000055d2d3440aad swift::PropertyWrapperInitializerInfoRequest::OutputType swift::Evaluator::getResultUncached<swift::PropertyWrapperInitializerInfoRequest, swift::PropertyWrapperInitializerInfoRequest::OutputType swift::evaluateOrDefault<swift::PropertyWrapperInitializerInfoRequest>(swift::Evaluator&, swift::PropertyWrapperInitializerInfoRequest, swift::PropertyWrapperInitializerInfoRequest::OutputType)::'lambda'()>(swift::PropertyWrapperInitializerInfoRequest const&, swift::PropertyWrapperInitializerInfoRequest::OutputType swift::evaluateOrDefault<swift::PropertyWrapperInitializerInfoRequest>(swift::Evaluator&, swift::PropertyWrapperInitializerInfoRequest, swift::PropertyWrapperInitializerInfoRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#27 0x000055d2d3440844 swift::PropertyWrapperInitializerInfoRequest::OutputType swift::Evaluator::getResultCached<swift::PropertyWrapperInitializerInfoRequest, swift::PropertyWrapperInitializerInfoRequest::OutputType swift::evaluateOrDefault<swift::PropertyWrapperInitializerInfoRequest>(swift::Evaluator&, swift::PropertyWrapperInitializerInfoRequest, swift::PropertyWrapperInitializerInfoRequest::OutputType)::'lambda'(), (void*)0>(swift::PropertyWrapperInitializerInfoRequest const&, swift::PropertyWrapperInitializerInfoRequest::OutputType swift::evaluateOrDefault<swift::PropertyWrapperInitializerInfoRequest>(swift::Evaluator&, swift::PropertyWrapperInitializerInfoRequest, swift::PropertyWrapperInitializerInfoRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#28 0x000055d2d339a375 swift::VarDecl::getPropertyWrapperInitializerInfo() const (/usr/bin/swift-frontend+0x292a375)
+#29 0x000055d2d2d610bd computeLoweredProperties(swift::NominalTypeDecl*, swift::IterableDeclContext*, (anonymous namespace)::LoweredPropertiesReason) TypeCheckStorage.cpp:0:0
+#30 0x000055d2d2d603f2 swift::StoredPropertiesRequest::evaluate(swift::Evaluator&, swift::NominalTypeDecl*) const (/usr/bin/swift-frontend+0x22f03f2)
+#31 0x000055d2d33e433e swift::StoredPropertiesRequest::OutputType swift::Evaluator::getResultUncached<swift::StoredPropertiesRequest, swift::StoredPropertiesRequest::OutputType swift::evaluateOrDefault<swift::StoredPropertiesRequest>(swift::Evaluator&, swift::StoredPropertiesRequest, swift::StoredPropertiesRequest::OutputType)::'lambda'()>(swift::StoredPropertiesRequest const&, swift::StoredPropertiesRequest::OutputType swift::evaluateOrDefault<swift::StoredPropertiesRequest>(swift::Evaluator&, swift::StoredPropertiesRequest, swift::StoredPropertiesRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#32 0x000055d2d33e4108 swift::StoredPropertiesRequest::OutputType swift::Evaluator::getResultCached<swift::StoredPropertiesRequest, swift::StoredPropertiesRequest::OutputType swift::evaluateOrDefault<swift::StoredPropertiesRequest>(swift::Evaluator&, swift::StoredPropertiesRequest, swift::StoredPropertiesRequest::OutputType)::'lambda'(), (void*)0>(swift::StoredPropertiesRequest const&, swift::StoredPropertiesRequest::OutputType swift::evaluateOrDefault<swift::StoredPropertiesRequest>(swift::Evaluator&, swift::StoredPropertiesRequest, swift::StoredPropertiesRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#33 0x000055d2d338ceef swift::NominalTypeDecl::getStoredProperties() const (/usr/bin/swift-frontend+0x291ceef)
+#34 0x000055d2d2c98561 (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#35 0x000055d2d2c98a8b (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#36 0x000055d2d2c97864 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x2227864)
+#37 0x000055d2d2d5650c swift::ASTVisitor<(anonymous namespace)::StmtChecker, void, swift::Stmt*, void, void, void, void>::visit(swift::Stmt*) TypeCheckStmt.cpp:0:0
+#38 0x000055d2d2d599cc bool (anonymous namespace)::StmtChecker::typeCheckStmt<swift::BraceStmt>(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#39 0x000055d2d2d51404 (anonymous namespace)::StmtChecker::typeCheckBody(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#40 0x000055d2d2d5102b swift::TypeCheckFunctionBodyRequest::evaluate(swift::Evaluator&, swift::AbstractFunctionDecl*) const (/usr/bin/swift-frontend+0x22e102b)
+#41 0x000055d2d3454fde swift::TypeCheckFunctionBodyRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()>(swift::TypeCheckFunctionBodyRequest const&, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#42 0x000055d2d339fab9 swift::AbstractFunctionDecl::getTypecheckedBody() const (/usr/bin/swift-frontend+0x292fab9)
+#43 0x000055d2d353da08 swift::SourceFile::typeCheckDelayedFunctions() (/usr/bin/swift-frontend+0x2acda08)
+#44 0x000055d2d2dd296d swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x236296d)
+#45 0x000055d2d2dd723b swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#46 0x000055d2d2dd27b8 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x23627b8)
+#47 0x000055d2d1650fd9 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_10>(long, swift::SourceFile&) Frontend.cpp:0:0
+#48 0x000055d2d164473e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xbd473e)
+#49 0x000055d2d16444bb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xbd44bb)
+#50 0x000055d2d14bb822 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#51 0x000055d2d14a8595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#52 0x000055d2d14a521e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#53 0x000055d2d11acb21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#54 0x00007fe3eadfb1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#55 0x00007fe3eadfb28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#56 0x000055d2d11aba15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x7fe3eaef828d... done ***
+
+*** Program crashed: Aborted at 0x00007fe3eaef828d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007fe3eaef828d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007fe3eaef828d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b bb 0d 00  H=·ðÿÿs·ÃH··[»··
+rbx 0x0000000000000006  6
+rsi 0x000000000033ba22  3389986
+rdi 0x000000000033ba22  3389986
+rbp 0x000000000033ba22  3389986
+rsp 0x000055d2df0242e8  3b 04 6c d9 d2 55 00 00 70 45 02 df d2 55 00 00  ;·lÙÒU··pE·ßÒU··
+ r8 0x000055d2df024570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x000055d2df024570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x000055d2df024570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x000000000000000a  10
+r14 0x0000000000000000  0
+r15 0x000055d2df024388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007fe3eaef828d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b bb 0d 00  H=·ðÿÿs·ÃH··[»··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007fe3eadd1000–0x00007fe3eaf80d39 8e9fd827446c24067541ac5390e6f527fb5947bb libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

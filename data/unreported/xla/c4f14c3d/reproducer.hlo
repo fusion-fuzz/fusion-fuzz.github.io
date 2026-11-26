@@ -1,0 +1,18 @@
+HloModule test
+
+ENTRY %main {
+  %lhs = f8e4m3fn[4,16,256]{2,0,1} parameter(0)
+  %rhs = f8e4m3fn[4,32,256]{0,1,2} parameter(1)
+  %lhs_scale = f8e5m2[4,16,8]{2,0,1} parameter(2)
+  %rhs_scale = f8e5m2[4,32,8]{0,1,2} parameter(3)
+  %result = f32[4,16,32] custom-call(%lhs, %rhs, %lhs_scale, %rhs_scale), custom_call_target="__op$block_scaled_dot"
+  %p0 = f32[] parameter(4)
+  %p1 = f32[] parameter(5)
+  %tuple = (f32[], f32[]) tuple(%p0, %p1)
+  %gte0 = f32[] get-tuple-element(%tuple), index=0
+  %gte1 = f32[] get-tuple-element(%tuple), index=1
+  %add = f32[] add(%gte0, %gte1)
+  %result.d = f32[4,16,32] custom-call(%lhs, %rhs, %lhs_scale, %tuple), custom_call_target="__op$block_scaled_dot"
+  %ffl.root = (f32[], f32[4,16,32]) tuple(%add, %result.d)
+  ROOT %ffl.root.1 = (f32[4,16,32], f32[], f32[4,16,32]) tuple(%result, %add, %result.d)
+}

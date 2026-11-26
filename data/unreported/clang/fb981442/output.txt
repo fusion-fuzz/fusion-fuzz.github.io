@@ -1,0 +1,100 @@
+[... 68 lines omitted ...]
+      |                                                                              ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:455:3: warning: ignoring return value of function declared with const attribute [-Wunused-value]
+  455 |   __builtin_rint(f);       __builtin_rintf(f);      __builtin_rintl(f); __builtin_rintf128(f);
+      |   ^~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:455:28: warning: ignoring return value of function declared with const attribute [-Wunused-value]
+  455 |   __builtin_rint(f);       __builtin_rintf(f);      __builtin_rintl(f); __builtin_rintf128(f);
+      |                            ^~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:455:53: warning: ignoring return value of function declared with const attribute [-Wunused-value]
+  455 |   __builtin_rint(f);       __builtin_rintf(f);      __builtin_rintl(f); __builtin_rintf128(f);
+      |                                                     ^~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:455:73: warning: ignoring return value of function declared with const attribute [-Wunused-value]
+  455 |   __builtin_rint(f);       __builtin_rintf(f);      __builtin_rintl(f); __builtin_rintf128(f);
+      |                                                                         ^~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:462:3: warning: ignoring return value of function declared with const attribute [-Wunused-value]
+  462 |   __builtin_round(f);      __builtin_roundf(f);     __builtin_roundl(f); __builtin_roundf128(f);
+      |   ^~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:462:28: warning: ignoring return value of function declared with const attribute [-Wunused-value]
+  462 |   __builtin_round(f);      __builtin_roundf(f);     __builtin_roundl(f); __builtin_roundf128(f);
+      |                            ^~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:462:53: warning: ignoring return value of function declared with const attribute [-Wunused-value]
+  462 |   __builtin_round(f);      __builtin_roundf(f);     __builtin_roundl(f); __builtin_roundf128(f);
+      |                                                     ^~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:462:74: warning: ignoring return value of function declared with const attribute [-Wunused-value]
+  462 |   __builtin_round(f);      __builtin_roundf(f);     __builtin_roundl(f); __builtin_roundf128(f);
+      |                                                                          ^~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:504:3: warning: ignoring return value of function declared with const attribute [-Wunused-value]
+  504 |   __builtin_trunc(f);      __builtin_truncf(f);     __builtin_truncl(f); __builtin_truncf128(f);
+      |   ^~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:504:28: warning: ignoring return value of function declared with const attribute [-Wunused-value]
+  504 |   __builtin_trunc(f);      __builtin_truncf(f);     __builtin_truncl(f); __builtin_truncf128(f);
+      |                            ^~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:504:53: warning: ignoring return value of function declared with const attribute [-Wunused-value]
+  504 |   __builtin_trunc(f);      __builtin_truncf(f);     __builtin_truncl(f); __builtin_truncf128(f);
+      |                                                     ^~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:504:74: warning: ignoring return value of function declared with const attribute [-Wunused-value]
+  504 |   __builtin_trunc(f);      __builtin_truncf(f);     __builtin_truncl(f); __builtin_truncf128(f);
+      |                                                                          ^~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:648:9: warning: expression result unused [-Wunused-value]
+  648 |   f * f + f;
+      |   ~~~~~ ^ ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:649:17: warning: expression result unused [-Wunused-value]
+  649 |   (double)f * f - f;
+      |   ~~~~~~~~~~~~~ ^ ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:650:23: warning: expression result unused [-Wunused-value]
+  650 |   (long double)-f * f + f;
+      |   ~~~~~~~~~~~~~~~~~~~ ^ ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:651:12: warning: expression result unused [-Wunused-value]
+  651 |   -(f * f) - f;
+      |   ~~~~~~~~ ^ ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c:652:5: warning: expression result unused [-Wunused-value]
+  652 |   f + -(f * f);
+      |   ~ ^ ~~~~~~~~
+clang: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/include/llvm/CodeGen/SelectionDAGNodes.h:1126: llvm::EVT llvm::SDNode::getValueType(unsigned int) const: Assertion `ResNo < NumValues && "Illegal result number!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -S -o /dev/null -O2 -std=c23 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -fstrict-enums -ffp-contract=fast -target riscv64 -ffreestanding -march=rv64gcv /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c
+1.	<eof> parser at end of file
+2.	Code generation
+3.	Running pass 'Function Pass Manager' on module '/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp3csmdhss/1881549f.c'.
+4.	Running pass 'RISC-V DAG->DAG Pattern Instruction Selection' on function '@foo'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x00005f05b0ade329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x00005f05b0adafec llvm::sys::RunSignalHandlers() + 76
+2  clang     0x00005f05b0adb8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x00005f05b0a1d218
+4  libc.so.6 0x00007492897ad520
+5  libc.so.6 0x00007492898019bc pthread_kill + 300
+6  libc.so.6 0x00007492897ad476 raise + 22
+7  libc.so.6 0x00007492897937f3 abort + 211
+8  libc.so.6 0x000074928979371b
+9  libc.so.6 0x00007492897a4e96
+10 clang     0x00005f05b2136865
+11 clang     0x00005f05b2147fa1 llvm::SelectionDAG::Legalize() + 833
+12 clang     0x00005f05b224f8af llvm::SelectionDAGISel::CodeGenAndEmitDAG() + 2703
+13 clang     0x00005f05b2252d9b llvm::SelectionDAGISel::SelectAllBasicBlocks(llvm::Function const&) + 2347
+14 clang     0x00005f05b22547f3 llvm::SelectionDAGISel::runOnMachineFunction(llvm::MachineFunction&) + 259
+15 clang     0x00005f05b223d168 llvm::SelectionDAGISelLegacy::runOnMachineFunction(llvm::MachineFunction&) + 168
+16 clang     0x00005f05afe052ec
+17 clang     0x00005f05b04be2e5 llvm::FPPassManager::runOnFunction(llvm::Function&) + 1397
+18 clang     0x00005f05b04be8c9 llvm::FPPassManager::runOnModule(llvm::Module&) + 57
+19 clang     0x00005f05b04bf2b2
+20 clang     0x00005f05b04bf9eb llvm::legacy::PassManagerImpl::run(llvm::Module&) + 219
+21 clang     0x00005f05b0f0115f
+22 clang     0x00005f05b0f15ecf
+23 clang     0x00005f05b0f162f3 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::StringRef, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 483
+24 clang     0x00005f05b16053ca clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 1866
+25 clang     0x00005f05b32d484c clang::ParseAST(clang::Sema&, bool, bool) + 1068
+26 clang     0x00005f05b1975061 clang::FrontendAction::Execute() + 65
+27 clang     0x00005f05b18fee65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+28 clang     0x00005f05b1a4cde3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+29 clang     0x00005f05ae8a833e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+30 clang     0x00005f05ae89e13a
+31 clang     0x00005f05ae89e2cf
+32 clang     0x00005f05b1683cfd
+33 clang     0x00005f05b0a1d630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+34 clang     0x00005f05b1684b53
+35 clang     0x00005f05b1639607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+36 clang     0x00005f05b163def0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::Smal
+[... truncated ...]

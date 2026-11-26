@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:53:16: error: expected an original function name
+ 51 | // expected-error @+2 {{expected an original function name}}
+ 52 | // expected-error @+1 {{expected declaration}}
+ 53 | @transpose(of: 3)
+    |                `- error: expected an original function name
+ 54 | func transpose(v: Float) -> Float
+ 55 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:53:16: error: expected declaration
+ 51 | // expected-error @+2 {{expected an original function name}}
+ 52 | // expected-error @+1 {{expected declaration}}
+ 53 | @transpose(of: 3)
+    |                `- error: expected declaration
+ 54 | func transpose(v: Float) -> Float
+ 55 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:57:21: error: expected label 'wrt:' in '@transpose' attribute
+ 55 | 
+ 56 | // expected-error @+1 {{expected label 'wrt:' in '@transpose' attribute}}
+ 57 | @transpose(of: foo, blah)
+    |                     `- error: expected label 'wrt:' in '@transpose' attribute
+ 58 | func transpose(v: Float) -> Float
+ 59 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:61:24: error: expected a colon ':' after 'wrt'
+ 59 | 
+ 60 | // expected-error @+1 {{expected a colon ':' after 'wrt'}}
+ 61 | @transpose(of: foo, wrt)
+    |                        `- error: expected a colon ':' after 'wrt'
+ 62 | func transpose(v: Float) -> Float
+ 63 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:65:20: error: unexpected ',' separator
+ 63 | 
+ 64 | // expected-error @+1 {{unexpected ',' separator}} {{19-20=}}
+ 65 | @transpose(of: foo,)
+    |                    `- error: unexpected ',' separator
+ 66 | func transpose(v: Float) -> Float
+ 67 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:70:27: error: expected ')' in 'transpose' attribute
+ 68 | // expected-error @+2 {{expected ')' in 'transpose' attribute}}
+ 69 | // expected-error @+1 {{expected declaration}}
+ 70 | @transpose(of: foo, wrt: 0,)
+    |                           `- error: expected ')' in 'transpose' attribute
+ 71 | func transpose(v: Float) -> Float
+ 72 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:70:27: error: expected declaration
+ 68 | // expected-error @+2 {{expected ')' in 'transpose' attribute}}
+ 69 | // expected-error @+1 {{expected declaration}}
+ 70 | @transpose(of: foo, wrt: 0,)
+    |                           `- error: expected declaration
+ 71 | func transpose(v: Float) -> Float
+ 72 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:80:26: error: expected a parameter, which can be a function parameter index or 'self'
+ 78 | // The runtime error format changed after the 5.3 release.
+ 79 | // expected-error @+1 {{expected a parameter, which can be a function parameter index or 'self'}}
+ 80 | @transpose(of: foo, wrt: v)
+    |                          `- error: expected a parameter, which can be a function parameter index or 'self'
+ 81 | func transpose(v: Float) -> Float
+ 82 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:84:30: error: expected a parameter, which can be a function parameter index or 'self'
+ 82 | 
+ 83 | // expected-error @+1 {{expected a parameter, which can be a function parameter index or 'self'}}
+ 84 | @transpose(of: foo, wrt: (0, v))
+    |                              `- error: expected a parameter, which can be a function parameter index or 'self'
+ 85 | func transpose(v: Float) -> Float
+ 86 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:92:29: error: expected ',' separator
+ 90 | // expected-error @+2 {{expected ',' separator}}
+ 91 | // expected-error @+1 {{expected declaration}}
+ 92 | @transpose(of: Swift.Float.+(_:_))
+    |                             `- error: expected ',' separator
+ 93 | func transpose(v: Float) -> Float
+ 94 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:92:29: error: expected declaration
+ 90 | // expected-error @+2 {{expected ',' separator}}
+ 91 | // expected-error @+1 {{expected declaration}}
+ 92 | @transpose(of: Swift.Float.+(_:_))
+    |                             `- error: expected declaration
+ 93 | func transpose(v: Float) -> Float
+ 94 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:100:29: error: expected ',' separator
+ 98 | // expected-error @+2 {{expected ',' separator}}
+ 99 | // expected-error @+1 {{expected declaration}}
+100 | @transpose(of: Swift.Float.+.a)
+    |                             `- error: expected ',' separator
+101 | func transpose(v: Float) -> Float
+102 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:100:29: error: expected declaration
+ 98 | // expected-error @+2 {{expected ',' separator}}
+ 99 | // expected-error @+1 {{expected declaration}}
+100 | @transpose(of: Swift.Float.+.a)
+    |                             `- error: expected declaration
+101 | func transpose(v: Float) -> Float
+102 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:106:20: error: expected ',' separator
+104 | // expected-error @+2 {{expected ',' separator}} {{19-19=,}}
+105 | // expected-error @+1 {{expected declaration}}
+106 | @transpose(of: foo wrt: x)
+    |                    `- error: expected ',' separator
+107 | func transpose(v: Float) -> Float
+108 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbo2gsupz/5b4fc740.swift:106:20: error: expected declaration
+104 | // expected-error @+2 {{expected ',' separator}} {{19-19=,}}
+105 | // expected-error @+1 {{expected declaration}}
+106 | @transpose(of: foo wrt: x)
+    |                    `- error: expected declaration
+107 | func transpose(v: Float) -> Float
+108 | 
+
+[... 107 more lines ...]

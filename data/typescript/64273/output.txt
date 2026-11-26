@@ -1,0 +1,43 @@
+panic: unexpected TypeElement: KindPropertyDeclaration [recovered, repanicked]
+
+goroutine 86 [running]:
+sync.(*WaitGroup).Go.func1.1()
+	/usr/local/go/src/sync/waitgroup.go:251 +0x45
+panic({0xdefd20?, 0x292cee18a110?})
+	/usr/local/go/src/runtime/panic.go:860 +0x13a
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitTypeElement(0x292ced600540?, 0x292cedc93558?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:1842 +0x205
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitListItems(0x292ced1b6700, 0x15c93d8, 0x292ced3b9340, {0x292cee18a030, 0x2, 0x1?}, 0x81, 0x1, {0x92, 0xba})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4991 +0x5d9
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitListRange(0x292ced1b6700, 0x15c93d8, 0x292ced3b9340, 0x292cee22aa20, 0x81, 0xf0e600?, 0x1?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4790 +0x3ac
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitList(0x292ced1b6700, 0x15c93d8, 0x292ced3b9340, 0x292cee22aa20, 0x81)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4735 +0x90
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitInterfaceDeclaration(0x292ced1b6700, 0x292ced3b9340)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:3796 +0x265
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitStatement(0x292ced1b6700, 0x292ced3b9340)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4214 +0x417
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitListItems(0x292ced1b6700, 0x15c93b8, 0x292cedf45888, {0x292cee623aa0, 0x3, 0x80a1fb?}, 0x1, 0x1, {0x0, 0x16b})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4991 +0x5d9
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitListRange(0x292ced1b6700, 0x15c93b8, 0x292cedf45888, 0x292cee22aa80, 0x1, 0x292cee7d2180?, 0x292cedc93858?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4790 +0x3ac
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).emitSourceFile(0x292ced1b6700, 0x292cedf45888)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:4695 +0x2b1
+github.com/microsoft/TypeScript/tsc/internal/printer.(*Printer).Write(0x292ced1b6700, 0x292cedf45888, 0x292cedf45888, {0x15f6708, 0x292ced600540}, 0x1?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/printer/printer.go:5256 +0x10ec
+github.com/microsoft/TypeScript/tsc/internal/compiler.(*emitter).printSourceFile(0x292cecf94000, {0x292cece36190, 0x50}, {0x292cecf8e060, 0x54}, 0x292cedf45888, 0x292ced1b6700, 0x292cedc93bb8, 0x1)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/compiler/emitter.go:330 +0x265
+github.com/microsoft/TypeScript/tsc/internal/compiler.(*emitter).emitDeclarationFile(0x292cecf94000, 0x292cecee6008, {0x292cece36190, 0x50}, {0x292cecf8e060, 0x54})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/compiler/emitter.go:292 +0x6aa
+github.com/microsoft/TypeScript/tsc/internal/compiler.(*emitter).emit(0x292cecf94000)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/compiler/emitter.go:51 +0x145
+github.com/microsoft/TypeScript/tsc/internal/compiler.(*Program).Emit.func2()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/compiler/program.go:1854 +0x1ce
+github.com/microsoft/TypeScript/tsc/internal/core.(*parallelWorkGroup).Queue.func1()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/core/workgroup.go:40 +0x13
+sync.(*WaitGroup).Go.func1()
+	/usr/local/go/src/sync/waitgroup.go:258 +0x4a
+created by sync.(*WaitGroup).Go in goroutine 1
+	/usr/local/go/src/sync/waitgroup.go:238 +0x73
+
+tsc-emit digest=yttlwugmzhw

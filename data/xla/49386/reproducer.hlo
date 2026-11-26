@@ -1,0 +1,9 @@
+HloModule m, num_partitions=2
+
+ENTRY e {
+  lhs = f8e4m3fn[16,64] parameter(0), sharding={devices=[1,2]<=[2]}
+  lhs_scale = f8e8m0fnu[16,2] parameter(1), sharding={replicated}
+  rhs = f8e4m3fn[4,64] parameter(2), sharding={replicated}
+  rhs_scale = f8e8m0fnu[4,2] parameter(3), sharding={replicated}
+  ROOT d = f32[16,4] custom-call(lhs, rhs, lhs_scale, rhs_scale), custom_call_target="__op$block_scaled_dot", sharding={replicated}
+}

@@ -1,0 +1,23 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791809414.578642  911562 shard_map_import.cc:160] Check failed: globalToLocalShape.getCallTargetName() == kGlobalToLocalShapeCallTargetName (UNPRINTABLE vs. UNPRINTABLE) 
+*** Check failure stack trace: ***
+    @     0x5d825c825a84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5d825c825a06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5d82536f67e5  std::_Function_handler<>::_M_invoke()
+    @     0x5d82540a0021  llvm::function_ref<>::callback_fn<>()
+    @     0x5d8254098f4f  mlir::sdy::walkCalls()
+    @     0x5d82536f4d37  xla::sdy::(anonymous namespace)::SdyRoundTripShardMapImportPass::runOnOperation()
+    @     0x5d825b5d06eb  mlir::detail::OpToOpPassAdaptor::run()
+    @     0x5d825b5d1113  mlir::detail::OpToOpPassAdaptor::runPipeline()
+    @     0x5d825b5d86a2  mlir::PassManager::runPasses()
+    @     0x5d825b5d7a2a  mlir::PassManager::run()
+    @     0x5d825362d434  xla::sdy::ShardyXLA::RunImpl()
+    @     0x5d825b9a9007  xla::HloPassInterface::Run()
+    @     0x5d825b1dfa3c  xla::HloPassPipeline::RunHelper<>()
+    @     0x5d825b1dae4d  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5d825b1da265  xla::HloPassPipeline::RunImpl()
+    @     0x5d825b9a9007  xla::HloPassInterface::Run()
+    @     0x5d8253237d9d  xla::OptProvider::BuildAndRunTransformPipeline()
+    @     0x5d825c86baf8  main
+    @     0x7cdee39c5d90  (unknown)
+Aborted (core dumped)

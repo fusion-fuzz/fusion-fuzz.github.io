@@ -1,0 +1,5 @@
+HloModule m
+ENTRY e {
+  p = f32[1024,1024] parameter(0)
+  ROOT d = f32[1024,1024]{1,0:T(8,128)} dot(p, p), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+}

@@ -1,2 +1,0 @@
-#DEFINE WHICH == 2
-#if WHICH == 1

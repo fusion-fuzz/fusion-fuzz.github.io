@@ -1,0 +1,32 @@
+during RTL pass: expand
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpz864zuyq/6d22f075.c: In function 'foo_1':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpz864zuyq/6d22f075.c:5:18: internal compiler error: in expand_fn_using_insn, at internal-fn.cc:270
+    5 | type __GIMPLE () foo_##num (type a, type b, type c) \
+      |                  ^~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpz864zuyq/6d22f075.c:53:1: note: in expansion of macro 'foo'
+   53 | foo(float, 1)
+      | ^~~
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x84f597 expand_fn_using_insn
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/internal-fn.cc:270
+0x11b17dd expand_expr_real_1(tree_node*, rtx_def*, machine_mode, expand_modifier, rtx_def**, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/expr.cc:11696
+0x105f4db expand_expr(tree_node*, rtx_def*, machine_mode, expand_modifier)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/expr.h:323
+0x105f4db expand_return
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:4209
+0x105f4db expand_gimple_stmt_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:4318
+0x105f4db expand_gimple_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:4427
+0x1065727 expand_gimple_basic_block
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:6544
+0x1067577 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:7295
+/home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu -iprefix /home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../lib/gcc/x86_64-pc-linux-gnu/17.0.0/ /home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpz864zuyq/6d22f075.c -quiet -dumpbase 6d22f075.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O0 -O -std=gnu23 -fwrapv -finline-functions -fgimple -fdump-tree-ssa-gimple -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

@@ -1,0 +1,42 @@
+triton-opt: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-src/lib/Conversion/TritonGPUToLLVM/MemoryOpToLLVM.cpp:90: virtual llvm::LogicalResult (anonymous namespace)::GlobalScratchAllocOpConversion::matchAndRewrite(triton::gpu::GlobalScratchAllocOp, mlir::ConvertOpToLLVMPattern<mlir::triton::gpu::GlobalScratchAllocOp, false>::OpAdaptor, mlir::ConversionPatternRewriter &) const: Assertion `opOffsetAttr' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmpehezcy3r/aad90247.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic --convert-triton-amdgpu-to-llvm=gfx-arch=gfx1250
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x000055a04b1f9d8a
+1  triton-opt 0x000055a04b1f6c8e
+2  triton-opt 0x000055a04b1fac8b
+3  libc.so.6  0x00007fcf40c29520
+4  libc.so.6  0x00007fcf40c7d9bc pthread_kill + 300
+5  libc.so.6  0x00007fcf40c29476 raise + 22
+6  libc.so.6  0x00007fcf40c0f7f3 abort + 211
+7  libc.so.6  0x00007fcf40c0f71b
+8  libc.so.6  0x00007fcf40c20e96
+9  triton-opt 0x000055a0435a153d
+10 triton-opt 0x000055a0435a62bd
+11 triton-opt 0x000055a0435a616f
+12 triton-opt 0x000055a04a567f54
+13 triton-opt 0x000055a04a5c3662
+14 triton-opt 0x000055a04a5bfcd4
+15 triton-opt 0x000055a04a569d1e
+16 triton-opt 0x000055a04a5694f5
+17 triton-opt 0x000055a04a56a7ce
+18 triton-opt 0x000055a04a579fd8
+19 triton-opt 0x000055a04a570655
+20 triton-opt 0x000055a04a57072b
+21 triton-opt 0x000055a043a8ebe1
+22 triton-opt 0x000055a043bc7b3b
+23 triton-opt 0x000055a043bc86b9
+24 triton-opt 0x000055a043bcf6d2
+25 triton-opt 0x000055a043bcef42
+26 triton-opt 0x000055a043bb9fd7
+27 triton-opt 0x000055a043bb926c
+28 triton-opt 0x000055a04ae179d1
+29 triton-opt 0x000055a043baf5d2
+30 triton-opt 0x000055a043baf9d1
+31 triton-opt 0x000055a043bafc0d
+32 triton-opt 0x000055a043b9acfc
+33 libc.so.6  0x00007fcf40c10d90
+34 libc.so.6  0x00007fcf40c10e40 __libc_start_main + 128
+35 triton-opt 0x000055a04316ee65
+Aborted (core dumped)

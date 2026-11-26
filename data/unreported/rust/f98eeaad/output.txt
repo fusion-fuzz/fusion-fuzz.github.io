@@ -1,0 +1,96 @@
+error[E0428]: the name `foo` is defined multiple times
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpxw9z1crr/8570c51a.rs:32:1
+   |
+ 5 | fn foo<'a, const N: &'a u32>() {}
+   | ------------------------------ previous definition of the value `foo` here
+...
+32 | reuse Trait::foo;
+   | ^^^^^^^^^^^^^^^^^ `foo` redefined here
+   |
+   = note: `foo` must be defined only once in the value namespace of this module
+
+error[E0428]: the name `bar` is defined multiple times
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpxw9z1crr/8570c51a.rs:33:1
+   |
+ 7 | fn bar() {
+   | -------- previous definition of the value `bar` here
+...
+33 | reuse Trait::<'static, (), true>::foo::<true, (), ()> as bar;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `bar` redefined here
+   |
+   = note: `bar` must be defined only once in the value namespace of this module
+
+
+thread 'rustc' (3219134) panicked at compiler/rustc_type_ir/src/binder.rs:847:9:
+expected region for `'a/#0` ('a/#0/0) but found Type(Self/#0) when instantiating args=[Self/#0, 'a/#0]
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panicking.rs:80:14
+   2: <rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>::region_param_expected
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/binder.rs:847:9
+   3: <rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::fold::TypeFolder<rustc_middle::ty::context::TyCtxt>>::fold_region
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/binder.rs:717:41
+   4: <rustc_type_ir::sty::Region<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::fold::TypeFoldable<rustc_middle::ty::context::TyCtxt>>::fold_with::<rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/sty/mod.rs:213:16
+   5: <rustc_middle::ty::Ty as rustc_type_ir::fold::TypeSuperFoldable<rustc_middle::ty::context::TyCtxt>>::super_fold_with::<rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/structural_impls.rs:403:48
+   6: <rustc_type_ir::binder::ArgFolder<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::fold::TypeFolder<rustc_middle::ty::context::TyCtxt>>::fold_ty
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/binder.rs:738:20
+   7: <rustc_type_ir::binder::EarlyBinder<rustc_middle::ty::context::TyCtxt, rustc_middle::ty::Ty>>::instantiate::<&[rustc_middle::ty::generic_args::GenericArg]>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/binder.rs:653:38
+   8: <<dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_generic_args_of_path::{closure#0}::GenericArgsCtxt as rustc_hir_analysis::hir_ty_lowering::GenericArgsLowerer>::provided_kind
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/hir_ty_lowering/mod.rs:793:34
+   9: rustc_hir_analysis::hir_ty_lowering::generics::lower_generic_args::<<dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_generic_args_of_path::{closure#0}::GenericArgsCtxt>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/hir_ty_lowering/generics.rs:272:43
+  10: <dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_generic_args_of_path::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/hir_ty_lowering/mod.rs:885:20
+  11: <dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_generic_args_of_path
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/hir_ty_lowering/mod.rs:675:5
+  12: rustc_hir_analysis::delegation::delegation_user_specified_args::{closure#4}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/delegation.rs:638:18
+  13: <core::option::Option<(&rustc_hir::hir::PathSegment, rustc_span::def_id::DefId)>>::map::<&[rustc_middle::ty::generic_args::GenericArg], rustc_hir_analysis::delegation::delegation_user_specified_args::{closure#4}>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/option.rs:1163:29
+  14: rustc_hir_analysis::delegation::delegation_user_specified_args
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/delegation.rs:625:10
+      [... omitted 13 frames ...]
+  15: rustc_middle::query::calls::query_get_at::<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 32]>, rustc_middle::dep_graph::graph::DepNodeIndex>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:154:17
+  16: <rustc_middle::query::calls::TyCtxtAt>::delegation_user_specified_args::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:287:61
+  17: <rustc_middle::ty::context::TyCtxt>::delegation_user_specified_args::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:277:39
+  18: rustc_hir_analysis::delegation::inherit_clauses_for_delegation_item
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/delegation.rs:494:41
+  19: rustc_hir_analysis::collect::clauses_of::gather_explicit_clauses_of::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/collect/clauses_of.rs:150:16
+  20: rustc_hir_analysis::collect::clauses_of::gather_explicit_clauses_of
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/collect/clauses_of.rs:83:1
+  21: rustc_hir_analysis::collect::clauses_of::explicit_clauses_of
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/collect/clauses_of.rs:605:9
+      [... omitted 13 frames ...]
+  22: rustc_middle::query::calls::query_get_at::<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 24]>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:154:17
+  23: <rustc_middle::query::calls::TyCtxtAt>::explicit_clauses_of::<rustc_span::def_id::DefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:287:61
+  24: <rustc_middle::ty::context::TyCtxt>::explicit_clauses_of::<rustc_span::def_id::DefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:277:39
+  25: rustc_hir_analysis::collect::clauses_of::clauses_of
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/collect/clauses_of.rs:31:26
+      [... omitted 13 frames ...]
+  26: rustc_middle::query::calls::query_ensure_ok::<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 24]>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:170:13
+  27: <rustc_middle::query::calls::TyCtxtEnsureOk>::clauses_of::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:302:21
+  28: rustc_hir_analysis::check::check::check_item_type
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/check/check.rs:818:29
+  29: rustc_hir_analysis::check::wfcheck::check_well_formed
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/check/wfcheck.rs:232:19
+      [... omitted 13 frames ...]
+  30: rustc_middle::query::calls::query_ensure_result::<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_middle::dep_graph::graph::DepNodeIndex>, ()>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:197:19
+  31: <rustc_middle::query::calls::TyCtxtEnsureResult>::check_well_formed::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:321:21
+  32: rustc_hir_analysis::che
+[... truncated ...]

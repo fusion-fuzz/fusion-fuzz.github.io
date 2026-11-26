@@ -1,0 +1,90 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc:30:5: error: redefinition of 'int main()'
+   30 | int main() {
+      |     ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc:23:1: note: 'int main()' previously defined here
+   23 | main (void)
+      | ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc: In function 'int main()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc:32:10: error: no matching function for call to 'A<0>::f()'
+   32 |   A<0>::f(); // { dg-error "no match" }
+      |   ~~~~~~~^~
+  • there is 1 candidate
+    • candidate 1: 'static void A<I>::f() requires  A<I>::E::e != 0 [with int I = 0]'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc:6:15:
+          6 |   static void f() requires (e != 0);
+            |               ^
+      • constraints not satisfied
+        • /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc: In instantiation of 'static void A<I>::f() requires  A<I>::E::e != 0 [with int I = 0]':
+        • required from here
+          /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc:32:10:   
+             32 |   A<0>::f(); // { dg-error "no match" }
+                |   ~~~~~~~^~
+        • required by the constraints of 'template<int I> static void A<I>::f() requires  A<I>::E::e != 0'
+          /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc:6:15:   
+              6 |   static void f() requires (e != 0);
+                |               ^
+        • the expression 'A<I>::E::e != 0 [with I = 0]' evaluated to 'false'
+          /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc:6:31:
+              6 |   static void f() requires (e != 0);
+                |                            ~~~^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc:45:5: error: redefinition of 'int foo'
+   45 | int foo __asm__ (ASMNAME ("foo")) __attribute__((nocommon));
+      |     ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc:19:5: note: 'int foo' previously declared here
+   19 | int foo __asm__ (ASMNAME ("foo")) __attribute__((nocommon));
+      |     ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc:49:1: error: redefinition of 'int main()'
+   49 | main (void)
+      | ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc:23:1: note: 'int main()' previously defined here
+   23 | main (void)
+      | ^~~~
+during GIMPLE pass: *build_cgraph_edges
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc:6:15: internal compiler error: tree check: expected integer_cst, have template_parm_index in to_wide, at tree.h:6744
+    6 |   static void f() requires (e != 0);
+      |               ^
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xa5c1c8 tree_check_failed(tree_node const*, char const*, int, char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:9241
+0xa5c43d tree_check(tree_node const*, char const*, int, char const*, tree_code)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:4119
+0xa5c43d wi::to_wide(tree_node const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:6744
+0xa5eddc wi::to_wide(tree_node const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:6755
+0xa5eddc tree_int_cst_sgn(tree_node const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:6747
+0x10cf58b write_integer_cst
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:2109
+0x10cfc25 write_template_arg_literal
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:4412
+0x10d14a6 write_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:4176
+0x10d73b0 write_constraint_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:867
+0x10d73b0 write_encoding
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:975
+0x10d7460 write_mangled_name
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:834
+0x10db7f8 mangle_decl_string
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:4853
+0x10db989 get_mangled_id
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:4869
+0x10db989 mangle_decl(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:4907
+0x1da3985 decl_assembler_name(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:858
+0x141a99e symbol_table::insert_to_assembler_name_hash(symtab_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/symtab.cc:175
+0x1423f9a cgraph_node::create(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraph.cc:675
+0x1423fe5 cgraph_node::get_create(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraph.cc:692
+0x1432bd9 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphbuild.cc:351
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpm0laemnx/d3b1fda5.cc -quiet -dumpbase d3b1fda5.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Ofast -O2 -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

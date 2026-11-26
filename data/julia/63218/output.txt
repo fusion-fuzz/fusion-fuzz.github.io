@@ -1,0 +1,29 @@
+IntToPtr source must be an integral
+  %8 = inttoptr double %1 to ptr addrspace(1), !dbg !17
+LLVM ERROR: Broken module found, compilation aborted!
+
+[219902] signal 6 (-6): Aborted
+in expression starting at /tmp/test.jl:2
+pthread_kill at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+gsignal at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+abort at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+_ZN4llvm18report_fatal_errorERKNS_5TwineEb.cold at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/usr/bin/../lib/libLLVM.so.22.1jl (unknown line)
+_ZN4llvm18report_fatal_errorEPKcb at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/usr/bin/../lib/libLLVM.so.22.1jl (unknown line)
+_ZN4llvm12VerifierPass3runERNS_6ModuleERNS_15AnalysisManagerIS1_JEEE at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/usr/bin/../lib/libLLVM.so.22.1jl (unknown line)
+run at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/usr/include/llvm/IR/PassManagerInternal.h:91:41
+_ZN4llvm11PassManagerINS_6ModuleENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_ at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/usr/bin/../lib/libLLVM.so.22.1jl (unknown line)
+run at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/pipeline.cpp:998:12
+operator() at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/jitlayers.cpp:1501:39
+operator() at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/jitlayers.cpp:1639:12 [inlined]
+optimizeModule at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/jitlayers.cpp:2729:18 [inlined]
+operator() at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/jitlayers.cpp:1091:35 [inlined]
+CallImpl<JLMaterializationUnit::materialize(std::unique_ptr<llvm::orc::MaterializationResponsibility>)::<lambda()> > at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/usr/include/llvm/ADT/FunctionExtras.h:212:49
+operator() at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/usr/include/llvm/ADT/FunctionExtras.h:366:62 [inlined]
+operator() at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/objcache.cpp:340:24 [inlined]
+get at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/objcache.cpp:350:26
+materialize at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/jitlayers.cpp:1101:37
+_ZN4llvm3orc19MaterializationTask3runEv at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/usr/bin/../lib/libLLVM.so.22.1jl (unknown line)
+dispatch at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/julia-task-dispatcher.h:377:13 [inlined]
+dispatch at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/julia-task-dispatcher.h:366:6
+_ZN4llvm3orc16ExecutionSession22dispatchOutstandingMUsEv at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/usr/bin/../lib/libLLVM.so.22.1jl (unknown line)
+_ZN4llvm3orc16ExecutionSession17OL_completeLookupESt10unique_ptrINS0_21InProgressLookupStateESt14default_deleteIS3_EESt10shared_ptrI

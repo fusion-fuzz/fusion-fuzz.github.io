@@ -1,0 +1,42 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpz0jkk8z4/ab61de7e.cc:8:1: error: '__has_include' used outside of preprocessing directive
+    8 | __has_include   /* { dg-error "" } */
+      | ^~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpz0jkk8z4/ab61de7e.cc:8:1: internal compiler error: in cpp_maybe_module_directive, at libcpp/lex.cc:3553
+0x3046dcb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xdd9a1e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x312fff7 cpp_maybe_module_directive
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/lex.cc:3553
+0x312fff7 _cpp_lex_token
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/lex.cc:3820
+0x31300e5 cpp_peek_token(cpp_reader*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/lex.cc:3468
+0x3139d32 _cpp_get_token_no_padding
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/macro.cc:379
+0x3139d32 builtin_has_include_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/macro.cc:401
+0x313a190 builtin_has_include
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/macro.cc:436
+0x313a190 _cpp_builtin_macro_text
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/macro.cc:755
+0x313a772 builtin_macro
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/macro.cc:856
+0x3138148 cpp_get_token_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/macro.cc:3123
+0x11a292a get_token
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-lex.cc:316
+0x11a292a c_lex_with_flags(tree_node**, unsigned long*, unsigned char*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-lex.cc:597
+0xfb5556 cp_lexer_get_preprocessor_token
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:1136
+0x1024804 cp_lexer_new_main
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:775
+0x1024804 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:57908
+0x11b8619 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpz0jkk8z4/ab61de7e.cc -quiet -dumpdir a- -dumpbase ab61de7e.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O2 -std=gnu++17 -fsyntax-only -frounding-math -fmodules -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

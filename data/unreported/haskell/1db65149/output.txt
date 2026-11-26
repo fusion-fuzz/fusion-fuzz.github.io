@@ -1,0 +1,16 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/haskell/tmphf4h152q/ea7a8cf1.hs:20:31: error: [GHC-39999]
+    • No instance for ‘Show ((a0 -> a0 -> b0) -> a0 -> b0)’
+        arising from a use of ‘show’
+      (maybe you haven't applied a function to enough arguments?)
+    • In the first argument of ‘length’, namely ‘(show (foo))’
+      In the first argument of ‘evaluate’, namely ‘(length (show (foo)))’
+      In the first argument of ‘try’, namely
+        ‘(evaluate (length (show (foo))))’
+   |
+20 |   r <- try (evaluate (length (show (foo)))) :: IO (Either SomeException Int)
+   |                               ^^^^
+
+ghc-9.14.1: internal error: evacuate: strange closure type -127533247
+    (GHC version 9.14.1 for x86_64_unknown_linux)
+    Please report this as a GHC bug:  https://www.haskell.org/ghc/reportabug
+Aborted (core dumped)

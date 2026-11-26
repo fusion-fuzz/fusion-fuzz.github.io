@@ -1,0 +1,32 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1792002176.349271 3237863 layout.cc:459] Check failed: dim_to_delete < minor_to_major_.size() (1 vs. 1) 
+*** Check failure stack trace: ***
+    @     0x6215282a9a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x6215282a99e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x621527e099fc  xla::Layout::DeleteDimension()
+    @     0x621527e14bd5  xla::Shape::DeleteDimensions()
+    @     0x621527e275b5  xla::ShapeUtil::DeleteDimensions()
+    @     0x62151f82223e  xla::AlgebraicSimplifierVisitor::HandleReduce()
+    @     0x621527bde8c2  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x621527bddef7  xla::HloInstruction::Visit<>()
+    @     0x621527be046e  xla::PostOrderDFS<>()
+    @     0x621527bdccf8  xla::HloInstruction::Accept<>()
+    @     0x62151cd3ef07  xla::HloComputation::Accept<>()
+    @     0x62151f7dface  xla::AlgebraicSimplifierVisitor::Run()
+    @     0x62151d316e4a  xla::gpu::GpuAlgebraicSimplifier::RunImpl()
+    @     0x621524360be7  xla::HloPassInterface::Run()
+    @     0x62151fede3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x62151fed97bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x62151fed8bd5  xla::HloPassPipeline::RunImpl()
+    @     0x621524360be7  xla::HloPassInterface::Run()
+    @     0x62151ce2ce11  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x62151ce3a06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x62151cd6e934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x62151cd6ee85  xla::CompiledOptProvider::GetExecutable()
+    @     0x62151cd6e245  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x62151cd60d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x6215282fa466  main
+    @     0x7b04bedd4d90  (unknown)
+Aborted (core dumped)

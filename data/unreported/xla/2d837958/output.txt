@@ -1,0 +1,25 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1791991129.564787 2320992 fusion.cc:390] Check failed: GetNumberOfBlocks(analysis->fusion_root(i).shape().dimensions(), block_level_parameters.output_tile_sizes[i]) == num_blocks (4 vs. 8) 
+*** Check failure stack trace: ***
+    @     0x5a4f74439a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5a4f744399e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5a4f6985a65c  xla::gpu::TritonFusion::GetLaunchConfig()
+    @     0x5a4f69790d34  xla::gpu::GpuPerformanceModelWithIndexingAnalysis::EstimateRunTimeForTriton()
+    @     0x5a4f6978c7cc  xla::gpu::CombinedGpuPerformanceModel::EstimateRunTimeForInstruction()
+    @     0x5a4f6976328f  xla::gpu::PriorityFusion::RunImpl()
+    @     0x5a4f704f0be7  xla::HloPassInterface::Run()
+    @     0x5a4f6c06e3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5a4f6c0697bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5a4f6c068bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5a4f704f0be7  xla::HloPassInterface::Run()
+    @     0x5a4f68fc470f  xla::gpu::(anonymous namespace)::RunFusionPasses()
+    @     0x5a4f68fc046f  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5a4f68fca06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5a4f68efe934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5a4f68ef2e5e  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x5a4f68ef0dc7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5a4f7448a466  main
+    @     0x7130381d4d90  (unknown)
+Aborted (core dumped)

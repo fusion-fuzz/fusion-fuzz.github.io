@@ -1,0 +1,61 @@
+module {
+// ===== Seed A =====
+  tt.func @flat_pipeline_existing_barrier(%ptr: !tt.ptr<f32>) {
+      %v0 = arith.constant 0.0 : f32
+      %v1 = arith.constant 1.0 : f32
+      %v2 = arith.constant 2.0 : f32
+
+      scf.execute_region no_inline {
+        tt.store %ptr, %v0 : !tt.ptr<f32>
+        scf.yield
+      } {triton.warp_pipeline.stage = "stage0"}
+
+      amdg.async_wait {num_inst = 0 : i32}
+
+      scf.execute_region no_inline {
+        tt.store %ptr, %v1 : !tt.ptr<f32>
+        scf.yield
+      } {triton.warp_pipeline.stage = "stage1"}
+
+      scf.execute_region no_inline {
+        tt.store %ptr, %v2 : !tt.ptr<f32>
+        scf.yield
+      } {triton.warp_pipeline.stage = "stage2"}
+
+      tt.return
+    }
+
+  // ===== Seed B =====
+  tt.func @flat_pipeline_existing_barrier(%desc: !tt.tensordesc<64x128xf16, #B_2ecbcc8b_nvmma>) {
+      %c0 = arith.constant 0 : i32
+      %true = arith.constant true
+      %buf = ttg.local_alloc : () -> !ttg.memdesc<64x128xf16, #B_2ecbcc8b_nvmma, #B_2ecbcc8b_smem, mutable>
+      %bar = ttg.local_alloc : () -> !ttg.memdesc<2xi64, #B_2ecbcc8b_barrierEnc, #B_2ecbcc8b_smem, mutable>
+      ttng.init_barrier %bar, 1 : !ttg.memdesc<2xi64, #B_2ecbcc8b_barrierEnc, #B_2ecbcc8b_smem, mutable>
+      ttng.barrier_expect %bar, 16384, %true : !ttg.memdesc<2xi64, #B_2ecbcc8b_barrierEnc, #B_2ecbcc8b_smem, mutable>
+      ttng.async_tma_copy_global_to_local %desc[%c0, %c0] %buf, %bar, %true {multicast} :
+        !tt.tensordesc<64x128xf16, #B_2ecbcc8b_nvmma>, !ttg.memdesc<2xi64, #B_2ecbcc8b_barrierEnc, #B_2ecbcc8b_smem, mutable> -> !ttg.memdesc<64x128xf16, #B_2ecbcc8b_nvmma, #B_2ecbcc8b_smem, mutable>
+      ttng.wait_barrier %bar, %c0 : !ttg.memdesc<2xi64, #B_2ecbcc8b_barrierEnc, #B_2ecbcc8b_smem, mutable>
+      ttng.inval_barrier %bar : !ttg.memdesc<2xi64, #B_2ecbcc8b_barrierEnc, #B_2ecbcc8b_smem, mutable>
+      tt.return
+    }
+
+
+  // P7: scf.while loop — structured do-while lowering stress
+  func.func @H_ab7b078d_H_50056ad6__ffl_p7_while() -> i32 {
+    %c0  = arith.constant 0 : i32
+    %c1  = arith.constant 1 : i32
+    %c10 = arith.constant 10 : i32
+    %res = scf.while (%arg = %c0) : (i32) -> i32 {
+      // before region: compute condition
+      %cond = arith.cmpi slt, %arg, %c10 : i32
+      scf.condition(%cond) %arg : i32
+    } do {
+    ^bb0(%arg : i32):
+      // after region: advance loop variable
+      %next = arith.addi %arg, %c1 : i32
+      scf.yield %next : i32
+    }
+    return %res : i32
+  }
+}

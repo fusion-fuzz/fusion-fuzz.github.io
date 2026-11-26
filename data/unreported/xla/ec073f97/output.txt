@@ -1,0 +1,61 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+W0000 00:00:1793348923.290516 2223066 sharding_propagation.cc:3203] GSPMD sharding propagation is going to be deprecated and not supported in the future. Please consider migrating to Shardy (https://openxla.org/shardy). For reference, Shardy is already the default partitioner in JAX.
+W0000 00:00:1793348923.291023 2223066 spmd_partitioner.cc:702] [SPMD] Involuntary full rematerialization. The compiler cannot go from sharding {devices=[4,1]0,1,2,3} to {maximal device=0} efficiently for HLO operation %get-tuple-element = f32[1,4]{1,0} get-tuple-element(%param), index=1, sharding={devices=[4,1]0,1,2,3}. As the last resort, SPMD will replicate the tensor and then partition it to obtain the target sharding, which is inefficient. This issue will be fixed by Shardy partitioner in the future, which is tracked in b/433785288. Contact Shardy or XLA team for help.
+E0000 00:00:1793348923.291375 2223066 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/service/spmd/custom_call_handler.cc:1302) ShapeUtil::Compatible( copy->shape(), MakePartitionedShape(hlo->shape(), hlo->sharding())) 
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+INTERNAL: RET_CHECK failure (xla/service/spmd/custom_call_handler.cc:1302) ShapeUtil::Compatible( copy->shape(), MakePartitionedShape(hlo->shape(), hlo->sharding())) 
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+xla/hlo/ir/hlo_instruction.cc:5312
+xla/hlo/ir/hlo_instruction.cc:5383
+xla/service/spmd/spmd_partitioner.cc:6754
+xla/service/spmd/spmd_partitioner.cc:7465
+xla/service/call_graph.cc:346
+xla/service/call_graph.cc:381
+xla/service/spmd/spmd_partitioner.cc:7465
+./xla/hlo/pass/hlo_pass_pipeline.h:132
+xla/hlo/pass/hlo_pass_pipeline.cc:251
+xla/service/gpu/gpu_compiler.cc:1911
+xla/service/gpu/gpu_compiler.cc:2400
+xla/tools/hlo_opt/compiled_opt_lib.cc:127
+xla/tools/hlo_opt/compiled_opt_lib.cc:136
+xla/tools/hlo_opt/gpu_opt.cc:117
+xla/hlo/tools/hlo_opt/opt_main.cc:202
+xla/hlo/tools/hlo_opt/opt_main.cc:214

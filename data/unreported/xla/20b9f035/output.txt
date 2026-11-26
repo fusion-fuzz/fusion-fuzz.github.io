@@ -1,0 +1,33 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+W0000 00:00:1792924742.707858 2331640 sharding_propagation.cc:3203] GSPMD sharding propagation is going to be deprecated and not supported in the future. Please consider migrating to Shardy (https://openxla.org/shardy). For reference, Shardy is already the default partitioner in JAX.
+F0000 00:00:1792924742.708415 2331640 hlo_sharding_util.cc:2714] Check failed: sharding.IsManualSubgroup() 
+*** Check failure stack trace: ***
+    @     0x607ec5176a24  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x607ec51769a6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x607ebd4542bd  xla::hlo_sharding_util::GetManualSubgroupSharding()
+    @     0x607ebd20becd  xla::spmd::SpmdPartitioningVisitor::Preprocess()::$_0::operator()()
+    @     0x607ebd20b8e2  xla::spmd::SpmdPartitioningVisitor::Preprocess()
+    @     0x607ec4aa804f  xla::PostOrderDFS<>()
+    @     0x607ec4aa48e8  xla::HloInstruction::Accept<>()
+    @     0x607eb98a9d47  xla::HloComputation::Accept<>()
+    @     0x607ebd2365ec  xla::spmd::SpmdPartitioningVisitor::DoPartition()
+    @     0x607ebd23ac62  xla::spmd::SpmdPartitioner::PartitionComputation()
+    @     0x607ebd257286  absl::lts_20260526::functional_internal::InvokeObject<>()
+    @     0x607ec480f5eb  xla::CallGraph::VisitNodesInternal()
+    @     0x607ec480f980  xla::CallGraph::VisitNodes()
+    @     0x607ebd23b9ba  xla::spmd::SpmdPartitioner::RunImpl()
+    @     0x607ec1aaaa01  xla::HloPassInterface::Run()
+    @     0x607ebd283cdc  xla::HloPassPipeline::RunHelper()
+    @     0x607ebd284820  xla::HloPassPipeline::RunPassesInternal()
+    @     0x607ebd2867f5  xla::HloPassPipeline::RunImpl()
+    @     0x607ec1aaaa01  xla::HloPassInterface::Run()
+    @     0x607eb999837e  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x607eb99a51ab  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x607eb98d9744  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x607eb98cdc8e  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x607eb98cbbe7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x607ec51c71d6  main
+    @     0x7946e61d4d90  (unknown)
+Aborted (core dumped)

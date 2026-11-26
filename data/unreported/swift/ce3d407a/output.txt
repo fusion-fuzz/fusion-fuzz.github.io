@@ -1,0 +1,91 @@
+swift-frontend: /home/build-user/swift/lib/SIL/Utils/MemoryLocations.cpp:443: bool swift::MemoryLocations::analyzeAddrProjection(SingleValueInstruction *, unsigned int, unsigned int, SmallVectorImpl<SILValue> &, SubLocationMap &): Assertion `isa<InitEnumDataAddrInst>(projection) || isa<UncheckedEnumDataAddrInstBase>(projection) || isa<InitExistentialAddrInst>(projection)' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -c -O -sil-verify-all -strict-concurrency=complete -enable-library-evolution /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5xwtz8tn/7479d83a.swift
+1.	Swift version 6.5-dev (LLVM b57635c461931c5, Swift 4f57c3ebcd65115)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ExecuteSILPipelineRequest(Run pipelines { PrepareOptimizationPasses, EarlyModulePasses, HighLevel,Function+EarlyLoopOpt, HighLevel,Module+StackPromote, MidLevel,Function, ClosureSpecialize, LowLevelPrepare, LowLevel,Function, LateLoopOpt, SIL Debug Info Generator } on SIL for main)
+4.	While running pass #123 SILFunctionTransform "Simplification" on SILFunction "@$s4main6nctestyyF".
+ for 'nctest()' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5xwtz8tn/7479d83a.swift:181:1)
+5.	While verifying SIL function "@$s4main6nctestyyF".
+ for 'nctest()' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5xwtz8tn/7479d83a.swift:181:1)
+ #0 0x000059a966b809cb llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x92269cb)
+ #1 0x000059a966b7d8b1 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x92238b1)
+ #2 0x000059a966b8177b SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007ac0243cc330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007ac024425c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007ac0243cc27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007ac0243af8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007ac0243af81b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007ac0243c2517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x000059a95f5b7494 (/usr/bin/swift-frontend+0x1c5d494)
+#10 0x000059a95f5b636a swift::MemoryLocations::analyzeLocationUsesRecursively(swift::SILValue, unsigned int, llvm::SmallVectorImpl<swift::SILValue>&, llvm::DenseMap<std::pair<unsigned int, unsigned int>, unsigned int, llvm::DenseMapInfo<std::pair<unsigned int, unsigned int>, void>, llvm::detail::DenseMapPair<std::pair<unsigned int, unsigned int>, unsigned int>>&) (/usr/bin/swift-frontend+0x1c5c36a)
+#11 0x000059a95f5b5fc1 swift::MemoryLocations::analyzeLocation(swift::SILValue) (/usr/bin/swift-frontend+0x1c5bfc1)
+#12 0x000059a95f5b66c4 swift::MemoryLocations::handleSingleBlockLocations(std::function<void (swift::SILBasicBlock*)>) (/usr/bin/swift-frontend+0x1c5c6c4)
+#13 0x000059a95f5adc1f (anonymous namespace)::MemoryLifetimeVerifier::verify() MemoryLifetimeVerifier.cpp:0:0
+#14 0x000059a95f5ac3dd swift::SILFunction::verifyMemoryLifetime(swift::CalleeCache*, swift::DeadEndBlocks*) (/usr/bin/swift-frontend+0x1c523dd)
+#15 0x000059a95f528009 swift::SILFunction::verify(swift::CalleeCache*, swift::DominanceInfo*, bool, bool, bool) const (/usr/bin/swift-frontend+0x1bce009)
+#16 0x000059a95f5ddcf8 swift::SILPassManager::runPassOnFunction(unsigned int, swift::SILFunction*) (/usr/bin/swift-frontend+0x1c83cf8)
+#17 0x000059a95f5dead1 swift::SILPassManager::runFunctionPasses(unsigned int, unsigned int) (/usr/bin/swift-frontend+0x1c84ad1)
+#18 0x000059a95f5e22de swift::SILPassManager::execute() (/usr/bin/swift-frontend+0x1c882de)
+#19 0x000059a95f5daf58 swift::SILPassManager::executePassPipelinePlan(swift::SILPassPipelinePlan const&) (/usr/bin/swift-frontend+0x1c80f58)
+#20 0x000059a95f5daf0b swift::ExecuteSILPipelineRequest::evaluate(swift::Evaluator&, swift::SILPipelineExecutionDescriptor) const (/usr/bin/swift-frontend+0x1c80f0b)
+#21 0x000059a95f60913a swift::SimpleRequest<swift::ExecuteSILPipelineRequest, std::tuple<> (swift::SILPipelineExecutionDescriptor), (swift::RequestFlags)1>::evaluateRequest(swift::ExecuteSILPipelineRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#22 0x000059a95f5e9ed5 swift::ExecuteSILPipelineRequest::OutputType swift::Evaluator::getResultUncached<swift::ExecuteSILPipelineRequest, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()>(swift::ExecuteSILPipelineRequest const&, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#23 0x000059a95f5e9e21 swift::ExecuteSILPipelineRequest::OutputType swift::Evaluator::getResultUncached<swift::ExecuteSILPipelineRequest, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()>(swift::ExecuteSILPipelineRequest const&, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()) crtstuff.c:0:0
+#24 0x000059a95f5db11f swift::executePassPipelinePlan(swift::SILModule*, swift::SILPassPipelinePlan const&, bool, swift::irgen::IRGenModule*) (/usr/bin/swift-frontend+0x1c8111f)
+#25 0x000059a95f5eb64b swift::runSILOptimizationPasses(swift::SILModule&) (/usr/bin/swift-frontend+0x1c9164b)
+#26 0x000059a95e7f3215 swift::CompilerInstance::performSILProcessing(swift::SILModule*) (/usr/bin/swift-frontend+0xe99215)
+#27 0x000059a95e64370b performCompileStepsPostSILGen(swift::CompilerInstance&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, swift::PrimarySpecificPaths const&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>, llvm::ArrayRef<swift::PrimarySpecificPaths>) FrontendTool.cpp:0:0
+#28 0x000059a95e6422cb swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xce82cb)
+#29 0x000059a95e660231 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#30 0x000059a95e6498cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#31 0x000059a95e644af8 swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xceaaf8)
+#32 0x000059a95e2e5f0b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x98bf0b)
+#33 0x00007ac0243b11ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#34 0x00007ac0243b128b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#35 0x000059a95e2e4f95 _start (/usr/bin/swift-frontend+0x98af95)
+
+*** Signal 6: Backtracing from 0x7ac0244ae52d... done ***
+
+*** Program crashed: Aborted at 0x00007ac0244ae52d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.5 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007ac0244ae52d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007ac0244ae52d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d bb c8 0d 00  H=·ðÿÿs·ÃH··»È··
+rbx 0x0000000000000006  6
+rsi 0x0000000000016749  91977
+rdi 0x0000000000016749  91977
+rbp 0x0000000000016749  91977
+rsp 0x000059a9806e2fd8  a6 17 b8 66 a9 59 00 00 00 00 00 00 00 00 00 00  ¦·¸f©Y··········
+ r8 0x0000000000000000  0
+ r9 0x0000000000000000  0
+r10 0x000059a9806e3270  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x000059a9685f35d6  2f 68 6f 6d 65 2f 62 75 69 6c 64 2d 75 73 65 72  /home/build-user
+r14 0x0000000000000016  22
+r15 0x000059a9806e3088  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007ac0244ae52d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d bb c8 0d 00  H=·ðÿÿs·ÃH··»È··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007ac024387000–0x00007ac024537039 a4a7992a8e66555c8141ab2a08a8465ff6e0ea65 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.01s
+
+Aborted (core dumped)

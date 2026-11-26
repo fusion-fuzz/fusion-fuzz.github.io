@@ -1,0 +1,8 @@
+$ flang -fc1 -emit-hlfir -fopenacc acc-real-bound.f90
+error: expected integer or index type
+flang: mlir/include/mlir/IR/StorageUniquerSupport.h:180: static ConcreteT mlir::detail::StorageUserBase<mlir::IntegerAttr, ...>::get(MLIRContext *, Args &&...) [...]: Assertion `succeeded(ConcreteT::verifyInvariants(getDefaultDiagnosticEmitFn(ctx), args...))' failed.
+ #11 mlir::IntegerAttr::get(mlir::Type, llvm::APInt const&)
+ #12 mlir::Builder::getIntegerAttr(mlir::Type, long)
+ #13 fir::FirOpBuilder::createIntegerConstant(mlir::Location, mlir::Type, long)
+ ...
+ #20 Fortran::lower::genOpenACCConstruct(...)

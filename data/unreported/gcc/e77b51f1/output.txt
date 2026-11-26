@@ -1,0 +1,63 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi7wc7nb9/a0dafda3.c: In function 'foo':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi7wc7nb9/a0dafda3.c:13:7: error: implicit declaration of function 'fusion_var' [-Wimplicit-function-declaration]
+   13 |   if (fusion_var(D) < 100u)
+      |       ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi7wc7nb9/a0dafda3.c:13:18: error: 'D' undeclared (first use in this function)
+   13 |   if (fusion_var(D) < 100u)
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi7wc7nb9/a0dafda3.c:13:18: note: each undeclared identifier is reported only once for each function it appears in
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi7wc7nb9/a0dafda3.c:7:16: warning: unused variable 'undef' [-Wunused-variable]
+    7 |   unsigned int undef;        /* { dg-bogus "may be used uninitialized" } */
+      |                ^~~~~
+unhandled expression in get_expr_operands():
+ <call_expr 0x7f04a36bfee0
+    type <integer_type 0x7f04a34df5e8 int public SI
+        size <integer_cst 0x7f04a34e11e0 constant 32>
+        unit-size <integer_cst 0x7f04a34e11f8 constant 4>
+        align:32 warn_if_not_align:0 symtab:0 alias-set -1 canonical-type 0x7f04a34df5e8 precision:32 min <integer_cst 0x7f04a34e1198 -2147483648> max <integer_cst 0x7f04a34e11b0 2147483647>
+        pointer_to_this <pointer_type 0x7f04a34e7b28>>
+    side-effects
+    fn <function_decl 0x7f04a369d300 fusion_var
+        type <function_type 0x7f04a34eba80 type <integer_type 0x7f04a34df5e8 int>
+            QI
+            size <integer_cst 0x7f04a34e1090 constant 8>
+            unit-size <integer_cst 0x7f04a34e10a8 constant 1>
+            align:8 warn_if_not_align:0 symtab:0 alias-set -1 canonical-type 0x7f04a34eba80>
+        used public external decl_2 QI /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi7wc7nb9/a0dafda3.c:13:7 align:8 warn_if_not_align:0> arg:0 <error_mark 0x7f04a34c4f78>
+    /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi7wc7nb9/a0dafda3.c:13:7 start: /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi7wc7nb9/a0dafda3.c:13:7 finish: /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi7wc7nb9/a0dafda3.c:13:16>
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi7wc7nb9/a0dafda3.c:43:1: internal compiler error: in get_expr_operands, at tree-ssa-operands.cc:943
+   43 | }
+      | ^
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x18942bd operands_scanner::get_expr_operands(tree_node**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-ssa-operands.cc:943
+0x1894878 operands_scanner::parse_ssa_operands()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-ssa-operands.cc:999
+0x189578f operands_scanner::build_ssa_operands()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-ssa-operands.cc:1014
+0x18958b4 update_stmt_operands(function*, gimple*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-ssa-operands.cc:1163
+0xf4ddf6 update_stmt(gimple*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-ssa.h:177
+0xf4ddf6 update_stmt(gimple*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-ssa.h:172
+0xf4ddf6 c_parser_parse_gimple_body(c_parser*, char*, c_declspec_il, profile_count)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:384
+0xf3625e c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3348
+0xf43529 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2256
+0xf44470 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xf44470 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xfc9e09 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi7wc7nb9/a0dafda3.c -quiet -dumpbase a0dafda3.c -dumpbase-ext .c -mtune=generic -march=x86-64 -g -O3 -O -Wall -Wmaybe-uninitialized -ftree-vectorize -fgimple -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

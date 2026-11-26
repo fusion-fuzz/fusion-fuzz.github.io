@@ -1,0 +1,17 @@
+warning: the feature `link_llvm_intrinsics` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6049nze9/1b972a42.rs:3:12
+  |
+3 | #![feature(link_llvm_intrinsics)]
+  |            ^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+  = note: `#[warn(internal_features)]` on by default
+
+error: intrinsic signature mismatch for `llvm.assume`: expected signature `void (i1)`, found `void ()`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6049nze9/1b972a42.rs:19:5
+   |
+19 |     fn foo();
+   |     ^^^^^^^^^
+
+rustc: /checkout/src/llvm-project/llvm/lib/IR/LLVMContextImpl.cpp:49: llvm::LLVMContextImpl::~LLVMContextImpl(): Assertion `TrailingDbgRecords.empty() && "DbgRecords in blocks not cleaned"' failed.
+Aborted (core dumped)

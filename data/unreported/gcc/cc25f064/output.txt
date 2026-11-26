@@ -1,0 +1,73 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgd03q97l/7ae9cbc7.cc:19:1: error: expected primary-expression before 'struct' [-Wtemplate-body]
+   19 | struct C: A {
+      | ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgd03q97l/7ae9cbc7.cc:25:1: error: expected primary-expression before 'template' [-Wtemplate-body]
+   25 | template class C<char>;
+      | ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgd03q97l/7ae9cbc7.cc:27:1: error: expected primary-expression before 'template' [-Wtemplate-body]
+   27 | template <typename T> class TPL
+      | ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgd03q97l/7ae9cbc7.cc:32:1: error: expected primary-expression before 'template' [-Wtemplate-body]
+   32 | template <typename T> class TPL<T>::nested
+      | ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgd03q97l/7ae9cbc7.cc:38:1: error: expected primary-expression before 'auto' [-Wtemplate-body]
+   38 | auto f = [](auto x) requires requires { // { dg-error "expected | invalid member template | constraints" }
+      | ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgd03q97l/7ae9cbc7.cc:38:40: error: expected ';' at end of input [-Wtemplate-body]
+   38 | auto f = [](auto x) requires requires { // { dg-error "expected | invalid member template | constraints" }
+      |                                        ^
+      |                                        ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgd03q97l/7ae9cbc7.cc:38:40: error: expected '}' at end of input [-Wtemplate-body]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgd03q97l/7ae9cbc7.cc:18:39: note: to match this '{'
+   18 | auto f = [](auto x) requires requires { // { dg-error "expected | invalid member template | constraints" }
+      |                                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgd03q97l/7ae9cbc7.cc: In lambda function:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgd03q97l/7ae9cbc7.cc:38:40: error: expected '{' at end of input [-Wtemplate-body]
+   38 | auto f = [](auto x) requires requires { // { dg-error "expected | invalid member template | constraints" }
+      |                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgd03q97l/7ae9cbc7.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgd03q97l/7ae9cbc7.cc:38:40: internal compiler error: in get_local_decls, at cp/name-lookup.cc:5199
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x8292db get_local_decls()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/name-lookup.cc:5199
+0x113a269 pop_bindings_and_leave_scope()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/name-lookup.cc:2759
+0x11967ef cp_parser_lambda_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12968
+0x1198139 cp_parser_primary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:6810
+0x1185b13 cp_parser_postfix_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:8943
+0x11826d6 cp_parser_unary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:10713
+0x1167e8a cp_parser_cast_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:11628
+0x1168d81 cp_parser_binary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:11731
+0x1169ba2 cp_parser_assignment_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12084
+0x116fe63 cp_parser_constant_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12404
+0x116ff02 cp_parser_initializer_clause
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29156
+0x1175369 cp_parser_initializer
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29095
+0x11afa83 cp_parser_init_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:26453
+0x11b07b5 cp_parser_single_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36772
+0x11b0a12 cp_parser_template_declaration_after_parameters
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36425
+0x11b0a12 cp_parser_explicit_template_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36599
+0x11c130d cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17727
+0x11c3d33 cp_parser_toplevel_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17837
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgd03q97l/7ae9cbc7.cc -quiet -dumpdir a- -dumpbase 7ae9cbc7.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O2 -std=c++20 -fsyntax-only -ffast-math -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

@@ -1,0 +1,89 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp8v3smyrt/93d1cb1f.swift:54:31: warning: generic parameter 'T' shadows generic parameter from outer scope with the same name; this is an error in the Swift 6 language mode
+  38 | }
+  39 | 
+  40 | @frozen public enum GenericOpt_d237d51<T> {
+     |                                        `- note: 'T' previously declared here
+  41 |     // expected-note@-1 {{'T' previously declared here}}
+  42 |     case none
+     :
+  52 |     }
+  53 | 
+  54 |     public func genericMethod<T>(_ x: T) -> T {
+     |                               `- warning: generic parameter 'T' shadows generic parameter from outer scope with the same name; this is an error in the Swift 6 language mode
+  55 |         // expected-warning@-1 {{generic parameter 'T' shadows generic parameter from outer scope with the same name}}
+  56 |         print("GenericOpt_d237d51<T>::genericMethod<T>::\(self),\(x);")
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp8v3smyrt/93d1cb1f.swift:373:10: warning: property wrapper's 'init(initialValue:)' should be renamed to 'init(wrappedValue:)'; use of 'init(initialValue:)' is deprecated [#deprecation]
+ 371 |   public var wrappedValue: T
+ 372 | 
+ 373 |   public init(initialValue: T) {
+     |          `- warning: property wrapper's 'init(initialValue:)' should be renamed to 'init(wrappedValue:)'; use of 'init(initialValue:)' is deprecated [#deprecation]
+ 374 |     self.wrappedValue = initialValue
+ 375 |   }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp8v3smyrt/93d1cb1f.swift:532:31: warning: generic parameter 'T' shadows generic parameter from outer scope with the same name; this is an error in the Swift 6 language mode
+ 516 | }
+ 517 | 
+ 518 | @frozen public enum GenericOpt<T> {
+     |                                `- note: 'T' previously declared here
+ 519 |     // expected-note@-1 {{'T' previously declared here}}
+ 520 |     case none
+     :
+ 530 |     }
+ 531 | 
+ 532 |     public func genericMethod<T>(_ x: T) -> T {
+     |                               `- warning: generic parameter 'T' shadows generic parameter from outer scope with the same name; this is an error in the Swift 6 language mode
+ 533 |         // expected-warning@-1 {{generic parameter 'T' shadows generic parameter from outer scope with the same name}}
+ 534 |         print("GenericOpt<T>::genericMethod<T>::\(self),\(x);")
+
+swift-frontend: /home/build-user/swift/lib/SILGen/SILGenLValue.cpp:3775: void swift::Lowering::LValue::addNonMemberVarComponent(SILGenFunction &, SILLocation, VarDecl *, SubstitutionMap, LValueOptions, SGFAccessKind, AccessStrategy, CanType, std::optional<ActorIsolation>)::NonMemberVarAccessEmitter::emitUsingStorage(LValueTypeData): Assertion `(AccessKind == SGFAccessKind::BorrowedObjectRead || AccessKind == SGFAccessKind::BorrowedAddressRead) && "non-borrow component requires an address base"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -Onone -sil-verify-all /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp8v3smyrt/93d1cb1f.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module main)
+4.	While silgen visitDecl 'HasWrappers' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp8v3smyrt/93d1cb1f.swift:414:8)
+5.	While silgen emitFunction SIL function "@$s4main11HasWrappersV26hasParameterWithAPIWrapper1xyAA21ProjectedValueWrapperVySiG_tF".
+ for 'hasParameterWithAPIWrapper(x:)' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp8v3smyrt/93d1cb1f.swift:479:10)
+6.	While silgen emitFunction SIL function "@$s4main11HasWrappersV26hasParameterWithAPIWrapper1xyAA21ProjectedValueWrapperVySiG_tF2$xL_AA0J0VySiGvs".
+ for setter for $x (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp8v3smyrt/93d1cb1f.swift:479:65)
+ #0 0x0000637b8a875658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x0000637b8a872e75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x0000637b8a876411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007fb148be1330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007fb148c3ac0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007fb148be127e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007fb148bc48ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007fb148bc481b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007fb148bd7517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x0000637b82dcfba9 swift::Lowering::LValue::addNonMemberVarComponent(swift::Lowering::SILGenFunction&, swift::SILLocation, swift::VarDecl*, swift::SubstitutionMap, swift::Lowering::LValueOptions, swift::Lowering::SGFAccessKind, swift::AccessStrategy, swift::CanType, std::optional<swift::ActorIsolation>) (/usr/bin/swift-frontend+0x11a9ba9)
+#10 0x0000637b82dd0f74 emitLValueForNonMemberVarDecl(swift::Lowering::SILGenFunction&, swift::SILLocation, swift::ConcreteDeclRef, swift::CanType, swift::Lowering::SGFAccessKind, swift::Lowering::LValueOptions, swift::AccessSemantics, std::optional<swift::ActorIsolation>) SILGenLValue.cpp:0:0
+#11 0x0000637b82dd1ae0 SILGenLValue::visitDeclRefExpr(swift::DeclRefExpr*, swift::Lowering::SGFAccessKind, swift::Lowering::LValueOptions) crtstuff.c:0:0
+#12 0x0000637b82dcd3cb swift::ASTVisitor<SILGenLValue, swift::Lowering::LValue, void, void, void, void, void, swift::Lowering::SGFAccessKind, swift::Lowering::LValueOptions>::visit(swift::Expr*, swift::Lowering::SGFAccessKind, swift::Lowering::LValueOptions) crtstuff.c:0:0
+#13 0x0000637b82dcdb50 SILGenLValue::visitRec(swift::Expr*, swift::Lowering::SGFAccessKind, swift::Lowering::LValueOptions, swift::Lowering::AbstractionPattern) crtstuff.c:0:0
+#14 0x0000637b82dd37e4 SILGenLValue::visitMemberRefExpr(swift::MemberRefExpr*, swift::Lowering::SGFAccessKind, swift::Lowering::LValueOptions) crtstuff.c:0:0
+#15 0x0000637b82dcd41b swift::ASTVisitor<SILGenLValue, swift::Lowering::LValue, void, void, void, void, void, swift::Lowering::SGFAccessKind, swift::Lowering::LValueOptions>::visit(swift::Expr*, swift::Lowering::SGFAccessKind, swift::Lowering::LValueOptions) crtstuff.c:0:0
+#16 0x0000637b82dcd10b swift::Lowering::SILGenFunction::emitLValue(swift::Expr*, swift::Lowering::SGFAccessKind, swift::Lowering::LValueOptions) crtstuff.c:0:0
+#17 0x0000637b82d905c2 (anonymous namespace)::RValueEmitter::visitAssignExpr(swift::AssignExpr*, swift::Lowering::SGFContext) SILGenExpr.cpp:0:0
+#18 0x0000637b82d7d2b6 swift::ASTVisitor<(anonymous namespace)::RValueEmitter, swift::Lowering::RValue, void, void, void, void, void, swift::Lowering::SGFContext>::visit(swift::Expr*, swift::Lowering::SGFContext) SILGenExpr.cpp:0:0
+#19 0x0000637b82d703db swift::Lowering::SILGenFunction::emitIgnoredExpr(swift::Expr*) crtstuff.c:0:0
+#20 0x0000637b82e399ea (anonymous namespace)::StmtEmitter::visitBraceStmt(swift::BraceStmt*) SILGenStmt.cpp:0:0
+#21 0x0000637b82e3115d swift::Lowering::SILGenFunction::emitStmt(swift::Stmt*) crtstuff.c:0:0
+#22 0x0000637b82da41b8 swift::Lowering::SILGenFunction::emitFunction(swift::FuncDecl*) crtstuff.c:0:0
+#23 0x0000637b82d0c001 swift::Lowering::SILGenModule::emitFunctionDefinition(swift::SILDeclRef, swift::SILFunction*) crtstuff.c:0:0
+#24 0x0000637b82d0d7f8 swift::Lowering::SILGenModule::emitOrDelayFunction(swift::SILDeclRef) crtstuff.c:0:0
+#25 0x0000637b82d0a732 swift::Lowering::SILGenModule::emitFunction(swift::FuncDecl*) crtstuff.c:0:0
+#26 0x0000637b8453b050 swift::AbstractStorageDecl::visitExpectedOpaqueAccessors(llvm::function_ref<void (swift::AccessorKind)>) const (/usr/bin/swift-frontend+0x2915050)
+#27 0x0000637b8453afbc swift::AbstractStorageDecl::visitEmittedAccessors(llvm::function_ref<void (swift::AccessorDecl*)>) const (/usr/bin/swift-frontend+0x2914fbc)
+#28 0x0000637b82d10594 swift::Lowering::SILGenModule::visitEmittedAccessors(swift::AbstractStorageDecl*, llvm::function_ref<void (swift::AccessorDecl*)>) crtstuff.c:0:0
+#29 0x0000637b82d516e7 swift::Lowering::SILGenFunction::visitVarDecl(swift::VarDecl*) crtstuff.c:0:0
+#30 0x0000637b82e3986b (anonymous namespace)::StmtEmitter::visitBraceStmt(swift::BraceStmt*) SILGenStmt.cpp:0:0
+#31 0x0000637b82e3115d swift::Lowering::SILGenFunction::emitStmt(swift::Stmt*) crtstuff.c:0:0
+#32 0x0000637b82da41b8 swift::Lowering::SILGenFunction::emitFunction(swift::FuncDecl*) crtstuff.c:0:0
+#33 0x0000637b82d0c001 swift::Lowering::SILGenModule::emitFunctionDefinition(swift::SILDeclRef, swift::SILFunction*) crtstuff.c:0:0
+#34 0x0000637b82d0d7f8 swift::Lowering::SILGenModule::emitOrDelayFunction(swift::SILDeclRef) crtstuff.c:0:0
+#35 0x0000637b82d0a732 swift::Lowering::SILGenModule::emitFunction(swift::FuncDecl*) crtstuff.c:0:0
+#36 0x0000637b82e51d42 (anonymous namespace)::SILGenType::visitFuncDecl(swift::FuncDecl*) SILGenType.cpp:0:0
+#37 
+[... truncated ...]

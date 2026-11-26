@@ -1,0 +1,15 @@
+HloModule module, num_partitions=2
+
+%fused_computation {
+  %param0 = f32[16,64,256]{2,1,0} parameter(0)
+  %param1 = f32[16,64,256]{2,1,0} parameter(1)
+  ROOT %c0 = f32[16,256,256]{2,1,0} convolution(param0, param1), window={size=16 stride=15 lhs_dilate=16}, dim_labels=0fb_0io->0fb, frontend_attributes={_scheduling_group_id="0"}
+}
+
+ENTRY %entry {
+  %lhs = f32[4,16,8]{2,1,0} parameter(0), sharding={devices=[2,1,1]<=[2]}
+  %rhs = f32[4,4,8]{2,1,0} parameter(1), sharding={devices=[1,2,1]<=[2]}
+  %dot = f32[4,16,4]{2,1,0} dot(lhs, rhs), lhs_batch_dims={0}, rhs_batch_dims={0}, lhs_contracting_dims={2}, rhs_contracting_dims={2}, sharding={devices=[2,1,1]<=[2]}
+  %ffl.call = f32[16,256,256]{2,1,0} call(%rhs, %lhs), to_apply=%fused_computation
+  ROOT %ffl.root = (f32[4,16,4]{2,1,0}, f32[16,256,256]{2,1,0}) tuple(%dot, %ffl.call)
+}

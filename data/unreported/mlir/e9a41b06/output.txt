@@ -1,0 +1,24 @@
+pure virtual method called
+terminate called without an active exception
+Aborted
+module {
+  func.func @H_6ff7b428_main() {
+    %c0_i32 = arith.constant 0 : i32
+    %c1_i32 = arith.constant 1 : i32
+    %c-1_i32 = arith.constant -1 : i32
+    %c-1_i32_0 = arith.constant -1 : i32
+    %c0_i32_1 = arith.constant 0 : i32
+    %0 = arith.cmpi slt, %c-1_i32_0, %c0_i32_1 : i32
+    scf.if %0 {
+      %c-1_i32_2 = arith.constant -1 : i32
+    } else {
+      %1 = arith.cmpi eq, %c-1_i32_0, %c0_i32_1 : i32
+      scf.if %1 {
+        %c0_i32_2 = arith.constant 0 : i32
+      } else {
+        %c1_i32_2 = arith.constant 1 : i32
+      }
+    }
+    return
+  }
+}

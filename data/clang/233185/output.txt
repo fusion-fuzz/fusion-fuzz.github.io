@@ -1,0 +1,5 @@
+Combining: tN: v4i64 = vselect tN, tN, tN
+ ... into: tN: v4i64 = concat_vectors tN, tN          (AVX1: split the 256-bit integer select)
+Combining: tN: v4i64 = concat_vectors tN, tN
+ ... into: tN: v4i64 = vselect tN, tN, tN             (concat of 128-bit selects folded back)
+Combining: tN: v2i64 = X86ISD::PCMPGT tN, tN  (x2), extract_subvector ... <0> / <2>

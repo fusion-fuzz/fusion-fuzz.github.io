@@ -1,0 +1,22 @@
+warning: the feature `non_lifetime_binders` is incomplete and may not be safe to use and/or cause compiler crashes
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpbyugzhkw/d2a20116.rs:3:12
+  |
+3 | #![feature(non_lifetime_binders)]
+  |            ^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: see issue #108185 <https://github.com/rust-lang/rust/issues/108185> for more information
+  = note: `#[warn(incomplete_features)]` on by default
+
+warning: the feature `core_intrinsics` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpbyugzhkw/d2a20116.rs:1:12
+  |
+1 | #![feature(core_intrinsics)]
+  |            ^^^^^^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+  = note: `#[warn(internal_features)]` on by default
+
+
+thread 'rustc' (2814146) panicked at compiler/rustc_infer/src/infer/context.rs:413:9:
+variable in universe U0 can't name value in universe U2
+stack backtrace:

@@ -1,0 +1,39 @@
+HloModule pjit__unnamed_wrapped_function_, allow_spmd_sharding_propagation_to_parameters={false,false,false,false}, num_partitions=4
+
+%body {
+  %p_body = (f32[4, 4], f32[4, 4]) parameter(0)
+  %a = f32[4, 4] get-tuple-element(p_body), index=0
+  %custom-call.1 = f32[4, 4] custom-call(a), custom_call_target="Sharding", sharding={devices=[4,1]0,1,2,3}
+  %custom-call.2 = f32[4, 4] custom-call(custom-call.1), custom_call_target="SPMDFullToShardShape", sharding={manual}
+  %dot = f32[4, 4] dot(a, a), lhs_contracting_dims={0}, rhs_contracting_dims={1}
+  %b = f32[4, 4] get-tuple-element(p_body), index=1
+  %add = f32[4, 4] add(b, dot)
+  %custom-call.3 = f32[4, 4] custom-call(add), custom_call_target="Sharding", sharding={manual}
+  %custom-call.4 = f32[4, 4] custom-call(custom-call.3), custom_call_target="SPMDShardToFullShape", sharding={devices=[4,1]0,1,2,3}
+  ROOT %root = (f32[4, 4], f32[4, 4]) tuple(a, custom-call.4)
+}
+
+%condition {
+  %p_cond = (f32[4, 4], f32[4, 4]) parameter(0)
+  ROOT %result = pred[] constant(true)
+}
+
+ENTRY %main {
+  %lhs = f8e4m3fn[2,16,48]{2,1,0} parameter(0), sharding={devices=[1,4,1]<=[4]}
+  %rhs = f8e4m3fn[48,192]{1,0} parameter(1), sharding={devices=[1,4]<=[4]}
+  %scale_lhs = bf16[] parameter(2)
+  %scale_rhs = bf16[] parameter(3)
+  %scale_lhs_bcast = bf16[2,16,48]{2,1,0} broadcast(scale_lhs), dimensions={}
+  %scale_rhs_bcast = bf16[48,192]{1,0} broadcast(scale_rhs), dimensions={}
+  %lhs_bf16 = bf16[2,16,48]{2,1,0} convert(lhs)
+  %rhs_bf16 = bf16[48,192]{1,0} convert(rhs)
+  %lhs_scaled = bf16[2,16,48]{2,1,0} multiply(scale_lhs_bcast, lhs_bf16)
+  %param0 = f32[4, 4] parameter(4)
+  %param1 = f32[4, 4] parameter(5)
+  %while_init = (f32[4, 4], f32[4, 4]) tuple(%param0, %param1)
+  %while = (f32[4, 4], f32[4, 4]) while(%while_init), condition=%condition, body=%body
+  %rhs_scaled = bf16[48,192]{1,0} multiply(scale_rhs_bcast, rhs_bf16)
+  %dot = bf16[2,16,192]{2,1,0} dot(lhs_scaled, rhs_scaled), lhs_contracting_dims={2}, rhs_contracting_dims={0}
+  %custom-call = bf16[2,16,192]{2,1,0} custom-call(dot), custom_call_target="Sharding", sharding={devices=[1,1,4]<=[4]}
+  ROOT %ffl.root = (bf16[2,16,192]{2,1,0}, (f32[4, 4], f32[4, 4])) tuple(%custom-call, %while)
+}

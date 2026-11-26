@@ -1,0 +1,25 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1790064929.338652  106315 sharding_propagation.cc:3197] GSPMD sharding propagation is going to be deprecated and not supported in the future. Please consider migrating to Shardy (https://openxla.org/shardy). For reference, Shardy is already the default partitioner in JAX.
+F0000 00:00:1790064929.338936  106315 hlo_sharding_util.cc:1276] Check failed: !sharding.UseNamedShardingLeaf() 
+*** Check failure stack trace: ***
+    @     0x619761e65a34  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x619761e659b6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x619760f20949  xla::hlo_sharding_util::PropagateShardingThroughReshape()
+    @     0x619760d78117  xla::ShardingPropagation::GetShardingFromUser()
+    @     0x619760d7fb68  xla::ShardingPropagation::InferShardingFromUsers()
+    @     0x619760d81de7  xla::ShardingPropagation::RunToFixPoint()
+    @     0x619760d87692  xla::ShardingPropagation::RunImpl()
+    @     0x619760fbb277  xla::HloPassInterface::Run()
+    @     0x61975ff354ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x61975ff3091f  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x61975ff2fd45  xla::HloPassPipeline::RunImpl()
+    @     0x619760fbb277  xla::HloPassInterface::Run()
+    @     0x619758173752  xla::cpu::CpuCompiler::RunHloPassesThroughLayoutAssn()
+    @     0x619758178ed1  xla::cpu::CpuCompiler::RunHloPasses()
+    @     0x619758179b57  xla::cpu::CpuCompiler::RunHloPasses()
+    @     0x6197580092c4  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x619758008d03  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x619757ff261e  xla::(anonymous namespace)::CpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x619761eabb46  main
+    @     0x7a796abbcd90  (unknown)
+Aborted (core dumped)

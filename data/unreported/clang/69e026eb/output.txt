@@ -1,0 +1,73 @@
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/Target/PowerPC/PPCFastISel.cpp:2053: llvm::Register {anonymous}::PPCFastISel::PPCMaterializeGV(const llvm::GlobalValue*, llvm::MVT): Assertion `VT == MVT::i64 && "Non-address!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O0 -std=c++17 -fblocks -fobjc-runtime=gnustep-2.0 -fno-objc-arc -g -funroll-loops -Wextra -target powerpc64-lv2 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1p7c00vc/0971e330.mm
+1.	<eof> parser at end of file
+2.	Code generation
+3.	Running pass 'Function Pass Manager' on module '/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1p7c00vc/0971e330.mm'.
+4.	Running pass 'PowerPC DAG->DAG Pattern Instruction Selection' on function '@.objcv2_load_function'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005cd33f297329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005cd33f293fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005cd33f2948a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005cd33f1d6218
+4  libc.so.6 0x00007b5b027c8520
+5  libc.so.6 0x00007b5b0281c9bc pthread_kill + 300
+6  libc.so.6 0x00007b5b027c8476 raise + 22
+7  libc.so.6 0x00007b5b027ae7f3 abort + 211
+8  libc.so.6 0x00007b5b027ae71b
+9  libc.so.6 0x00007b5b027bfe96
+10 clang++   0x00005cd33e0e4792
+11 clang++   0x00005cd3408bf1b9 llvm::FastISel::materializeRegForValue(llvm::Value const*, llvm::MVT) + 89
+12 clang++   0x00005cd3408bf4e0 llvm::FastISel::getRegForValue(llvm::Value const*) + 416
+13 clang++   0x00005cd33e0e97b2
+14 clang++   0x00005cd3408bc2bf llvm::FastISel::lowerCallTo(llvm::FastISel::CallLoweringInfo&) + 2799
+15 clang++   0x00005cd3408bcb99 llvm::FastISel::lowerCall(llvm::CallInst const*) + 1881
+16 clang++   0x00005cd3408c5b19 llvm::FastISel::selectInstruction(llvm::Instruction const*) + 1609
+17 clang++   0x00005cd340a0c09b llvm::SelectionDAGISel::SelectAllBasicBlocks(llvm::Function const&) + 3115
+18 clang++   0x00005cd340a0d7f3 llvm::SelectionDAGISel::runOnMachineFunction(llvm::MachineFunction&) + 259
+19 clang++   0x00005cd33e05eafb
+20 clang++   0x00005cd3409f6168 llvm::SelectionDAGISelLegacy::runOnMachineFunction(llvm::MachineFunction&) + 168
+21 clang++   0x00005cd33e5be2ec
+22 clang++   0x00005cd33ec772e5 llvm::FPPassManager::runOnFunction(llvm::Function&) + 1397
+23 clang++   0x00005cd33ec778c9 llvm::FPPassManager::runOnModule(llvm::Module&) + 57
+24 clang++   0x00005cd33ec782b2
+25 clang++   0x00005cd33ec789eb llvm::legacy::PassManagerImpl::run(llvm::Module&) + 219
+26 clang++   0x00005cd33f6ba15f
+27 clang++   0x00005cd33f6ceecf
+28 clang++   0x00005cd33f6cf2f3 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::StringRef, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 483
+29 clang++   0x00005cd33fdbe3ca clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 1866
+30 clang++   0x00005cd341a8d84c clang::ParseAST(clang::Sema&, bool, bool) + 1068
+31 clang++   0x00005cd34012e061 clang::FrontendAction::Execute() + 65
+32 clang++   0x00005cd3400b7e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+33 clang++   0x00005cd340205de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+34 clang++   0x00005cd33d06133e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+35 clang++   0x00005cd33d05713a
+36 clang++   0x00005cd33d0572cf
+37 clang++   0x00005cd33fe3ccfd
+38 clang++   0x00005cd33f1d6630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+39 clang++   0x00005cd33fe3db53
+40 clang++   0x00005cd33fdf2607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+41 clang++   0x00005cd33fdf6ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+42 clang++   0x00005cd33fe05004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+43 clang++   0x00005cd33d05c923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+44 clang++   0x00005cd33cf987f1 main + 113
+45 libc.so.6 0x00007b5b027afd90
+46 libc.so.6 0x00007b5b027afe40 __libc_start_main + 128
+47 clang++   0x00005cd33d056765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: powerpc64-unknown-lv2
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/0971e330-3f2910.mm
+clang++: note: diagnostic msg: /tmp/0971e330-3f2910.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

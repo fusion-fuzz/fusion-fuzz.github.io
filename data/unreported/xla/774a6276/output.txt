@@ -1,0 +1,61 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+E0000 00:00:1792863683.047319  164448 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/hlo/ir/hlo_computation.cc:2040) ShapeUtil::Compatible(old_instruction->shape(), new_instruction->shape()) "reduce.3" (f32[]) vs "transpose" (s4[2,24]{0,1:E(4)})
+=== Source Location Trace: ===
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+F0000 00:00:1792863683.047337  164448 algebraic_simplifier.cc:650] Check failed: computation->Accept(this) is OK (INTERNAL: RET_CHECK failure (xla/hlo/ir/hlo_computation.cc:2040) ShapeUtil::Compatible(old_instruction->shape(), new_instruction->shape()) "reduce.3" (f32[]) vs "transpose" (s4[2,24]{0,1:E(4)})
+=== Source Location Trace: ===
+xla/status_macros.cc:81
+xla/hlo/ir/hlo_instruction.cc:5312
+xla/hlo/ir/hlo_instruction.cc:5383
+) 
+*** Check failure stack trace: ***
+    @     0x647c03b94a24  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x647c03b949a6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x647bfb5adc39  xla::AlgebraicSimplifierVisitor::Run()
+    @     0x647bf88d22ca  xla::gpu::GpuAlgebraicSimplifier::RunImpl()
+    @     0x647c004c8a01  xla::HloPassInterface::Run()
+    @     0x647bfbca1cdc  xla::HloPassPipeline::RunHelper()
+    @     0x647bfbca2820  xla::HloPassPipeline::RunPassesInternal()
+    @     0x647bfbca47f5  xla::HloPassPipeline::RunImpl()
+    @     0x647c004c8a01  xla::HloPassInterface::Run()
+    @     0x647bf83b5edb  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x647bf83c31ab  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x647bf82f7744  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x647bf82e9df1  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x647c03be51d6  main
+    @     0x7499351d4d90  (unknown)
+Aborted (core dumped)

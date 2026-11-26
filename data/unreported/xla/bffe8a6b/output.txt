@@ -1,0 +1,47 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1791803834.542627  579054 run_hlo_module.cc:483] !!! Warning !!! When running decomposed module, running HLO passes is likely not what you want. If you have unoptimized HLO, first convert it to the optimized e.g. using the hlo-opt tool, and then isolate without HLO passes.
+Running HLO module with runner HloRunner...
+F0000 00:00:1791803835.156926  579054 shape_util.cc:1721] Check failed: output_shape.has_layout() c64[64,40,40,16]
+*** Check failure stack trace: ***
+    @     0x60c9183028a4  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x60c918302826  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x60c917e79a06  xla::ShapeUtil::TransposeIsBitcast()
+    @     0x60c917bf6a3f  xla::HloCostAnalysis::HandleTranspose()
+    @     0x60c917c4e45b  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x60c917c4cac7  xla::HloInstruction::Visit<>()
+    @     0x60c917c4bc90  xla::HloInstruction::Accept<>()
+    @     0x60c90e9e07b2  xla::HloComputation::Accept<>()
+    @     0x60c917bfc64a  xla::HloCostAnalysis::ProcessSubcomputation()
+    @     0x60c917bf9759  xla::HloCostAnalysis::HandleFusion()
+    @     0x60c917c4ea61  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x60c917c4cac7  xla::HloInstruction::Visit<>()
+    @     0x60c917c4bc90  xla::HloInstruction::Accept<>()
+    @     0x60c90ec62114  xla::cpu::ParallelTaskAssignment::ParallelTaskAssignment()
+    @     0x60c90ec62886  xla::cpu::ParallelTaskAssigner::ComputeTargetParallelTasks()
+    @     0x60c90ec62658  xla::cpu::ParallelTaskAssigner::RunImpl()
+    @     0x60c917a64f97  xla::HloPassInterface::Run()
+    @     0x60c917176d5c  xla::HloPassPipeline::RunHelper<>()
+    @     0x60c9171721ad  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x60c9171715c5  xla::HloPassPipeline::RunImpl()
+    @     0x60c917a64f97  xla::HloPassInterface::Run()
+    @     0x60c90ec1af26  xla::cpu::CpuCompiler::RunHloPassesAfterLayoutAssn()
+    @     0x60c90ec1b855  xla::cpu::CpuCompiler::RunHloPasses()
+    @     0x60c90ec1c247  xla::cpu::CpuCompiler::RunHloPasses()
+    @     0x60c90ea37ba5  xla::CompileCpuExecutableInternal()
+    @     0x60c90ea36a2c  xla::PjRtCpuRawClient::CompileInternal()
+    @     0x60c90ea366af  xla::PjRtCpuRawClient::Compile()
+    @     0x60c90ea531f5  xla::cpu::CpuPjRtCompiler::Compile()
+    @     0x60c916e1bc3b  xla::PjRtCompile()
+    @     0x60c90eb48918  xla::CommonPjRtClient::Compile()
+    @     0x60c916e01c9a  xla::HloRunner::CreateExecutable()
+    @     0x60c916dffd3c  xla::HloRunner::Execute()
+    @     0x60c916e0982e  xla::HloRunnerInterface::Execute()
+    @     0x60c90e9ec5e7  xla::(anonymous namespace)::ExecuteWithRunner()
+    @     0x60c90e9e6ee7  xla::(anonymous namespace)::RunAndCompareInternal()
+    @     0x60c90e9e48e3  xla::RunAndCompare()
+    @     0x60c90e9e844e  xla::RunAndCompare()
+    @     0x60c90e9e204f  main
+    @     0x77bd21358d90  (unknown)
+Aborted (core dumped)
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmpove4ooi_/3af659d7.hlo**

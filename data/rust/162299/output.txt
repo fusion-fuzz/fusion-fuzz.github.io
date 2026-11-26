@@ -1,0 +1,39 @@
+warning: `feature(generic_const_exprs)` is not supported with the next-generation trait solver
+  = note: `-Znext-solver=globally` is currently enabled by default for testing
+  = note: reverted the setting to `-Znext-solver=coherence` for this crate
+  = note: the currently stable trait solver will be used for this crate
+  = note: see issues #160895 <https://github.com/rust-lang/rust/issues/160895> for more information
+
+warning: the feature `generic_const_exprs` is incomplete and may not be safe to use and/or cause compiler crashes
+  = note: see issue #76560 <https://github.com/rust-lang/rust/issues/76560> for more information
+
+error: rustc interrupted by SIGSEGV, printing backtrace
+
+librustc_driver.so(+0x1e0bcb6)
+/lib/x86_64-linux-gnu/libc.so.6(+0x42520)
+librustc_driver.so(+0x4fb00aa)
+librustc_driver.so(+0x4fafda8)
+librustc_driver.so(<rustc_symbol_mangling::v0::V0SymbolMangler as rustc_middle::ty::print::Printer>::print_impl_path)
+
+### cycle encountered after 5 frames with period 7
+librustc_driver.so(<rustc_symbol_mangling::v0::V0SymbolMangler as rustc_middle::ty::print::Printer>::print_def_path)
+librustc_driver.so(<rustc_symbol_mangling::v0::V0SymbolMangler as rustc_middle::ty::print::Printer>::print_def_path)
+librustc_driver.so(<rustc_symbol_mangling::v0::V0SymbolMangler as rustc_middle::ty::print::Printer>::print_const)
+librustc_driver.so(<rustc_symbol_mangling::v0::V0SymbolMangler as rustc_middle::ty::print::Printer>::print_type)
+librustc_driver.so(+0x4f822dc)
+librustc_driver.so(<rustc_symbol_mangling::v0::V0SymbolMangler as rustc_middle::ty::print::Printer>::print_def_path)
+librustc_driver.so(<rustc_symbol_mangling::v0::V0SymbolMangler as rustc_middle::ty::print::Printer>::print_impl_path)
+### recursed 35 times
+
+librustc_driver.so(<rustc_symbol_mangling::v0::V0SymbolMangler as rustc_middle::ty::print::Printer>::print_def_path)
+librustc_driver.so(<rustc_symbol_mangling::v0::V0SymbolMangler as rustc_middle::ty::print::Printer>::print_def_path)
+librustc_driver.so(<rustc_symbol_mangling::v0::V0SymbolMangler as rustc_middle::ty::print::Printer>::print_const)
+librustc_driver.so(<rustc_symbol_mangling::v0::V0SymbolMangler as rustc_middle::ty::print::Printer>::print_type)
+librustc_driver.so(+0x4f822dc)
+librustc_driver.so(<rustc_symbol_mangling::v0::V0SymbolMangler as rustc_middle::ty::print::Printer>::print_def_path)
+
+note: rustc unexpectedly overflowed its stack! this is a bug
+note: maximum backtrace depth reached, frames may have been lost
+note: we would appreciate a report at https://github.com/rust-lang/rust
+help: you can increase rustc's stack size by setting RUST_MIN_STACK=33554432
+note: backtrace dumped due to SIGSEGV! resuming signal

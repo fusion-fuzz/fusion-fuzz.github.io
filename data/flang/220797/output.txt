@@ -1,0 +1,99 @@
+LLVM ERROR: Cannot select: 0x3231fc80: f32 = bf16_to_fp 0x3231ff20, example.f90:3:3
+  0x3231ff20: i32 = and 0x32386d10, Constant:i32<65535>, example.f90:3:3
+    0x32386d10: i32 = select_cc 0x32372a20, 0x3238cd80, 0x3231e050, 0x3231d950, setolt:ch, example.f90:3:3
+      0x32372a20: f32 = bf16_to_fp 0x32372d30, example.f90:3:3
+        0x32372d30: i32 = and 0x32372da0, Constant:i32<32767>, example.f90:3:3
+          0x32372da0: i32,ch = load<(load (s16) from %ir.2), zext from i16> 0x32366798, 0x32386ca0, poison:i64, example.f90:3:3
+            0x32386ca0: i64,ch = CopyFromReg 0x32366798, Register:i64 %2, example.f90:3:3
+      0x3238cd80: f32 = bf16_to_fp 0x32327050, example.f90:3:3
+        0x32327050: i32 = and 0x3231ef10, Constant:i32<32767>, example.f90:3:3
+          0x3231ef10: i32,ch = load<(load (s16) from %ir.2 + 2), zext from i16> 0x32366798, 0x32386d80, poison:i64, example.f90:3:3
+            0x32386d80: i64 = add nuw 0x32386ca0, Constant:i64<2>, example.f90:3:3
+              0x32386ca0: i64,ch = CopyFromReg 0x32366798, Register:i64 %2, example.f90:3:3
+      0x3231e050: i32 = fp_to_bf16 contract 0x32326b10, example.f90:3:3
+        0x32326b10: f32 = fdiv contract 0x32326a30, 0x32326aa0, example.f90:3:3
+          0x32326a30: f32 = bf16_to_fp contract 0x3231dfe0, example.f90:3:3
+            0x3231dfe0: i32 = and contract 0x3231df70, Constant:i32<65535>, example.f90:3:3
+              0x3231df70: i32 = fp_to_bf16 contract 0x32326950, example.f90:3:3
+                0x32326950: f32 = fadd contract 0x323268e0, 0x3236fde0, example.f90:3:3
+                  0x323268e0: f32 = bf16_to_fp contract 0x3231df00, example.f90:3:3
+
+                  0x3236fde0: f32 = bf16_to_fp 0x3236d240, example.f90:3:3
+
+          0x32326aa0: f32 = bf16_to_fp contract 0x3231de20, example.f90:3:3
+            0x3231de20: i32 = and contract 0x3231ddb0, Constant:i32<65535>, example.f90:3:3
+              0x3231ddb0: i32 = fp_to_bf16 contract 0x32323680, example.f90:3:3
+                0x32323680: f32 = fadd contract 0x3238c370, 0x32323610, example.f90:3:3
+                  0x3238c370: f32 = bf16_to_fp contract 0x3231ef10, example.f90:3:3
+
+                  0x32323610: f32 = bf16_to_fp contract 0x3231dd40, example.f90:3:3
+
+      0x3231d950: i32 = fp_to_bf16 contract 0x32322f80, example.f90:3:3
+        0x32322f80: f32 = fdiv contract 0x32322ea0, 0x32322f10, example.f90:3:3
+          0x32322ea0: f32 = bf16_to_fp contract 0x3231d8e0, example.f90:3:3
+            0x3231d8e0: i32 = and contract 0x3231d870, Constant:i32<65535>, example.f90:3:3
+              0x3231d870: i32 = fp_to_bf16 contract 0x32322dc0, example.f90:3:3
+                0x32322dc0: f32 = fadd contract 0x3236c8a0, 0x32322d50, example.f90:3:3
+                  0x3236c8a0: f32 = bf16_to_fp 0x3236fbb0, example.f90:3:3
+
+                  0x32322d50: f32 = bf16_to_fp contract 0x3231d800, example.f90:3:3
+
+          0x32322f10: f32 = bf16_to_fp contract 0x323277c0, example.f90:3:3
+            0x323277c0: i32 = and contract 0x32327750, Constant:i32<65535>, example.f90:3:3
+              0x32327750: i32 = fp_to_bf16 contract 0x32322b90, example.f90:3:3
+                0x32322b90: f32 = fadd contract 0x32370780, 0x32322b20, example.f90:3:3
+                  0x32370780: f32 = bf16_to_fp contract 0x32372da0, example.f90:3:3
+
+                  0x32322b20: f32 = bf16_to_fp contract 0x323276e0, example.f90:3:3
+
+In function: div_test_bfloat_
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24 -fc1 -triple powerpc64le -emit-obj -fno-color-diagnostics -mrelocation-model static -target-cpu ppc64le -debug-info-kind=standalone -dwarf-version=5 -resource-dir /cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/lib/clang/24 -mframe-pointer=all -o /tmp/example-fd296c.o -x f95 /app/example.f90
+1.	Running pass 'Function Pass Manager' on module 'FIRModule'.
+2.	Running pass 'PowerPC DAG->DAG Pattern Instruction Selection' on function '@div_test_bfloat_'
+ #0 0x0000000004a9b5d8 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x4a9b5d8)
+ #1 0x0000000004a98a1d SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #2 0x0000739e26845330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #3 0x0000739e2689ec0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #4 0x0000739e2684527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #5 0x0000739e268288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #6 0x0000000002af0e85 llvm::json::operator==(llvm::json::Value const&, llvm::json::Value const&) (.cold) JSON.cpp:0:0
+ #7 0x0000000009da0a2d llvm::SelectionDAGISel::CannotYetSelect(llvm::SDNode*) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x9da0a2d)
+ #8 0x0000000009da838d llvm::SelectionDAGISel::SelectCodeCommon(llvm::SDNode*, unsigned char const*, unsigned int, unsigned char const*) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x9da838d)
+ #9 0x0000000003e98e8d (anonymous namespace)::PPCDAGToDAGISel::Select(llvm::SDNode*) PPCISelDAGToDAG.cpp:0:0
+#10 0x0000000009d9fda4 llvm::SelectionDAGISel::DoInstructionSelection() (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x9d9fda4)
+#11 0x0000000009dad522 llvm::SelectionDAGISel::CodeGenAndEmitDAG() (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x9dad522)
+#12 0x0000000009daf7c1 llvm::SelectionDAGISel::SelectAllBasicBlocks(llvm::Function const&) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x9daf7c1)
+#13 0x0000000009db1205 llvm::SelectionDAGISel::runOnMachineFunction(llvm::MachineFunction&) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x9db1205)
+#14 0x0000000003ea2b47 (anonymous namespace)::PPCDAGToDAGISel::runOnMachineFunction(llvm::MachineFunction&) PPCISelDAGToDAG.cpp:0:0
+#15 0x0000000009d9fa21 llvm::SelectionDAGISelLegacy::runOnMachineFunction(llvm::MachineFunction&) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x9d9fa21)
+#16 0x000000000a9c4d95 llvm::MachineFunctionPass::runOnFunction(llvm::Function&) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xa9c4d95)
+#17 0x000000000cce1a82 llvm::FPPassManager::runOnFunction(llvm::Function&) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xcce1a82)
+#18 0x000000000cce1e91 llvm::FPPassManager::runOnModule(llvm::Module&) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xcce1e91)
+#19 0x000000000cce296a llvm::legacy::PassManagerImpl::run(llvm::Module&) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xcce296a)
+#20 0x0000000004e08042 Fortran::frontend::CodeGenAction::executeAction() (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x4e08042)
+#21 0x0000000004afe38d Fortran::frontend::FrontendAction::execute() (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x4afe38d)
+#22 0x0000000004aeb4cf Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x4aeb4cf)
+#23 0x0000000004b0b90f Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x4b0b90f)
+#24 0x0000000002c43325 fc1_main(llvm::ArrayRef<char const*>, char const*) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x2c43325)
+#25 0x0000000002b92896 main (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x2b92896)
+#26 0x0000739e2682a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#27 0x0000739e2682a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#28 0x0000000002c41bc5 _start (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x2c41bc5)
+flang-24: error: unable to execute command: Aborted (core dumped)
+flang-24: error: flang frontend command failed with exit code -2 (use -v to see invocation)
+flang version 24.0.0git (https://github.com/llvm/llvm-project.git d378144735cb1021608003ee418b54d402a5ac98)
+Target: powerpc64le
+Thread model: posix
+InstalledDir: /cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin
+flang-24: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+flang-24: note: diagnostic msg: /tmp/example-5f4bb6
+flang-24: note: diagnostic msg: /tmp/example-5f4bb6.sh
+flang-24: note: diagnostic msg: 
+
+********************
+flang-trunk - 2032ms

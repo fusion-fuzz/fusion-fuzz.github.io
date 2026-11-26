@@ -1,0 +1,63 @@
+# fflreduce
+./main.go:5:11: constant overflow
+<unknown line number>: internal compiler error: panic: /home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/recording.go:66: assertion failed
+
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/runtime/debug/stack.go:26 +0x5e
+cmd/compile/internal/base.FatalfAt({0x8ee633e8?, 0x733?}, {0x102e5e8, 0x9}, {0x7338ee63418, 0x1, 0x1})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/base/print.go:232 +0x18b
+cmd/compile/internal/base.Fatalf(...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/base/print.go:197
+cmd/compile/internal/gc.handlePanic()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/gc/main.go:59 +0x95
+panic({0x19d7608?, 0x7338eb24360?})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/runtime/panic.go:859 +0x11f
+cmd/compile/internal/types2.(*Checker).handleBailout(0x7338eb8a600, 0x7338ee64e18)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/check.go:396 +0x286
+panic({0x19d7608?, 0x7338eb24360?})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/runtime/panic.go:859 +0x11f
+cmd/compile/internal/types2.assert(0x0?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/errors.go:25 +0x54
+cmd/compile/internal/types2.(*Checker).recordTypeAndValue(...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/recording.go:66
+cmd/compile/internal/types2.(*Checker).updateExprType(0x7338eb8a600, {0x1a42228, 0x7338ea36dc0}, {0x1a40400, 0x1b1d780}, 0x0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/expr.go:396 +0x8f1
+cmd/compile/internal/types2.(*Checker).assignment(0x7338eb8a600, 0x7338efa9540, {0x1a40400, 0x1b1d780}, {0x7338eb103c0, 0x10})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/assignments.go:88 +0x1bd1
+cmd/compile/internal/types2.(*Checker).arguments(0x7338eb8a600, 0x7338eb4c700, 0x7338efa9440, {0x0, 0x0, 0x0}, {0x0, 0x0, 0x0}, {0x7338ee641d8, ...}, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/call.go:669 +0x12ed
+cmd/compile/internal/types2.(*Checker).callExpr(0x7338eb8a600, 0x7338efa9500, 0x7338eb4c700)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/call.go:312 +0xe14
+cmd/compile/internal/types2.(*Checker).exprInternal(0x7338eb8a600, 0x6da5f9fbf437c233?, 0x7338efa9500, {0x1a42348, 0x7338eb4c700})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/expr.go:1171 +0x1450
+cmd/compile/internal/types2.(*Checker).rawExpr(0x7338eb8a600, 0x0, 0x7338efa9500, {0x1a42348?, 0x7338eb4c700?}, 0x0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/expr.go:1023 +0x173
+cmd/compile/internal/types2.(*Checker).stmt(0x7338eb8a600, 0x0, {0x1a41b10, 0x7338ef841c0})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/stmt.go:444 +0x115
+cmd/compile/internal/types2.(*Checker).stmtList(0x7338eb8a600, 0x0, {0x7338eb24190?, 0xd01000000000000?, 0x700000005?})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/stmt.go:124 +0x97
+cmd/compile/internal/types2.(*Checker).funcBody(0x7338eb8a600, 0x7338ea36cd0?, {0x7338eb100e0?, 0xeb16a8?}, 0x7338efa9440, 0x7338efa9300, {0x0?, 0x0?})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/stmt.go:41 +0x37a
+cmd/compile/internal/types2.(*Checker).funcDecl.func1()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/decl.go:706 +0x3a
+cmd/compile/internal/types2.(*Checker).processDelayed(0x7338eb8a600, 0x0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/check.go:504 +0x20d
+cmd/compile/internal/types2.(*Checker).checkFiles(0x7338eb8a600, {0x7338ee64fb0?, 0x424565?, 0x7338ee80008?})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/check.go:446 +0x474
+cmd/compile/internal/types2.(*Checker).Files(0x7ffdccbce4e3?, {0x7338ee64fb0?, 0x0?, 0x0?})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/check.go:414 +0x71
+cmd/compile/internal/types2.(*Config).Check(0x7338ea34900, {0x7ffdccbce4e3?, 0x7338e8f4057?}, {0x7338ee64fb0, 0x1, 0x1}, 0x7338ea34960)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types2/api.go:478 +0x19d
+cmd/compile/internal/noder.checkFiles({0x0, {0x0, 0x0}}, {0x7338eb0a058, 0x1, 0x0?})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/noder/irgen.go:100 +0x65f
+cmd/compile/internal/noder.writePkgStub({0x0?, {0x0?, 0x0?}}, {0x7338eb0a058, 0x1, 0x1})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/noder/unified.go:322 +0x6a
+cmd/compile/internal/noder.unified({0x0?, {0x0?, 0x0?}}, {0x7338eb0a058?, 0x1949380?, 0x1b26338?})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/noder/unified.go:198 +0xb6
+cmd/compile/internal/noder.LoadPackage({0x7338eb32140, 0x1, 0x2})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/noder/noder.go:76 +0x525
+cmd/compile/internal/gc.Main(0x1a46b60)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/gc/main.go:219 +0xd05
+main.main()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/main.go:57 +0x105

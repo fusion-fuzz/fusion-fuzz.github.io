@@ -1,0 +1,35 @@
+panic: runtime error: invalid memory address or nil pointer dereference [recovered, repanicked]
+[signal SIGSEGV: segmentation violation code=0x1 addr=0x0 pc=0x87f933]
+
+goroutine 14 [running]:
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).getPropertyOfObjectType(...)
+	tsc/internal/checker/checker.go:21813 +0x13
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).getPropertyOfTypeEx(...)
+	tsc/internal/checker/checker.go:19350 +0x239
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).getPropertyOfType(...)
+	tsc/internal/checker/checker.go:19304
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkAndReportErrorForUsingTypeAsNamespace(...)
+	tsc/internal/checker/checker.go:1661 +0x17b
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).onFailedToResolveSymbol(...)
+	tsc/internal/checker/checker.go:1618 +0x105
+github.com/microsoft/TypeScript/tsc/internal/binder.(*NameResolver).Resolve(...)
+	tsc/internal/binder/nameresolver.go:343
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).resolveEntityName(...)
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).resolveQualifiedName(...)
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).resolveEntityName(...)
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).getSymbolOfPartOfRightHandSideOfImportEquals(...)
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).getTargetOfImportEqualsDeclaration(...)
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).getTargetOfAliasDeclaration(...)
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).resolveAlias(...)
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).tryResolveAlias(...)
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).getSpellingSuggestionForName.func1(...)
+github.com/microsoft/TypeScript/tsc/internal/core.getSpellingSuggestion[...](...)
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).getSuggestionForSymbolNameLookup(...)
+github.com/microsoft/TypeScript/tsc/internal/binder.(*NameResolver).lookup(...)
+github.com/microsoft/TypeScript/tsc/internal/binder.(*NameResolver).Resolve(...)
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).onFailedToResolveSymbol(...)
+github.com/microsoft/TypeScript/tsc/internal/binder.(*NameResolver).Resolve(...)
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).getGlobalSymbol(...)
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).getGlobalType(...)   // "Array"
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).initializeChecker(...)
+github.com/microsoft/TypeScript/tsc/internal/checker.NewChecker(...)

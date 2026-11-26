@@ -1,0 +1,67 @@
+HloModule m
+
+%sum {
+  %a = bf16[] parameter(0)
+  %b = bf16[] parameter(1)
+  ROOT %_ = bf16[] add(a, b)
+}
+
+%condition {
+  %input_tuple = (bf16[512], bf16[4096], s32[]) parameter(0)
+  %cond = s32[] get-tuple-element(input_tuple), index=2
+  %trip_count = s32[] constant(10)
+  ROOT %done = pred[] compare(cond, trip_count), direction=LT
+}
+
+%body {
+  %input_tuple = (bf16[512], bf16[4096], s32[]) parameter(0)
+  %gte.0 = bf16[512] get-tuple-element(input_tuple), index=0
+  %gte.1 = bf16[4096] get-tuple-element(input_tuple), index=1
+  %reduce-scatter = bf16[512] reduce-scatter(gte.1), replica_groups={{0,1,2,3,4,5,6,7}}, to_apply=sum, use_global_device_ids=true, channel_id=3, dimensions={0}
+  %bc = bf16[1,512] bitcast(reduce-scatter)
+  %output-buffer = bf16[1,512] broadcast(gte.0), dimensions={1}
+  %zero = s32[] constant(0)
+  %one = s32[] constant(1)
+  %ind = s32[] get-tuple-element(input_tuple), index=2
+  %next_ind = s32[] add(ind, one)
+  %dus = bf16[1,512] dynamic-update-slice(output-buffer, bc, next_ind, zero)
+  %rsb = bf16[512] bitcast(dus)
+  ROOT %_ = (bf16[512], bf16[4096], s32[]) tuple(rsb, gte.1, next_ind)
+}
+
+%fusion {
+  %in = f32[20,30] parameter(0)
+  %updates = f32[5,6] parameter(1)
+  %i0 = s32[] parameter(2)
+  %i1 = s32[] parameter(3)
+  ROOT %updated = f32[20,30] dynamic-update-slice(in, updates, i0, i1)
+}
+
+%fusion.d {
+  %in = f32[20,30] parameter(0)
+  %updates = f32[5,6] parameter(1)
+  %i0 = s32[] parameter(2)
+  %i1 = s32[] parameter(3)
+  ROOT %updated = f32[20,30] dynamic-update-slice(in, updates, i0, i1)
+}
+
+ENTRY %main {
+  %p.0 = bf16[512] parameter(0)
+  %p.1 = bf16[4096] parameter(1)
+  %c.0 = s32[] constant(0)
+  %tuple = (bf16[512], bf16[4096], s32[]) tuple(p.0, p.1, c.0)
+  %while = (bf16[512], bf16[4096], s32[]) while(tuple), condition=condition, body=body, backend_config={"known_trip_count":{"n":"10"}, "known_induction_variable":{"tuple_index":"2"}}
+  %param_0 = f32[20,30] parameter(2)
+  %param_1 = f32[5,6] parameter(3)
+  %fusion = f32[20,30] fusion(%param_0, %param_1, %c.0, %c.0), kind=kLoop, calls=%fusion
+  %neg = f32[20,30] negate(%param_0)
+  %tuple.d = (f32[20,30], f32[20,30]) tuple(%fusion, %neg)
+  %ffl.root = ((bf16[512], bf16[4096], s32[]), (f32[20,30], f32[20,30])) tuple(%while, %tuple.d)
+  %param_0.d = f32[20,30] parameter(4)
+  %param_1.d = f32[5,6] parameter(5)
+  %param_2 = s32[] parameter(6)
+  %fusion.d = f32[20,30] fusion(%param_0.d, %param_1.d, %param_2, %c.0), kind=kLoop, calls=%fusion.d
+  %neg.d = f32[20,30] negate(%param_0.d)
+  %tuple.d.1 = (f32[20,30], f32[20,30]) tuple(%fusion.d, %neg.d)
+  ROOT %ffl.root.1 = ((bf16[512], bf16[4096], s32[]), (f32[20,30], f32[20,30]), (f32[20,30], f32[20,30])) tuple(%while, %tuple.d, %tuple.d.1)
+}

@@ -1,0 +1,62 @@
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp:656:24: runtime error: load of null pointer of type 'struct expr_t *'
+    #0 0x4e3fb8c in LCompilers::ASRToCPPVisitor::visit_FileWrite(LCompilers::ASR::FileWrite_t const&) (/opt/lfortran/bin/lfortran+0x4e3fb8c)
+    #1 0x4d59408 in visit_stmt_t<LCompilers::ASRToCPPVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:83
+    #2 0x4e61e10 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_stmt(LCompilers::ASR::stmt_t const&) (/opt/lfortran/bin/lfortran+0x4e61e10)
+    #3 0x4e3573d in LCompilers::ASRToCPPVisitor::visit_Program(LCompilers::ASR::Program_t const&) (/opt/lfortran/bin/lfortran+0x4e3573d)
+    #4 0x4d579bd in visit_symbol_t<LCompilers::ASRToCPPVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:30
+    #5 0x4e4c0ba in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&) (/opt/lfortran/bin/lfortran+0x4e4c0ba)
+    #6 0x4e33943 in LCompilers::ASRToCPPVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&) (/opt/lfortran/bin/lfortran+0x4e33943)
+    #7 0x4d6c8d8 in visit_unit_t<LCompilers::ASRToCPPVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:22
+    #8 0x4efdf06 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_unit(LCompilers::ASR::unit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:380
+    #9 0x4d5a697 in visit_asr_t<LCompilers::ASRToCPPVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:353
+    #10 0x4e625e4 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_asr(LCompilers::ASR::asr_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:379
+    #11 0x4d299be in LCompilers::asr_to_cpp[abi:cxx11](Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp:738
+    #12 0x25ec635 in LCompilers::FortranEvaluator::get_cpp2[abi:cxx11](LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:952
+    #13 0x25ec21e in LCompilers::FortranEvaluator::get_cpp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:940
+    #14 0x1d79134 in emit_cpp /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:920
+    #15 0x1db277d in main_app(int, char**) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3008
+    #16 0x1db9a13 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3214
+    #17 0x7ae8a6d57d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #18 0x7ae8a6d57e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #19 0x17769e4 in _start (/opt/lfortran/bin/lfortran+0x17769e4)
+
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3214, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3008, in main_app(int, char**)
+    return emit_cpp(opts.arg_file, compiler_options);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 920, in (anonymous namespace)::emit_cpp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::CompilerOptions&)
+    LCompilers::Result<std::string> cpp = fe.get_cpp(input, lm, diagnostics, 1);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 940, in LCompilers::FortranEvaluator::get_cpp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&, long)
+    return get_cpp2(*asr.result, diagnostics, default_lower_bound);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 952, in LCompilers::FortranEvaluator::get_cpp2[abi:cxx11](LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, long)
+    default_lower_bound);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp", line 738, in LCompilers::asr_to_cpp[abi:cxx11](Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions&, long)
+    v.visit_asr((ASR::asr_t &)asr);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 379, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_asr(LCompilers::ASR::asr_t const&)
+    void visit_asr(const asr_t &b) { visit_asr_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 353, in void LCompilers::ASR::visit_asr_t<LCompilers::ASRToCPPVisitor>(LCompilers::ASR::asr_t const&, LCompilers::ASRToCPPVisitor&)
+    case asrType::unit: { v.visit_unit((const unit_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 380, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_unit(LCompilers::ASR::unit_t const&)
+    void visit_unit(const unit_t &b) { visit_unit_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 22, in void LCompilers::ASR::visit_unit_t<LCompilers::ASRToCPPVisitor>(LCompilers::ASR::unit_t const&, LCompilers::ASRToCPPVisitor&)
+    case unitType::TranslationUnit: { v.visit_TranslationUnit((const TranslationUnit_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp", line 441, in LCompilers::ASRToCPPVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&)
+    visit_symbol(*item.second);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 382, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&)
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 30, in void LCompilers::ASR::visit_symbol_t<LCompilers::ASRToCPPVisitor>(LCompilers::ASR::symbol_t const&, LCompilers::ASRToCPPVisitor&)
+    case symbolType::Program: { v.visit_Program((const Program_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp", line 475, in LCompilers::ASRToCPPVisitor::visit_Program(LCompilers::ASR::Program_t const&)
+    this->visit_stmt(*x.m_body[i]);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 401, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_stmt(LCompilers::ASR::stmt_t const&)
+    void visit_stmt(const stmt_t &b) { visit_stmt_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 83, in void LCompilers::ASR::visit_stmt_t<LCompilers::ASRToCPPVisitor>(LCompilers::ASR::stmt_t const&, LCompilers::ASRToCPPVisitor&)
+    case stmtType::FileWrite: { v.visit_FileWrite((const FileWrite_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp", line 656, in LCompilers::ASRToCPPVisitor::visit_FileWrite(LCompilers::ASR::FileWrite_t const&)
+    if(x.m_values[0] && ASR::is_a<ASR::StringFormat_t>(*x.m_values[0])) {
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+Segfault: Signal SIGSEGV (segmentation fault) received

@@ -1,0 +1,14 @@
+triton-opt: triton-src/lib/Conversion/TritonGPUToLLVM/GlobalScratchMemoryAllocation.cpp:126: auto mlir::triton::gpu::runGlobalScratchMemoryAllocation(mlir::ModuleOp)::(anonymous class)::operator()(triton::FuncOp) const: Assertion `!seenKernel' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: projects/triton/triton-build/bin/triton-opt /tmp/two_pub.mlir --tritongpu-global-scratch-memory-allocation
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x0000562df5af0d8a
+1  triton-opt 0x0000562df5aedc8e
+2  triton-opt 0x0000562df5af1c8b
+3  libc.so.6  0x00007f7fd9192520
+4  libc.so.6  0x00007f7fd91e69bc pthread_kill + 300
+5  libc.so.6  0x00007f7fd9192476 raise + 22
+6  libc.so.6  0x00007f7fd91787f3 abort + 211
+7  libc.so.6  0x00007f7fd917871b
+8  libc.so.6  0x00007f7fd9189e96

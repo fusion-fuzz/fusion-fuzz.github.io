@@ -1,0 +1,40 @@
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpoabsm6lp/401a5688.cc: In function 'int pointer()':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpoabsm6lp/401a5688.cc:283:1: warning: control reaches end of non-void function [-Wreturn-type]
+  283 | }
+      | ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpoabsm6lp/401a5688.cc: In function 'int main()':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpoabsm6lp/401a5688.cc:13:3: error: output constraint 0 must specify a single register
+   13 |   asm("lxr\t%0,%1\n"
+      |   ^~~
+during RTL pass: stack
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpoabsm6lp/401a5688.cc:18:1: internal compiler error: in replace_reg, at reg-stack.cc:722
+   18 | }
+      | ^
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x9af62f replace_reg
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:722
+0x1955623 compare_for_stack_reg
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:1429
+0x1955623 subst_stack_regs_pat
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:2049
+0x195647d subst_stack_regs
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:2505
+0x19566be convert_regs_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:3140
+0x19566be convert_regs_2
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:3276
+0x1957390 convert_regs
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:3312
+0x1957390 reg_to_stack
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:3440
+0x1957390 rest_of_handle_stack_regs
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:3496
+0x1957390 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:3528
+/home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -iprefix /home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../lib/gcc/x86_64-pc-linux-gnu/17.0.0/ -D_GNU_SOURCE /home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpoabsm6lp/401a5688.cc -quiet -dumpbase 401a5688.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O3 -O3 -ftrapv -funroll-loops -ffast-math -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

@@ -1,0 +1,54 @@
+warning: OpenMP support for version 45 in flang is still incomplete [-Wexperimental-option]
+flang-24: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-project/flang/lib/Semantics/resolve-directives.cpp:2468: auto Fortran::semantics::OmpAttributeVisitor::Pre(const parser::OmpDeclareTargetDirective &)::(lambda)::operator()(auto &) const [d:auto = Fortran::semantics::UseErrorDetails]: Assertion `(std::is_base_of_v<WithOmpDeclarative, TypeD>) && "Unexpected details type"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-flang-build/bin/flang-24 -fc1 -triple x86_64-unknown-linux-gnu -fsyntax-only -ffree-form -fhermetic-module-files -falternative-parameter-statement -fno-color-diagnostics -mrelocation-model pic -pic-level 2 -pic-is-pie -ffp-contract=off -target-cpu x86-64 -fopenmp -fopenmp-version=45 -resource-dir /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-flang-build/lib/clang/24 -mframe-pointer=none -mllvm -verify-region-info -O1 -x f95 /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmplxoj1a_f/d9887b4a.f90
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  flang-24  0x00006401290c933a ___interceptor_backtrace + 74
+1  flang-24  0x000064012b5e3833 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 323
+2  flang-24  0x000064012b5dd677 llvm::sys::RunSignalHandlers() + 455
+3  flang-24  0x000064012b5e619f
+4  libc.so.6 0x000070916b89e330
+5  libc.so.6 0x000070916b8f7c0c pthread_kill + 284
+6  libc.so.6 0x000070916b89e27e gsignal + 30
+7  libc.so.6 0x000070916b8818ff abort + 223
+8  libc.so.6 0x000070916b88181b
+9  libc.so.6 0x000070916b894517
+10 flang-24  0x000064012d56677f Fortran::semantics::OmpAttributeVisitor::Pre(Fortran::parser::OmpDeclareTargetDirective const&) + 5167
+11 flang-24  0x000064012d5c6b08
+12 flang-24  0x000064012d5de791
+13 flang-24  0x000064012d5ddd9d
+14 flang-24  0x000064012d5dc6be
+15 flang-24  0x000064012d5b5ea7
+16 flang-24  0x000064012d5e4ec1
+17 flang-24  0x000064012d556de3 Fortran::semantics::ResolveOmpParts(Fortran::semantics::SemanticsContext&, Fortran::parser::ProgramUnit const&) + 1059
+18 flang-24  0x000064012d3e45f6 Fortran::semantics::ResolveNamesVisitor::Pre(Fortran::parser::ProgramUnit const&) + 1734
+19 flang-24  0x000064012d4f240e
+20 flang-24  0x000064012d3ec185 Fortran::semantics::ResolveNames(Fortran::semantics::SemanticsContext&, Fortran::parser::Program const&, Fortran::semantics::Scope&) + 533
+21 flang-24  0x000064012d68a6a7 Fortran::semantics::Semantics::Perform() + 2439
+22 flang-24  0x000064012b6b6b81 Fortran::frontend::FrontendAction::runSemanticChecks() + 785
+23 flang-24  0x000064012b6c5258 Fortran::frontend::PrescanAndSemaAction::beginSourceFileAction() + 40
+24 flang-24  0x000064012b6b3d6c Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) + 2764
+25 flang-24  0x000064012b67b370 Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) + 2448
+26 flang-24  0x000064012b6c33c3 Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) + 10211
+27 flang-24  0x000064012916a15b fc1_main(llvm::ArrayRef<char const*>, char const*) + 1355
+28 flang-24  0x0000640129161d87 main + 3031
+29 libc.so.6 0x000070916b8831ca
+30 libc.so.6 0x000070916b88328b __libc_start_main + 139
+31 flang-24  0x00006401290810e5 _start + 37
+flang-24: error: unable to execute command: Aborted
+flang-24: error: flang frontend command failed with exit code -2 (use -v to see invocation)
+flang version 24.0.0git (https://github.com/llvm/llvm-project.git e996ce0d9ad6443a7ea3f88ccb0a8e114b0e840e)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-flang-build/bin
+Build config: +assertions, +asan, +ubsan
+flang-24: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+flang-24: note: diagnostic msg: /tmp/d9887b4a-49309c
+flang-24: note: diagnostic msg: /tmp/d9887b4a-49309c.sh
+flang-24: note: diagnostic msg: 
+
+********************

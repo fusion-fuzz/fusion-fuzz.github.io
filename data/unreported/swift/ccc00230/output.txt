@@ -1,0 +1,119 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4aiizaxp/f29ca0ef.swift:68:7: error: consecutive statements on a line must be separated by ';'
+66 | 
+67 | //--- module.modulemap
+68 | module B { header "B.h" }
+   |       `- error: consecutive statements on a line must be separated by ';'
+69 | module C { header "C.h" }
+70 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4aiizaxp/f29ca0ef.swift:68:18: error: consecutive statements on a line must be separated by ';'
+66 | 
+67 | //--- module.modulemap
+68 | module B { header "B.h" }
+   |                  `- error: consecutive statements on a line must be separated by ';'
+69 | module C { header "C.h" }
+70 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4aiizaxp/f29ca0ef.swift:69:7: error: consecutive statements on a line must be separated by ';'
+67 | //--- module.modulemap
+68 | module B { header "B.h" }
+69 | module C { header "C.h" }
+   |       `- error: consecutive statements on a line must be separated by ';'
+70 | 
+71 | //--- B.h
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4aiizaxp/f29ca0ef.swift:69:18: error: consecutive statements on a line must be separated by ';'
+67 | //--- module.modulemap
+68 | module B { header "B.h" }
+69 | module C { header "C.h" }
+   |                  `- error: consecutive statements on a line must be separated by ';'
+70 | 
+71 | //--- B.h
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4aiizaxp/f29ca0ef.swift:72:9: error: consecutive statements on a line must be separated by ';'
+70 | 
+71 | //--- B.h
+72 | #include "C.h"
+   |         `- error: consecutive statements on a line must be separated by ';'
+73 | 
+74 | //--- C.h
+
+Abort: function buildInfo at CSDiagnostics.cpp:7762
+expected function arg apply info for apply argument locator
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -c -Osize -sil-verify-all -enable-experimental-feature MoveOnly /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4aiizaxp/f29ca0ef.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4aiizaxp/f29ca0ef.swift")
+4.	While type-checking statement at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4aiizaxp/f29ca0ef.swift:69:8 - line:69:25] RangeText="C { header "C.h" "
+5.	While type-checking expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4aiizaxp/f29ca0ef.swift:69:8 - line:69:25] RangeText="C { header "C.h" "
+6.	While type-checking-target starting at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4aiizaxp/f29ca0ef.swift:69:8
+7.	Abort: function buildInfo at CSDiagnostics.cpp:7762
+| 	expected function arg apply info for apply argument locator
+ #0 0x000055807b665bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055807b6632e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055807b6668c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007fa467d78330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007fa467dd1c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007fa467d7827e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007fa467d5b8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x0000558075aa3622 (/usr/bin/swift-frontend+0x3055622)
+ #8 0x0000558075aa370c (/usr/bin/swift-frontend+0x305570c)
+ #9 0x0000558075aa3736 (/usr/bin/swift-frontend+0x3055736)
+#10 0x0000558074dbbc55 swift::constraints::ArgumentMismatchFailure::buildInfo(swift::constraints::Solution const&, swift::constraints::ConstraintLocator*) (/usr/bin/swift-frontend+0x236dc55)
+#11 0x0000558074da394e swift::constraints::ArgumentMismatchFailure::create(swift::constraints::Solution const&, swift::Type, swift::Type, swift::constraints::ConstraintLocator*, swift::constraints::FixBehavior) (/usr/bin/swift-frontend+0x235594e)
+#12 0x0000558074d7a5f1 swift::constraints::AllowArgumentMismatch::diagnose(swift::constraints::Solution const&, bool) const (/usr/bin/swift-frontend+0x232c5f1)
+#13 0x000055807510e9cf swift::constraints::ConstraintSystem::applySolutionFixes(swift::constraints::Solution const&) (/usr/bin/swift-frontend+0x26c09cf)
+#14 0x000055807510f412 swift::constraints::ConstraintSystem::applySolution(swift::constraints::Solution&, swift::constraints::SyntacticElementTarget) (/usr/bin/swift-frontend+0x26c1412)
+#15 0x0000558074f0fa43 swift::TypeChecker::typeCheckTarget(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x24c1a43)
+#16 0x0000558074f0f86d swift::TypeChecker::typeCheckExpression(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x24c186d)
+#17 0x0000558074f0f741 swift::TypeChecker::typeCheckExpression(swift::Expr*&, swift::DeclContext*, swift::constraints::ContextualTypeInfo, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>) (/usr/bin/swift-frontend+0x24c1741)
+#18 0x000055807501abe7 (anonymous namespace)::StmtChecker::typeCheckASTNode(swift::ASTNode&) TypeCheckStmt.cpp:0:0
+#19 0x00005580750214ac swift::ASTVisitor<(anonymous namespace)::StmtChecker, void, swift::Stmt*, void, void, void, void>::visit(swift::Stmt*) TypeCheckStmt.cpp:0:0
+#20 0x0000558075024a8c bool (anonymous namespace)::StmtChecker::typeCheckStmt<swift::BraceStmt>(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#21 0x000055807501caeb swift::TypeChecker::typeCheckTopLevelCodeDecl(swift::TopLevelCodeDecl*) (/usr/bin/swift-frontend+0x25ceaeb)
+#22 0x000055807509de3a swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x264fe3a)
+#23 0x00005580750a23a4 swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#24 0x000055807509dd45 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x264fd45)
+#25 0x00005580738d0639 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_0>(long, swift::SourceFile&) Frontend.cpp:0:0
+#26 0x00005580738c435e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xe7635e)
+#27 0x00005580738c40eb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xe760eb)
+#28 0x000055807374151e withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#29 0x000055807372d0cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#30 0x0000558073729fef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcdbfef)
+#31 0x00005580733f924b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9ab24b)
+#32 0x00007fa467d5d1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#33 0x00007fa467d5d28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#34 0x00005580733f82a5 _start (/usr/bin/swift-frontend+0x9aa2a5)
+
+*** Signal 6: Backtracing from 0x7fa467e5a38d... done ***
+
+*** Program crashed: Aborted at 0x00007fa467e5a38d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007fa467e5a38d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007fa467e5a38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x00000000001978fb  1669371
+rdi 0x00000000001978fb  1669371
+rbp 0x00000000001978fb  1669371
+rsp 0x00005580828204e8  eb 68 66 7b 80 55 00 00 70 07 82 82 80 55 00 00  ëhf{·U··p····U··
+ r8 0x0000558082820770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x0000558082820770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x0000558082820770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x000055807d2ce52f  62 75 69 6c 64 49 6e 66 6f 00 65 78 70 65 63 74  buildInfo·expect
+r14 0x0000000000000000  0
+r15 0x000055808282
+[... truncated ...]

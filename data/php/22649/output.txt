@@ -1,0 +1,15 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==3555404==ERROR: AddressSanitizer: SEGV on unknown address 0x00000b800043 (pc 0x7f43b11c4c72 bp 0x7ffdeab7ccd0 sp 0x7ffdeab7c468 T0)
+==3555404==The signal is caused by a READ memory access.
+    #0 0x7f43b11c4c72  string/../sysdeps/x86_64/multiarch/memcmp-sse4.S:109
+    #1 0x61bfae in MemcmpInterceptorCommon(void*, int (*)(void const*, void const*, unsigned long), void const*, void const*, unsigned long) (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x61bfae)
+    #2 0x61c32a in memcmp (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x61c32a)
+    #3 0x7f43b127209e in zip_file_set_comment (/lib/x86_64-linux-gnu/libzip.so.4+0x709e)
+    #4 0x476d3d3 in zim_ZipArchive_setCommentIndex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/zip/php_zip.c:2231:2
+LLVMSymbolizer: error reading file: No such file or directory
+    #5 0x483a9708  (/dev/zero (deleted)+0x8003708)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV string/../sysdeps/x86_64/multiarch/memcmp-sse4.S:109 
+==3555404==ABORTING

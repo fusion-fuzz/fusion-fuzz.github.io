@@ -1,0 +1,94 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:10:3: error: declaration of variable 'b' with anonymous union type 'U' {aka 'A::<unnamed union>'}
+   10 | U b;                                    // { dg-error "declaration of variable 'b' with anonymous union type 'U' {aka 'A::<unnamed union>'}" }
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:8:18: note: anonymous union declared here
+    8 | struct A { union { int a; long b; }; }; // { dg-message "anonymous union declared here" }
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:11:14: error: declaration of member 'B::b' with anonymous union type 'U' {aka 'A::<unnamed union>'}
+   11 | struct B { U b; };                      // { dg-error "declaration of member 'B::b' with anonymous union type 'U' {aka 'A::<unnamed union>'}" }
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:8:18: note: anonymous union declared here
+    8 | struct A { union { int a; long b; }; }; // { dg-message "anonymous union declared here" }
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:13:17: error: temporary object with anonymous union type 'A::<unnamed union>'
+   13 | auto c = plugh ();                      // { dg-error "declaration of variable 'c' with anonymous union type 'A::<unnamed union>'" }
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:8:18: note: anonymous union declared here
+    8 | struct A { union { int a; long b; }; }; // { dg-message "anonymous union declared here" }
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:13:6: error: declaration of variable 'c' with anonymous union type 'A::<unnamed union>'
+   13 | auto c = plugh ();                      // { dg-error "declaration of variable 'c' with anonymous union type 'A::<unnamed union>'" }
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:8:18: note: anonymous union declared here
+    8 | struct A { union { int a; long b; }; }; // { dg-message "anonymous union declared here" }
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:18:16: error: temporary object with anonymous union type '<unnamed union>'
+   18 | auto f = thud ();                       // { dg-error "declaration of variable 'f' with anonymous union type '<unnamed union>'" }
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:15:14: note: anonymous union declared here
+   15 | static union { int d; long e; };        // { dg-message "anonymous union declared here" }
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:18:6: error: declaration of variable 'f' with anonymous union type '<unnamed union>'
+   18 | auto f = thud ();                       // { dg-error "declaration of variable 'f' with anonymous union type '<unnamed union>'" }
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:15:14: note: anonymous union declared here
+   15 | static union { int d; long e; };        // { dg-message "anonymous union declared here" }
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:20:3: error: declaration of variable 'g' with anonymous union type 'V' {aka '<unnamed union>'}
+   20 | V g;                                    // { dg-error "declaration of variable 'g' with anonymous union type 'V' {aka '<unnamed union>'}" }
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:15:14: note: anonymous union declared here
+   15 | static union { int d; long e; };        // { dg-message "anonymous union declared here" }
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:21:14: error: declaration of member 'D::d' with anonymous union type 'V' {aka '<unnamed union>'}
+   21 | struct D { V d; };                      // { dg-error "declaration of member 'D::d' with anonymous union type 'V' {aka '<unnamed union>'}" }
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:15:14: note: anonymous union declared here
+   15 | static union { int d; long e; };        // { dg-message "anonymous union declared here" }
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:22:14: error: declaration of member 'E::e' with array of anonymous union type 'U [2]' {aka 'A::<unnamed union> [2]'}
+   22 | struct E { U e[2]; };                   // { dg-error "declaration of member 'E::e' with array of anonymous union type 'U \\\[2\\\]' {aka 'A::<unnamed union> \\\[2\\\]'}" }
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:8:18: note: anonymous union declared here
+    8 | struct A { union { int a; long b; }; }; // { dg-message "anonymous union declared here" }
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:23:14: error: declaration of member 'F::f' with array of anonymous union type 'V [2]' {aka '<unnamed union> [2]'}
+   23 | struct F { V f[2]; };                   // { dg-error "declaration of member 'F::f' with array of anonymous union type 'V \\\[2\\\]' {aka '<unnamed union> \\\[2\\\]'}" }
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:15:14: note: anonymous union declared here
+   15 | static union { int d; long e; };        // { dg-message "anonymous union declared here" }
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:24:21: error: declaration of member 'G::g' with anonymous union type 'U' {aka 'A::<unnamed union>'}
+   24 | struct G { static U g; };               // { dg-error "declaration of member 'G::g' with anonymous union type 'U' {aka 'A::<unnamed union>'}" }
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:8:18: note: anonymous union declared here
+    8 | struct A { union { int a; long b; }; }; // { dg-message "anonymous union declared here" }
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:25:21: error: declaration of member 'H::h' with anonymous union type 'V' {aka '<unnamed union>'}
+   25 | struct H { static V h; };               // { dg-error "declaration of member 'H::h' with anonymous union type 'V' {aka '<unnamed union>'}" }
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:15:14: note: anonymous union declared here
+   15 | static union { int d; long e; };        // { dg-message "anonymous union declared here" }
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:26:21: error: declaration of member 'I::i' with array of anonymous union type 'U [1][2]' {aka 'A::<unnamed union> [1][2]'}
+   26 | struct I { static U i[1][2]; };         // { dg-error "declaration of member 'I::i' with array of anonymous union type 'U \\\[1\\\]\\\[2\\\]' {aka 'A::<unnamed union> \\\[1\\\]\\\[2\\\]'}" }
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:8:18: note: anonymous union declared here
+    8 | struct A { union { int a; long b; }; }; // { dg-message "anonymous union declared here" }
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:27:21: error: declaration of member 'J::j' with array of anonymous union type 'V [2][1]' {aka '<unnamed union> [2][1]'}
+   27 | struct J { static V j[2][1]; };         // { dg-error "declaration of member 'J::j' with array of anonymous union type 'V \\\[2\\\]\\\[1\\\]' {aka '<unnamed union> \\\[2\\\]\\\[1\\\]'}" }
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:15:14: note: anonymous union declared here
+   15 | static union { int d; long e; };        // { dg-message "anonymous union declared here" }
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:32:14: error: declaration of parameter 'x' with anonymous union type 'U' {aka 'A::<unnamed union>'}
+   32 | temporary (U x)                         // { dg-error "declaration of parameter 'x' with anonymous union type 'U' {aka 'A::<unnamed union>'}" }
+      |            ~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:8:18: note: anonymous union declared here
+    8 | struct A { union { int a; long b; }; }; // { dg-message "anonymous union declared here" }
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc: In function 'void temporary(U)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk_dzo8ym/51d26d8f.cc:34:16: error: temporary object with anonymous union type 'U' {aka 'A::<unnamed union>'}
+   34 |   U ({ .a = 1 }); 
+[... truncated ...]

@@ -1,0 +1,33 @@
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.062434s.
+Running HLO module with runner HloRunner...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791796096.877972   87444 literal.cc:828] Check failed: subshape->dimensions(dim_index) >= size (4 vs. 1851363942) 
+*** Check failure stack trace: ***
+    @     0x61f9e43ba8a4  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x61f9e43ba826  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x61f9e3e021ba  xla::MutableLiteralBase::SetDynamicSize()
+    @     0x61f9e3e02033  xla::MutableLiteralBase::SetDynamicSize()
+    @     0x61f9e2fc096c  xla::HloEvaluator::HandleSetDimensionSize()
+    @     0x61f9e3d06692  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x61f9e3d04ac7  xla::HloInstruction::Visit<>()
+    @     0x61f9e3d03c90  xla::HloInstruction::Accept<>()
+    @     0x61f9daa987b2  xla::HloComputation::Accept<>()
+    @     0x61f9e2fbb1fb  xla::HloEvaluator::Evaluate()
+    @     0x61f9e2fbc382  xla::HloEvaluator::Evaluate()
+    @     0x61f9daac9c8b  xla::InterpreterLoadedExecutable::Evaluate()
+    @     0x61f9daac8914  xla::InterpreterLoadedExecutable::ExecuteSharded()
+    @     0x61f9e2eb8184  xla::HloRunner::ExecuteWithDeviceBuffers()
+    @     0x61f9e2eb9076  xla::HloRunner::ExecuteWithExecutable()
+    @     0x61f9e2ec1b50  xla::HloRunnerInterface::ExecuteWithExecutable()
+    @     0x61f9e2eb7d7d  xla::HloRunner::Execute()
+    @     0x61f9e2ec182e  xla::HloRunnerInterface::Execute()
+    @     0x61f9daaa45e7  xla::(anonymous namespace)::ExecuteWithRunner()
+    @     0x61f9daa9f2f1  xla::(anonymous namespace)::RunAndCompareInternal()
+    @     0x61f9daa9ce67  xla::RunAndCompare()
+    @     0x61f9daaa044e  xla::RunAndCompare()
+    @     0x61f9daa9a04f  main
+    @     0x7b5a6cecfd90  (unknown)
+Aborted (core dumped)
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmpyc21gisd/f29a1011.hlo**

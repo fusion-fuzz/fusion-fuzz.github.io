@@ -1,0 +1,12 @@
+HloModule test, num_partitions=4
+
+ENTRY %main {
+  %c0 = f32[] constant(0)
+  %c1 = f32[] constant(1)
+  %b0 = f32[512,34,5]{2,1,0} broadcast(c0), dimensions={}, sharding={devices=[1,2,2]<=[2,2]T(1,0)}
+  %pad = f32[512,46,5]{2,1,0} pad(b0, c1), padding=0_0x6_6x0_0, sharding={devices=[1,2,2]<=[2,2]T(1,0)}
+  %input = f32[1,17,9,9]{3,2,1,0} parameter(0)
+  %copy = f32[1,17,9,9]{1,3,2,0} copy(%c1)
+  %converted = f16[1,17,9,9]{1,3,2,0} convert(%copy)
+  ROOT %ffl.root = (f32[512,46,5]{2,1,0}, f16[1,17,9,9]{1,3,2,0}) tuple(%pad, %converted)
+}

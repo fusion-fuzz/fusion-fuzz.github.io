@@ -1,0 +1,97 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdof1kgy5/4b187d66.c:508:6: error: redefinition of 'ffl_fusion' as different kind of symbol
+  508 | void ffl_fusion(int m) __attribute__((overloadable));
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdof1kgy5/4b187d66.c:500:13: note: previous definition is here
+  500 | static long ffl_fusion = (long)(foo_decls);
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdof1kgy5/4b187d66.c:513:10: error: incompatible function pointer types initializing 'void (*)(int)' with an expression of type '<overloaded function type>' [-Wincompatible-function-pointer-types]
+  513 |   void (*p)(int) = foo;
+      |          ^         ~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdof1kgy5/4b187d66.c:507:1: note: candidate function made ineligible by enable_if
+  507 | void foo(int m) __attribute__((overloadable, enable_if(m > 0, "")));
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdof1kgy5/4b187d66.c:36:40: note: candidate function has different number of parameters (expected 1 but has 0)
+   36 | int __attribute__((target("default"))) foo(void) { return 2; }
+      |                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdof1kgy5/4b187d66.c:515:10: error: incompatible function pointer types initializing 'void (*)(int)' with an expression of type '<overloaded function type>' [-Wincompatible-function-pointer-types]
+  515 |   void (*p2)(int) = &foo;
+      |          ^          ~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdof1kgy5/4b187d66.c:507:1: note: candidate function made ineligible by enable_if
+  507 | void foo(int m) __attribute__((overloadable, enable_if(m > 0, "")));
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdof1kgy5/4b187d66.c:36:40: note: candidate function has different number of parameters (expected 1 but has 0)
+   36 | int __attribute__((target("default"))) foo(void) { return 2; }
+      |                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdof1kgy5/4b187d66.c:517:5: error: incompatible function pointer types assigning to 'void (*)(int)' from '<overloaded function type>' [-Wincompatible-function-pointer-types]
+  517 |   p = foo;
+      |     ^ ~~~
+clang: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/AST/ExprCXX.h:3204: static clang::OverloadExpr::FindResult clang::OverloadExpr::find(clang::Expr*): Assertion `E->getType()->isSpecificBuiltinType(BuiltinType::Overload)' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -emit-llvm -S -o /dev/null -O1 -std=c23 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -fno-elide-constructors -funroll-loops -target x86_64-apple-macos -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdof1kgy5/4b187d66.c
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdof1kgy5/4b187d66.c:517:10: current parser token ';'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdof1kgy5/4b187d66.c:511:18: parsing function body 'test1'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdof1kgy5/4b187d66.c:511:18: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x0000612a64145329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x0000612a64141fec llvm::sys::RunSignalHandlers() + 76
+2  clang     0x0000612a641428a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x0000612a64084218
+4  libc.so.6 0x00007bfcfadd9520
+5  libc.so.6 0x00007bfcfae2d9bc pthread_kill + 300
+6  libc.so.6 0x00007bfcfadd9476 raise + 22
+7  libc.so.6 0x00007bfcfadbf7f3 abort + 211
+8  libc.so.6 0x00007bfcfadbf71b
+9  libc.so.6 0x00007bfcfadd0e96
+10 clang     0x0000612a66b953df
+11 clang     0x0000612a66ec9358 clang::Sema::DiagnoseAssignmentResult(clang::AssignConvertType, clang::SourceLocation, clang::QualType, clang::QualType, clang::Expr*, clang::AssignmentAction, bool*) + 4072
+12 clang     0x0000612a66f3383b clang::Sema::CheckAssignmentOperands(clang::Expr*, clang::ActionResult<clang::Expr*, true>&, clang::SourceLocation, clang::QualType, clang::BinaryOperatorKind) + 475
+13 clang     0x0000612a66f34db1 clang::Sema::CreateBuiltinBinOp(clang::SourceLocation, clang::BinaryOperatorKind, clang::Expr*, clang::Expr*, bool) + 3185
+14 clang     0x0000612a66f37121 clang::Sema::ActOnBinOp(clang::Scope*, clang::SourceLocation, clang::tok::TokenKind, clang::Expr*, clang::Expr*) + 209
+15 clang     0x0000612a669d0bd4 clang::Parser::ParseRHSOfBinaryExpression(clang::ActionResult<clang::Expr*, true>, clang::prec::Level) + 772
+16 clang     0x0000612a669d3b7d clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+17 clang     0x0000612a66a64bc1 clang::Parser::ParseExprStatement(clang::Parser::ParsedStmtContext) + 81
+18 clang     0x0000612a66a5cb7b clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 5275
+19 clang     0x0000612a66a5d53b clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+20 clang     0x0000612a66a65447 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+21 clang     0x0000612a66a65c9f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+22 clang     0x0000612a6695706f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+23 clang     0x0000612a669a1c64 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+24 clang     0x0000612a66950fac clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+25 clang     0x0000612a6695178f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+26 clang     0x0000612a6695d646 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+27 clang     0x0000612a6695e6ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+28 clang     0x0000612a6693b632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+29 clang     0x0000612a64fdc061 clang::FrontendAction::Execute() + 65
+30 clang     0x0000612a64f65e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+31 clang     0x0000612a650b3de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+32 clang     0x0000612a61f0f33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+33 clang     0x0000612a61f0513a
+34 clang     0x0000612a61f052cf
+35 clang     0x0000612a64ceacfd
+36 clang     0x0000612a64084630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+37 clang     0x0000612a64cebb53
+38 clang     0x0000612a64ca0607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+39 clang     0x0000612a64ca4ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+40 clang     0x0000612a64cb3004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+41 clang     0x0000612a61f0a923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+42 clang     0x0000612a61e467f1 main + 113
+43 libc.so.6 0x00007bfcfadc0d90
+44 libc.so.6 0x00007bfcfadc0e40 __libc_start_main + 128
+45 clang     0x0000612a61f04765 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-apple-macos
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang: note: diagnostic msg: /tmp/4b187d66-28e76f.c
+clang: note: diagnostic msg: /tmp/4b187d66-28e76f.sh
+clang: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

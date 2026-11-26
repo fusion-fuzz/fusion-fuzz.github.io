@@ -1,0 +1,11 @@
+HloModule pjit__unnamed_wrapped_function_, num_partitions=4
+
+ENTRY %main.9_spmd {
+  %param.9 = bf16[1,8192,32768]{2,1,0} parameter(0)
+  %param.10 = bf16[1,4,2048,32768]{3,2,1,0} parameter(1)
+  %dot.12 = bf16[1,4,2048,8192]{3,2,1,0} dot(param.10, param.9), lhs_batch_dims={0}, lhs_contracting_dims={3}, rhs_batch_dims={0}, rhs_contracting_dims={2}
+  %all-to-all = bf16[1,4,2048,8192]{3,2,1,0} all-to-all(dot.12), channel_id=4, replica_groups={{0,1,2,3}}, dimensions={1}
+  %param0 = f32[12] parameter(2), sharding={devices=[4]<=[4]}
+  %custom-call = (f32[12], f32[12], f32[12]) custom-call(%dot.12), custom_call_target="_SPMDInternalOp_MultiRotate", backend_config="dimension=0,left_amount=1,right_amount=1,bufferize=0", sharding={{devices=[4]<=[4]}, {devices=[4]<=[4]}, {devices=[4]<=[4]}}
+  ROOT %ffl.root = (bf16[1,4,2048,8192]{3,2,1,0}, (f32[12], f32[12], f32[12])) tuple(%all-to-all, %custom-call)
+}

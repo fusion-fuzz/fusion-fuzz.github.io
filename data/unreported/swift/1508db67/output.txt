@@ -1,0 +1,96 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9rwyi96q/638edc16.swift:21:14: error: cannot find type 'x' in scope
+19 | }
+20 | 
+21 | struct S<T : x> : P {}
+   |              `- error: cannot find type 'x' in scope
+22 | 
+23 | // Make sure concrete contraction can transform X.T.U => S<Y>.T.U => Y.U
+
+Abort: function decomposeTermIntoConformanceRuleLeftHandSides at MinimalConformances.cpp:185
+Term does not conform to protocol: τ_0_0.[P:T].[Q]
+Rewrite system: {
+- [Q].[Q] => [Q] [permanent]
+- [Q].U => [Q:U] [permanent]
+- [Q].[Copyable] => [Q] [explicit]
+- [Q].[Escapable] => [Q] [explicit]
+- [Q:U].[Copyable] => [Q:U] [explicit]
+- [Q:U].[Escapable] => [Q:U] [explicit]
+- [Q].[Q:U] => [Q:U]
+- [Copyable].[Copyable] => [Copyable] [permanent]
+- [Escapable].[Escapable] => [Escapable] [permanent]
+- τ_0_1.[Q] => τ_0_1 [explicit]
+- τ_0_0.[P:T].[Q:U].[concrete: Int] => τ_0_0.[P:T].[Q:U] [explicit]
+- τ_0_1.[Copyable] => τ_0_1 [explicit]
+- τ_0_1.[Escapable] => τ_0_1 [explicit]
+- τ_0_0.[concrete: S<τ_0_1>] => τ_0_0 [explicit]
+- τ_0_1.U => τ_0_1.[Q:U] [redundant]
+- τ_0_0.[P:T].[Q:U].[concrete: Int : Copyable] => τ_0_0.[P:T].[Q:U]
+- τ_0_0.[P:T].[Q:U].[concrete: Int : Escapable] => τ_0_0.[P:T].[Q:U]
+}
+Relations: {
+- [concrete: Int].[Copyable] =>> [concrete: Int].[concrete: Int : Copyable]
+- [concrete: Int].[Escapable] =>> [concrete: Int].[concrete: Int : Escapable]
+}
+Rewrite loops: {
+- (#1) τ_0_1: (τ_0_1 => τ_0_1.[Copyable]) ⊗ (τ_0_1 => τ_0_1.[Q]).[Copyable] ⊗ τ_0_1.([Q].[Copyable] => [Q]) ⊗ (τ_0_1.[Q] => τ_0_1)
+- (#2) τ_0_1: (τ_0_1 => τ_0_1.[Escapable]) ⊗ (τ_0_1 => τ_0_1.[Q]).[Escapable] ⊗ τ_0_1.([Q].[Escapable] => [Q]) ⊗ (τ_0_1.[Q] => τ_0_1)
+- (#7) τ_0_0.[P:T].[Q:U].[concrete: Int : Copyable]: (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int]).[concrete: Int : Copyable] ⊗ τ_0_0.[P:T].[Q:U].([concrete: Int].[concrete: Int : Copyable] =>> [concrete: Int].[Copyable]) ⊗ (τ_0_0.[P:T].[Q:U].[concrete: Int] => τ_0_0.[P:T].[Q:U]).[Copyable] ⊗ τ_0_0.[P:T].([Q:U].[Copyable] => [Q:U]) ⊗ (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int : Copyable])
+- (#8) τ_0_0.[P:T].[Q:U].[concrete: Int : Escapable]: (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int]).[concrete: Int : Escapable] ⊗ τ_0_0.[P:T].[Q:U].([concrete: Int].[concrete: Int : Escapable] =>> [concrete: Int].[Escapable]) ⊗ (τ_0_0.[P:T].[Q:U].[concrete: Int] => τ_0_0.[P:T].[Q:U]).[Escapable] ⊗ τ_0_0.[P:T].([Q:U].[Escapable] => [Q:U]) ⊗ (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int : Escapable])
+}
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -wmo -sil-verify-all -enable-experimental-feature Macros -strict-concurrency=complete /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9rwyi96q/638edc16.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9rwyi96q/638edc16.swift")
+4.	While type-checking extension of G (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9rwyi96q/638edc16.swift:28:1)
+5.	While evaluating request GenericSignatureRequest(extension of G@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9rwyi96q/638edc16.swift:28:1)
+6.	While evaluating request InferredGenericSignatureRequest(<X, Y where X : P, Y : Q, X.T.U == Int>, (null), extension of G@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9rwyi96q/638edc16.swift:28:1, {}, {}, , extension of G@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9rwyi96q/638edc16.swift:28:1, DefaultRequirementOptions(expandingDefaults=1, inferOutOfScopeImpliedInverses=0))
+7.	Abort: function decomposeTermIntoConformanceRuleLeftHandSides at MinimalConformances.cpp:185
+| 	Term does not conform to protocol: τ_0_0.[P:T].[Q]
+| 	Rewrite system: {
+| 	- [Q].[Q] => [Q] [permanent]
+| 	- [Q].U => [Q:U] [permanent]
+| 	- [Q].[Copyable] => [Q] [explicit]
+| 	- [Q].[Escapable] => [Q] [explicit]
+| 	- [Q:U].[Copyable] => [Q:U] [explicit]
+| 	- [Q:U].[Escapable] => [Q:U] [explicit]
+| 	- [Q].[Q:U] => [Q:U]
+| 	- [Copyable].[Copyable] => [Copyable] [permanent]
+| 	- [Escapable].[Escapable] => [Escapable] [permanent]
+| 	- τ_0_1.[Q] => τ_0_1 [explicit]
+| 	- τ_0_0.[P:T].[Q:U].[concrete: Int] => τ_0_0.[P:T].[Q:U] [explicit]
+| 	- τ_0_1.[Copyable] => τ_0_1 [explicit]
+| 	- τ_0_1.[Escapable] => τ_0_1 [explicit]
+| 	- τ_0_0.[concrete: S<τ_0_1>] => τ_0_0 [explicit]
+| 	- τ_0_1.U => τ_0_1.[Q:U] [redundant]
+| 	- τ_0_0.[P:T].[Q:U].[concrete: Int : Copyable] => τ_0_0.[P:T].[Q:U]
+| 	- τ_0_0.[P:T].[Q:U].[concrete: Int : Escapable] => τ_0_0.[P:T].[Q:U]
+| 	}
+| 	Relations: {
+| 	- [concrete: Int].[Copyable] =>> [concrete: Int].[concrete: Int : Copyable]
+| 	- [concrete: Int].[Escapable] =>> [concrete: Int].[concrete: Int : Escapable]
+| 	}
+| 	Rewrite loops: {
+| 	- (#1) τ_0_1: (τ_0_1 => τ_0_1.[Copyable]) ⊗ (τ_0_1 => τ_0_1.[Q]).[Copyable] ⊗ τ_0_1.([Q].[Copyable] => [Q]) ⊗ (τ_0_1.[Q] => τ_0_1)
+| 	- (#2) τ_0_1: (τ_0_1 => τ_0_1.[Escapable]) ⊗ (τ_0_1 => τ_0_1.[Q]).[Escapable] ⊗ τ_0_1.([Q].[Escapable] => [Q]) ⊗ (τ_0_1.[Q] => τ_0_1)
+| 	- (#7) τ_0_0.[P:T].[Q:U].[concrete: Int : Copyable]: (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int]).[concrete: Int : Copyable] ⊗ τ_0_0.[P:T].[Q:U].([concrete: Int].[concrete: Int : Copyable] =>> [concrete: Int].[Copyable]) ⊗ (τ_0_0.[P:T].[Q:U].[concrete: Int] => τ_0_0.[P:T].[Q:U]).[Copyable] ⊗ τ_0_0.[P:T].([Q:U].[Copyable] => [Q:U]) ⊗ (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int : Copyable])
+| 	- (#8) τ_0_0.[P:T].[Q:U].[concrete: Int : Escapable]: (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int]).[concrete: Int : Escapable] ⊗ τ_0_0.[P:T].[Q:U].([concrete: Int].[concrete: Int : Escapable] =>> [concrete: Int].[Escapable]) ⊗ (τ_0_0.[P:T].[Q:U].[concrete: Int] => τ_0_0.[P:T].[Q:U]).[Escapable] ⊗ τ_0_0.[P:T].([Q:U].[Escapable] => [Q:U]) ⊗ (τ_0_0.[P:T].[Q:U] => τ_0_0.[P:T].[Q:U].[concrete: Int : Escapable])
+| 	}
+ #0 0x00005626b166fbab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x00005626b166d2e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x00005626b16708c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f2808d62330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f2808dbbc0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f2808d6227e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f2808d458ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00005626abaad622 (/usr/bin/swift-frontend+0x3055622)
+ #8 0x00005626abaad70c (/usr/bin/swift-frontend+0x305570c)
+ #9 0x00005626ab9e014b swift::rewriting::RewriteSystem::decomposeTermIntoConformanceRuleLeftHandSides(swift::rewriting::MutableTerm, llvm::SmallVectorImpl<unsigned int>&) const (/usr/bin/swift-frontend+0x2f8814b)
+#10 0x00005626ab9e1597 swift::rewriting::RewriteSystem::computeMinimalConformances(swift::rewriting::PropertyMap const&, llvm::DenseSet<unsigned int, llvm::DenseMapInfo<unsigned int, void>>&) const (/usr/bin/swift-frontend+0x2f89597)
+#11 0x00005626ab9dacec swift::rewriting::RewriteSystem::minimizeRewriteSystem(swift::rewriting::PropertyMap const&) (/usr/bin/swift-frontend+0x2f82cec)
+#12 0x00005626ab8fb6df swift::rewriting::RequirementMachine::computeMinimalGenericSignature(bool) (/usr/bin/swift-frontend+0x2ea36df)
+#13 0x00005626ab8fdbb7 swift::InferredGenericSignatureRequest::evaluate(swift::Evaluator&, swift::GenericSignatureImpl const*, swift::GenericParamList*, swift::WhereClauseOwner, llvm::SmallVector<swift::Requirement, 2u>, llvm::SmallVector<swift::TypeBase*, 2u>, swift::SourceLoc, swift::ExtensionDecl*, swift::optionset::OptionSet<swift::DefaultRequirementFlags, unsigned char>) const (/usr/bin/swift-frontend+0x2ea5bb7)
+#14 0x00005626ab0205ec llvm::PointerIntPair<swift::GenericSignature, 3u, swift::optionset::OptionSet<swift::GenericSignatureErrorFlags, unsigned int>, llvm::PointerLikeTypeTraits<swift::GenericSignature>, llvm::PointerIntPairInfo<swift::GenericSignature, 3u, llvm::PointerLikeTypeTraits<swift::GenericSignature>>> swift::SimpleRequest<swift::InferredGenericSignatureRequest, llvm::PointerIntPair<swift::GenericSignature, 3u, swift::optionset::OptionSet<swift::GenericSignatureErrorFlags, unsigned int>, llvm::PointerLikeTypeTraits<swift::GenericSignature>, llvm::PointerIntPairInfo<swift::GenericSignature, 3u, llvm::PointerLikeTypeTraits<swift::GenericSignature>>> (swift::GenericSignatureImpl const*, swift::GenericParamList*, swift::WhereClauseOwner, llvm::SmallVector<swift::Requirement, 2u>, llvm::SmallVector<swift::TypeBase*, 2u>, swift::SourceLoc, swift::ExtensionDecl*, swift::optionset::OptionSet<swift::DefaultRequirementFlags, unsigned char>), (swift::RequestFlags)1>::callDerived<0ul, 1ul, 2ul, 3ul, 4ul, 5ul, 6ul, 7ul>(swift::Evaluator&, std::integer_sequence<unsigned long, 0ul, 1ul, 2ul, 3ul, 4ul, 5ul, 6ul, 7ul>) const crtstuff.c:
+[... truncated ...]

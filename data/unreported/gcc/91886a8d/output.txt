@@ -1,0 +1,14 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp8_01rtid/f1072a19.cc:26:9: error: redefinition of 'template<class T, class U> concept C'
+   26 | concept C = true;
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp8_01rtid/f1072a19.cc:15:9: note: 'template<class T, class U> concept C' previously declared here
+   15 | concept C = true;
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp8_01rtid/f1072a19.cc:30:16: error: expected unqualified-id before 'true'
+   30 | constexpr bool true(C auto) {
+      |                ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp8_01rtid/f1072a19.cc:34:19: error: expression cannot be used as a function
+   34 | static_assert(true(0));
+      |               ~~~~^~~
+g++: internal compiler error: cc1plus terminated by signal 11 (Segmentation fault)
+Segmentation fault (core dumped)

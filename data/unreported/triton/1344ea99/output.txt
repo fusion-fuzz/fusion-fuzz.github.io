@@ -1,0 +1,50 @@
+triton-opt: /home/runner/work/triton/triton/llvm-project/mlir/include/mlir/IR/OperationSupport.h:85: Dest mlir::PropertyRef::as() const [Dest = mlir::Attribute *]: Assertion `(typeID == TypeID::get<std::remove_cv_t<std::remove_pointer_t<Dest>>>()) && "Property type mismatch: TypeID does not match requested type"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmp79hd9k0n/e8454c49.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic --convert-triton-amdgpu-to-llvm=gfx-arch=gfx942
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x0000555cbb3e5d8a
+1  triton-opt 0x0000555cbb3e2c8e
+2  triton-opt 0x0000555cbb3e6c8b
+3  libc.so.6  0x00007fe419ad9520
+4  libc.so.6  0x00007fe419b2d9bc pthread_kill + 300
+5  libc.so.6  0x00007fe419ad9476 raise + 22
+6  libc.so.6  0x00007fe419abf7f3 abort + 211
+7  libc.so.6  0x00007fe419abf71b
+8  libc.so.6  0x00007fe419ad0e96
+9  triton-opt 0x0000555cbafb5157
+10 triton-opt 0x0000555cbafbf7ac
+11 triton-opt 0x0000555cbafbef1a
+12 triton-opt 0x0000555cbafbe9e7
+13 triton-opt 0x0000555cbafbe8a5
+14 triton-opt 0x0000555cbaf02110
+15 triton-opt 0x0000555cb35611df
+16 triton-opt 0x0000555cb37b3dfe
+17 triton-opt 0x0000555cb3c5db8a
+18 triton-opt 0x0000555cb3ac8e93
+19 triton-opt 0x0000555cb3ac887e
+20 triton-opt 0x0000555cba753f54
+21 triton-opt 0x0000555cba7af662
+22 triton-opt 0x0000555cba7abcd4
+23 triton-opt 0x0000555cba755d1e
+24 triton-opt 0x0000555cba7554f5
+25 triton-opt 0x0000555cba7567ce
+26 triton-opt 0x0000555cba765fd8
+27 triton-opt 0x0000555cba75c655
+28 triton-opt 0x0000555cba75c72b
+29 triton-opt 0x0000555cb3c7abe1
+30 triton-opt 0x0000555cb3db3b3b
+31 triton-opt 0x0000555cb3db46b9
+32 triton-opt 0x0000555cb3dbb6d2
+33 triton-opt 0x0000555cb3dbaf42
+34 triton-opt 0x0000555cb3da5fd7
+35 triton-opt 0x0000555cb3da526c
+36 triton-opt 0x0000555cbb0039d1
+37 triton-opt 0x0000555cb3d9b5d2
+38 triton-opt 0x0000555cb3d9b9d1
+39 triton-opt 0x0000555cb3d9bc0d
+40 triton-opt 0x0000555cb3d86cfc
+41 libc.so.6  0x00007fe419ac0d90
+42 libc.so.6  0x00007fe419ac0e40 __libc_start_main + 128
+43 triton-opt 0x0000555cb335ae65
+Aborted (core dumped)

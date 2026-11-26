@@ -1,0 +1,33 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1792001240.035999 3156668 util.cc:322] Check failed: Product(a) == Product(b) (10 vs. 56) a=[10], b=[8,7]
+*** Check failure stack trace: ***
+    @     0x58208f0c1a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x58208f0c19e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x58208eca24fb  xla::CommonFactors()
+    @     0x58208ec3afbe  xla::ShapeUtil::DimensionsUnmodifiedByReshape()
+    @     0x58208ec3aa59  xla::ShapeUtil::InsertedOrDeleted1SizedDimensions()
+    @     0x5820866283be  xla::AlgebraicSimplifierVisitor::TryRemovingBitcastOrReshapeTransposeChain()::$_1::operator()()
+    @     0x582086600a4b  xla::AlgebraicSimplifierVisitor::TryRemovingBitcastOrReshapeTransposeChain()
+    @     0x5820866296ce  xla::AlgebraicSimplifierVisitor::HandleReshape()
+    @     0x58208e9f64c6  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x58208e9f5ef7  xla::HloInstruction::Visit<>()
+    @     0x58208e9f846e  xla::PostOrderDFS<>()
+    @     0x58208e9f4cf8  xla::HloInstruction::Accept<>()
+    @     0x582083b56f07  xla::HloComputation::Accept<>()
+    @     0x5820865f7ace  xla::AlgebraicSimplifierVisitor::Run()
+    @     0x58208412ee4a  xla::gpu::GpuAlgebraicSimplifier::RunImpl()
+    @     0x58208b178be7  xla::HloPassInterface::Run()
+    @     0x582086cf63ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x582086cf17bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x582086cf0bd5  xla::HloPassPipeline::RunImpl()
+    @     0x58208b178be7  xla::HloPassInterface::Run()
+    @     0x582083c44e11  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x582083c5206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x582083b86934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x582083b86373  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x582083b78d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x58208f112466  main
+    @     0x778a6b5d4d90  (unknown)
+Aborted (core dumped)

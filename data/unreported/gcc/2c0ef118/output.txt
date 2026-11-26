@@ -1,0 +1,64 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmzfzb65t/16c45c04.c:17:26: error: C++ style comments are not allowed in ISO C90
+   17 | /* { dg-do compile } */
+      |                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmzfzb65t/16c45c04.c:17:26: note: (this will be reported only once per input file)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmzfzb65t/16c45c04.c:41:9: warning: 'DIM2' redefined
+   41 | #define DIM2 20
+      |         ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmzfzb65t/16c45c04.c:5:9: note: this is the location of the previous definition
+    5 | #define DIM2 20
+      |         ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmzfzb65t/16c45c04.c: In function 'pragma':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmzfzb65t/16c45c04.c:41:19: error: expected expression before '/' token
+   41 | #define DIM2 20
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmzfzb65t/16c45c04.c:48:34: note: in expansion of macro 'DIM2'
+   48 |       map(iterator(i=0:DIM1, j=0:DIM2), to: x[b][j][:DIM3], y[i][j][:DIM3]) \
+      |                                  ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmzfzb65t/16c45c04.c:48:47: error: 'b' undeclared (first use in this function)
+   48 |       map(iterator(i=0:DIM1, j=0:DIM2), to: x[b][j][:DIM3], y[i][j][:DIM3]) \
+      |                                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmzfzb65t/16c45c04.c:48:47: note: each undeclared identifier is reported only once for each function it appears in
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmzfzb65t/16c45c04.c:41:19: error: expected expression before '/' token
+   41 | #define DIM2 20
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmzfzb65t/16c45c04.c:50:43: note: in expansion of macro 'DIM2'
+   50 |       map(iterator(i=0:DIM1), from: z[i][:DIM2])
+      |                                           ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmzfzb65t/16c45c04.c:46:11: internal compiler error: in enter_omp_iterator_loop_context, at gimplify.cc:10249
+   46 |   #pragma omp target \
+      |           ^~~
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x83b73b enter_omp_iterator_loop_context
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:10249
+0x12fb0ff gimplify_adjust_omp_clauses
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:15977
+0x130d9a3 gimplify_omp_workshare
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:18975
+0x12e86ea gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:21070
+0x12ec27a gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x12ed8e4 gimplify_bind_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:1561
+0x12e94e0 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20717
+0x12f5496 gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x12f5496 gimplify_body(tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:21823
+0x12f595c gimplify_function_tree(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:22032
+0x10ad807 cgraph_node::analyze()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:691
+0x10afef7 analyze_functions
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:1270
+0x10b0cd6 symbol_table::finalize_compilation_unit()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2593
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu -D_REENTRANT /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpmzfzb65t/16c45c04.c -quiet -dumpbase 16c45c04.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O1 -std=c90 -funroll-loops -fno-inline -fipa-pta -fopenmp -fdump-tree-gimple -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

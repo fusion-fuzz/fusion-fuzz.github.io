@@ -1,0 +1,78 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpak5s9qys/6beaca5c.cpp:42:24: error: cannot initialize a variable of type 'unsigned char *' with an rvalue of type 'void *'
+   42 |         unsigned char *buf = malloc(size);
+      |                        ^     ~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpak5s9qys/6beaca5c.cpp:69:21: error: expected expression
+   69 |   auto a2 = false > ;
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpak5s9qys/6beaca5c.cpp:69:22: error: expected '}'
+   69 |   auto a2 = false > ;
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpak5s9qys/6beaca5c.cpp:66:43: note: to match this '{'
+   66 | template <class T> constexpr int bar(T t) {
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpak5s9qys/6beaca5c.cpp:64:12: error: immediate function 'bar<char>' used before it is defined
+   64 | auto a1 = &bar<char>;
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpak5s9qys/6beaca5c.cpp:64:12: note: in instantiation of function template specialization 'bar<char>' requested here
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpak5s9qys/6beaca5c.cpp:66:34: note: 'bar<char>' defined here
+   66 | template <class T> constexpr int bar(T t) {
+      |                                  ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaDeclCXX.cpp:2655: void clang::Sema::DiagnoseImmediateEscalatingReason(clang::FunctionDecl*): Assertion `FD->hasBody() && "expected the function to have a body"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O0 -std=c++23 -fblocks -g /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpak5s9qys/6beaca5c.cpp
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpak5s9qys/6beaca5c.cpp:66:34: instantiating function definition 'bar<char>'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000562924fde4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000562924fdb1bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000562924fdba78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000562924f1de88
+4  libc.so.6 0x00007fe9c4d6e520
+5  libc.so.6 0x00007fe9c4dc29bc pthread_kill + 300
+6  libc.so.6 0x00007fe9c4d6e476 raise + 22
+7  libc.so.6 0x00007fe9c4d547f3 abort + 211
+8  libc.so.6 0x00007fe9c4d5471b
+9  libc.so.6 0x00007fe9c4d65e96
+10 clang++   0x0000562927c7243a
+11 clang++   0x0000562927ca8414 clang::Sema::CheckImmediateEscalatingFunctionDefinition(clang::FunctionDecl*, clang::sema::FunctionScopeInfo const*) + 484
+12 clang++   0x0000562927c05826 clang::Sema::ActOnFinishFunctionBody(clang::Decl*, clang::Stmt*, bool, bool) + 1910
+13 clang++   0x00005629284b7dc7 clang::Sema::InstantiateFunctionDefinition(clang::SourceLocation, clang::FunctionDecl*, bool, bool, bool) + 3543
+14 clang++   0x00005629284b5f2d clang::Sema::PerformPendingInstantiations(bool, bool) + 301
+15 clang++   0x0000562927989fdd
+16 clang++   0x000056292798a316 clang::Sema::ActOnEndOfTranslationUnit() + 182
+17 clang++   0x00005629277e7f32 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 946
+18 clang++   0x00005629277c4cf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+19 clang++   0x0000562925ccce51 clang::FrontendAction::Execute() + 65
+20 clang++   0x0000562925c56df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+21 clang++   0x0000562925da4c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+22 clang++   0x00005629239edd3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+23 clang++   0x00005629239e3ada
+24 clang++   0x00005629239e3c6f
+25 clang++   0x00005629259db42d
+26 clang++   0x0000562924f1e2a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+27 clang++   0x00005629259dc283
+28 clang++   0x0000562925990d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+29 clang++   0x0000562925995600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+30 clang++   0x00005629259a3714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+31 clang++   0x00005629239e9383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+32 clang++   0x0000562923939901 main + 113
+33 libc.so.6 0x00007fe9c4d55d90
+34 libc.so.6 0x00007fe9c4d55e40 __libc_start_main + 128
+35 clang++   0x00005629239e3105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/6beaca5c-fe7e04.cpp
+clang++: note: diagnostic msg: /tmp/6beaca5c-fe7e04.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

@@ -1,0 +1,55 @@
+HloModule module
+
+%body (p: (s32[], f32[1000,1000], f32[10,1000,8000], f32[10,8000,1000], f32[10,1000,1000], f32[10,1000,8000], f32[10,8000,1000])) -> (s32[], f32[1000,1000], f32[10,1000,8000], f32[10,8000,1000], f32[10,1000,1000], f32[10,1000,8000], f32[10,8000,1000]) {
+  %p = (s32[], f32[1000,1000], f32[10,1000,8000], f32[10,8000,1000], f32[10,1000,1000], f32[10,1000,8000], f32[10,8000,1000]) parameter(0)
+  %i = s32[] get-tuple-element(%p), index=0
+  %one = s32[] constant(1)
+  %i.next = s32[] add(%i, %one)
+  %w = f32[1000,1000] get-tuple-element(%p), index=1
+  %out0 = f32[10,1000,8000] get-tuple-element(%p), index=2
+  %out1 = f32[10,8000,1000] get-tuple-element(%p), index=3
+  %in0 = f32[10,1000,1000] get-tuple-element(%p), index=4
+  %in1 = f32[10,1000,8000] get-tuple-element(%p), index=5
+  %in2 = f32[10,8000,1000] get-tuple-element(%p), index=6
+  %zero = s32[] constant(0)
+  %ds2 = f32[1,8000,1000] dynamic-slice(%in2, %i, %zero, %zero), dynamic_slice_sizes={1,8000,1000}
+  %a = f32[8000,1000] reshape(%ds2)
+  %d2 = f32[1000,8000] dot(%w, %a), lhs_contracting_dims={1}, rhs_contracting_dims={1}
+  %ds1 = f32[1,1000,8000] dynamic-slice(%in1, %i, %zero, %zero), dynamic_slice_sizes={1,1000,8000}
+  %b = f32[1000,8000] reshape(%ds1)
+  %ds0 = f32[1,1000,1000] dynamic-slice(%in0, %i, %zero, %zero), dynamic_slice_sizes={1,1000,1000}
+  %c = f32[1000,1000] reshape(%ds0)
+  %c.dev = f32[1000,1000] custom-call(%c), custom_call_target="MoveToDevice"
+  %d7 = f32[1000,8000] dot(%c.dev, %d2), lhs_contracting_dims={0}, rhs_contracting_dims={0}
+  %r7 = f32[1,1000,8000] reshape(%d7)
+  %dus0 = f32[10,1000,8000] dynamic-update-slice(%out0, %r7, %i, %zero, %zero)
+  %d5 = f32[1000,8000] dot(%c.dev, %b), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %d8 = f32[8000,1000] dot(%d5, %w), lhs_contracting_dims={0}, rhs_contracting_dims={0}
+  %r8 = f32[1,8000,1000] reshape(%d8)
+  %dus1 = f32[10,8000,1000] dynamic-update-slice(%out1, %r8, %i, %zero, %zero)
+  ROOT %t = (s32[], f32[1000,1000], f32[10,1000,8000], f32[10,8000,1000], f32[10,1000,1000], f32[10,1000,8000], f32[10,8000,1000]) tuple(%i.next, %w, %dus0, %dus1, %in0, %in1, %in2)
+}
+
+%cond (p: (s32[], f32[1000,1000], f32[10,1000,8000], f32[10,8000,1000], f32[10,1000,1000], f32[10,1000,8000], f32[10,8000,1000])) -> pred[] {
+  %p = (s32[], f32[1000,1000], f32[10,1000,8000], f32[10,8000,1000], f32[10,1000,1000], f32[10,1000,8000], f32[10,8000,1000]) parameter(0)
+  %i = s32[] get-tuple-element(%p), index=0
+  %n = s32[] constant(10)
+  ROOT %lt = pred[] compare(%i, %n), direction=LT
+}
+
+ENTRY %main {
+  %big = f32[9,1000,1000,1000] parameter(0)
+  %neg = f32[9,1000,1000,1000] negate(%big)
+  %c0 = s32[] constant(0)
+  %w = f32[1000,1000] parameter(1)
+  %out0 = f32[10,1000,8000] parameter(2)
+  %out1 = f32[10,8000,1000] parameter(3)
+  %in0 = f32[10,1000,1000] parameter(4)
+  %in1 = f32[10,1000,8000] parameter(5)
+  %in2 = f32[10,8000,1000] parameter(6)
+  %init = (s32[], f32[1000,1000], f32[10,1000,8000], f32[10,8000,1000], f32[10,1000,1000], f32[10,1000,8000], f32[10,8000,1000]) tuple(%c0, %w, %out0, %out1, %in0, %in1, %in2)
+  %while = (s32[], f32[1000,1000], f32[10,1000,8000], f32[10,8000,1000], f32[10,1000,1000], f32[10,1000,8000], f32[10,8000,1000]) while(%init), condition=%cond, body=%body
+  %res0 = f32[10,1000,8000] get-tuple-element(%while), index=2
+  %res1 = f32[10,8000,1000] get-tuple-element(%while), index=3
+  ROOT %root = (f32[9,1000,1000,1000], f32[10,1000,8000], f32[10,8000,1000]) tuple(%neg, %res0, %res1)
+}

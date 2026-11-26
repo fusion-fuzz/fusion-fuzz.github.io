@@ -1,0 +1,56 @@
+warning: OpenMP support for version 50 in flang is still incomplete [-Wexperimental-option]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp69ixikc1/0e9fd317.f90:33:19: warning: GRAPH_ID clause is not allowed on TASKGRAPH directive in OpenMP v5.0, try -fopenmp-version=60 [-Wopenmp-future]
+    !$omp taskgraph graph_id(x) graph_reset(y)
+                    ^^^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp69ixikc1/0e9fd317.f90:33:31: warning: GRAPH_RESET clause is not allowed on TASKGRAPH directive in OpenMP v5.0, try -fopenmp-version=60 [-Wopenmp-future]
+    !$omp taskgraph graph_id(x) graph_reset(y)
+                                ^^^^^^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp69ixikc1/0e9fd317.f90:77:19: warning: GRAPH_RESET clause is not allowed on TASKGRAPH directive in OpenMP v5.0, try -fopenmp-version=60 [-Wopenmp-future]
+    !$omp taskgraph graph_reset
+                    ^^^^^^^^^^^
+flang-24: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-project/flang/lib/Lower/OpenMP/OpenMP.cpp:8086: void genOMP(lower::AbstractConverter &, lower::SymMap &, semantics::SemanticsContext &, lower::pft::Evaluation &, const parser::OmpBlockConstruct &): Assertion `llvm::omp::blockConstructSet.test(directive) && "Expected block construct"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-flang-build/bin/flang-24 -fc1 -triple powerpc64le-unknown-linux-gnu -S -ffree-form -falternative-parameter-statement -fsave-main-program -fno-color-diagnostics -mrelocation-model pic -pic-level 2 -pic-is-pie -target-cpu ppc64le -vectorize-loops -vectorize-slp -debug-info-kind=standalone -dwarf-version=5 -fopenmp -fopenmp-version=50 -resource-dir /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-flang-build/lib/clang/24 -mframe-pointer=none -O2 -o /dev/null -x f95 /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp69ixikc1/0e9fd317.f90
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  flang-24  0x00005abf9245f8ba ___interceptor_backtrace + 74
+1  flang-24  0x00005abf949733d3 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 323
+2  flang-24  0x00005abf9496d217 llvm::sys::RunSignalHandlers() + 455
+3  flang-24  0x00005abf94975d3f
+4  libc.so.6 0x00007ccd9cdfb330
+5  libc.so.6 0x00007ccd9ce54c0c pthread_kill + 284
+6  libc.so.6 0x00007ccd9cdfb27e gsignal + 30
+7  libc.so.6 0x00007ccd9cdde8ff abort + 223
+8  libc.so.6 0x00007ccd9cdde81b
+9  libc.so.6 0x00007ccd9cdf1517
+10 flang-24  0x00005abf95d5dd9c
+11 flang-24  0x00005abf95d004ea Fortran::lower::genOpenMPConstruct(Fortran::lower::AbstractConverter&, Fortran::lower::SymMap&, Fortran::semantics::SemanticsContext&, Fortran::lower::pft::Evaluation&, Fortran::parser::OpenMPConstruct const&) + 602
+12 flang-24  0x00005abf954d7bee
+13 flang-24  0x00005abf954cdca5
+14 flang-24  0x00005abf95687ce5
+15 flang-24  0x00005abf95407f5a Fortran::lower::LoweringBridge::lower(Fortran::parser::Program const&, Fortran::semantics::SemanticsContext const&) + 2906
+16 flang-24  0x00005abf94a56070 Fortran::frontend::CodeGenAction::beginSourceFileAction() + 5712
+17 flang-24  0x00005abf94a434cc Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) + 2764
+18 flang-24  0x00005abf94a0aa20 Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) + 2448
+19 flang-24  0x00005abf94a52b23 Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) + 10211
+20 flang-24  0x00005abf925006f5 fc1_main(llvm::ArrayRef<char const*>, char const*) + 1365
+21 flang-24  0x00005abf924f830b main + 3035
+22 libc.so.6 0x00007ccd9cde01ca
+23 libc.so.6 0x00007ccd9cde028b __libc_start_main + 139
+24 flang-24  0x00005abf92417665 _start + 37
+flang-24: error: unable to execute command: Aborted
+flang-24: error: flang frontend command failed with exit code -2 (use -v to see invocation)
+flang version 24.0.0git (https://github.com/llvm/llvm-project.git 201f3aa5b655f3c9ec387eb51ae90f2effcb1e05)
+Target: powerpc64le-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-flang-build/bin
+Build config: +assertions, +asan, +ubsan
+flang-24: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+flang-24: note: diagnostic msg: /tmp/0e9fd317-7cbf1d
+flang-24: note: diagnostic msg: /tmp/0e9fd317-7cbf1d.sh
+flang-24: note: diagnostic msg: 
+
+********************

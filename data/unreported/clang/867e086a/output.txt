@@ -1,0 +1,118 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:7:5: error: unknown type name 'concept'
+    7 |     concept c = true;
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:7:13: warning: variable templates are a C++14 extension [-Wc++14-extensions]
+    7 |     concept c = true;
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:10:10: warning: variable templates are a C++14 extension [-Wc++14-extensions]
+   10 |     auto f = []() requires c<void> {
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:10:19: error: expected body of lambda expression
+   10 |     auto f = []() requires c<void> {
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:20:5: error: unknown type name 'concept'
+   20 |     concept c = true;
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:20:13: warning: variable templates are a C++14 extension [-Wc++14-extensions]
+   20 |     concept c = true;
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:23:10: warning: variable templates are a C++14 extension [-Wc++14-extensions]
+   23 |     auto f = [](auto... args) requires c<T>  {
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:23:17: error: 'auto' not allowed in lambda parameter before C++14
+   23 |     auto f = [](auto... args) requires c<T>  {
+      |                 ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:23:21: error: type 'int' of function parameter pack does not contain any unexpanded parameter packs
+   23 |     auto f = [](auto... args) requires c<T>  {
+      |                 ~~~~^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:23:31: error: expected body of lambda expression
+   23 |     auto f = [](auto... args) requires c<T>  {
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:27:8: warning: variable templates are a C++14 extension [-Wc++14-extensions]
+   27 |   auto f2 = [](auto... args)
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:27:16: error: 'auto' not allowed in lambda parameter before C++14
+   27 |   auto f2 = [](auto... args)
+      |                ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:27:20: error: type 'int' of function parameter pack does not contain any unexpanded parameter packs
+   27 |   auto f2 = [](auto... args)
+      |                ~~~~^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:28:5: error: expected body of lambda expression
+   28 |     requires (sizeof...(args) > 0)
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:38:19: error: unknown type name 'concept'
+   38 |   template<class> concept C = true;
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:38:27: warning: variable templates are a C++14 extension [-Wc++14-extensions]
+   38 |   template<class> concept C = true;
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:39:32: warning: variable templates are a C++14 extension [-Wc++14-extensions]
+   39 |   template<int> constexpr bool v = [](C auto) { return true; }(0);
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:39:39: error: unknown type name 'C'
+   39 |   template<int> constexpr bool v = [](C auto) { return true; }(0);
+      |                                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:39:32: error: constexpr variable 'v<0>' must be initialized by a constant expression
+   39 |   template<int> constexpr bool v = [](C auto) { return true; }(0);
+      |                                ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:40:11: note: in instantiation of variable template specialization 'GH57958::v<0>' requested here
+   40 |   int _ = v<0>;
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:39:36: note: non-literal type 'GH57958::(lambda at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:39:36)' cannot be used in a constant expression
+   39 |   template<int> constexpr bool v = [](C auto) { return true; }(0);
+      |                                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:43:19: error: unknown type name 'concept'
+   43 |   template<class> concept C = true;
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:43:27: warning: variable templates are a C++14 extension [-Wc++14-extensions]
+   43 |   template<class> concept C = true;
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:44:32: warning: variable templates are a C++14 extension [-Wc++14-extensions]
+   44 |   template<int> constexpr bool v = [](C auto...) { return true; }(0);
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:44:39: error: unknown type name 'C'
+   44 |   template<int> constexpr bool v = [](C auto...) { return true; }(0);
+      |                                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:44:32: error: constexpr variable 'v<0>' must be initialized by a constant expression
+   44 |   template<int> constexpr bool v = [](C auto...) { return true; }(0);
+      |                                ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:45:11: note: in instantiation of variable template specialization 'GH57958_2::v<0>' requested here
+   45 |   int _ = v<0>;
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:44:36: note: non-literal type 'GH57958_2::(lambda at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:44:36)' cannot be used in a constant expression
+   44 |   template<int> constexpr bool v = [](C auto...) { return true; }(0);
+      |                                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:50:5: error: unknown type name 'concept'
+   50 |     concept any = true;
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:50:13: warning: variable templates are a C++14 extension [-Wc++14-extensions]
+   50 |     concept any = true;
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:53:10: warning: variable templates are a C++14 extension [-Wc++14-extensions]
+   53 |     auto f = [](any auto) {
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:53:17: error: unknown type name 'any'
+   53 |     auto f = [](any auto) {
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:67:1: error: unknown type name 'concept'
+   67 | concept NotLike = true;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:67:9: warning: variable templates are a C++14 extension [-Wc++14-extensions]
+   67 | concept NotLike = true;
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:71:28: error: expected template parameter
+   71 |   template <NotLike<Ts...> T> operator T&() const;
+      |                            ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+unexpected statement kind
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/ItaniumMangle.cpp:5019!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O0 -std=c++11 -fblocks -ffast-math -target powerpc64-ibm-aix -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:244:33: current parser token '{'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:240:1: parsing namespace 'dependent_param_concept'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:242:24: parsing function body 'dependent_param_concept::dependent_param'
+4.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:242:24: in compound statement ('{}')
+5.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpae8ux54v/71fe733a.cpp:243:12: lambda expression parsing
+6.	/home/fuzz/Work
+[... truncated ...]

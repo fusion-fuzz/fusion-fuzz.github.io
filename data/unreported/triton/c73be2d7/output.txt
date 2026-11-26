@@ -1,0 +1,39 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmphfd6bbeu/9a496ccb.mlir:34:20: error: Result has an invalid layout: #ttg.blocked<{sizePerThread = [1, 1], threadsPerWarp = [1, 32], warpsPerCTA = [2, 2], order = [1, 0]}>.
+Layout has 1 CTAs per CGA, but the context requires 2 CTAs per CGA.
+    %dfe63f7bf_0 = "producer"(%dfe63f7bf_arg0, %dfe63f7bf_arg2) {loop.cluster = 1 : i32, loop.stage = 0 : i32, ttg.partition = array<i32: 0>} : (tensor<128x64xf16, #D_fe63f7bf_A_2d07368d_blocked1>, i32) -> tensor<128x64xf16, #D_fe63f7bf_A_2d07368d_blocked1>
+                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmphfd6bbeu/9a496ccb.mlir:34:20: note: see current operation: 
+%11 = "ttg.mask"(%10) ({
+  %22 = "producer"(%4, %9) {loop.cluster = 1 : i32, loop.stage = 0 : i32, ttg.partition = array<i32: 0>} : (tensor<128x64xf16, #ttg.blocked<{sizePerThread = [1, 1], threadsPerWarp = [1, 32], warpsPerCTA = [2, 2], order = [1, 0]}>>, i32) -> tensor<128x64xf16, #ttg.blocked<{sizePerThread = [1, 1], threadsPerWarp = [1, 32], warpsPerCTA = [2, 2], order = [1, 0]}>>
+  "ttg.mask.return"(%22) : (tensor<128x64xf16, #ttg.blocked<{sizePerThread = [1, 1], threadsPerWarp = [1, 32], warpsPerCTA = [2, 2], order = [1, 0]}>>) -> ()
+}) : (i1) -> tensor<128x64xf16, #ttg.blocked<{sizePerThread = [1, 1], threadsPerWarp = [1, 32], warpsPerCTA = [2, 2], order = [1, 0]}>>
+triton-opt: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-src/lib/Dialect/TritonGPU/Transforms/Pipeliner/SoftwarePipeliner.cpp:167: void mlir::triton::gpu::expandLoops(mlir::ModuleOp): Assertion `verify(moduleOp).succeeded()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmphfd6bbeu/9a496ccb.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic -tritongpu-pipeline
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x000057875158e48a
+1  triton-opt 0x000057875158b38e
+2  triton-opt 0x000057875158f38b
+3  libc.so.6  0x000078da0b82d520
+4  libc.so.6  0x000078da0b8819bc pthread_kill + 300
+5  libc.so.6  0x000078da0b82d476 raise + 22
+6  libc.so.6  0x000078da0b8137f3 abort + 211
+7  libc.so.6  0x000078da0b81371b
+8  libc.so.6  0x000078da0b824e96
+9  triton-opt 0x00005787499e74dc
+10 triton-opt 0x0000578749f5c89b
+11 triton-opt 0x0000578749f5d419
+12 triton-opt 0x0000578749f64432
+13 triton-opt 0x0000578749f63ca2
+14 triton-opt 0x0000578749f4ed37
+15 triton-opt 0x0000578749f4dfcc
+16 triton-opt 0x00005787511ac6b1
+17 triton-opt 0x0000578749f44332
+18 triton-opt 0x0000578749f44731
+19 triton-opt 0x0000578749f4496d
+20 triton-opt 0x0000578749f2f92c
+21 libc.so.6  0x000078da0b814d90
+22 libc.so.6  0x000078da0b814e40 __libc_start_main + 128
+23 triton-opt 0x00005787494d6df5
+Aborted (core dumped)

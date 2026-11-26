@@ -1,0 +1,11 @@
+$ lfortran -c repro.f90 -o /dev/null
+Traceback (most recent call last):
+  ...
+  File "src/libasr/codegen/asr_to_llvm.cpp", line 17093, in ASRToLLVMVisitor::visit_IfExp(IfExp_t const&)
+  File "src/libasr/codegen/asr_to_llvm.cpp", line 17126, in ASRToLLVMVisitor::visit_IfExp_string(IfExp_t const&, llvm::Value*)
+  File "src/libasr/codegen/llvm_utils.h", line 1059, in LLVMUtils::create_if_else<...visit_IfExp_string...>
+  File "src/libasr/codegen/llvm_utils.h", line 1021, in LLVMUtils::create_if_else<...visit_IfExp_string...>
+  File "src/libasr/codegen/llvm_utils.h", line 1013, in LLVMUtils::to_i1(llvm::Value*)
+  File "/usr/include/llvm-14/llvm/IR/IRBuilder.h", line 2093, in llvm::IRBuilderBase::CreateICmpNE(...)
+  File "/usr/include/llvm-14/llvm/IR/IRBuilder.h", line 2200, in llvm::IRBuilderBase::CreateICmp(...)
+Segfault: Signal SIGSEGV (segmentation fault) received

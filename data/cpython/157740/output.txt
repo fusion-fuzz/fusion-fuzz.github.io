@@ -1,0 +1,29 @@
+==1526716==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x7309e9c7e398 at pc 0x5b9774fd19f9 bp 0x72a9e3cdd030 sp 0x72a9e3cdd028
+READ of size 8 at 0x7309e9c7e398 thread T4
+    #0 0x5b9774fd19f8 in _PyJit_translate_single_bytecode_to_trace Python/optimizer.c:709:39
+    #1 0x5b9774afa38f in _PyEval_EvalFrameDefault Python/generated_cases.c.h:13173:25
+    #2 0x5b9774aed857 in _PyEval_Vector Python/ceval.c:2176:12
+    #3 0x5b97745a9b8d in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144:11
+    #4 0x5b97745a9b8d in _PyObject_VectorcallPrepend Objects/call.c:855:20
+    #5 0x5b9774c2d58a in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144:11
+    #6 0x5b9774c2d58a in context_run Python/context.c:802:29
+    #7 0x5b9774aef7a5 in _PyCallMethodDescriptorFastWithKeywords_StackRef Python/ceval.c:885:11
+    #8 0x5b9774b2afc4 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:4205:35
+    #9 0x5b9774aed857 in _PyEval_Vector Python/ceval.c:2176:12
+    #10 0x5b97745a9b8d in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144:11
+    #11 0x5b97745a9b8d in _PyObject_VectorcallPrepend Objects/call.c:855:20
+    #12 0x5b97745a613d in _PyVectorcall_Call Objects/call.c:273:16
+    #13 0x5b97753c7700 in thread_run Modules/_threadmodule.c:388:21
+    #14 0x5b977512a18b in pythread_wrapper Python/thread_pthread.h:236:5
+
+0x7309e9c7e398 is located 472 bytes after 64-byte region [0x7309e9c7e180,0x7309e9c7e1c0)
+allocated by thread T3 here:
+    #0 malloc
+    #1 _PyMem_DebugRawAlloc Objects/obmalloc.c:3103:24
+    #2 _PyMem_DebugRawRealloc Objects/obmalloc.c:3179:16
+    #3 get_index_for_executor Python/optimizer.c:77:33
+    #4 _PyOptimizer_Optimize Python/optimizer.c:173:21
+    #5 stop_tracing_and_jit Python/ceval.c:1092:15
+    #6 _PyEval_EvalFrameDefault Python/generated_cases.c.h:13179:27
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow Python/optimizer.c:709:39 in _PyJit_translate_single_bytecode_to_trace

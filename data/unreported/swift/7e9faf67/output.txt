@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:9:6: error: expected a macro identifier for a pound literal expression
+  7 | 
+  8 | func test01() {
+  9 |     #^GLOBAL_NAME^#
+    |      `- error: expected a macro identifier for a pound literal expression
+ 10 |     // GLOBAL_NAME-DAG: Decl[FreeFunction]/CurrModule:      `func with spaces`()[#Void#]; name=`func with spaces`()
+ 11 |     // GLOBAL_NAME-DAG: Decl[TypeAlias]/CurrModule:         `Space Alias`[#`Struct With Spaces`#]; name=`Space Alias`
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:22:5: error: expected member name following '.'
+ 20 | 
+ 21 | func test02(_ x: S) {
+ 22 |   x.#^MEMBER_NAME^#
+    |     `- error: expected member name following '.'
+ 23 |   // MEMBER_NAME-DAG: Decl[InstanceVar]/CurrNominal:      `name with spaces :)`[#Int#]; name=`name with spaces :)`
+ 24 |   // MEMBER_NAME-DAG: Decl[InstanceMethod]/CurrNominal:   `some.method`({#`argument label!`: Int#})[#Void#]; name=`some.method`(`argument label!`:)
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:493:10: error: expected type
+491 | 
+492 | }
+493 |   var x: #^TYPE_NAME^#
+    |          `- error: expected type
+494 |   // TYPE_NAME-DAG: Decl[GenericTypeParam]/Local:       `Generic Param`[#Generic Param#]; name=`Generic Param`
+495 |   // TYPE_NAME-DAG: Keyword[Self]/CurrNominal:          Self[#S2<Generic Param>#]; name=Self
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:493:9: error: consecutive declarations on a line must be separated by ';'
+491 | 
+492 | }
+493 |   var x: #^TYPE_NAME^#
+    |         `- error: consecutive declarations on a line must be separated by ';'
+494 |   // TYPE_NAME-DAG: Decl[GenericTypeParam]/Local:       `Generic Param`[#Generic Param#]; name=`Generic Param`
+495 |   // TYPE_NAME-DAG: Keyword[Self]/CurrNominal:          Self[#S2<Generic Param>#]; name=Self
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:493:11: error: expected a macro identifier for a pound literal declaration
+491 | 
+492 | }
+493 |   var x: #^TYPE_NAME^#
+    |           `- error: expected a macro identifier for a pound literal declaration
+494 |   // TYPE_NAME-DAG: Decl[GenericTypeParam]/Local:       `Generic Param`[#Generic Param#]; name=`Generic Param`
+495 |   // TYPE_NAME-DAG: Keyword[Self]/CurrNominal:          Self[#S2<Generic Param>#]; name=Self
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:500:15: error: expected name of related precedence group after 'higherThan'
+498 | precedencegroup `Spacedence Group` {}
+499 | precedencegroup AnotherOne {
+500 |   higherThan: #^PREC_NAME^#
+    |               `- error: expected name of related precedence group after 'higherThan'
+501 |   // PREC_NAME: Decl[PrecedenceGroup]/CurrModule:   `Spacedence Group`; name=`Spacedence Group`
+502 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:46:12: warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+ 44 | // ==== Example Distributed Actors ----------------------------------------------
+ 45 | 
+ 46 | @available(SwiftStdlib 5.7, *)
+    |            `- warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+ 47 | public distributed actor FakeRoundtripActorSystemDistributedActor {
+ 48 |   public typealias ActorSystem = FakeRoundtripActorSystem
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:52:12: warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+ 50 | 
+ 51 | 
+ 52 | @available(SwiftStdlib 5.7, *)
+    |            `- warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+ 53 | @_transparent
+ 54 | public func takeIsolatedDistributedActorReturnAsLocalActor<T: DistributedActor>(_ t: isolated T) -> any Actor {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:110:12: warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+108 | // ==== Noop Transport ---------------------------------------------------------
+109 | 
+110 | @available(SwiftStdlib 5.7, *)
+    |            `- warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+111 | public struct FakeActorSystem: DistributedActorSystem, CustomStringConvertible {
+112 |   public typealias ActorID = ActorAddress
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:183:12: warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+181 | }
+182 | 
+183 | @available(SwiftStdlib 5.7, *)
+    |            `- warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+184 | //@_spi(FakeDistributedActorSystems)
+185 | public struct FakeActorSystemWithSPI: DistributedActorSystem, CustomStringConvertible {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:257:12: warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+255 | }
+256 | 
+257 | @available(SwiftStdlib 5.7, *)
+    |            `- warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+258 | public struct FakeNotLoadableAddressActorSystem: DistributedActorSystem, CustomStringConvertible {
+259 |   public typealias ActorID = NotLoadableActorAddress
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:332:12: warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+330 | // ==== Fake Roundtrip Transport -----------------------------------------------
+331 | 
+332 | @available(SwiftStdlib 5.7, *)
+    |            `- warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+333 | public final class FakeRoundtripActorSystem: DistributedActorSystem, @unchecked Sendable {
+334 |   public typealias ActorID = ActorAddress
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:504:12: warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+502 | }
+503 | 
+504 | @available(SwiftStdlib 5.7, *)
+    |            `- warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+505 | public struct FakeInvocationEncoder : DistributedTargetInvocationEncoder {
+506 |   public typealias SerializationRequirement = Codable
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:562:12: warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+560 | // This is a 'final class' on purpose, to see that we retain the ad-hoc witness
+561 | // for 'decodeNextArgument'; Do not change it to just a class!
+562 | @available(SwiftStdlib 5.7, *)
+    |            `- warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+563 | public final class FakeInvocationDecoder: DistributedTargetInvocationDecoder {
+564 |   public typealias SerializationRequirement = Codable
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5n64ei_u/8c5266d9.swift:616:12: warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+614 | }
+615 | 
+616 | @available(SwiftStdlib 5.7, *)
+    |            `- warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+617 | public struct FakeRoundtripResultHandler: DistributedTargetInvocationResultHandler {
+618 |   public typealias SerializationRequirement = Codable
+
+[... 131 more lines ...]

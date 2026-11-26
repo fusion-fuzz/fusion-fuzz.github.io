@@ -1,0 +1,14 @@
+HloModule module
+
+ENTRY %entry {
+  %a = f32[8,1024]{1,0} parameter(0), sharding={devices=[1,2]<=[2]}
+  %b = f32[1024,256]{1,0} parameter(1), sharding={devices=[2,1]<=[2]}
+  %dot = f32[8,256]{1,0} dot(a, b), lhs_contracting_dims={1}, rhs_contracting_dims={0}, sharding={unreduced}
+  %copy = f32[8,256]{1,0} copy(dot), sharding={unreduced}
+  %param0 = f32[8,8,8,8] parameter(2), sharding={devices=[2,2,1,2]<=[8]}
+  %copy.d = f32[8,8,8,8] copy(%param0), sharding={devices=[1,2,2,2]<=[2,2,2]T(1,0,2)}
+  %ffl.root = (f32[8,256]{1,0}, f32[8,8,8,8]) tuple(%copy, %copy.d)
+  %param0.d = f32[8,8,8,8] parameter(3), sharding={devices=[2,2,1,2]<=[8]}
+  %copy.d.1 = f32[8,8,8,8] copy(%copy.d), sharding={devices=[1,2,2,2]<=[2,2,2]T(1,0,2)}
+  ROOT %ffl.root.1 = (f32[8,256]{1,0}, f32[8,8,8,8], f32[8,8,8,8]) tuple(%copy, %copy.d, %copy.d.1)
+}

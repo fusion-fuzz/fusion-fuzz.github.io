@@ -1,0 +1,48 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmp6lnnmr15/66a3742d.mlir:15:12: error: invalid element type in packLLElements. Expected 'i8' but got 'f8E5M2'
+      %3 = tt.dot %2, %cst_0, %arg4 : tensor<16x128xf8E5M2, #ttg.dot_op<{opIdx = 0, parent = #H_6c14b9d7_mma, kWidth = 1}>> * tensor<128x16xf8E5M2, #ttg.dot_op<{opIdx = 1, parent = #H_6c14b9d7_mma, kWidth = 1}>> -> tensor<16x16xf8E5M2, #H_6c14b9d7_mma>
+           ^
+LLVM ERROR: element type mismatch when packing elements for LLVM struct
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmp6lnnmr15/66a3742d.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic --allocate-shared-memory --tritongpu-global-scratch-memory-allocation --convert-triton-amdgpu-to-llvm=gfx-arch=gfx942
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x00006089fef7c48a
+1  triton-opt 0x00006089fef7938e
+2  triton-opt 0x00006089fef7d38b
+3  libc.so.6  0x00007639d689f520
+4  libc.so.6  0x00007639d68f39bc pthread_kill + 300
+5  libc.so.6  0x00007639d689f476 raise + 22
+6  libc.so.6  0x00007639d68857f3 abort + 211
+7  triton-opt 0x00006089feece104
+8  triton-opt 0x00006089feecdf06
+9  triton-opt 0x00006089f73384be
+10 triton-opt 0x00006089f73387cc
+11 triton-opt 0x00006089f77b539c
+12 triton-opt 0x00006089f77c3f67
+13 triton-opt 0x00006089f761f43c
+14 triton-opt 0x00006089f761f30b
+15 triton-opt 0x00006089fe2ead74
+16 triton-opt 0x00006089fe346482
+17 triton-opt 0x00006089fe342af4
+18 triton-opt 0x00006089fe2ecb3e
+19 triton-opt 0x00006089fe2ec315
+20 triton-opt 0x00006089fe2ed5ee
+21 triton-opt 0x00006089fe2fcdf8
+22 triton-opt 0x00006089fe2f3475
+23 triton-opt 0x00006089fe2f354b
+24 triton-opt 0x00006089f78101fc
+25 triton-opt 0x00006089f794a89b
+26 triton-opt 0x00006089f794b419
+27 triton-opt 0x00006089f7952432
+28 triton-opt 0x00006089f7951ca2
+29 triton-opt 0x00006089f793cd37
+30 triton-opt 0x00006089f793bfcc
+31 triton-opt 0x00006089feb9a6b1
+32 triton-opt 0x00006089f7932332
+33 triton-opt 0x00006089f7932731
+34 triton-opt 0x00006089f793296d
+35 triton-opt 0x00006089f791d92c
+36 libc.so.6  0x00007639d6886d90
+37 libc.so.6  0x00007639d6886e40 __libc_start_main + 128
+38 triton-opt 0x00006089f6ec4df5
+Aborted (core dumped)

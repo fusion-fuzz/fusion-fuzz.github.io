@@ -1,0 +1,36 @@
+triton-opt: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/deps/llvm-b010a18d-ubuntu-x64/include/llvm/ADT/ArrayRef.h:247: const T &llvm::ArrayRef<long>::operator[](size_t) const [T = long]: Assertion `Index < Length && "Invalid index!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmpbc9a5z1u/5b66d527.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic -tritongpu-coalesce
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x00005d81f5fd348a
+1  triton-opt 0x00005d81f5fd038e
+2  triton-opt 0x00005d81f5fd438b
+3  libc.so.6  0x000077cb91811520
+4  libc.so.6  0x000077cb918659bc pthread_kill + 300
+5  libc.so.6  0x000077cb91811476 raise + 22
+6  libc.so.6  0x000077cb917f77f3 abort + 211
+7  libc.so.6  0x000077cb917f771b
+8  libc.so.6  0x000077cb91808e96
+9  triton-opt 0x00005d81ee45e853
+10 triton-opt 0x00005d81ee47080d
+11 triton-opt 0x00005d81ee3cefe3
+12 triton-opt 0x00005d81edf3a59e
+13 triton-opt 0x00005d81edf3a59e
+14 triton-opt 0x00005d81edf3a59e
+15 triton-opt 0x00005d81ee3cdcc7
+16 triton-opt 0x00005d81ee9a189b
+17 triton-opt 0x00005d81ee9a2419
+18 triton-opt 0x00005d81ee9a9432
+19 triton-opt 0x00005d81ee9a8ca2
+20 triton-opt 0x00005d81ee993d37
+21 triton-opt 0x00005d81ee992fcc
+22 triton-opt 0x00005d81f5bf16b1
+23 triton-opt 0x00005d81ee989332
+24 triton-opt 0x00005d81ee989731
+25 triton-opt 0x00005d81ee98996d
+26 triton-opt 0x00005d81ee97492c
+27 libc.so.6  0x000077cb917f8d90
+28 libc.so.6  0x000077cb917f8e40 __libc_start_main + 128
+29 triton-opt 0x00005d81edf1bdf5
+Aborted (core dumped)

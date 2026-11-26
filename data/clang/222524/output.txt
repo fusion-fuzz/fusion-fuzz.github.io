@@ -1,0 +1,56 @@
+<source>:1:15: error: blocks support disabled - compile with -fblocks or pick a deployment target that supports them
+    1 | typedef void (^DeferBlock)(void);
+      |               ^
+<source>:4:2: error: expected ';' after struct
+    4 | }
+      |  ^
+      |  ;
+<source>:6:2: error: expected ';' after struct
+    6 | }
+      |  ^
+<source>:7:39: error: use of undeclared identifier 'cleanup'
+    7 |   DeferBlock x __attribute__((cleanup(cleanup))) = ^{};
+      |                                       ^~~~~~~
+clang-24: /root/llvm-project/llvm/tools/clang/include/clang/AST/TypeLoc.h:746: void clang::ElaboratedNameTypeLoc<TL, T>::set(clang::SourceLocation, clang::NestedNameSpecifierLoc, clang::SourceLocation) [with TL = clang::TypedefTypeLoc; T = clang::TypedefType]: Assertion `QualifierLoc.getNestedNameSpecifier() == this->getTypePtr()->getQualifier()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24 -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -dumpdir /app/output.s- -disable-free -clear-ast-before-backend -main-file-name example.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -fno-verbose-asm -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debug-info-kind=constructor -dwarf-version=5 -debugger-tuning=gdb -fdebug-compilation-dir=/app -fcoverage-compilation-dir=/app -resource-dir /cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/lib/clang/24 -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0 -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0/x86_64-linux-gnu -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0/backward -internal-isystem /cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/lib/clang/24/include -internal-isystem /cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/../include/x86_64-unknown-linux-gnu -internal-isystem /usr/local/include -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fobjc-runtime=gcc -fobjc-encode-cxx-class-template-spec -fobjc-exceptions -fcxx-exceptions -fexceptions -fcolor-diagnostics -faddrsig -fdwarf2-cfi-asm -o /tmp/example-1d3ce7.o -x objective-c++ <source>
+1.	<source>:7:50: current parser token '='
+ #0 0x00000000044aca88 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x44aca88)
+ #1 0x00000000044a9ce4 llvm::sys::RunSignalHandlers() (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x44a9ce4)
+ #2 0x00000000044a9e5e SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00000000044a9f08 SignalHandlerTerminate(int, siginfo_t*, void*) Signals.cpp:0:0
+ #4 0x000076ed0b245330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x000076ed0b29ec0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #6 0x000076ed0b24527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x000076ed0b2288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x000076ed0b22881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x000076ed0b23b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x0000000007ac3267 (anonymous namespace)::TypeSpecLocFiller::VisitTypedefTypeLoc(clang::TypedefTypeLoc) (.isra.0) SemaType.cpp:0:0
+#11 0x0000000007aea287 clang::TypeLocVisitor<(anonymous namespace)::TypeSpecLocFiller, void>::Visit(clang::UnqualTypeLoc) SemaType.cpp:0:0
+#12 0x0000000007af0a12 GetFullTypeForDeclarator((anonymous namespace)::TypeProcessingState&, clang::QualType, clang::TypeSourceInfo*) SemaType.cpp:0:0
+#13 0x0000000007af1845 clang::Sema::GetTypeForDeclarator(clang::Declarator&) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x7af1845)
+#14 0x000000000724b6c4 clang::Sema::HandleDeclarator(clang::Scope*, clang::Declarator&, llvm::MutableArrayRef<clang::TemplateParameterList*>) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x724b6c4)
+#15 0x000000000724c914 clang::Sema::ActOnDeclarator(clang::Scope*, clang::Declarator&) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x724c914)
+#16 0x0000000006e45bd5 clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x6e45bd5)
+#17 0x0000000006e66619 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x6e66619)
+#18 0x0000000006e1172b clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x6e1172b)
+#19 0x0000000006e11f1f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x6e11f1f)
+#20 0x0000000006e1e988 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x6e1e988)
+#21 0x0000000006e1f8c5 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x6e1f8c5)
+#22 0x0000000006dfbdba clang::ParseAST(clang::Sema&, bool, bool) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x6dfbdba)
+#23 0x0000000004fc0788 clang::CodeGenAction::ExecuteAction() (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x4fc0788)
+#24 0x00000000052e0e28 clang::FrontendAction::Execute() (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x52e0e28)
+#25 0x000000000526e92d clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x526e92d)
+#26 0x00000000053b564d clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x53b564d)
+#27 0x0000000000d8f6fc cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0xd8f6fc)
+#28 0x0000000000d863fa ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#29 0x0000000000d8a80b clang_main(int, char**, llvm::ToolContext const&) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0xd8a80b)
+#30 0x0000000000cc977a main (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0xcc977a)
+#31 0x000076ed0b22a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#32 0x000076ed0b22a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#33 0x0000000000d85da5 _start (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0xd85da5)
+clang++: error: unable to execute command: Aborted (core dumped)
+clang++: error: clang frontend command failed with exit code -2 (use -v to see invocation)
+Program terminated with signal SIGABRT (6)
+x86-64 clang (assertions trunk) - 745ms

@@ -1,0 +1,44 @@
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24 -fc1 -triple x86_64-unknown-linux-gnu -emit-obj -fno-color-diagnostics -mrelocation-model pic -pic-level 2 -pic-is-pie -target-cpu x86-64 -debug-info-kind=standalone -dwarf-version=5 -resource-dir /cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/lib/clang/24 -fintrinsic-modules-path /cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/lib/clang/24/finclude/flang/x86_64-unknown-linux-gnu -mframe-pointer=all -o /tmp/example-16819c.o -x f95 /app/example.f90
+ #0 0x0000000004c137c8 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24+0x4c137c8)
+ #1 0x0000000004c10c0d SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #2 0x000073f8cb445330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #3 0x000000000529aa54 Fortran::lower::mangle::mangleName[abi:cxx11](Fortran::semantics::DerivedTypeSpec const&, llvm::DenseMap<Fortran::semantics::Scope*, long, llvm::DenseMapInfo<Fortran::semantics::Scope*, void>, llvm::detail::DenseMapPair<Fortran::semantics::Scope*, long>>&) (/cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24+0x529aa54)
+ #4 0x000000000529afa1 Fortran::lower::mangle::getRecordTypeFieldName[abi:cxx11](Fortran::semantics::Symbol const&, llvm::DenseMap<Fortran::semantics::Scope*, long, llvm::DenseMapInfo<Fortran::semantics::Scope*, void>, llvm::detail::DenseMapPair<Fortran::semantics::Scope*, long>>&) (/cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24+0x529afa1)
+ #5 0x00000000050a51a7 (anonymous namespace)::FirConverter::getRecordTypeFieldName(Fortran::semantics::Symbol const&) Bridge.cpp:0:0
+ #6 0x0000000005230ed1 (anonymous namespace)::TypeBuilderImpl::genDerivedType(Fortran::semantics::DerivedTypeSpec const&) ConvertType.cpp:0:0
+ #7 0x00000000052319e1 (anonymous namespace)::TypeBuilderImpl::genSymbolType(Fortran::semantics::Symbol const&, bool, bool) ConvertType.cpp:0:0
+ #8 0x0000000005230e8f (anonymous namespace)::TypeBuilderImpl::genDerivedType(Fortran::semantics::DerivedTypeSpec const&) ConvertType.cpp:0:0
+ #9 0x00000000052319e1 (anonymous namespace)::TypeBuilderImpl::genSymbolType(Fortran::semantics::Symbol const&, bool, bool) ConvertType.cpp:0:0
+#10 0x0000000005232816 Fortran::lower::translateVariableToFIRType(Fortran::lower::AbstractConverter&, Fortran::lower::pft::Variable const&) (/cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24+0x5232816)
+#11 0x000000000525a4ee Fortran::lower::defineGlobal(Fortran::lower::AbstractConverter&, Fortran::lower::pft::Variable const&, llvm::StringRef, fir::LinkageAttr, cuf::DataAttributeAttr) (/cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24+0x525a4ee)
+#12 0x000000000525b57a Fortran::lower::defineModuleVariable(Fortran::lower::AbstractConverter&, Fortran::lower::pft::Variable const&) (/cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24+0x525b57a)
+#13 0x000000000515b321 std::_Function_handler<void (), (anonymous namespace)::FirConverter::run(Fortran::lower::pft::Program&)::'lambda0'()>::_M_invoke(std::_Any_data const&) Bridge.cpp:0:0
+#14 0x000000000511616c (anonymous namespace)::FirConverter::createBuilderOutsideOfFuncOpAndDo(std::function<void ()> const&) Bridge.cpp:0:0
+#15 0x000000000515c59c Fortran::lower::LoweringBridge::lower(Fortran::parser::Program const&, Fortran::semantics::SemanticsContext const&) (/cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24+0x515c59c)
+#16 0x0000000004f6329f Fortran::frontend::CodeGenAction::beginSourceFileAction() (/cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24+0x4f6329f)
+#17 0x0000000004c7d775 Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) (/cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24+0x4c7d775)
+#18 0x0000000004c6465f Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) (/cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24+0x4c6465f)
+#19 0x0000000004c84e7f Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) (/cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24+0x4c84e7f)
+#20 0x0000000002cb8d35 fc1_main(llvm::ArrayRef<char const*>, char const*) (/cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24+0x2cb8d35)
+#21 0x0000000002c37079 main (/cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24+0x2c37079)
+#22 0x000073f8cb42a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#23 0x000073f8cb42a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#24 0x0000000002cb75e5 _start (/cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin/flang-24+0x2cb75e5)
+flang-24: error: unable to execute command: Segmentation fault (core dumped)
+flang-24: error: flang frontend command failed with exit code -2 (use -v to see invocation)
+flang version 24.0.0git (https://github.com/llvm/llvm-project.git 424c73a402dffdc1b245f6161beeac5ffc996a62)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /cefs/35/35a38f06494cc53ddc3fb769_clang-llvmflang-trunk-20261016/bin
+flang-24: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+flang-24: note: diagnostic msg: /tmp/example-0123e3
+flang-24: note: diagnostic msg: /tmp/example-0123e3.sh
+flang-24: note: diagnostic msg: 
+
+********************
+flang-trunk - 2295ms

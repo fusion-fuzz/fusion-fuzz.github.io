@@ -1,0 +1,44 @@
+/home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/ast/call_expression.cc:43 internal compiler error: TINT_ASSERT(target) 
+
+********************************************************************
+*  The tint shader compiler has encountered an unexpected error.   *
+*                                                                  *
+*  Please help us fix this issue by submitting a bug report at     *
+*  crbug.com/tint with the source program that triggered the bug.  *
+********************************************************************
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==7599==ERROR: AddressSanitizer: ILL on unknown address 0x64b1ce0db9c3 (pc 0x64b1ce0db9c3 bp 0x7ffe79e45b20 sp 0x7ffe79e45830 T0)
+    #0 0x64b1ce0db9c3 in tint::InternalCompilerError::~InternalCompilerError() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/ice/ice.cc:71
+    #1 0x64b1cfa4df31 in tint::ast::CallExpression::CallExpression(tint::ast::NodeID, tint::Source const&, tint::ast::IdentifierExpression const*, tint::VectorRef<tint::ast::Expression const*>) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/ast/call_expression.cc:43
+    #2 0x64b1cf1dbb1c in tint::ast::CallExpression* tint::BlockAllocator<tint::ast::Node, 65536ul, 16ul>::Create<tint::ast::CallExpression, tint::ast::NodeID, tint::Source const&, tint::ast::IdentifierExpression const*, tint::Vector<tint::ast::Expression const*, 8ul> >(tint::ast::NodeID&&, tint::Source const&, tint::ast::IdentifierExpression const*&&, tint::Vector<tint::ast::Expression const*, 8ul>&&) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/memory/block_allocator.h:215
+    #3 0x64b1cf1a5dd9 in tint::ast::CallExpression* tint::ast::Builder::create<tint::ast::CallExpression, tint::ast::IdentifierExpression const*, tint::Vector<tint::ast::Expression const*, 8ul> >(tint::Source const&, tint::ast::IdentifierExpression const*&&, tint::Vector<tint::ast::Expression const*, 8ul>&&) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/ast/builder.h:234
+    #4 0x64b1cf328de2 in tint::ast::CallExpression const* tint::ast::Builder::Call<tint::ast::IdentifierExpression const*, tint::Vector<tint::ast::Expression const*, 8ul>, void>(tint::Source const&, tint::ast::IdentifierExpression const*&&, tint::Vector<tint::ast::Expression const*, 8ul>&&) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/ast/builder.h:2089
+    #5 0x64b1cf30ed3c in tint::ast::CallExpression const* tint::ast::Builder::Call<tint::ast::Type&, tint::Vector<tint::ast::Expression const*, 8ul>, void, void>(tint::ast::Type&, tint::Vector<tint::ast::Expression const*, 8ul>&&) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/ast/builder.h:2079
+    #6 0x64b1cf2c4ec3 in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:980
+    #7 0x64b1cf2c6724 in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:1003
+    #8 0x64b1cf2c8187 in operator()<tint::wgsl::writer::(anonymous namespace)::State::Constant(const tint::core::constant::Value*)::<lambda(const tint::core::type::Struct*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:345
+    #9 0x64b1cf2c8b6b in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #10 0x64b1cf2c9589 in Constant /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:982
+    #11 0x64b1cf2c3885 in Constant /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:964
+    #12 0x64b1cf2c2f98 in Expr /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:946
+    #13 0x64b1cf2b5ab1 in Let /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:672
+    #14 0x64b1cf2a7800 in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:383
+    #15 0x64b1cf2a91ba in operator()<tint::wgsl::writer::(anonymous namespace)::State::Instruction(const tint::core::ir::Instruction*)::<lambda(const tint::core::ir::Let*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:347
+    #16 0x64b1cf2ab373 in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #17 0x64b1cf2ac3f0 in Instruction /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:372
+    #18 0x64b1cf2a7005 in Statements /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:363
+    #19 0x64b1cf2a6c52 in Block /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:355
+    #20 0x64b1cf2a4905 in Fn /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:297
+    #21 0x64b1cf29e8e2 in Run /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:123
+    #22 0x64b1cf2dfa1b in tint::wgsl::writer::IRToProgram(tint::core::ir::Module&, tint::wgsl::writer::Options const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/ir_to_program/ir_to_program.cc:1420
+    #23 0x64b1ce52621d in tint::wgsl::writer::ProgramFromIR(tint::core::ir::Module&, tint::wgsl::writer::Options const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/wgsl/writer/writer.cc:72
+    #24 0x64b1cd9fd70f in Run /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd/tint/main.cc:1666
+    #25 0x64b1cd9fef12 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd/tint/main.cc:1791
+    #26 0x7055e94d11c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 328820b908de8ea1ef79afa8995e302e819163d7)
+    #27 0x7055e94d128a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 328820b908de8ea1ef79afa8995e302e819163d7)
+    #28 0x64b1cd9d4664 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/out/fuzz/tint+0xa132664) (BuildId: 61f8842b624cda73281b295b81b2dbccbaf89d49)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: ILL /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/ice/ice.cc:71 in tint::InternalCompilerError::~InternalCompilerError()
+==7599==ABORTING

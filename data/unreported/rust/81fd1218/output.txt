@@ -1,0 +1,11 @@
+warning: the feature `link_llvm_intrinsics` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpc_o1ogl5/97b6c147.rs:1:12
+  |
+1 | #![feature(link_llvm_intrinsics)]
+  |            ^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+  = note: `#[warn(internal_features)]` on by default
+
+rustc: /checkout/src/llvm-project/llvm/lib/IR/Instructions.cpp:776: void llvm::CallInst::init(FunctionType *, Value *, ArrayRef<Value *>, ArrayRef<OperandBundleDef>, const Twine &): Assertion `(Args.size() == FTy->getNumParams() || (FTy->isVarArg() && Args.size() > FTy->getNumParams())) && "Calling a function with bad signature!"' failed.
+Aborted (core dumped)

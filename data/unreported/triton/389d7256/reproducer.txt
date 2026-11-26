@@ -1,0 +1,35 @@
+#H_d60b2f76_mma = #ttg.nvidia_mma<{versionMajor = 3, versionMinor = 0, warpsPerCTA = [8, 1], instrShape = [16, 256, 32]}>
+#H_d60b2f76_shared = #ttg.nvmma_shared<{swizzlingByteWidth = 32, transposed = false, elementBitWidth = 16}>
+#H_d60b2f76_shared1 = #ttg.nvmma_shared<{swizzlingByteWidth = 32, transposed = true, elementBitWidth = 16}>
+#H_d60b2f76_shared2 = #ttg.swizzled_shared<{vec = 1, perPhase = 1, maxPhase = 1, order = [0]}>
+#H_d60b2f76_tmem = #ttng.tensor_memory_encoding<blockM = 64, blockN = 64, colStride = 1>
+#D_4796a730_A_46449c70_blocked1 = #ttg.blocked<{sizePerThread = [1, 1], threadsPerWarp = [1, 32], warpsPerCTA = [2, 2], order = [1, 0], CGALayout = [[1, 0]]}>
+#D_4796a730_A_46449c70_blocked2 = #ttg.blocked<{sizePerThread = [1, 1], threadsPerWarp = [32, 1], warpsPerCTA = [2, 2], order = [0, 1], CGALayout = [[0, 1]]}>
+#D_4796a730_A_46449c70_shared = #ttg.nvmma_shared<{swizzlingByteWidth = 128, transposed = false, elementBitWidth = 16, CGALayout = [[1, 0]]}>
+#D_4796a730_A_46449c70_shared1 = #ttg.nvmma_shared<{swizzlingByteWidth = 128, transposed = false, elementBitWidth = 16, CGALayout = [[0, 1]]}>
+#D_4796a730_A_46449c70_smem = #ttg.shared_memory
+#D_4796a730_A_46449c70_tmem = #ttng.tensor_memory_encoding<blockM = 128, blockN = 128, colStride = 1, CGALayout = [[1, 0]], twoCTAs = true>
+#D_4796a730_B_d60b2f76_mma = #ttg.nvidia_mma<{versionMajor = 3, versionMinor = 0, warpsPerCTA = [8, 1], instrShape = [16, 256, 32]}>
+#D_4796a730_B_d60b2f76_shared = #ttg.nvmma_shared<{swizzlingByteWidth = 32, transposed = false, elementBitWidth = 16}>
+#D_4796a730_B_d60b2f76_shared1 = #ttg.nvmma_shared<{swizzlingByteWidth = 32, transposed = true, elementBitWidth = 16}>
+#D_4796a730_B_d60b2f76_shared2 = #ttg.swizzled_shared<{vec = 1, perPhase = 1, maxPhase = 1, order = [0]}>
+#D_4796a730_B_d60b2f76_tmem = #ttng.tensor_memory_encoding<blockM = 64, blockN = 64, colStride = 1>
+module attributes {"ttg.num-ctas" = 1 : i32, "ttg.num-warps" = 8 : i32, "ttg.target" = "cuda:100", "ttg.threads-per-warp" = 32 : i32, "ttng.two-ctas" = true} {
+// 1048576 = row << 16 + col = 16 << 16 + 0
+  // 1048640 = row << 16 + col = 16 << 16 + 64
+
+  tt.func @H_d60b2f76_tc_gen5_mma_multi_m_n(%a: !ttg.memdesc<128x16xf16, #H_d60b2f76_shared, #ttg.shared_memory>,
+                       %b: !ttg.memdesc<16x128xf16, #H_d60b2f76_shared1, #ttg.shared_memory>,
+                       %c: !ttg.memdesc<128x128xf32, #H_d60b2f76_tmem, #ttng.tensor_memory, mutable>,
+                       %useAcc: i1,
+                       %pred: i1,
+                       %barrier: !ttg.memdesc<1xi64, #H_d60b2f76_shared2, #ttg.shared_memory>,
+                       %barrierPred: i1) {
+    ttng.tc_gen5_mma %a, %b, %c, %useAcc, %pred, %barrier[%barrierPred] {is_async} :
+       !ttg.memdesc<128x16xf16, #H_d60b2f76_shared, #ttg.shared_memory>,
+       !ttg.memdesc<16x128xf16, #H_d60b2f76_shared1, #ttg.shared_memory>,
+       !ttg.memdesc<128x128xf32, #H_d60b2f76_tmem, #ttng.tensor_memory, mutable>,
+       !ttg.memdesc<1xi64, #H_d60b2f76_shared2, #ttg.shared_memory>
+    tt.return
+  }
+}

@@ -1,0 +1,6 @@
+triton-opt: <llvm>/include/mlir/IR/Operation.h:1042: detail::OpResultImpl *mlir::Operation::getOpResultImpl(unsigned int): Assertion `resultNumber < getNumResults() && "Result number is out of range for operation"' failed.
+#0 mlir::triton::NVIDIA::TargetInfo::getReductionTreeArity(mlir::Operation*) const
+#1 (anonymous namespace)::ReduceOpConversion::matchAndRewrite(mlir::triton::ReduceOp, ...)
+#2 mlir::ConvertOpToLLVMPattern<mlir::triton::ReduceOp, false>::matchAndRewrite(...)
+...
+#13 (anonymous namespace)::ConvertTritonGPUToLLVM::runOnOperation()

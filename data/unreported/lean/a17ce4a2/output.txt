@@ -1,0 +1,50 @@
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/include/lean/lean.h:387:15: runtime error: member access within misaligned address 0x000000000001 for type 'lean_object', which requires 4 byte alignment
+0x000000000001: note: pointer points here
+<memory cannot be printed>
+    #0 0x7834015fb025 in lean_internal_get_rc /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/include/lean/lean.h:387:15
+    #1 0x7834015fb025 in lean_is_st /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/include/lean/lean.h:636:12
+    #2 0x7834015fb025 in lean_inc_ref_n /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/include/lean/lean.h:716:9
+    #3 0x7834015fb025 in lean_inc_ref /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/include/lean/lean.h:728:5
+    #4 0x7834015fb025 in l_Lean_Elab_Command_elabEvalCoreUnsafe___lam__0 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/BuiltinEvalCommand.c:11833:1
+    #5 0x7834015fb025 in l_Lean_Elab_Command_elabEvalCoreUnsafe___lam__0___boxed /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/BuiltinEvalCommand.c:11841:15
+    #6 0x7834032aa66d in lean_apply_1 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/src/runtime/apply.cpp
+    #7 0x78340161beae in l_Lean_Elab_Command_elabEvalCoreUnsafe___elam__1___at___00Lean_Elab_Command_elabEvalCoreUnsafe_spec__8___redArg /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/BuiltinEvalCommand.c:17969:15
+    #8 0x783401621453 in l_Lean_Elab_Command_elabEvalCoreUnsafe___lam__1 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/BuiltinEvalCommand.c
+    #9 0x783401622749 in l_Lean_Elab_Command_elabEvalCoreUnsafe___lam__1___boxed /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/BuiltinEvalCommand.c:18641:15
+    #10 0x7834032da490 in lean_apply_7 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/src/runtime/apply.cpp
+    #11 0x783401630d1e in l___private_Lean_Elab_InfoTree_Main_0__Lean_Elab_withSavedPartialInfoContext___at___00Lean_Elab_withSaveInfoContext___at___00Lean_Elab_Command_elabEvalCoreUnsafe_spec__11_spec__22___redArg /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/BuiltinEvalCommand.c:20044:13
+    #12 0x7834016334ca in l_Lean_Elab_withSaveInfoContext___at___00Lean_Elab_Command_elabEvalCoreUnsafe_spec__11___redArg /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/BuiltinEvalCommand.c:20292:15
+    #13 0x7834016334ca in l_Lean_Elab_withSaveInfoContext___at___00Lean_Elab_Command_elabEvalCoreUnsafe_spec__11 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/BuiltinEvalCommand.c:20314:15
+    #14 0x7834016334ca in l_Lean_Elab_withSaveInfoContext___at___00Lean_Elab_Command_elabEvalCoreUnsafe_spec__11___boxed /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/BuiltinEvalCommand.c:20322:15
+    #15 0x7834032d8d58 in lean_apply_7 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/src/runtime/apply.cpp
+    #16 0x7833f12a74af in l_Lean_withDeclNameForAuxNaming___at___00Lean_Elab_Term_withDeclName_spec__0___redArg /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Term/TermElabM.c:11007:15
+    #17 0x7833f12a9504 in l_Lean_withDeclNameForAuxNaming___at___00Lean_Elab_Term_withDeclName_spec__0 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Term/TermElabM.c:11178:15
+    #18 0x7833f12a9504 in l_Lean_withDeclNameForAuxNaming___at___00Lean_Elab_Term_withDeclName_spec__0___boxed /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Term/TermElabM.c:11186:15
+    #19 0x7834032d8d58 in lean_apply_7 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/src/runtime/apply.cpp
+    #20 0x7833f12b5a3e in l___private_Lean_Elab_InfoTree_Main_0__Lean_Elab_withSavedPartialInfoContext___at___00Lean_Elab_withSaveParentDeclInfoContext___at___00Lean_Elab_Term_withDeclName_spec__1_spec__1___redArg /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Term/TermElabM.c:12479:13
+    #21 0x7833f12b8d41 in l_Lean_Elab_withSaveParentDeclInfoContext___at___00Lean_Elab_Term_withDeclName_spec__1___redArg /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Term/TermElabM.c:12727:15
+    #22 0x7833f12b8d41 in l_Lean_Elab_Term_withDeclName___redArg /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Term/TermElabM.c:12801:15
+    #23 0x783401633b52 in l_Lean_Elab_Command_elabEvalCoreUnsafe___lam__2 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/BuiltinEvalCommand.c:20345:15
+    #24 0x783401633d68 in l_Lean_Elab_Command_elabEvalCoreUnsafe___lam__2___boxed /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/BuiltinEvalCommand.c:20353:15
+    #25 0x7834032d8d58 in lean_apply_7 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/src/runtime/apply.cpp
+    #26 0x7833f1436f10 in l_Lean_Elab_Term_withoutAutoBoundImplicit___redArg /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Term/TermElabM.c:54847:16
+    #27 0x7833f4c224c9 in l_Lean_Elab_Command_runTermElabM___redArg___lam__1 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Command.c:70636:16
+    #28 0x7833f4c23758 in l_Lean_Elab_Command_runTermElabM___redArg___lam__1___boxed /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Command.c:70827:16
+    #29 0x7834032dcb3f in lean_apply_8 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/src/runtime/apply.cpp
+    #30 0x7833f4f3700a in l_Lean_Elab_Term_elabBinders___redArg___lam__0 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Binders.c:7795:15
+    #31 0x7833f4f37380 in l_Lean_Elab_Term_elabBinders___redArg___lam__0___boxed /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Binders.c:7803:15
+    #32 0x7834032dd249 in lean_apply_8 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/src/runtime/apply.cpp
+    #33 0x7833f4f354a6 in l_Lean_Elab_Term_elabBindersEx___redArg___lam__0 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Binders.c:7670:15
+    #34 0x7833f4f35891 in l_Lean_Elab_Term_elabBindersEx___redArg___lam__0___boxed /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Binders.c:7680:15
+    #35 0x7834032d98ae in lean_apply_7 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/src/runtime/apply.cpp
+    #36 0x7833f1480c36 in l_Lean_Elab_Term_universeConstraintsCheckpoint___redArg /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Term/TermElabM.c:62806:16
+    #37 0x7833f4f35f66 in l_Lean_Elab_Term_elabBindersEx___redArg /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Binders.c:7704:15
+    #38 0x7833f4f37e44 in l_Lean_Elab_Term_elabBinders /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Binders.c:7841:15
+    #39 0x7833f4f37e44 in l_Lean_Elab_Term_elabBinders___boxed /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Binders.c:7849:15
+    #40 0x7834032d8d58 in lean_apply_7 /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/src/runtime/apply.cpp
+    #41 0x7833f12b5a3e in l___private_Lean_Elab_InfoTree_Main_0__Lean_Elab_withSavedPartialInfoContext___at___00Lean_Elab_withSaveParentDeclInfoContext___at___00Lean_Elab_Term_withDeclName_spec__1_spec__1___redArg /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Term/TermElabM.c:12479:13
+    #42 0x7833f1430530 in l_Lean_Elab_withSaveAutoImplicitInfoContext___at___00__private_Lean_Elab_Term_TermElabM_0__Lean_Elab_Term_withAutoBoundImplicit_loop_spec__0___redArg /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Term/TermElabM.c:54111:16
+    #43 0x7833f1430530 in l___private_Lean_Elab_Term_TermElabM_0__Lean_Elab_Term_withAutoBoundImplicit_loop___redArg /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Term/TermElabM.c:54394:16
+    #44 0x7833f1433baa in l_Lean_Elab_Term_withAutoBoundImplicit___redArg /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Term/TermElabM.c:54707:16
+    #45 0x7833f1436013 in l_Lean_Elab_Term_withAutoBoundImplicit /home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/asan/stage1/lib/temp/Lean/Elab/Ter
+[... truncated ...]

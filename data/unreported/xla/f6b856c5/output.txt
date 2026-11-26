@@ -1,0 +1,108 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+E0000 00:00:1792015514.895299  132404 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/literal.cc:928) src_literal.shape().dimensions().size() == src_base.size() 
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+E0000 00:00:1792015514.895787  132404 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/literal.cc:928) src_literal.shape().dimensions().size() == src_base.size() 
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+W0000 00:00:1792015514.895899  132404 sharding_propagation.cc:3202] GSPMD sharding propagation is going to be deprecated and not supported in the future. Please consider migrating to Shardy (https://openxla.org/shardy). For reference, Shardy is already the default partitioner in JAX.
+INTERNAL: during context [hlo verifier]: Shape mismatch between parameter number 0 and its operand in %fusion.d.1 = f32[9]{0} fusion(%c0.1.clone), kind=kCustom, calls=%fused_computation.d.clone, backend_config={ "operation_queue_id":"0", "fusion_backend_config":{ "kind":"__triton", "block_level_fusion_config":{ "num_warps":"4", "output_tiles":[{"sizes":["2"]}], "num_ctas":1, "num_stages":1, "is_tma_allowed":true, "is_warp_specialization_allowed":false, "waves_per_eu":0 } }, "force_earliest_schedule":false, "reification_cost":[], "device_type":"DEVICE_TYPE_INVALID" }. (f32[8]{0} != f32[])
+
+Failed after pipeline-start
+=== Source Location Trace: === 
+xla/service/hlo_verifier.cc:4814
+./xla/hlo/pass/hlo_pass_pipeline.h:142
+xla/hlo/pass/hlo_pass_pipeline.cc:164
+xla/service/gpu/gpu_compiler.cc:1941
+xla/service/gpu/gpu_compiler.cc:2391
+xla/tools/hlo_opt/compiled_opt_lib.cc:127
+xla/tools/hlo_opt/gpu_opt.cc:279
+xla/tools/hlo_opt/gpu_opt.cc:112
+xla/hlo/tools/hlo_opt/opt_main.cc:202
+xla/hlo/tools/hlo_opt/opt_main.cc:214

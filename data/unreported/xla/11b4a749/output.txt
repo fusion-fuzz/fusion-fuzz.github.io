@@ -1,0 +1,51 @@
+
+=== Iteration 1
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1791849301.743561 3343337 run_hlo_module.cc:483] !!! Warning !!! When running decomposed module, running HLO passes is likely not what you want. If you have unoptimized HLO, first convert it to the optimized e.g. using the hlo-opt tool, and then isolate without HLO passes.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.00865329s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.000438336s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.00639181s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.000391387s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.000484985s.
+Running HLO module with runner HloRunner...
+F0000 00:00:1791849302.003404 3343337 dot_op_emitter.cc:97] Check failed: !lhs_shape.has_layout() || IsSimpleLayout(lhs_shape.layout()) bf16[1024,1024]
+*** Check failure stack trace: ***
+    @     0x5e56bec8a8a4  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5e56bec8a826  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5e56b5db50e9  xla::cpu::(anonymous namespace)::IsAlignedGemm()
+    @     0x5e56b5db1bfb  xla::cpu::(anonymous namespace)::GetNonBatchDotImplementationStrategy()
+    @     0x5e56b5db1703  xla::cpu::GetDotImplementationStrategy()
+    @     0x5e56b55c442b  xla::cpu::CpuCompiler::RunHloPassesThroughLayoutAssn()::$_1::operator()()
+    @     0x5e56b55c438f  std::_Function_handler<>::_M_invoke()
+    @     0x5e56be3eca6b  xla::OpExpanderPass::RunImpl()
+    @     0x5e56be3ecf97  xla::HloPassInterface::Run()
+    @     0x5e56bdafed5c  xla::HloPassPipeline::RunHelper<>()
+    @     0x5e56bdafa1ad  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5e56bdaf95c5  xla::HloPassPipeline::RunImpl()
+    @     0x5e56be3ecf97  xla::HloPassInterface::Run()
+    @     0x5e56b55a0691  xla::cpu::CpuCompiler::RunHloPassesThroughLayoutAssn()
+    @     0x5e56b55a3821  xla::cpu::CpuCompiler::RunHloPasses()
+    @     0x5e56b55a4247  xla::cpu::CpuCompiler::RunHloPasses()
+    @     0x5e56b53bfba5  xla::CompileCpuExecutableInternal()
+    @     0x5e56b53bea2c  xla::PjRtCpuRawClient::CompileInternal()
+    @     0x5e56b53be6af  xla::PjRtCpuRawClient::Compile()
+    @     0x5e56b53db1f5  xla::cpu::CpuPjRtCompiler::Compile()
+    @     0x5e56bd7a3c3b  xla::PjRtCompile()
+    @     0x5e56b54d0918  xla::CommonPjRtClient::Compile()
+    @     0x5e56bd789c9a  xla::HloRunner::CreateExecutable()
+    @     0x5e56bd787d3c  xla::HloRunner::Execute()
+    @     0x5e56bd79182e  xla::HloRunnerInterface::Execute()
+    @     0x5e56b53745e7  xla::(anonymous namespace)::ExecuteWithRunner()
+    @     0x5e56b536eee7  xla::(anonymous namespace)::RunAndCompareInternal()
+    @     0x5e56b536c8e3  xla::RunAndCompare()
+    @     0x5e56b537044e  xla::RunAndCompare()
+    @     0x5e56b536a04f  main
+    @     0x753fabfd6d90  (unknown)
+Aborted (core dumped)
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmp4z3wp9hg/f0d164e8.hlo**

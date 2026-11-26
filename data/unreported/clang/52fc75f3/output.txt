@@ -1,0 +1,100 @@
+[... 24 lines omitted ...]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:43:11: note: use 'isEqual:' instead
+   43 |   if (@"" == @"") return; // expected-warning{{direct comparison of a string literal has undefined behavior}} expected-note{{use 'isEqual:' instead}}
+      |           ^~    
+      |       [    isEqual: ]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:45:11: warning: direct comparison of an array literal has undefined behavior [-Wobjc-literal-compare]
+   45 |   if (@[] == obj) return; // expected-warning{{direct comparison of an array literal has undefined behavior}} expected-note{{use 'isEqual:' instead}}
+      |       ~~~ ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:45:11: note: use 'isEqual:' instead
+   45 |   if (@[] == obj) return; // expected-warning{{direct comparison of an array literal has undefined behavior}} expected-note{{use 'isEqual:' instead}}
+      |           ^~    
+      |       [    isEqual: ]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:46:11: warning: direct comparison of a dictionary literal has undefined behavior [-Wobjc-literal-compare]
+   46 |   if (@{} == obj) return; // expected-warning{{direct comparison of a dictionary literal has undefined behavior}} expected-note{{use 'isEqual:' instead}}
+      |       ~~~ ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:46:11: note: use 'isEqual:' instead
+   46 |   if (@{} == obj) return; // expected-warning{{direct comparison of a dictionary literal has undefined behavior}} expected-note{{use 'isEqual:' instead}}
+      |           ^~    
+      |       [    isEqual: ]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:47:11: warning: direct comparison of a numeric literal has undefined behavior [-Wobjc-literal-compare]
+   47 |   if (@12 == obj) return; // expected-warning{{direct comparison of a numeric literal has undefined behavior}} expected-note{{use 'isEqual:' instead}}
+      |       ~~~ ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:47:11: note: use 'isEqual:' instead
+   47 |   if (@12 == obj) return; // expected-warning{{direct comparison of a numeric literal has undefined behavior}} expected-note{{use 'isEqual:' instead}}
+      |           ^~    
+      |       [    isEqual: ]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:48:12: warning: direct comparison of a numeric literal has undefined behavior [-Wobjc-literal-compare]
+   48 |   if (@1.0 == obj) return; // expected-warning{{direct comparison of a numeric literal has undefined behavior}} expected-note{{use 'isEqual:' instead}}
+      |       ~~~~ ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:48:12: note: use 'isEqual:' instead
+   48 |   if (@1.0 == obj) return; // expected-warning{{direct comparison of a numeric literal has undefined behavior}} expected-note{{use 'isEqual:' instead}}
+      |            ^~    
+      |       [     isEqual: ]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:49:19: warning: direct comparison of a numeric literal has undefined behavior [-Wobjc-literal-compare]
+   49 |   if (@__objc_yes == obj) return; // expected-warning{{direct comparison of a numeric literal has undefined behavior}} expected-note{{use 'isEqual:' instead}}
+      |       ~~~~~~~~~~~ ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:49:19: note: use 'isEqual:' instead
+   49 |   if (@__objc_yes == obj) return; // expected-warning{{direct comparison of a numeric literal has undefined behavior}} expected-note{{use 'isEqual:' instead}}
+      |                   ^~    
+      |       [            isEqual: ]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:50:14: warning: direct comparison of a boxed expression has undefined behavior [-Wobjc-literal-compare]
+   50 |   if (@(1+1) == obj) return; // expected-warning{{direct comparison of a boxed expression has undefined behavior}} expected-note{{use 'isEqual:' instead}}
+      |       ~~~~~~ ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:50:14: note: use 'isEqual:' instead
+   50 |   if (@(1+1) == obj) return; // expected-warning{{direct comparison of a boxed expression has undefined behavior}} expected-note{{use 'isEqual:' instead}}
+      |              ^~    
+      |       [       isEqual: ]
+unimplemented
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CodeGenModule.cpp:7531!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -emit-llvm -S -o /dev/null -Os -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -fobjc-runtime=macosx-10.14 -fobjc-arc -target powerpc64-unknown-aix -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:54:1: current parser token '@'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:39:6: LLVM IR generation of declaration 'testComparisonsWithFixits'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwqhe_q0w/0859ef9c.m:39:6: Generating code for declaration 'testComparisonsWithFixits'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x0000619886fc2329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x0000619886fbefec llvm::sys::RunSignalHandlers() + 76
+2  clang     0x0000619886fbf8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x0000619886f01218
+4  libc.so.6 0x00007f3add16e520
+5  libc.so.6 0x00007f3add1c29bc pthread_kill + 300
+6  libc.so.6 0x00007f3add16e476 raise + 22
+7  libc.so.6 0x00007f3add1547f3 abort + 211
+8  clang     0x0000619886f0c11e
+9  clang     0x0000619887721600 clang::CodeGen::CodeGenModule::GetAddrOfConstantCFString(clang::StringLiteral const*) + 1696
+10 clang     0x0000619887a978b6
+11 clang     0x00006198875870d6 clang::CodeGen::CodeGenFunction::EmitObjCStringLiteral(clang::ObjCStringLiteral const*) + 86
+12 clang     0x0000619887514c4b
+13 clang     0x000061988751981b
+14 clang     0x0000619887514c4b
+15 clang     0x0000619887521c01 clang::CodeGen::CodeGenFunction::EmitPromotedScalarExpr(clang::Expr const*, clang::QualType) + 241
+16 clang     0x000061988752261c
+17 clang     0x00006198875242a5
+18 clang     0x00006198875187fd clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 141
+19 clang     0x000061988747554d clang::CodeGen::CodeGenFunction::EvaluateExprAsBool(clang::Expr const*) + 477
+20 clang     0x00006198876c5e87 clang::CodeGen::CodeGenFunction::EmitBranchOnBoolExpr(clang::Expr const*, llvm::BasicBlock*, llvm::BasicBlock*, unsigned long, clang::Stmt::Likelihood, clang::Expr const*, clang::VarDecl const*) + 215
+21 clang     0x000061988765751c clang::CodeGen::CodeGenFunction::EmitIfStmt(clang::IfStmt const&) + 1196
+22 clang     0x0000619887657f3c clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+23 clang     0x00006198876c1901 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) + 177
+24 clang     0x00006198876d89d4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 1396
+25 clang     0x0000619887742ce8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 2152
+26 clang     0x000061988773bf64 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 580
+27 clang     0x000061988773ce60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+28 clang     0x0000619887748335
+29 clang     0x0000619887aebef1
+30 clang     0x0000619887adb0f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+31 clang     0x00006198897b861c clang::ParseAST(clang::Sema&, bool, bool) + 508
+32 clang     0x0000619887e59061 clang::FrontendAction::Execute() + 65
+33 clang     0x0000619887de2e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+34 clang     0x0000619887f30de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+35 clang     0x0000619884d8c33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+36 clang     0x0000619884d8213a
+37 clang     0x0000619884d822cf
+38 clang     0x0000619887b67cfd
+39 clang     0x0000619886f01630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+40 clang     0x0000619887b68b53
+41 clang     0x0000619887b1d607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+42 clang     
+[... truncated ...]

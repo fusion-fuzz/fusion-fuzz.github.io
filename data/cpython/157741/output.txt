@@ -1,0 +1,19 @@
+AddressSanitizer:DEADLYSIGNAL
+==1527921==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x75e7d758a13f bp 0x78b7d9e5f060 sp 0x7ffdab0f82c0 T0)
+==1527921==The signal is caused by a READ memory access.
+==1527921==Hint: address points to the zero page.
+    #0 0x75e7d758a13f in TclSetupEnv (/lib/x86_64-linux-gnu/libtcl8.6.so+0xb213f)
+    #1 0x75e7d75114d8 in Tcl_CreateInterp (/lib/x86_64-linux-gnu/libtcl8.6.so+0x394d8)
+    #2 0x75e7d88c1607 in Tkapp_New Modules/_tkinter.c:643:17
+    #3 0x75e7d88c1607 in _tkinter_create_impl Modules/_tkinter.c:3483:25
+    #4 0x75e7d88c1607 in _tkinter_create Modules/clinic/_tkinter.c.h:898:20
+    #5 0x6375e0068750 in cfunction_vectorcall_FASTCALL Objects/methodobject.c:449:24
+    #6 0x6375dfeb5205 in _PyObject_VectorcallTstate Include/internal/pycore_call.h:144:11
+    #7 0x6375e04005ac in _Py_VectorCallInstrumentation_StackRefSteal Python/ceval.c:770:11
+    #8 0x6375e0449521 in _PyEval_EvalFrameDefault Python/generated_cases.c.h:1906:35
+    #9 0x6375e03ff857 in _PyEval_Vector Python/ceval.c:2176:12
+    #10 0x6375dfeb55b4 in _PyObject_VectorcallDictTstate Objects/call.c:135:15
+    #11 0x6375dfeb97e6 in _PyObject_Call_Prepend Objects/call.c:504:24
+    #12 0x6375e017d7b0 in call_method Objects/typeobject.c:3070:19
+    #13 0x6375e01c9165 in slot_tp_init Objects/typeobject.c:11115:21
+    #14 0x6375e0159c7a in type_call Objects/typeobject.c:2454:19

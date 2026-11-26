@@ -1,0 +1,27 @@
+
+thread 'main' panicked at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/writer.rs:1159:18:
+No bind target was defined for the immediates block
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/std/src/panicking.rs:697:5
+   1: core::panicking::panic_fmt
+             at /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/core/src/panicking.rs:75:14
+   2: core::panicking::panic_display
+             at /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/core/src/panicking.rs:269:5
+   3: core::option::expect_failed
+             at /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/core/src/option.rs:2049:5
+   4: core::option::Option<T>::expect
+             at /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/core/src/option.rs:958:21
+   5: naga::back::hlsl::writer::<impl naga::back::hlsl::Writer<W>>::write_global
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/writer.rs:1159:18
+   6: naga::back::hlsl::writer::<impl naga::back::hlsl::Writer<W>>::write
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga/src/back/hlsl/writer.rs:437:13
+   7: naga::write_output
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga-cli/src/bin/naga.rs:999:13
+   8: naga::run
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga-cli/src/bin/naga.rs:724:9
+   9: naga::main
+             at /usr/local/cargo/git/checkouts/wgpu-045f9a3b3e40a5c0/b441c50/naga-cli/src/bin/naga.rs:468:21
+  10: core::ops::function::FnOnce::call_once
+             at /rustc/6b00bc3880198600130e1cf62b8f8a93494488cc/library/core/src/ops/function.rs:250:5
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.

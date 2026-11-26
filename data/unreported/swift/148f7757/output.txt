@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:18:17: error: expected expression after '? ... :' in ternary expression
+ 16 | func one() {
+ 17 |   do {
+ 18 |     true ? () : throw opaque_error() // expected-error {{expected expression after '? ... :' in ternary expression}}
+    |                 `- error: expected expression after '? ... :' in ternary expression
+ 19 |   } catch _ {
+ 20 |   }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:71:39: error: 'num' must be bound in every pattern
+ 69 |   do {
+ 70 |     throw opaque_error()
+ 71 |   } catch MSV.Foo, MSV.CarriesInt(let num) { // expected-error {{'num' must be bound in every pattern}}
+    |                                       `- error: 'num' must be bound in every pattern
+ 72 |   } catch {
+ 73 |   }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:109:56: error: expected '{' after 'catch' pattern
+107 |       _ = try genError()
+108 | 
+109 |     } catch MSV.CarriesInt(let i) where i == genError()) { // expected-error {{call can throw, but errors cannot be thrown out of a catch guard expression}} expected-error {{expected '{'}}
+    |                                                        `- error: expected '{' after 'catch' pattern
+110 |     }
+111 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:113:26: error: 'throws' may only occur before '->'
+111 | }
+112 | 
+113 | func postThrows() -> Int throws { // expected-error{{'throws' may only occur before '->'}}{{19-19=throws }}{{26-33=}}
+    |                          `- error: 'throws' may only occur before '->'
+114 |   return 5
+115 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:117:23: error: 'throws' may only occur before '->'
+115 | }
+116 | 
+117 | func postThrows2() -> throws Int { // expected-error{{'throws' may only occur before '->'}}{{20-20=throws }}{{23-30=}}
+    |                       `- error: 'throws' may only occur before '->'
+118 |   return try postThrows()
+119 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:121:49: error: 'rethrows' may only occur before '->'
+119 | }
+120 | 
+121 | func postRethrows(_ f: () throws -> Int) -> Int rethrows { // expected-error{{'rethrows' may only occur before '->'}}{{42-42=rethrows }}{{49-58=}}
+    |                                                 `- error: 'rethrows' may only occur before '->'
+122 |   return try f()
+123 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:125:46: error: 'rethrows' may only occur before '->'
+123 | }
+124 | 
+125 | func postRethrows2(_ f: () throws -> Int) -> rethrows Int { // expected-error{{'rethrows' may only occur before '->'}}{{43-43=rethrows }}{{46-55=}}
+    |                                              `- error: 'rethrows' may only occur before '->'
+126 |   return try f()
+127 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:130:19: error: 'throws' may only occur before '->'
+128 | 
+129 | func postThrows3() {
+130 |   _ = { () -> Int throws in } // expected-error {{'throws' may only occur before '->'}} {{19-26=}} {{12-12=throws }}
+    |                   `- error: 'throws' may only occur before '->'
+131 | }
+132 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:133:26: error: 'rethrows' has already been specified
+131 | }
+132 | 
+133 | func dupThrows1() throws rethrows -> throws Int throw {}
+    |                          `- error: 'rethrows' has already been specified
+134 | // expected-error@-1 {{'rethrows' has already been specified}} {{26-35=}}
+135 | // expected-error@-2 {{'throws' has already been specified}} {{38-45=}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:133:38: error: 'throws' has already been specified
+131 | }
+132 | 
+133 | func dupThrows1() throws rethrows -> throws Int throw {}
+    |                                      `- error: 'throws' has already been specified
+134 | // expected-error@-1 {{'rethrows' has already been specified}} {{26-35=}}
+135 | // expected-error@-2 {{'throws' has already been specified}} {{38-45=}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:133:49: error: 'throw' has already been specified
+131 | }
+132 | 
+133 | func dupThrows1() throws rethrows -> throws Int throw {}
+    |                                                 `- error: 'throw' has already been specified
+134 | // expected-error@-1 {{'rethrows' has already been specified}} {{26-35=}}
+135 | // expected-error@-2 {{'throws' has already been specified}} {{38-45=}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:138:35: error: 'rethrows' has already been specified
+136 | // expected-error@-3 {{'throw' has already been specified}} {{49-55=}}
+137 | 
+138 | func dupThrows2(_ f: () throws -> rethrows Int) {}
+    |                                   `- error: 'rethrows' has already been specified
+139 | // expected-error@-1 {{'rethrows' has already been specified}} {{35-44=}}
+140 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:142:12: error: expected throwing specifier; did you mean 'throws'?
+140 | 
+141 | func dupThrows3() {
+142 |   _ = { () try throws in }
+    |            `- error: expected throwing specifier; did you mean 'throws'?
+143 | // expected-error@-1 {{expected throwing specifier; did you mean 'throws'?}} {{12-15=throws}}
+144 | // expected-error@-2 {{'throws' has already been specified}} {{16-23=}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:142:16: error: 'throws' has already been specified
+140 | 
+141 | func dupThrows3() {
+142 |   _ = { () try throws in }
+    |                `- error: 'throws' has already been specified
+143 | // expected-error@-1 {{expected throwing specifier; did you mean 'throws'?}} {{12-15=throws}}
+144 | // expected-error@-2 {{'throws' has already been specified}} {{16-23=}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpybqrlg8f/f0365fe8.swift:146:26: error: 'throws' has already been specified
+144 | // expected-error@-2 {{'throws' has already been specified}} {{16-23=}}
+145 | 
+146 |   _ = { () throws -> Int throws in }
+    |                          `- error: 'throws' has already been specified
+147 | // expected-error@-1 {{'throws' has already been specified}} {{26-33=}}
+148 | }
+
+[... 181 more lines ...]

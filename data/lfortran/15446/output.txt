@@ -1,0 +1,8 @@
+$ lfortran -c repro.f90 -o /dev/null
+  File "src/lfortran/semantics/ast_body_visitor.cpp", line 434, in BodyVisitor::transform_stmts(...)
+    this->visit_decl_stmt(*m_body[i]);
+  File "src/lfortran/ast.h", line 4752, in AST::visit_decl_stmt_t<BodyVisitor>(...)
+    case decl_stmtType::SubroutineCall: { v.visit_SubroutineCall((const SubroutineCall_t &)x); return; }
+  File "src/lfortran/semantics/ast_body_visitor.cpp", line 8584, in BodyVisitor::visit_SubroutineCall(AST::SubroutineCall_t const&)
+    process_call_args_and_kwargs(x, args, original_sym, diag, v_expr, al, nopass);
+AssertFailed: ASR::is_a<ASR::FunctionType_t>(*v_type)

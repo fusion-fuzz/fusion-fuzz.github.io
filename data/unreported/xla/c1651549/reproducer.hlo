@@ -1,0 +1,10 @@
+HloModule module, num_partitions=2
+
+ENTRY %entry {
+  %lhs = f32[4,16,8]{2,1,0} parameter(0), sharding={devices=[2,1,1]<=[2]}
+  %rhs = f32[4,4,8]{2,1,0} parameter(1), sharding={devices=[1,2,1]<=[2]}
+  %dot = f32[4,16,4]{2,1,0} dot(lhs, rhs), lhs_batch_dims={0}, rhs_batch_dims={0}, lhs_contracting_dims={2}, rhs_contracting_dims={2}, sharding={devices=[2,1,1]<=[2]}
+  %param0 = f64[1536] parameter(2), sharding={devices=[2]<=[2]}
+  %custom-call = (f64[1520]{0}, f64[1520]{0}, f64[1520]{0}) custom-call(%dot), custom_call_target="_SPMDInternalOp_MultiSlice", sharding={{devices=[2]<=[2]}, {devices=[2]<=[2]}, {devices=[2]<=[2]}}, backend_config="dimension=0,amount=2,start_indices=[5],limit_indices=[1525],strides=[1],bufferize=0"
+  ROOT %ffl.root = (f32[4,16,4]{2,1,0}, (f64[1520]{0}, f64[1520]{0}, f64[1520]{0})) tuple(%dot, %custom-call)
+}

@@ -1,0 +1,62 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+W0000 00:00:1792641022.500074  374581 sharding_propagation.cc:3202] GSPMD sharding propagation is going to be deprecated and not supported in the future. Please consider migrating to Shardy (https://openxla.org/shardy). For reference, Shardy is already the default partitioner in JAX.
+E0000 00:00:1792641022.500749  374581 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/service/spmd/custom_call_handler.cc:615) !element_sharding.IsReplicatedOrSingleDevice() Halo Exchange requires sharding along the wrap dimension.
+=== Source Location Trace: ===
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+INTERNAL: RET_CHECK failure (xla/service/spmd/custom_call_handler.cc:615) !element_sharding.IsReplicatedOrSingleDevice() Halo Exchange requires sharding along the wrap dimension.
+=== Source Location Trace: ===
+xla/status_macros.cc:81
+xla/service/spmd/custom_call_handler.cc:556
+xla/hlo/ir/hlo_instruction.cc:5297
+xla/hlo/ir/hlo_instruction.cc:5368
+xla/service/spmd/spmd_partitioner.cc:6713
+xla/service/spmd/spmd_partitioner.cc:7496
+xla/service/call_graph.cc:376
+xla/service/spmd/spmd_partitioner.cc:7496
+./xla/hlo/pass/hlo_pass_pipeline.h:142
+xla/hlo/pass/hlo_pass_pipeline.cc:254
+xla/service/gpu/gpu_compiler.cc:1923
+xla/service/gpu/gpu_compiler.cc:2391
+xla/tools/hlo_opt/compiled_opt_lib.cc:127
+xla/tools/hlo_opt/compiled_opt_lib.cc:84
+xla/tools/hlo_opt/gpu_opt.cc:125
+xla/hlo/tools/hlo_opt/opt_main.cc:202
+xla/hlo/tools/hlo_opt/opt_main.cc:214

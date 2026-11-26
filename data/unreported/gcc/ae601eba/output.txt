@@ -1,0 +1,39 @@
+during IPA pass: cp
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7vw_u9tl/cdc6e28a.cc: In constructor 'Building::Building(InputStream*) transaction_safe':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7vw_u9tl/cdc6e28a.cc:34:18: internal compiler error: in obj_type_ref_class, at ipa-devirt.cc:1989
+   34 | enum foo { bar, };
+      |                  ^
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x952707 obj_type_ref_class(tree_node const*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/ipa-devirt.cc:1989
+0x174a00e ipa_analyze_call_uses
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/ipa-prop.cc:3227
+0x174a00e ipa_analyze_stmt_uses
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/ipa-prop.cc:3356
+0x174a00e ipa_analyze_params_uses_in_bb
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/ipa-prop.cc:3408
+0x174a00e analysis_dom_walker::before_dom_children(basic_block_def*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/ipa-prop.cc:3553
+0x3020617 dom_walker::walk(basic_block_def*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/domwalk.cc:311
+0x174767e ipa_analyze_node(cgraph_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/ipa-prop.cc:3624
+0x3105cb7 ipcp_generate_summary
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/ipa-cp.cc:6804
+0x18bbbfa execute_ipa_summary_passes(ipa_opt_pass_d*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/passes.cc:2287
+0x143689e ipa_passes
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2269
+0x143689e symbol_table::compile()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2367
+0x1438c36 symbol_table::compile()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2345
+0x1438c36 symbol_table::finalize_compilation_unit()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2626
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D_REENTRANT /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7vw_u9tl/cdc6e28a.cc -quiet -dumpbase cdc6e28a.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Ofast -std=c++11 -fgraphite-identity -fgnu-tm -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

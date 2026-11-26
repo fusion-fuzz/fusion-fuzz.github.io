@@ -1,0 +1,34 @@
+HloModule test_module
+
+%body {
+  %p0 = (s32[], s32[4,8]) parameter(0)
+  %ivar = s32[] get-tuple-element(p0), index=0
+  %buf = s32[4,8] get-tuple-element(p0), index=1
+  %c0 = s32[] constant(0)
+  %c4 = s32[] constant(4)
+  %c1 = s32[] constant(1)
+  %val = s32[1,4] constant({{1,2,3,4}})
+  %dus0 = s32[4,8] dynamic-update-slice(buf, val, ivar, c0)
+  %dus1 = s32[4,8] dynamic-update-slice(buf, val, ivar, c4)
+  %next_ivar = s32[] add(ivar, c1)
+  ROOT %result = (s32[], s32[4,8]) tuple(next_ivar, dus1)
+}
+
+%condition {
+  %p0 = (s32[], s32[4,8]) parameter(0)
+  %ivar = s32[] get-tuple-element(p0), index=0
+  %c4 = s32[] constant(4)
+  ROOT %cmp = pred[] compare(ivar, c4), direction=LT
+}
+
+ENTRY %Test {
+  %p0 = f16[100] parameter(0)
+  %c = f32[100,100] broadcast(p0), dimensions={0}
+  %add = f32[100,100] add(c, c)
+  %mul = f32[100,100] multiply(c, c)
+  %input = s32[4,8] parameter(1)
+  %c0 = s32[] constant(0)
+  %tuple = (s32[], s32[4,8]) tuple(%c0, %input)
+  %while = (s32[], s32[4,8]) while(%tuple), condition=%condition, body=%body, backend_config={"known_trip_count":{"n":"4"}, "known_init_step":{"init":"0","step":"1"}, "known_induction_variable":{"tuple_index":"0"}}
+  ROOT %ffl.root = (f32[100,100], (s32[], s32[4,8])) tuple(%mul, %while)
+}

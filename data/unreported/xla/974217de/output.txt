@@ -1,0 +1,33 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1792014422.322736   46709 shape_util.cc:1769] Check failed: input_shape.IsArray() token[]
+*** Check failure stack trace: ***
+    @     0x6391c7db1a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x6391c7db19e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x6391c792b807  xla::ShapeUtil::ReshapeIsBitcast()
+    @     0x6391bf2f663d  xla::(anonymous namespace)::BitcastingOperandOfReshapeOrCopyChain()
+    @     0x6391bf2f5bb0  xla::AlgebraicSimplifierVisitor::HandleCopy()
+    @     0x6391c76e6277  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x6391c76e5ef7  xla::HloInstruction::Visit<>()
+    @     0x6391c76e846e  xla::PostOrderDFS<>()
+    @     0x6391c76e4cf8  xla::HloInstruction::Accept<>()
+    @     0x6391bc846f07  xla::HloComputation::Accept<>()
+    @     0x6391bf2e7ace  xla::AlgebraicSimplifierVisitor::Run()
+    @     0x6391bce1ee4a  xla::gpu::GpuAlgebraicSimplifier::RunImpl()
+    @     0x6391bc92c95a  xla::HloPassFix<>::RunOnChangedComputationsOnce()
+    @     0x6391bc92bde7  xla::HloPassFix<>::RunToFixPoint()
+    @     0x6391bc92baf4  xla::HloPassFix<>::RunImpl()
+    @     0x6391c3e68be7  xla::HloPassInterface::Run()
+    @     0x6391bf9e63ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x6391bf9e17bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x6391bf9e0bd5  xla::HloPassPipeline::RunImpl()
+    @     0x6391c3e68be7  xla::HloPassInterface::Run()
+    @     0x6391bc937ca4  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x6391bc94206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x6391bc876934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x6391bc86ae5e  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x6391bc868dc7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x6391c7e02466  main
+    @     0x7fb1977d4d90  (unknown)
+Aborted (core dumped)

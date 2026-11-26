@@ -1,0 +1,27 @@
+HloModule pjit__unnamed_wrapped_function_, allow_spmd_sharding_propagation_to_parameters={false,false,false,false}, num_partitions=4
+
+ENTRY %main {
+  %lhs = f8e4m3fn[2,16,192]{2,1,0} parameter(0), sharding={devices=[1,1,4]<=[4]}
+  %rhs = f8e4m3fn[192,48]{1,0} parameter(1), sharding={devices=[4,1]<=[4]}
+  %scale_lhs = bf16[] parameter(2)
+  %scale_rhs = bf16[] parameter(3)
+  %p0 = f32[8,512] parameter(4), sharding={devices=[1,2,2]0,1,2,3 last_tile_dims={manual} metadata={op_name="a"}}
+  %p1 = f32[512,128] parameter(5)
+  %copy1 = f32[512,128] copy(%p1)
+  %dot.d = f32[8,128] dot(%p0, %copy1), lhs_batch_dims={}, rhs_batch_dims={}, lhs_contracting_dims={1}, rhs_contracting_dims={0}, sharding={devices=[1,1,2,2]0,1,2,3 last_tile_dims={replicated, manual} metadata={op_name="b"}}
+  %copy = f32[8,128] copy(%dot.d)
+  %scale_lhs_bcast = bf16[2,16,192]{2,1,0} broadcast(scale_lhs), dimensions={}
+  %scale_rhs_bcast = bf16[192,48]{1,0} broadcast(scale_rhs), dimensions={}
+  %lhs_bf16 = bf16[2,16,192]{2,1,0} convert(lhs)
+  %rhs_bf16 = bf16[192,48]{1,0} convert(rhs)
+  %lhs_scaled = bf16[2,16,192]{2,1,0} multiply(scale_lhs_bcast, lhs_bf16)
+  %rhs_scaled = bf16[192,48]{1,0} multiply(scale_rhs_bcast, rhs_bf16)
+  %dot = bf16[2,16,48]{2,1,0} dot(lhs_scaled, rhs_scaled), lhs_contracting_dims={2}, rhs_contracting_dims={0}
+  %custom-call = bf16[2,16,48]{2,1,0} custom-call(dot), custom_call_target="Sharding", sharding={devices=[1,4,1]<=[4]}
+  %ffl.root = (bf16[2,16,48]{2,1,0}, f32[8,128]) tuple(%custom-call, %copy)
+  %p0.d = f32[8,512] parameter(6), sharding={devices=[1,2,2]0,1,2,3 last_tile_dims={manual} metadata={op_name="a"}}
+  %copy1.d = f32[512,128] copy(%copy1)
+  %dot.d.1 = f32[8,128] dot(%p0.d, %copy1.d), lhs_batch_dims={}, rhs_batch_dims={}, lhs_contracting_dims={1}, rhs_contracting_dims={0}, sharding={devices=[1,1,2,2]0,1,2,3 last_tile_dims={replicated, manual} metadata={op_name="b"}}
+  %copy.d = f32[8,128] copy(%dot.d.1)
+  ROOT %ffl.root.1 = (bf16[2,16,48]{2,1,0}, f32[8,128], f32[8,128]) tuple(%custom-call, %copy, %copy.d)
+}

@@ -1,0 +1,26 @@
+HloModule m, num_partitions=4
+
+%add {
+  %param_0 = f32[] parameter(0)
+  %param_1 = f32[] parameter(1)
+  ROOT %t = f32[] add(param_0, param_1)
+}
+
+%async_computation {
+  %param_3 = f32[4096] parameter(0)
+  %param_4 = f32[2048] parameter(1)
+  ROOT %r = (f32[1024],f32[512]) reduce-scatter(param_3, param_4), dimensions={0}, to_apply=add, use_global_device_ids=true, replica_groups={{0,1,2,3}}, channel_id=1
+}
+
+ENTRY %entry_computation {
+  %p.0 = f32[4096] parameter(0)
+  %p.1 = f32[2048] parameter(1)
+  %rs-start = ((f32[4096],f32[2048]),(f32[1024],f32[512])) async-start(p.0, p.1), calls=async_computation
+  %_ = (f32[1024],f32[512]) async-done(rs-start)
+  %param0 = f32[5,7,11,13]{3,2,1,0} parameter(2), sharding={replicated metadata={op_name="a"}}
+  %param1 = f32[5,7,11,13]{3,2,1,0} parameter(3), sharding={devices=[1,2,2,1,2]0,1,2,3,4,5,6,7  last_tile_dims={manual} metadata={op_name="b"}}
+  %param2 = f32[5,7,11,13]{3,2,1,0} parameter(4)
+  %tuple = (f32[5,7,11,13]{3,2,1,0}, f32[5,7,11,13]{3,2,1,0}) tuple(%param1, %rs-start)
+  %copy = (f32[5,7,11,13]{3,2,1,0}, f32[5,7,11,13]{3,2,1,0}) copy(%tuple)
+  ROOT %ffl.root = ((f32[1024],f32[512]), (f32[5,7,11,13]{3,2,1,0}, f32[5,7,11,13]{3,2,1,0})) tuple(%_, %copy)
+}

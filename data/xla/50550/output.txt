@@ -1,0 +1,59 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1791797297.659369  163921 run_hlo_module.cc:483] !!! Warning !!! When running decomposed module, running HLO passes is likely not what you want. If you have unoptimized HLO, first convert it to the optimized e.g. using the hlo-opt tool, and then isolate without HLO passes.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.00103317s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.0371965s.
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.00092208s.
+I0000 00:00:1791797297.699822  163921 run_hlo_module.cc:145] expected: u32[4] u32[4] {3352464465, 0, 0, 3385310503}
+I0000 00:00:1791797297.699862  163921 run_hlo_module.cc:147] actual:   u32[4] u32[4] {3102921297, 1265251200, 0, 3927033639}
+I0000 00:00:1791797297.699885  163921 run_hlo_module.cc:149] Dumping literals to temp files...
+E0000 00:00:1791797297.700186  163921 run_hlo_module.cc:135] wrote Literal to expected binary: /tmp/tmp_file_tensorflow_1_R1tQ2F.expected.pb text: /tmp/tmp_file_tensorflow_2_YEN3GJ.expected.txt
+E0000 00:00:1791797297.700386  163921 run_hlo_module.cc:135] wrote Literal to actual binary: /tmp/tmp_file_tensorflow_3_lZLtY9.actual.pb text: /tmp/tmp_file_tensorflow_4_bHpUrz.actual.txt
+E0000 00:00:1791797297.700588  163921 run_hlo_module.cc:135] wrote Literal to mismatches binary: /tmp/tmp_file_tensorflow_5_cLQ7vY.mismatches.pb text: /tmp/tmp_file_tensorflow_6_HlK8uf.mismatches.txt
+INTERNAL: during context [hlo verifier]: Seen floating point types of different precisions in %pad.0 = bf16[1,1,8,4]{3,2,1,0} pad(%p1, %c0), padding=0_0x0_0x0_4x0_0, but mixed precision is disallowed.
+
+Failed after pipeline-start
+	Failed to execute on HloRunner
+=== Source Location Trace: ===
+xla/service/hlo_verifier.cc:4814
+./xla/hlo/pass/hlo_pass_pipeline.h:142
+xla/hlo/pass/hlo_pass_pipeline.cc:164
+xla/service/cpu/cpu_compiler.cc:685
+xla/service/cpu/cpu_compiler.cc:1254
+xla/service/cpu/cpu_compiler.cc:1412
+xla/pjrt/cpu/cpu_client.cc:727
+xla/pjrt/cpu/cpu_client.cc:909
+xla/service/hlo_runner.cc:437
+xla/tools/run_hlo_module.cc:326
+
+1/1 runs failed.
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmp7izg_sum/8198c7c3.hlo** 
+ Reference            | Test                 | Module                        | Status
+-----------------------------------------------------------------------------------------------------------
+ DIDN'T RUN           | RUNTIME ERROR        | pad.0                         | INTERNAL: during context [hlo verifier]: Seen floating point types of different precisions in %pad.0 = bf16[1,1,8,4]{3,2,1,0} pad(%p1, %c0), padding=0_0x0_0x0_4x0_0, but mixed precision is disallowed.
+                                                                             |
+                                                                             |Failed after pipeline-start
+                                                                             |	Failed to execute on HloRunner
+ MISMATCH             | MISMATCH             | power                         | INVALID_ARGUMENT: first mismatch at array index {0}:
+                                                                             |  expected value: 3352464465
+                                                                             |  actual value:   3102921297
+                                                                             |
+                                                                             |Expected literal:
+                                                                             |u32[4] {3352464465, 0, 0, 3385310503}
+                                                                             |
+                                                                             |Actual literal:
+                                                                             |u32[4] {3102921297, 1265251200, 0, 3927033639}
+-----------------------------------------------------------------------------------------------------------
+ Reference            | Test                 | Module                        | Status
+-----------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------
+ Reference            | Test                 | Total count                   | 
+-----------------------------------------------------------------------------
+ DIDN'T RUN           | RUNTIME ERROR        | 1                             | 
+ MISMATCH             | MISMATCH             | 1                             | 
+-----------------------------------------------------------------------------

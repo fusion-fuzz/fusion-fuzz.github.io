@@ -1,0 +1,69 @@
+unapplicable to the MS ABI
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/MicrosoftCXXABI.cpp:145!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -Oz -fblocks -target thumb-none-windows-eabi-coff -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpme12jkt7/7cb5f8f5.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpme12jkt7/7cb5f8f5.cpp:20:1: current parser token 'struct'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpme12jkt7/7cb5f8f5.cpp:18:4: LLVM IR generation of declaration 'B::B'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpme12jkt7/7cb5f8f5.cpp:18:4: Generating code for declaration 'B::B'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000557a96db5409 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000557a96db20cc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000557a96db2988 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000557a96cf4368
+4  libc.so.6 0x00007fe77ac96520
+5  libc.so.6 0x00007fe77acea9bc pthread_kill + 300
+6  libc.so.6 0x00007fe77ac96476 raise + 22
+7  libc.so.6 0x00007fe77ac7c7f3 abort + 211
+8  clang++   0x0000557a96cff26e
+9  clang++   0x0000557a9ad93742
+10 clang++   0x0000557a9ae12fad
+11 clang++   0x0000557a9ae1efeb
+12 clang++   0x0000557a9ae157cd clang::ASTContext::getASTRecordLayout(clang::RecordDecl const*) const + 1517
+13 clang++   0x0000557a977f6dad clang::CodeGen::CodeGenModule::getMinimumClassObjectSize(clang::CXXRecordDecl const*) + 45
+14 clang++   0x0000557a977dd293 clang::CodeGen::CodeGenModule::ConstructAttributeList(llvm::StringRef, clang::CodeGen::CGFunctionInfo const&, clang::CodeGen::CGCalleeInfo, llvm::AttributeList&, unsigned int&, bool, bool) + 6867
+15 clang++   0x0000557a974e4fa2 clang::CodeGen::CodeGenModule::SetLLVMFunctionAttributes(clang::GlobalDecl, clang::CodeGen::CGFunctionInfo const&, llvm::Function*, bool) + 130
+16 clang++   0x0000557a9752ee82 clang::CodeGen::CodeGenModule::SetFunctionAttributes(clang::GlobalDecl, llvm::Function*, bool, bool) + 194
+17 clang++   0x0000557a97532210 clang::CodeGen::CodeGenModule::GetOrCreateLLVMFunction(llvm::StringRef, llvm::Type*, clang::GlobalDecl, bool, bool, bool, llvm::AttributeList, clang::CodeGen::ForDefinition_t) + 2176
+18 clang++   0x0000557a977ab397 clang::CodeGen::CodeGenModule::getAddrAndTypeOfCXXStructor(clang::GlobalDecl, clang::CodeGen::CGFunctionInfo const*, llvm::FunctionType*, bool, clang::CodeGen::ForDefinition_t) + 151
+19 clang++   0x0000557a977ab885 clang::CodeGen::CodeGenModule::codegenCXXStructor(clang::GlobalDecl) + 117
+20 clang++   0x0000557a975d778e
+21 clang++   0x0000557a9753003e clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 366
+22 clang++   0x0000557a97531010 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+23 clang++   0x0000557a975da5fa
+24 clang++   0x0000557a978e04d1
+25 clang++   0x0000557a978cfcb1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+26 clang++   0x0000557a995a437c clang::ParseAST(clang::Sema&, bool, bool) + 508
+27 clang++   0x0000557a97c4dad1 clang::FrontendAction::Execute() + 65
+28 clang++   0x0000557a97bd7a75 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+29 clang++   0x0000557a97d25713 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+30 clang++   0x0000557a94b8027e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+31 clang++   0x0000557a94b75f8a
+32 clang++   0x0000557a94b7611f
+33 clang++   0x0000557a9795c51d
+34 clang++   0x0000557a96cf4780 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+35 clang++   0x0000557a9795d373
+36 clang++   0x0000557a97911e07 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+37 clang++   0x0000557a979166f0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+38 clang++   0x0000557a97924804 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+39 clang++   0x0000557a94b7b863 clang_main(int, char**, llvm::ToolContext const&) + 7315
+40 clang++   0x0000557a94ab77c1 main + 113
+41 libc.so.6 0x00007fe77ac7dd90
+42 libc.so.6 0x00007fe77ac7de40 __libc_start_main + 128
+43 clang++   0x0000557a94b755b5 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: thumb-none-windows-eabi
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/7cb5f8f5-9e8415.cpp
+clang++: note: diagnostic msg: /tmp/7cb5f8f5-9e8415.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

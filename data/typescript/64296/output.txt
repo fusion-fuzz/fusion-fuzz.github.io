@@ -1,0 +1,56 @@
+panic: runtime error: invalid memory address or nil pointer dereference [recovered, repanicked]
+[signal SIGSEGV: segmentation violation code=0x1 addr=0x70 pc=0x85ab40]
+
+goroutine 126 [running]:
+sync.(*WaitGroup).Go.func1.1()
+	/usr/local/go/src/sync/waitgroup.go:251 +0x45
+panic({0xe3d900?, 0x1fbbd00?})
+	/usr/local/go/src/runtime/panic.go:860 +0x13a
+github.com/microsoft/TypeScript/tsc/internal/ast.(*SourceFile).Path(...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/ast/ast.go:2706
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkAliasSymbol(0x1e6ea7478608, 0x1e6ea6980380)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:7015 +0xc40
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkImportBinding(0x1e6ea7478608, 0x1e6ea6980380)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:5502 +0x4b
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkImportEqualsDeclaration(0x1e6ea7478608, 0x1e6ea6980380)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:5618 +0x105
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkSourceElementWorker(0x1e6ea7478608, 0x1e6ea6980380)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:2416 +0x36c
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkSourceElement(0x1e6ea7478608, 0x1e6ea7ed2210?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:2287 +0x66
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkSourceElements(0x1e6ea7478608, {0x1e6ea69a8158, 0x2, 0x69?})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:2277 +0x2d
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkBlock(0x1e6ea7478608, 0x1e6ea69a2690)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:3815 +0xfc
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkSourceElementWorker(0x1e6ea7478608, 0x1e6ea69a2690)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:2366 +0x365
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkSourceElement(0x1e6ea7478608, 0x1e6ea7478608?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:2287 +0x66
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkModuleDeclaration(0x1e6ea7478608, 0x1e6ea699e7e0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:5220 +0x66
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkSourceElementWorker(0x1e6ea7478608, 0x1e6ea699e7e0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:2412 +0x35a
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkSourceElement(0x1e6ea7478608, 0x1e6ea7f08000?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:2287 +0x66
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkSourceElements(0x1e6ea7478608, {0x1e6ea69a8168, 0xb, 0x1e6ea8093d20?})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:2277 +0x2d
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).checkSourceFile(0x1e6ea7478608, {0x15daaf8?, 0x201c320?}, 0x1e6ea69b6008, 0x0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:2246 +0x1f3
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).getDiagnostics(0x1e6ea7478608, {0x15daaf8?, 0x201c320?}, 0x1e6ea69b6008, 0x1e6ea7478838)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:14178 +0x67
+github.com/microsoft/TypeScript/tsc/internal/checker.(*Checker).GetDiagnostics(...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/checker/checker.go:14168
+github.com/microsoft/TypeScript/tsc/internal/compiler.(*Program).getBindAndCheckDiagnosticsWithChecker(0x1e6ea67c0008, {0x15daaf8, 0x201c320}, 0x1e6ea7478608, 0x1e6ea69b6008)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/compiler/program.go:1469 +0xc5
+github.com/microsoft/TypeScript/tsc/internal/compiler.(*Program).getSemanticDiagnosticsWithChecker(0x1e6ea67c0008, {0x15daaf8?, 0x201c320?}, 0x1e6ea8093e18?, 0x1e6ea69b6008)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/compiler/program.go:1453 +0x2e
+github.com/microsoft/TypeScript/tsc/internal/compiler.(*Program).collectCheckerDiagnosticsFromFiles.func1(0xe60fe0?, 0x13, 0x1e6ea69b6008?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/compiler/program.go:703 +0x47
+github.com/microsoft/TypeScript/tsc/internal/compiler.(*checkerPool).forEachCheckerGroupDo.func1()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/compiler/checkerpool.go:483 +0x159
+github.com/microsoft/TypeScript/tsc/internal/core.(*parallelWorkGroup).Queue.func1()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/typescript/typescript-src/tsc/internal/core/workgroup.go:40 +0x13
+sync.(*WaitGroup).Go.func1()
+	/usr/local/go/src/sync/waitgroup.go:258 +0x4a
+created by sync.(*WaitGroup).Go in goroutine 1
+	/usr/local/go/src/sync/waitgroup.go:238 +0x73

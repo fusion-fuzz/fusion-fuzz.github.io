@@ -1,0 +1,34 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==1251594==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000068 (pc 0x000005a35fdb bp 0x7ffddbe55c70 sp 0x7ffddbe55b80 T0)
+==1251594==The signal is caused by a READ memory access.
+==1251594==Hint: address points to the zero page.
+    #0 0x5a35fdb in build_trace_args /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_exceptions.c:523:32
+    #1 0x5a3592a in zend_trace_current_function_args_string /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_exceptions.c:642:3
+    #2 0x502008b in php_verror /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:1140:21
+    #3 0x5022069 in php_error_docref /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:1253:2
+    #4 0x517994b in php_stream_report_errors /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/streams/stream_errors.c:411:5
+    #5 0x5177a46 in php_stream_error_operation_end /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/streams/stream_errors.c:463:3
+    #6 0x517b2b6 in php_stream_wrapper_error_internal /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/streams/stream_errors.c:590:3
+    #7 0x517e9ea in php_stream_display_wrapper_name_errors /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/streams/stream_errors.c:788:2
+    #8 0x51b4225 in _php_stream_open_wrapper_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/streams/streams.c:2141:4
+    #9 0x502431b in php_stream_open_for_zend_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:1650:11
+    #10 0x50381b9 in php_stream_open_for_zend /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:1638:9
+    #11 0x66842a3 in zend_stream_open /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_stream.c:87:10
+    #12 0x6175af3 in zend_include_or_eval /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_execute.c:5353:20
+    #13 0x5d9887c in ZEND_INCLUDE_OR_EVAL_SPEC_TMP_HANDLER /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:17609:17
+    #14 0x5ae123a in execute_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:110525:12
+    #15 0x5ae3328 in zend_execute /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:115963:2
+    #16 0x6713eac in zend_execute_script /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend.c:1980:3
+    #17 0x503d51d in php_execute_script_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:2598:13
+    #18 0x503e628 in php_execute_script /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:2638:9
+    #19 0x6726ef2 in do_cli /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:933:5
+    #20 0x67216aa in do_php_cli /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:1346:18
+    #21 0x671fab1 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli_main.c:18:9
+    #22 0x7f9c459e9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #23 0x7f9c459e9e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #24 0x605b14 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x605b14)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_exceptions.c:523:32 in build_trace_args
+==1251594==ABORTING

@@ -1,0 +1,70 @@
+clang-24: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/ASTDiagnostic.cpp:1806: void {anonymous}::TemplateDiff::PrintTemplateTemplate(clang::TemplateDecl*, clang::TemplateDecl*, bool, bool, bool): Assertion `(FromTD || ToTD) && "Only one template argument may be missing."' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24 -cc1 -triple x86_64-unknown-linux-gnu -Os -emit-obj -dumpdir a- -disable-free -clear-ast-before-backend -main-file-name test.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=none -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -fcoverage-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -resource-dir /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/15/../../../../include/c++/15 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/15/../../../../include/x86_64-linux-gnu/c++/15 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/15/../../../../include/c++/15/backward -internal-isystem /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24/include -internal-isystem /usr/local/include -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/15/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -Wall -std=gnu++17 -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -vectorize-loops -vectorize-slp -fsanitize=alignment,array-bounds,bool,builtin,enum,float-cast-overflow,function,integer-divide-by-zero,nonnull-attribute,null,object-size,pointer-overflow,return,returns-nonnull-attribute,shift-base,shift-exponent,signed-integer-overflow,unreachable,vla-bound -fsanitize-recover=alignment,array-bounds,bool,builtin,enum,float-cast-overflow,function,integer-divide-by-zero,nonnull-attribute,null,object-size,pointer-overflow,returns-nonnull-attribute,shift-base,shift-exponent,signed-integer-overflow,vla-bound -fsanitize-merge=alignment,array-bounds,bool,builtin,enum,float-cast-overflow,function,integer-divide-by-zero,nonnull-attribute,null,object-size,pointer-overflow,return,returns-nonnull-attribute,shift-base,shift-exponent,signed-integer-overflow,unreachable,vla-bound -fno-sanitize-memory-param-retval -fno-sanitize-address-use-odr-indicator -faddrsig -fdwarf2-cfi-asm -o /tmp/test-1e5d2f.o -x c++ /tmp/test.cpp
+1.	<eof> parser at end of file
+2.	/tmp/test.cpp:1:92: parsing struct/union/class body 'PartialApply'
+ #0 0x00005591a2c193e7 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x24923e7)
+ #1 0x00005591a2c16334 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #2 0x00005591a2c16408 SignalHandlerTerminate(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007fae60ab5970 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x40970)
+ #4 0x00007fae60b0c1dc (/usr/lib/x86_64-linux-gnu/libc.so.6+0x971dc)
+ #5 0x00007fae60ab5842 raise (/usr/lib/x86_64-linux-gnu/libc.so.6+0x40842)
+ #6 0x00007fae60a9d4b2 abort (/usr/lib/x86_64-linux-gnu/libc.so.6+0x284b2)
+ #7 0x00007fae60a9d424 __assert_perror_fail (/usr/lib/x86_64-linux-gnu/libc.so.6+0x28424)
+ #8 0x00005591a14ed47c (anonymous namespace)::TemplateDiff::TreeToString(int) (.cold) ASTDiagnostic.cpp:0:0
+ #9 0x00005591a61ef2a7 (anonymous namespace)::TemplateDiff::TreeToString(int) ASTDiagnostic.cpp:0:0
+#10 0x00005591a61f5402 FormatTemplateTypeDiff(clang::ASTContext&, clang::QualType, clang::QualType, bool, bool, bool, bool, llvm::raw_ostream&) ASTDiagnostic.cpp:0:0
+#11 0x00005591a61f7023 clang::FormatASTNodeDiagnosticArgument(clang::DiagnosticsEngine::ArgumentKind, long, llvm::StringRef, llvm::StringRef, llvm::ArrayRef<std::pair<clang::DiagnosticsEngine::ArgumentKind, long>>, llvm::SmallVectorImpl<char>&, void*, llvm::ArrayRef<long>) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x5a70023)
+#12 0x00005591a2e27ec9 clang::Diagnostic::FormatDiagnostic(char const*, char const*, llvm::SmallVectorImpl<char>&) const (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x26a0ec9)
+#13 0x00005591a38cdf35 clang::TextDiagnosticPrinter::HandleDiagnostic(clang::DiagnosticsEngine::Level, clang::Diagnostic const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x3146f35)
+#14 0x00005591a2e257be clang::DiagnosticsEngine::Report(clang::DiagnosticsEngine::Level, clang::Diagnostic const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x269e7be)
+#15 0x00005591a2e25d93 clang::DiagnosticsEngine::ProcessDiag(clang::DiagnosticBuilder const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x269ed93)
+#16 0x00005591a541a8b5 clang::Sema::EmitDiagnostic(unsigned int, clang::DiagnosticBuilder const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4c938b5)
+#17 0x00005591a548534e clang::SemaBase::ImmediateDiagBuilder::~ImmediateDiagBuilder() (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4cfe34e)
+#18 0x00005591a5406365 clang::SemaBase::SemaDiagnosticBuilder::~SemaDiagnosticBuilder() (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4c7f365)
+#19 0x00005591a56e3da3 clang::Sema::ActOnAliasDeclaration(clang::Scope*, clang::AccessSpecifier, llvm::MutableArrayRef<clang::TemplateParameterList*>, clang::SourceLocation, clang::UnqualifiedId&, clang::ParsedAttributesView const&, clang::ActionResult<clang::OpaquePtr<clang::QualType>, false>, clang::Decl*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4f5cda3)
+#20 0x00005591a52e1526 clang::Parser::ParseAliasDeclarationAfterDeclarator(clang::Parser::ParsedTemplateInfo const&, clang::SourceLocation, clang::Parser::UsingDeclarator&, clang::SourceLocation&, clang::AccessSpecifier, clang::ParsedAttributes&, clang::Decl**) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4b5a526)
+#21 0x00005591a52eee30 clang::Parser::ParseUsingDeclaration(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo const&, clang::SourceLocation, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4b67e30)
+#22 0x00005591a52f1691 clang::Parser::ParseCXXClassMemberDeclaration(clang::AccessSpecifier, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4b6a691)
+#23 0x00005591a53ae8ca clang::Parser::ParseTemplateDeclarationOrSpecialization(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4c278ca)
+#24 0x00005591a52f0d7d clang::Parser::ParseCXXClassMemberDeclaration(clang::AccessSpecifier, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4b69d7d)
+#25 0x00005591a52f3d76 clang::Parser::ParseCXXClassMemberDeclarationWithPragmas(clang::AccessSpecifier&, clang::ParsedAttributes&, clang::TypeSpecifierType, clang::Decl*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4b6cd76)
+#26 0x00005591a52f49c4 clang::Parser::ParseCXXMemberSpecification(clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributes&, unsigned int, clang::Decl*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4b6d9c4)
+#27 0x00005591a52f6d54 clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4b6fd54)
+#28 0x00005591a52c5d01 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4b3ed01)
+#29 0x00005591a53a165d clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4c1a65d)
+#30 0x00005591a53ae8ca clang::Parser::ParseTemplateDeclarationOrSpecialization(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4c278ca)
+#31 0x00005591a53aeea5 clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4c27ea5)
+#32 0x00005591a52d97c3 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4b527c3)
+#33 0x00005591a528c432 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4b05432)
+#34 0x00005591a528d38d clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4b0638d)
+#35 0x00005591a528d791 clang::Parser::ParseFirstTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4b06791)
+#36 0x00005591a526c50c clang::ParseAST(clang::Sema&, bool, bool) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x4ae550c)
+#37 0x00005591a386365a clang::FrontendAction::Execute() (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x30dc65a)
+#38 0x00005591a37ea70a clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x306370a)
+#39 0x00005591a393171a clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x31aa71a)
+#40 0x00005591a16ef8f3 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xf688f3)
+#41 0x00005591a16e72b8 ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#42 0x00005591a16eae3a clang_main(int, char**, llvm::ToolContext const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xf63e3a)
+#43 0x00005591a1631bc5 main (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xeaabc5)
+#44 0x00007fae60a9ef77 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x29f77)
+#45 0x00007fae60a9f027 __libc_start_main (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a027)
+#46 0x00005591a16e6521 _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xf5f521)
+clang++: error: unable to execute command: Aborted (core dumped)
+clang++: error: clang frontend command failed with exit code -2 (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 353729bbe4c53086c9acf3a9d1a4a88a61eec997)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/test-96e9fa.cpp
+clang++: note: diagnostic msg: /tmp/test-96e9fa.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

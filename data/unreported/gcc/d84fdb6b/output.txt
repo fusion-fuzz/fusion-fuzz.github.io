@@ -1,0 +1,20 @@
+during GIMPLE pass: tracer
+dump file: 51f4032d.c.208t.tracer
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpu963r39t/51f4032d.c: In function 'u3':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpu963r39t/51f4032d.c:22:1: internal compiler error: Floating point exception
+   22 | u3 (int s1)
+      | ^~
+0x2cb9bab internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0x14f5723 crash_signal
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/toplev.cc:325
+0x14f8f51 tail_duplicate
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tracer.cc:392
+0x14f8f51 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tracer.cc:450
+0x14f8f51 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tracer.cc:438
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpu963r39t/51f4032d.c -quiet -dumpbase 51f4032d.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Os -O2 -ftracer -fdump-tree-tracer -o /tmp/ccfJ7Px2.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

@@ -1,0 +1,39 @@
+<source>:3:16: warning: anonymous non-C-compatible type given name for linkage purposes by 'typedef' declaration [-Wnon-c-typedef-for-linkage]
+    3 | typedef struct : D { } S;
+      |                ^
+      |                S
+<source>:3:16: note: type is not C-compatible because it has a base class
+<source>:3:16: internal compiler error: in cdtor_comdat_group, at cp/optimize.cc:183
+0x2c6c2f8 diagnostics::context::diagnostic_impl(rich_location*, diagnostics::metadata const*, diagnostics::option_id, char const*, __va_list_tag (*) [1], diagnostics::kind)
+	???:0
+0x2c60f3b internal_error(char const*, ...)
+	???:0
+0xb9c22e fancy_abort(char const*, int, char const*)
+	???:0
+0xd826ad maybe_clone_body(tree_node*)
+	???:0
+0xe9e02e expand_or_defer_fn(tree_node*)
+	???:0
+0xd17f37 synthesize_method(tree_node*)
+	???:0
+0xcc2cf7 mark_used(tree_node*, int)
+	???:0
+0xbbe343 build_new_method_call(tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, tree_node*, int, tree_node**, int)
+	???:0
+0xbbf69d build_special_member_call(tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, tree_node*, int, int)
+	???:0
+0xce4b78 build_delete(unsigned long, tree_node*, tree_node*, special_function_kind, int, int, int)
+	???:0
+0xc85ead cxx_maybe_build_cleanup(tree_node*, int)
+	???:0
+0xcb3395 cp_finish_decl(tree_node*, tree_node*, bool, tree_node*, int, cp_decomp*)
+	???:0
+0xdf7523 c_parse_file()
+	???:0
+0xf8bfb9 c_common_parse_file()
+	???:0
+/cefs/86/8648502252d366b91fe55083_gcc-trunk-20261026/bin/../libexec/gcc/x86_64-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -iprefix /cefs/86/8648502252d366b91fe55083_gcc-trunk-20261026/bin/../lib/gcc/x86_64-linux-gnu/17.0.0/ -D_GNU_SOURCE <source> -quiet -dumpdir /app/output.s- -dumpbase example.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -g -Os -fdiagnostics-color=always -fno-verbose-asm -o /tmp/ccshArSU.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.
+x86-64 gcc (trunk) - 984ms

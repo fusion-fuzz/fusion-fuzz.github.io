@@ -1,0 +1,71 @@
+swift-frontend: /home/build-user/swift/lib/Parse/ParseStmt.cpp:1634: ParserStatus swift::Parser::parseStmtConditionElement(SmallVectorImpl<StmtConditionElement> &, Diag<>, StmtKind, StringRef &): Assertion `CurDeclContext->isLocalContext() && "conditional binding in non-local context?!"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -c -O -sil-verify-all -strict-concurrency=complete -enforce-exclusivity=checked /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp0a0qlovr/1818a182.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ParseTopLevelDeclsRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp0a0qlovr/1818a182.swift")
+4.	While evaluating request ParseSourceFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp0a0qlovr/1818a182.swift")
+5.	With parser at source location: /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp0a0qlovr/1818a182.swift:4:12
+ #0 0x0000559f5071fbab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x0000559f5071d2e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x0000559f507208c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f2295e9d330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f2295ef6c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f2295e9d27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f2295e808ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007f2295e8081b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007f2295e93517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x0000559f4a4c1fb7 swift::Parser::parseStmtConditionElement(llvm::SmallVectorImpl<swift::StmtConditionElement>&, swift::Diag<>, swift::StmtKind, llvm::StringRef&) (/usr/bin/swift-frontend+0x29b9fb7)
+#10 0x0000559f4a4c2462 swift::Parser::parseStmtCondition(llvm::MutableArrayRef<swift::StmtConditionElement>&, swift::Diag<>, swift::StmtKind) (/usr/bin/swift-frontend+0x29ba462)
+#11 0x0000559f4a4bbfbd swift::Parser::parseStmtIf(swift::LabeledStmtInfo, bool) (/usr/bin/swift-frontend+0x29b3fbd)
+#12 0x0000559f4a4b8709 swift::Parser::parseStmt() (/usr/bin/swift-frontend+0x29b0709)
+#13 0x0000559f4a48ec5b swift::Parser::parseExprUnary(swift::Diag<>, bool) (/usr/bin/swift-frontend+0x2986c5b)
+#14 0x0000559f4a48e04e swift::Parser::parseExprSequenceElement(swift::Diag<>, bool) (/usr/bin/swift-frontend+0x298604e)
+#15 0x0000559f4a48c795 swift::Parser::parseExprSequence(swift::Diag<>, bool, bool) (/usr/bin/swift-frontend+0x2984795)
+#16 0x0000559f4a4a527f swift::Parser::parseMatchingPattern(bool) (/usr/bin/swift-frontend+0x299d27f)
+#17 0x0000559f4a4764c7 swift::Parser::parseDeclEnumCase(swift::optionset::OptionSet<swift::Parser::ParseDeclFlags, unsigned short>, swift::DeclAttributes&, llvm::SmallVectorImpl<swift::Decl*>&) (/usr/bin/swift-frontend+0x296e4c7)
+#18 0x0000559f4a46baa1 swift::Parser::parseDecl(bool, bool, llvm::function_ref<void (swift::Decl*)>, bool) (/usr/bin/swift-frontend+0x2963aa1)
+#19 0x0000559f4a47d4cb swift::Parser::parseDeclItem(bool&, llvm::function_ref<void (swift::Decl*)>) (/usr/bin/swift-frontend+0x29754cb)
+#20 0x0000559f4a47c56d swift::Parser::parseDeclList(swift::SourceLoc, swift::SourceLoc&, swift::Diag<>, bool&) (/usr/bin/swift-frontend+0x297456d)
+#21 0x0000559f4a47e451 swift::Parser::parseMemberDeclList(swift::SourceLoc&, swift::SourceLoc&, swift::Diag<>, swift::Diag<>, swift::IterableDeclContext*, swift::optionset::OptionSet<swift::Parser::ParseDeclFlags, unsigned short>) (/usr/bin/swift-frontend+0x2976451)
+#22 0x0000559f4a47600a swift::Parser::parseDeclEnum(swift::optionset::OptionSet<swift::Parser::ParseDeclFlags, unsigned short>, swift::DeclAttributes&) (/usr/bin/swift-frontend+0x296e00a)
+#23 0x0000559f4a46b527 swift::Parser::parseDecl(bool, bool, llvm::function_ref<void (swift::Decl*)>, bool) (/usr/bin/swift-frontend+0x2963527)
+#24 0x0000559f4a4b9b49 swift::Parser::parseBraceItems(llvm::SmallVectorImpl<swift::ASTNode>&, swift::BraceItemListKind, swift::BraceItemListKind, bool&) (/usr/bin/swift-frontend+0x29b1b49)
+#25 0x0000559f4a456159 swift::Parser::parseTopLevelItems(llvm::SmallVectorImpl<swift::ASTNode>&) (/usr/bin/swift-frontend+0x294e159)
+#26 0x0000559f4a4b27cc swift::ParseSourceFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x29aa7cc)
+#27 0x0000559f4a4b6d4c swift::SimpleRequest<swift::ParseSourceFileRequest, swift::SourceFileParsingResult (swift::SourceFile*), (swift::RequestFlags)20>::evaluateRequest(swift::ParseSourceFileRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#28 0x0000559f4852d6bd swift::ParseSourceFileRequest::OutputType swift::Evaluator::getResultUncached<swift::ParseSourceFileRequest, swift::ParseSourceFileRequest::OutputType swift::evaluateOrDefault<swift::ParseSourceFileRequest>(swift::Evaluator&, swift::ParseSourceFileRequest, swift::ParseSourceFileRequest::OutputType)::'lambda'()>(swift::ParseSourceFileRequest const&, swift::ParseSourceFileRequest::OutputType swift::evaluateOrDefault<swift::ParseSourceFileRequest>(swift::Evaluator&, swift::ParseSourceFileRequest, swift::ParseSourceFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#29 0x0000559f4a4b6efd swift::ParseSourceFileRequest::OutputType swift::Evaluator::getResultCached<swift::ParseSourceFileRequest, swift::ParseSourceFileRequest::OutputType swift::evaluateOrDefault<swift::ParseSourceFileRequest>(swift::Evaluator&, swift::ParseSourceFileRequest, swift::ParseSourceFileRequest::OutputType)::'lambda'(), (void*)0>(swift::ParseSourceFileRequest const&, swift::ParseSourceFileRequest::OutputType swift::evaluateOrDefault<swift::ParseSourceFileRequest>(swift::Evaluator&, swift::ParseSourceFileRequest, swift::ParseSourceFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#30 0x0000559f4a4b35bf swift::ParseTopLevelDeclsRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x29ab5bf)
+#31 0x0000559f4a8e1bec swift::ParseTopLevelDeclsRequest::OutputType swift::Evaluator::getResultUncached<swift::ParseTopLevelDeclsRequest, swift::ParseTopLevelDeclsRequest::OutputType swift::evaluateOrDefault<swift::ParseTopLevelDeclsRequest>(swift::Evaluator&, swift::ParseTopLevelDeclsRequest, swift::ParseTopLevelDeclsRequest::OutputType)::'lambda'()>(swift::ParseTopLevelDeclsRequest const&, swift::ParseTopLevelDeclsRequest::OutputType swift::evaluateOrDefault<swift::ParseTopLevelDeclsRequest>(swift::Evaluator&, swift::ParseTopLevelDeclsRequest, swift::ParseTopLevelDeclsRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#32 0x0000559f4a8e1a05 swift::ParseTopLevelDeclsRequest::OutputType swift::Evaluator::getResultCached<swift::ParseTopLevelDeclsRequest, swift::ParseTopLevelDeclsRequest::OutputType swift::evaluateOrDefault<swift::ParseTopLevelDeclsRequest>(swift::Evaluator&, swift::ParseTopLevelDeclsRequest, swift::ParseTopLevelDeclsRequest::OutputType)::'lambda'(), (void*)0>(swift::ParseTopLevelDeclsRequest const&, swift::ParseTopLevelDeclsRequest::OutputType swift::evaluateOrDefault<swift::ParseTopLevelDeclsRequest>(swift::Evaluator&, swift::ParseTopLevelDeclsRequest, swift::ParseTopLevelDeclsRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#33 0x0000559f4a8ab2cb swift::SourceFile::getTopLevelDecls() const (/usr/bin/swift-frontend+0x2da32cb)
+#34 0x0000559f49ecc142 swift::performImportResolution(swift::SourceFile&) (/usr/bin/swift-frontend+0x23c4142)
+#35 0x0000559f49ecbf51 swift::performImportResolution(swift::ModuleDecl*) (/usr/bin/swift-frontend+0x23c3f51)
+#36 0x0000559f4897e098 swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xe76098)
+#37 0x0000559f487fb51e withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#38 0x0000559f487e70cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#39 0x0000559f487e3fef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcdbfef)
+#40 0x0000559f484b324b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9ab24b)
+#41 0x00007f2295e821ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#42 0x00007f2295e8228b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#43 0x0000559f484b22a5 _start (/usr/bin/swift-frontend+0x9aa2a5)
+
+*** Signal 6: Backtracing from 0x7f2295f7f38d... done ***
+
+*** Program crashed: Aborted at 0x00007f2295f7f38d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007f2295f7f38d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007f2295f7f38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=
+[... truncated ...]

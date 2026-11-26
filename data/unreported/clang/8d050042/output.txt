@@ -1,0 +1,73 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpre3to4tj/6ecd22c1.mm:38:1: error: expected unqualified-id
+   38 | public:
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpre3to4tj/6ecd22c1.mm:43:3: error: a type specifier is required for all declarations
+   43 |   C0() : m(new S0<int>) {} // expected-error {{expected '(' for function-style cast or type construction}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpre3to4tj/6ecd22c1.mm:45:3: error: no template named 'S0'
+   45 |   S0<int> *m; // expected-error {{expected member name or ';' after declaration specifiers}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpre3to4tj/6ecd22c1.mm:43:16: error: no template named 'S0'
+   43 |   C0() : m(new S0<int>) {} // expected-error {{expected '(' for function-style cast or type construction}}
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpre3to4tj/6ecd22c1.mm:43:8: error: only constructors take base initializers
+   43 |   C0() : m(new S0<int>) {} // expected-error {{expected '(' for function-style cast or type construction}}
+      |        ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Parse/ParseStmt.cpp:2581: clang::Decl* clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&): Assertion `Tok.is(tok::l_brace)' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O3 -std=c++14 -fblocks -fobjc-runtime=ios-7 -fobjc-arc -Wextra -funroll-loops -fsanitize=address /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpre3to4tj/6ecd22c1.mm
+1.	<eof> parser at end of file
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005c447e792329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005c447e78efec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005c447e78f8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005c447e6d1218
+4  libc.so.6 0x00007c65e0113520
+5  libc.so.6 0x00007c65e01679bc pthread_kill + 300
+6  libc.so.6 0x00007c65e0113476 raise + 22
+7  libc.so.6 0x00007c65e00f97f3 abort + 211
+8  libc.so.6 0x00007c65e00f971b
+9  libc.so.6 0x00007c65e010ae96
+10 clang++   0x00005c44810b2db0 clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 480
+11 clang++   0x00005c448104edd4 clang::Parser::ParseLexedObjCMethodDefs(clang::Parser::LexedMethod&, bool) + 484
+12 clang++   0x00005c448104f2d6 clang::Parser::ObjCImplParsingDataRAII::finish(clang::SourceRange) + 278
+13 clang++   0x00005c448104f3db clang::Parser::ParseObjCAtEndDeclaration(clang::SourceRange) + 187
+14 clang++   0x00005c4480faadf3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2563
+15 clang++   0x00005c4481055bc1 clang::Parser::ParseObjCAtImplementationDeclaration(clang::SourceLocation, clang::ParsedAttributes&) + 785
+16 clang++   0x00005c4480faadf3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2563
+17 clang++   0x00005c4480fab6ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+18 clang++   0x00005c4480f88632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+19 clang++   0x00005c447f629061 clang::FrontendAction::Execute() + 65
+20 clang++   0x00005c447f5b2e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+21 clang++   0x00005c447f700de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+22 clang++   0x00005c447c55c33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+23 clang++   0x00005c447c55213a
+24 clang++   0x00005c447c5522cf
+25 clang++   0x00005c447f337cfd
+26 clang++   0x00005c447e6d1630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+27 clang++   0x00005c447f338b53
+28 clang++   0x00005c447f2ed607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+29 clang++   0x00005c447f2f1ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+30 clang++   0x00005c447f300004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+31 clang++   0x00005c447c557923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+32 clang++   0x00005c447c4937f1 main + 113
+33 libc.so.6 0x00007c65e00fad90
+34 libc.so.6 0x00007c65e00fae40 __libc_start_main + 128
+35 clang++   0x00005c447c551765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/6ecd22c1-7d55fa.mm
+clang++: note: diagnostic msg: /tmp/6ecd22c1-7d55fa.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

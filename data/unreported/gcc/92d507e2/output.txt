@@ -1,0 +1,39 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpa6c61r54/f6627388.cc: In function 'int foo()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpa6c61r54/f6627388.cc:6:12: warning: invalid use of type 'void' in parameter declaration [-Wtemplate-body]
+    6 |   [] (void i) { return 0; } (0); // { dg-error "incomplete|invalid|no match" }
+      |       ~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpa6c61r54/f6627388.cc: In instantiation of 'int foo() [with int <anonymous> = 0]':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpa6c61r54/f6627388.cc:20:9:   required from here
+   20 |   foo<0>();
+      |   ~~~~~~^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpa6c61r54/f6627388.cc:6:3: internal compiler error: in finish_expr_stmt, at cp/semantics.cc:1173
+    6 |   [] (void i) { return 0; } (0); // { dg-error "incomplete|invalid|no match" }
+      |   ^
+0x306c5cb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00e5e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x888b50 finish_expr_stmt(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:1173
+0x10ac1c3 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:19889
+0x10a9e61 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:19867
+0x10a8411 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:20308
+0x10b2892 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:19853
+0x10b2892 instantiate_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:29018
+0x10b366d instantiate_decl(tree_node*, bool, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:29309
+0x10bd64a instantiate_pending_templates(int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:29384
+0xf1dff8 c_parse_final_cleanups()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl2.cc:5883
+0x11e22f8 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1460
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpa6c61r54/f6627388.cc -quiet -dumpbase f6627388.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Og -std=c++20 -fstrict-aliasing -fpermissive -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

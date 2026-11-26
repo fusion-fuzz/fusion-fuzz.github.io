@@ -1,0 +1,11 @@
+lc.swift:2:1: error: 'nil' cannot be used in context expecting type 'A<T>'
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+...
+3.	While type-checking-target starting at lc.swift:4:5
+4.	While evaluating request LookupConformanceRequest(...)
+ #4 swift::ClassDecl::getSuperclassDecl() const
+ #5 swift::ClassDecl::isSuperclassOf(swift::ClassDecl const*) const
+ #6 swift::TypeBase::getSuperclassForDecl(swift::ClassDecl const*, bool)
+ ... LookupConformanceInModuleRequest / ConstraintSystem::matchTypes
+Segmentation fault (core dumped)

@@ -1,0 +1,20 @@
+HloModule Fft
+
+ENTRY %main {
+  %operand = c64[4] parameter(0)
+  %fft = c64[4] fft(operand), fft_type=FFT, fft_length={4}
+  %p0 = f16[64,9]{1,0} parameter(1)
+  %p1 = f16[2,9,8]{2,1,0} parameter(2)
+  %p2.d = s32[2] constant({16, 48})
+  %ragged-dot.d = f16[64,8]{1,0} ragged-dot(%p0, %p1, %p2.d), lhs_contracting_dims={1}, rhs_contracting_dims={1}, lhs_ragged_dims={0}, rhs_group_dims={0}
+  %zero.d = f16[] constant(0)
+  %zero_bcast.d = f16[64,8]{1,0} broadcast(%zero.d), dimensions={}
+  %out.d = f16[64,8]{1,0} maximum(%ragged-dot.d, %zero_bcast.d)
+  %p2 = s32[2] constant({16, 48})
+  %ragged-dot = f16[64,8]{1,0} ragged-dot(%p0, %p1, %p2), lhs_contracting_dims={1}, rhs_contracting_dims={1}, lhs_ragged_dims={0}, rhs_group_dims={0}
+  %zero = f16[] constant(0)
+  %zero_bcast = f16[64,8]{1,0} broadcast(%zero), dimensions={}
+  %out = f16[64,8]{1,0} maximum(%ragged-dot, %fft)
+  %ffl.root = (c64[4], f16[64,8]{1,0}) tuple(%fft, %out)
+  ROOT %ffl.root.1 = (c64[4], f16[64,8]{1,0}, f16[64,8]{1,0}) tuple(%fft, %out, %out.d)
+}

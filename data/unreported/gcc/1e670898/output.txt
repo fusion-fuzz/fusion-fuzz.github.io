@@ -1,0 +1,29 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpeq3leqm6/70262c64.c:26:17: was expecting `bb'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpeq3leqm6/70262c64.c: In function 'func_1':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpeq3leqm6/70262c64.c:6:6: internal compiler error: in prepare_function_start, at function.cc:4944
+    6 | void func_1() {
+      |      ^~~~~~
+0x2cb9bab internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xcdc9e4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x82591b prepare_function_start
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/function.cc:4944
+0x108ad51 init_function_start(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/function.cc:5034
+0xf0bed6 cgraph_node::expand()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:1858
+0xf0bed6 cgraph_node::expand()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:1826
+0xf0d3a9 expand_all_functions
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2056
+0xf0d3a9 symbol_table::compile()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2434
+0xf0fd26 symbol_table::compile()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2344
+0xf0fd26 symbol_table::finalize_compilation_unit()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2625
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpeq3leqm6/70262c64.c -quiet -dumpbase 70262c64.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O2 -O2 -Wno-pointer-to-int-cast -std=c90 -fexceptions -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

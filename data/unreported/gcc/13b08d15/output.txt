@@ -1,0 +1,26 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpj_ub7o6r/945c4a46.c: In function 'test':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpj_ub7o6r/945c4a46.c:12:17: error: invalid register name for 'c'
+   12 |   register ivec c asm("test\0test");
+      |                 ^
+during RTL pass: expand
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpj_ub7o6r/945c4a46.c:14:10: internal compiler error: in expand_assignment, at expr.cc:6150
+   14 |     c[i] = a[i] < b[i] ? -1 : 1;
+      |     ~~~~~^~~~~~~~~~~~~~~~~~~~~~
+0x2ccb70b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xd03700 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x81cbb6 expand_assignment(tree_node*, tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/expr.cc:6150
+0xee56ae expand_gimple_stmt_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:4349
+0xee56ae expand_gimple_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:4430
+0xeebda7 expand_gimple_basic_block
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:6547
+0xeedbf7 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:7298
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpj_ub7o6r/945c4a46.c -quiet -dumpbase 945c4a46.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Os -O2 -ffast-math -fvect-cost-model=unlimited -o /tmp/ccO2DwBt.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

@@ -1,0 +1,1 @@
+ulimit -n 4096; ulimit -v 8388608; hlo-opt --platform=cpu --passes=host-offloading-prepare-elide-move-to-host,bfloat16-propagation,reduce-decomposer,instruction-hoister,hlo-memory-scheduler,simplify-sorts --xla_llvm_disable_expensive_passes=true --xla_cpu_parallel_codegen_split_count=4 --xla_cpu_ftz=true --o=/dev/null ./reproducer.hlo

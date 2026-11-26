@@ -1,0 +1,37 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3l7two0l/7a9af8b8.cc: In function 'int stack_save_restore_1(float, float, float, float, float, float, float, float)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3l7two0l/7a9af8b8.cc:82:3: error: 'asm' operand has impossible constraints or there are not enough registers
+   82 |   asm volatile ("nop"
+      |   ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3l7two0l/7a9af8b8.cc:88:3: error: 'asm' operand has impossible constraints or there are not enough registers
+   88 |   asm volatile ("nop"
+      |   ^~~
+during RTL pass: stack
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3l7two0l/7a9af8b8.cc:97:1: internal compiler error: in emit_swap_insn, at reg-stack.cc:850
+   97 | }
+      | ^
+0x306c5cb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00e5e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x9bc633 emit_swap_insn
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:850
+0x17e01fb move_for_stack_reg
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:1145
+0x17e2abd subst_stack_regs
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:2505
+0x17e2cfe convert_regs_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:3140
+0x17e2cfe convert_regs_2
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:3276
+0x17e39d0 convert_regs
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:3312
+0x17e39d0 reg_to_stack
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:3440
+0x17e39d0 rest_of_handle_stack_regs
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:3496
+0x17e39d0 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/reg-stack.cc:3528
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3l7two0l/7a9af8b8.cc -quiet -dumpbase 7a9af8b8.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O0 -O0 -std=c++26 -finline-functions -fgraphite-identity -ffast-math -fno-exceptions -fno-analyzer-suppress-followups -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

@@ -1,0 +1,52 @@
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3000, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 2785, in main_app(int, char**)
+    return emit_llvm(opts.arg_file, lfortran_pass_manager,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 1145, in (anonymous namespace)::emit_llvm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::PassManager&, LCompilers::CompilerOptions&)
+    = fe.get_llvm(input, lm, pass_manager, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 365, in LCompilers::FortranEvaluator::get_llvm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&)
+    Result<std::unique_ptr<LLVMModule>> res = get_llvm2(code, lm, pass_manager, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 387, in LCompilers::FortranEvaluator::get_llvm2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&)
+    diagnostics, lm, lm.files.back().in_filename, nullptr);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 436, in LCompilers::FortranEvaluator::get_llvm3(LCompilers::ASR::TranslationUnit_t&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&, LCompilers::LocationManager&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int*)
+    compiler_options, run_fn, "", infile, lm);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp", line 27332, in LCompilers::asr_to_llvm(LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, llvm::LLVMContext&, Allocator&, LCompilers::PassManager&, LCompilers::CompilerOptions&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&)
+    pass_manager.apply_passes(al, &asr, co.po, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/pass_manager.h", line 324, in LCompilers::PassManager::apply_passes(Allocator&, LCompilers::ASR::TranslationUnit_t*, LCompilers::PassOptions&, LCompilers::diag::Diagnostics&)
+    apply_passes(al, asr, _passes, pass_options, diagnostics, cummulative_time_taken_by_passes_in_microseconds);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/pass_manager.h", line 193, in LCompilers::PassManager::apply_passes(Allocator&, LCompilers::ASR::TranslationUnit_t*, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >&, LCompilers::PassOptions&, LCompilers::diag::Diagnostics&, double&)
+    _passes_db[passes[i]](al, *asr, pass_options);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/subroutine_from_function.cpp", line 876, in LCompilers::pass_create_subroutine_from_function(Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::PassOptions const&)
+    u.visit_TranslationUnit(unit);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_expr_call_replacer_visitor.h", line 40, in LCompilers::ASR::CallReplacerOnExpressionsVisitor<LCompilers::ReplaceFunctionCallWithSubroutineCallVisitor>::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&)
+    this->visit_symbol(*a.second);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 375, in LCompilers::ASR::BaseVisitor<LCompilers::ReplaceFunctionCallWithSubroutineCallVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&)
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 32, in void LCompilers::ASR::visit_symbol_t<LCompilers::ReplaceFunctionCallWithSubroutineCallVisitor>(LCompilers::ASR::symbol_t const&, LCompilers::ReplaceFunctionCallWithSubroutineCallVisitor&)
+    case symbolType::Function: { v.visit_Function((const Function_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_expr_call_replacer_visitor.h", line 78, in LCompilers::ASR::CallReplacerOnExpressionsVisitor<LCompilers::ReplaceFunctionCallWithSubroutineCallVisitor>::visit_Function(LCompilers::ASR::Function_t const&)
+    self().transform_stmts(xx.m_body, xx.n_body);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/subroutine_from_function.cpp", line 565, in LCompilers::ReplaceFunctionCallWithSubroutineCallVisitor::transform_stmts(LCompilers::ASR::stmt_t**&, unsigned long&)
+    visit_stmt(*m_body[i]);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 393, in LCompilers::ASR::BaseVisitor<LCompilers::ReplaceFunctionCallWithSubroutineCallVisitor>::visit_stmt(LCompilers::ASR::stmt_t const&)
+    void visit_stmt(const stmt_t &b) { visit_stmt_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 57, in void LCompilers::ASR::visit_stmt_t<LCompilers::ReplaceFunctionCallWithSubroutineCallVisitor>(LCompilers::ASR::stmt_t const&, LCompilers::ReplaceFunctionCallWithSubroutineCallVisitor&)
+    case stmtType::Assignment: { v.visit_Assignment((const Assignment_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/subroutine_from_function.cpp", line 815, in LCompilers::ReplaceFunctionCallWithSubroutineCallVisitor::visit_Assignment(LCompilers::ASR::Assignment_t const&)
+    <ReplaceFunctionCallWithSubroutineCallVisitor>::visit_Assignment(x);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_expr_call_replacer_visitor.h", line 298, in LCompilers::ASR::CallReplacerOnExpressionsVisitor<LCompilers::ReplaceFunctionCallWithSubroutineCallVisitor>::visit_Assignment(LCompilers::ASR::Assignment_t const&)
+    self().call_replacer();
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/subroutine_from_function.cpp", line 543, in LCompilers::ReplaceFunctionCallWithSubroutineCallVisitor::call_replacer()
+    replacer.replace_expr(*current_expr);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_expr_base_replacer_visitor.h", line 2207, in LCompilers::ASR::BaseExprReplacer<LCompilers::ReplaceFunctionCallWithSubroutineCall>::replace_expr(LCompilers::ASR::expr_t*)
+    self().replace_FunctionCall(down_cast<ASR::FunctionCall_t>(x));
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/subroutine_from_function.cpp", line 463, in LCompilers::ReplaceFunctionCallWithSubroutineCall::replace_FunctionCall(LCompilers::ASR::FunctionCall_t*)
+    insert_allocate_stmt_for_array(al, result_var, ASRUtils::EXPR((ASR::asr_t*)x), &pass_result);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/array_struct_temporary.cpp", line 1091, in LCompilers::insert_allocate_stmt_for_array(Allocator&, LCompilers::ASR::expr_t*, LCompilers::ASR::expr_t*, LCompilers::Vec<LCompilers::ASR::stmt_t*>*, LCompilers::ASR::expr_t*)
+    if( !set_allocation_size(al, value, temporary_var, allocate_dims,
+AssertFailed: dim_copy.m_start

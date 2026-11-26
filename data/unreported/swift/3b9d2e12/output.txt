@@ -1,0 +1,88 @@
+Looking for a function: $ss27_finalizeUninitializedArrayySayxGABnlFyXl_Tg5
+Expected type: @convention(thin) (@owned Array<Copyable & Escapable & AnyObject>) -> @owned Array<Copyable & Escapable & AnyObject>
+Found    type: @convention(thin) (@owned Array<AnyObject>) -> @owned Array<AnyObject>
+swift-frontend: /home/build-user/swift/lib/SILOptimizer/Utils/Generics.cpp:2154: SILFunction *swift::GenericFuncSpecializer::lookupSpecialization(): Assertion `ReInfo.getSpecializedType() == SpecializedF->getLoweredFunctionType() && "Previously specialized function does not match expected type."' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-sil -Osize -sil-verify-all -enable-library-evolution /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpkl2v3orm/37f7a383.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ExecuteSILPipelineRequest(Run pipelines { PrepareOptimizationPasses, EarlyModulePasses, HighLevel,Function+EarlyLoopOpt, HighLevel,Module+StackPromote, MidLevel,Function, ClosureSpecialize, LowLevelPrepare, LowLevel,Function, LateLoopOpt, SIL Debug Info Generator } on SIL for main)
+4.	While running pass #2151 SILFunctionTransform "GenericSpecializer" on SILFunction "@$s4main13_ffl_p1_inferySayxGx_xtlFyXl_Tg5".
+ for '_ffl_p1_infer(_:_:)' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpkl2v3orm/37f7a383.swift:395:1)
+ #0 0x00005649e2e55bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x00005649e2e532e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x00005649e2e568c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f66f485f330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f66f48b8c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f66f485f27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f66f48428ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007f66f484281b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007f66f4855517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x00005649dbfed89c (/usr/bin/swift-frontend+0x1daf89c)
+#10 0x00005649dbff3fba swift::trySpecializeApplyOfGeneric(swift::SILOptFunctionBuilder&, swift::ApplySite, llvm::SmallSetVector<swift::SILInstruction*, 8u>&, llvm::SmallVectorImpl<swift::SILFunction*>&, swift::OptRemark::Emitter&, bool) (/usr/bin/swift-frontend+0x1db5fba)
+#11 0x00005649dbefcd79 swift::specializeAppliesInFunction(swift::SILFunction&, swift::SILTransform*, bool) (/usr/bin/swift-frontend+0x1cbed79)
+#12 0x00005649dbefd690 (anonymous namespace)::GenericSpecializer::run() GenericSpecializer.cpp:0:0
+#13 0x00005649dbe58b2e swift::SILPassManager::runPassOnFunction(unsigned int, swift::SILFunction*) (/usr/bin/swift-frontend+0x1c1ab2e)
+#14 0x00005649dbe5a2b1 swift::SILPassManager::runFunctionPasses(unsigned int, unsigned int) (/usr/bin/swift-frontend+0x1c1c2b1)
+#15 0x00005649dbe5dbb3 swift::SILPassManager::execute() (/usr/bin/swift-frontend+0x1c1fbb3)
+#16 0x00005649dbe562b8 swift::SILPassManager::executePassPipelinePlan(swift::SILPassPipelinePlan const&) (/usr/bin/swift-frontend+0x1c182b8)
+#17 0x00005649dbe5626b swift::ExecuteSILPipelineRequest::evaluate(swift::Evaluator&, swift::SILPipelineExecutionDescriptor) const (/usr/bin/swift-frontend+0x1c1826b)
+#18 0x00005649dbe83d8a swift::SimpleRequest<swift::ExecuteSILPipelineRequest, std::tuple<> (swift::SILPipelineExecutionDescriptor), (swift::RequestFlags)1>::evaluateRequest(swift::ExecuteSILPipelineRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#19 0x00005649dbe656f3 swift::ExecuteSILPipelineRequest::OutputType swift::Evaluator::getResultUncached<swift::ExecuteSILPipelineRequest, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()>(swift::ExecuteSILPipelineRequest const&, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()) crtstuff.c:0:0
+#20 0x00005649dbe5647f swift::executePassPipelinePlan(swift::SILModule*, swift::SILPassPipelinePlan const&, bool, swift::irgen::IRGenModule*) (/usr/bin/swift-frontend+0x1c1847f)
+#21 0x00005649dbe66d0b swift::runSILOptimizationPasses(swift::SILModule&) (/usr/bin/swift-frontend+0x1c28d0b)
+#22 0x00005649db0b49f5 swift::CompilerInstance::performSILProcessing(swift::SILModule*) (/usr/bin/swift-frontend+0xe769f5)
+#23 0x00005649daf18bbb performCompileStepsPostSILGen(swift::CompilerInstance&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, swift::PrimarySpecificPaths const&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>, llvm::ArrayRef<swift::PrimarySpecificPaths>) FrontendTool.cpp:0:0
+#24 0x00005649daf1777b swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xcd977b)
+#25 0x00005649daf31581 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#26 0x00005649daf1d0cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#27 0x00005649daf19fef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcdbfef)
+#28 0x00005649dabe924b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9ab24b)
+#29 0x00007f66f48441ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#30 0x00007f66f484428b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#31 0x00005649dabe82a5 _start (/usr/bin/swift-frontend+0x9aa2a5)
+
+*** Signal 6: Backtracing from 0x7f66f494138d... done ***
+
+*** Program crashed: Aborted at 0x00007f66f494138d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007f66f494138d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007f66f494138d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x0000000000062c34  404532
+rdi 0x0000000000062c34  404532
+rbp 0x0000000000062c34  404532
+rsp 0x00005649e8db74e8  eb 68 e5 e2 49 56 00 00 70 77 db e8 49 56 00 00  ëhåâIV··pwÛèIV··
+ r8 0x00005649e8db7770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x00005649e8db7770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x00005649e8db7770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x00005649e4976acd  2f 68 6f 6d 65 2f 62 75 69 6c 64 2d 75 73 65 72  /home/build-user
+r14 0x0000000000000000  0
+r15 0x00005649e8db7588  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007f66f494138d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (37 omitted):
+
+0x00007f66f481a000–0x00007f66f49c9eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

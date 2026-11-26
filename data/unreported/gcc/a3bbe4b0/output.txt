@@ -1,0 +1,64 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphzgnid_e/7a7eeff8.c:8:10: error: two or more data types in declaration specifiers
+    8 |     char int[400];
+      |          ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphzgnid_e/7a7eeff8.c:8:13: error: expected identifier or '(' before '[' token
+    8 |     char int[400];
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphzgnid_e/7a7eeff8.c:9:1: warning: no semicolon at end of struct or union
+    9 | } foo;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphzgnid_e/7a7eeff8.c: In function 'funk':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphzgnid_e/7a7eeff8.c:18:27: warning: 'sink' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Wdeprecated-openmp]
+   18 | #pragma omp ordered depend(sink:p+2) depend(sink:p+4)
+      |                           ^
+      |                     ------
+      |                     doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphzgnid_e/7a7eeff8.c:18:44: warning: 'sink' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Wdeprecated-openmp]
+   18 | #pragma omp ordered depend(sink:p+2) depend(sink:p+4)
+      |                                            ^
+      |                                      ------
+      |                                      doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphzgnid_e/7a7eeff8.c:21:27: warning: 'source' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Wdeprecated-openmp]
+   21 | #pragma omp ordered depend(source)
+      |                           ^
+      |                     ------
+      |                     doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphzgnid_e/7a7eeff8.c:22:5: internal compiler error: tree check: accessed operand 2 of non_lvalue_expr with 1 operands in c_omp_check_loop_iv, at c-family/c-omp.cc:1800
+   22 |     }
+      |     ^
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0x963bb3 tree_operand_check_failed(int, tree_node const*, char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:9455
+0x7b413e tree_operand_check(tree_node*, int, char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:4395
+0x7b413e c_omp_check_loop_iv(tree_node*, tree_node*, tree_node* (*)(tree_node**, int*, tree_node* (*)(tree_node**, int*, void*), void*, hash_set<tree_node*, false, default_hash_traits<tree_node*> >*))
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-omp.cc:1800
+0xf3f52a c_parser_omp_for_loop
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:25648
+0xf403b5 c_parser_omp_for
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:25937
+0xf414c6 c_parser_omp_parallel
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:26357
+0xf072cc c_parser_omp_construct
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31144
+0xf072cc c_parser_pragma
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:16379
+0xf37e07 c_parser_compound_statement_nostart
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:7914
+0xf38068 c_parser_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:7172
+0xf3635f c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3354
+0xf43529 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2256
+0xf44470 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xf44470 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xfc9e09 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu -D_REENTRANT /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphzgnid_e/7a7eeff8.c -quiet -dumpbase 7a7eeff8.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O3 -std=gnu90 -fexceptions -ftree-vectorize -fno-omit-frame-pointer -fopenmp -fdump-tree-omplower -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

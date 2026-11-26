@@ -1,0 +1,103 @@
+Assertion failed: (paramType->isTypeParameter()), function getMutableTermForType at InterfaceType.cpp:159.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /opt/swift-coverage/bin/swift -frontend -typecheck -O -sil-verify-all /fusion-fuzz/.fused/swift/tmpmsp_hdws/e0c2a523.swift
+1.	Swift version 6.3.3 (swift-6.3.3-RELEASE)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/fusion-fuzz/.fused/swift/tmpmsp_hdws/e0c2a523.swift")
+4.	While type-checking '_FflClamped' (at /fusion-fuzz/.fused/swift/tmpmsp_hdws/e0c2a523.swift:272:1)
+5.	While type-checking 'DA' (at /fusion-fuzz/.fused/swift/tmpmsp_hdws/e0c2a523.swift:359:17)
+6.	While evaluating request GetDistributedThunkRequest(e0c2a523.(file)._FflClamped.DA.hello(other:)@/fusion-fuzz/.fused/swift/tmpmsp_hdws/e0c2a523.swift:362:22)
+7.	While evaluating request CheckDistributedFunctionRequest(e0c2a523.(file)._FflClamped.DA.hello(other:)@/fusion-fuzz/.fused/swift/tmpmsp_hdws/e0c2a523.swift:362:22)
+8.	Assertion failed: (paramType->isTypeParameter()), function getMutableTermForType at InterfaceType.cpp:159.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  swift     0x00005bd66e0b62f8
+1  swift     0x00005bd66e0b3d45
+2  swift     0x00005bd66e0b6f61
+3  libc.so.6 0x000074c91e1bb330
+4  libc.so.6 0x000074c91e214c0c pthread_kill + 284
+5  libc.so.6 0x000074c91e1bb27e gsignal + 30
+6  libc.so.6 0x000074c91e19e8ff abort + 223
+7  swift     0x00005bd6668c6407
+8  swift     0x00005bd6668c6521
+9  swift     0x00005bd669d7db52
+10 swift     0x00005bd669b1bed5
+11 swift     0x00005bd669b15e16
+12 swift     0x00005bd669931ec7
+13 swift     0x00005bd669931f16
+14 swift     0x00005bd668c901b9
+15 swift     0x00005bd668c97132
+16 swift     0x00005bd668c96f05
+17 swift     0x00005bd668c8ffca
+18 swift     0x00005bd669083137
+19 swift     0x00005bd66994d553
+20 swift     0x00005bd66994d34a
+21 swift     0x00005bd6699358df
+22 swift     0x00005bd668c91b07
+23 swift     0x00005bd668d18e02
+24 swift     0x00005bd668d109a3
+25 swift     0x00005bd668d10c39
+26 swift     0x00005bd668d1043f
+27 swift     0x00005bd668ecf84c
+28 swift     0x00005bd668ed5cdb
+29 swift     0x00005bd668ecf6b1
+30 swift     0x00005bd668ecf658
+31 swift     0x00005bd666feada7
+32 swift     0x00005bd666fddcd8
+33 swift     0x00005bd666fdd99c
+34 swift     0x00005bd666c82201
+35 swift     0x00005bd666c7081d
+36 swift     0x00005bd666c6c2ea
+37 swift     0x00005bd6669ac53d
+38 swift     0x00005bd6669ab173
+39 libc.so.6 0x000074c91e1a01ca
+40 libc.so.6 0x000074c91e1a028b __libc_start_main + 139
+41 swift     0x00005bd6669aa8a5
+
+*** Signal 6: Backtracing from 0x74c91e29d38d... done ***
+
+*** Program crashed: Aborted at 0x0000000000172062 ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift" crashed:
+
+  0  0x000074c91e29d38d <unknown> in libc.so.6
+...
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x000074c91e29d38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x0000000000172062  1515618
+rdi 0x0000000000172062  1515618
+rbp 0x0000000000172062  1515618
+rsp 0x00005bd68721a8a8  8b 6f 0b 6e d6 5b 00 00 30 ab 21 87 d6 5b 00 00  ·o·nÖ[··0«!·Ö[··
+ r8 0x00005bd68721ab30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x00005bd68721ab30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x00005bd68721ab30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x00007fff3bbaa530  f8 68 67 7d d6 5b 00 00 02 00 00 00 00 00 00 00  øhg}Ö[··········
+r14 0x0000000000000000  0
+r15 0x00005bd68721a948  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x000074c91e29d38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (31 omitted):
+
+0x000074c91e176000–0x000074c91e325eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

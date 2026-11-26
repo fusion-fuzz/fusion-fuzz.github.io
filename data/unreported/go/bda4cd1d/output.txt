@@ -1,0 +1,64 @@
+# fflfuzz
+./main.go:12:11: removed nil check
+./main.go:15:15: removed nil check
+./main.go:15:16: removed nil check
+./main.go:17:11: removed nil check
+./main.go:17:12: removed nil check
+./main.go:65:50: removed nil check
+./main.go:65:57: removed nil check
+./main.go:74:5: generated nil check
+./main.go:74:5: removed nil check
+./main.go:74:19: removed nil check
+./main.go:74:30: removed nil check
+./main.go:76:49: removed nil check
+./main.go:86:16: removed nil check
+./main.go:86:24: removed nil check
+./main.go:87:16: removed nil check
+./main.go:87:24: removed nil check
+./main.go:88:16: removed nil check
+./main.go:88:24: removed nil check
+./main.go:137:50: removed nil check
+./main.go:137:57: removed nil check
+./main.go:146:5: removed nil check
+./main.go:146:5: generated nil check
+./main.go:146:19: removed nil check
+./main.go:146:30: removed nil check
+./main.go:148:49: removed nil check
+./main.go:158:16: removed nil check
+./main.go:158:24: removed nil check
+./main.go:159:16: removed nil check
+./main.go:159:24: removed nil check
+./main.go:160:16: removed nil check
+./main.go:160:24: removed nil check
+./main.go:65:78: removed nil check
+./main.go:137:78: removed nil check
+../../../projects/go/go-src/src/internal/nettest/queue.go:21:6: removed nil check
+./main.go:14:2: internal compiler error: 'main': unknown aux type for LoweredZeroLoop
+
+goroutine 81 [running]:
+runtime/debug.Stack()
+	../../../projects/go/go-src/src/runtime/debug/stack.go:26 +0x5e
+cmd/compile/internal/base.FatalfAt({0x2b4d9250?, 0x2581?}, {0x25812b4d91f0, 0x1d}, {0x25812b316880, 0x2, 0x2})
+	../../../projects/go/go-src/src/cmd/compile/internal/base/print.go:232 +0x18b
+cmd/compile/internal/base.Fatalf(...)
+	../../../projects/go/go-src/src/cmd/compile/internal/base/print.go:197
+cmd/compile/internal/ssagen.(*ssafn).Fatalf(0x108121000000b6?, {0x2b203008?, 0x2581?}, {0x105e447, 0x17}, {0x25812b869610, 0x1, 0x4?})
+	../../../projects/go/go-src/src/cmd/compile/internal/ssagen/ssa.go:8056 +0x185
+cmd/compile/internal/ssa.(*Func).FatalfWithPos(0x25812af9e700, {0x1982408?, 0x0?}, {0x105e447, 0x17}, {0x25812b869610, 0x1, 0x1})
+	../../../projects/go/go-src/src/cmd/compile/internal/ssa/func.go:801 +0x190
+cmd/compile/internal/ssa.(*Func).Fatalf(...)
+	../../../projects/go/go-src/src/cmd/compile/internal/ssa/func.go:791
+cmd/compile/internal/ssacompile.checkFunc(0x25812af9e700)
+	../../../projects/go/go-src/src/cmd/compile/internal/ssacompile/check.go:227 +0x349c
+cmd/compile/internal/ssacompile.Compiler.Compile({}, 0x25812af9e700, {0x1a42978, 0x0})
+	../../../projects/go/go-src/src/cmd/compile/internal/ssacompile/compile.go:155 +0xff8
+cmd/compile/internal/ssagen.buildssa({0x1a40040, 0x1ceab80}, 0x25812b32cc80, 0x0, 0x0)
+	../../../projects/go/go-src/src/cmd/compile/internal/ssagen/ssa.go:605 +0x308e
+cmd/compile/internal/ssagen.Compile({0x1a40040, 0x1ceab80}, 0x25812b32cc80, 0x0, 0x41a242?)
+	../../../projects/go/go-src/src/cmd/compile/internal/ssagen/pgen.go:306 +0xac
+cmd/compile/internal/gc.compileFunctions.func2()
+	../../../projects/go/go-src/src/cmd/compile/internal/gc/compile.go:174 +0x1b9
+sync.(*WaitGroup).Go.func1()
+	../../../projects/go/go-src/src/sync/waitgroup.go:258 +0x4a
+created by sync.(*WaitGroup).Go in goroutine 1
+	../../../projects/go/go-src/src/sync/waitgroup.go:238 +0x7d

@@ -1,0 +1,30 @@
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_vector.h:1147: const_reference std::vector<unsigned long>::operator[](size_type) const [_Tp = unsigned long, _Alloc = std::allocator<unsigned long>]: Assertion '__n < this->size()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-flang-build/bin/flang -fc1 -emit-hlfir -o /dev/null -O1 -ffixed-form -std=f2018 /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpuc2053ob/6d4d1f2b.f
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  flang          0x0000618e5a533a7a __interceptor_backtrace + 74
+1  flang          0x0000618e5ca97643 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 323
+2  flang          0x0000618e5ca91487 llvm::sys::RunSignalHandlers() + 455
+3  flang          0x0000618e5ca99faf
+4  libc.so.6      0x00007c709f72a330
+5  libc.so.6      0x00007c709f783c0c pthread_kill + 284
+6  libc.so.6      0x00007c709f72a27e gsignal + 30
+7  libc.so.6      0x00007c709f70d8ff abort + 223
+8  libstdc++.so.6 0x00007c709fa1890d
+9  flang          0x0000618e67a4376e Fortran::parser::TokenSequence::GetTokenProvenanceRange(unsigned long, unsigned long) const + 366
+10 flang          0x0000618e6715aced Fortran::parser::Prescanner::EnforceStupidEndStatementRules(Fortran::parser::TokenSequence const&) + 1565
+11 flang          0x0000618e6714e750 Fortran::parser::Prescanner::Statement() + 9616
+12 flang          0x0000618e6714c0a1 Fortran::parser::Prescanner::Prescan(Fortran::common::Interval<Fortran::parser::Provenance>) + 433
+13 flang          0x0000618e6711ee9c Fortran::parser::Parsing::Prescan(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> const&, Fortran::parser::Options) + 5804
+14 flang          0x0000618e5cb6a465 Fortran::frontend::FrontendAction::runPrescan() + 885
+15 flang          0x0000618e5cb7acb0 Fortran::frontend::CodeGenAction::beginSourceFileAction() + 4256
+16 flang          0x0000618e5cb686ac Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) + 2764
+17 flang          0x0000618e5cb2f720 Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) + 2448
+18 flang          0x0000618e5cb77d13 Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) + 10227
+19 flang          0x0000618e5a5d48bf fc1_main(llvm::ArrayRef<char const*>, char const*) + 1375
+20 flang          0x0000618e5a5cc4cb main + 3035
+21 libc.so.6      0x00007c709f70f1ca
+22 libc.so.6      0x00007c709f70f28b __libc_start_main + 139
+23 flang          0x0000618e5a4eb825 _start + 37
+Aborted

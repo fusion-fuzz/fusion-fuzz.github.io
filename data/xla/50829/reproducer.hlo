@@ -1,0 +1,9 @@
+HloModule m
+
+%f {
+  ROOT %c = f32[] constant(41)
+}
+
+ENTRY %main {
+  ROOT %call = f32[] call(), to_apply=%f, frontend_attributes={_xla_stream_annotation="1"}
+}

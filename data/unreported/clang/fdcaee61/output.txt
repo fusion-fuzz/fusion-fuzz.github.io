@@ -1,0 +1,106 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:5:29: error: 'foo' is missing exception specification 'noexcept(true)'
+    5 |   template<typename T> void foo(T); // expected-error {{missing exception specification 'noexcept(true)'}}
+      |                             ^     
+      |                                    noexcept(true)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:4:29: note: previous declaration is here
+    4 |   template<typename T> void foo(T) noexcept(true); // expected-note {{previous}}
+      |                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:12:32: warning: function previously declared with an implicit exception specification redeclared with an explicit exception specification [-Wimplicit-exception-spec-mismatch]
+   12 |     friend UseBeforeComplete1::~UseBeforeComplete1() noexcept; // expected-warning {{previously declared with an implicit}}
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:10:3: note: previous declaration is here
+   10 |   ~UseBeforeComplete1(); // expected-note {{previous}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:20:32: error: exception specification in declaration does not match previous declaration
+   20 |     friend UseBeforeComplete2::~UseBeforeComplete2() noexcept; // expected-error {{does not match previous}}
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:18:3: note: previous declaration is here
+   18 |   ~UseBeforeComplete2(); // expected-note {{previous}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:43:3: error: declaration of anonymous struct must be a definition
+   43 |   struct operator;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:43:3: warning: declaration does not declare anything [-Wmissing-declarations]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:47:13: error: 'operator&' cannot be the name of a variable or data member
+   47 |     virtual operator &operator=(const operator&) noexcept; // expected-note {{overridden}}
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:47:23: error: expected ';' at end of declaration list
+   47 |     virtual operator &operator=(const operator&) noexcept; // expected-note {{overridden}}
+      |                       ^
+      |                       ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:50:3: error: declaration of anonymous struct must be a definition
+   50 |   struct operator : note {}; // expected-error {{more lax}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:50:3: warning: declaration does not declare anything [-Wmissing-declarations]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:52:11: error: exception specification of overriding function is more lax than base version
+   52 |     with &operator=(const with&); // expected-error {{more lax}}
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:48:19: note: overridden virtual function is here
+   48 |     virtual with &operator=(const with&) noexcept; // expected-note {{overridden}}
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:150:3: error: expected 'while' in do/while loop
+  150 |   switch(Var)
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:145:3: note: to match this 'do'
+  145 |   do
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:273:24: error: namespaces can only be defined in global or namespace scope
+  273 | namespace AssignmentOp {
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:287:31: error: namespaces can only be defined in global or namespace scope
+  287 | namespace OverloadedFunctions {
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:318:36: error: expected function body after function declarator
+  318 |   template<typename T> void foo(T) 'ç'; // expected-note {{previous}}
+      |                                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:319:29: error: 'foo' is missing exception specification 'noexcept(true)'
+  319 |   template<typename T> void foo(T); // expected-error {{missing exception specification 'noexcept(true)'}}
+      |                             ^     
+      |                                    noexcept(true)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:4:29: note: previous declaration is here
+    4 |   template<typename T> void foo(T) noexcept(true); // expected-note {{previous}}
+      |                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:323:1: error: declaration of anonymous struct must be a definition
+  323 | struct operator {
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:323:1: warning: declaration does not declare anything [-Wmissing-declarations]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:334:22: error: exception specification in declaration does not match previous declaration
+  334 |     friend expected::~expected() noexcept; // expected-error {{does not match previous}}
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:332:3: note: previous declaration is here
+  332 |   ~expected(); // expected-note {{previous}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:364:10: error: exception specification of overriding function is more lax than base version
+  364 |   struct specification : does {}; // expected-error {{more lax}}
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:361:28: note: overridden virtual function is here
+  361 |     virtual specification &operator=(const specification&) noexcept; // expected-note {{overridden}}
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:366:10: error: exception specification of overriding function is more lax than base version
+  366 |     foo &operator=(const foo&); // expected-error {{more lax}}
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:362:18: note: overridden virtual function is here
+  362 |     virtual foo &operator=(const foo&) noexcept; // expected-note {{overridden}}
+      |                  ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/Sema/Sema.h:14454: clang::Sema::SavePendingParsedClassStateRAII::~SavePendingParsedClassStateRAII(): Assertion `S.DelayedEquivalentExceptionSpecChecks.empty() && "there shouldn't be any pending delayed exception spec checks"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O1 -std=c++23 -fblocks /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:196:6: instantiating function definition 'varlist_restrictions_templ<int, SomeS>'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:218:8: instantiating class definition 'specified'
+4.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphsax_wzp/5ea957a7.cpp:220:10: instantiating class definition 'varlist_restrictions_templ()::specified::an'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000582721c1f329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000582721c1bfec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000582721c1c8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000582721b5e218
+4  libc.so.6 0x00007d6d8417f520
+5  libc.so.6 0x00007d6d841d39bc pthread_kill + 300
+6  libc.so.6 0x00007d6d8417f476 raise + 22
+7  libc.so.6 0x00007d6d841657f3 abort + 211
+8  libc.so.6 0x00007d6d8416571b
+9  libc.so.6 0x00007d6d84176e96
+10 clang++   0x000058272506f9f3 clang::Sema::InstantiateClassImpl(clang::SourceLocation, clang::CXXRecordDecl*, clang::CXXRecordDecl*, clang::MultiLevelTemplateArgumentList const&, clang::TemplateSpecializationKind, bool) + 4339
+11 clang++   0x000058272506fcdf clang::Sema::InstantiateClass(clang::SourceLocation, clang::CXXRecordDecl*, clang::CXXRecordDecl*, clang::MultiLevelTemplat
+[... truncated ...]

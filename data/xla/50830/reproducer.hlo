@@ -1,0 +1,14 @@
+HloModule m
+
+%pick {
+  %a = f32[] parameter(0)
+  ROOT %b = f32[] parameter(1)
+}
+
+ENTRY %main {
+  %p = f32[128,256] parameter(0)
+  %c = f32[] constant(0)
+  %r = f32[128] reduce(%p, %c), dimensions={1}, to_apply=%pick
+  %b = f32[128,256] broadcast(%r), dimensions={0}
+  ROOT %m = f32[128,256] multiply(%p, %b)
+}

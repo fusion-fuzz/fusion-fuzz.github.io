@@ -1,0 +1,104 @@
+../array.c:423: Assertion Failed: ary_resize_capa:RARRAY_LEN(ary) <= capacity
+ruby 4.1.0dev (2026-09-15T05:36:12Z master 3296d5c99c) +PRISM [x86_64-linux]
+
+-- Control frame information -----------------------------------------------
+c:0007 p:---- s:0032 e:000031 l:y b:0001 r:(nil) CFUNC  :initialize
+c:0006 p:0007 s:0026 e:000025 l:n b:---- r:(nil) BLOCK  /home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmp23l0tri3/3c699bec.rb:25 [FINISH]
+c:0005 p:---- s:0023 e:000022 l:y b:0001 r:(nil) CFUNC  :instance_eval
+c:0004 p:0005 s:0019 e:000018 l:n b:---- r:(nil) BLOCK  /home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmp23l0tri3/3c699bec.rb:25
+c:0003 p:0064 s:0016 e:000015 l:n b:---- r:(nil) BLOCK  /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ffl_shim.rb:87
+c:0002 p:0085 s:0007 E:001b90 l:n b:---- r:(nil) EVAL   /home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmp23l0tri3/3c699bec.rb:25 [FINISH]
+c:0001 p:0000 s:0003 E:001ed8 l:y b:---- r:(nil) DUMMY  [FINISH]
+
+-- Ruby level backtrace information ----------------------------------------
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmp23l0tri3/3c699bec.rb:25:in '<main>'
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ffl_shim.rb:87:in 'block (2 levels) in <module:Kernel>'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmp23l0tri3/3c699bec.rb:25:in 'block in <main>'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmp23l0tri3/3c699bec.rb:25:in 'instance_eval'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmp23l0tri3/3c699bec.rb:25:in 'block (2 levels) in <main>'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmp23l0tri3/3c699bec.rb:25:in 'initialize'
+
+-- Threading information ---------------------------------------------------
+Total ractor count: 1
+Ruby thread count for this ractor: 1
+
+-- C level backtrace information -------------------------------------------
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(___interceptor_backtrace) [0x5a49491f271a]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_print_backtrace+0x14) [0x5a49496cd4ea] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_dump.c:1113
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_vm_bugreport) /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_dump.c:1479
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_assert_failure_detail+0x233) [0x5a49491adb2b] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../error.c:1258
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_assert_failure_detail+0x0) [0x5a49491ad8f8] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../error.c:1234
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_assert_failure) (null):0
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(ary_resize_capa+0x4a5) [0x5a4949720485] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../array.c:423
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_ary_initialize+0x308) [0x5a494972c948] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../array.c:1181
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_call_cfunc_with_frame_+0x27b) [0x5a494969c20b] ../vm_insnhelper.c:3904
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_call_method_each_type+0x24a) [0x5a49496864ba] ../vm_insnhelper.c:4896
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_call_method+0x39f) [0x5a4949685c4f]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_exec_core+0x113dc) [0x5a4949649c5c] ../vm_insnhelper.c:6283
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_vm_exec+0x242) [0x5a4949632be2] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm.c:2881
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(invoke_block_from_c_bh+0x772) [0x5a49496b88e2] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm.c:1889
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(yield_under+0x6c5) [0x5a494966b1c5] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm.c:1946
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(specific_eval+0xfe) [0x5a494966a74e] ../vm_eval.c:2308
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_call_cfunc_with_frame_+0x27b) [0x5a494969c20b] ../vm_insnhelper.c:3904
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_call_method_each_type+0x24a) [0x5a49496864ba] ../vm_insnhelper.c:4896
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_call_method+0x39f) [0x5a4949685c4f]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_exec_core+0x1216b) [0x5a494964a9eb] ../vm_insnhelper.c:6283
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_vm_exec+0x242) [0x5a4949632be2] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm.c:2881
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_ec_exec_node+0x56) [0x5a494928ac1d] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../eval.c:299
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(ruby_run_node) /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../eval.c:337
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_main+0x29) [0x5a4949287321] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../main.c:42
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(main) /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../main.c:62
+/lib/x86_64-linux-gnu/libc.so.6(0x77c9f520b1ca) [0x77c9f520b1ca]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b) [0x77c9f520b28b]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(_start) [0x5a49491ade05]
+
+-- Other runtime information -----------------------------------------------
+
+* Loaded script: /home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmp23l0tri3/3c699bec.rb
+
+* Ruby Box: disabled
+* Loaded features:
+
+    0 enumerator.so
+    1 monitor.so
+    2 thread.rb
+    3 fiber.so
+    4 rational.so
+    5 complex.so
+    6 pathname.so
+    7 ruby2_keywords.rb
+    8 set.rb
+    9 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/x86_64-linux/enc/encdb.so
+   10 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/x86_64-linux/enc/trans/transdb.so
+   11 io/wait.rb
+   12 io/wait.so
+   13 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/x86_64-linux/rbconfig.rb
+   14 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/defaults.rb
+   15 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/deprecate.rb
+   16 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/errors.rb
+   17 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/target_rbconfig.rb
+   18 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/win_platform.rb
+   19 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/util/atomic_file_writer.rb
+   20 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/unknown_command_spell_checker.rb
+   21 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/exceptions.rb
+   22 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/basic_specification.rb
+   23 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/stub_specification.rb
+   24 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/platform.rb
+   25 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/specification_record.rb
+   26 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/version.rb
+   27 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/requirement.rb
+   28 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/specification.rb
+   29 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/util.rb
+   30 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/content_address.rb
+   31 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/dependency.rb
+   32 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/core_ext/kernel_gem.rb
+   33 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/monitor.rb
+   34 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems.rb
+   35 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/bundled_gems.rb
+   36 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ffl_shim.rb
+   37 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/path_support.rb
+   38 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/delegate.rb
+   39 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/x86_64-linux/date_core.so
+   40 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/date.rb
+
+Aborted (core dumped)

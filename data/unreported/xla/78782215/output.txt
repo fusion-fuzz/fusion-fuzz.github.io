@@ -1,0 +1,54 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+E0000 00:00:1791989982.746970 2226654 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/hlo/analysis/hlo_dataflow_analysis.cc:1912) absl::c_linear_search(value->positions(), position) Value set at position cps1 {0} unexpectedly contains value <8 cps1{1}>
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+F0000 00:00:1791989982.747066 2226654 hlo_dataflow_analysis.cc:1873] Check failed: Verify() is OK (INTERNAL: RET_CHECK failure (xla/hlo/analysis/hlo_dataflow_analysis.cc:1912) absl::c_linear_search(value->positions(), position) Value set at position cps1 {0} unexpectedly contains value <8 cps1{1}>
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+) 
+*** Check failure stack trace: ***
+    @     0x5c8861c89a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5c8861c899e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5c8861281d67  xla::HloDataflowAnalysis::RunImpl()
+    @     0x5c8861280d6d  xla::HloDataflowAnalysis::Run()
+    @     0x5c88596a90c8  xla::LayoutAssignment::CheckLayouts()
+    @     0x5c88596b9229  xla::LayoutAssignment::RunImpl()
+    @     0x5c885dd40be7  xla::HloPassInterface::Run()
+    @     0x5c88598be3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5c88598b97bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5c88598b8bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5c885dd40be7  xla::HloPassInterface::Run()
+    @     0x5c885680f58b  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5c885681a06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5c885674e934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5c8856740fd1  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5c8861cda466  main
+    @     0x74dafd3d4d90  (unknown)
+Aborted (core dumped)

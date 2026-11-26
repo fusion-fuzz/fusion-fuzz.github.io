@@ -1,0 +1,56 @@
+
+thread 'rustc' (565143) panicked at compiler/rustc_errors/src/lib.rs:466:17:
+`trimmed_def_paths` called, diagnostics were expected but none were emitted. Use `with_no_trimmed_paths` for debugging. This happened in the following `must_produce_diag` call's backtrace:
+   0: <rustc_errors::DiagCtxtHandle>::set_must_produce_diag
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:952:58
+   1: <rustc_session::session::Session>::record_trimmed_def_paths
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_session/src/session.rs:537:20
+   2: rustc_middle::ty::print::pretty::trimmed_def_paths
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/print/pretty.rs:3537:14
+   3: rustc_query_impl::query_vtables::trimmed_def_paths::invoke_provider_fn::__rust_begin_short_backtrace
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/query_vtables.rs:130:46
+   4: rustc_query_impl::execution::execute_job_non_incr::<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:391:59
+   5: rustc_middle::ty::context::tls::enter_context::<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:56:9
+   6: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::try_with::<rustc_middle::ty::context::tls::enter_context<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:464:12
+   7: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::with::<rustc_middle::ty::context::tls::enter_context<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:428:20
+   8: rustc_middle::ty::context::tls::enter_context::<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:53:9
+   9: rustc_query_impl::execution::start_query::<rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:375:9
+  10: rustc_middle::ty::context::tls::with_context::<rustc_query_impl::execution::start_query<rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:86:36
+  11: rustc_middle::ty::context::tls::with_context_opt::<rustc_middle::ty::context::tls::with_context<rustc_query_impl::execution::start_query<rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:75:18
+  12: rustc_middle::ty::context::tls::with_context::<rustc_query_impl::execution::start_query<rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:86:5
+  13: rustc_query_impl::execution::start_query::<rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>>::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:362:5
+  14: rustc_query_impl::execution::execute_job_non_incr::<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:391:17
+  15: rustc_query_impl::execution::try_execute_query::<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>, false>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:262:17
+  16: rustc_query_impl::execution::execute_query_non_incr_inner::<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:576:5
+  17: rustc_query_impl::query_vtables::trimmed_def_paths::execute_query_non_incr::__rust_end_short_backtrace
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/query_vtables.rs:94:30
+  18: rustc_middle::query::calls::query_get_at::<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 8]>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:154:17
+  19: <rustc_middle::query::calls::TyCtxtAt>::trimmed_def_paths
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:287:61
+  20: <rustc_middle::ty::context::TyCtxt>::trimmed_def_paths
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:277:39
+  21: <rustc_middle::ty::print::pretty::FmtPrinter as rustc_middle::ty::print::pretty::PrettyPrinter>::try_print_trimmed_def_path
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/print/pretty.rs:460:46
+  22: <rustc_middle::ty::print::pretty::FmtPrinter as rustc_middle::ty::print::Printer>::print_def_path
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/print/pretty.rs:2233:24
+  23: <rustc_middle::ty::print::pretty::FmtPrinter as rustc_middle::ty::print::pretty::PrettyPrinter>::pretty_print_type
+  24: <rustc_middle::ty::print::pretty::FmtPrinter as rustc_middle::ty::print::Printer>::print_type
+  25: <rustc_middle::ty::Ty as rustc_middle::ty::print::Print<rustc_middle::ty::print::pretty::FmtPrinter>>::print
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/print/mod.rs:361:11
+  26: <rustc_middle::ty::Term as rustc_middle::ty::print::Print<rustc_middle::ty::print::pretty::FmtPrinter>>::print
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/print/pretty.rs:3405:36
+... (backtrace truncated)

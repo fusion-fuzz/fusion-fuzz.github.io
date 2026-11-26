@@ -1,0 +1,99 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:5:10: error: invalid application of 'sizeof' to an incomplete type 'I0'
+    5 | int g0 = sizeof(I0); // expected-error{{invalid application of 'sizeof' to an incomplete type 'I0'}}
+      |          ^     ~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:3:8: note: forward declaration of class here
+    3 | @class I0; // expected-note 2{{forward declaration of class here}}
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:8:8: error: arithmetic on a pointer to an incomplete type 'I0'
+    8 |   P = P+5;        // expected-error {{arithmetic on a pointer to an incomplete type 'I0'}}
+      |       ~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:3:8: note: forward declaration of class here
+    3 | @class I0; // expected-note 2{{forward declaration of class here}}
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:10:12: error: subscript of pointer to incomplete type 'I0'
+   10 |   return &P[4];   // expected-error{{expected method to read array element not found on object of type 'I0 *'}}
+      |           ~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:3:8: note: forward declaration of class here
+    3 | @class I0; // expected-note 2{{forward declaration of class here}}
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:28:13: error: synthesized property 'p0' must either be named the same as a compatible instance variable or must explicitly name an instance variable
+   28 | @synthesize p0 = _p0;
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:15:12: warning: class 'I0' defined without specifying a base class [-Wobjc-root-class]
+   15 | @interface I0 {
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:15:14: note: add a super class to fix this problem
+   15 | @interface I0 {
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:41:13: error: synthesized property 'p0' must either be named the same as a compatible instance variable or must explicitly name an instance variable
+   41 | @synthesize p0 = _p0;
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:36:12: warning: class 'I1' defined without specifying a base class [-Wobjc-root-class]
+   36 | @interface I1
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:36:14: note: add a super class to fix this problem
+   36 | @interface I1
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:44:18: error: @defs is not supported in Objective-C++
+   44 | typedef struct { @defs(I1); } I1_defs; // expected-error {{use of @defs is not supported on this architecture and platform}}
+      |                  ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/ExprConstant.cpp:10231: bool EvaluatePointer(const clang::Expr *, (anonymous namespace)::LValue &, (anonymous namespace)::EvalInfo &, bool): Assertion `E->isPRValue() && E->getType()->hasPointerRepresentation()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -Oz -fblocks -fno-objc-arc -Wall -fno-strict-aliasing -target arm64-apple-iphoneos -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:53:3: current parser token 'P'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:50:16: parsing function body 'bar'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnlgy4h3_/9adc3630.mm:50:16: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005767797ff66b __interceptor_backtrace + 91
+1  clang++   0x000057677f45a027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x000057677f453cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x000057677f4589c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x000057677f2a6cc5
+5  clang++   0x000057677f2a74d3
+6  libc.so.6 0x0000740e6193c520
+7  libc.so.6 0x0000740e619909bc pthread_kill + 300
+8  libc.so.6 0x0000740e6193c476 raise + 22
+9  libc.so.6 0x0000740e619227f3 abort + 211
+10 libc.so.6 0x0000740e6192271b
+11 libc.so.6 0x0000740e61933e96
+12 clang++   0x0000576788f85a45
+13 clang++   0x0000576788f96661
+14 clang++   0x0000576788f8596b
+15 clang++   0x0000576788f44ee3
+16 clang++   0x0000576788f51a89
+17 clang++   0x0000576788f33876
+18 clang++   0x0000576788f44b07
+19 clang++   0x0000576788f3d20b
+20 clang++   0x0000576788f3d9ec clang::Expr::EvaluateForOverflow(clang::ASTContext const&) const + 828
+21 clang++   0x0000576785fe0685 clang::Sema::CheckForIntOverflow(clang::Expr const*) + 533
+22 clang++   0x0000576785fe1d8e clang::Sema::CheckCompletedExpr(clang::Expr*, clang::SourceLocation, bool) + 334
+23 clang++   0x0000576786afa36d clang::Sema::ActOnFinishFullExpr(clang::Expr*, clang::SourceLocation, bool, bool, bool) + 733
+24 clang++   0x000057678735abee clang::Sema::ActOnExprStmt(clang::ActionResult<clang::Expr*, true>, bool) + 78
+25 clang++   0x0000576785bb364b clang::Parser::ParseExprStatement(clang::Parser::ParsedStmtContext) + 1595
+26 clang++   0x0000576785baef7c clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 3340
+27 clang++   0x0000576785badcca clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 970
+28 clang++   0x0000576785bc36ef clang::Parser::ParseCompoundStatementBody(bool) + 5887
+29 clang++   0x0000576785bc801b clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 811
+30 clang++   0x00005767859ad2d7 clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 7351
+31 clang++   0x0000576785a085f6 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 10470
+32 clang++   0x00005767859aa680 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 2224
+33 clang++   0x00005767859a94f1 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 529
+34 clang++   0x00005767859a73d3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 3907
+35 clang++   0x00005767859a2fe5 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1765
+36 clang++   0x000057678597ba7f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+37 clang++   0x000057678119f9bc clang::CodeGenAction::ExecuteAction() + 4124
+38 clang++   0x000057678185a2fe clang::FrontendAction::Execute() + 222
+39 clang++   0x00005767816ec5f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+40 clang++   0x0000576781a3e989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+41 clang++   0x00005767798951a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+42 clang++   0x00005767798890f9
+43 clang++   0x0000576779893637
+44 clang++   0x00005767812c3317
+45 clang++   0x000057677f2a6a7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+46 clang++   0x00005767812c081a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+47 clang++   0x000057678121129c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+48 clang++   0x0000576781212a2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+49 clang++   0x0000576781262060 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+50 clang++   0x0000576779887517 clang_main(int, char**, llvm::ToolContext const&) + 122
+[... truncated ...]

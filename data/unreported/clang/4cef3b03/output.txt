@@ -1,0 +1,92 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp372hsu34/50e6ee4d.cpp:9:21: error: use of undeclared identifier 'ffl_fusion'
+    9 | int foo = [] { void ffl_fusion::bar(__attribute__((assume(({}))))) };
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp372hsu34/50e6ee4d.cpp:9:37: error: expected parameter declarator
+    9 | int foo = [] { void ffl_fusion::bar(__attribute__((assume(({}))))) };
+      |                                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp372hsu34/50e6ee4d.cpp:9:5: error: no viable conversion from '(lambda at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp372hsu34/50e6ee4d.cpp:9:11)' to 'int'
+    9 | int foo = [] { void ffl_fusion::bar(__attribute__((assume(({}))))) };
+      |     ^     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp372hsu34/50e6ee4d.cpp:9:11: note: candidate function
+    9 | int foo = [] { void ffl_fusion::bar(__attribute__((assume(({}))))) };
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp372hsu34/50e6ee4d.cpp:16:6: error: redefinition of 'foo' as different kind of symbol
+   16 | void foo() { char16_t(__format__(__printf__, 2, 4)) < char32_t(0x80); }
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp372hsu34/50e6ee4d.cpp:9:5: note: previous definition is here
+    9 | int foo = [] { void ffl_fusion::bar(__attribute__((assume(({}))))) };
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp372hsu34/50e6ee4d.cpp:16:34: error: use of undeclared identifier '__printf__'
+   16 | void foo() { char16_t(__format__(__printf__, 2, 4)) < char32_t(0x80); }
+      |                                  ^~~~~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/ExprConstant.cpp:21980: bool clang::Expr::EvaluateAsInt(clang::Expr::EvalResult&, const clang::ASTContext&, clang::Expr::SideEffectsKind, bool) const: Assertion `!isValueDependent() && "Expression evaluator can't be called on a dependent expression."' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O3 -fblocks /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp372hsu34/50e6ee4d.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp372hsu34/50e6ee4d.cpp:16:69: current parser token ';'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp372hsu34/50e6ee4d.cpp:16:12: parsing function body 'foo'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp372hsu34/50e6ee4d.cpp:16:12: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055801ea504f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055801ea4d1bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055801ea4da78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055801e98fe88
+4  libc.so.6 0x00007efdbdd80520
+5  libc.so.6 0x00007efdbddd49bc pthread_kill + 300
+6  libc.so.6 0x00007efdbdd80476 raise + 22
+7  libc.so.6 0x00007efdbdd667f3 abort + 211
+8  libc.so.6 0x00007efdbdd6671b
+9  libc.so.6 0x00007efdbdd77e96
+10 clang++   0x00005580226dcb8f
+11 clang++   0x00005580217bc9be
+12 clang++   0x0000558021820915 clang::Sema::UsualArithmeticConversions(clang::ActionResult<clang::Expr*, true>&, clang::ActionResult<clang::Expr*, true>&, clang::SourceLocation, clang::ArithConvKind) + 101
+13 clang++   0x00005580218277f3 clang::Sema::CheckCompareOperands(clang::ActionResult<clang::Expr*, true>&, clang::ActionResult<clang::Expr*, true>&, clang::SourceLocation, clang::BinaryOperatorKind) + 1187
+14 clang++   0x000055802182fa5c clang::Sema::CreateBuiltinBinOp(clang::SourceLocation, clang::BinaryOperatorKind, clang::Expr*, clang::Expr*, bool) + 1276
+15 clang++   0x0000558021832541 clang::Sema::ActOnBinOp(clang::Scope*, clang::SourceLocation, clang::tok::TokenKind, clang::Expr*, clang::Expr*) + 209
+16 clang++   0x00005580212cc294 clang::Parser::ParseRHSOfBinaryExpression(clang::ActionResult<clang::Expr*, true>, clang::prec::Level) + 772
+17 clang++   0x00005580212cf23d clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+18 clang++   0x0000558021360281 clang::Parser::ParseExprStatement(clang::Parser::ParsedStmtContext) + 81
+19 clang++   0x000055802135823b clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 5275
+20 clang++   0x0000558021358bfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+21 clang++   0x0000558021360b07 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+22 clang++   0x000055802136135f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+23 clang++   0x000055802125272f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+24 clang++   0x000055802129d324 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+25 clang++   0x000055802124c66c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+26 clang++   0x000055802124ce4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+27 clang++   0x0000558021258d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+28 clang++   0x0000558021259dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+29 clang++   0x0000558021236cf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+30 clang++   0x000055801f73ee51 clang::FrontendAction::Execute() + 65
+31 clang++   0x000055801f6c8df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+32 clang++   0x000055801f816c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+33 clang++   0x000055801d45fd3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+34 clang++   0x000055801d455ada
+35 clang++   0x000055801d455c6f
+36 clang++   0x000055801f44d42d
+37 clang++   0x000055801e9902a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+38 clang++   0x000055801f44e283
+39 clang++   0x000055801f402d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+40 clang++   0x000055801f407600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+41 clang++   0x000055801f415714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+42 clang++   0x000055801d45b383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+43 clang++   0x000055801d3ab901 main + 113
+44 libc.so.6 0x00007efdbdd67d90
+45 libc.so.6 0x00007efdbdd67e40 __libc_start_main + 128
+46 clang++   0x000055801d455105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/50e6ee4d-9f1fba.cpp
+clang++: note: diagnostic msg: /tmp/50e6ee4d-9f1fba.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

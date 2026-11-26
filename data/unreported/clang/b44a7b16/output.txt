@@ -1,0 +1,102 @@
+[... 81 lines omitted ...]
+      |                                             ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:70:45: warning: array designators are a C99 extension [-Wc99-designator]
+   70 | } overwrite_string3[] = { { { "foo" }, 1 }, [0].L[2] = 'x'};
+      |                                             ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:70:45: warning: mixture of designated and non-designated initializers in the same initializer list is a C99 extension [-Wc99-designator]
+   70 | } overwrite_string3[] = { { { "foo" }, 1 }, [0].L[2] = 'x'};
+      |                                             ^~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:70:27: note: first non-designated initializer is here
+   70 | } overwrite_string3[] = { { { "foo" }, 1 }, [0].L[2] = 'x'};
+      |                           ^~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:70:31: error: initializer-string for char array is too long, array size is 3 but initializer has size 4 (including the null terminating character)
+   70 | } overwrite_string3[] = { { { "foo" }, 1 }, [0].L[2] = 'x'};
+      |                               ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:70:50: warning: initializer partially overrides prior initialization of this subobject [-Winitializer-overrides]
+   70 | } overwrite_string3[] = { { { "foo" }, 1 }, [0].L[2] = 'x'};
+      |                                                  ^~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:70:31: note: previous initialization is here
+   70 | } overwrite_string3[] = { { { "foo" }, 1 }, [0].L[2] = 'x'};
+      |                               ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:75:48: warning: nested designators are a C99 extension [-Wc99-designator]
+   75 | } overwrite_string4[] = { { { "foobar" }, 1 }, [0].L[2] = 'x'};
+      |                                                ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:75:48: warning: array designators are a C99 extension [-Wc99-designator]
+   75 | } overwrite_string4[] = { { { "foobar" }, 1 }, [0].L[2] = 'x'};
+      |                                                ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:75:48: warning: mixture of designated and non-designated initializers in the same initializer list is a C99 extension [-Wc99-designator]
+   75 | } overwrite_string4[] = { { { "foobar" }, 1 }, [0].L[2] = 'x'};
+      |                                                ^~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:75:27: note: first non-designated initializer is here
+   75 | } overwrite_string4[] = { { { "foobar" }, 1 }, [0].L[2] = 'x'};
+      |                           ^~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:75:31: error: initializer-string for char array is too long, array size is 3 but initializer has size 7 (including the null terminating character)
+   75 | } overwrite_string4[] = { { { "foobar" }, 1 }, [0].L[2] = 'x'};
+      |                               ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:75:53: warning: initializer partially overrides prior initialization of this subobject [-Winitializer-overrides]
+   75 | } overwrite_string4[] = { { { "foobar" }, 1 }, [0].L[2] = 'x'};
+      |                                                     ^~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:75:31: note: previous initialization is here
+   75 | } overwrite_string4[] = { { { "foobar" }, 1 }, [0].L[2] = 'x'};
+      |                               ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:80:45: warning: nested designators are a C99 extension [-Wc99-designator]
+   80 | } overwrite_string5[] = { { { "foo" }, 1 }, [0].L[4] = 'y'};
+      |                                             ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:80:45: warning: array designators are a C99 extension [-Wc99-designator]
+   80 | } overwrite_string5[] = { { { "foo" }, 1 }, [0].L[4] = 'y'};
+      |                                             ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:80:45: warning: mixture of designated and non-designated initializers in the same initializer list is a C99 extension [-Wc99-designator]
+   80 | } overwrite_string5[] = { { { "foo" }, 1 }, [0].L[4] = 'y'};
+      |                                             ^~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:80:27: note: first non-designated initializer is here
+   80 | } overwrite_string5[] = { { { "foo" }, 1 }, [0].L[4] = 'y'};
+      |                           ^~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:80:50: warning: initializer partially overrides prior initialization of this subobject [-Winitializer-overrides]
+   80 | } overwrite_string5[] = { { { "foo" }, 1 }, [0].L[4] = 'y'};
+      |                                                  ^~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:80:31: note: previous initialization is here
+   80 | } overwrite_string5[] = { { { "foo" }, 1 }, [0].L[4] = 'y'};
+      |                               ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:102:3: warning: nested designators are a C99 extension [-Wc99-designator]
+  102 |   .b[0]    = 0,
+      |   ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:102:5: warning: array designators are a C99 extension [-Wc99-designator]
+  102 |   .b[0]    = 0,
+      |     ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:103:3: error: initializer partially overrides prior initialization of this subobject [-Winitializer-overrides]
+  103 |   .a.one   = 1,
+      |   ^~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:102:5: note: previous initialization is here
+  102 |   .b[0]    = 0,
+      |     ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:103:14: warning: ISO C++ requires field designators to be specified in declaration order; field 'b' will be initialized after field 'a' [-Wreorder-init-list]
+  103 |   .a.one   = 1,
+      |   ~~~~~~~~~~~^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/AST/Expr.h:5389: clang::Expr* clang::InitListExpr::getInit(unsigned int): Assertion `Init < getNumInits() && "Initializer access out of range!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O1 -std=c++03 -fsanitize=undefined -funroll-loops -Wextra /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6llt6nlq/f3eea3e9.cpp:106:2: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000056255213e4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000056255213b1bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000056255213ba78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000056255207de88
+4  libc.so.6 0x00007ff9eb5e2520
+5  libc.so.6 0x00007ff9eb6369bc pthread_kill + 300
+6  libc.so.6 0x00007ff9eb5e2476 raise + 22
+7  libc.so.6 0x00007ff9eb5c87f3 abort + 211
+8  libc.so.6 0x00007ff9eb5c871b
+9  libc.so.6 0x00007ff9eb5d9e96
+10 clang++   0x0000562555059ecf
+11 clang++   0x0000562555084e2e
+12 clang++   0x000056255508145d
+13 clang++   0x000056255507e4dd
+14 clang++   0x000056255506b7ed
+15 clang++   0x000056255506c267
+16 clang++   0x0000562555076385 clang::InitializationSequence::Perform(clang::Sema&, clang::InitializedEntity const&, clang::InitializationKind const&, llvm::MutableArrayRef<clang::Expr*>, clang::QualType*) + 6581
+17 clang++   0x0000562554d6900f clang::Sema::AddInitializerToDecl(clang::Decl*, clang::Expr*, bool) + 4063
+18 clang++   0x0000562554970e91 clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 3313
+19 clang++   0x000056255498aa2c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+20 clang++   0x000056255493a66c clang::Parser::ParseDeclOrFunctionDefInternal(
+[... truncated ...]

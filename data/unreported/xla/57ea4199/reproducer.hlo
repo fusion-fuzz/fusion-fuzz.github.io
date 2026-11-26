@@ -1,0 +1,48 @@
+HloModule Module
+
+%async_wrapped_computation {
+  %p0 = f32[16] parameter(0)
+  %p1 = f32[16] parameter(1)
+  ROOT %cc = f32[16] custom-call(p0, p1), custom_call_target="foo", output_to_operand_aliasing={{}: (0, {})}
+}
+
+%async_wrapped_computation.d {
+  %p0 = f32[16] parameter(0)
+  %p1 = f32[16] parameter(1)
+  ROOT %cc = f32[16] custom-call(p0, p1), custom_call_target="foo", output_to_operand_aliasing={{}: (1, {})}
+}
+
+%async_wrapped_computation.d.1 {
+  %p0 = f32[16] parameter(0)
+  %p1 = f32[16] parameter(1)
+  ROOT %cc = f32[16] custom-call(p0, p1), custom_call_target="foo", output_to_operand_aliasing={{}: (1, {})}
+}
+
+%async_wrapped_computation.d.2 {
+  %p0 = f32[16] parameter(0)
+  %p1 = f32[16] parameter(1)
+  ROOT %cc = f32[16] custom-call(p0, p1), custom_call_target="foo", output_to_operand_aliasing={{}: (1, {})}
+}
+
+ENTRY %main {
+  %tc_operand0 = f32[16] parameter(0)
+  %constant = f32[16] constant(1.0)
+  %async_start = ((), (), s32[]) async-start(), calls=async_wrapped_computation, async_execution_thread="sparsecore"
+  %async_update.0 = ((f32[16]), (), s32[]) async-update(async_start, tc_operand0)
+  %async_update.1 = ((f32[16], f32[16]), f32[16]) async-update(async_update.0, constant)
+  %async_done = f32[16] async-done(async_update.1)
+  %constant.d.1 = f32[16] constant(1.0)
+  %async_start.d.1 = ((), (), s32[]) async-start(), calls=%async_wrapped_computation.d.2, async_execution_thread="sparsecore"
+  %async_update.0.d.1 = ((f32[16]), (), s32[]) async-update(%async_start.d.1, %constant.d.1)
+  %async_update.1.d.1 = ((f32[16], f32[16]), f32[16]) async-update(%async_update.0.d.1, %async_done)
+  %async_done.d.1 = f32[16] async-done(%async_update.1.d.1)
+  %constant.d = f32[16] constant(1.0)
+  %async_start.d = ((), (), s32[]) async-start(), calls=%async_wrapped_computation.d, async_execution_thread="sparsecore"
+  %async_update.0.d = ((f32[16]), (), s32[]) async-update(%async_start.d, %constant.d)
+  %async_update.1.d = ((f32[16], f32[16]), f32[16]) async-update(%async_update.0.d, %tc_operand0)
+  %async_done.d = f32[16] async-done(%async_update.1.d)
+  %ffl.root = (f32[16], f32[16]) tuple(%async_done, %async_done.d)
+  %ffl.call = f32[16] call(%constant, %constant.d), to_apply=%async_wrapped_computation.d.1
+  %ffl.root.1 = (f32[16], f32[16], f32[16]) tuple(%async_done, %async_done.d, %ffl.call)
+  ROOT %ffl.root.2 = (f32[16], f32[16], f32[16], f32[16]) tuple(%async_done, %async_done.d, %ffl.call, %async_done.d.1)
+}

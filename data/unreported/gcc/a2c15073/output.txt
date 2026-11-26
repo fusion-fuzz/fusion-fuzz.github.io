@@ -1,0 +1,91 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc: In function 'void test_template()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:36:3: error: 'j' is not a class, namespace, or enumeration [-Wtemplate-body]
+   36 |   j::vector<int> v;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:36:13: error: expected primary-expression before 'int' [-Wtemplate-body]
+   36 |   j::vector<int> v;
+      |             ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:39:5: error: 'v' was not declared in this scope [-Wtemplate-body]
+   39 |     v.push_back (i);
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:42:16: error: 'v' was not declared in this scope [-Wtemplate-body]
+   42 |   for (int i : v)
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:46:14: error: 'v' was not declared in this scope [-Wtemplate-body]
+   46 |   for (T i : v)
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:50:14: error: 'v' was not declared in this scope [-Wtemplate-body]
+   50 |   for (T i : v)
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:54:14: error: 'v' was not declared in this scope [-Wtemplate-body]
+   54 |   for (T i : v)
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:59:14: error: 'v' was not declared in this scope [-Wtemplate-body]
+   59 |   for (T i : v)
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:64:14: error: 'v' was not declared in this scope [-Wtemplate-body]
+   64 |   for (T i : v)
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:69:14: error: 'v' was not declared in this scope [-Wtemplate-body]
+   69 |   for (T i : v)
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc: In instantiation of 'void test_template() [with T = long int; int U1 = 5; int U2 = -2; int U3 = 0]':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:79:33:   required from here
+   79 |   test_template <long, 5,-2, 0> ();
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:41:9: error: invalid type for iteration variable '<anonymous>'
+   41 | #pragma omp for
+      |         ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:45:9: error: invalid type for iteration variable '<anonymous>'
+   45 | #pragma omp unroll partial(U1)
+      |         ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:49:20: error: 'partial' argument needs positive constant integer expression
+   49 | #pragma omp unroll partial(U2) // { dg-error "'partial' argument needs positive constant integer expression" }
+      |                    ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:49:9: error: invalid type for iteration variable '<anonymous>'
+   49 | #pragma omp unroll partial(U2) // { dg-error "'partial' argument needs positive constant integer expression" }
+      |         ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:53:20: error: 'partial' argument needs positive constant integer expression
+   53 | #pragma omp unroll partial(U3) // { dg-error "'partial' argument needs positive constant integer expression" }
+      |                    ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:53:9: error: invalid type for iteration variable '<anonymous>'
+   53 | #pragma omp unroll partial(U3) // { dg-error "'partial' argument needs positive constant integer expression" }
+      |         ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:59:3: error: invalid type for iteration variable '<anonymous>'
+   59 |   for (T i : v)
+      |   ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc:57:9: internal compiler error: in c_omp_find_generated_loop, at c-family/c-omp.cc:1662
+   57 | #pragma omp for
+      |         ^~~
+0x306c5cb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00e5e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x8bab30 c_omp_find_generated_loop(tree_node*&, int, tree_node* (*)(tree_node**, int*, tree_node* (*)(tree_node**, int*, void*), void*, hash_set<tree_node*, false, default_hash_traits<tree_node*> >*))
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-omp.cc:1662
+0x11dc598 c_omp_check_loop_iv(tree_node*, tree_node*, tree_node* (*)(tree_node**, int*, tree_node* (*)(tree_node**, int*, void*), void*, hash_set<tree_node*, false, default_hash_traits<tree_node*> >*))
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-omp.cc:1717
+0x10f784d finish_omp_for(unsigned long, tree_code, tree_node*, tree_node*, tree_node*, tree_node*, tree_node*, tree_node*, tree_node*, vec<tree_node*, va_heap, vl_ptr>*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:12409
+0x10ab9eb tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:20626
+0x10a9e61 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:19867
+0x10a8411 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:20308
+0x10b2892 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:19853
+0x10b2892 instantiate_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:29018
+0x10b366d instantiate_decl(tree_node*, bool, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:29309
+0x10bd64a instantiate_pending_templates(int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:29384
+0xf1dff8 c_parse_final_cleanups()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl2.cc:5883
+0x11e22f8 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1460
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D_REENTRANT /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1ehtsnqo/fb2da126.cc -quiet -dumpbase fb2da126.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O3 -O2 -std=c++26 -fwrapv -fopenmp -fdump-tree-optimized -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

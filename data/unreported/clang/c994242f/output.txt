@@ -1,0 +1,84 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:35:21: error: expected a qualified name after 'typename'
+   35 |   template<typename this> this declval();
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:35:21: error: expected ',' or '>' in template-parameter-list
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:35:27: error: expected unqualified-id
+   35 |   template<typename this> this declval();
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:67:19: error: expected a qualified name after 'typename'
+   67 | template<typename this>
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:67:19: error: expected ',' or '>' in template-parameter-list
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:69:3: error: expected member name or ';' after declaration specifiers
+   69 |   this i : 8;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:73:19: error: expected a qualified name after 'typename'
+   73 | template<typename this>
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:73:19: error: expected ',' or '>' in template-parameter-list
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:74:46: error: unknown type name 't'
+   74 | concept three_way_comparable = requires(this t) { { t <=> t }; };
+      |                                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:74:41: error: a requires expression cannot have an explicit object parameter
+   74 | concept three_way_comparable = requires(this t) { { t <=> t }; };
+      |                                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:74:53: error: use of undeclared identifier 't'
+   74 | concept three_way_comparable = requires(this t) { { t <=> t }; };
+      |                                                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:74:59: error: use of undeclared identifier 't'
+   74 | concept three_way_comparable = requires(this t) { { t <=> t }; };
+      |                                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:75:19: error: expected a qualified name after 'typename'
+   75 | template<typename this>
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:75:19: error: expected ',' or '>' in template-parameter-list
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:76:49: error: unknown type name 't'
+   76 | concept bf_three_way_comparable = requires(this t) { { t.i <=> t.i }; };
+      |                                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:76:44: error: a requires expression cannot have an explicit object parameter
+   76 | concept bf_three_way_comparable = requires(this t) { { t.i <=> t.i }; };
+      |                                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:76:56: error: use of undeclared identifier 't'
+   76 | concept bf_three_way_comparable = requires(this t) { { t.i <=> t.i }; };
+      |                                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:76:64: error: use of undeclared identifier 't'
+   76 | concept bf_three_way_comparable = requires(this t) { { t.i <=> t.i }; };
+      |                                                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:77:47: error: template argument for non-type template parameter must be an expression
+   77 | static_assert(three_way_comparable<CDependent<long long>>);
+      |                                               ^~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6s8v7y0n/1ba28df6.cpp:67:19: note: template parameter is declared here
+   67 | template<typename this>
+      |                   ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaDeclCXX.cpp:888:5: runtime error: member access within null pointer of type 'clang::TemplateIdAnnotation'
+==1825538==WARNING: invalid path to external symbolizer!
+==1825538==WARNING: Failed to use and restart external symbolizer!
+    #0 0x648ea30f8d88  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1b65ad88) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #1 0x648ea2f1969b  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1b47b69b) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #2 0x648ea2f1902c  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1b47b02c) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #3 0x648ea259dde5  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aaffde5) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #4 0x648ea2599ffe  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aafbffe) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #5 0x648ea25971f4  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aaf91f4) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #6 0x648ea25966aa  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aaf86aa) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #7 0x648ea2743921  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aca5921) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #8 0x648ea2742349  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aca4349) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #9 0x648ea2757e6e  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1acb9e6e) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #10 0x648ea275c84a  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1acbe84a) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #11 0x648ea2539fb6  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aa9bfb6) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #12 0x648ea259acb5  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aafccb5) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #13 0x648ea253735f  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aa9935f) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #14 0x648ea25361d0  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aa981d0) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #15 0x648ea25340a2  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aa960a2) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #16 0x648ea25e9cc3  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1ab4bcc3) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #17 0x648ea25e7789  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1ab49789) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #18 0x648ea25967e1  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aaf87e1) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #19 0x648ea2533549  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aa95549) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #20 0x648ea252fc44  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aa91c44) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #21 0x648ea250882e  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aa6a82e) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #22 0x648e9a09d77d  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x125ff77d) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #23 0x648e99f2e35f  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1249035f) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #24 0x648e9a283042  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x127e5042) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #25 0x648e91fee216  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xa550216) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #26 0x648e
+[... truncated ...]

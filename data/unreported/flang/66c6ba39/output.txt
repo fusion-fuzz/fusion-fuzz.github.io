@@ -1,0 +1,54 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpks54r9ln/991be803.f90:34:14: warning: The global subprogram 'copy_impl' is not compatible with its local procedure declaration (distinct numbers of dummy arguments) [-Wexternal-interface-mismatch]
+    subroutine copy_impl(this, x)
+               ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpks54r9ln/991be803.f90:50:12: Declaration of 'copy_impl'
+  subroutine COPY_IMPL(x, y, mask)
+             ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpks54r9ln/991be803.f90:34:14: Declaration of 'copy_impl'
+    subroutine copy_impl(this, x)
+               ^^^^^^^^^
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /usr/lib/llvm-22/bin/flang -fc1 -triple x86_64-pc-linux-gnu -emit-obj -ffree-form -mrelocation-model pic -pic-level 2 -pic-is-pie -target-cpu x86-64 -std=f2018 -resource-dir /usr/lib/llvm-22/lib/clang/22 -mframe-pointer=none -O1 -o /dev/null -x f95 /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpks54r9ln/991be803.f90
+ #0 0x00007f3771330d5f llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc7d5f)
+ #1 0x00007f377132e5d7 llvm::sys::RunSignalHandlers() (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc55d7)
+ #2 0x00007f3771331b2a (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc8b2a)
+ #3 0x00007f376c005330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f377b55148b mlir::Type::getContext() const (/usr/lib/llvm-22/lib/libMLIR.so.22.1+0x60c348b)
+ #5 0x000055b2b32dd56e fir::SequenceType::get(llvm::ArrayRef<long>, mlir::Type) (/usr/lib/llvm-22/bin/flang+0x2dad56e)
+ #6 0x000055b2b148907f (/usr/lib/llvm-22/bin/flang+0xf5907f)
+ #7 0x000055b2b149dd11 (/usr/lib/llvm-22/bin/flang+0xf6dd11)
+ #8 0x000055b2b149839c (/usr/lib/llvm-22/bin/flang+0xf6839c)
+ #9 0x000055b2b148fa04 (/usr/lib/llvm-22/bin/flang+0xf5fa04)
+#10 0x000055b2b1485366 (/usr/lib/llvm-22/bin/flang+0xf55366)
+#11 0x000055b2b1485225 Fortran::lower::convertExprToHLFIR(mlir::Location, Fortran::lower::AbstractConverter&, Fortran::evaluate::Expr<Fortran::evaluate::SomeType> const&, Fortran::lower::SymMap&, Fortran::lower::StatementContext&) (/usr/lib/llvm-22/bin/flang+0xf55225)
+#12 0x000055b2b1242735 (/usr/lib/llvm-22/bin/flang+0xd12735)
+#13 0x000055b2b1285a26 (/usr/lib/llvm-22/bin/flang+0xd55a26)
+#14 0x000055b2b123e2b7 (/usr/lib/llvm-22/bin/flang+0xd0e2b7)
+#15 0x000055b2b128c431 (/usr/lib/llvm-22/bin/flang+0xd5c431)
+#16 0x000055b2b1226a46 Fortran::lower::LoweringBridge::lower(Fortran::parser::Program const&, Fortran::semantics::SemanticsContext const&) (/usr/lib/llvm-22/bin/flang+0xcf6a46)
+#17 0x000055b2b10ffa38 Fortran::frontend::CodeGenAction::beginSourceFileAction() (/usr/lib/llvm-22/bin/flang+0xbcfa38)
+#18 0x000055b2b10f9f9e Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) (/usr/lib/llvm-22/bin/flang+0xbc9f9e)
+#19 0x000055b2b10e1e7f Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) (/usr/lib/llvm-22/bin/flang+0xbb1e7f)
+#20 0x000055b2b10feba0 Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) (/usr/lib/llvm-22/bin/flang+0xbceba0)
+#21 0x000055b2b10dfd34 fc1_main(llvm::ArrayRef<char const*>, char const*) (/usr/lib/llvm-22/bin/flang+0xbafd34)
+#22 0x000055b2b10defa4 main (/usr/lib/llvm-22/bin/flang+0xbaefa4)
+#23 0x00007f376bfea1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#24 0x00007f376bfea28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#25 0x000055b2b10ddf45 _start (/usr/lib/llvm-22/bin/flang+0xbadf45)
+flang-22: error: unable to execute command: Segmentation fault (core dumped)
+flang-22: error: flang frontend command failed due to signal (use -v to see invocation)
+Ubuntu flang version 22.1.8 (++20260613092238+e80beda6e255-1~exp1~20260613092253.78)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/llvm-22/bin
+flang-22: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING FILES TO THE BUG REPORT:
+Preprocessed source(s) and associated run script(s) are located at:
+flang-22: note: diagnostic msg: /tmp/991be803-1b3e23
+flang-22: note: diagnostic msg: /tmp/991be803-1b3e23.sh
+flang-22: note: diagnostic msg: 
+
+********************

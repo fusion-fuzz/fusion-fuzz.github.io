@@ -1,0 +1,1 @@
+ulimit -n 4096; ulimit -v 8388608; hlo-opt --platform=cpu --passes=sharding-remover,scatter_determinism_expander,literal-canonicalizer,sub-byte-size-setter,all-reduce-simplifier,all-gather-cse --xla_cpu_prefer_vector_width=128 --xla_cpu_emitter_verification_level=1 --xla_backend_optimization_level=1 --o=/dev/null ./reproducer.hlo

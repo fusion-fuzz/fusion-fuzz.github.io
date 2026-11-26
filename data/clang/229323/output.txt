@@ -1,0 +1,58 @@
+clang-24: /root/llvm-project/llvm/tools/clang/lib/CodeGen/CGBlocks.cpp:585: void computeBlockInfo(clang::CodeGen::CodeGenModule&, clang::CodeGen::CodeGenFunction*, clang::CodeGen::CGBlockInfo&): Assertion `CGF && isa_and_nonnull<CXXMethodDecl>(CGF->CurFuncDecl) && "Can't capture 'this' outside a method"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24 -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -dumpdir /app/output.s- -disable-free -clear-ast-before-backend -main-file-name example.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -fno-verbose-asm -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debug-info-kind=constructor -dwarf-version=5 -debugger-tuning=gdb -fdebug-compilation-dir=/app -fcoverage-compilation-dir=/app -resource-dir /cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/lib/clang/24 -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0 -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0/x86_64-linux-gnu -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0/backward -internal-isystem /cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/lib/clang/24/include -internal-isystem /cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/../include/x86_64-unknown-linux-gnu -internal-isystem /usr/local/include -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fblocks -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fcolor-diagnostics -faddrsig -fdwarf2-cfi-asm -o /tmp/example-5c9b11.o -x c++ <source>
+1.	<eof> parser at end of file
+2.	<source>:2:6: LLVM IR generation of declaration 'g'
+3.	<source>:2:6: Generating code for declaration 'g'
+ #0 0x00000000044c56f8 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x44c56f8)
+ #1 0x00000000044c2954 llvm::sys::RunSignalHandlers() (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x44c2954)
+ #2 0x00000000044c2ace SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00000000044c2b78 SignalHandlerTerminate(int, siginfo_t*, void*) Signals.cpp:0:0
+ #4 0x00007570d2e45330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x00007570d2e9ec0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #6 0x00007570d2e4527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x00007570d2e288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x00007570d2e2881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x00007570d2e3b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x0000000004e655df computeBlockInfo(clang::CodeGen::CodeGenModule&, clang::CodeGen::CodeGenFunction*, clang::CodeGen::CGBlockInfo&) CGBlocks.cpp:0:0
+#11 0x0000000004e6e1ca clang::CodeGen::CodeGenFunction::EmitBlockLiteral(clang::BlockExpr const*) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4e6e1ca)
+#12 0x0000000004a26eac clang::StmtVisitorBase<std::add_pointer, (anonymous namespace)::ScalarExprEmitter, llvm::Value*>::Visit(clang::Stmt*) CGExprScalar.cpp:0:0
+#13 0x0000000004a26da4 clang::StmtVisitorBase<std::add_pointer, (anonymous namespace)::ScalarExprEmitter, llvm::Value*>::Visit(clang::Stmt*) CGExprScalar.cpp:0:0
+#14 0x0000000004a2ba0c clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4a2ba0c)
+#15 0x0000000004f0df39 clang::CodeGen::CodeGenFunction::EmitScalarInit(clang::Expr const*, clang::ValueDecl const*, clang::CodeGen::LValue, bool) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4f0df39)
+#16 0x00000000049d52b7 (anonymous namespace)::AggExprEmitter::VisitCXXParenListOrInitListExpr(clang::Expr*, llvm::ArrayRef<clang::Expr*>, clang::FieldDecl*, clang::Expr*) CGExprAgg.cpp:0:0
+#17 0x00000000049d31d9 (anonymous namespace)::AggExprEmitter::Visit(clang::Expr*) CGExprAgg.cpp:0:0
+#18 0x00000000049d3f7c clang::CodeGen::CodeGenFunction::EmitAggExpr(clang::Expr const*, clang::CodeGen::AggValueSlot) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x49d3f7c)
+#19 0x0000000004f101cf clang::CodeGen::CodeGenFunction::EmitExprAsInit(clang::Expr const*, clang::ValueDecl const*, clang::CodeGen::LValue, bool) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4f101cf)
+#20 0x0000000004f1ac38 clang::CodeGen::CodeGenFunction::EmitAutoVarInit(clang::CodeGen::CodeGenFunction::AutoVarEmission const&) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4f1ac38)
+#21 0x0000000004f219e9 clang::CodeGen::CodeGenFunction::EmitVarDecl(clang::VarDecl const&) (.part.0) CGDecl.cpp:0:0
+#22 0x0000000004f22223 clang::CodeGen::CodeGenFunction::EmitDecl(clang::Decl const&, bool) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4f22223)
+#23 0x0000000004b4257c clang::CodeGen::CodeGenFunction::EmitDeclStmt(clang::DeclStmt const&) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4b4257c)
+#24 0x0000000004b5c0a7 clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4b5c0a7)
+#25 0x0000000004b53639 clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4b53639)
+#26 0x0000000004b5bc5b clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4b5bc5b)
+#27 0x0000000004bc6696 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4bc6696)
+#28 0x0000000004bd9044 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4bd9044)
+#29 0x0000000004c4935a clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4c4935a)
+#30 0x0000000004c42414 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4c42414)
+#31 0x0000000004c43430 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4c43430)
+#32 0x0000000004c50979 clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) (.part.0) CodeGenModule.cpp:0:0
+#33 0x0000000004fc71b9 (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl(clang::DeclGroupRef) ModuleBuilder.cpp:0:0
+#34 0x0000000004fbbac4 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4fbbac4)
+#35 0x0000000006e02244 clang::ParseAST(clang::Sema&, bool, bool) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x6e02244)
+#36 0x0000000004fc48c8 clang::CodeGenAction::ExecuteAction() (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4fc48c8)
+#37 0x00000000052e5e38 clang::FrontendAction::Execute() (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x52e5e38)
+#38 0x0000000005273635 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x5273635)
+#39 0x00000000053bacdd clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x53bacdd)
+#40 0x0000000000d9b3d8 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0xd9b3d8)
+#41 0x0000000000d9229a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#42 0x0000000000d9663e clang_main(int, char**, llvm::ToolContext const&) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0xd9663e)
+#43 0x0000000000cd9563 main (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0xcd9563)
+#44 0x00007570d2e2a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#45 0x00007570d2e2a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#46 0x0000000000d91c45 _start (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0xd91c45)
+clang++: error: unable to execute command: Aborted (core dumped)
+clang++: error: clang frontend command failed with exit code -2 (use -v to see invocation)
+Program terminated with signal SIGABRT (6)
+x86-64 clang (assertions trunk) - 819ms

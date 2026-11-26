@@ -1,0 +1,10 @@
+mlir/include/mlir/IR/UseDefLists.h:98:22: runtime error: member access within null pointer of type 'mlir::IRObjectWithUseList<mlir::OpOperand>'
+    #0 in void mlir::detail::IROperandBase::insertInto<mlir::IRObjectWithUseList<mlir::OpOperand>>(mlir::IRObjectWithUseList<mlir::OpOperand>*) mlir/include/mlir/IR/UseDefLists.h:98
+    #1 in mlir::IROperand<mlir::OpOperand, mlir::Value>::insertIntoCurrent()
+    #8 in mlir::Operation::create(mlir::OperationState const&) mlir/lib/IR/Operation.cpp
+    #9 in mlir::OpTrait::SingleBlockImplicitTerminator<test::RegionYieldOp>::Impl<test::TestCSEOfSingleBlockOp>::buildTerminator(mlir::OpBuilder&, mlir::Location)
+   #11 in mlir::impl::ensureRegionTerminator(...)
+   #14 in test::TestCSEOfSingleBlockOp::parse(mlir::OpAsmParser&, mlir::OperationState&)
+   #18 in CustomOpAsmParser::parseOperation(mlir::OperationState&)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior mlir/include/mlir/IR/UseDefLists.h:98:22

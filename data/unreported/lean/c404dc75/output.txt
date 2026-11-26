@@ -1,0 +1,47 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpuax3tg12/51f8b454.lean:125:15: error: a universe level named `u` has already been declared
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpuax3tg12/51f8b454.lean:124:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- error: Tactic `cases` failed with a nested error:
+- Dependent elimination failed: Failed to solve equation
+-   A✝¹ arg✝¹ = A✝ arg✝
+- at case `Tmₛ.app` after processing
+-   _, (Tmₛ.app _ _ _ _), _
+- the dependent pattern matcher can solve the following kinds of equations
+- - <var> = <term> and <term> = <var>
+- - <term> = <term> where the terms are definitionally equal
+- - <constructor> = <constructor>, examples: List.cons x xs = List.cons y ys, and List.cons x xs = List.nil
+- ---
+- warning: unused `termination_by`, function is not recursive
++ error: a universe level named `u` has already been declared
+fun a => instDecidableEqPrivField.decEq a a
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpuax3tg12/51f8b454.lean:147:9: error: a universe level named `u` has already been declared
+fun a => instDecidableEqPrivField2.decEq a a
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpuax3tg12/51f8b454.lean:250:9: error: a universe level named `u` has already been declared
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpuax3tg12/51f8b454.lean:286:4: error: (kernel) invalid declaration, it uses unsafe declaration '_private.51f8b454.0.foo2_ffl'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpuax3tg12/51f8b454.lean:304:73: error: Application type mismatch: The argument
+  h
+has type
+  And (GT.gt i 0) (Ne i 10)
+but is expected to have type
+  And (GT.gt foo2_ffl 0) ?m.9
+in the application
+  And.rec (fun h₁ h₂ => HAdd.hAdd (aux_ffl2 i h₁) (aux_ffl2 i h₁)) h
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpuax3tg12/51f8b454.lean:307:59: error: Application type mismatch: The argument
+  h₁
+has type
+  GT.gt i 0
+but is expected to have type
+  GT.gt foo2_ffl 0
+in the application
+  aux_ffl2 i h₁
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpuax3tg12/51f8b454.lean:307:75: error: Application type mismatch: The argument
+  h₁
+has type
+  GT.gt i 0
+but is expected to have type
+  GT.gt foo2_ffl 0
+in the application
+  aux_ffl2 i h₁
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpuax3tg12/51f8b454.lean:306:4: error: (kernel) function expected
+  aux_ffl2 i
+'_private.«51f8b454».0.foo2_ffl' depends on axioms: [bad_ffl]

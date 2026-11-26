@@ -1,0 +1,121 @@
+error: generic parameters with a default must be trailing
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp18wwyh6w/55c06625.rs:48:12
+   |
+48 | struct Bar<T = [u8; N], const N: usize>(T);
+   |            ^
+
+error: generic parameters with a default must be trailing
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp18wwyh6w/55c06625.rs:57:20
+   |
+57 | struct Bar_b54651b<T = [u8; N], const N: usize>(T);
+   |                    ^
+
+error: generic parameters with a default must be trailing
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp18wwyh6w/55c06625.rs:90:22
+   |
+90 | struct Bar_b54651bb0<T = [u8; N], const N: usize>(T);
+   |                      ^
+
+error[E0128]: generic parameter defaults cannot reference parameters before they are declared
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp18wwyh6w/55c06625.rs:48:21
+   |
+48 | struct Bar<T = [u8; N], const N: usize>(T);
+   |                     ^ cannot reference `N` before it is declared
+
+error[E0128]: generic parameter defaults cannot reference parameters before they are declared
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp18wwyh6w/55c06625.rs:57:29
+   |
+57 | struct Bar_b54651b<T = [u8; N], const N: usize>(T);
+   |                             ^ cannot reference `N` before it is declared
+
+error[E0128]: generic parameter defaults cannot reference parameters before they are declared
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp18wwyh6w/55c06625.rs:90:31
+   |
+90 | struct Bar_b54651bb0<T = [u8; N], const N: usize>(T);
+   |                               ^ cannot reference `N` before it is declared
+
+warning: `feature(generic_const_exprs)` is not supported with the next-generation trait solver
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp18wwyh6w/55c06625.rs:1:12
+  |
+1 | #![feature(generic_const_exprs)]
+  |            ^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `-Znext-solver=globally` is currently enabled by default for testing
+  = note: reverted the setting to `-Znext-solver=coherence` for this crate
+  = note: the currently stable trait solver will be used for this crate
+  = note: see issues #160895 <https://github.com/rust-lang/rust/issues/160895> for more information
+
+warning: type `Bar_b54651b` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp18wwyh6w/55c06625.rs:57:8
+   |
+57 | struct Bar_b54651b<T = [u8; N], const N: usize>(T);
+   |        ^^^^^^^^^^^ help: convert the identifier to upper camel case: `BarB54651b`
+   |
+   = note: `#[warn(non_camel_case_types)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: type `Foo_b54651bb0` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp18wwyh6w/55c06625.rs:60:8
+   |
+60 | struct Foo_b54651bb0<T, U = [u8; std::mem::size_of::<T>()]>(T, U);
+   |        ^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `FooB54651bb0`
+
+warning: type `Foo_b54651b` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp18wwyh6w/55c06625.rs:70:8
+   |
+70 | struct Foo_b54651b<T, U = [u8; std::mem::size_of::<T>()]>(T, U);
+   |        ^^^^^^^^^^^ help: convert the identifier to upper camel case: `FooB54651b`
+
+warning: type `Bar_b54651bb0` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp18wwyh6w/55c06625.rs:90:8
+   |
+90 | struct Bar_b54651bb0<T = [u8; N], const N: usize>(T);
+   |        ^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `BarB54651bb0`
+
+error[E0107]: missing generics for struct `Bar_b54651bb0`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp18wwyh6w/55c06625.rs:97:20
+   |
+97 | impl SomeTrait for Bar_b54651bb0 {
+   |                    ^^^^^^^^^^^^^ expected at least 1 generic argument
+   |
+note: struct defined here, with at least 1 generic parameter: `T`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp18wwyh6w/55c06625.rs:90:8
+   |
+90 | struct Bar_b54651bb0<T = [u8; N], const N: usize>(T);
+   |        ^^^^^^^^^^^^^ -----------
+help: add missing generic argument
+   |
+97 | impl SomeTrait for Bar_b54651bb0<T> {
+   |                                 +++
+
+
+thread 'rustc' (1139288) panicked at compiler/rustc_type_ir/src/binder.rs:659:13:
+[u8; AliasConst(No, Alias { kind: Anon { def_id: DefId(0:58 ~ 55c06625[b399]::Bar_b54651bb0::{constant#0}) }, args: [T/#0, N/#1], .. })] has parameters, but no args were provided in instantiate
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/e3feeb59cd1bdd011a2bfcc0747b55125d9b8527/library/std/src/panicking.rs:676:5
+   1: core::panicking::panic_fmt
+             at /rustc/e3feeb59cd1bdd011a2bfcc0747b55125d9b8527/library/core/src/panicking.rs:80:14
+   2: <rustc_type_ir::binder::EarlyBinder<rustc_middle::ty::context::TyCtxt, rustc_middle::ty::Ty>>::instantiate::<&[rustc_middle::ty::generic_args::GenericArg]>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/binder.rs:659:13
+   3: <<dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_generic_args_of_path::{closure#0}::GenericArgsCtxt as rustc_hir_analysis::hir_ty_lowering::GenericArgsLowerer>::inferred_kind
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/hir_ty_lowering/mod.rs:841:34
+   4: rustc_hir_analysis::hir_ty_lowering::generics::lower_generic_args::<<dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_generic_args_of_path::{closure#0}::GenericArgsCtxt>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/hir_ty_lowering/generics.rs:391:35
+   5: <dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_generic_args_of_path::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/hir_ty_lowering/mod.rs:888:20
+   6: <dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_generic_args_of_path
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/hir_ty_lowering/mod.rs:678:5
+   7: <dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_generic_args_of_path_segment
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/hir_ty_lowering/mod.rs:637:30
+   8: <dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_path_segment
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/hir_ty_lowering/mod.rs:1224:25
+   9: <dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_resolved_ty_path
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/hir_ty_lowering/mod.rs:2224:22
+  10: <dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_ty::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/hir_ty_lowering/mod.rs:3245:22
+  11: <dyn rustc_hir_analysis::hir_ty_lowering::HirTyLowerer>::lower_ty
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/hir_ty_lowering/mod.rs:3191:5
+  12: rustc_hir_analysis::collect::type_of::type_of::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/collect/type_of.rs:203:26
+  13: rustc_hir_analysis::collect::type_of::type_of
+[... 207 more lines ...]

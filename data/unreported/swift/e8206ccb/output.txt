@@ -1,0 +1,115 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpufo_ymyg/3ab3a640.swift:227:20: error: '_' can only appear in a pattern or on the left side of an assignment
+225 | func _ffl_p4_escape<T>(_ f: @escaping () -> T) -> () -> T { f }
+226 | do {
+227 |     var _ffl_cap = _
+    |                    `- error: '_' can only appear in a pattern or on the left side of an assignment
+228 |     // noescape: bridge captured by reference on the stack
+229 |     let _ffl_local = _ffl_p4_apply { _ffl_cap }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpufo_ymyg/3ab3a640.swift:239:16: error: '_' can only appear in a pattern or on the left side of an assignment
+237 |     _ = _ffl_nest()
+238 |     // mutation after escape — probes copy-on-write / exclusive-access
+239 |     _ffl_cap = _
+    |                `- error: '_' can only appear in a pattern or on the left side of an assignment
+240 |     _ = _ffl_esc()
+241 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpufo_ymyg/3ab3a640.swift:46:23: warning: immutable value 'i' was never used; consider replacing with '_' or removing it [#NoUsage]
+ 44 |   case Foo.A:
+ 45 |     ()
+ 46 |   case Bar<Int>.B(let i):
+    |                       `- warning: immutable value 'i' was never used; consider replacing with '_' or removing it [#NoUsage]
+ 47 |     ()
+ 48 |   case Bar<Foo>.B(let f):
+
+Assertion failed: (!type->hasPlaceholder() && "Placeholder in interface type"), function cacheResult at TypeCheckRequests.cpp:1254.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -Osize -sil-verify-all /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpufo_ymyg/3ab3a640.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpufo_ymyg/3ab3a640.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(main.(file).testSwitchEnumOnExistential_b1e0630@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpufo_ymyg/3ab3a640.swift:146:6)
+5.	While type-checking statement at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpufo_ymyg/3ab3a640.swift:146:56 - line:157:1] RangeText="{
+  switch value {
+  case Foo_b1e0630.A:
+    ()
+  case Bar_b1e0630<Int>.B_b1e0630(let i):
+    ()
+  case Bar_b1e0630<_>.B_b1e0630(let f):
+    ()
+  default:
+    ()
+  }
+"
+6.	While type-checking statement at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpufo_ymyg/3ab3a640.swift:147:3 - line:156:3] RangeText="switch value {
+  case Foo_b1e0630.A:
+    ()
+  case Bar_b1e0630<Int>.B_b1e0630(let i):
+    ()
+  case Bar_b1e0630<_>.B_b1e0630(let f):
+    ()
+  default:
+    ()
+  "
+7.	Assertion failed: (!type->hasPlaceholder() && "Placeholder in interface type"), function cacheResult at TypeCheckRequests.cpp:1254.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+ #0 0x000055bec5b6dbab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055bec5b6b2e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055bec5b6e8c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f01fabe9330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f01fac42c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f01fabe927e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f01fabcc8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000055bebffab622 (/usr/bin/swift-frontend+0x3055622)
+ #8 0x000055bebffab5d7 (/usr/bin/swift-frontend+0x30555d7)
+ #9 0x000055bebfe910c7 swift::InterfaceTypeRequest::cacheResult(swift::Type) const (/usr/bin/swift-frontend+0x2f3b0c7)
+#10 0x000055bebfb540fe swift::ValueDecl::getInterfaceType() const (/usr/bin/swift-frontend+0x2bfe0fe)
+#11 0x000055bebfb53e67 swift::Decl::isInvalid() const (/usr/bin/swift-frontend+0x2bfde67)
+#12 0x000055bebf52d058 void llvm::function_ref<void (swift::VarDecl*)>::callback_fn<(anonymous namespace)::StmtChecker::checkCaseLabelItemPattern(swift::CaseStmt*, swift::CaseLabelItem&, swift::CaseParentKind, bool&, swift::Type)::'lambda0'(swift::VarDecl*)>(long, swift::VarDecl*) TypeCheckStmt.cpp:0:0
+#13 0x000055bebf52cd6e void (anonymous namespace)::StmtChecker::checkSiblingCaseStmts<swift::CaseStmt* const*>(swift::CaseStmt* const*, swift::CaseStmt* const*, swift::CaseParentKind, bool&, swift::Type) TypeCheckStmt.cpp:0:0
+#14 0x000055bebf529a3e swift::ASTVisitor<(anonymous namespace)::StmtChecker, void, swift::Stmt*, void, void, void, void>::visit(swift::Stmt*) TypeCheckStmt.cpp:0:0
+#15 0x000055bebf52936c bool (anonymous namespace)::StmtChecker::typeCheckStmt<swift::Stmt>(swift::Stmt*&) TypeCheckStmt.cpp:0:0
+#16 0x000055bebf522b84 (anonymous namespace)::StmtChecker::typeCheckASTNode(swift::ASTNode&) TypeCheckStmt.cpp:0:0
+#17 0x000055bebf5294ac swift::ASTVisitor<(anonymous namespace)::StmtChecker, void, swift::Stmt*, void, void, void, void>::visit(swift::Stmt*) TypeCheckStmt.cpp:0:0
+#18 0x000055bebf52ca8c bool (anonymous namespace)::StmtChecker::typeCheckStmt<swift::BraceStmt>(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#19 0x000055bebf524444 (anonymous namespace)::StmtChecker::typeCheckBody(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#20 0x000055bebf52403d swift::TypeCheckFunctionBodyRequest::evaluate(swift::Evaluator&, swift::AbstractFunctionDecl*) const (/usr/bin/swift-frontend+0x25ce03d)
+#21 0x000055bebfc2aa37 swift::TypeCheckFunctionBodyRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()>(swift::TypeCheckFunctionBodyRequest const&, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#22 0x000055bebfb7ac86 swift::AbstractFunctionDecl::getTypecheckedBody() const (/usr/bin/swift-frontend+0x2c24c86)
+#23 0x000055bebfd11b18 swift::SourceFile::typeCheckDelayedFunctions() (/usr/bin/swift-frontend+0x2dbbb18)
+#24 0x000055bebf5a5ede swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x264fede)
+#25 0x000055bebf5aa3a4 swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#26 0x000055bebf5a5d45 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x264fd45)
+#27 0x000055bebddd8639 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_0>(long, swift::SourceFile&) Frontend.cpp:0:0
+#28 0x000055bebddcc35e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xe7635e)
+#29 0x000055bebddcc0eb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xe760eb)
+#30 0x000055bebdc4951e withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#31 0x000055bebdc350cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#32 0x000055bebdc31fef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcdbfef)
+#33 0x000055bebd90124b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9ab24b)
+#34 0x00007f01fabce1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#35 0x00007f01fabce28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#36 0x000055bebd9002a5 _start (/usr/bin/swift-frontend+0x9aa2a5)
+
+*** Signal 6: Backtracing from 0x7f01faccb38d... done ***
+
+*** Program crashed: Aborted at 0x00007f01faccb38d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007f01faccb38d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007f01faccb38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x0000000000
+[... truncated ...]

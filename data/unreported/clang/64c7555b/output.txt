@@ -1,0 +1,97 @@
+[... 55 lines omitted ...]
+   79 |   int buffer[10];
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:89:9: warning: expression result unused [-Wunused-value]
+   89 |   abcd[2];
+      |   ~~~~ ~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:92:17: warning: array index -1 is before the beginning of the array [-Warray-bounds]
+   92 |   unsafe_char = "abc"[-1];
+      |                 ^     ~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:93:17: warning: array index 1 is past the end of the array (that has type 'const char[1]') [-Warray-bounds]
+   93 |   unsafe_char = ""[1];
+      |                 ^  ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:100:13: warning: array index 4 is past the end of the array (that has type 'float[4]') [-Warray-bounds]
+  100 |   float a = matrix[0][4];
+      |             ^         ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:99:27: note: array 'matrix' declared here
+   99 | float two_dimension_array(Float4x4 &matrix, unsigned idx) {
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:104:7: warning: array index 4 is past the end of the array (that has type 'float[4][4]') [-Warray-bounds]
+  104 |   a = matrix[4][0];
+      |       ^      ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:99:27: note: array 'matrix' declared here
+   99 | float two_dimension_array(Float4x4 &matrix, unsigned idx) {
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:155:7: warning: array index 16 is past the end of the array (that has type 'int[10]') [-Warray-bounds]
+  155 |   k = arr[8 << index];
+      |       ^   ~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:146:3: note: array 'arr' declared here
+  146 |   int arr[10];
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:158:7: warning: array index 10 is past the end of the array (that has type 'int[10]') [-Warray-bounds]
+  158 |   k = arr[get_const(5)];
+      |       ^   ~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:146:3: note: array 'arr' declared here
+  146 |   int arr[10];
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:171:3: error: use of undeclared identifier 'unsafe_char'
+  171 |   unsafe_char<__vector float>(nullptr);
+      |   ^~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:182:3: error: use of undeclared identifier 'unsafe_char'
+  182 |   unsafe_char<double>(nullptr);
+      |   ^~~~~~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/Type.cpp:2487: clang::Type::ScalarTypeKind clang::Type::getScalarTypeKind() const: Assertion `isScalarType()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Oz -std=gnu++17 -fblocks -target powerpc64le-unknown-linux-gnu -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:207:27: current parser token ')'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:205:46: parsing function body 'f'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpe44vqnff/7793d6a9.cpp:205:46: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005d27033e0329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005d27033dcfec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005d27033dd8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005d270331f218
+4  libc.so.6 0x00007fcb75b78520
+5  libc.so.6 0x00007fcb75bcc9bc pthread_kill + 300
+6  libc.so.6 0x00007fcb75b78476 raise + 22
+7  libc.so.6 0x00007fcb75b5e7f3 abort + 211
+8  libc.so.6 0x00007fcb75b5e71b
+9  libc.so.6 0x00007fcb75b6fe96
+10 clang++   0x00005d27074f47d0 clang::Type::getScalarTypeKind() const + 784
+11 clang++   0x00005d270615767a clang::Sema::PrepareScalarCast(clang::ActionResult<clang::Expr*, true>&, clang::QualType) + 106
+12 clang++   0x00005d27061bbc43 clang::Sema::BuildVectorLiteral(clang::SourceLocation, clang::SourceLocation, clang::Expr*, clang::TypeSourceInfo*) + 1507
+13 clang++   0x00005d27061d3d96 clang::Sema::ActOnCastExpr(clang::Scope*, clang::SourceLocation, clang::Declarator&, clang::OpaquePtr<clang::QualType>&, clang::SourceLocation, clang::Expr*) + 374
+14 clang++   0x00005d2705c733c0 clang::Parser::ParseParenExpression(clang::ParenParseOption&, bool, clang::ParenExprKind, clang::TypoCorrectionTypeBehavior, clang::OpaquePtr<clang::QualType>&, clang::SourceLocation&) + 3392
+15 clang++   0x00005d2705c68f61 clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 2769
+16 clang++   0x00005d2705c6a85b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+17 clang++   0x00005d2705c6a8fd clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 61
+18 clang++   0x00005d2705c6acde clang::Parser::ParseExpressionList(llvm::SmallVectorImpl<clang::Expr*>&, llvm::function_ref<void ()>, bool, bool) + 142
+19 clang++   0x00005d2705c6f6a8 clang::Parser::ParsePostfixExpressionSuffix(clang::ActionResult<clang::Expr*, true>) + 2840
+20 clang++   0x00005d2705c6897b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 1259
+21 clang++   0x00005d2705c6a85b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+22 clang++   0x00005d2705c6a8fd clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 61
+23 clang++   0x00005d2705c6eb7d clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+24 clang++   0x00005d2705cffbc1 clang::Parser::ParseExprStatement(clang::Parser::ParsedStmtContext) + 81
+25 clang++   0x00005d2705cf7b7b clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 5275
+26 clang++   0x00005d2705cf853b clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+27 clang++   0x00005d2705d00447 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+28 clang++   0x00005d2705d00c9f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+29 clang++   0x00005d2705bf206f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+30 clang++   0x00005d2705c3cc64 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+31 clang++   0x00005d2705d0e102 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2514
+32 clang++   0x00005d2705d1a338
+33 clang++   0x00005d2705d1a75a clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) + 250
+34 clang++   0x00005d2705c3fbb1 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 641
+35 clang++   0x00005d2705bf866e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+36 clang++   0x00005d2705bf96ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+37 clang++   0x00005d2705bd6632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+38 clang++   0x00005d2704277061 clang::FrontendAction::Execute() + 65
+39 clang++   0x00005d2704200e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+40 clang++   0x00005d270434ede3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+41 clang++   0x00005d27011aa33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+42 clang++   0x00005d27011a013a
+43 clang++   0x00005d27011a02cf
+44 clang++   0x00005d2703f85cfd
+45 clan
+[... truncated ...]

@@ -1,0 +1,6 @@
+HloModule m, allow_spmd_sharding_propagation_to_parameters={false,true}, num_partitions=2
+
+ENTRY e {
+  p0 = f32[8] parameter(0), sharding={devices=[2]<=[2]}
+  ROOT n = f32[8] negate(p0)
+}

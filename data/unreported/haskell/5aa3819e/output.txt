@@ -1,0 +1,17 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/haskell/tmpc9y700uu/cbd55791.hs:20:10: error: [GHC-83865]
+    • Couldn't match expected type: [()] -> ()
+                  with actual type: (Int, Int)
+    • In a record update at fields ‘proj_x’, ‘proj_y’
+      and with pattern synonym ‘P’.
+      In the expression: foo_b8846c75e {proj_x = 0, proj_y = 1}
+      In an equation for ‘blah’:
+          blah p = foo_b8846c75e {proj_x = 0, proj_y = 1}
+   |
+20 | blah p = foo_b8846c75e { proj_x = 0, proj_y = 1 }
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ghc-9.14.1: internal error: evacuate: stack frame at 0x4200e72238
+
+    (GHC version 9.14.1 for x86_64_unknown_linux)
+    Please report this as a GHC bug:  https://www.haskell.org/ghc/reportabug
+Aborted (core dumped)

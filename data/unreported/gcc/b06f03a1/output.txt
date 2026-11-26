@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:6:27: error: invalid use of incomplete type 'struct tuple'
+    6 | template <decltype(tuple {})> // { dg-error "invalid use of incomplete type" }
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:4:8: note: forward declaration of 'struct tuple'
+    4 | struct tuple;
+      |        ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:6:27: error: invalid use of incomplete type 'struct tuple'
+    6 | template <decltype(tuple {})> // { dg-error "invalid use of incomplete type" }
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:4:8: note: forward declaration of 'struct tuple'
+    4 | struct tuple;
+      |        ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:12:27: error: invalid use of incomplete type 'struct tuple'
+   12 | template <decltype(tuple {})> // { dg-error "invalid use of incomplete type" }
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:4:8: note: forward declaration of 'struct tuple'
+    4 | struct tuple;
+      |        ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:12:27: error: invalid use of incomplete type 'struct tuple'
+   12 | template <decltype(tuple {})> // { dg-error "invalid use of incomplete type" }
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:4:8: note: forward declaration of 'struct tuple'
+    4 | struct tuple;
+      |        ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:107:3: error: return type specification for constructor invalid
+  107 |   int f_ix_m0(Constrain auto) { return iobj_fn; };
+      |   ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:108:3: error: return type specification for constructor invalid
+  108 |   int f_ix_m0(this f_ix_m0&, auto) { return xobj_fn; };
+      |   ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:214:2: error: expected ';' after struct definition
+  214 | }
+      |  ^
+      |  ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc: In constructor 'f_ix_m0::f_ix_m0(auto:41)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:107:40: error: returning a value from a constructor [-Wtemplate-body]
+  107 |   int f_ix_m0(Constrain auto) { return iobj_fn; };
+      |                                        ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc: In constructor 'f_ix_m0::f_ix_m0(this f_ix_m0&, auto:42)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:108:45: error: returning a value from a constructor [-Wtemplate-body]
+  108 |   int f_ix_m0(this f_ix_m0&, auto) { return xobj_fn; };
+      |                                             ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:217:17: error: invalid use of incomplete type 'struct tuple'
+  217 | decltype(tuple {}) d; // { dg-error "invalid use of incomplete type" }
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:4:8: note: forward declaration of 'struct tuple'
+    4 | struct tuple;
+      |        ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:217:17: error: invalid use of incomplete type 'struct tuple'
+  217 | decltype(tuple {}) d; // { dg-error "invalid use of incomplete type" }
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:4:8: note: forward declaration of 'struct tuple'
+    4 | struct tuple;
+      |        ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc: In function 'int main()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:228:13: error: no matching function for call to 'f_ix_m0::f_ix_m0(<brace-enclosed initializer list>)'
+  228 |   f_ix_m0 s{};
+      |             ^
+  • there are 4 candidates
+    • candidate 1: 'template<class auto:42> f_ix_m0::f_ix_m0(this f_ix_m0&, auto:42)'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:108:7:
+        108 |   int f_ix_m0(this f_ix_m0&, auto) { return xobj_fn; };
+            |       ^~~~~~~
+      • candidate expects 2 arguments, 1 provided
+    • candidate 2: 'template<class auto:41>  requires  Constrain<auto:41> f_ix_m0::f_ix_m0(auto:41)'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:107:7:
+        107 |   int f_ix_m0(Constrain auto) { return iobj_fn; };
+            |       ^~~~~~~
+      • candidate expects 1 argument, 0 provided
+    • candidate 3: 'constexpr f_ix_m0::f_ix_m0(const f_ix_m0&)'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:31:8:
+         31 | struct f_ix_m0 {
+            |        ^~~~~~~
+      • candidate expects 1 argument, 0 provided
+    • candidate 4: 'constexpr f_ix_m0::f_ix_m0(f_ix_m0&&)'
+      • candidate expects 1 argument, 0 provided
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp6awvbej4/c9d83b2e.cc:229:16: internal compiler error: in joust, at cp/call.cc:13451
+  229 |   if (s.f_xs_v (0) != xobj_fn)
+      |       ~~~~~~~~~^~~
+0x305a98b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00d26 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7baa38 joust
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:13451
+0xe293cf joust
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:13397
+0xe293cf tourney
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:14021
+0xe155e2 build_new_method_call(tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, tree_node*, int, tree_node**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:12303
+0xe16a3d build_special_member_call(tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, tree_node*, int, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:11868
+0xe1b707 build_temp
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:8554
+0xe1b707 convert_like_internal
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:9313
+0xe17ab7 convert_like_with_context
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:9582
+0xe17ab7 operator()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:10701
+0xe17ab7 build_over_call
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:10732
+0xe156e3 build_new_method_call(tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, tree_node*, int, tree_node**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:12385
+0x10f11b4 finish_call_expr(tree_node*, vec<tree_node*, va_gc, vl_embed>**, bool, bool, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:3470
+0x100ef58 cp_parser_postfix_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:9281
+0x100b676 cp_parser_unary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:10799
+0xff0e4a cp_parser_cast_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:11714
+0xff1d41 cp_parser_binary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:11817
+0xff2b62 cp_parser_assignment_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12170
+0xff7a55 cp_parser_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12367
+[... 4 more lines ...]

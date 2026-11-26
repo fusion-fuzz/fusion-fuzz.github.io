@@ -1,0 +1,83 @@
+Abort: function diagnoseAsError at CSDiagnostics.cpp:7705
+expected function arg apply info for argument mismatch
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -Onone -sil-verify-all -enable-experimental-feature ThenStatements /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7dkd6ega/f90b89a2.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7dkd6ega/f90b89a2.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(f90b89a2.(file).outer_b0ae154(x:y:z:w:)@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7dkd6ega/f90b89a2.swift:196:6)
+5.	While type-checking statement at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7dkd6ega/f90b89a2.swift:196:59 - line:228:1] RangeText="{
+  func local1(x: Int = x) {}
+  func local2(y: AnyObject = y) {}
+  func local3(z: Any = z) {}
+  func local4(w: T = w) {}
+  func local5<U>(u: U, w: T = globalClosure) {}
+
+  // CHECK: [[FN:%.*]] = function_ref @$s23default_arguments_local5outer1x1y1z1wySi_yXlypxtlF6local1L_ACySi_tlFfA_ : $@convention(thin) (Int) -> Int
+  // CHECK: [[ARG:%.*]] = apply [[FN]](%0) : $@convention(thin) (Int) -> Int
+  // CHECK: [[LOCAL1:%.*]] = function_ref @$s23default_arguments_local5outer1x1y1z1wySi_yXlypxtlF6local1L_ACySi_tlF : $@convention(thin) (Int, Int) -> ()
+  // CHECK: apply [[LOCAL1]]([[ARG]], %0) : $@convention(thin) (Int, Int) -> ()
+  local1()
+
+  // CHECK: [[FN:%.*]] = function_ref @$s23default_arguments_local5outer1x1y1z1wySi_yXlypxtlF6local2L_ADyyXl_tlFfA_ : $@convention(thin) (@guaranteed AnyObject) -> @owned AnyObject
+  // CHECK: [[ARG:%.*]] = apply [[FN]](%1) : $@convention(thin) (@guaranteed AnyObject) -> @owned AnyObject
+  // CHECK: [[LOCAL2:%.*]] = function_ref @$s23default_arguments_local5outer1x1y1z1wySi_yXlypxtlF6local2L_ADyyXl_tlF : $@convention(thin) (@guaranteed AnyObject, @guaranteed AnyObject) -> ()
+  // CHECK: apply [[LOCAL2]]([[ARG]], %1) : $@convention(thin) (@guaranteed AnyObject, @guaranteed AnyObject) -> ()
+  // CHECK: destroy_value [[ARG]] : $AnyObject
+  local2()
+
+  // CHECK: [[FN1:%.*]] = function_ref @$s23default_arguments_local5outer1x1y1z1wySi_yXlypxtlF6local3L_AEyyp_tlFfA_ : $@convention(thin) (@in_guaranteed Any) -> @out Any
+  // CHECK: [[STACK:%.*]] = alloc_stack $Any
+  // CHECK: apply [[FN1]]([[STACK]], %2) : $@convention(thin) (@in_guaranteed Any) -> @out Any
+  // CHECK: [[FN2:%.*]] = function_ref @$s23default_arguments_local5outer1x1y1z1wySi_yXlypxtlF6local3L_AEyyp_tlF : $@convention(thin) (@in_guaranteed Any, @in_guaranteed Any) -> ()
+  // CHECK: apply [[FN2]]([[STACK]], %2) : $@convention(thin) (@in_guaranteed Any, @in_guaranteed Any) -> ()
+  // CHECK: destroy_addr [[STACK]] : $*Any
+  // CHECK: dealloc_stack [[STACK]] : $*Any
+  local3()
+
+  local4()
+
+  local5(u: "hi")
+"
+6.	While type-checking expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7dkd6ega/f90b89a2.swift:227:3 - line:227:17] RangeText="local5(u: "hi""
+7.	While type-checking-target starting at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7dkd6ega/f90b89a2.swift:227:3
+8.	Abort: function diagnoseAsError at CSDiagnostics.cpp:7705
+| 	expected function arg apply info for argument mismatch
+ #0 0x00005e649454e658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x00005e649454be75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x00005e649454f411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x000073229eec9330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x000073229ef22c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x000073229eec927e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x000073229eeac8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00005e648e6795c2 (/usr/bin/swift-frontend+0x2d7a5c2)
+ #8 0x00005e648e6796ac (/usr/bin/swift-frontend+0x2d7a6ac)
+ #9 0x00005e648e6796d6 (/usr/bin/swift-frontend+0x2d7a6d6)
+#10 0x00005e648d9676b5 swift::constraints::ArgumentMismatchFailure::diagnoseAsError() (/usr/bin/swift-frontend+0x20686b5)
+#11 0x00005e648d93e769 swift::constraints::AllowArgumentMismatch::diagnose(swift::constraints::Solution const&, bool) const (/usr/bin/swift-frontend+0x203f769)
+#12 0x00005e648dcd10bf swift::constraints::ConstraintSystem::applySolutionFixes(swift::constraints::Solution const&) (/usr/bin/swift-frontend+0x23d20bf)
+#13 0x00005e648dcd1b12 swift::constraints::ConstraintSystem::applySolution(swift::constraints::Solution&, swift::constraints::SyntacticElementTarget) (/usr/bin/swift-frontend+0x23d2b12)
+#14 0x00005e648dad8542 swift::TypeChecker::typeCheckTarget(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x21d9542)
+#15 0x00005e648dad8361 swift::TypeChecker::typeCheckExpression(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x21d9361)
+#16 0x00005e648dad8236 swift::TypeChecker::typeCheckExpression(swift::Expr*&, swift::DeclContext*, swift::constraints::ContextualTypeInfo, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>) (/usr/bin/swift-frontend+0x21d9236)
+#17 0x00005e648dbdebd7 (anonymous namespace)::StmtChecker::typeCheckASTNode(swift::ASTNode&) TypeCheckStmt.cpp:0:0
+#18 0x00005e648dbe550c swift::ASTVisitor<(anonymous namespace)::StmtChecker, void, swift::Stmt*, void, void, void, void>::visit(swift::Stmt*) TypeCheckStmt.cpp:0:0
+#19 0x00005e648dbe89cc bool (anonymous namespace)::StmtChecker::typeCheckStmt<swift::BraceStmt>(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#20 0x00005e648dbe0404 (anonymous namespace)::StmtChecker::typeCheckBody(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#21 0x00005e648dbe002b swift::TypeCheckFunctionBodyRequest::evaluate(swift::Evaluator&, swift::AbstractFunctionDecl*) const (/usr/bin/swift-frontend+0x22e102b)
+#22 0x00005e648e2e3fde swift::TypeCheckFunctionBodyRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()>(swift::TypeCheckFunctionBodyRequest const&, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#23 0x00005e648e22eab9 swift::AbstractFunctionDecl::getTypecheckedBody() const (/usr/bin/swift-frontend+0x292fab9)
+#24 0x00005e648e3cca08 swift::SourceFile::typeCheckDelayedFunctions() (/usr/bin/swift-frontend+0x2acda08)
+#25 0x00005e648dc6196d swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x236296d)
+#26 0x00005e648dc6623b swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#27 0x00005e648dc617b8 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x23627b8)
+#28 0x00005e648c4dffd9 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_10>(long, swift::SourceFile&) Frontend.cpp:0:0
+#29 0x00005e648c4d373e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xbd473e)
+#30 0x00005e648c4d34bb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xbd44bb)
+#31 0x00005e648c34a822 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#32 0x00005e648c337595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#33 0x00005e648c33421e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#34 0x00005e648c03bb21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#35
+[... truncated ...]

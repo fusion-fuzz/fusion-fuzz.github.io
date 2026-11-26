@@ -1,0 +1,32 @@
+HloModule m
+
+%fused_computation {
+  %p = f32[4] parameter(0)
+  %multiply = f32[4] multiply(p, p)
+  %less-than = pred[4] compare(p, multiply), direction=LT
+  ROOT %tuple = (pred[4], f32[4]) tuple(less-than, multiply)
+}
+
+ENTRY %test {
+  %p0 = f32[] parameter(0)
+  %p1 = f32[] parameter(1)
+  %c = f32[] constant(2)
+  %d = f32[] constant(4)
+  %x = f32[] multiply(p0, c)
+  %y = f32[] multiply(p1, d)
+  %z = f32[] multiply(x, y)
+  %p0.d = f32[4] parameter(2)
+  %fusion = (pred[4], f32[4]) fusion(%p0.d), kind=kLoop, calls=%fused_computation
+  %gte0 = pred[4] get-tuple-element(%fusion), index=0
+  %p1.d = f32[] parameter(3)
+  %c.d = f32[] constant(2)
+  %d.d = f32[] constant(4)
+  %x.d = f32[] multiply(%z, %c.d)
+  %y.d = f32[] multiply(%p1.d, %d.d)
+  %z.d = f32[] multiply(%x.d, %y.d)
+  %gte1 = f32[4] get-tuple-element(%fusion), index=1
+  %const = f32[4] constant({0, 0, 0, 0})
+  %select = f32[4] select(%gte0, %gte1, %const)
+  %ffl.root = (f32[4], f32[]) tuple(%select, %z.d)
+  ROOT %ffl.root.1 = (f32[], f32[4], f32[]) tuple(%z, %select, %z.d)
+}

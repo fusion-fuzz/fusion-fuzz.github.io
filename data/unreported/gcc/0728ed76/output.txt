@@ -1,0 +1,52 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpn0mtgn0q/9f0066ec.c: In function 'foo':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpn0mtgn0q/9f0066ec.c:13:124: error: expected ')' before 'w'
+   13 |   _5 = __VEC_PERM (a, b, _Literal (unsigned char [[gnu::vector_size(16)]]) { _Literal (unsigned char) 0, _Literal (unsigned w) 16, _Literal (unsigned char) 1, _Literal (unsigned char) 17, _Literal (unsigned char) 2, _Literal (unsigned char) 18, _Literal (unsigned char) 3, _Literal (unsigned char) 19, _Literal (unsigned char) 4, _Literal (unsigned char) 20, _Literal (unsigned char) 5, _Literal (unsigned char) 21, _Literal (unsigned char) 6, _Literal (unsigned char) 22, _Literal (unsigned char) 7, _Literal (unsigned char) 23 });
+      |                                                                                                                            ^~
+      |                                                                                                                            )
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpn0mtgn0q/9f0066ec.c:13:3: internal compiler error: in decompose, at wide-int.h:1049
+   13 |   _5 = __VEC_PERM (a, b, _Literal (unsigned char [[gnu::vector_size(16)]]) { _Literal (unsigned char) 0, _Literal (unsigned w) 16, _Literal (unsigned char) 1, _Literal (unsigned char) 17, _Literal (unsigned char) 2, _Literal (unsigned char) 18, _Literal (unsigned char) 3, _Literal (unsigned char) 19, _Literal (unsigned char) 4, _Literal (unsigned char) 20, _Literal (unsigned char) 5, _Literal (unsigned char) 21, _Literal (unsigned char) 6, _Literal (unsigned char) 22, _Literal (unsigned char) 7, _Literal (unsigned char) 23 });
+      |   ^~
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x95f646 wi::int_traits<generic_wide_int<wide_int_ref_storage<false, false> > >::decompose(long*, unsigned int, generic_wide_int<wide_int_ref_storage<false, false> > const&)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/wide-int.h:1049
+0x1a17bf1 wi::int_traits<generic_wide_int<wide_int_ref_storage<false, false> > >::decompose(long*, unsigned int, generic_wide_int<wide_int_ref_storage<false, false> > const&)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/wide-int.h:1049
+0x1a17bf1 wide_int_ref_storage<false, false>::wide_int_ref_storage<generic_wide_int<wide_int_ref_storage<false, false> > >(generic_wide_int<wide_int_ref_storage<false, false> > const&, unsigned int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/wide-int.h:1099
+0x1a17bf1 generic_wide_int<wide_int_ref_storage<false, false> >::generic_wide_int<generic_wide_int<wide_int_ref_storage<false, false> > >(generic_wide_int<wide_int_ref_storage<false, false> > const&, unsigned int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/wide-int.h:855
+0x1a17bf1 wi::binary_traits<generic_wide_int<wide_int_ref_storage<false, false> >, generic_wide_int<wide_int_ref_storage<false, false> >, wi::int_traits<generic_wide_int<wide_int_ref_storage<false, false> > >::precision_type, wi::int_traits<generic_wide_int<wide_int_ref_storage<false, false> > >::precision_type>::result_type wi::sub<generic_wide_int<wide_int_ref_storage<false, false> >, generic_wide_int<wide_int_ref_storage<false, false> > >(generic_wide_int<wide_int_ref_storage<false, false> > const&, generic_wide_int<wide_int_ref_storage<false, false> > const&)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/wide-int.h:2961
+0x1a17bf1 wi::binary_traits<generic_wide_int<wide_int_ref_storage<false, false> >, generic_wide_int<wide_int_ref_storage<false, false> >, wi::int_traits<generic_wide_int<wide_int_ref_storage<false, false> > >::precision_type, wi::int_traits<generic_wide_int<wide_int_ref_storage<false, false> > >::precision_type>::operator_result operator-<generic_wide_int<wide_int_ref_storage<false, false> >, generic_wide_int<wide_int_ref_storage<false, false> > >(generic_wide_int<wide_int_ref_storage<false, false> > const&, generic_wide_int<wide_int_ref_storage<false, false> > const&)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/wide-int.h:3858
+0x1a17bf1 tree_vector_builder::step(tree_node const*, tree_node const*) const
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-vector-builder.h:118
+0x1a17bf1 vector_builder<tree_node*, tree_node*, tree_vector_builder>::stepped_sequence_p(unsigned int, unsigned int, unsigned int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/vector-builder.h:441
+0x1a17eb2 vector_builder<tree_node*, tree_node*, tree_vector_builder>::try_npatterns(unsigned int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/vector-builder.h:494
+0x1a18106 vector_builder<tree_node*, tree_node*, tree_vector_builder>::finalize()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/vector-builder.h:582
+0x1a17382 tree_vector_builder::build()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-vector-builder.cc:42
+0x1a49987 build_vector_from_ctor(tree_node*, vec<constructor_elt, va_gc, vl_embed> const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:2230
+0xf4a891 c_parser_gimple_postfix_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:1818
+0xf4b69d c_parser_gimple_parentized_ternary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:1163
+0xf4b69d c_parser_gimple_unary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:1275
+0xf4bbef c_parser_gimple_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:864
+0xf4bbef c_parser_gimple_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:728
+0xf4e0e3 c_parser_gimple_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:452
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpn0mtgn0q/9f0066ec.c -quiet -dumpbase 9f0066ec.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O0 -O2 -Wno-psabi -std=gnu23 -finline-functions -frounding-math -fstack-protector-all -fgimple -o /tmp/ccpAQugn.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

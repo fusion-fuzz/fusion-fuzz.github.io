@@ -1,0 +1,23 @@
+during RTL pass: csa
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpiprk3br6/d268a30a.c: In function 'test_1':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpiprk3br6/d268a30a.c:103:1: internal compiler error: in df_scan_verify, at df-scan.cc:4232
+  103 | }
+      | ^
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7eb93c df_scan_verify()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/df-scan.cc:4232
+0x10d0874 df_verify()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/df-core.cc:1864
+0x10d0874 df_analyze_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/df-core.cc:1251
+0x2c79b81 rest_of_handle_stack_adjustments
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/combine-stack-adj.cc:798
+0x2c79b81 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/combine-stack-adj.cc:828
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpiprk3br6/d268a30a.c -quiet -dumpbase d268a30a.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Og -std=gnu17 -fdump-rtl-pro_and_epilogue -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

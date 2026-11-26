@@ -1,0 +1,80 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpchzw7c5q/89560233.cpp:27:10: error: use of undeclared identifier 'memmove'
+   27 |   return memmove() + malloc() + system() + stdin() + memccpy() + free() + strdup() + atoi();
+      |          ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpchzw7c5q/89560233.cpp:27:22: error: use of undeclared identifier 'malloc'
+   27 |   return memmove() + malloc() + system() + stdin() + memccpy() + free() + strdup() + atoi();
+      |                      ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpchzw7c5q/89560233.cpp:27:33: error: use of undeclared identifier 'system'
+   27 |   return memmove() + malloc() + system() + stdin() + memccpy() + free() + strdup() + atoi();
+      |                                 ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpchzw7c5q/89560233.cpp:27:44: error: use of undeclared identifier 'stdin'
+   27 |   return memmove() + malloc() + system() + stdin() + memccpy() + free() + strdup() + atoi();
+      |                                            ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpchzw7c5q/89560233.cpp:27:54: error: use of undeclared identifier 'memccpy'
+   27 |   return memmove() + malloc() + system() + stdin() + memccpy() + free() + strdup() + atoi();
+      |                                                      ^~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/AST/Expr.h:3172: const clang::Expr* clang::CallExpr::getArg(unsigned int) const: Assertion `Arg < getNumArgs() && "Arg access out of range!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O2 -std=c++23 -fblocks -Wextra -ffp-contract=fast -g /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpchzw7c5q/89560233.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpchzw7c5q/89560233.cpp:27:71: current parser token ')'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpchzw7c5q/89560233.cpp:10:1: parsing namespace 'std'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpchzw7c5q/89560233.cpp:26:18: parsing function body 'std::foo'
+4.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpchzw7c5q/89560233.cpp:26:18: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00006100c5fe8329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00006100c5fe4fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00006100c5fe58a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00006100c5f27218
+4  libc.so.6 0x000072c54679d520
+5  libc.so.6 0x000072c5467f19bc pthread_kill + 300
+6  libc.so.6 0x000072c54679d476 raise + 22
+7  libc.so.6 0x000072c5467837f3 abort + 211
+8  libc.so.6 0x000072c54678371b
+9  libc.so.6 0x000072c546794e96
+10 clang++   0x00006100c8a746f8 clang::Sema::CheckFreeArguments(clang::CallExpr const*) + 2200
+11 clang++   0x00006100c8aaafa9 clang::Sema::CheckFunctionCall(clang::FunctionDecl*, clang::CallExpr*, clang::FunctionProtoType const*) + 473
+12 clang++   0x00006100c8de01c6 clang::Sema::BuildResolvedCallExpr(clang::Expr*, clang::NamedDecl*, clang::SourceLocation, llvm::ArrayRef<clang::Expr*>, clang::SourceLocation, clang::Expr*, bool, clang::CallExpr::ADLCallKind) + 5270
+13 clang++   0x00006100c919f878 clang::Sema::BuildOverloadedCallExpr(clang::Scope*, clang::Expr*, clang::UnresolvedLookupExpr*, clang::SourceLocation, llvm::MutableArrayRef<clang::Expr*>, clang::SourceLocation, clang::Expr*, bool, bool) + 776
+14 clang++   0x00006100c8d9860c clang::Sema::BuildCallExpr(clang::Scope*, clang::Expr*, clang::SourceLocation, llvm::MutableArrayRef<clang::Expr*>, clang::SourceLocation, clang::Expr*, bool, bool) + 5580
+15 clang++   0x00006100c8d99340 clang::Sema::ActOnCallExpr(clang::Scope*, clang::Expr*, clang::SourceLocation, llvm::MutableArrayRef<clang::Expr*>, clang::SourceLocation, clang::Expr*) + 96
+16 clang++   0x00006100c8877400 clang::Parser::ParsePostfixExpressionSuffix(clang::ActionResult<clang::Expr*, true>) + 2160
+17 clang++   0x00006100c887097b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 1259
+18 clang++   0x00006100c887285b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+19 clang++   0x00006100c8873ac7 clang::Parser::ParseRHSOfBinaryExpression(clang::ActionResult<clang::Expr*, true>, clang::prec::Level) + 503
+20 clang++   0x00006100c8876b7d clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+21 clang++   0x00006100c88fa766 clang::Parser::ParseReturnStatement() + 166
+22 clang++   0x00006100c88fedc5 clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 1765
+23 clang++   0x00006100c890053b clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+24 clang++   0x00006100c8908447 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+25 clang++   0x00006100c8908c9f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+26 clang++   0x00006100c87fa06f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+27 clang++   0x00006100c8844c64 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+28 clang++   0x00006100c87f3fac clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+29 clang++   0x00006100c87f478f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+30 clang++   0x00006100c8800646 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+31 clang++   0x00006100c885e67b clang::Parser::ParseInnerNamespace(llvm::SmallVector<clang::Parser::InnerNamespaceInfo, 4u> const&, unsigned int, clang::SourceLocation&, clang::ParsedAttributes&, clang::BalancedDelimiterTracker&) + 507
+32 clang++   0x00006100c885f424 clang::Parser::ParseNamespace(clang::DeclaratorContext, clang::SourceLocation&, clang::SourceLocation) + 3188
+33 clang++   0x00006100c8847c6b clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 827
+34 clang++   0x00006100c880066e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+35 clang++   0x00006100c88016ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+36 clang++   0x00006100c8801b14 clang::Parser::ParseFirstTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 68
+37 clang++   0x00006100c87de600 clang::ParseAST(clang::Sema&, bool, bool) + 480
+38 clang++   0x00006100c6e7f061 clang::FrontendAction::Execute() + 65
+39 clang++   0x00006100c6e08e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+40 clang++   0x00006100c6f56de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+41 clang++   0x00006100c3db233e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+42 clang++   0x00006100c3da813a
+43 clang++   0x00006100c3da82cf
+44 clang++   0x00006100c6b8dcfd
+45 clang++   0x00006100c5f27630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+46 clang++   0x00006100c6b8eb53
+47 clang++   0x00006100c6b43607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+48 clang++   0x00006100c6b47ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+49 clang++   0x00006100c6b56004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+50 clang++   0x00006100c3dad923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+51 clang++   0x00006100c3ce97f1 main + 113
+52 libc.so.6 0x000072c546784d90
+53 libc.so.6 0x000072c546784e40 __libc_start_main + 128
+54 clang++   0x00006100c3da7
+[... truncated ...]

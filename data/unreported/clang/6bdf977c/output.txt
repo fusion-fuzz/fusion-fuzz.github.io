@@ -1,0 +1,61 @@
+saw dependent cast!
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGExprConstant.cpp:1323!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O3 -std=gnu++17 -fblocks -funroll-loops -target x86_64-unknown-linux-gnu -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdr4wcfdh/3d5997c0.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdr4wcfdh/3d5997c0.cpp:19:1: current parser token 'void'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdr4wcfdh/3d5997c0.cpp:16:6: LLVM IR generation of declaration 'get_move'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpdr4wcfdh/3d5997c0.cpp:16:6: Generating code for declaration 'get_move'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005fdf06e74329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005fdf06e70fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005fdf06e718a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005fdf06db3218
+4  libc.so.6 0x0000746425df4520
+5  libc.so.6 0x0000746425e489bc pthread_kill + 300
+6  libc.so.6 0x0000746425df4476 raise + 22
+7  libc.so.6 0x0000746425dda7f3 abort + 211
+8  clang++   0x00005fdf06dbe11e
+9  clang++   0x00005fdf073aa638
+10 clang++   0x00005fdf073a982f clang::CodeGen::ConstantEmitter::tryEmitPrivateForVarInit(clang::VarDecl const&) + 239
+11 clang++   0x00005fdf073a9c02 clang::CodeGen::ConstantEmitter::tryEmitForInitializer(clang::VarDecl const&) + 82
+12 clang++   0x00005fdf075d0261 clang::CodeGen::CodeGenModule::EmitGlobalVarDefinition(clang::VarDecl const*, bool) + 2161
+13 clang++   0x00005fdf075edf01 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 481
+14 clang++   0x00005fdf075eee60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+15 clang++   0x00005fdf075fb2cb
+16 clang++   0x00005fdf0799def1
+17 clang++   0x00005fdf0798d0f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+18 clang++   0x00005fdf0966a61c clang::ParseAST(clang::Sema&, bool, bool) + 508
+19 clang++   0x00005fdf07d0b061 clang::FrontendAction::Execute() + 65
+20 clang++   0x00005fdf07c94e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+21 clang++   0x00005fdf07de2de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+22 clang++   0x00005fdf04c3e33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+23 clang++   0x00005fdf04c3413a
+24 clang++   0x00005fdf04c342cf
+25 clang++   0x00005fdf07a19cfd
+26 clang++   0x00005fdf06db3630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+27 clang++   0x00005fdf07a1ab53
+28 clang++   0x00005fdf079cf607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+29 clang++   0x00005fdf079d3ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+30 clang++   0x00005fdf079e2004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+31 clang++   0x00005fdf04c39923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+32 clang++   0x00005fdf04b757f1 main + 113
+33 libc.so.6 0x0000746425ddbd90
+34 libc.so.6 0x0000746425ddbe40 __libc_start_main + 128
+35 clang++   0x00005fdf04c33765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/3d5997c0-83b6db.cpp
+clang++: note: diagnostic msg: /tmp/3d5997c0-83b6db.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

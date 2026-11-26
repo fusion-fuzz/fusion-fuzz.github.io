@@ -1,0 +1,96 @@
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/optional:479: _Tp &std::_Optional_base_impl<swift::constraints::SyntacticElementTarget, std::_Optional_base<swift::constraints::SyntacticElementTarget>>::_M_get() [_Tp = swift::constraints::SyntacticElementTarget, _Dp = std::_Optional_base<swift::constraints::SyntacticElementTarget>]: Assertion 'this->_M_is_engaged()' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -c -Osize -sil-verify-all -enable-experimental-feature NonescapableTypes /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp2bq545db/5d7585d2.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp2bq545db/5d7585d2.swift")
+4.	While type-checking statement at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp2bq545db/5d7585d2.swift:720:1 - line:741:1] RangeText="suite.test("reverseSubrange") {
+  for l in 0..<10 {
+    let a = Array(0..<l)
+
+    for p in a.startIndex...a.endIndex {
+      let prefix = a[..<p]
+      for q in p...l {
+        let suffix = a[q...]
+
+        var b = a
+        b.reserveCapacity(b.count)  // guarantee unique storage
+        let id = address(b)
+
+        b[p..<q].reverse()
+        expectEqual(
+          b,
+          Array([prefix, ArraySlice(a[p..<q].reversed()), suffix].joined()))
+        expectEqual(address(b), objectKey)
+      }
+    }
+  }
+"
+5.	While type-checking expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp2bq545db/5d7585d2.swift:720:1 - line:741:1] RangeText="suite.test("reverseSubrange") {
+  for l in 0..<10 {
+    let a = Array(0..<l)
+
+    for p in a.startIndex...a.endIndex {
+      let prefix = a[..<p]
+      for q in p...l {
+        let suffix = a[q...]
+
+        var b = a
+        b.reserveCapacity(b.count)  // guarantee unique storage
+        let id = address(b)
+
+        b[p..<q].reverse()
+        expectEqual(
+          b,
+          Array([prefix, ArraySlice(a[p..<q].reversed()), suffix].joined()))
+        expectEqual(address(b), objectKey)
+      }
+    }
+  }
+"
+6.	While type-checking-target starting at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp2bq545db/5d7585d2.swift:720:7
+ #0 0x000056228070fbab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000056228070d2e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x00005622807108c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f3fdc77e330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f3fdc7d7c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f3fdc77e27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f3fdc7618ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007f3fdca5890d (/lib/x86_64-linux-gnu/libstdc++.so.6+0xdf90d)
+ #8 0x000056227a212b44 (anonymous namespace)::SyntacticElementSolutionApplication::visitBraceElement(swift::ASTNode) CSSyntacticElement.cpp:0:0
+ #9 0x000056227a21329e swift::ASTVisitor<(anonymous namespace)::SyntacticElementSolutionApplication, void, swift::ASTNode, void, void, void, void>::visit(swift::Stmt*) CSSyntacticElement.cpp:0:0
+#10 0x000056227a2139ee swift::ASTVisitor<(anonymous namespace)::SyntacticElementSolutionApplication, void, swift::ASTNode, void, void, void, void>::visit(swift::Stmt*) CSSyntacticElement.cpp:0:0
+#11 0x000056227a21329e swift::ASTVisitor<(anonymous namespace)::SyntacticElementSolutionApplication, void, swift::ASTNode, void, void, void, void>::visit(swift::Stmt*) CSSyntacticElement.cpp:0:0
+#12 0x000056227a2139ee swift::ASTVisitor<(anonymous namespace)::SyntacticElementSolutionApplication, void, swift::ASTNode, void, void, void, void>::visit(swift::Stmt*) CSSyntacticElement.cpp:0:0
+#13 0x000056227a21329e swift::ASTVisitor<(anonymous namespace)::SyntacticElementSolutionApplication, void, swift::ASTNode, void, void, void, void>::visit(swift::Stmt*) CSSyntacticElement.cpp:0:0
+#14 0x000056227a2139ee swift::ASTVisitor<(anonymous namespace)::SyntacticElementSolutionApplication, void, swift::ASTNode, void, void, void, void>::visit(swift::Stmt*) CSSyntacticElement.cpp:0:0
+#15 0x000056227a21329e swift::ASTVisitor<(anonymous namespace)::SyntacticElementSolutionApplication, void, swift::ASTNode, void, void, void, void>::visit(swift::Stmt*) CSSyntacticElement.cpp:0:0
+#16 0x000056227a2120e2 (anonymous namespace)::SyntacticElementSolutionApplication::apply() CSSyntacticElement.cpp:0:0
+#17 0x000056227a211ff5 swift::constraints::ConstraintSystem::applySolutionToBody(swift::AnyFunctionRef, swift::constraints::SyntacticElementTargetRewriter&) (/usr/bin/swift-frontend+0x2719ff5)
+#18 0x000056227a211b5e swift::constraints::ConstraintSystem::applySolution(swift::AnyFunctionRef, swift::constraints::SyntacticElementTargetRewriter&) (/usr/bin/swift-frontend+0x2719b5e)
+#19 0x000056227a1c0290 (anonymous namespace)::ExprWalker::walkToExprPre(swift::Expr*) CSApply.cpp:0:0
+#20 0x000056227a66574c (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#21 0x000056227a66c548 (anonymous namespace)::Traversal::visit(swift::ArgumentList*) ASTWalker.cpp:0:0
+#22 0x000056227a668125 (anonymous namespace)::Traversal::visitApplyExpr(swift::ApplyExpr*) ASTWalker.cpp:0:0
+#23 0x000056227a66587e (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#24 0x000056227a665723 swift::Expr::walk(swift::ASTWalker&) (/usr/bin/swift-frontend+0x2b6d723)
+#25 0x000056227a1ba0cb (anonymous namespace)::ExprWalker::rewriteTarget(swift::constraints::SyntacticElementTarget) CSApply.cpp:0:0
+#26 0x000056227a1b99cb swift::constraints::ConstraintSystem::applySolution(swift::constraints::Solution&, swift::constraints::SyntacticElementTarget) (/usr/bin/swift-frontend+0x26c19cb)
+#27 0x0000562279fb9a43 swift::TypeChecker::typeCheckTarget(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x24c1a43)
+#28 0x0000562279fb986d swift::TypeChecker::typeCheckExpression(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x24c186d)
+#29 0x0000562279fb9741 swift::TypeChecker::typeCheckExpression(swift::Expr*&, swift::DeclContext*, swift::constraints::ContextualTypeInfo, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>) (/usr/bin/swift-frontend+0x24c1741)
+#30 0x000056227a0c4be7 (anonymous namespace)::StmtChecker::typeCheckASTNode(swift::ASTNode&) TypeCheckStmt.cpp:0:0
+#31 0x000056227a0cb4ac swift::ASTVisitor<(anonymous namespace)::StmtChecker, void, swift::Stmt*, void, void, void, void>::visit(swift::Stmt*) TypeCheckStmt.cpp:0:0
+#32 0x000056227a0cea8c bool (anonymous namespace)::StmtChecker::typeCheckStmt<swift::BraceStmt>(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#33 0x000056227a0c6aeb swift::TypeChecker::typeCheckTopLevelCodeDecl(swift::TopLevelCodeDecl*) (/usr/bin/swift-frontend+0x25ceaeb)
+#34 0x000056227a147e3a swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x264fe3a)
+#35 0x000056227a14c3a4 swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#36 0x000056227a147d45 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x264fd45)
+#37 0x000056227897a639 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_0>(long, swift::SourceFile&) Frontend.cpp:0:0
+#38 0x000056227896e35e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xe7635e)
+#39 0x000056227896e0eb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xe760eb)
+#40 0x00005622787eb51e withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#41 0x00005622787d70cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#42 0x00005622787d3fef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/s
+[... truncated ...]

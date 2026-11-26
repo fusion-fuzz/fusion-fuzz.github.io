@@ -1,0 +1,119 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:3:1: error: unknown type name 'var'
+    3 | var(dllexport) typedef int typedef1;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:3:15: error: expected ';' after top level declarator
+    3 | var(dllexport) typedef int typedef1;
+      |               ^
+      |               ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:5:9: error: unknown type name 'var'
+    5 | typedef var(dllexport) int typedef2;
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:5:23: error: expected ';' after top level declarator
+    5 | typedef var(dllexport) int typedef2;
+      |                       ^
+      |                       ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:7:28: error: expected function body after function declarator
+    7 | typedef int var(dllexport) typedef3;
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:9:9: error: unknown type name 'var'
+    9 | typedef var(dllexport) void (*FunTy)(void);
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:9:23: error: expected ';' after top level declarator
+    9 | typedef var(dllexport) void (*FunTy)(void);
+      |                       ^
+      |                       ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:11:6: warning: forward references to 'enum' types are a Microsoft extension [-Wmicrosoft-enum-forward-reference]
+   11 | enum var(dllexport) E { Val };
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:11:10: error: redefinition of 'dllexport' as different kind of symbol
+   11 | enum var(dllexport) E { Val };
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:9:13: note: previous definition is here
+    9 | typedef var(dllexport) void (*FunTy)(void);
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:11:20: error: expected ';' after top level declarator
+   11 | enum var(dllexport) E { Val };
+      |                    ^
+      |                    ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:13:1: error: use of 'var' with tag type that does not match previous declaration
+   13 | struct var(dllexport) Record {};
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:11:6: note: previous use is here
+   11 | enum var(dllexport) E { Val };
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:13:22: error: expected ';' after top level declarator
+   13 | struct var(dllexport) Record {};
+      |                      ^
+      |                      ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:17:16: error: '__objc_root_class__' attribute only applies to Objective-C interfaces
+   17 | __attribute__((__objc_root_class__))
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:16:5: error: redefinition of 'dllexport'
+   16 | var(dllexport)
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:13:12: note: previous definition is here
+   13 | struct var(dllexport) Record {};
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:17:37: error: expected ';' after top level declarator
+   17 | __attribute__((__objc_root_class__))
+      |                                     ^
+      |                                     ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:24:1: error: '@end' must appear in an Objective-C context
+   24 | @end
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:26:17: warning: cannot find interface declaration for 'I'
+   26 | @implementation I
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:26:17: warning: class 'I' defined without specifying a base class [-Wobjc-root-class]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:26:18: note: add a super class to fix this problem
+   26 | @implementation I
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:37:13: error: register %rax is only available in 64-bit mode
+   37 |   __asm mov rax, offset var ; rax = address of myvar
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:37:13: error: register %rax is only available in 64-bit mode
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:37:13: error: use of undeclared label 'rax'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:51:25: error: base specifier must name a class
+   51 | struct t3_type : public var { int a, b; }
+      |                  ~~~~~~~^~~
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/RecordLayoutBuilder.cpp:3439: const clang::ASTRecordLayout& clang::ASTContext::getASTRecordLayout(const clang::RecordDecl*) const: Assertion `!D->isInvalidDecl() && "Cannot get layout of invalid decl!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O0 -std=gnu++20 -fblocks -fobjc-runtime=macosx-10.14 -fobjc-arc -fstrict-enums -fno-strict-aliasing -target i686-windows -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:89:3: current parser token 'return'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:78:14: parsing function body 't4'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpb56crm1m/2626ee87.mm:78:14: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000057afd4584329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000057afd4580fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000057afd45818a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000057afd44c3218
+4  libc.so.6 0x00007150f7429520
+5  libc.so.6 0x00007150f747d9bc pthread_kill + 300
+6  libc.so.6 0x00007150f7429476 raise + 22
+7  libc.so.6 0x00007150f740f7f3 abort + 211
+8  libc.so.6 0x00007150f740f71b
+9  libc.so.6 0x00007150f7420e96
+10 clang++   0x000057afd85edafe clang::ASTContext::getASTRecordLayout(clang::RecordDecl const*) const + 9230
+11 clang++   0x000057afd779a7d2 clang::Sema::LookupInlineAsmField(llvm::StringRef, llvm::StringRef, unsigned int&, clang::SourceLocation) + 1106
+12 clang++   0x000057afd6ea53ec
+13 clang++   0x000057afd27c25bd
+14 clang++   0x000057afd27cb5d6
+15 clang++   0x000057afd27cf6b0
+16 clang++   0x000057afd27d3f09
+17 clang++   0x000057afd42d0485
+18 clang++   0x000057afd42e67c8
+19 clang++   0x000057afd42d8ed5
+20 clang++   0x000057afd6eac086 clang::Parser::ParseMicrosoftAsmStatement(clang::SourceLocation) + 7126
+21 clang++   0x000057afd6e9b4c8 clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 3560
+22 clang++   0x000057afd6e9c53b clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+23 clang++   0x000057afd6ea4447 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+24 clang++   0x000057afd6ea4c9f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+25 clang++   0x000057afd6d9606f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+26 clang++   0x000057afd6de0c64 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+27 clang++   0x000057afd6d8ffac clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+28 clang++   0x000057afd6d9078f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+29 clang++   0x000057afd6d9c646 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+30 clang++   0
+[... truncated ...]

@@ -1,0 +1,65 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvdq_fob1/08a158a3.mm:10:1: error: missing '@end'
+   10 | @interface // expected-error {{expected identifier}}
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvdq_fob1/08a158a3.mm:8:1: note: class started here
+    8 | @interface Roo // expected-note {{class started here}}
+      | ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/Lex/Token.h:201: clang::IdentifierInfo *clang::Token::getIdentifierInfo() const: Assertion `!isAnnotation() && "getIdentifierInfo() on an annotation token!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O3 -std=c++23 -fblocks -fobjc-runtime=macosx-10.14 -fobjc-arc -target i386-pc-win32 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvdq_fob1/08a158a3.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpvdq_fob1/08a158a3.mm:11:15: at annotation token
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005620dc85366b __interceptor_backtrace + 91
+1  clang++   0x00005620e24ae027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005620e24a7cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005620e24ac9c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005620e22facc5
+5  clang++   0x00005620e22fb4d3
+6  libc.so.6 0x000073e2dbec3520
+7  libc.so.6 0x000073e2dbf179bc pthread_kill + 300
+8  libc.so.6 0x000073e2dbec3476 raise + 22
+9  libc.so.6 0x000073e2dbea97f3 abort + 211
+10 libc.so.6 0x000073e2dbea971b
+11 libc.so.6 0x000073e2dbebae96
+12 clang++   0x00005620e41f9cb4
+13 clang++   0x00005620e89efcdd clang::Parser::expectIdentifier() + 301
+14 clang++   0x00005620e8b47404 clang::Parser::ParseObjCAtInterfaceDeclaration(clang::SourceLocation, clang::ParsedAttributes&) + 692
+15 clang++   0x00005620e8b464df clang::Parser::ParseObjCAtDirectives(clang::ParsedAttributes&, clang::ParsedAttributes&) + 1183
+16 clang++   0x00005620e89faca0 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2064
+17 clang++   0x00005620e89f6fe5 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1765
+18 clang++   0x00005620e89cfa7f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+19 clang++   0x00005620e41f39bc clang::CodeGenAction::ExecuteAction() + 4124
+20 clang++   0x00005620e48ae2fe clang::FrontendAction::Execute() + 222
+21 clang++   0x00005620e47405f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+22 clang++   0x00005620e4a92989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+23 clang++   0x00005620dc8e91a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+24 clang++   0x00005620dc8dd0f9
+25 clang++   0x00005620dc8e7637
+26 clang++   0x00005620e4317317
+27 clang++   0x00005620e22faa7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+28 clang++   0x00005620e431481a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+29 clang++   0x00005620e426529c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+30 clang++   0x00005620e4266a2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+31 clang++   0x00005620e42b6060 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+32 clang++   0x00005620dc8db517 clang_main(int, char**, llvm::ToolContext const&) + 12295
+33 clang++   0x00005620dc90ae27 main + 567
+34 libc.so.6 0x000073e2dbeaad90
+35 libc.so.6 0x000073e2dbeaae40 __libc_start_main + 128
+36 clang++   0x00005620dc817b35 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git e996ce0d9ad6443a7ea3f88ccb0a8e114b0e840e)
+Target: i386-pc-windows-msvc
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/08a158a3-84fc88.mm
+clang++: note: diagnostic msg: /tmp/08a158a3-84fc88.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

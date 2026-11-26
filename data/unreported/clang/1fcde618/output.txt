@@ -1,0 +1,100 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:39:20: warning: encoding prefix 'L' on an unevaluated string literal has no effect and is incompatible with c++2c [-Winvalid-unevaluated-string]
+   39 | void u1() = delete(L"\xFFFFFFFF"); // expected-error {{an unevaluated string literal cannot have an encoding prefix}} \
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:39:22: error: hex escape sequence out of range
+   39 | void u1() = delete(L"\xFFFFFFFF"); // expected-error {{an unevaluated string literal cannot have an encoding prefix}} \
+      |                      ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:39:22: error: invalid escape sequence '\xFFFFFFFF' in an unevaluated string literal
+   39 | void u1() = delete(L"\xFFFFFFFF"); // expected-error {{an unevaluated string literal cannot have an encoding prefix}} \
+      |                      ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:41:20: warning: encoding prefix 'u' on an unevaluated string literal has no effect and is incompatible with c++2c [-Winvalid-unevaluated-string]
+   41 | void u2() = delete(u"\U000317FF"); // expected-error {{an unevaluated string literal cannot have an encoding prefix}}
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:46:21: error: hex escape sequence out of range
+   46 | void u5() = delete("\x1ff"       // expected-error {{hex escape sequence out of range}} \
+      |                     ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:46:21: error: invalid escape sequence '\x1ff' in an unevaluated string literal
+   46 | void u5() = delete("\x1ff"       // expected-error {{hex escape sequence out of range}} \
+      |                     ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:48:24: error: invalid escape sequence '\x123' in an unevaluated string literal
+   48 |                      "0\x123"    // expected-error {{invalid escape sequence '\x123' in an unevaluated string literal}}
+      |                        ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:49:25: error: invalid escape sequence '\xfffff' in an unevaluated string literal
+   49 |                      "fx\xfffff" // expected-error {{invalid escape sequence '\xfffff' in an unevaluated string literal}}
+      |                         ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:53:21: error: invalid escape sequence '\xFF' in an unevaluated string literal
+   53 | void u7() = delete("\xFF"); // expected-error {{invalid escape sequence '\xFF' in an unevaluated string literal}}
+      |                     ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:54:21: error: invalid escape sequence '\123' in an unevaluated string literal
+   54 | void u8() = delete("\123"); // expected-error {{invalid escape sequence '\123' in an unevaluated string literal}}
+      |                     ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:55:21: warning: unknown escape sequence '\p' [-Wunknown-escape-sequence]
+   55 | void u9() = delete("\pOh no, a Pascal string!"); // expected-warning {{unknown escape sequence '\p'}} \
+      |                     ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:55:21: error: invalid escape sequence '\p' in an unevaluated string literal
+   55 | void u9() = delete("\pOh no, a Pascal string!"); // expected-warning {{unknown escape sequence '\p'}} \
+      |                     ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:73:7: error: attempt to use a deleted function: deleted (1)
+   73 |   S{}.f(); // expected-error {{attempt to use a deleted function: deleted (1)}}
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:5:8: note: 'f' has been explicitly marked deleted here
+    5 |   void f() = delete("deleted (1)"); // expected-note {{explicitly marked deleted}}
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:74:7: error: call to deleted member function 'g': deleted (2)
+   74 |   S{}.g<int>(); // expected-error {{call to deleted member function 'g': deleted (2)}}
+      |   ~~~~^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:8:5: note: candidate function [with T = int] has been explicitly deleted
+    8 |   T g() = delete("deleted (2)"); // expected-note {{explicitly deleted}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:75:13: error: attempt to use a deleted function: deleted (3)
+   75 |   TS<int>{}.f(); // expected-error {{attempt to use a deleted function: deleted (3)}}
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:13:5: note: 'f' has been explicitly marked deleted here
+   13 |   T f() = delete("deleted (3)"); // expected-note {{explicitly marked deleted}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:76:13: error: call to deleted member function 'g': deleted (4)
+   76 |   TS<int>{}.g<int>(0); // expected-error {{call to deleted member function 'g': deleted (4)}}
+      |   ~~~~~~~~~~^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:16:5: note: candidate function [with U = int] has been explicitly deleted
+   16 |   T g(U) = delete("deleted (4)"); // expected-note {{explicitly deleted}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:77:3: error: call to deleted function 'f': deleted (5)
+   77 |   f(); // expected-error {{call to deleted function 'f': deleted (5)}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:19:6: note: candidate function has been explicitly deleted
+   19 | void f() = delete("deleted (5)"); // expected-note {{explicitly deleted}}
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:78:3: error: call to deleted function 'g': deleted (6)
+   78 |   g<int>(); // expected-error {{call to deleted function 'g': deleted (6)}}
+      |   ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:22:3: note: candidate function [with T = int] has been explicitly deleted
+   22 | T g() = delete("deleted (6)"); // expected-note {{explicitly deleted}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:79:25: error: attempt to use a deleted function: deleted (7)
+   79 |   TSp<double, double>{}.f(); // expected-error {{attempt to use a deleted function: deleted (7)}}
+      |                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:26:5: note: 'f' has been explicitly marked deleted here
+   26 |   T f() = delete("deleted (7)"); // expected-note 2 {{explicitly marked deleted}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:80:22: error: attempt to use a deleted function: deleted (7)
+   80 |   TSp<int, double>{}.f(); // expected-error {{attempt to use a deleted function: deleted (7)}}
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:26:5: note: 'f' has been explicitly marked deleted here
+   26 |   T f() = delete("deleted (7)"); // expected-note 2 {{explicitly marked deleted}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:81:22: error: attempt to use a deleted function: deleted (8)
+   81 |   TSp<double, int>{}.f(); // expected-error {{attempt to use a deleted function: deleted (8)}}
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:31:5: note: 'f' has been explicitly marked deleted here
+   31 |   T f() = delete("deleted (8)"); // expected-note {{explicitly marked deleted}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:82:19: error: attempt to use a deleted function: deleted (9)
+   82 |   TSp<int, int>{}.f(); // expected-error {{attempt to use a deleted function: deleted (9)}}
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7on52whm/a8b97a16.cpp:36:7: note: 'f' has been explicitly marked deleted here
+   36 |   int f() = delete("deleted (9)"); // expected-note {{explicitly marked deleted}}
+      |       ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/Decl.cpp:3152: void clang::FunctionDecl::setDefaultedOrDeletedInfo(clang::FunctionDecl::DefaultedOrDeletedFunctionInfo*): Assertion `!Body && "can't replace function body with defaulted function info"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash b
+[... truncated ...]

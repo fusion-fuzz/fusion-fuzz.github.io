@@ -1,0 +1,74 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7ldd91b7/15ab751b.cpp:7:34: error: pack expansion does not contain any unexpanded parameter packs
+    7 | template <class T> using SS = S<T...> struct S {
+      |                                 ~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7ldd91b7/15ab751b.cpp:9:3: error: expected member name or ';' after declaration specifiers
+    9 |   return 0;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7ldd91b7/15ab751b.cpp:12:8: error: expected ')'
+   12 | S(ArgTs...)->S<typename ArgTs::value_type...> e.f(0);
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7ldd91b7/15ab751b.cpp:12:2: note: to match this '('
+   12 | S(ArgTs...)->S<typename ArgTs::value_type...> e.f(0);
+      |  ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaExpr.cpp:5784: clang::ExprResult clang::Sema::BuildCXXDefaultArgExpr(clang::SourceLocation, clang::FunctionDecl*, clang::ParmVarDecl*, clang::Expr*): Assertion `Param->hasDefaultArg() && "can't build nonexistent default arg"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O2 /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7ldd91b7/15ab751b.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7ldd91b7/15ab751b.cpp:12:12: current parser token '->'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055700f5f94f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055700f5f61bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055700f5f6a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055700f538e88
+4  libc.so.6 0x00007f1c1cca0520
+5  libc.so.6 0x00007f1c1ccf49bc pthread_kill + 300
+6  libc.so.6 0x00007f1c1cca0476 raise + 22
+7  libc.so.6 0x00007f1c1cc867f3 abort + 211
+8  libc.so.6 0x00007f1c1cc8671b
+9  libc.so.6 0x00007f1c1cc97e96
+10 clang++   0x00005570123ae332 clang::Sema::BuildCXXDefaultArgExpr(clang::SourceLocation, clang::FunctionDecl*, clang::ParmVarDecl*, clang::Expr*) + 1426
+11 clang++   0x00005570123dda91 clang::Sema::GatherArgumentsForCall(clang::SourceLocation, clang::FunctionDecl*, clang::FunctionProtoType const*, unsigned int, llvm::ArrayRef<clang::Expr*>, llvm::SmallVectorImpl<clang::Expr*>&, clang::VariadicCallType, bool, bool) + 225
+12 clang++   0x00005570122906e7 clang::Sema::CompleteConstructorCall(clang::CXXConstructorDecl*, clang::QualType, llvm::MutableArrayRef<clang::Expr*>, clang::SourceLocation, llvm::SmallVectorImpl<clang::Expr*>&, bool, bool) + 247
+13 clang++   0x0000557012520eec
+14 clang++   0x000055701253123e clang::InitializationSequence::Perform(clang::Sema&, clang::InitializedEntity const&, clang::InitializationKind const&, llvm::MutableArrayRef<clang::Expr*>, clang::QualType*) + 6254
+15 clang++   0x00005570121ff42b
+16 clang++   0x0000557011e2b31c clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 380
+17 clang++   0x0000557011e45a2c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+18 clang++   0x0000557011df566c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+19 clang++   0x0000557011df5e4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+20 clang++   0x0000557011e01d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+21 clang++   0x0000557011e02dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+22 clang++   0x0000557011ddfcf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+23 clang++   0x00005570102e7e51 clang::FrontendAction::Execute() + 65
+24 clang++   0x0000557010271df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+25 clang++   0x00005570103bfc03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+26 clang++   0x000055700e008d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+27 clang++   0x000055700dffeada
+28 clang++   0x000055700dffec6f
+29 clang++   0x000055700fff642d
+30 clang++   0x000055700f5392a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+31 clang++   0x000055700fff7283
+32 clang++   0x000055700ffabd17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+33 clang++   0x000055700ffb0600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+34 clang++   0x000055700ffbe714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+35 clang++   0x000055700e004383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+36 clang++   0x000055700df54901 main + 113
+37 libc.so.6 0x00007f1c1cc87d90
+38 libc.so.6 0x00007f1c1cc87e40 __libc_start_main + 128
+39 clang++   0x000055700dffe105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/15ab751b-90e9aa.cpp
+clang++: note: diagnostic msg: /tmp/15ab751b-90e9aa.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

@@ -1,0 +1,18 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791804983.625743  658101 alias_info.cc:415] Check failed: prev_shape.IsTuple() 
+*** Check failure stack trace: ***
+    @     0x650e533fda84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x650e533fda06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x650e51e78994  xla::AliasInfo::GetInPlaceInputOutputPairs()
+    @     0x650e51e5433d  xla::HloAliasAnalysis::Run()
+    @     0x650e49fa4654  xla::HostOffloader::ApplySchedulingFix()
+    @     0x650e49fa7536  xla::HostOffloader::RunImpl()
+    @     0x650e52581007  xla::HloPassInterface::Run()
+    @     0x650e51db7a3c  xla::HloPassPipeline::RunHelper<>()
+    @     0x650e51db2e4d  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x650e51db2265  xla::HloPassPipeline::RunImpl()
+    @     0x650e52581007  xla::HloPassInterface::Run()
+    @     0x650e49e0fd9d  xla::OptProvider::BuildAndRunTransformPipeline()
+    @     0x650e53443af8  main
+    @     0x73e6cc20bd90  (unknown)
+Aborted (core dumped)

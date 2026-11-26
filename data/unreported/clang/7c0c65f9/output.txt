@@ -1,0 +1,69 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpl4sm311l/fc3750bb.cpp:6:41: error: unknown type name 'T'
+    6 | __thread const int m = reinterpret_cast<T>(m)
+      |                                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpl4sm311l/fc3750bb.cpp:6:44: error: initializer for thread-local variable must be a constant expression
+    6 | __thread const int m = reinterpret_cast<T>(m)
+      |                                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpl4sm311l/fc3750bb.cpp:6:20: note: use 'thread_local' to allow this
+    6 | __thread const int m = reinterpret_cast<T>(m)
+      |                    ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/Decl.cpp:2662: bool clang::VarDecl::checkForConstantInitialization(llvm::SmallVectorImpl<std::pair<clang::SourceLocation, clang::PartialDiagnostic> >&) const: Assertion `!Eval->WasEvaluated && "already evaluated var value before checking for constant init"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O1 -std=c++17 -g /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpl4sm311l/fc3750bb.cpp
+1.	/usr/include/stdio.h:29:1 <Spelling=/usr/include/x86_64-linux-gnu/sys/cdefs.h:133:24>: current parser token 'extern'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055810c4404f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055810c43d1bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055810c43da78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055810c37fe88
+4  libc.so.6 0x00007fd96d5b4520
+5  libc.so.6 0x00007fd96d6089bc pthread_kill + 300
+6  libc.so.6 0x00007fd96d5b4476 raise + 22
+7  libc.so.6 0x00007fd96d59a7f3 abort + 211
+8  libc.so.6 0x00007fd96d59a71b
+9  libc.so.6 0x00007fd96d5abe96
+10 clang++   0x000055810feda196 clang::VarDecl::checkForConstantInitialization(llvm::SmallVectorImpl<std::pair<clang::SourceLocation, clang::PartialDiagnostic>>&) const + 262
+11 clang++   0x000055810f036d29 clang::Sema::CheckCompleteVariableDeclaration(clang::VarDecl*) + 2841
+12 clang++   0x000055810f06a481 clang::Sema::AddInitializerToDecl(clang::Decl*, clang::Expr*, bool) + 1105
+13 clang++   0x000055810ec72e91 clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 3313
+14 clang++   0x000055810ec8ca2c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+15 clang++   0x000055810ec3c66c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+16 clang++   0x000055810ec3ce4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+17 clang++   0x000055810ec48d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+18 clang++   0x000055810ec49dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+19 clang++   0x000055810ec4a1d4 clang::Parser::ParseFirstTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 68
+20 clang++   0x000055810ec26cc0 clang::ParseAST(clang::Sema&, bool, bool) + 480
+21 clang++   0x000055810d12ee51 clang::FrontendAction::Execute() + 65
+22 clang++   0x000055810d0b8df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+23 clang++   0x000055810d206c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+24 clang++   0x000055810ae4fd3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+25 clang++   0x000055810ae45ada
+26 clang++   0x000055810ae45c6f
+27 clang++   0x000055810ce3d42d
+28 clang++   0x000055810c3802a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+29 clang++   0x000055810ce3e283
+30 clang++   0x000055810cdf2d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+31 clang++   0x000055810cdf7600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+32 clang++   0x000055810ce05714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+33 clang++   0x000055810ae4b383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+34 clang++   0x000055810ad9b901 main + 113
+35 libc.so.6 0x00007fd96d59bd90
+36 libc.so.6 0x00007fd96d59be40 __libc_start_main + 128
+37 clang++   0x000055810ae45105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/fc3750bb-92e959.cpp
+clang++: note: diagnostic msg: /tmp/fc3750bb-92e959.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

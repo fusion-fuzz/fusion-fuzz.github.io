@@ -1,0 +1,17 @@
+HloModule TestModule
+
+ENTRY %TestComputation {
+  %input = s8[10,20,30,41,4] parameter(0)
+  %filter = s8[2,2,41,4,168] parameter(1)
+  %bias = f32[10] parameter(2)
+  %side_input = s8[10,20,30,42,4] parameter(3)
+  %result = (s8[10,20,30,42,4], u8[0]) custom-call(input, filter, bias, side_input), window={size=2x2}, dim_labels=b01f?_01i?o->b01f?, custom_call_target="__cudnn$convBiasActivationForward"
+  %tuple = () tuple()
+  %input.d = s8[10,20,30,41,4] parameter(4)
+  %filter.d = s8[2,2,41,4,168] parameter(5)
+  %bias.d = f32[10] parameter(6)
+  %side_input.d = s8[10,20,30,42,4] parameter(7)
+  %result.d = (s8[10,20,30,42,4], u8[0]) custom-call(%input.d, %filter.d, %bias.d, %filter), window={size=2x2}, dim_labels=b01f?_01i?o->b01f?, custom_call_target="__cudnn$convBiasActivationForward"
+  %ffl.root = ((), (s8[10,20,30,42,4], u8[0])) tuple(%tuple, %result.d)
+  ROOT %ffl.root.1 = ((s8[10,20,30,42,4], u8[0]), (), (s8[10,20,30,42,4], u8[0])) tuple(%result, %tuple, %result.d)
+}

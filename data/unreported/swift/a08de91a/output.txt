@@ -1,0 +1,96 @@
+no other types should differ by abstraction
+UNREACHABLE executed at /home/build-user/swift/lib/SIL/IR/SILType.cpp:834!
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -c -Osize -sil-verify-all /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbhf93p0s/4f276c69.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module main)
+4.	While silgen visitDecl 'outer_b0ae154(x:y:z:w:)' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbhf93p0s/4f276c69.swift:123:1)
+5.	While silgen emitFunction SIL function "@$s4main13outer_b0ae1541x1y1z1wySi_yXlypxtlF".
+ for 'outer_b0ae154(x:y:z:w:)' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbhf93p0s/4f276c69.swift:123:1)
+6.	While silgen emitApplyExpr expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpbhf93p0s/4f276c69.swift:152:3 - line:152:10] RangeText="local4("
+ #0 0x00005c00b0e01658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x00005c00b0dfee75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x00005c00b0e02411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007026ba087330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007026ba0e0c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007026ba08727e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007026ba06a8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00005c00b0d4c9d0 llvm::install_out_of_memory_new_handler() (/usr/bin/swift-frontend+0x8b9a9d0)
+ #8 0x00005c00a999350f areOnlyAbstractionDifferent(swift::CanType, swift::CanType) SILType.cpp:0:0
+ #9 0x00005c00a9993218 swift::SILType::hasAbstractionDifference(swift::SILFunctionTypeRepresentation, swift::SILType) (/usr/bin/swift-frontend+0x17e1218)
+#10 0x00005c00a93ec7e0 (anonymous namespace)::ScalarResultPlan::finish(swift::Lowering::SILGenFunction&, swift::SILLocation, swift::Lowering::ManagedValue, swift::Lowering::AbstractionPattern, swift::CanType, swift::Lowering::Initialization*, swift::SILFunctionTypeRepresentation) ResultPlan.cpp:0:0
+#11 0x00005c00a93ec610 (anonymous namespace)::ScalarResultPlan::finish(swift::Lowering::SILGenFunction&, swift::SILLocation, llvm::ArrayRef<swift::Lowering::ManagedValue>&, swift::SILValue) ResultPlan.cpp:0:0
+#12 0x00005c00a9404168 swift::Lowering::SILGenFunction::emitApply(std::unique_ptr<swift::Lowering::ResultPlan, std::default_delete<swift::Lowering::ResultPlan>>&&, swift::Lowering::ArgumentScope&&, swift::SILLocation, swift::Lowering::ManagedValue, swift::SubstitutionMap, llvm::ArrayRef<swift::Lowering::ManagedValue>, swift::Lowering::CalleeTypeInfo const&, swift::optionset::OptionSet<swift::ApplyFlags, unsigned char>, swift::Lowering::SGFContext, std::optional<swift::ActorIsolation>) crtstuff.c:0:0
+#13 0x00005c00a92fb03f swift::Lowering::SILGenFunction::emitApplyOfDefaultArgGenerator(swift::SILLocation, swift::ConcreteDeclRef, unsigned int, swift::CanType, bool, swift::Lowering::SGFContext) crtstuff.c:0:0
+#14 0x00005c00a942250b (anonymous namespace)::DelayedArgument::emit(swift::Lowering::SILGenFunction&, llvm::SmallVectorImpl<swift::Lowering::ManagedValue>&, unsigned long&) SILGenApply.cpp:0:0
+#15 0x00005c00a9406a74 emitDelayedArguments(swift::Lowering::SILGenFunction&, llvm::MutableArrayRef<(anonymous namespace)::DelayedArgument>, llvm::MutableArrayRef<llvm::SmallVector<swift::Lowering::ManagedValue, 4u>>) SILGenApply.cpp:0:0
+#16 0x00005c00a942aec2 (anonymous namespace)::CallEmission::emitArgumentsForNormalApply(swift::Lowering::AbstractionPattern, swift::CanTypeWrapper<swift::SILFunctionType>, llvm::ArrayRef<swift::LifetimeDependenceInfo>, swift::ForeignInfo const&, llvm::SmallVectorImpl<swift::Lowering::ManagedValue>&, std::optional<swift::SILLocation>&) SILGenApply.cpp:0:0
+#17 0x00005c00a940c3e7 (anonymous namespace)::CallEmission::apply(swift::Lowering::SGFContext) SILGenApply.cpp:0:0
+#18 0x00005c00a9408e8c swift::Lowering::SILGenFunction::emitApplyExpr(swift::ApplyExpr*, swift::Lowering::SGFContext) crtstuff.c:0:0
+#19 0x00005c00a9308e1a swift::ASTVisitor<(anonymous namespace)::RValueEmitter, swift::Lowering::RValue, void, void, void, void, void, swift::Lowering::SGFContext>::visit(swift::Expr*, swift::Lowering::SGFContext) SILGenExpr.cpp:0:0
+#20 0x00005c00a92fc3db swift::Lowering::SILGenFunction::emitIgnoredExpr(swift::Expr*) crtstuff.c:0:0
+#21 0x00005c00a93c59ea (anonymous namespace)::StmtEmitter::visitBraceStmt(swift::BraceStmt*) SILGenStmt.cpp:0:0
+#22 0x00005c00a93bd15d swift::Lowering::SILGenFunction::emitStmt(swift::Stmt*) crtstuff.c:0:0
+#23 0x00005c00a93301b8 swift::Lowering::SILGenFunction::emitFunction(swift::FuncDecl*) crtstuff.c:0:0
+#24 0x00005c00a9298001 swift::Lowering::SILGenModule::emitFunctionDefinition(swift::SILDeclRef, swift::SILFunction*) crtstuff.c:0:0
+#25 0x00005c00a92997f8 swift::Lowering::SILGenModule::emitOrDelayFunction(swift::SILDeclRef) crtstuff.c:0:0
+#26 0x00005c00a9296732 swift::Lowering::SILGenModule::emitFunction(swift::FuncDecl*) crtstuff.c:0:0
+#27 0x00005c00a929cd5f swift::Lowering::SILGenModule::emitSourceFile(swift::SourceFile*) crtstuff.c:0:0
+#28 0x00005c00a929d5b4 swift::ASTLoweringRequest::evaluate(swift::Evaluator&, swift::ASTLoweringDescriptor) const (/usr/bin/swift-frontend+0x10eb5b4)
+#29 0x00005c00a93bca56 swift::SimpleRequest<swift::ASTLoweringRequest, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>> (swift::ASTLoweringDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::ASTLoweringRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#30 0x00005c00a92a2e45 swift::ASTLoweringRequest::OutputType swift::Evaluator::getResultUncached<swift::ASTLoweringRequest, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()>(swift::ASTLoweringRequest const&, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()) crtstuff.c:0:0
+#31 0x00005c00a929dbf3 swift::performASTLowering(swift::ModuleDecl*, swift::Lowering::TypeConverter&, swift::SILOptions const&, swift::IRGenOptions const*) (/usr/bin/swift-frontend+0x10ebbf3)
+#32 0x00005c00a8be493f swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xa3293f)
+#33 0x00005c00a8bfd88a withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#34 0x00005c00a8bea595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#35 0x00005c00a8be721e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#36 0x00005c00a88eeb21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#37 0x00007026ba06c1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#38 0x00007026ba06c28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#39 0x00005c00a88eda15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x7026ba16938d... done ***
+
+*** Program crashed: Aborted at 0x00007026ba16938d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007026ba16938d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007026ba16938d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x0000000000158265  1409637
+rdi 0x0000000000158265  1409637
+rbp 0x0000000000158265  1409637
+rsp 0x00005c00eaa552e8  3b 24 e0 b0 00 5c 00 00 70 55 a5 ea 00 5c 00 00  ;$à°·\··pU¥ê·\··
+ r8 0x00005c00eaa55570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x00005c00eaa55570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x00005c00eaa55570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x000000000000002d  45
+r14 0x0000000000000000  0
+r15 0x00005c00eaa55388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007026ba16938d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007026ba042000–0x00007026ba1f1eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.01s
+
+Aborted (core dumped)

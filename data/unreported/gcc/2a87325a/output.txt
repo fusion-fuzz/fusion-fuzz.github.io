@@ -1,0 +1,62 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9bj9tic0/3e41cd7f.cc:123:11: error: could not convert '(a = 5)' from 'int' to 'Y'
+  123 |   Y b = (a={5});
+      |         ~~^~~~~
+      |           |
+      |           int
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9bj9tic0/3e41cd7f.cc:129:26: error: non-constant condition for static assertion
+  129 | static_assert(o.b.a == 1 && o.c.a == 1, "");
+      |               ~~~~~~~~~~~^~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9bj9tic0/3e41cd7f.cc:132:13: error: redefinition of 'constexpr const X o'
+  132 | constexpr X o = { };
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9bj9tic0/3e41cd7f.cc:127:13: note: 'constexpr const X o' previously defined here
+  127 | constexpr X o = { }
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9bj9tic0/3e41cd7f.cc: In function 'void f()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9bj9tic0/3e41cd7f.cc:89:19: internal compiler error: in cp_gimplify_expr, at cp/cp-gimplify.cc:1061
+   89 |       B bs[3] = { "x" };
+      |                   ^~~
+0x305a98b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00d26 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7e065d cp_gimplify_expr(tree_node**, gimple**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/cp-gimplify.cc:1061
+0x14fd5eb gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20432
+0x150d34f gimplify_addr_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:7781
+0x14ffcaf gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20573
+0x151e003 gimplify_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:21635
+0x151e003 gimplify_arg(tree_node**, gimple**, unsigned long, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:3791
+0x151e9b6 gimplify_call_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:4805
+0x14ff008 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20495
+0x1501c1a gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x14fe9ab gimplify_statement_list
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:2166
+0x14fe9ab gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20977
+0x14ffed2 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20647
+0x150b94b gimplify_cleanup_point_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x14ff057 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20925
+0x1501c1a gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x14fe9ab gimplify_statement_list
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:2166
+0x14fe9ab gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20977
+0x1501c1a gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9bj9tic0/3e41cd7f.cc -quiet -dumpbase 3e41cd7f.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O2 -std=gnu++11 -fno-elide-constructors -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

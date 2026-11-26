@@ -1,0 +1,70 @@
+HloModule module
+
+%fusion {
+  %p0 = bf16[42] parameter(0)
+  %p1 = bf16[42] parameter(1)
+  %p2 = bf16[42] parameter(2)
+  %p3 = bf16[42] parameter(3)
+  %p4 = bf16[44] parameter(4)
+  %p5 = bf16[44] parameter(5)
+  %concatenate = bf16[256] concatenate(p0, p1, p2, p3, p4, p5), dimensions={0}
+  %broadcast = bf16[256] parameter(6)
+  %multiply = bf16[256] multiply(concatenate, broadcast)
+  ROOT %bitcast = bf16[16,16] bitcast(multiply)
+}
+
+%overwrite2 {
+  %a0 = f32[] parameter(0)
+  %a1 = f32[] parameter(1)
+  %upd0 = f32[] parameter(2)
+  %upd1 = f32[] parameter(3)
+  ROOT %t = (f32[], f32[]) tuple(upd0, upd1)
+}
+
+%compare {
+  %p0 = s32[] parameter(0)
+  %p1 = s32[] parameter(1)
+  %c = f32[] convert(p1)
+  %operand = f32[3] broadcast(c), dimensions={}
+  %indices = s32[2,1] constant({{0}, {1}})
+  %updates0 = f32[2] constant({5, 2})
+  %updates1 = f32[2] constant({1, 9})
+  %scattered = (f32[3], f32[3]) scatter(operand, operand, indices, updates0, updates1), update_window_dims={}, inserted_window_dims={0}, scatter_dims_to_operand_dims={0}, index_vector_dim=1, to_apply=%overwrite2
+  %out1 = f32[3] get-tuple-element(scattered), index=1
+  %a = f32[1] slice(out1), slice={[0:1]}
+  %b = f32[1] slice(out1), slice={[1:2]}
+  %a_scalar = f32[] reshape(a)
+  %b_scalar = f32[] reshape(b)
+  %flip = pred[] compare(b_scalar, a_scalar), direction=GT
+  %ge = pred[] compare(p0, p1), direction=GE
+  ROOT %result = pred[] xor(ge, flip)
+}
+
+%fusion.d {
+  %p0 = bf16[42] parameter(0)
+  %p1 = bf16[42] parameter(1)
+  %p2 = bf16[42] parameter(2)
+  %p3 = bf16[42] parameter(3)
+  %p4 = bf16[44] parameter(4)
+  %p5 = bf16[44] parameter(5)
+  %concatenate = bf16[256] concatenate(p0, p1, p2, p3, p4, p5), dimensions={0}
+  %broadcast = bf16[256] parameter(6)
+  %multiply = bf16[256] multiply(concatenate, broadcast)
+  ROOT %bitcast = bf16[16,16] bitcast(multiply)
+}
+
+ENTRY %entry_computation {
+  %p0 = bf16[42] parameter(0)
+  %p1 = bf16[42] parameter(1)
+  %p2 = bf16[42] parameter(2)
+  %p3 = bf16[42] parameter(3)
+  %p4 = bf16[44] parameter(4)
+  %p5 = bf16[44] parameter(5)
+  %p6 = bf16[256] parameter(6)
+  %fusion = bf16[16, 16] fusion(p0, p1, p2, p3, p4, p5, p6), kind=kLoop, calls=fusion
+  %x = s32[7] parameter(7)
+  %sorted = s32[7] sort(%x), dimensions={0}, is_stable=true, to_apply=%compare
+  %ffl.call = bf16[16,16] call(%x, %sorted, %x, %x, %sorted, %sorted, %sorted), to_apply=%fusion.d
+  %ffl.root = (s32[7], bf16[16,16]) tuple(%sorted, %fusion)
+  ROOT %ffl.root.1 = (bf16[16, 16], s32[7], bf16[16,16]) tuple(%fusion, %sorted, %fusion)
+}

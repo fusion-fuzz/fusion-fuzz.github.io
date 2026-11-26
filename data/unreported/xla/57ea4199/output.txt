@@ -1,0 +1,24 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1793396078.427119  657778 latency_hiding_scheduler.cc:4126] Check failed: sched_state->new_sequence_reversed.size() == sched_state->sched_graph->GetOriginalInstrList().size() (3 vs. 20) Not all instructions have been scheduled 3 vs 20
+*** Check failure stack trace: ***
+    @     0x59cb45394a24  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x59cb453949a6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x59cb3b840d3c  xla::DefaultSchedulerCore::ScheduleComputation()
+    @     0x59cb3b83e138  xla::DefaultSchedulerCore::ScheduleComputation()
+    @     0x59cb3b844837  xla::LatencyHidingScheduler::RunImpl()
+    @     0x59cb41cc8a01  xla::HloPassInterface::Run()
+    @     0x59cb3d4a1cdc  xla::HloPassPipeline::RunHelper()
+    @     0x59cb3d4a2820  xla::HloPassPipeline::RunPassesInternal()
+    @     0x59cb3d4a47f5  xla::HloPassPipeline::RunImpl()
+    @     0x59cb41cc8a01  xla::HloPassInterface::Run()
+    @     0x59cb3a00040c  xla::gpu::(anonymous namespace)::RunLatencyHidingSchedulerPasses()
+    @     0x59cb39ffe30e  xla::gpu::ScheduleGpuModule()
+    @     0x59cb39bc71cf  xla::gpu::GpuCompiler::CompileToBackendResult()
+    @     0x59cb39bcc589  xla::gpu::GpuCompiler::RunBackend()
+    @     0x59cb39aebe58  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x59cb39ae9be7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x59cb453e51d6  main
+    @     0x7902001d4d90  (unknown)
+Aborted (core dumped)

@@ -1,0 +1,151 @@
+/tmp/test.swift:1:14: error: cannot find type 'P3' in scope
+1 | protocol P2: P3 {
+  |              `- error: cannot find type 'P3' in scope
+2 |   associatedtype A9: P12
+3 | }
+
+/tmp/test.swift:8:20: error: cannot find type 'P15' in scope
+6 |   associatedtype A1: P2
+7 | }
+8 | class C<X: P14, Y: P15> where X.A1: Codable, X.A1.A3.A6: Codable, X.A1.A3.A6 == Y.A6 {}
+  |                    `- error: cannot find type 'P15' in scope
+
+/tmp/test.swift:5:15: error: cannot find type 'P16' in scope
+3 | }
+4 | protocol P12: Codable, Equatable, C {}
+5 | protocol P14: P16 {
+  |               `- error: cannot find type 'P16' in scope
+6 |   associatedtype A1: P2
+7 | }
+
+Assertion failed: (found != Dependencies.end()), function getProtocolComponentRec at RewriteContext.cpp:348.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -frontend -interpret /tmp/test.swift -disable-objc-interop -no-color-diagnostics -Xcc -fno-color-diagnostics -empty-abi-descriptor -no-auto-bridging-header-chaining -module-name test -in-process-plugin-server-path /usr/lib/swift/host/libSwiftInProcPluginServer.so -plugin-path /usr/lib/swift/host/plugins -plugin-path /usr/local/lib/swift/host/plugins
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/tmp/test.swift")
+4.	While type-checking 'P2' (at /tmp/test.swift:1:1)
+5.	While evaluating request RequirementSignatureRequest(test.(file).P2@/tmp/test.swift:1:10)
+6.	While evaluating request ProtocolDependenciesRequest(test.(file).P12@/tmp/test.swift:4:10)
+7.	While evaluating request StructuralRequirementsRequest(test.(file).P12@/tmp/test.swift:4:10)
+8.	While evaluating request InheritedTypeRequest(test.(file).P12@/tmp/test.swift:4:10, 2, structural)
+9.	While evaluating request ResolveTypeRequest(while resolving type , C)
+10.	While evaluating request GenericSignatureRequest(test.(file).C@/tmp/test.swift:8:7)
+11.	While evaluating request InferredGenericSignatureRequest(NULL, <X : P14, Y : P15>, test.(file).C@/tmp/test.swift:8:7, {}, {}, , (null), DefaultRequirementOptions(expandingDefaults=1, inferOutOfScopeImpliedInverses=0))
+12.	While evaluating request RequirementSignatureRequest(test.(file).P14@/tmp/test.swift:5:10)
+13.	Assertion failed: (found != Dependencies.end()), function getProtocolComponentRec at RewriteContext.cpp:348.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+ #0 0x000055a3574b1658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x000055a3574aee75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x000055a3574b2411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f4eb3fad330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f4eb4006b2c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9eb2c)
+ #5 0x00007f4eb3fad27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f4eb3f908ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000055a3515dc5c2 (/usr/bin/swift-frontend+0x2d7a5c2)
+ #8 0x000055a3515dc574 (/usr/bin/swift-frontend+0x2d7a574)
+ #9 0x000055a351422224 swift::rewriting::RewriteContext::getProtocolComponentRec(swift::ProtocolDecl const*, llvm::SmallVectorImpl<swift::ProtocolDecl const*>&) (/usr/bin/swift-frontend+0x2bc0224)
+#10 0x000055a351421c8b swift::rewriting::RewriteContext::getProtocolComponentRec(swift::ProtocolDecl const*, llvm::SmallVectorImpl<swift::ProtocolDecl const*>&) (/usr/bin/swift-frontend+0x2bbfc8b)
+#11 0x000055a351421c8b swift::rewriting::RewriteContext::getProtocolComponentRec(swift::ProtocolDecl const*, llvm::SmallVectorImpl<swift::ProtocolDecl const*>&) (/usr/bin/swift-frontend+0x2bbfc8b)
+#12 0x000055a351422740 swift::rewriting::RewriteContext::getProtocolComponentImpl(swift::ProtocolDecl const*) (/usr/bin/swift-frontend+0x2bc0740)
+#13 0x000055a351422bb6 swift::rewriting::RewriteContext::startComputingRequirementSignatures(swift::ProtocolDecl const*) (/usr/bin/swift-frontend+0x2bc0bb6)
+#14 0x000055a35141a493 swift::RequirementSignatureRequest::evaluate(swift::Evaluator&, swift::ProtocolDecl*) const (/usr/bin/swift-frontend+0x2bb8493)
+#15 0x000055a350b3cddc swift::SimpleRequest<swift::RequirementSignatureRequest, swift::RequirementSignature (swift::ProtocolDecl*), (swift::RequestFlags)4>::evaluateRequest(swift::RequirementSignatureRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#16 0x000055a351185da4 swift::ProtocolDecl::getRequirementSignature() const (/usr/bin/swift-frontend+0x2923da4)
+#17 0x000055a351422c5e swift::rewriting::RewriteContext::getRequirementMachine(swift::ProtocolDecl const*) (/usr/bin/swift-frontend+0x2bc0c5e)
+#18 0x000055a35142f1bb swift::rewriting::RuleBuilder::collectRulesFromReferencedProtocols() (/usr/bin/swift-frontend+0x2bcd1bb)
+#19 0x000055a351430115 swift::rewriting::RuleBuilder::initWithWrittenRequirements(llvm::ArrayRef<swift::GenericTypeParamType*>, llvm::ArrayRef<swift::StructuralRequirement>) (/usr/bin/swift-frontend+0x2bce115)
+#20 0x000055a351418f3a swift::rewriting::RequirementMachine::initWithWrittenRequirements(llvm::ArrayRef<swift::GenericTypeParamType*>, llvm::ArrayRef<swift::StructuralRequirement>) (/usr/bin/swift-frontend+0x2bb6f3a)
+#21 0x000055a35141e1f7 swift::InferredGenericSignatureRequest::evaluate(swift::Evaluator&, swift::GenericSignatureImpl const*, swift::GenericParamList*, swift::WhereClauseOwner, llvm::SmallVector<swift::Requirement, 2u>, llvm::SmallVector<swift::TypeBase*, 2u>, swift::SourceLoc, swift::ExtensionDecl*, swift::optionset::OptionSet<swift::DefaultRequirementFlags, unsigned char>) const (/usr/bin/swift-frontend+0x2bbc1f7)
+#22 0x000055a350b3d8ac llvm::PointerIntPair<swift::GenericSignature, 3u, swift::optionset::OptionSet<swift::GenericSignatureErrorFlags, unsigned int>, llvm::PointerLikeTypeTraits<swift::GenericSignature>, llvm::PointerIntPairInfo<swift::GenericSignature, 3u, llvm::PointerLikeTypeTraits<swift::GenericSignature>>> swift::SimpleRequest<swift::InferredGenericSignatureRequest, llvm::PointerIntPair<swift::GenericSignature, 3u, swift::optionset::OptionSet<swift::GenericSignatureErrorFlags, unsigned int>, llvm::PointerLikeTypeTraits<swift::GenericSignature>, llvm::PointerIntPairInfo<swift::GenericSignature, 3u, llvm::PointerLikeTypeTraits<swift::GenericSignature>>> (swift::GenericSignatureImpl const*, swift::GenericParamList*, swift::WhereClauseOwner, llvm::SmallVector<swift::Requirement, 2u>, llvm::SmallVector<swift::TypeBase*, 2u>, swift::SourceLoc, swift::ExtensionDecl*, swift::optionset::OptionSet<swift::DefaultRequirementFlags, unsigned char>), (swift::RequestFlags)1>::callDerived<0ul, 1ul, 2ul, 3ul, 4ul, 5ul, 6ul, 7ul>(swift::Evaluator&, std::integer_sequence<unsigned long, 0ul, 1ul, 2ul, 3ul, 4ul, 5ul, 6ul, 7ul>) const crtstuff.c:0:0
+#23 0x000055a3509ebac9 swift::InferredGenericSignatureRequest::OutputType swift::Evaluator::getResultUncached<swift::InferredGenericSignatureRequest, swift::InferredGenericSignatureRequest::OutputType swift::evaluateOrDefault<swift::InferredGenericSignatureRequest>(swift::Evaluator&, swift::InferredGenericSignatureRequest, swift::InferredGenericSignatureRequest::OutputType)::'lambda'()>(swift::InferredGenericSignatureRequest const&, swift::InferredGenericSignatureRequest::OutputType swift::evaluateOrDefault<swift::InferredGenericSignatureRequest>(swift::Evaluator&, swift::InferredGenericSignatureRequest, swift::InferredGenericSignatureRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#24 0x000055a350aced41 swift::GenericSignatureRequest::evaluate(swift::Evaluator&, swift::GenericContext*) const (/usr/bin/swift-frontend+0x226cd41)
+#25 0x000055a35116f748 swift::GenericContext::getGenericSignature() const (/usr/bin/swift-frontend+0x290d748)
+#26 0x000055a35116f5f6 swift::GenericContext::getInnermostGenericParamTypes() const (/usr/bin/swift-frontend+0x290d5f6)
+#27 0x000055a35094743c swift::TypeChecker::getDefaultGenericArgumentsString(llvm::SmallVectorImpl<char>&, swift::GenericTypeDecl const*, llvm::function_ref<swift::Type (swift::GenericTypeParamType const*)>) (/usr/bin/swift-frontend+0x20e543c)
+#28 0x000055a350bb749d (anonymous namespace)::TypeResolver::diagnoseUnboundGenericType(swift::Type, swift::SourceLoc) TypeCheckType.cpp:0:0
+#29 0x000055a350ba8533 (anonymous namespace)::TypeResolver::resolveType(swift::TypeRepr*, swift::TypeResolutionOptions) TypeCheckType.cpp:0:0
+#30 0x000055a350b7ad34 evaluateTypeResolution(swift::TypeResolution const*, swift::TypeRepr*, swift::SILTypeResolutionContext*) TypeCheckType.cpp:0:0
+#31 0x000055a350bc0278 swift::ResolveTypeRequest::OutputType swift::Evaluator::getResultUncached<swift::ResolveTypeRequest, swift::ResolveTypeRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeRequest>(swift::Evaluator&, swift::ResolveTypeRequest, swift::ResolveTypeRequest::OutputType)::'lambda'()>(swift::ResolveTypeRequest const&, swift::ResolveTypeRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeRequest>(swift::Evaluator&, swift::ResolveTypeRequest, swift::ResolveTypeRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#32 0x000055a350b7accd swift::TypeResolution::resolveType(swift::TypeRepr*, swift::SILTypeResolutionContext*) const (/usr/bin/swift-frontend+0x2318ccd)
+#33 0x000055a350b3a91e swift::InheritedTypeRequest::evaluate(swift::Evaluator&, llvm::PointerUnion<swift::TypeDecl const*, swift::ExtensionDecl const*>, unsigned int, swift::TypeResolutionStage) const (/usr/bin/swift-frontend+0x22d891e)
+#34 0x000055a350b3ca85 swift::SimpleRequest<swift::InheritedTypeRequest, swift::InheritedTypeResult (llvm::PointerUnion<swift::TypeDecl const*, swift::ExtensionDecl const*>, unsigned int, swift::TypeResolutionStage), (swift::RequestFlags)4>::evaluateRequest(swift::InheritedTypeRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#35 0x000055a350a979e8 swift::InheritedTypeRequest::OutputType swift::Evaluator::getResultUncached<swift::InheritedTypeRequest, swift::InheritedTypeRequest::OutputType swift::evaluateOrDefault<swift::InheritedTypeRequest>(swift::Evaluator&, swift::InheritedTypeRequest, swift::InheritedTypeRequest::OutputType)::'lambda'()>(swift::InheritedTypeRequest const&, swift::InheritedTypeRequest::OutputType swift::evaluateOrDefault<swift::InheritedTypeRequest>(swift::Evaluator&, swift::InheritedTypeRequest, swift::InheritedTypeRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#36 0x000055a350a97842 swift::InheritedTypeRequest::OutputType swift::Evaluator::operator()<swift::InheritedTypeRequest, swift::InheritedTypeRequest::OutputType swift::evaluateOrDefault<swift::InheritedTypeRequest>(swift::Evaluator&, swift::InheritedTypeRequest, swift::InheritedTypeRequest::OutputType)::'lambda'(), (void*)0>(swift::InheritedTypeRequest const&, swift::InheritedTypeRequest::OutputType swift::evaluateOrDefault<swift::InheritedTypeRequest>(swift::Evaluator&, swift::InheritedTypeRequest, swift::InheritedTypeRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#37 0x000055a351170cd5 swift::InheritedTypes::getResolvedType(unsigned int, swift::TypeResolutionStage) const (/usr/bin/swift-frontend+0x290ecd5)
+#38 0x000055a3513e9ba1 swift::rewriting::realizeInheritedRequirements(swift::TypeDecl*, swift::Type, bool, llvm::SmallVectorImpl<swift::StructuralRequirement>&, llvm::SmallVectorImpl<swift::rewriting::RequirementError>&) (/usr/bin/swift-frontend+0x2b87ba1)
+#39 0x000055a3513e9ef4 swift::StructuralRequirementsRequest::evaluate(swift::Evaluator&, swift::ProtocolDecl*) const (/usr/bin/swift-frontend+0x2b87ef4)
+#40 0x000055a350b3cd8c swift::SimpleRequest<swift::StructuralRequirementsRequest, std::pair<llvm::ArrayRef<swift::StructuralRequirement>, llvm::ArrayRef<swift::InverseRequirement>> (swift::ProtocolDecl*), (swift::RequestFlags)2>::evaluateRequest(swift::StructuralRequirementsRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#41 0x000055a3512179b8 swift::StructuralRequirementsRequest::OutputType swift::Evaluator::getResultUncached<swift::StructuralRequirementsRequest, swift::StructuralRequirementsRequest::OutputType swift::evaluateOrDefault<swift::StructuralRequirementsRequest>(swift::Evaluator&, swift::StructuralRequirementsRequest, swift::StructuralRequirementsRequest::OutputType)::'lambda'()>(swift::StructuralRequirementsRequest const&, swift::StructuralRequirementsRequest::OutputType swift::evaluateOrDefault<swift::StructuralRequirementsRequest>(swift::Evaluator&, swift::StructuralRequirementsRequest, swift::StructuralRequirementsRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#42 0x000055a351217744 swift::StructuralRequirementsRequest::OutputType swift::Evaluator::getResultCached<swift::StructuralRequirementsRequest, swift::StructuralRequirementsRequest::OutputType swift::evaluateOrDefault<swift::StructuralRequirementsRequest>(swift::Evaluator&, swift::StructuralRequirementsRequest, swift::StructuralRequirementsRequest::OutputType)::'lambda'(), (void*)0>(swift::StructuralRequirementsRequest const&, swift::StructuralRequirementsRequest::OutputType swift::evaluateOrDefault<swift::StructuralRequirementsRequest>(swift::Evaluator&, swift::StructuralRequirementsRequest, swift::StructuralRequirementsRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#43 0x000055a351185a32 swift::ProtocolDecl::getStructuralRequirements() const (/usr/bin/swift-frontend+0x2923a32)
+#44 0x000055a3513eca47 swift::ProtocolDependenciesRequest::evaluate(swift::Evaluator&, swift::ProtocolDecl*) const (/usr/bin/swift-frontend+0x2b8aa47)
+#45 0x000055a35121e09e swift::ProtocolDependenciesRequest::OutputType swift::Evaluator::getResultUncached<swift::ProtocolDependenciesRequest, swift::ProtocolDependenciesRequest::OutputType swift::evaluateOrDefault<swift::ProtocolDependenciesRequest>(swift::Evaluator&, swift::ProtocolDependenciesRequest, swift::ProtocolDependenciesRequest::OutputType)::'lambda'()>(swift::ProtocolDependenciesRequest const&, swift::ProtocolDependenciesRequest::OutputType swift::evaluateOrDefault<swift::ProtocolDependenciesRequest>(swift::Evaluator&, swift::ProtocolDependenciesRequest, swift::ProtocolDependenciesRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#46 0x000055a35121de68 swift::ProtocolDependenciesRequest::OutputType swift::Evaluator::getResultCached<swift::ProtocolDependenciesRequest, swift::ProtocolDependenciesRequest::OutputType swift::evaluateOrDefault<swift::ProtocolDependenciesRequest>(swift::Evaluator&, swift::ProtocolDependenciesRequest, swift::ProtocolDependenciesRequest::OutputType)::'lambda'(), (void*)0>(swift::ProtocolDependenciesRequest const&, swift::ProtocolDependenciesRequest::OutputType swift::evaluateOrDefault<swift::ProtocolDependenciesRequest>(swift::Evaluator&, swift::ProtocolDependenciesRequest, swift::ProtocolDependenciesRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#47 0x000055a351185bbf swift::ProtocolDecl::getProtocolDependencies() const (/usr/bin/swift-frontend+0x2923bbf)
+#48 0x000055a3514225a1 swift::rewriting::RewriteContext::getProtocolComponentImpl(swift::ProtocolDecl const*) (/usr/bin/swift-frontend+0x2bc05a1)
+#49 0x000055a351422bb6 swift::rewriting::RewriteContext::startComputingRequirementSignatures(swift::ProtocolDecl const*) (/usr/bin/swift-frontend+0x2bc0bb6)
+#50 0x000055a35141a493 swift::RequirementSignatureRequest::evaluate(swift::Evaluator&, swift::ProtocolDecl*) const (/usr/bin/swift-frontend+0x2bb8493)
+#51 0x000055a350b3cddc swift::SimpleRequest<swift::RequirementSignatureRequest, swift::RequirementSignature (swift::ProtocolDecl*), (swift::RequestFlags)4>::evaluateRequest(swift::RequirementSignatureRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#52 0x000055a351185da4 swift::ProtocolDecl::getRequirementSignature() const (/usr/bin/swift-frontend+0x2923da4)
+#53 0x000055a350a89b8b (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#54 0x000055a350a89864 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x2227864)
+#55 0x000055a350bc4885 swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x2362885)
+#56 0x000055a350bc923b swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#57 0x000055a350bc47b8 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x23627b8)
+#58 0x000055a34f442fd9 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_10>(long, swift::SourceFile&) Frontend.cpp:0:0
+#59 0x000055a34f43673e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xbd473e)
+#60 0x000055a34f4364bb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xbd44bb)
+#61 0x000055a34f2ad822 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#62 0x000055a34f29a595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#63 0x000055a34f29721e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#64 0x000055a34ef9eb21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#65 0x00007f4eb3f921ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#66 0x00007f4eb3f9228b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#67 0x000055a34ef9da15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x7f4eb408f28d... done ***
+
+*** Program crashed: Aborted at 0x00007f4eb408f28d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007f4eb408f28d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007f4eb408f28d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b bb 0d 00  H=·ðÿÿs·ÃH··[»··
+rbx 0x0000000000000006  6
+rsi 0x000000000000efea  61418
+rdi 0x000000000000efea  61418
+rbp 0x000000000000efea  61418
+rsp 0x000055a35cf0c2e8  3b 24 4b 57 a3 55 00 00 70 c5 f0 5c a3 55 00 00  ;$KW£U··pÅð\£U··
+ r8 0x000055a35cf0c570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x000055a35cf0c570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x000055a35cf0c570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x0000000000000017  23
+r14 0x0000000000000000  0
+r15 0x000055a35cf0c388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007f4eb408f28d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b bb 0d 00  H=·ðÿÿs·ÃH··[»··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007f4eb3f68000–0x00007f4eb4117d39 8e9fd827446c24067541ac5390e6f527fb5947bb libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

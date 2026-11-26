@@ -1,0 +1,103 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__iuaf_g/76bca86a.cpp:82:29: warning: type aware allocators are a Clang extension [-Wext-cxx-type-aware-allocators]
+   82 | template <typename T> void *operator new(std::type_identity<T>, size_t, std::align_val_t);
+      |                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__iuaf_g/76bca86a.cpp:83:28: warning: type aware allocators are a Clang extension [-Wext-cxx-type-aware-allocators]
+   83 | template <typename T> void operator delete(std::type_identity<T>, void *, size_t, std::align_val_t);
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__iuaf_g/76bca86a.cpp:107:31: warning: type aware allocators are a Clang extension [-Wext-cxx-type-aware-allocators]
+  107 |   template <typename T> void *operator new(std::type_identity<T>, size_t, std::align_val_t);
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__iuaf_g/76bca86a.cpp:108:30: warning: type aware allocators are a Clang extension [-Wext-cxx-type-aware-allocators]
+  108 |   template <typename T> void operator delete(std::type_identity<T>, void*, size_t, std::align_val_t);
+      |                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__iuaf_g/76bca86a.cpp:127:31: warning: type aware allocators are a Clang extension [-Wext-cxx-type-aware-allocators]
+  127 |   template <typename T> void *operator new(std::type_identity<T>, size_t, std::align_val_t);
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__iuaf_g/76bca86a.cpp:128:30: warning: type aware allocators are a Clang extension [-Wext-cxx-type-aware-allocators]
+  128 |   template <typename T> void operator delete(std::type_identity<T>, void*, size_t, std::align_val_t);
+      |                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__iuaf_g/76bca86a.cpp:188:31: warning: type aware allocators are a Clang extension [-Wext-cxx-type-aware-allocators]
+  188 |   template <typename T> void *operator new(std::type_identity<T>, size_t, std::align_val_t);
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__iuaf_g/76bca86a.cpp:189:30: warning: type aware allocators are a Clang extension [-Wext-cxx-type-aware-allocators]
+  189 |   template <typename T> void operator delete(std::type_identity<T>, void*, size_t, std::align_val_t);
+      |                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__iuaf_g/76bca86a.cpp:195:31: warning: type aware allocators are a Clang extension [-Wext-cxx-type-aware-allocators]
+  195 |   template <typename T> void *operator new(std::type_identity<T>, size_t, std::align_val_t, unsigned line = __builtin_LINE());
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__iuaf_g/76bca86a.cpp:196:30: warning: type aware allocators are a Clang extension [-Wext-cxx-type-aware-allocators]
+  196 |   template <typename T> void operator delete(std::type_identity<T>, void*, size_t, std::align_val_t, unsigned line = __builtin_LINE());
+      |                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__iuaf_g/76bca86a.cpp:197:30: warning: type aware allocators are a Clang extension [-Wext-cxx-type-aware-allocators]
+  197 |   template <typename T> void operator delete(std::type_identity<T>, void*, size_t, std::align_val_t);
+      |                              ^
+unexpected global operator delete mangling
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CodeGenModule.cpp:9081!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O0 -fblocks -target i686-windows-msvc -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__iuaf_g/76bca86a.cpp
+1.	<eof> parser at end of file
+2.	Per-file LLVM IR generation
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp__iuaf_g/76bca86a.cpp:136:38: Generating code for declaration 'S7::~S7'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000644c9f181329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000644c9f17dfec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000644c9f17e8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000644c9f0c0218
+4  libc.so.6 0x000072e3fde00520
+5  libc.so.6 0x000072e3fde549bc pthread_kill + 300
+6  libc.so.6 0x000072e3fde00476 raise + 22
+7  libc.so.6 0x000072e3fdde67f3 abort + 211
+8  clang++   0x0000644c9f0cb11e
+9  clang++   0x0000644c9f900ea0 clang::CodeGen::CodeGenModule::getOrCreateMSVCGlobalDeleteWrapper(clang::FunctionDecl const*) + 288
+10 clang++   0x0000644c9fbcabf1
+11 clang++   0x0000644c9fbcde14
+12 clang++   0x0000644c9fbd380d clang::CodeGen::CodeGenFunction::PopCleanupBlock(bool, bool) + 3021
+13 clang++   0x0000644c9fbd5733 clang::CodeGen::CodeGenFunction::PopCleanupBlocks(clang::CodeGen::EHScopeStack::stable_iterator, std::initializer_list<llvm::Value**>) + 147
+14 clang++   0x0000644c9fbd5d2f clang::CodeGen::CodeGenFunction::PopCleanupBlocks(clang::CodeGen::EHScopeStack::stable_iterator, unsigned long, std::initializer_list<llvm::Value**>) + 63
+15 clang++   0x0000644c9f745cac
+16 clang++   0x0000644c9fbcbce2 clang::CodeGen::CodeGenFunction::EmitDestructorBody(clang::CodeGen::FunctionArgList&) + 706
+17 clang++   0x0000644c9f898185 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 3365
+18 clang++   0x0000644c9fb764b4 clang::CodeGen::CodeGenModule::codegenCXXStructor(clang::GlobalDecl) + 436
+19 clang++   0x0000644c9f9a23ad
+20 clang++   0x0000644c9f8fae8e clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 366
+21 clang++   0x0000644c9f9094c7 clang::CodeGen::CodeGenModule::EmitDeferred() + 423
+22 clang++   0x0000644c9f9093e8 clang::CodeGen::CodeGenModule::EmitDeferred() + 200
+23 clang++   0x0000644c9f9093e8 clang::CodeGen::CodeGenModule::EmitDeferred() + 200
+24 clang++   0x0000644c9f90c2f4 clang::CodeGen::CodeGenModule::Release() + 116
+25 clang++   0x0000644c9fcaaafe
+26 clang++   0x0000644c9fca8065 clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 997
+27 clang++   0x0000644ca197784c clang::ParseAST(clang::Sema&, bool, bool) + 1068
+28 clang++   0x0000644ca0018061 clang::FrontendAction::Execute() + 65
+29 clang++   0x0000644c9ffa1e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+30 clang++   0x0000644ca00efde3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+31 clang++   0x0000644c9cf4b33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+32 clang++   0x0000644c9cf4113a
+33 clang++   0x0000644c9cf412cf
+34 clang++   0x0000644c9fd26cfd
+35 clang++   0x0000644c9f0c0630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+36 clang++   0x0000644c9fd27b53
+37 clang++   0x0000644c9fcdc607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+38 clang++   0x0000644c9fce0ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+39 clang++   0x0000644c9fcef004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+40 clang++   0x0000644c9cf46923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+41 clang++   0x0000644c9ce827f1 main + 113
+42 libc.so.6 0x000072e3fdde7d90
+43 libc.so.6 0x000072e3fdde7e40 __libc_start_main + 128
+44 clang++   0x0000644c9cf40765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: i686-unknown-windows-msvc
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/76bca86a-33cda0.cpp
+clang++: note: diagnostic msg: /tmp/76bca86a-33cda0.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

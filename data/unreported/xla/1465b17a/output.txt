@@ -1,0 +1,20 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1790065357.551481  669999 shape_tree.h:281] Check failed: ShapeUtil::Compatible(src_shape, dst_shape) f32[2,8,256,256]{3,2,1,0}, s32[]
+*** Check failure stack trace: ***
+    @     0x5a66c4585a34  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5a66c45859b6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5a66ba84bcfb  xla::ShapeTree<>::CopySubtreeFrom()
+    @     0x5a66ba84a594  xla::HloReplicationAnalysis::ComputeHloReplicationOnComputation()
+    @     0x5a66ba84c11a  xla::HloReplicationAnalysis::ComputeHloReplication()
+    @     0x5a66ba84e903  xla::HloReplicationAnalysis::Run()
+    @     0x5a66ba84e83d  xla::HloReplicationAnalysis::Run()
+    @     0x5a66ba76f3e6  xla::AllReduceSimplifier::RunImpl()
+    @     0x5a66c36db277  xla::HloPassInterface::Run()
+    @     0x5a66c26554ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5a66c265091f  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5a66c264fd45  xla::HloPassPipeline::RunImpl()
+    @     0x5a66c36db277  xla::HloPassInterface::Run()
+    @     0x5a66ba791376  xla::OptProvider::BuildAndRunTransformPipeline()
+    @     0x5a66c45cba78  main
+    @     0x7dbdd5926d90  (unknown)
+Aborted (core dumped)

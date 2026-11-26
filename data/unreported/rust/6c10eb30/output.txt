@@ -1,0 +1,49 @@
+[... 16 lines omitted ...]
+  17: rustc_middle::query::calls::query_ensure_result::<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_middle::dep_graph::graph::DepNodeIndex>, ()>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:197:19
+  18: <rustc_middle::query::calls::TyCtxtEnsureResult>::check_well_formed::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:323:21
+  19: rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/check/wfcheck.rs:2559:51
+  20: <rustc_middle::hir::ModuleItems>::par_items::<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/hir/mod.rs:118:58
+  21: rustc_data_structures::sync::parallel::try_par_for_each_in::<&[rustc_hir::hir::ItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:227:55
+  22: <core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::try_par_for_each_in<&[rustc_hir::hir::ItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panic/unwind_safe.rs:275:9
+  23: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::try_par_for_each_in<&[rustc_hir::hir::ItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>, core::result::Result<(), rustc_span::ErrorGuaranteed>>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:576:43
+  24: std::panicking::catch_unwind::<core::result::Result<(), rustc_span::ErrorGuaranteed>, core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::try_par_for_each_in<&[rustc_hir::hir::ItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:544:19
+  25: std::panic::catch_unwind::<core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::try_par_for_each_in<&[rustc_hir::hir::ItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>, core::result::Result<(), rustc_span::ErrorGuaranteed>>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panic.rs:359:14
+  26: <rustc_data_structures::sync::parallel::ParallelGuard>::run::<core::result::Result<(), rustc_span::ErrorGuaranteed>, rustc_data_structures::sync::parallel::try_par_for_each_in<&[rustc_hir::hir::ItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:23:9
+  27: rustc_data_structures::sync::parallel::try_par_for_each_in::<&[rustc_hir::hir::ItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:227:48
+  28: core::iter::adapters::filter_map::filter_map_fold::<&rustc_hir::hir::ItemId, core::result::Result<(), rustc_span::ErrorGuaranteed>, core::result::Result<(), rustc_span::ErrorGuaranteed>, rustc_data_structures::sync::parallel::try_par_for_each_in<&[rustc_hir::hir::ItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}, <core::result::Result<(), rustc_span::ErrorGuaranteed>>::and<()>>::{closure#0}
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/iter/adapters/filter_map.rs:39:28
+  29: <core::slice::iter::Iter<rustc_hir::hir::ItemId> as core::iter::traits::iterator::Iterator>::fold::<core::result::Result<(), rustc_span::ErrorGuaranteed>, core::iter::adapters::filter_map::filter_map_fold<&rustc_hir::hir::ItemId, core::result::Result<(), rustc_span::ErrorGuaranteed>, core::result::Result<(), rustc_span::ErrorGuaranteed>, rustc_data_structures::sync::parallel::try_par_for_each_in<&[rustc_hir::hir::ItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}, <core::result::Result<(), rustc_span::ErrorGuaranteed>>::and<()>>::{closure#0}>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/slice/iter/macros.rs:274:27
+  30: <core::iter::adapters::filter_map::FilterMap<core::slice::iter::Iter<rustc_hir::hir::ItemId>, rustc_data_structures::sync::parallel::try_par_for_each_in<&[rustc_hir::hir::ItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}> as core::iter::traits::iterator::Iterator>::fold::<core::result::Result<(), rustc_span::ErrorGuaranteed>, <core::result::Result<(), rustc_span::ErrorGuaranteed>>::and<()>>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/iter/adapters/filter_map.rs:146:19
+  31: rustc_data_structures::sync::parallel::try_par_for_each_in::<&[rustc_hir::hir::ItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>::{closure#0}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:227:70
+  32: rustc_data_structures::sync::parallel::parallel_guard::<core::result::Result<(), rustc_span::ErrorGuaranteed>, rustc_data_structures::sync::parallel::try_par_for_each_in<&[rustc_hir::hir::ItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>::{closure#0}>::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:39:15
+  33: rustc_data_structures::sync::parallel::try_par_for_each_in::<&[rustc_hir::hir::ItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:208:5
+  34: <rustc_middle::hir::ModuleItems>::par_items::<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/hir/mod.rs:118:9
+  35: rustc_hir_analysis::check::wfcheck::check_type_wf
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/check/wfcheck.rs:2559:14
+      [... omitted 13 frames ...]
+  36: rustc_middle::query::calls::query_ensure_result::<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 1]>>, ()>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:197:19
+  37: <rustc_middle::query::calls::TyCtxtEnsureResult>::check_type_wf
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:323:21
+  38: rustc_hir_analysis::check_crate::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/lib.rs:154:40
+  39: <rustc_data_structures::profiling::VerboseTimingGuard>::run::<(), rustc_hir_analysis::check_crate::{closure#0}>
+             
+[... truncated ...]

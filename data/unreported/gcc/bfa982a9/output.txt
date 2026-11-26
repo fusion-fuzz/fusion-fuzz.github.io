@@ -1,0 +1,38 @@
+during GIMPLE pass: crc
+dump file: d979c491.c.176t.crc
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcwwt6pkq/d979c491.c: In function 'crc16_update':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcwwt6pkq/d979c491.c:27:10: internal compiler error: in operator[], at vec.h:911
+   27 | uint16_t crc16_update(uint16_t crc, uint8_t a) {
+      |          ^~~~~~~~~~~~
+0x2cb9bab internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xcdc9e4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x905b70 vec<value_bit*, va_heap, vl_embed>::operator[](unsigned int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/vec.h:911
+0x905f48 vec<value_bit*, va_heap, vl_embed>::operator[](unsigned int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/sym-exec/sym-exec-state.cc:1422
+0x905f48 vec<value_bit*, va_heap, vl_ptr>::operator[](unsigned int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/vec.h:1610
+0x905f48 value::operator[](unsigned int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/sym-exec/sym-exec-state.cc:1952
+0x905f48 state::add_not_equal_cond(value*, value*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/sym-exec/sym-exec-state.cc:1394
+0x15b619b state::add_binary_cond(tree_node*, tree_node*, void (state::*)(value*, value*))
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/sym-exec/sym-exec-state.cc:1868
+0x2bac9dd crc_symbolic_execution::add_condition(gcond const*, state*, state*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/crc-verification.cc:235
+0x2bad01c crc_symbolic_execution::resolve_condition(gcond const*, auto_vec<edge_def*, 0ul>&)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/crc-verification.cc:289
+0x2bae086 crc_symbolic_execution::execute_crc_loop(gphi*, gphi*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/crc-verification.cc:725
+0x2bae277 crc_symbolic_execution::extract_polynomial(gphi*, gphi*, tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/crc-verification.cc:783
+0x15b145e crc_optimization::execute(function*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-crc-optimization.cc:1331
+0x15b1627 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-crc-optimization.cc:1399
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpcwwt6pkq/d979c491.c -quiet -dumpbase d979c491.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O2 -Wall -fno-tree-vectorize -fdump-tree-crc-details -o /tmp/ccL7ckt7.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

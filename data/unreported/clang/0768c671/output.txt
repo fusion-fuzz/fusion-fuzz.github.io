@@ -1,0 +1,81 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuj8u2zg1/0b3c66a9.mm:18:11: warning: unused variable 'b' [-Wunused-variable]
+   18 |   BlockTy b = ^{ (void)a; };
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuj8u2zg1/0b3c66a9.mm:32:43: warning: unused parameter 'a' [-Wunused-parameter]
+   32 | __attribute__((interrupt)) void foo7(int *a, uword b) {}
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuj8u2zg1/0b3c66a9.mm:32:52: warning: unused parameter 'b' [-Wunused-parameter]
+   32 | __attribute__((interrupt)) void foo7(int *a, uword b) {}
+      |                                                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuj8u2zg1/0b3c66a9.mm:34:43: warning: unused parameter 'a' [-Wunused-parameter]
+   34 | __attribute__((interrupt)) void foo8(int *a) {}
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuj8u2zg1/0b3c66a9.mm:37:23: warning: unused parameter 'a' [-Wunused-parameter]
+   37 | static void foo9(int *a) __attribute__((interrupt)) {}
+      |                       ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/Target/X86/X86FrameLowering.cpp:2891: virtual llvm::StackOffset llvm::X86FrameLowering::getFrameIndexReference(const llvm::MachineFunction&, int, llvm::Register&) const: Assertion `!MFI.hasCalls() || (StackSize % 16) == 8' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O1 -fblocks -fobjc-runtime=ios-7 -fobjc-arc -Wall -fsanitize=address -Wextra -target x86_64-pc-win32 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuj8u2zg1/0b3c66a9.mm
+1.	<eof> parser at end of file
+2.	Code generation
+3.	Running pass 'Function Pass Manager' on module '/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpuj8u2zg1/0b3c66a9.mm'.
+4.	Running pass 'Prologue/Epilogue Insertion & Frame Finalization' on function '@"?foo7@@YAXPEAH_K@Z"'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005d9e82e99329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005d9e82e95fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005d9e82e968a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005d9e82dd8218
+4  libc.so.6 0x00007e020fda0520
+5  libc.so.6 0x00007e020fdf49bc pthread_kill + 300
+6  libc.so.6 0x00007e020fda0476 raise + 22
+7  libc.so.6 0x00007e020fd867f3 abort + 211
+8  libc.so.6 0x00007e020fd8671b
+9  libc.so.6 0x00007e020fd97e96
+10 clang++   0x00005d9e80d89001
+11 clang++   0x00005d9e810231ac
+12 clang++   0x00005d9e826445bc
+13 clang++   0x00005d9e82645525
+14 clang++   0x00005d9e821c02ec
+15 clang++   0x00005d9e828792e5 llvm::FPPassManager::runOnFunction(llvm::Function&) + 1397
+16 clang++   0x00005d9e828798c9 llvm::FPPassManager::runOnModule(llvm::Module&) + 57
+17 clang++   0x00005d9e8287a2b2
+18 clang++   0x00005d9e8287a9eb llvm::legacy::PassManagerImpl::run(llvm::Module&) + 219
+19 clang++   0x00005d9e832bc15f
+20 clang++   0x00005d9e832d0ecf
+21 clang++   0x00005d9e832d12f3 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::StringRef, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 483
+22 clang++   0x00005d9e839c03ca clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 1866
+23 clang++   0x00005d9e8568f84c clang::ParseAST(clang::Sema&, bool, bool) + 1068
+24 clang++   0x00005d9e83d30061 clang::FrontendAction::Execute() + 65
+25 clang++   0x00005d9e83cb9e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+26 clang++   0x00005d9e83e07de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+27 clang++   0x00005d9e80c6333e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+28 clang++   0x00005d9e80c5913a
+29 clang++   0x00005d9e80c592cf
+30 clang++   0x00005d9e83a3ecfd
+31 clang++   0x00005d9e82dd8630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+32 clang++   0x00005d9e83a3fb53
+33 clang++   0x00005d9e839f4607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+34 clang++   0x00005d9e839f8ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+35 clang++   0x00005d9e83a07004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+36 clang++   0x00005d9e80c5e923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+37 clang++   0x00005d9e80b9a7f1 main + 113
+38 libc.so.6 0x00007e020fd87d90
+39 libc.so.6 0x00007e020fd87e40 __libc_start_main + 128
+40 clang++   0x00005d9e80c58765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-pc-windows-msvc
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/0b3c66a9-68685f.mm
+clang++: note: diagnostic msg: /tmp/0b3c66a9-68685f.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

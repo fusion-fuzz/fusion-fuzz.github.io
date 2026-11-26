@@ -1,0 +1,112 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7hborn22/707f40e5.swift:23:34: error: expected '>' to complete generic argument list
+21 | var value: Int = 0
+22 | var inner: UnsafeMutablePointer<Int> = withUnsafeMutablePointer(to: &value) { $0 }
+23 | var outer: UnsafeMutablePointer<_<Int>> = withUnsafeMutablePointer(to: &inner) { $0 }
+   |                                | `- error: expected '>' to complete generic argument list
+   |                                `- note: to match this opening '<'
+24 | 
+25 | let t1 = outer.pointee
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7hborn22/707f40e5.swift:23:40: error: consecutive statements on a line must be separated by ';'
+21 | var value: Int = 0
+22 | var inner: UnsafeMutablePointer<Int> = withUnsafeMutablePointer(to: &value) { $0 }
+23 | var outer: UnsafeMutablePointer<_<Int>> = withUnsafeMutablePointer(to: &inner) { $0 }
+   |                                        `- error: consecutive statements on a line must be separated by ';'
+24 | 
+25 | let t1 = outer.pointee
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7hborn22/707f40e5.swift:23:39: error: operator with postfix spacing cannot start a subexpression
+21 | var value: Int = 0
+22 | var inner: UnsafeMutablePointer<Int> = withUnsafeMutablePointer(to: &value) { $0 }
+23 | var outer: UnsafeMutablePointer<_<Int>> = withUnsafeMutablePointer(to: &inner) { $0 }
+   |                                       `- error: operator with postfix spacing cannot start a subexpression
+24 | 
+25 | let t1 = outer.pointee
+
+Abort: function abortWithVerificationError at ASTScopePrinting.cpp:78
+ASTScopeImpl verification error in source file '/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7hborn22/707f40e5.swift':
+child overlaps previous child:
+TopLevelCodeScope 0x55cb71418118, [23:39 - 61:1] 
+
+***Previous child
+PatternEntryDeclScope 0x55cb714011d8, [23:5 - 23:38] entry 0 'outer'
+
+***Parent node***
+BraceStmtScope 0x55cb71401250, [23:1 - 61:1] 
+`-PatternEntryDeclScope 0x55cb714011d8, [23:5 - 23:38] entry 0 'outer'
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -Onone -sil-verify-all -disable-availability-checking -enable-experimental-feature Macros /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7hborn22/707f40e5.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request BindExtensionsRequest(main)
+4.	Abort: function abortWithVerificationError at ASTScopePrinting.cpp:78
+| 	ASTScopeImpl verification error in source file '/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7hborn22/707f40e5.swift':
+| 	child overlaps previous child:
+| 	TopLevelCodeScope 0x55cb71418118, [23:39 - 61:1] 
+| 	
+| 	***Previous child
+| 	PatternEntryDeclScope 0x55cb714011d8, [23:5 - 23:38] entry 0 'outer'
+| 	
+| 	***Parent node***
+| 	BraceStmtScope 0x55cb71401250, [23:1 - 61:1] 
+| 	`-PatternEntryDeclScope 0x55cb714011d8, [23:5 - 23:38] entry 0 'outer'
+ #0 0x000055cb6a57dbab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055cb6a57b2e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055cb6a57e8c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f7478f34330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f7478f8dc0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f7478f3427e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f7478f178ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000055cb649bb622 (/usr/bin/swift-frontend+0x3055622)
+ #8 0x000055cb649bb70c (/usr/bin/swift-frontend+0x305570c)
+ #9 0x000055cb644b8e91 (/usr/bin/swift-frontend+0x2b52e91)
+#10 0x000055cb644b9c4d (/usr/bin/swift-frontend+0x2b53c4d)
+#11 0x000055cb644b1ac3 swift::ast_scope::ASTScopeImpl::addChild(swift::ast_scope::ASTScopeImpl*, swift::ASTContext&) (/usr/bin/swift-frontend+0x2b4bac3)
+#12 0x000055cb644b0b92 swift::ASTVisitor<swift::ast_scope::NodeAdder, swift::ast_scope::ASTScopeImpl*, swift::ast_scope::ASTScopeImpl*, swift::ast_scope::ASTScopeImpl*, void, void, void, swift::ast_scope::ASTScopeImpl*, swift::ast_scope::ScopeCreator&>::visit(swift::Decl*, swift::ast_scope::ASTScopeImpl*, swift::ast_scope::ScopeCreator&) crtstuff.c:0:0
+#13 0x000055cb644b089a swift::ast_scope::ScopeCreator::addToScopeTreeAndReturnInsertionPoint(swift::ASTNode, swift::ast_scope::ASTScopeImpl*, std::optional<swift::SourceLoc>) (/usr/bin/swift-frontend+0x2b4a89a)
+#14 0x000055cb644b1c08 swift::ast_scope::ASTSourceFileScope::expandSpecifically(swift::ast_scope::ScopeCreator&) (/usr/bin/swift-frontend+0x2b4bc08)
+#15 0x000055cb644b036d swift::ast_scope::ASTScopeImpl::expandAndBeCurrent(swift::ast_scope::ScopeCreator&) (/usr/bin/swift-frontend+0x2b4a36d)
+#16 0x000055cb644b81ab swift::ast_scope::ASTScopeImpl::lookupEnclosingMacroScope(swift::SourceFile*, swift::SourceLoc, llvm::function_ref<bool (llvm::PointerUnion<swift::FreestandingMacroExpansion*, swift::CustomAttr*>)>) (/usr/bin/swift-frontend+0x2b521ab)
+#17 0x000055cb64761e84 swift::namelookup::isInMacroArgument(swift::SourceFile*, swift::SourceLoc) (/usr/bin/swift-frontend+0x2dfbe84)
+#18 0x000055cb6476b6dd directReferencesForUnqualifiedTypeLookup(swift::DeclNameRef, swift::SourceLoc, swift::DeclContext*, (anonymous namespace)::LookupOuterResults, swift::optionset::OptionSet<DirectlyReferencedTypeLookupFlags, unsigned int>) NameLookup.cpp:0:0
+#19 0x000055cb6475f5c0 directReferencesForTypeRepr(swift::Evaluator&, swift::ASTContext&, swift::TypeRepr*, swift::DeclContext*, swift::optionset::OptionSet<DirectlyReferencedTypeLookupFlags, unsigned int>) NameLookup.cpp:0:0
+#20 0x000055cb64769a25 swift::ExtensionDecl::computeExtendedNominal(bool) const (/usr/bin/swift-frontend+0x2e03a25)
+#21 0x000055cb63fb5957 swift::BindExtensionsRequest::evaluate(swift::Evaluator&, swift::ModuleDecl*) const::$_1::operator()(swift::Decl*) const TypeChecker.cpp:0:0
+#22 0x000055cb63fb57fb swift::BindExtensionsRequest::evaluate(swift::Evaluator&, swift::ModuleDecl*) const (/usr/bin/swift-frontend+0x264f7fb)
+#23 0x000055cb63fb86ef swift::BindExtensionsRequest::OutputType swift::Evaluator::getResultUncached<swift::BindExtensionsRequest, swift::BindExtensionsRequest::OutputType swift::evaluateOrDefault<swift::BindExtensionsRequest>(swift::Evaluator&, swift::BindExtensionsRequest, swift::BindExtensionsRequest::OutputType)::'lambda'()>(swift::BindExtensionsRequest const&, swift::BindExtensionsRequest::OutputType swift::evaluateOrDefault<swift::BindExtensionsRequest>(swift::Evaluator&, swift::BindExtensionsRequest, swift::BindExtensionsRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#24 0x000055cb63fb8518 swift::BindExtensionsRequest::OutputType swift::Evaluator::getResultCached<swift::BindExtensionsRequest, swift::BindExtensionsRequest::OutputType swift::evaluateOrDefault<swift::BindExtensionsRequest>(swift::Evaluator&, swift::BindExtensionsRequest, swift::BindExtensionsRequest::OutputType)::'lambda'(), (void*)0>(swift::BindExtensionsRequest const&, swift::BindExtensionsRequest::OutputType swift::evaluateOrDefault<swift::BindExtensionsRequest>(swift::Evaluator&, swift::BindExtensionsRequest, swift::BindExtensionsRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#25 0x000055cb63fb5cef swift::bindExtensions(swift::ModuleDecl&) (/usr/bin/swift-frontend+0x264fcef)
+#26 0x000055cb627dc0a0 swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xe760a0)
+#27 0x000055cb6265951e withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#28 0x000055cb626450cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#29 0x000055cb62641fef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcdbfef)
+#30 0x000055cb6231124b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9ab24b)
+#31 0x00007f7478f191ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#32 0x00007f7478f1928b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#33 0x000055cb623102a5 _start (/usr/bin/swift-frontend+0x9aa2a5)
+
+*** Signal 6: Backtracing from 0x7f747901638d... done ***
+
+*** Program crashed: Aborted at 0x00007f747901638d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007f747901638d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007f747901638d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x0000000000171ac1  1514177
+rdi 0x0000000000171ac1  1514177
+rbp 0x0000000000171ac1  1514177
+rsp 0x000055cb7109f4e8  eb e8 57 6a cb 55 00 00 70 f7 09 71 cb 55 00 00  ëèWjËU··p÷·qËU··
+ r8 0x000055cb7109f770  06 00 00 00 00 00 00 00 fa ff f
+[... truncated ...]

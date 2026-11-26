@@ -1,0 +1,91 @@
+=================================================================
+==768==ERROR: AddressSanitizer: heap-use-after-free on address 0x528000000424 at pc 0x55931037a3b3 bp 0x7ffef413cb40 sp 0x7ffef413cb30
+READ of size 4 at 0x528000000424 thread T0
+    #0 0x55931037a3b2 in symbol_get_past_external /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/asr_utils.h:321
+    #1 0x5593105cd93b in LCompilers::LFortran::SymbolTableVisitor::visit_DerivedTypeProc(LCompilers::LFortran::AST::DerivedTypeProc_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/semantics/ast_symboltable_visitor.cpp:3220
+    #2 0x559310451c5a in visit_procedure_decl_t<LCompilers::LFortran::SymbolTableVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4733
+    #3 0x559310821072 in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::SymbolTableVisitor>::visit_procedure_decl(LCompilers::LFortran::AST::procedure_decl_t const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/src/bin/lfortran+0x2dd79072)
+    #4 0x5593105bf077 in LCompilers::LFortran::SymbolTableVisitor::visit_DerivedType(LCompilers::LFortran::AST::DerivedType_t const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/src/bin/lfortran+0x2db17077)
+    #5 0x5593104431fa in visit_decl_stmt_t<LCompilers::LFortran::SymbolTableVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4615
+    #6 0x559310716894 in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::SymbolTableVisitor>::visit_decl_stmt(LCompilers::LFortran::AST::decl_stmt_t const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/src/bin/lfortran+0x2dc6e894)
+    #7 0x55931056b680 in LCompilers::LFortran::SymbolTableVisitor::visit_Subroutine(LCompilers::LFortran::AST::Subroutine_t const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/src/bin/lfortran+0x2dac3680)
+    #8 0x559310445c01 in visit_program_unit_t<LCompilers::LFortran::SymbolTableVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4552
+    #9 0x55931071dae6 in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::SymbolTableVisitor>::visit_program_unit(LCompilers::LFortran::AST::program_unit_t const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/src/bin/lfortran+0x2dc75ae6)
+    #10 0x55931044241b in visit_ast_t<LCompilers::LFortran::SymbolTableVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4899
+    #11 0x559310702a50 in LCompilers::LFortran::AST::BaseVisitor<LCompilers::LFortran::SymbolTableVisitor>::visit_ast(LCompilers::LFortran::AST::ast_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/ast.h:4938
+    #12 0x55931053fdc8 in LCompilers::LFortran::SymbolTableVisitor::visit_TranslationUnit(LCompilers::LFortran::AST::TranslationUnit_t const&) (/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/src/bin/lfortran+0x2da97dc8)
+    #13 0x5593103eb946 in LCompilers::LFortran::symbol_table_visitor(Allocator&, LCompilers::LFortran::AST::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::SymbolTable*, LCompilers::CompilerOptions&, std::map<unsigned long, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, LCompilers::ASR::ttype_t*, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, LCompilers::ASR::ttype_t*> > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, LCompilers::ASR::ttype_t*, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, LCompilers::ASR::ttype_t*> > > > > >&, std::map<unsigned long, LCompilers::ASR::symbol_t*, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, LCompilers::ASR::symbol_t*> > >&, std::map<unsigned long, unsigned long, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, unsigned long> > >&, std::map<unsigned long, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > > >&, std::map<unsigned long, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > > >&, std::map<unsigned int, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<LCompilers::ASR::ttype_t*, LCompilers::ASR::symbol_t*>, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<LCompilers::ASR::ttype_t*, LCompilers::ASR::symbol_t*> > > >, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<LCompilers::ASR::ttype_t*, LCompilers::ASR::symbol_t*>, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::pair<LCompilers::ASR::ttype_t*, LCompilers::ASR::symbol_t*> > > > > > >&, std::map<unsigned int, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, LCompilers::ASR::symbol_t*, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, LCompilers::ASR::symbol_t*> > >, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, LCompilers::ASR::symbol_t*, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, LCompilers::ASR::symbol_t*> > > > > >&, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::vector<LCompilers::LFortran::AST::decl_stmt_t*, std::allocator<LCompilers::LFortran::AST::decl_stmt_t*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::vector<LCompilers::LFortran::AST::decl_stmt_t*, std::allocator<LCompilers::LFortran::AST::decl_stmt_t*> > > > >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::vector<LCompilers::LFortran::AST::decl_stmt_t*, std::allocator<LCompilers::LFortran::AST::decl_stmt_t*> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::vector<LCompilers::LFortran::AST::decl_stmt_t*, std::allocator<LCompilers::LFortran::AST::decl_stmt_t*> > > > > > > >&, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::vector<int, std::allocator<int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::vector<int, std::allocator<int> > > > >&, std::map<unsigned int, std::vector<LCompilers::ASR::stmt_t*, std::allocator<LCompilers::ASR::stmt_t*> >, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, std::vector<LCompilers::ASR::stmt_t*, std::allocator<LCompilers::ASR::stmt_t*> > > > >&, LCompilers::LocationManager&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/semantics/ast_symboltable_visitor.cpp:5636
+    #14 0x5593101933df in LCompilers::LFortran::ast_to_asr(Allocator&, LCompilers::LFortran::AST::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::SymbolTable*, bool, LCompilers::CompilerOptions&, LCompilers::LocationManager&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/semantics/ast_to_asr.cpp:80
+    #15 0x55930fb5232e in LCompilers::FortranEvaluator::get_asr3(LCompilers::LFortran::AST::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::LocationManager&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:679
+    #16 0x55930fb4e71e in LCompilers::FortranEvaluator::get_asr2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:465
+    #17 0x55930fd5ad35 in LCompilers::load_input_asr(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool, Allocator&, LCompilers::FortranEvaluator&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/pipeline.cpp:23
+    #18 0x55930f33ade4 in compile_src_to_object_file /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:1321
+    #19 0x55930f36c601 in main_app(int, char**) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3062
+    #20 0x55930f36fe60 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3149
+    #21 0x7fc3682e4d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #22 0x7fc3682e4e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #23 0x55930ee279b4 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/src/bin/lfortran+0x2c37f9b4)
+
+0x528000000424 is located 804 bytes inside of 14400-byte region [0x528000000100,0x528000003940)
+freed by thread T0 here:
+    #0 0x7fc368f4f537 in __interceptor_free ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:127
+    #1 0x5593100e9473 in yyfreeGLRStack /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc:22267
+    #2 0x5593100fae79 in yyparse(LCompilers::LFortran::Parser&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc:23425
+    #3 0x55930f491e01 in LCompilers::LFortran::Parser::parse(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/parser/parser.cpp:335
+    #4 0x55930f490d21 in LCompilers::LFortran::parse(Allocator&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions const&, unsigned int) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/parser/parser.cpp:292
+    #5 0x55930fb4cdb1 in LCompilers::FortranEvaluator::get_ast2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:413
+    #6 0x55930fb4e4b5 in LCompilers::FortranEvaluator::get_asr2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:456
+    #7 0x55930fd5ad35 in LCompilers::load_input_asr(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool, Allocator&, LCompilers::FortranEvaluator&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/pipeline.cpp:23
+    #8 0x55930f33ade4 in compile_src_to_object_file /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:1321
+    #9 0x55930f36c601 in main_app(int, char**) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3062
+    #10 0x55930f36fe60 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3149
+    #11 0x7fc3682e4d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+
+previously allocated by thread T0 here:
+    #0 0x7fc368f4f887 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:145
+    #1 0x5593100e7994 in yyinitGLRStack /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc:22181
+    #2 0x5593100f8601 in yyparse(LCompilers::LFortran::Parser&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc:23230
+    #3 0x55930f491e01 in LCompilers::LFortran::Parser::parse(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/parser/parser.cpp:335
+    #4 0x55930f490d21 in LCompilers::LFortran::parse(Allocator&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions const&, unsigned int) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/parser/parser.cpp:292
+    #5 0x55930fb4cdb1 in LCompilers::FortranEvaluator::get_ast2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:413
+    #6 0x55930fb4e4b5 in LCompilers::FortranEvaluator::get_asr2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:456
+    #7 0x55930fd5ad35 in LCompilers::load_input_asr(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool, Allocator&, LCompilers::FortranEvaluator&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/pipeline.cpp:23
+    #8 0x55930f33ade4 in compile_src_to_object_file /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:1321
+    #9 0x55930f36c601 in main_app(int, char**) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3062
+    #10 0x55930f36fe60 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3149
+    #11 0x7fc3682e4d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+
+SUMMARY: AddressSanitizer: heap-use-after-free /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/asr_utils.h:321 in symbol_get_past_external
+Shadow bytes around the buggy address:
+  0x0a507fff8030: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0a507fff8040: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0a507fff8050: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0a507fff8060: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0a507fff8070: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+=>0x0a507fff8080: fd fd fd fd[fd]fd fd fd fd fd fd fd fd fd fd fd
+  0x0a507fff8090: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0a507fff80a0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0a507fff80b0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0a507fff80c0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0a507fff80d0: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==768==ABORTING

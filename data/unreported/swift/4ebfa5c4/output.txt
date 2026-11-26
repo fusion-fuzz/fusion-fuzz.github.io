@@ -1,0 +1,86 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu_hud3ei/70e982f3.swift:8:7: warning: initialization of immutable value 'y' was never used; consider replacing with assignment to '_' or removing it [#NoUsage]
+  6 | var x = 10
+  7 | defer {
+  8 |   let y = x
+    |       `- warning: initialization of immutable value 'y' was never used; consider replacing with assignment to '_' or removing it [#NoUsage]
+  9 | }
+ 10 | 
+
+swift-frontend: /home/build-user/swift/lib/SILGen/SILGenType.cpp:298: void (anonymous namespace)::SILGenVTableBase<(anonymous namespace)::SILGenVTable>::addMethodOverride(SILDeclRef, SILDeclRef) [T = (anonymous namespace)::SILGenVTable]: Assertion `found != baseToIndexMap.end()' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-silgen -Osize -sil-verify-all /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu_hud3ei/70e982f3.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module main)
+4.	While silgen visitDecl 'C' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpu_hud3ei/70e982f3.swift:869:1)
+ #0 0x0000643f48099658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x0000643f48096e75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x0000643f4809a411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x000072ba20a9a330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x000072ba20af3c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x000072ba20a9a27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x000072ba20a7d8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000072ba20a7d81b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x000072ba20a90517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x0000643f40676619 swift::SILVTableVisitor<(anonymous namespace)::SILGenVTable>::maybeAddEntry(swift::SILDeclRef) SILGenType.cpp:0:0
+#10 0x0000643f4067610a (anonymous namespace)::SILGenVTableBase<(anonymous namespace)::SILGenVTable>::visitAncestor(swift::ClassDecl*) SILGenType.cpp:0:0
+#11 0x0000643f40670ed0 (anonymous namespace)::SILGenType::emitType() SILGenType.cpp:0:0
+#12 0x0000643f40670b98 swift::Lowering::SILGenModule::visitNominalTypeDecl(swift::NominalTypeDecl*) crtstuff.c:0:0
+#13 0x0000643f40534d5f swift::Lowering::SILGenModule::emitSourceFile(swift::SourceFile*) crtstuff.c:0:0
+#14 0x0000643f405355b4 swift::ASTLoweringRequest::evaluate(swift::Evaluator&, swift::ASTLoweringDescriptor) const (/usr/bin/swift-frontend+0x10eb5b4)
+#15 0x0000643f40654a56 swift::SimpleRequest<swift::ASTLoweringRequest, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>> (swift::ASTLoweringDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::ASTLoweringRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#16 0x0000643f4053ae45 swift::ASTLoweringRequest::OutputType swift::Evaluator::getResultUncached<swift::ASTLoweringRequest, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()>(swift::ASTLoweringRequest const&, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()) crtstuff.c:0:0
+#17 0x0000643f40535bf3 swift::performASTLowering(swift::ModuleDecl*, swift::Lowering::TypeConverter&, swift::SILOptions const&, swift::IRGenOptions const*) (/usr/bin/swift-frontend+0x10ebbf3)
+#18 0x0000643f3fe7c93f swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xa3293f)
+#19 0x0000643f3fe9588a withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#20 0x0000643f3fe82595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#21 0x0000643f3fe7f21e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#22 0x0000643f3fb86b21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#23 0x000072ba20a7f1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#24 0x000072ba20a7f28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#25 0x0000643f3fb85a15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x72ba20b7c38d... done ***
+
+*** Program crashed: Aborted at 0x000072ba20b7c38d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x000072ba20b7c38d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x000072ba20b7c38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x00000000000bf76d  784237
+rdi 0x00000000000bf76d  784237
+rbp 0x00000000000bf76d  784237
+rsp 0x0000643f7798d2e8  3b a4 09 48 3f 64 00 00 70 d5 98 77 3f 64 00 00  ;¤·H?d··pÕ·w?d··
+ r8 0x0000643f7798d570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x0000643f7798d570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x0000643f7798d570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x0000643f49711bc7  2f 68 6f 6d 65 2f 62 75 69 6c 64 2d 75 73 65 72  /home/build-user
+r14 0x0000000000000000  0
+r15 0x0000643f7798d388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x000072ba20b7c38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x000072ba20a55000–0x000072ba20c04eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.01s
+
+Aborted (core dumped)

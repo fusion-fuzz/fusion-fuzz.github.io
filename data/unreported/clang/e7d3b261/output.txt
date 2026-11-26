@@ -1,0 +1,84 @@
+[... 439 lines / 42,534 bytes of output truncated before crash signature ...]
+      |                                                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpyouqd7kq/0ed86934.cpp:38:48: error: 'nonallocating' and 'allocating' attributes are not compatible
+   38 | void na_true_false_2() [[clang::allocating]] [[clang::nonallocating(true)]]; // expected-error {{'nonallocating' and 'allocating' attributes are not compatible}}
+      |                                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpyouqd7kq/0ed86934.cpp:40:48: error: 'allocating' and 'nonallocating' attributes are not compatible
+   40 | void na_true_false_3() [[clang::nonallocating, clang::allocating]]; // expected-error {{'allocating' and 'nonallocating' attributes are not compatible}}
+      |                                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpyouqd7kq/0ed86934.cpp:41:45: error: 'nonallocating' and 'allocating' attributes are not compatible
+   41 | void na_true_false_4() [[clang::allocating, clang::nonallocating]]; // expected-error {{'nonallocating' and 'allocating' attributes are not compatible}}
+      |                                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpyouqd7kq/0ed86934.cpp:46:52: error: 'allocating' and 'nonblocking' attributes are not compatible
+   46 | void nl_true_na_false_1() [[clang::nonblocking]] [[clang::allocating]]; // expected-error {{'allocating' and 'nonblocking' attributes are not compatible}}
+      |                                                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpyouqd7kq/0ed86934.cpp:47:51: error: 'nonblocking' and 'allocating' attributes are not compatible
+   47 | void nl_true_na_false_2() [[clang::allocating]] [[clang::nonblocking]]; // expected-error {{'nonblocking' and 'allocating' attributes are not compatible}}
+      |                                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpyouqd7kq/0ed86934.cpp:168:11: error: use of undeclared identifier 'SANITY'
+  168 |   int i = SANITY(0); // expected-warning {{division by zero is undefined}}
+      |           ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpyouqd7kq/0ed86934.cpp:172:18: error: use of undeclared identifier 'SHADOW'
+  172 |   int i = SHADOW(SHADOW(1));
+      |                  ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpyouqd7kq/0ed86934.cpp:176:11: error: use of undeclared identifier 'OLD_STYLE_CAST'
+  176 |   int i = OLD_STYLE_CAST(0);
+      |           ^~~~~~~~~~~~~~
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/Type.cpp:4070: clang::FunctionProtoType::FunctionProtoType(clang::QualType, ArrayRef<clang::QualType>, clang::QualType, const clang::FunctionProtoType::ExtProtoInfo &): Assertion `ExtraBits.NumFunctionEffects == EffectsCount && "effect bitfield overflow"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O2 -std=gnu++20 -fblocks -ffast-math -Wextra /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpyouqd7kq/0ed86934.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpyouqd7kq/0ed86934.cpp:308:63: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00006417d86188cb __interceptor_backtrace + 91
+1  clang++   0x00006417de2c6037 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00006417de2bfd03 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00006417de2c49d4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00006417de1100d5
+5  clang++   0x00006417de1108e3
+6  libc.so.6 0x0000757f0cec3520
+7  libc.so.6 0x0000757f0cf179bc pthread_kill + 300
+8  libc.so.6 0x0000757f0cec3476 raise + 22
+9  libc.so.6 0x0000757f0cea97f3 abort + 211
+10 libc.so.6 0x0000757f0cea971b
+11 libc.so.6 0x0000757f0cebae96
+12 clang++   0x00006417e89e745e clang::FunctionProtoType::FunctionProtoType(clang::QualType, llvm::ArrayRef<clang::QualType>, clang::QualType, clang::FunctionProtoType::ExtProtoInfo const&) + 8622
+13 clang++   0x00006417e73a4af0 clang::ASTContext::getFunctionTypeInternal(clang::QualType, llvm::ArrayRef<clang::QualType>, clang::FunctionProtoType::ExtProtoInfo const&, bool) const + 3840
+14 clang++   0x00006417e51fb217 clang::Sema::MergeFunctionDecl(clang::FunctionDecl*, clang::NamedDecl*&, clang::Scope*, bool, bool) + 20679
+15 clang++   0x00006417e5270b98 clang::Sema::CheckFunctionDeclaration(clang::Scope*, clang::FunctionDecl*, clang::LookupResult&, bool, bool) + 10360
+16 clang++   0x00006417e523939b clang::Sema::ActOnFunctionDeclarator(clang::Scope*, clang::Declarator&, clang::DeclContext*, clang::TypeSourceInfo*, clang::LookupResult&, llvm::MutableArrayRef<clang::TemplateParameterList*>, bool&) + 42331
+17 clang++   0x00006417e522918b clang::Sema::HandleDeclarator(clang::Scope*, clang::Declarator&, llvm::MutableArrayRef<clang::TemplateParameterList*>) + 5419
+18 clang++   0x00006417e641448b clang::Sema::ActOnTemplateDeclarator(clang::Scope*, llvm::MutableArrayRef<clang::TemplateParameterList*>, clang::Declarator&) + 27
+19 clang++   0x00006417e48b1041 clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 1441
+20 clang++   0x00006417e48ad16f clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 7215
+21 clang++   0x00006417e4a80b52 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 1970
+22 clang++   0x00006417e4a7eaf4 clang::Parser::ParseTemplateDeclarationOrSpecialization(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2932
+23 clang++   0x00006417e4a7db48 clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) + 328
+24 clang++   0x00006417e48a968f clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 975
+25 clang++   0x00006417e484bf6a clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 1002
+26 clang++   0x00006417e48486d5 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1765
+27 clang++   0x00006417e48211ef clang::ParseAST(clang::Sema&, bool, bool) + 2351
+28 clang++   0x00006417e00192ab clang::CodeGenAction::ExecuteAction() + 1771
+29 clang++   0x00006417e06d752e clang::FrontendAction::Execute() + 222
+30 clang++   0x00006417e0568900 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+31 clang++   0x00006417e08bc2df clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 751
+32 clang++   0x00006417d86ae3e6 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4390
+33 clang++   0x00006417d86a2349
+34 clang++   0x00006417d86ac887
+35 clang++   0x00006417e013fd37
+36 clang++   0x00006417de10fe8d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+37 clang++   0x00006417e013d23a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+38 clang++   0x00006417e008dbbc clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+39 clang++   0x00006417e008f34b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+40 clang++   0x00006417e00de940 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+41 clang++   0x00006417d86a0777 clang_main(int, char**, llvm::ToolContext const&) + 12295
+42 clang++   0x00006417d86d00f7 main + 567
+43 libc.so.6 0x0000757f0ceaad90
+44 libc.so.6 0x0000757f0ceaae40 __libc_start_main + 128
+45 clang++   0x00006417d85dcd95 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git cd9c8d090c1a87ebc619e7aba9a036f06466be5e)
+Target: x86_64-unknown-linux-gnu
+Thread mo
+[... truncated ...]

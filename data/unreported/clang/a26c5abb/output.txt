@@ -1,0 +1,74 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpve_olqiz/aade7b6b.cpp:7:14: error: expected ';' after top level declarator
+    7 |         int l:28;
+      |              ^
+      |              ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpve_olqiz/aade7b6b.cpp:7:15: error: expected unqualified-id
+    7 |         int l:28;
+      |               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpve_olqiz/aade7b6b.cpp:8:15: error: expected ';' after top level declarator
+    8 |         char z:7;       
+      |               ^
+      |               ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpve_olqiz/aade7b6b.cpp:8:16: error: expected unqualified-id
+    8 |         char z:7;       
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpve_olqiz/aade7b6b.cpp:9:14: error: expected ';' after top level declarator
+    9 |         int x:20;       
+      |              ^
+      |              ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpve_olqiz/aade7b6b.cpp:9:15: error: expected unqualified-id
+    9 |         int x:20;       
+      |               ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/Lex/Token.h:146: unsigned int clang::Token::getLength() const: Assertion `!isAnnotation() && "Annotation tokens have no length field"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O2 -std=gnu++20 -fblocks -fno-inline -Wall -target i386-apple-darwin9 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpve_olqiz/aade7b6b.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpve_olqiz/aade7b6b.cpp:14:9: at annotation token
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055f740b17329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055f740b13fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055f740b148a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055f740a56218
+4  libc.so.6 0x000072de1eb5e520
+5  libc.so.6 0x000072de1ebb29bc pthread_kill + 300
+6  libc.so.6 0x000072de1eb5e476 raise + 22
+7  libc.so.6 0x000072de1eb447f3 abort + 211
+8  libc.so.6 0x000072de1eb4471b
+9  libc.so.6 0x000072de1eb55e96
+10 clang++   0x000055f744dd088d clang::Lexer::getSpelling[abi:cxx11](clang::Token const&, clang::SourceManager const&, clang::LangOptions const&, bool*) + 509
+11 clang++   0x000055f74332a187 clang::Parser::ParseModuleDecl(clang::Sema::ModuleImportState&) + 439
+12 clang++   0x000055f74333081e clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 862
+13 clang++   0x000055f74330d632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+14 clang++   0x000055f7419ae061 clang::FrontendAction::Execute() + 65
+15 clang++   0x000055f741937e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+16 clang++   0x000055f741a85de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+17 clang++   0x000055f73e8e133e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+18 clang++   0x000055f73e8d713a
+19 clang++   0x000055f73e8d72cf
+20 clang++   0x000055f7416bccfd
+21 clang++   0x000055f740a56630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+22 clang++   0x000055f7416bdb53
+23 clang++   0x000055f741672607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+24 clang++   0x000055f741676ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+25 clang++   0x000055f741685004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+26 clang++   0x000055f73e8dc923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+27 clang++   0x000055f73e8187f1 main + 113
+28 libc.so.6 0x000072de1eb45d90
+29 libc.so.6 0x000072de1eb45e40 __libc_start_main + 128
+30 clang++   0x000055f73e8d6765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: i386-apple-darwin9
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/aade7b6b-70fc90.cpp
+clang++: note: diagnostic msg: /tmp/aade7b6b-70fc90.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

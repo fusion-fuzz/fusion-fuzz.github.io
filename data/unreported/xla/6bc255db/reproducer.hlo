@@ -1,0 +1,19 @@
+HloModule test
+
+%compare {
+  %lhs = f32[] parameter(0)
+  %lhs_scaled = f32[] multiply(%lhs, f32[] constant(2))
+  %rhs = f32[] parameter(1)
+  ROOT %lt = pred[] compare(%lhs_scaled, %rhs), direction=LT
+}
+
+ENTRY %main {
+  %param = f32[16,20,30] parameter(0)
+  %zero = s32[] constant(0)
+  %ds_index1 = s32[] parameter(1)
+  %ds_index2 = s32[] parameter(2)
+  %ds = f32[16,10,15] dynamic-slice(param, zero, ds_index1, ds_index2), dynamic_slice_sizes={16,10,15}
+  %input = f32[1000] parameter(3)
+  %sort = f32[1000] sort(%input), dimensions={0}, to_apply=%compare
+  ROOT %ffl.root = (f32[16,10,15], f32[1000]) tuple(%ds, %sort)
+}

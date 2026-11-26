@@ -1,0 +1,61 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpf4sfbeh1/900b0de6.c:13:25: error: 'TYPE_CANONICAL' is not compatible
+   13 | enum ebool : bool { BF, BT };
+      |                         ^~
+ <boolean_type 0x7a0e6f81db28 bool public unsigned QI
+    size <integer_cst 0x7a0e6f81f090 type <integer_type 0x7a0e6f81d0a8 bitsizetype> constant 8>
+    unit-size <integer_cst 0x7a0e6f81f0a8 type <integer_type 0x7a0e6f81d000 sizetype> constant 1>
+    align:8 warn_if_not_align:0 symtab:1872482944 alias-set -1 canonical-type 0x7a0e6f81db28 precision:1 min <integer_cst 0x7a0e6f81f2e8 0> max <integer_cst 0x7a0e6f81f318 1>>
+ <enumeral_type 0x7a0e6f986690 ebool
+    type <boolean_type 0x7a0e6f81db28 bool public unsigned QI
+        size <integer_cst 0x7a0e6f81f090 constant 8>
+        unit-size <integer_cst 0x7a0e6f81f0a8 constant 1>
+        align:8 warn_if_not_align:0 symtab:1872482944 alias-set -1 canonical-type 0x7a0e6f81db28 precision:1 min <integer_cst 0x7a0e6f81f2e8 0> max <integer_cst 0x7a0e6f81f318 1>>
+    unsigned type_0 type_5 QI size <integer_cst 0x7a0e6f81f090 8> unit-size <integer_cst 0x7a0e6f81f0a8 1>
+    align:8 warn_if_not_align:0 symtab:0 alias-set -1 canonical-type 0x7a0e6f81db28 precision:1 min <integer_cst 0x7a0e6f81f2e8 0> max <integer_cst 0x7a0e6f81f318 1>
+    values <tree_list 0x7a0e6f988988
+        purpose <identifier_node 0x7a0e6f9bd190 BF symbol <const_decl 0x7a0e6f80f780 BF>>
+        value <const_decl 0x7a0e6f80f780 BF type <enumeral_type 0x7a0e6f986690 ebool>
+            VOID /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpf4sfbeh1/900b0de6.c:13:21
+            align:1 warn_if_not_align:0 context <enumeral_type 0x7a0e6f986690 ebool> initial <integer_cst 0x7a0e6f99d5b8 0>>
+        chain <tree_list 0x7a0e6f9889b0
+            purpose <identifier_node 0x7a0e6f9bd1e0 BT symbol <const_decl 0x7a0e6f80f7f8 BT>> value <const_decl 0x7a0e6f80f7f8 BT>>>
+    chain <type_decl 0x7a0e6f82c8c0 D.2340>>
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpf4sfbeh1/900b0de6.c:13:25: internal compiler error: 'verify_type' failed
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0x1a4e5bd verify_type(tree_node const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:14930
+0x1139374 gen_type_die_with_usage
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dwarf2out.cc:26791
+0x113609a gen_type_die
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dwarf2out.cc:27026
+0x113609a gen_decl_die
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dwarf2out.cc:27667
+0x113717b dwarf2out_decl
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dwarf2out.cc:28244
+0x1137480 dwarf2out_type_decl
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dwarf2out.cc:27962
+0x1137480 dwarf2out_type_decl
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dwarf2out.cc:27957
+0x1530f86 rest_of_type_compilation(tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/passes.cc:345
+0xea7908 finish_enum(tree_node*, tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-decl.cc:10452
+0xf318b9 c_parser_enum_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:4307
+0xf0b32d c_parser_declspecs(c_parser*, c_declspecs*, bool, bool, bool, bool, bool, bool, bool, c_lookahead_kind)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3895
+0xf33ee2 c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2566
+0xf43529 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2256
+0xf44470 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xf44470 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xfc9e09 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpf4sfbeh1/900b0de6.c -quiet -dumpbase 900b0de6.c -dumpbase-ext .c -mtune=generic -march=x86-64 -g -O1 -std=gnu23 -std=c23 -fno-omit-frame-pointer -funroll-loops -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

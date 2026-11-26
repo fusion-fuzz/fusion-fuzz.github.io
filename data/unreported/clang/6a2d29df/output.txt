@@ -1,0 +1,97 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:84:12: error: nested name specifier 'A<T>' for declaration does not refer into a class, class template or class template partial specialization
+   84 | void A<T>::f() requires V { }
+      |      ~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:87:12: error: nested name specifier 'A<T>' for declaration does not refer into a class, class template or class template partial specialization
+   87 | void A<T>::g() { }
+      |      ~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:88:1: error: too few template parameters in template redeclaration
+   88 | template<typename T>
+      | ^~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:36:1: note: previous template declaration is here
+   36 | template<typename T, typename _FflDeclT = sockaddr_in>
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:94:14: error: use 'template' keyword to treat 'B' as a dependent template name
+   94 | struct A<T>::B<U*, V> { }
+      |              ^
+      |              template 
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:94:14: error: cannot specialize a dependent template
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:98:14: error: use 'template' keyword to treat 'B' as a dependent template name
+   98 | struct A<T>::B<U&, V> { }
+      |              ^
+      |              template 
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:98:14: error: cannot specialize a dependent template
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:100:1: error: too few template parameters in template redeclaration
+  100 | template<typename T>
+      | ^~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:36:1: note: previous template declaration is here
+   36 | template<typename T, typename _FflDeclT = sockaddr_in>
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:106:14: error: use 'template' keyword to treat 'C' as a dependent template name
+  106 | struct A<T>::C<U*> { }
+      |              ^
+      |              template 
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:106:14: error: cannot specialize a dependent template
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:110:11: error: nested name specifier 'A<T>' for declaration does not refer into a class, class template or class template partial specialization
+  110 | int A<T>::x = 0;
+      |     ~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:113:11: error: use 'template' keyword to treat 'x' as a dependent template name
+  113 | int A<T>::x<U*, V> = 0;
+      |           ^
+      |           template 
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:113:11: error: nested name specifier 'A<T>' for declaration does not refer into a class, class template or class template partial specialization
+  113 | int A<T>::x<U*, V> = 0;
+      |     ~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:116:11: error: use 'template' keyword to treat 'x' as a dependent template name
+  116 | int A<T>::x<U&, V> = 0;
+      |           ^
+      |           template 
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:116:11: error: nested name specifier 'A<T>' for declaration does not refer into a class, class template or class template partial specialization
+  116 | int A<T>::x<U&, V> = 0;
+      |     ~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:119:11: error: nested name specifier 'A<T>' for declaration does not refer into a class, class template or class template partial specialization
+  119 | int A<T>::y = 0;
+      |     ~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:122:11: error: use 'template' keyword to treat 'y' as a dependent template name
+  122 | int A<T>::y<U*> = 0;
+      |           ^
+      |           template 
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:122:11: error: nested name specifier 'A<T>' for declaration does not refer into a class, class template or class template partial specialization
+  122 | int A<T>::y<U*> = 0;
+      |     ~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:126:16: error: out-of-line declaration of 'f' does not match any declaration in 'A<short>'
+  126 | void A<short>::f() requires V;
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:37:8: note: A defined here
+   37 | struct A { // expected-note {{defined here}}
+      |        ^
+not a non-type template argument
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaTemplate.cpp:8196!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Oz -std=c++23 -fblocks -Wall /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkmotl8f3/1aca6e73.cpp:141:17: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000062a2434bd329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000062a2434b9fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000062a2434ba8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000062a2433fc218
+4  libc.so.6 0x00007ff372a16520
+5  libc.so.6 0x00007ff372a6a9bc pthread_kill + 300
+6  libc.so.6 0x00007ff372a16476 raise + 22
+7  libc.so.6 0x00007ff3729fc7f3 abort + 211
+8  clang++   0x000062a24340711e
+9  clang++   0x000062a24674ea7f clang::Sema::BuildExpressionFromNonTypeTemplateArgument(clang::TemplateArgument const&, clang::SourceLocation) + 367
+10 clang++   0x000062a24674ec45 clang::Sema::BuildSubstNonTypeTemplateParmExpr(clang::Decl*, unsigned int, clang::QualType, clang::SourceLocation, clang::TemplateArgument, clang::OptionalUnsigned<unsigned int>, bool) + 389
+11 clang++   0x000062a24692fc78
+12 clang++   0x000062a2468f8588 clang::Sema::SubstConstraintExprWithoutSatisfaction(clang::Expr*, clang::MultiLevelTemplateArgumentList const&) + 136
+13 clang++   0x000062a245fdce05
+14 clang++   0x000062a245fe95e9 clang::Sema::AreConstraintExpressionsEqual(clang::NamedDecl const*, clang::Expr const*, clang::Sema::TemplateCompareNewDeclInfo const&, clang::Expr const*) + 281
+15 clang++   0x000062a24676f4e7 clang::Sema::TemplateParameterListsAreEqual(clang::Sema::TemplateCompareNewDeclInfo const&, clang::TemplateParameterList*, clang::NamedDecl const*, clang::TemplateParameterList*, bool, clang::Sema::TemplateParameterListEqualKind, clang::SourceLocation) + 567
+16 clang++   0x000062a2467a0f2b clang::Sema::CheckClassTemplate(clang::Scope*, unsigned int, clang::TagUseKind, clang::SourceLocation, clang::CXXScopeSpec&, clang::IdentifierInfo*, clang::SourceLocation, clang::ParsedAttributesView const&, clang::TemplateParameterList*, clang::AccessSpecifier, clang::SourceLocation, clang::SourceLocation, unsigned int, clang::TemplateParameterList**, bool, clang::SkipBodyInfo*) + 3835
+17 clang++   0x000062a2460dba5d clang::Sema::ActOnTag(clang::Scope*, unsigned int, clang::TagUseKind, clang::SourceLocation, clang::CXXScopeSpec&, clang::IdentifierInfo*, clang::SourceLocation, clang::ParsedAttributesView const&, clang::AccessSpecifier, clang::SourceLocation, llvm::MutableArrayRef<clang::TemplateParameterList*>, bool&, bool&, clang::SourceLocation, bool, clang::ActionResult<clang::OpaquePtr<clang::QualType>, false>, bool, bool, clang::OffsetOfKind, clang::SkipBodyInfo*) + 2717
+18 clang++   0x000062a245d3d4db clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 4523
+19 clang++   0x000062a245d0d4a5 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2821
+20 clang++   0x000062a245deb069 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2361
+21 clang++   0x000062a245df7338
+22 clang++   0x000062a245df775a clang::Parser::ParseDeclaration
+[... truncated ...]

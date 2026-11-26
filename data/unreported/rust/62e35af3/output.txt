@@ -1,0 +1,27 @@
+warning: the feature `custom_mir` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpd4azea5z/a7e17c31.rs:1:12
+  |
+1 | #![feature(custom_mir, core_intrinsics)]
+  |            ^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+  = note: `#[warn(internal_features)]` on by default
+
+warning: the feature `core_intrinsics` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpd4azea5z/a7e17c31.rs:1:24
+  |
+1 | #![feature(custom_mir, core_intrinsics)]
+  |                        ^^^^^^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+
+error: internal compiler error: compiler/rustc_mir_build/src/thir/cx/expr.rs:1552:13: overloaded_place: receiver is not a reference
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpd4azea5z/a7e17c31.rs:42:17
+   |
+42 | let path = &args[1];
+   |                 ^^^
+
+
+thread 'rustc' (4105322) panicked at compiler/rustc_mir_build/src/thir/cx/expr.rs:1552:13:
+Box<dyn Any>
+stack backtrace:

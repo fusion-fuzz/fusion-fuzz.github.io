@@ -1,0 +1,58 @@
+/home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1920 internal compiler error: TINT_UNREACHABLE unhandled core builtin: select
+
+********************************************************************
+*  The tint shader compiler has encountered an unexpected error.   *
+*                                                                  *
+*  Please help us fix this issue by submitting a bug report at     *
+*  crbug.com/tint with the source program that triggered the bug.  *
+********************************************************************
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==2626114==ERROR: AddressSanitizer: ILL on unknown address 0x5901e38ba9c3 (pc 0x5901e38ba9c3 bp 0x7fff06de8bb0 sp 0x7fff06de88c0 T0)
+    #0 0x5901e38ba9c3 in tint::InternalCompilerError::~InternalCompilerError() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/ice/ice.cc:71
+    #1 0x5901e3d4c389 in EmitCoreBuiltinName /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1920
+    #2 0x5901e3d4ac99 in EmitCoreBuiltinCall /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1760
+    #3 0x5901e3d3ec25 in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1507
+    #4 0x5901e3d40484 in operator()<tint::glsl::writer::(anonymous namespace)::Printer::EmitValue(tint::StringStream&, const tint::core::ir::Value*)::<lambda(const tint::core::ir::InstructionResult*)>::<lambda(const tint::core::ir::CoreBuiltinCall*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:347
+    #5 0x5901e3d41eb9 in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #6 0x5901e3d436be in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1501
+    #7 0x5901e3d43de4 in operator()<tint::glsl::writer::(anonymous namespace)::Printer::EmitValue(tint::StringStream&, const tint::core::ir::Value*)::<lambda(const tint::core::ir::InstructionResult*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:347
+    #8 0x5901e3d445fc in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #9 0x5901e3d44a50 in EmitValue /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1497
+    #10 0x5901e3d1b136 in EmitVectorAccess /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:480
+    #11 0x5901e3d1fd21 in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:640
+    #12 0x5901e3d20730 in operator()<tint::glsl::writer::(anonymous namespace)::Printer::EmitAccess(tint::StringStream&, const tint::core::ir::Access*)::<lambda(const tint::core::type::Vector*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:347
+    #13 0x5901e3d20b35 in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #14 0x5901e3d21660 in EmitAccess /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:631
+    #15 0x5901e3d3e7cd in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1503
+    #16 0x5901e3d3fd24 in operator()<tint::glsl::writer::(anonymous namespace)::Printer::EmitValue(tint::StringStream&, const tint::core::ir::Value*)::<lambda(const tint::core::ir::InstructionResult*)>::<lambda(const tint::core::ir::Access*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:347
+    #17 0x5901e3d41d5d in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #18 0x5901e3d436be in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1501
+    #19 0x5901e3d43de4 in operator()<tint::glsl::writer::(anonymous namespace)::Printer::EmitValue(tint::StringStream&, const tint::core::ir::Value*)::<lambda(const tint::core::ir::InstructionResult*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:347
+    #20 0x5901e3d445fc in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #21 0x5901e3d44a50 in EmitValue /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1497
+    #22 0x5901e3d46cdb in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1624
+    #23 0x5901e3d4805c in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1660
+    #24 0x5901e3d48872 in operator()<tint::glsl::writer::(anonymous namespace)::Printer::EmitConstruct(tint::StringStream&, const tint::core::ir::Construct*)::<lambda(const tint::core::type::Struct*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:347
+    #25 0x5901e3d48c19 in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #26 0x5901e3d493ec in EmitConstruct /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1630
+    #27 0x5901e3d3e8e3 in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1504
+    #28 0x5901e3d3fefc in operator()<tint::glsl::writer::(anonymous namespace)::Printer::EmitValue(tint::StringStream&, const tint::core::ir::Value*)::<lambda(const tint::core::ir::InstructionResult*)>::<lambda(const tint::core::ir::Construct*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:347
+    #29 0x5901e3d41db4 in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #30 0x5901e3d436be in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1501
+    #31 0x5901e3d43de4 in operator()<tint::glsl::writer::(anonymous namespace)::Printer::EmitValue(tint::StringStream&, const tint::core::ir::Value*)::<lambda(const tint::core::ir::InstructionResult*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:347
+    #32 0x5901e3d445fc in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #33 0x5901e3d44a50 in EmitValue /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1497
+    #34 0x5901e3d34958 in EmitReturn /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:1090
+    #35 0x5901e3d1575e in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:434
+    #36 0x5901e3d17176 in operator()<tint::glsl::writer::(anonymous namespace)::Printer::EmitBlock(const tint::core::ir::Block*)::<lambda(const tint::core::ir::Return*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:347
+    #37 0x5901e3d1950a in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #38 0x5901e3d1a719 in EmitBlock /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:420
+    #39 0x5901e3d14f6e in EmitFunction /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:408
+    #40 0x5901e3d0e3a7 in Generate /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:163
+    #41 0x5901e3d54918 in tint::glsl::writer::Print(tint::core::ir::Module&, tint::glsl::writer::Options const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/printer/printer.cc:2494
+    #42 0x5901e392efcb in tint::glsl::writer::Generate(tint::core::ir::Module&, tint::glsl::writer::Options const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/glsl/writer/writer.cc:216
+    #43 0x5901e31d7be8 in GenerateGlsl /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd/tint/main.cc:1474
+    #44 0x5901e31d94c8 in Generate /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd/tint/main.cc:1578
+    #45 0x5901e31dd18c in Run /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd
+[... truncated ...]

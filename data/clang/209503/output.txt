@@ -1,0 +1,57 @@
+/tmp/test.mm:1:17: warning: cannot find interface declaration for 'NSArray'
+    1 | @implementation NSArray
+      |                 ^
+/tmp/test.mm:1:17: warning: class 'NSArray' defined without specifying a base class [-Wobjc-root-class]
+/tmp/test.mm:1:24: note: add a super class to fix this problem
+    1 | @implementation NSArray
+      |                        ^
+/tmp/test.mm:2:1: error: missing '@end'
+    2 | @interface NSIndexSet
+      | ^
+/tmp/test.mm:1:1: note: implementation started here
+    1 | @implementation NSArray
+      | ^
+/tmp/test.mm:3:10: fatal error: 'riscv_vector.h' file not found
+    3 | #include <riscv_vector.h>
+      |          ^~~~~~~~~~~~~~~~
+clang-24: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Parse/ParseObjc.cpp:2039: clang::Parser::ObjCImplParsingDataRAII::~ObjCImplParsingDataRAII(): Assertion `LateParsedObjCMethods.empty()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24 -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -dumpdir a- -disable-free -clear-ast-before-backend -main-file-name test.mm -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -fcoverage-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -resource-dir /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/x86_64-linux-gnu/c++/11 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/backward -internal-isystem /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24/include -internal-isystem /usr/local/include -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fobjc-runtime=gcc -fobjc-encode-cxx-class-template-spec -fobjc-exceptions -fcxx-exceptions -fexceptions -faddrsig -fdwarf2-cfi-asm -o /tmp/test-30edf5.o -x objective-c++ /tmp/test.mm
+1.	<eof> parser at end of file
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang-24  0x0000560b47e660f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang-24  0x0000560b47e62dcc llvm::sys::RunSignalHandlers() + 76
+2  clang-24  0x0000560b47e62f32
+3  clang-24  0x0000560b47e62fec
+4  libc.so.6 0x00007f1c7c880520
+5  libc.so.6 0x00007f1c7c8d49fc pthread_kill + 300
+6  libc.so.6 0x00007f1c7c880476 raise + 22
+7  libc.so.6 0x00007f1c7c8667f3 abort + 211
+8  libc.so.6 0x00007f1c7c86671b
+9  libc.so.6 0x00007f1c7c877e96
+10 clang-24  0x0000560b4a6ad2ce clang::Parser::ObjCImplParsingDataRAII::~ObjCImplParsingDataRAII() + 1566
+11 clang-24  0x0000560b4a6b11a8 clang::Parser::ParseObjCAtImplementationDeclaration(clang::SourceLocation, clang::ParsedAttributes&) + 1064
+12 clang-24  0x0000560b4a605e70 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2720
+13 clang-24  0x0000560b4a6067df clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+14 clang-24  0x0000560b4a606bf4 clang::Parser::ParseFirstTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 68
+15 clang-24  0x0000560b4a5e36db clang::ParseAST(clang::Sema&, bool, bool) + 539
+16 clang-24  0x0000560b48b5c071 clang::FrontendAction::Execute() + 65
+17 clang-24  0x0000560b48ae5c65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+18 clang-24  0x0000560b48c37ea3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+19 clang-24  0x0000560b4683ac96 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7046
+20 clang-24  0x0000560b46830a2a
+21 clang-24  0x0000560b46834dd5 clang_main(int, char**, llvm::ToolContext const&) + 1893
+22 clang-24  0x0000560b467887a1 main + 113
+23 libc.so.6 0x00007f1c7c867d90
+24 libc.so.6 0x00007f1c7c867e40 __libc_start_main + 128
+25 clang-24  0x0000560b46830055 _start + 37
+clang++: error: unable to execute command: Aborted (core dumped)
+clang++: error: clang frontend command failed with exit code -2 (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git aefba88f46a6e55645c848f58f6ba56944d5ae62)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: Error generating preprocessed source(s).
+Aborted (core dumped)

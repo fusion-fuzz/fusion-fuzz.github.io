@@ -1,0 +1,32 @@
+HloModule test
+
+%fused {
+  %p0 = f32[4,4] parameter(0)
+  %p1 = f32[4,8] parameter(1)
+  %p2 = s32[] parameter(2)
+  %zero = s32[] constant(0)
+  %custom = (f32[1,4], f32[1,8]) custom-call(), custom_call_target="hero"
+  %gte0 = f32[1,4] get-tuple-element(%custom), index=0
+  %gte1 = f32[1,8] get-tuple-element(%custom), index=1
+  %dus0 = f32[4,4] dynamic-update-slice(%p0, %gte0, %p2, %zero), backend_config={"dynamic_slice_config":{ "loop_index":0,"linear":{"byte_offset":0,"byte_stride":16}}}
+  %dus1 = f32[4,8] dynamic-update-slice(%p1, %gte1, %zero, %zero), backend_config={"dynamic_slice_config":{ "loop_index":0,"linear":{"byte_offset":0,"byte_stride":32}}}
+  ROOT %tuple = (f32[4,4], f32[4,8]) tuple(%dus0, %dus1)
+}
+
+ENTRY %main {
+  %a = f32[4,4] parameter(0)
+  %b = f32[4,8] parameter(1)
+  %ivar = s32[] parameter(2)
+  %fusion = (f32[4,4], f32[4,8]) fusion(%a, %b, %ivar), kind=kCustom, calls=%fused
+  %operand = s32[6] parameter(3)
+  %update = s32[1] parameter(4)
+  %j = s32[] parameter(5)
+  %ds.d = s32[3] dynamic-slice(%operand, %j), dynamic_slice_sizes={3}
+  %inner_dus.d = s32[3] dynamic-update-slice(%ds.d, %update, %j)
+  %outer_dus.d = s32[6] dynamic-update-slice(%operand, %inner_dus.d, %j)
+  %ds = s32[3] dynamic-slice(%operand, %ivar), dynamic_slice_sizes={3}
+  %inner_dus = s32[3] dynamic-update-slice(%ds, %update, %j)
+  %outer_dus = s32[6] dynamic-update-slice(%operand, %inner_dus, %ivar)
+  %ffl.root = ((f32[4,4], f32[4,8]), s32[6]) tuple(%fusion, %outer_dus)
+  ROOT %ffl.root.1 = ((f32[4,4], f32[4,8]), s32[6], s32[6]) tuple(%fusion, %outer_dus, %outer_dus.d)
+}

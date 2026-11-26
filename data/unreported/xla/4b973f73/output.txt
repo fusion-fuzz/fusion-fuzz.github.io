@@ -1,0 +1,44 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+I0000 00:00:1792949003.869756  820604 latency_hiding_scheduler.cc:4598] [latency-hiding-scheduler] LatencyHidingScheduler current memory usage: 48320 bytes. Current limit: 115062105110
+E0000 00:00:1792949003.870217  820604 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/hlo/ir/hlo_schedule.cc:457) instruction_position.at(operand) < instruction_position.at(instruction) Instruction loop_dynamic_update_slice_fusion is not scheduled after its operand zero_1
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+INTERNAL: during context [hlo verifier]: RET_CHECK failure (xla/hlo/ir/hlo_schedule.cc:457) instruction_position.at(operand) < instruction_position.at(instruction) Instruction loop_dynamic_update_slice_fusion is not scheduled after its operand zero_1
+
+Failed after pipeline-start
+=== Source Location Trace: === 
+xla/service/hlo_verifier.cc:4971
+./xla/hlo/pass/hlo_pass_pipeline.h:132
+xla/hlo/pass/hlo_pass_pipeline.cc:161
+xla/service/gpu/gpu_compiler.cc:2740
+xla/service/gpu/gpu_compiler.cc:2926
+xla/tools/hlo_opt/gpu_opt.cc:291
+xla/tools/hlo_opt/gpu_opt.cc:112
+xla/hlo/tools/hlo_opt/opt_main.cc:202
+xla/hlo/tools/hlo_opt/opt_main.cc:214

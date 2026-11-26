@@ -1,0 +1,34 @@
+#shared = #ttg.swizzled_shared<{vec = 1, perPhase = 1, maxPhase = 1, order = [1, 0], CGALayout = [[1, 0]]}>
+#smem = #ttg.shared_memory
+#shared1 = #ttg.nvmma_shared<{swizzlingByteWidth = 128, transposed = false, elementBitWidth = 16, CGALayout = [[0, 0]]}>
+#shared2 = #ttg.swizzled_shared<{vec = 1, perPhase = 1, maxPhase = 1, order = [0], CGALayout = [[0]]}>
+#smem1 = #ttg.shared_memory
+module attributes {"ttg.num-ctas" = 2 : i32} {
+tt.func public @H_daef5014_cluster_barrier_partition_scopes() {
+    %buf = ttg.local_alloc {allocation.offset = 0 : i32} : () -> !ttg.memdesc<32x32xf32, #shared, #smem, mutable>
+    ttg.warp_specialize(%buf) attributes {actualRegisters = array<i32: 32, 32, 32>, allocation.offset = 4096 : i32, requestedRegisters = array<i32: 32, 32>, warpGroupStartIds = array<i32: 4, 5>}
+    default {
+      ttg.warp_yield
+    }
+    partition0(%arg0: !ttg.memdesc<32x32xf32, #shared, #smem, mutable>) num_warps(1) {
+      ttg.warp_return
+    }
+    partition1(%arg1: !ttg.memdesc<32x32xf32, #shared, #smem, mutable>) num_warps(1) {
+      scf.execute_region {
+        %dc15c1a00_desc = ub.poison : !tt.tensordesc<64x128xf16, #shared1>
+        %dc15c1a00_c0 = arith.constant 0 : i32
+        %dc15c1a00_true = arith.constant true
+        %dc15c1a00_buf = ttg.local_alloc : () -> !ttg.memdesc<64x128xf16, #shared1, #smem1, mutable>
+        %dc15c1a00_bar = ttg.local_alloc : () -> !ttg.memdesc<2xi64, #shared2, #smem1, mutable>
+        ttng.init_barrier %dc15c1a00_bar, 1 : !ttg.memdesc<2xi64, #shared2, #smem1, mutable>
+        ttng.async_tma_copy_global_to_local %dc15c1a00_desc[%dc15c1a00_c0, %dc15c1a00_c0] %dc15c1a00_buf, %dc15c1a00_bar, %dc15c1a00_true {multicast} :
+        !tt.tensordesc<64x128xf16, #shared1>, !ttg.memdesc<2xi64, #shared2, #smem1, mutable> -> !ttg.memdesc<64x128xf16, #shared1, #smem1, mutable>
+        ttng.wait_barrier %dc15c1a00_bar, %dc15c1a00_c0 : !ttg.memdesc<2xi64, #shared2, #smem1, mutable>
+        ttng.inval_barrier %dc15c1a00_bar : !ttg.memdesc<2xi64, #shared2, #smem1, mutable>
+        scf.yield
+      }
+      ttg.warp_return
+    } : (!ttg.memdesc<32x32xf32, #shared, #smem, mutable>) -> ()
+    tt.return
+  }
+}

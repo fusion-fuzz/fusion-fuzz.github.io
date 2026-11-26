@@ -1,0 +1,111 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:102:18: error: 'auto' not allowed in lambda parameter before C++14
+  102 |     auto L = [i](auto a) { return i + a; };
+      |                  ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:108:15: error: 'auto' not allowed in lambda parameter before C++14
+  108 |   auto L = [](auto a) { return a; };
+      |               ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:110:5: error: 'operator()' does not name a template but is followed by template arguments
+  110 |   L.operator()<char>(3.14); //expected-warning{{implicit conversion}}
+      |     ^         ~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:108:12: note: non-template declaration found by name lookup
+  108 |   auto L = [](auto a) { return a; };
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:120:19: error: 'auto' not allowed in lambda parameter before C++14
+  120 |   T (*fp)(T) = [](auto a) { return a; };
+      |                   ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:120:16: error: no viable conversion from 'test_conversion_to_fptr_2::X<int>::(lambda at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:120:16)' to 'int (*)(int)'
+  120 |   T (*fp)(T) = [](auto a) { return a; };
+      |                ^~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:118:26: note: in instantiation of default member initializer 'test_conversion_to_fptr_2::X<int>::fp' requested here
+  118 | template<class T> struct X {
+      |                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:124:8: note: in evaluation of exception specification for 'test_conversion_to_fptr_2::X<int>::X' needed here
+  124 | X<int> xi;
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:120:16: note: candidate function
+  120 |   T (*fp)(T) = [](auto a) { return a; };
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:127:32: error: 'auto' not allowed in lambda parameter before C++14
+  127 | void fooT(T t, T (*fp)(T) = [](auto a) { return a; }) {
+      |                                ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:133:15: error: 'auto' not allowed in lambda parameter before C++14
+  133 |   auto L = [](auto a) { return a; };
+      |               ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:134:9: error: no viable conversion from '(lambda at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:133:12)' to 'int (*)(int)'
+  134 |   int (*fp)(int) = L;
+      |         ^          ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:133:12: note: candidate function
+  133 |   auto L = [](auto a) { return a; };
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:137:10: error: no viable conversion from '(lambda at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:133:12)' to 'char (*)(char)'
+  137 |   char (*fc)(char) = L;
+      |          ^           ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:133:12: note: candidate function
+  133 |   auto L = [](auto a) { return a; };
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:140:12: error: no viable conversion from '(lambda at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:133:12)' to 'double (*)(double)'
+  140 |   double (*fd)(double) = L;
+      |            ^             ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:133:12: note: candidate function
+  133 |   auto L = [](auto a) { return a; };
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:146:15: error: 'auto' not allowed in lambda parameter before C++14
+  146 |   auto L = [](auto a) ->int { return a; }; //expected-note 2{{candidate template ignored}}
+      |               ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:148:10: error: no viable conversion from '(lambda at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:146:12)' to 'char (*)(char)'
+  148 |   char (*fc)(char) = L; //expected-error{{no viable conversion}}
+      |          ^           ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:146:12: note: candidate function
+  146 |   auto L = [](auto a) ->int { return a; }; //expected-note 2{{candidate template ignored}}
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:149:12: error: no viable conversion from '(lambda at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:146:12)' to 'double (*)(double)'
+  149 |   double (*fd)(double) = L; //expected-error{{no viable conversion}}
+      |            ^             ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:146:12: note: candidate function
+  146 |   auto L = [](auto a) ->int { return a; }; //expected-note 2{{candidate template ignored}}
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:153:16: error: 'auto' not allowed in lambda parameter before C++14
+  153 |   auto L = [=](auto b, char c = 'x') {
+      |                ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:155:15: error: 'auto' not allowed in lambda parameter before C++14
+  155 |     return [](auto a) ->decltype(a) { return a; };
+      |               ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:157:9: error: cannot initialize a variable of type 'int (*)(int)' with an rvalue of type 'void'
+  157 |   int (*fp)(int) = L(8);
+      |         ^          ~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:160:10: error: cannot initialize a variable of type 'char (*)(char)' with an rvalue of type 'void'
+  160 |   char (*fc)(char) = L('a');
+      |          ^           ~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:163:12: error: cannot initialize a variable of type 'double (*)(double)' with an rvalue of type 'void'
+  163 |   double (*fd)(double) = L(3.14);
+      |            ^             ~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:169:15: error: 'auto' not allowed in lambda parameter before C++14
+  169 |  auto L = [=](auto b) {
+      |               ^~~~
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+unexpected statement kind
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/ItaniumMangle.cpp:5069!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O3 -std=c++11 -fblocks -target x86_64-apple-darwin10 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:436:30: current parser token '{'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:332:1: parsing namespace 'nested_non_capturing_lambda_tests'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:334:12: parsing function body 'nested_non_capturing_lambda_tests::test'
+4.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:334:12: in compound statement ('{}')
+5.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:433:1: in compound statement ('{}')
+6.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:434:12: lambda expression parsing
+7.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:434:23: in compound statement ('{}')
+8.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp12ee5k1a/ca592425.cpp:436:12: lambda expression parsing
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005ffa13fad66b __interceptor_backtrace + 91
+1  clang++   0x00005ffa19c08027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005ffa19c01cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005ffa19c069c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005ffa19a54cc5
+5  clang++   0x00005ffa19a554d3
+6  libc.so.6 0x00007c1f7b4e5520
+7  libc.so.6 0x00007c1f7b5399bc pthread_kill + 300
+8  libc.so.6 0x00007c1f7b4e5476 raise + 22
+9  libc.so.6 0x00007c1f7b4cb7f3 abort + 211
+10 clang++   0x00005ffa19a742e8 llvm::llvm_unreachable_internal(char const*,
+[... truncated ...]

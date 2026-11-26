@@ -1,0 +1,84 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:16:35: error: pack expansion does not contain any unexpanded parameter packs
+   16 |   typedef evil<constant_array, int...> expand_no_packs;  // expected-error{{pack expansion does not contain any unexpanded parameter packs}}
+      |                                ~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:17:44: error: pack expansion does not contain any unexpanded parameter packs
+   17 |   typedef evil<evil<constant_array..., int>..., int> expand_with_expanded_nested; // expected-error{{pack expansion does not contain any unexpanded parameter packs}}
+      |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:26:28: error: use of undeclared identifier 'constant_array'
+   26 |     typedef bit_field<evil<constant_array, OtherTypes>...> type; // expected-error{{pack expansion contains parameter packs 'constant_array' and 'OtherTypes' that have different lengths (3 vs. 2)}}
+      |                            ^~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:30:18: error: no template named 'Inner' in 'used<int, long>'
+   30 | used<int, long>::Inner<unsigned int, unsigned long>::type
+      | ~~~~~~~~~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:30:54: warning: extra qualification on member 'type' [-Wextra-qualification]
+   30 | used<int, long>::Inner<unsigned int, unsigned long>::type
+      |                                                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:30:54: error: no member named 'type' in the global namespace
+   30 | used<int, long>::Inner<unsigned int, unsigned long>::type
+      |                                                    ~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:30:58: error: expected ';' after top level declarator
+   30 | used<int, long>::Inner<unsigned int, unsigned long>::type
+      |                                                          ^
+      |                                                          ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:32:77: error: use of undeclared identifier 'il_pairs'; did you mean 'il_pairs_2'?
+   32 | bit_field<evil<int, unsigned int>, evil<long, unsigned long> >*il_pairs_2 = il_pairs;
+      |                                                                             ^~~~~~~~
+      |                                                                             il_pairs_2
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:32:64: note: 'il_pairs_2' declared here
+   32 | bit_field<evil<int, unsigned int>, evil<long, unsigned long> >*il_pairs_2 = il_pairs;
+      |                                                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:34:25: error: no template named 'Inner' in 'used<short, int, long>'
+   34 | used<short, int, long>::Inner<unsigned int, unsigned long>::type // expected-note{{in instantiation of template class 'used<short, int, long>::Inner<unsigned int, unsigned long>' requested here}}
+      | ~~~~~~~~~~~~~~~~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:34:61: warning: extra qualification on member 'type' [-Wextra-qualification]
+   34 | used<short, int, long>::Inner<unsigned int, unsigned long>::type // expected-note{{in instantiation of template class 'used<short, int, long>::Inner<unsigned int, unsigned long>' requested here}}
+      |                                                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:34:65: error: expected ';' after top level declarator
+   34 | used<short, int, long>::Inner<unsigned int, unsigned long>::type // expected-note{{in instantiation of template class 'used<short, int, long>::Inner<unsigned int, unsigned long>' requested here}}
+      |                                                                 ^
+      |                                                                 ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:44:5: error: base type contains unexpanded parameter pack 'constant_array'
+   44 |   : public constant_array, public refers  // expected-error{{base type contains unexpanded parameter pack 'constant_array'}}
+      |     ^      ~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:49:27: error: declaration type contains unexpanded parameter pack 'constant_array'
+   49 |   typedef constant_array *types_pointer; // expected-error{{declaration type contains unexpanded parameter pack 'constant_array'}}
+      |           ~~~~~~~~~~~~~~  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:52:28: error: declaration type contains unexpanded parameter pack 'constant_array'
+   52 |   typedef constant_array (^block_pointer_1)(int); // expected-error{{declaration type contains unexpanded parameter pack 'constant_array'}}
+      |           ~~~~~~~~~~~~~~   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:53:17: error: declaration type contains unexpanded parameter pack 'constant_array'
+   53 |   typedef int (^block_pointer_2)(constant_array); // expected-error{{declaration type contains unexpanded parameter pack 'constant_array'}}
+      |                 ^                ~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:56:27: error: declaration type contains unexpanded parameter pack 'constant_array'
+   56 |   typedef constant_array &lvalue_ref; // expected-error{{declaration type contains unexpanded parameter pack 'constant_array'}}
+      |           ~~~~~~~~~~~~~~  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:59:28: error: declaration type contains unexpanded parameter pack 'constant_array'
+   59 |   typedef constant_array &&rvalue_ref; // expected-error{{declaration type contains unexpanded parameter pack 'constant_array'}}
+      |           ~~~~~~~~~~~~~~   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:62:32: error: declaration type contains unexpanded parameter pack 'constant_array'
+   62 |   typedef constant_array c1::* member_pointer_1; // expected-error{{declaration type contains unexpanded parameter pack 'constant_array'}}
+      |           ~~~~~~~~~~~~~~       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:63:32: error: declaration type contains unexpanded parameter pack 'constant_array'
+   63 |   typedef int constant_array::*member_pointer_2; // expected-error{{declaration type contains unexpanded parameter pack 'constant_array'}}
+      |               ~~~~~~~~~~~~~~   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:66:26: error: declaration type contains unexpanded parameter pack 'constant_array'
+   66 |   typedef constant_array constant_array[17]; // expected-error{{declaration type contains unexpanded parameter pack 'constant_array'}}
+      |           ~~~~~~~~~~~~~~ ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:90:43: error: function cannot return array type 'constant_array' (aka 'constant_array[17]')
+   90 |   typedef constant_array (function_type_1)(int); // expected-error{{declaration type contains unexpanded parameter pack 'constant_array'}}
+      |                                           ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaTemplateVariadic.cpp:536: bool clang::Sema::DiagnoseUnexpandedParameterPack(clang::SourceLocation, clang::TypeSourceInfo*, clang::Sema::UnexpandedParameterPackContext): Assertion `!Unexpanded.empty() && "Unable to find unexpanded parameter packs"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O1 -std=c++17 -fblocks /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:91:48: current parser token ';'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1arz0tx2/184d0ea6.cpp:43:1: parsing struct/union/class body 'c1'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005d8aff94a329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005d8aff946fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005d8aff9478a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005d8aff889218
+4  libc.so.6 0x000072392285a520
+5  libc.so.6 0x00007239228ae9bc pthread_kill + 300
+6  libc.so.6 0x000072392285a476 rais
+[... truncated ...]

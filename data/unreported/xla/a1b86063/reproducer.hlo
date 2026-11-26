@@ -1,0 +1,19 @@
+HloModule module
+
+ENTRY %main {
+  %p0 = f32[2,3] parameter(0), origin={{"p0_orig" {1,0}}}, sharding={maximal device=0}
+  %p1 = f32[2,3] parameter(1), origin={{"p1_orig"}}, sharding={maximal device=0}
+  %tuple = (f32[2,3], f32[2,3]) tuple(%p0, %p1)
+  %lhs = f8e4m3fn[128,512]{1,0} parameter(2), sharding={devices=[8,1]<=[8]}
+  %lhs_scale = f8e8m0fnu[128,16]{1,0} parameter(3), sharding={devices=[8,1]<=[8]}
+  %rhs = f8e4m3fn[1024,512]{1,0} parameter(4), sharding={devices=[1,8]<=[8]}
+  %rhs_scale = f8e8m0fnu[1024,16]{1,0} parameter(5), sharding={devices=[1,8]<=[8]}
+  %block_scaled_dot = f32[128,1024]{1,0} custom-call(%lhs, %rhs, %lhs_scale, %rhs_scale), custom_call_target="__op$block_scaled_dot", sharding={devices=[8,1]<=[8]}
+  %ffl.root = ((f32[2,3], f32[2,3]), f32[128,1024]{1,0}) tuple(%tuple, %block_scaled_dot)
+  %lhs.d = f8e4m3fn[128,512]{1,0} parameter(6), sharding={devices=[8,1]<=[8]}
+  %lhs_scale.d = f8e8m0fnu[128,16]{1,0} parameter(7), sharding={devices=[8,1]<=[8]}
+  %rhs.d = f8e4m3fn[1024,512]{1,0} parameter(8), sharding={devices=[1,8]<=[8]}
+  %rhs_scale.d = f8e8m0fnu[1024,16]{1,0} parameter(9), sharding={devices=[1,8]<=[8]}
+  %block_scaled_dot.d = f32[128,1024]{1,0} custom-call(%lhs.d, %rhs.d, %lhs_scale.d, %p0), custom_call_target="__op$block_scaled_dot", sharding={devices=[8,1]<=[8]}
+  ROOT %ffl.root.1 = ((f32[2,3], f32[2,3]), f32[128,1024]{1,0}, f32[128,1024]{1,0}) tuple(%tuple, %block_scaled_dot, %block_scaled_dot.d)
+}

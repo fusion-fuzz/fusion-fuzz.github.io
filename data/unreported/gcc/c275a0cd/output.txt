@@ -1,0 +1,38 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp16tov0k0/3675b7d5.c:16:31: warning: 'callback_only' attribute can only be used on functions [-Wattributes]
+   16 | extern unsigned long long int arr_86[];
+      |                               ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp16tov0k0/3675b7d5.c:16:1: internal compiler error: tree check: expected function_type or method_type, have array_type in prototype_p, at tree.cc:12235
+   16 | extern unsigned long long int arr_86[];
+      | ^~~~~~
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0x960d92 tree_check_failed(tree_node const*, char const*, int, char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:9241
+0x966235 tree_check2(tree_node const*, char const*, int, char const*, tree_code, tree_code)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:4138
+0x966235 prototype_p(tree_node const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:12235
+0xfed357 positional_argument(tree_node const*, tree_node const*, tree_node*&, tree_code, int, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-attribs.cc:856
+0xfedd19 handle_callback_only_attribute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-attribs.cc:4695
+0xe8c976 decl_attributes(tree_node**, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/attribs.cc:905
+0xe9a4b5 c_decl_attributes
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-decl.cc:5747
+0xeafea9 start_decl(c_declarator*, c_declspecs*, bool, tree_node*, bool, unsigned long*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-decl.cc:5902
+0xf341da c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3063
+0xf43529 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2256
+0xf44470 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xf44470 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xfc9e09 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp16tov0k0/3675b7d5.c -quiet -dumpbase 3675b7d5.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O3 -Wattributes -std=gnu23 -std=gnu17 -ftrapv -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

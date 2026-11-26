@@ -1,0 +1,48 @@
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -Osize -sil-verify-all -enable-library-evolution /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpxoorkkjc/8a9fddaa.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpxoorkkjc/8a9fddaa.swift")
+4.	While type-checking 'WrappedProperties' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpxoorkkjc/8a9fddaa.swift:1282:1)
+5.	While type-checking declaration 0x55df9e4407f0 (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpxoorkkjc/8a9fddaa.swift:1294:37)
+6.	While evaluating request DifferentiableAttributeTypeCheckRequest(@differentiable(reverse) )
+7.	While evaluating request TypeWitnessRequest(WrappedProperties: Differentiable module main, _Differentiation.(file).Differentiable.TangentVector)
+8.	While evaluating request ResolveTypeWitnessesRequest(WrappedProperties: Differentiable module main)
+ #0 0x000055df98b62bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055df98b602e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055df98b638c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f0729943330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x000055df9269c55d swift::DerivedConformance::deriveDifferentiable(swift::AssociatedTypeDecl*) (/usr/bin/swift-frontend+0x275155d)
+ #5 0x000055df925b3115 (anonymous namespace)::AssociatedTypeInference::solve() AssociatedTypeInference.cpp:0:0
+ #6 0x000055df925b27f6 swift::ResolveTypeWitnessesRequest::evaluate(swift::Evaluator&, swift::NormalProtocolConformance*) const (/usr/bin/swift-frontend+0x26677f6)
+ #7 0x000055df922ca564 swift::ResolveTypeWitnessesRequest::OutputType swift::Evaluator::getResultUncached<swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'()>(swift::ResolveTypeWitnessesRequest const&, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+ #8 0x000055df922ca398 swift::ResolveTypeWitnessesRequest::OutputType swift::Evaluator::getResultCached<swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'(), (void*)0>(swift::ResolveTypeWitnessesRequest const&, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+ #9 0x000055df925b69f6 swift::TypeWitnessRequest::evaluate(swift::Evaluator&, swift::NormalProtocolConformance*, swift::AssociatedTypeDecl*) const (/usr/bin/swift-frontend+0x266b9f6)
+#10 0x000055df92d9584d swift::TypeWitnessRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeWitnessRequest, swift::TypeWitnessRequest::OutputType swift::evaluateOrDefault<swift::TypeWitnessRequest>(swift::Evaluator&, swift::TypeWitnessRequest, swift::TypeWitnessRequest::OutputType)::'lambda'()>(swift::TypeWitnessRequest const&, swift::TypeWitnessRequest::OutputType swift::evaluateOrDefault<swift::TypeWitnessRequest>(swift::Evaluator&, swift::TypeWitnessRequest, swift::TypeWitnessRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#11 0x000055df92d8c81a swift::NormalProtocolConformance::getTypeWitnessAndDecl(swift::AssociatedTypeDecl*, swift::SubstOptions) const (/usr/bin/swift-frontend+0x2e4181a)
+#12 0x000055df92d8c25c swift::ProtocolConformance::getTypeWitnessAndDecl(swift::AssociatedTypeDecl*, swift::SubstOptions) const (/usr/bin/swift-frontend+0x2e4125c)
+#13 0x000055df92d8cc34 swift::ProtocolConformance::getTypeWitness(swift::AssociatedTypeDecl*, swift::SubstOptions) const (/usr/bin/swift-frontend+0x2e41c34)
+#14 0x000055df92d9ebfe swift::ProtocolConformanceRef::getTypeWitness(swift::AssociatedTypeDecl*, swift::SubstOptions) const (/usr/bin/swift-frontend+0x2e53bfe)
+#15 0x000055df92e7692c swift::TypeBase::getAutoDiffTangentSpace(llvm::function_ref<swift::ProtocolConformanceRef (swift::InFlightSubstitution&, swift::Type, swift::ProtocolDecl*)>) (/usr/bin/swift-frontend+0x2f2b92c)
+#16 0x000055df92e77d5a swift::AnyFunctionType::getAutoDiffDerivativeFunctionLinearMapType(swift::IndexSubset*, swift::AutoDiffLinearMapKind, llvm::function_ref<swift::ProtocolConformanceRef (swift::InFlightSubstitution&, swift::Type, swift::ProtocolDecl*)>, bool) (/usr/bin/swift-frontend+0x2f2cd5a)
+#17 0x000055df92383e57 resolveDifferentiableAttrDifferentiabilityParameters(swift::DifferentiableAttr*, swift::AbstractFunctionDecl*, swift::AnyFunctionType*, swift::GenericEnvironment*, swift::IndexSubset*&) (/usr/bin/swift-frontend+0x2438e57)
+#18 0x000055df9238e4d8 resolveDiffParamIndices(swift::AbstractFunctionDecl*, swift::DifferentiableAttr*, swift::GenericSignature) TypeCheckAttr.cpp:0:0
+#19 0x000055df92384c4b swift::DifferentiableAttributeTypeCheckRequest::evaluate(swift::Evaluator&, swift::DifferentiableAttr*) const (/usr/bin/swift-frontend+0x2439c4b)
+#20 0x000055df92ae66e4 swift::DifferentiableAttributeTypeCheckRequest::OutputType swift::Evaluator::getResultUncached<swift::DifferentiableAttributeTypeCheckRequest, swift::DifferentiableAttributeTypeCheckRequest::OutputType swift::evaluateOrDefault<swift::DifferentiableAttributeTypeCheckRequest>(swift::Evaluator&, swift::DifferentiableAttributeTypeCheckRequest, swift::DifferentiableAttributeTypeCheckRequest::OutputType)::'lambda'()>(swift::DifferentiableAttributeTypeCheckRequest const&, swift::DifferentiableAttributeTypeCheckRequest::OutputType swift::evaluateOrDefault<swift::DifferentiableAttributeTypeCheckRequest>(swift::Evaluator&, swift::DifferentiableAttributeTypeCheckRequest, swift::DifferentiableAttributeTypeCheckRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#21 0x000055df92ad8983 swift::DifferentiableAttr::getParameterIndices() const (/usr/bin/swift-frontend+0x2b8d983)
+#22 0x000055df9236f4b5 swift::TypeChecker::checkDeclAttributes(swift::Decl*) (/usr/bin/swift-frontend+0x24244b5)
+#23 0x000055df9247b8bf (anonymous namespace)::DeclChecker::visitBoundVariable(swift::VarDecl*) TypeCheckDeclPrimary.cpp:0:0
+#24 0x000055df9247b2d2 void llvm::function_ref<void (swift::VarDecl*)>::callback_fn<(anonymous namespace)::DeclChecker::visitPatternBindingDecl(swift::PatternBindingDecl*)::'lambda'(swift::VarDecl*)>(long, swift::VarDecl*) TypeCheckDeclPrimary.cpp:0:0
+#25 0x000055df9245e675 (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#26 0x000055df9245f47b (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#27 0x000055df9245e172 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x2513172)
+#28 0x000055df9259ae15 swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x264fe15)
+#29 0x000055df9259f3a4 swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#30 0x000055df9259ad45 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x264fd45)
+#31 0x000055df90dcd639 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_0>(long, swift::SourceFile&) Frontend.cpp:0:0
+#32 0x000055df90dc135e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xe7635e)
+#33 0x000055df90dc10eb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xe760eb)
+#34 0x000055df90c3e51e withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#35 0x000055df90c2a0cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm:
+[... truncated ...]

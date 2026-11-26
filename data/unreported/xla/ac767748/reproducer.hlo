@@ -1,0 +1,7 @@
+HloModule m
+
+ENTRY e {
+  tok = token[] after-all()
+  snd = (token[], u32[], token[]) send(tok, tok), channel_id=1
+  ROOT sd = token[] send-done(snd), channel_id=1
+}

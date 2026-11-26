@@ -1,0 +1,46 @@
+<unknown>:0: error: vector types must have positive constant sizes but got 0
+triton-opt: /home/runner/work/triton/triton/llvm-project/mlir/include/mlir/IR/StorageUniquerSupport.h:180: static ConcreteT mlir::detail::StorageUserBase<mlir::VectorType, mlir::Type, mlir::detail::VectorTypeStorage, mlir::detail::TypeUniquer, mlir::ShapedType::Trait, mlir::ValueSemantics>::get(mlir::MLIRContext *, Args &&...) [ConcreteT = mlir::VectorType, BaseT = mlir::Type, StorageT = mlir::detail::VectorTypeStorage, UniquerT = mlir::detail::TypeUniquer, Traits = <mlir::ShapedType::Trait, mlir::ValueSemantics>, Args = <llvm::ArrayRef<long> &, mlir::Type &, llvm::ArrayRef<bool> &>]: Assertion `succeeded( ConcreteT::verifyInvariants(getDefaultDiagnosticEmitFn(ctx), args...))' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmp5z8826a9/c16139dd.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic --allocate-shared-memory --tritongpu-global-scratch-memory-allocation --convert-triton-amdgpu-to-llvm=gfx-arch=gfx1250
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x000063aca369e48a
+1  triton-opt 0x000063aca369b38e
+2  triton-opt 0x000063aca369f38b
+3  libc.so.6  0x000079052e393520
+4  libc.so.6  0x000079052e3e79bc pthread_kill + 300
+5  libc.so.6  0x000079052e393476 raise + 22
+6  libc.so.6  0x000079052e3797f3 abort + 211
+7  libc.so.6  0x000079052e37971b
+8  libc.so.6  0x000079052e38ae96
+9  triton-opt 0x000063aca31fe202
+10 triton-opt 0x000063aca31fe06a
+11 triton-opt 0x000063aca3137d32
+12 triton-opt 0x000063ac9bf15bbf
+13 triton-opt 0x000063ac9bd80edd
+14 triton-opt 0x000063ac9bd80a0f
+15 triton-opt 0x000063aca2a0cd74
+16 triton-opt 0x000063aca2a68482
+17 triton-opt 0x000063aca2a64af4
+18 triton-opt 0x000063aca2a0eb3e
+19 triton-opt 0x000063aca2a0e315
+20 triton-opt 0x000063aca2a0f5ee
+21 triton-opt 0x000063aca2a1edf8
+22 triton-opt 0x000063aca2a15475
+23 triton-opt 0x000063aca2a1554b
+24 triton-opt 0x000063ac9bf321fc
+25 triton-opt 0x000063ac9c06c89b
+26 triton-opt 0x000063ac9c06d419
+27 triton-opt 0x000063ac9c074432
+28 triton-opt 0x000063ac9c073ca2
+29 triton-opt 0x000063ac9c05ed37
+30 triton-opt 0x000063ac9c05dfcc
+31 triton-opt 0x000063aca32bc6b1
+32 triton-opt 0x000063ac9c054332
+33 triton-opt 0x000063ac9c054731
+34 triton-opt 0x000063ac9c05496d
+35 triton-opt 0x000063ac9c03f92c
+36 libc.so.6  0x000079052e37ad90
+37 libc.so.6  0x000079052e37ae40 __libc_start_main + 128
+38 triton-opt 0x000063ac9b5e6df5
+Aborted (core dumped)

@@ -1,0 +1,62 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1fjxpwra/f42a3bc8.cpp:40:18: warning: 'acquire_handle' attribute only applies to functions, typedefs, and parameters [-Wignored-attributes]
+   40 | int __attribute((acquire_handle("Fuchsia"))) zex; // expected-warning {{'acquire_handle' attribute only applies to functions, typedefs, and parameters}}
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1fjxpwra/f42a3bc8.cpp:40:46: error: redefinition of 'zex'
+   40 | int __attribute((acquire_handle("Fuchsia"))) zex; // expected-warning {{'acquire_handle' attribute only applies to functions, typedefs, and parameters}}
+      |                                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1fjxpwra/f42a3bc8.cpp:4:5: note: previous definition is here
+    4 | int zex;
+      |     ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaDecl.cpp:13663: bool clang::Sema::DeduceVariableDeclarationType(clang::VarDecl *, bool, clang::Expr *): Assertion `VDecl->isLinkageValid()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O0 -std=c++14 -fblocks -fsanitize=undefined -ffast-math -funroll-loops /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1fjxpwra/f42a3bc8.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1fjxpwra/f42a3bc8.cpp:54:1: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000058d0262b166b __interceptor_backtrace + 91
+1  clang++   0x000058d02bf0c027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x000058d02bf05cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x000058d02bf0a9c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x000058d02bd58cc5
+5  clang++   0x000058d02bd594d3
+6  libc.so.6 0x00007ee06bd26520
+7  libc.so.6 0x00007ee06bd7a9bc pthread_kill + 300
+8  libc.so.6 0x00007ee06bd26476 raise + 22
+9  libc.so.6 0x00007ee06bd0c7f3 abort + 211
+10 libc.so.6 0x00007ee06bd0c71b
+11 libc.so.6 0x00007ee06bd1de96
+12 clang++   0x000058d032e89274 clang::Sema::DeduceVariableDeclarationType(clang::VarDecl*, bool, clang::Expr*) + 1652
+13 clang++   0x000058d032e8be61 clang::Sema::AddInitializerToDecl(clang::Decl*, clang::Expr*, bool) + 3825
+14 clang++   0x000058d0324bf526 clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 8902
+15 clang++   0x000058d0324b993f clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 7215
+16 clang++   0x000058d03245c680 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 2224
+17 clang++   0x000058d03245b4f1 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 529
+18 clang++   0x000058d0324593d3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 3907
+19 clang++   0x000058d032454fe5 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1765
+20 clang++   0x000058d03242da7f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+21 clang++   0x000058d02e30c2fe clang::FrontendAction::Execute() + 222
+22 clang++   0x000058d02e19e5f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+23 clang++   0x000058d02e4f0989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+24 clang++   0x000058d0263471a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+25 clang++   0x000058d02633b0f9
+26 clang++   0x000058d026345637
+27 clang++   0x000058d02dd75317
+28 clang++   0x000058d02bd58a7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+29 clang++   0x000058d02dd7281a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+30 clang++   0x000058d02dcc329c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+31 clang++   0x000058d02dcc4a2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+32 clang++   0x000058d02dd14060 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+33 clang++   0x000058d026339517 clang_main(int, char**, llvm::ToolContext const&) + 12295
+34 clang++   0x000058d026368e27 main + 567
+35 libc.so.6 0x00007ee06bd0dd90
+36 libc.so.6 0x00007ee06bd0de40 __libc_start_main + 128
+37 clang++   0x000058d026275b35 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git e996ce0d9ad6443a7ea3f88ccb0a8e114b0e840e)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: error: unable to execute command: Segmentation fault (core dumped)
+clang++: note: diagnostic msg: Error generating preprocessed source(s).
+Aborted (core dumped)

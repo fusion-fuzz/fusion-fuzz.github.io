@@ -1,0 +1,82 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc:7:1: error: module 'frist' depends on itself
+    7 | import frist; // { dg-error {module 'frist' depends on itself} }
+      | ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc:4:8: note: module 'frist' declared here
+    4 | export module frist;  // { dg-message "declared here" }
+      |        ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc:9:1: error: module-declaration only permitted as first declaration, or ending a global module fragment
+    9 | module foo.second; // { dg-error "only permitted as" }
+      | ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc:21:1: error: module-declaration must be at global scope
+   21 | module third;  // { dg-error "must be at global scope" }
+      | ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc:19:11: note: scope opened here
+   19 | namespace Foo
+      |           ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc:26:3: error: unexpected module directive
+   26 |   module forth; // { dg-error "unexpected module directive" }
+      |   ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc:26:3: note: perhaps insert a line break after 'module', or other disambiguation, to prevent this being considered a module control-line
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc: In function 'void Bink()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc:32:3: error: unexpected module directive
+   32 |   module fifth; // { dg-error "unexpected module directive" }
+      |   ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc:32:3: note: perhaps insert a line break after 'module', or other disambiguation, to prevent this being considered a module control-line
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc:36:1: error: module-declaration only permitted as first declaration, or ending a global module fragment
+   36 | module a.; // { dg-error "only permitted as" }
+      | ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc: In instantiation of 'struct allocate_slot<int>':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc:49:53:   required from 'constexpr int next(...) [with T = int]'
+   49 | constexpr int next(...) { return (allocate_slot<T>{}, 0); }
+      |                                  ~~~~~~~~~~~~~~~~~~~^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc:52:24:   required from here
+   52 | static_assert(next<int>(0) == 0, "");
+      |               ~~~~~~~~~^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc:42:25: internal compiler error: in is_specialization_of_friend, at cp/pt.cc:1412
+   42 |   friend constexpr bool slot_allocated(slot<T>, U) { return true; }
+      |                         ^~~~~~~~~~~~~~
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x85a516 is_specialization_of_friend(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:1412
+0x12302d6 tsubst_friend_function
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:12146
+0x1230e80 instantiate_class_template(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:13373
+0x12aaa59 complete_type(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck.cc:138
+0x1264d96 finish_compound_literal(tree_node*, tree_node*, int, fcl_t)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:3919
+0x11eedbc tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:23072
+0x121c1b4 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:21077
+0x121ed38 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:21045
+0x121e016 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:19841
+0x121dc4e tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:20268
+0x1228072 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:19817
+0x1228072 instantiate_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:28984
+0x1228e4d instantiate_decl(tree_node*, bool, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:29277
+0xfd8ce7 cxx_eval_call_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:4418
+0xfdb621 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:9545
+0xfec0bc cxx_eval_outermost_constant_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11147
+0xff4be0 maybe_constant_value(tree_node*, tree_node*, mce_value)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11608
+0x1024f50 cp_fully_fold
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/cp-gimplify.cc:3284
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3f3efl21/ab297d02.cc -quiet -dumpbase ab297d02.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O3 -std=c++11 -fipa-pta -fmodules -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

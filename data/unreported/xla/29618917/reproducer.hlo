@@ -1,0 +1,12 @@
+HloModule pjit_f_, num_partitions=2, frontend_attributes={xla.sdy.meshes={maximal_mesh_0 = #sdy.mesh<[], device_ids=[0]>, mesh = #sdy.mesh<["x"=2]>}}
+
+ENTRY %main.5 {
+  %Arg_0.0 = s64[2,2,2]{2,1,0} parameter(0), sharding={devices=[2,1,1]<=[2]}, metadata={op_name="x"}
+  %tuple.0 = () tuple()
+  %param_0 = s32[3, 3] parameter(1)
+  %size = s32[] constant(2)
+  %param_padded_0 = s32[<=3, 3] set-dimension-size(%param_0, %size), dimensions={0}
+  %param_padded_1 = s32[<=3, <=3] set-dimension-size(%tuple.0, %size), dimensions={1}
+  %reverse = s32[<=3, <=3] reverse(s32[<=3, <=3] %param_padded_1), dimensions={0, 1}
+  ROOT %ffl.root = ((), s32[<=3, <=3]) tuple(%tuple.0, %reverse)
+}

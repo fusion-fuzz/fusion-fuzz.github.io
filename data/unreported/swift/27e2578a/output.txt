@@ -1,0 +1,107 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpqzjdkdgr/76e5d726.swift:136:14: error: property 'generic' with type 'T' cannot override a property with type 'Int?'
+ 43 | 
+ 44 | public class DerivedConcrete_d31fee4 : Generic_d31fee4<Int?> {
+ 45 |   public override var generic: Int? { fatalError() }
+    |                       `- note: attempt to override property here
+ 46 | 
+ 47 |   public subscript(x x: Int?) -> Int { fatalError() }
+    :
+134 | 
+135 | public class Generic<T>: DerivedConcrete_d31fee4 {
+136 |   public var generic: T { fatalError() }
+    |              `- error: property 'generic' with type 'T' cannot override a property with type 'Int?'
+137 | 
+138 |   public subscript(x x: T) -> T? { fatalError() }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpqzjdkdgr/76e5d726.swift:150:23: error: declaration 'generic' cannot override more than one superclass declaration
+ 43 | 
+ 44 | public class DerivedConcrete_d31fee4 : Generic_d31fee4<Int?> {
+ 45 |   public override var generic: Int? { fatalError() }
+    |                       `- note: overridden declaration is here
+ 46 | 
+ 47 |   public subscript(x x: Int?) -> Int { fatalError() }
+    :
+134 | 
+135 | public class Generic<T>: DerivedConcrete_d31fee4 {
+136 |   public var generic: T { fatalError() }
+    |              `- note: overridden declaration is here
+137 | 
+138 |   public subscript(x x: T) -> T? { fatalError() }
+    :
+148 | 
+149 | public class DerivedConcrete : Generic<Int?> {
+150 |   public override var generic: Int? { fatalError() }
+    |                       `- error: declaration 'generic' cannot override more than one superclass declaration
+151 | 
+152 |   public subscript(x x: Int?) -> Int { fatalError() }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpqzjdkdgr/76e5d726.swift:152:10: error: overriding declaration requires an 'override' keyword
+ 45 |   public override var generic: Int? { fatalError() }
+ 46 | 
+ 47 |   public subscript(x x: Int?) -> Int { fatalError() }
+    |          `- note: overridden declaration is here
+ 48 |   public subscript(y y: Int?) -> Int? { fatalError() }
+ 49 | }
+    :
+150 |   public override var generic: Int? { fatalError() }
+151 | 
+152 |   public subscript(x x: Int?) -> Int { fatalError() }
+    |          `- error: overriding declaration requires an 'override' keyword
+153 |   public subscript(y y: Int?) -> Int? { fatalError() }
+154 | }
+
+swift-frontend: /home/build-user/swift/lib/Sema/ConstraintSystem.cpp:3372: bool swift::constraints::ConstraintSystem::diagnoseAmbiguity(ArrayRef<Solution>): Assertion `false && "locator could not be simplified to anchor"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -O -sil-verify-all -enable-experimental-feature Macros -g -debug-info-format=dwarf /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpqzjdkdgr/76e5d726.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpqzjdkdgr/76e5d726.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(main.(file).keyPaths()@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpqzjdkdgr/76e5d726.swift:156:24)
+5.	While type-checking statement at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpqzjdkdgr/76e5d726.swift:156:35 - line:169:1] RangeText="{
+  _ = \Derived.int
+  _ = \Derived.ref
+  _ = \Derived.[x: nil]
+  _ = \Derived.[y: nil]
+
+  _ = \DerivedGeneric<Int>.generic
+  _ = \DerivedGeneric<Int>.[x: nil]
+  _ = \DerivedGeneric<Int>.[y: nil]
+
+  _ = \DerivedConcrete.generic
+  _ = \DerivedConcrete.[x: nil]
+  _ = \DerivedConcrete.[y: nil]
+"
+6.	While type-checking expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpqzjdkdgr/76e5d726.swift:166:3 - line:166:24] RangeText="_ = \DerivedConcrete."
+7.	While type-checking-target starting at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpqzjdkdgr/76e5d726.swift:166:3
+ #0 0x000060949487d658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x000060949487ae75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x000060949487e411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x000071802e238330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x000071802e291c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x000071802e23827e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x000071802e21b8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000071802e21b81b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x000071802e22e517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x000060948dce9842 swift::constraints::ConstraintSystem::diagnoseAmbiguity(llvm::ArrayRef<swift::constraints::Solution>) (/usr/bin/swift-frontend+0x20bb842)
+#10 0x000060948dce463b swift::constraints::ConstraintSystem::salvage() (/usr/bin/swift-frontend+0x20b663b)
+#11 0x000060948dc3d305 swift::constraints::ConstraintSystem::solve(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x200f305)
+#12 0x000060948de074e1 swift::TypeChecker::typeCheckTarget(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x21d94e1)
+#13 0x000060948de07361 swift::TypeChecker::typeCheckExpression(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x21d9361)
+#14 0x000060948de07236 swift::TypeChecker::typeCheckExpression(swift::Expr*&, swift::DeclContext*, swift::constraints::ContextualTypeInfo, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>) (/usr/bin/swift-frontend+0x21d9236)
+#15 0x000060948df0dbd7 (anonymous namespace)::StmtChecker::typeCheckASTNode(swift::ASTNode&) TypeCheckStmt.cpp:0:0
+#16 0x000060948df1450c swift::ASTVisitor<(anonymous namespace)::StmtChecker, void, swift::Stmt*, void, void, void, void>::visit(swift::Stmt*) TypeCheckStmt.cpp:0:0
+#17 0x000060948df179cc bool (anonymous namespace)::StmtChecker::typeCheckStmt<swift::BraceStmt>(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#18 0x000060948df0f404 (anonymous namespace)::StmtChecker::typeCheckBody(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#19 0x000060948df0f02b swift::TypeCheckFunctionBodyRequest::evaluate(swift::Evaluator&, swift::AbstractFunctionDecl*) const (/usr/bin/swift-frontend+0x22e102b)
+#20 0x000060948e612fde swift::TypeCheckFunctionBodyRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()>(swift::TypeCheckFunctionBodyRequest const&, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#21 0x000060948e55dab9 swift::AbstractFunctionDecl::getTypecheckedBody() const (/usr/bin/swift-frontend+0x292fab9)
+#22 0x000060948e6fba08 swift::SourceFile::typeCheckDelayedFunctions() (/usr/bin/swift-frontend+0x2acda08)
+#23 0x000060948df9096d swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x236296d)
+#24 0x000060948df9523b swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#25 0x000060948df907b8 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x23627b8)
+#26 0x000060948c80efd9 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_10>(long, swift::SourceFile&) Frontend.cpp:0:0
+#27 0x000060948c80273e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xbd473e)
+#28 0x000060948c8024bb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xbd44bb)
+#29 0x000060948c679822 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, 
+[... truncated ...]

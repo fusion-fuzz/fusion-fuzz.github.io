@@ -1,0 +1,19 @@
+HloModule basic_scan
+
+%combiner {
+  %in = f32[] parameter(0)
+  %carry = f32[] parameter(1)
+  %add = f32[] add(carry, in)
+  ROOT %t = (f32[], f32[]) tuple(add, add)
+}
+
+ENTRY %main {
+  %input = f32[100]{0} parameter(0)
+  %no_op.d = () tuple()
+  %init = f32[] constant(0)
+  %scan = (f32[100]{0}, f32[]) scan(input, init), dimensions={0}, num_carries=1, to_apply=combiner, is_associative=true
+  %gte0 = f32[100]{0} get-tuple-element(scan), index=0
+  %no_op = () tuple()
+  %ffl.root = (f32[100]{0}, ()) tuple(%gte0, %no_op)
+  ROOT %ffl.root.1 = (f32[100]{0}, (), ()) tuple(%gte0, %no_op, %no_op.d)
+}

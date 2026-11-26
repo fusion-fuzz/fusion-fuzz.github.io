@@ -1,0 +1,57 @@
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_1zbbiio/97589fcc.c:2:10: error: '#include' expects '"FILENAME"' or '<FILENAME>'
+    2 | #include CHECK_H
+      |          ^~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_1zbbiio/97589fcc.c: In function 'sse_test_cvttss2si_2':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_1zbbiio/97589fcc.c:33:3: error: unknown type name 'union128'; did you mean 'union'?
+   33 |   union128 s1;
+      |   ^~~~~~~~
+      |   union
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_1zbbiio/97589fcc.c:37:5: error: request for member 'x' in something not a structure or union
+   37 |   s1.x = _mm_set_ps (24.43, 68.346, 43.35, 429496729501.4);
+      |     ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_1zbbiio/97589fcc.c:38:15: error: request for member 'x' in something not a structure or union
+   38 |   d = test (s1.x);
+      |               ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_1zbbiio/97589fcc.c:39:20: error: request for member 'a' in something not a structure or union
+   39 |   e = (long long)s1.a[0];
+      |                    ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_1zbbiio/97589fcc.c: At top level:
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_1zbbiio/97589fcc.c:47:5: error: '__GIMPLE' only valid with '-fgimple'
+   47 | int __GIMPLE (ssa)
+      |     ^~~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_1zbbiio/97589fcc.c: In function 'foo':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_1zbbiio/97589fcc.c:58:3: internal compiler error: in build2, at tree.cc:5308
+   58 |   q = _1 + x_4;
+      |   ^
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x965282 build2(tree_code, tree_node*, tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:5308
+0xf4ab93 build2_loc(unsigned long, tree_code, tree_node*, tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:4971
+0xf4ab93 c_parser_gimple_binary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:1114
+0xf4bb4f c_parser_gimple_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:938
+0xf4bb4f c_parser_gimple_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:728
+0xf4e0e3 c_parser_gimple_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:452
+0xf4e0e3 c_parser_parse_gimple_body(c_parser*, char*, c_declspec_il, profile_count)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:296
+0xf3625e c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3348
+0xf43529 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2256
+0xf44470 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xf44470 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xfc9e09 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu -iprefix /home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../lib/gcc/x86_64-pc-linux-gnu/17.0.0/ /home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_1zbbiio/97589fcc.c -quiet -dumpdir a- -dumpbase 97589fcc.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O0 -O3 -std=c99 -fsyntax-only -fno-tree-vectorize -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

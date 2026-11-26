@@ -1,0 +1,109 @@
+[... 2 lines omitted ...]
+      |       ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:43:7: warning: unused variable 'i2' [-Wunused-variable]
+   43 |   int i2 = -e2;
+      |       ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:46:7: warning: unused variable 'i3' [-Wunused-variable]
+   46 |   int i3 = ~s;
+      |       ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:47:8: warning: unused variable 'b1' [-Wunused-variable]
+   47 |   bool b1 = !s;
+      |        ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:106:15: error: cannot decrement value of type 'BoolRef'
+  106 |   bool b2 = br--; // expected-error{{cannot decrement value of type 'BoolRef'}}
+      |             ~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:116:23: error: no viable overloaded '='
+  116 |   pmf &pmr = (pmf_ref = &X::f); // expected-error{{no viable overloaded '='}}
+      |               ~~~~~~~ ^ ~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:84:8: note: candidate function (the implicit copy assignment operator) not viable: no known conversion from 'void (X::*)()' to 'const XpmfRef' for 1st argument
+   84 | struct XpmfRef { // expected-note{{candidate function (the implicit copy assignment operator) not viable}}
+      |        ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:84:8: note: candidate function (the implicit move assignment operator) not viable: no known conversion from 'void (X::*)()' to 'XpmfRef' for 1st argument
+   84 | struct XpmfRef { // expected-note{{candidate function (the implicit copy assignment operator) not viable}}
+      |        ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:145:14: warning: unused variable 'cir1' [-Wunused-variable]
+  145 |   const int& cir1 = cip[sr];
+      |              ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:146:14: warning: unused variable 'cir2' [-Wunused-variable]
+  146 |   const int& cir2 = sr[cip];
+      |              ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:147:17: warning: unused variable 'vir1' [-Wunused-variable]
+  147 |   volatile int& vir1 = vip[sr];
+      |                 ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:148:17: warning: unused variable 'vir2' [-Wunused-variable]
+  148 |   volatile int& vir2 = sr[vip];
+      |                 ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:149:8: warning: unused variable 'b1' [-Wunused-variable]
+  149 |   bool b1 = (vip == cip);
+      |        ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:150:8: warning: unused variable 'p1' [-Wunused-variable]
+  150 |   long p1 = vip - cip;
+      |        ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:153:17: warning: unused variable 'vip1' [-Wunused-variable]
+  153 |   int volatile *vip1 = vipr++;
+      |                 ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:154:14: warning: unused variable 'cip1' [-Wunused-variable]
+  154 |   int const *cip1 = cipr++;
+      |              ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:155:18: warning: unused variable 'vipr1' [-Wunused-variable]
+  155 |   int volatile *&vipr1 = ++vipr;
+      |                  ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:156:15: warning: unused variable 'cipr1' [-Wunused-variable]
+  156 |   int const *&cipr1 = --cipr;
+      |               ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:159:17: warning: unused variable 'ivr' [-Wunused-variable]
+  159 |   int volatile &ivr = *vip;
+      |                 ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:162:17: warning: unused variable 'vip2' [-Wunused-variable]
+  162 |   int volatile *vip2 = +vip;
+      |                 ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:163:7: warning: unused variable 'i1' [-Wunused-variable]
+  163 |   int i1 = +sr;
+      |       ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:164:7: warning: unused variable 'i2' [-Wunused-variable]
+  164 |   int i2 = -sr;
+      |       ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:167:17: warning: unused variable 'ivr2' [-Wunused-variable]
+  167 |   int volatile &ivr2 = vip[17];
+      |                 ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:168:14: warning: unused variable 'icr2' [-Wunused-variable]
+  168 |   int const &icr2 = 17[cip];
+      |              ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:174:6: error: no viable overloaded '='
+  174 |   sr = (short)0; // expected-error{{no viable overloaded '='}}
+      |   ~~ ^ ~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:69:8: note: candidate function (the implicit copy assignment operator) not viable: no known conversion from 'short' to 'const ShortRef' for 1st argument
+   69 | struct ShortRef { // expected-note{{candidate function (the implicit copy assignment operator) not viable}}
+      |        ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:69:8: note: candidate function (the implicit move assignment operator) not viable: no known conversion from 'short' to 'ShortRef' for 1st argument
+   69 | struct ShortRef { // expected-note{{candidate function (the implicit copy assignment operator) not viable}}
+      |        ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:188:13: error: invalid operands to binary expression ('ConvertibleToPtrOf<Derived1>' and 'ConvertibleToPtrOf<Derived2>')
+  188 |   return d1 == d2; // expected-error{{invalid operands}}
+      |          ~~ ^  ~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:197:15: error: use of overloaded operator '*' is ambiguous (with operand types 'float' and 'A')
+  197 |   (void)(1.0f * a); // expected-error{{ambiguous}} \
+      |          ~~~~ ^ ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:197:15: note: built-in candidate operator*(float, float)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:197:15: note: built-in candidate operator*(float, double)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:197:15: note: built-in candidate operator*(float, long double)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:197:15: note: built-in candidate operator*(float, __float128)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:197:15: note: built-in candidate operator*(float, int)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:197:15: note: built-in candidate operator*(float, long)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:197:15: note: built-in candidate operator*(float, long long)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:197:15: note: built-in candidate operator*(float, __int128)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:197:15: note: built-in candidate operator*(float, unsigned int)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:197:15: note: built-in candidate operator*(float, unsigned long)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:197:15: note: built-in candidate operator*(float, unsigned long long)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:197:15: note: built-in candidate operator*(float, unsigned __int128)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:239:16: error: use of overloaded operator '-' is ambiguous (with operand types 'Foo' and 'Foo')
+  239 |     (void)(foo - foo); // expected-error{{use of overloaded operator '-' is ambiguous}} \
+      |            ~~~ ^ ~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:239:16: note: built-in candidate operator-(const char *, const char *)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:239:16: note: built-in candidate operator-(const char *, __ptrdiff_t)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:239:16: note: built-in candidate operator-(int, int)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:239:16: note: built-in candidate operator-(int, float)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:239:16: note: built-in candidate operator-(int, double)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpg7__ddw5/b8c99aa8.cpp:239:16: note: built-in candidate operator-(int, long double)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/cla
+[... truncated ...]

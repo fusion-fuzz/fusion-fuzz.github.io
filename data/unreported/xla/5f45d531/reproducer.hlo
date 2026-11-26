@@ -1,0 +1,77 @@
+HloModule test, num_partitions=4
+
+%dsf_computation (param_0: f32[2,2,2], param_1: s32[], param_2: s32[], param_3: s32[]) -> f32[1,2,2] {
+  %param_0 = f32[2,2,2]{2,1,0} parameter(0)
+  %param_1 = s32[] parameter(1)
+  %param_2 = s32[] parameter(2)
+  %param_3 = s32[] parameter(3)
+  ROOT %dynamic-slice = f32[1,2,2]{2,1,0} dynamic-slice(%param_0, %param_1, %param_2, %param_3), dynamic_slice_sizes={1,2,2}, backend_config={"dynamic_slice_config":{ "linear":{"byte_offset":"0","byte_stride":"0"}}}
+}
+
+%async_computation (param_0: f32[2,2,2], param_1: s32[], param_2: s32[], param_3: s32[]) -> f32[1,2,2] {
+  %param_0 = f32[2,2,2]{2,1,0} parameter(0)
+  %param_1 = s32[] parameter(1)
+  %param_2 = s32[] parameter(2)
+  %param_3 = s32[] parameter(3)
+  ROOT %dynamic-slice-fusion = f32[1,2,2]{2,1,0} fusion(%param_0, %param_1, %param_2, %param_3), kind=kLoop, calls=%dsf_computation
+}
+
+%add.0 (x: f32[], y: f32[]) -> f32[] {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  ROOT %add = f32[] add(f32[] %x, f32[] %y)
+}
+
+%add.1 (a: f32[], b: f32[]) -> f32[] {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  ROOT %add = f32[] add(f32[] %a, f32[] %b)
+}
+
+%add.2 (a: f32[], b: f32[]) -> f32[] {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  ROOT %add = f32[] add(f32[] %a, f32[] %b)
+}
+
+%add.3 (a: f32[], b: f32[]) -> f32[] {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  ROOT %add = f32[] add(f32[] %a, f32[] %b)
+}
+
+%dsf_computation.d (param_0: f32[2,2,2], param_1: s32[], param_2: s32[], param_3: s32[]) -> f32[1,2,2] {
+  %param_0 = f32[2,2,2]{2,1,0} parameter(0)
+  %param_1 = s32[] parameter(1)
+  %param_2 = s32[] parameter(2)
+  %param_3 = s32[] parameter(3)
+  ROOT %dynamic-slice = f32[1,2,2]{2,1,0} dynamic-slice(%param_0, %param_1, %param_2, %param_3), dynamic_slice_sizes={1,2,2}, backend_config={"dynamic_slice_config":{ "linear":{"byte_offset":"0","byte_stride":"0"}}}
+}
+
+%async_computation.d (param_0: f32[2,2,2], param_1: s32[], param_2: s32[], param_3: s32[]) -> f32[1,2,2] {
+  %param_0 = f32[2,2,2]{2,1,0} parameter(0)
+  %param_1 = s32[] parameter(1)
+  %param_2 = s32[] parameter(2)
+  %param_3 = s32[] parameter(3)
+  ROOT %dynamic-slice-fusion = f32[1,2,2]{2,1,0} fusion(%param_0, %param_1, %param_2, %param_3), kind=kLoop, calls=%dsf_computation.d
+}
+
+ENTRY %main {
+  %p0 = f32[1,2,2]{2,1,0} parameter(0)
+  %p1 = f32[2,2,2]{2,1,0} parameter(1)
+  %c0 = s32[] constant(0)
+  %p = f32[] constant(3.3)
+  %q = f32[] constant(-1.0)
+  %r = f32[] constant(7.1)
+  %s = f32[] constant(0.2) %res.0 = call(%p, %q), to_apply=%add.0 %res.1 = call(%p, %q), to_apply=%add.1 %res.2 = call(%r, %s), to_apply=%add.2 %res.3 = call(%p, %s), to_apply=%add.3
+  %res.01 = f32[] add(f32[] %res.0, f32[] %res.1)
+  %res.23 = f32[] add(f32[] %res.2, f32[] %res.3)
+  %result = f32[] add(f32[] %res.01, f32[] %res.23)
+  %ffl.call = f32[1,2,2]{2,1,0} call(%p, %q, %q, %s), to_apply=%async_computation.d
+  %ffl.root = (f32[], f32[1,2,2]{2,1,0}) tuple(%result, %ffl.call)
+  %dynamic-slice-start = ((f32[2,2,2]{2,1,0}, s32[], s32[], s32[]), f32[1,2,2]{2,1,0}, u32[]) async-start(%p1, %c0, %c0, %c0), calls=%async_computation
+  %dynamic-slice-done = f32[1,2,2]{2,1,0} async-done(%dynamic-slice-start)
+  %add = f32[1,2,2]{2,1,0} add(p0, p0)
+  %tuple = (f32[1,2,2]{2,1,0}, f32[1,2,2]{2,1,0}) tuple(%dynamic-slice-done, %add)
+  ROOT %ffl.root.1 = ((f32[1,2,2]{2,1,0}, f32[1,2,2]{2,1,0}), f32[], f32[1,2,2]{2,1,0}) tuple(%tuple, %result, %ffl.call)
+}

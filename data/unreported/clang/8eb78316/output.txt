@@ -1,0 +1,77 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp188envl9/0c0a2b92.c:23:1: error: __float128 is not supported on this target
+   23 | __float128 q_arr[3] = {1.0, -2.0, 0.0};
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp188envl9/0c0a2b92.c:24:1: error: _Float16 is not supported on this target
+   24 | _Float16 h_arr[3] = {1.0, -2.0, 0.0};
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp188envl9/0c0a2b92.c:25:1: error: __bf16 is not supported on this target
+   25 | __bf16 bf_arr[3] = {1.0, -2.0, 0.0};
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/Basic/TargetInfo.h:794:64: runtime error: reference binding to misaligned address 0xbebebebebebebebe for type 'const llvm::fltSemantics', which requires 4 byte alignment
+0xbebebebebebebebe: note: pointer points here
+<memory cannot be printed>
+==290236==WARNING: invalid path to external symbolizer!
+==290236==WARNING: Failed to use and restart external symbolizer!
+    #0 0x5725c35a8e84  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1d597e84) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #1 0x5725c183953d  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1b82853d) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #2 0x5725c18a3ac0  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1b892ac0) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #3 0x5725c18add4d  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1b89cd4d) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #4 0x5725c1d71e05  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1bd60e05) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #5 0x5725c1d8fe51  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1bd7ee51) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #6 0x5725c1d9c879  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1bd8b879) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #7 0x5725c1da69f8  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1bd959f8) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #8 0x5725c1da30d8  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1bd920d8) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #9 0x5725c1d9a2d1  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1bd892d1) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #10 0x5725c1d4f5db  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1bd3e5db) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #11 0x5725c1d7402d  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1bd6302d) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #12 0x5725c14eb621  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1b4da621) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #13 0x5725c0b12bfe  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1ab01bfe) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #14 0x5725c0b0cffe  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aafbffe) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #15 0x5725c0aaa35f  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aa9935f) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #16 0x5725c0aa91d0  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aa981d0) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #17 0x5725c0aa70a2  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aa960a2) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #18 0x5725c0aa2c44  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aa91c44) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #19 0x5725c0a7b82e  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1aa6a82e) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #20 0x5725b7f4ca0e  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x11f3ba0e) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #21 0x5725b861077d  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x125ff77d) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #22 0x5725b84a135f  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1249035f) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #23 0x5725b87f6042  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x127e5042) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #24 0x5725b0561216  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xa550216) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #25 0x5725b05550d8  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xa5440d8) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #26 0x5725b055f616  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xa54e616) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #27 0x5725b8075d46  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x12064d46) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #28 0x5725b6053bec  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x10042bec) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #29 0x5725b8073249  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x12062249) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #30 0x5725b7fc270b  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x11fb170b) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #31 0x5725b7fc3fcb  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x11fb2fcb) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #32 0x5725b80143af  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x120033af) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #33 0x5725b0553506  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xa542506) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #34 0x5725b05837e6  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xa5727e6) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+    #35 0x7a3792aa7d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f) (BuildId: 6a6cb5a80fd5e5bb5bf3aeaa111add98e88843a5)
+    #36 0x7a3792aa7e3f  (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f) (BuildId: 6a6cb5a80fd5e5bb5bf3aeaa111add98e88843a5)
+    #37 0x5725b048fb24  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xa47eb24) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/Basic/TargetInfo.h:794:64 in 
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -S -o /dev/null -O3 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -Wextra -target powerpc-ibm-aix -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp188envl9/0c0a2b92.c
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp188envl9/0c0a2b92.c:25:36: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x00005725b04cb65b __interceptor_backtrace + 91
+1  clang     0x00005725b620c1b7 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang     0x00005725b6205e83 llvm::sys::RunSignalHandlers() + 275
+3  clang     0x00005725b620ab54 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang     0x00005725b6053e35
+5  clang     0x00005725b6054643
+6  libc.so.6 0x00007a3792ac0520
+7  libc.so.6 0x00007a3792b149bc pthread_kill + 300
+8  libc.so.6 0x00007a3792ac0476 raise + 22
+9  libc.so.6 0x00007a3792aa67f3 abort + 211
+10 clang     0x00005725b0536cc7
+11 clang     0x00005725b0534b61
+12 clang     0x00005725b05488ac
+13 clang     0x00005725b054941c
+14 clang     0x00005725b05494ae __ubsan_handle_type_mismatch_v1_abort + 46
+15 clang     0x00005725c35a8e85 clang::ASTContext::getFloatTypeSemantics(clang::QualType) const + 1125
+16 clang     0x000057
+[... truncated ...]

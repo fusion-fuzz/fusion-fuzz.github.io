@@ -1,0 +1,14 @@
+HloModule module, num_partitions=4
+
+ENTRY %entry {
+  %lhs = f32[16,8]{1,0} parameter(0), sharding={devices=[2,2]<=[4]}
+  %rhs = f32[4,8]{1,0} parameter(1), sharding={devices=[2,2]<=[4]}
+  %a = f32[4] parameter(2)
+  %b = f32[4] parameter(3)
+  %m0 = f32[4] minimum(%a, %b)
+  %compare = pred[4] compare(%b, %m0), direction=GT
+  %dot.d = f32[16,4]{1,0} dot(%b, %rhs), lhs_contracting_dims={1}, rhs_contracting_dims={1}, sharding={devices=[2,2]<=[4]}
+  %ffl.root = (pred[4], f32[16,4]{1,0}) tuple(%compare, %dot.d)
+  %dot = f32[16,4]{1,0} dot(lhs, rhs), lhs_contracting_dims={1}, rhs_contracting_dims={1}, sharding={devices=[2,2]<=[4]}
+  ROOT %ffl.root.1 = (f32[16,4]{1,0}, pred[4], f32[16,4]{1,0}) tuple(%dot, %compare, %dot.d)
+}

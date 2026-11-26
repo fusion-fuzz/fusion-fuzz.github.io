@@ -1,0 +1,16 @@
+error[E0271]: type mismatch resolving `<S as IntFactory>::stream::{opaque#0}<'_> == !`
+  --> repro.rs:10:25
+   |
+10 |     fn stream(&self) -> impl IntFactory<stream(..): Send> {
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ types differ
+
+error: rustc interrupted by SIGSEGV, printing backtrace
+
+librustc_driver-*.so(_ZN...rustc_hir_analysis::check::compare_impl_item::refine::ImplTraitInTraitCollector as rustc_type_ir::visit::TypeVisitor<TyCtxt>>::visit_ty+0x...)
+librustc_driver-*.so(... ImplTraitInTraitCollector ... ::visit_ty+0x...)
+    [the same frame repeated until the backtrace limit]
+librustc_driver-*.so(<TyCtxt as rustc_type_ir::interner::Interner>::intern_bound_region+0x5d)
+
+note: rustc unexpectedly overflowed its stack! this is a bug
+note: maximum backtrace depth reached, frames may have been lost
+help: you can increase rustc's stack size by setting RUST_MIN_STACK=35651584

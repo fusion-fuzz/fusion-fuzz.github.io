@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:85:6: error: expected a macro identifier for a pound literal expression
+ 83 | 
+ 84 | func test01() {
+ 85 |     #^GLOBAL_NAME^#
+    |      `- error: expected a macro identifier for a pound literal expression
+ 86 |     // GLOBAL_NAME-DAG: Decl[FreeFunction]/CurrModule:      `func with spaces`()[#Void#]; name=`func with spaces`()
+ 87 |     // GLOBAL_NAME-DAG: Decl[TypeAlias]/CurrModule:         `Space Alias`[#`Struct With Spaces`#]; name=`Space Alias`
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:98:5: error: expected member name following '.'
+ 96 | 
+ 97 | func test02(_ x: S) {
+ 98 |   x.#^MEMBER_NAME^#
+    |     `- error: expected member name following '.'
+ 99 |   // MEMBER_NAME-DAG: Decl[InstanceVar]/CurrNominal:      `name with spaces :)`[#Int#]; name=`name with spaces :)`
+100 |   // MEMBER_NAME-DAG: Decl[InstanceMethod]/CurrNominal:   `some.method`({#`argument label!`: Int#})[#Void#]; name=`some.method`(`argument label!`:)
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:105:10: error: expected type
+103 | 
+104 | struct S2<`Generic Param`> {
+105 |   var x: #^TYPE_NAME^#
+    |          `- error: expected type
+106 |   // TYPE_NAME-DAG: Decl[GenericTypeParam]/Local:       `Generic Param`[#Generic Param#]; name=`Generic Param`
+107 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:105:9: error: consecutive declarations on a line must be separated by ';'
+103 | 
+104 | struct S2<`Generic Param`> {
+105 |   var x: #^TYPE_NAME^#
+    |         `- error: consecutive declarations on a line must be separated by ';'
+106 |   // TYPE_NAME-DAG: Decl[GenericTypeParam]/Local:       `Generic Param`[#Generic Param#]; name=`Generic Param`
+107 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:105:11: error: expected a macro identifier for a pound literal declaration
+103 | 
+104 | struct S2<`Generic Param`> {
+105 |   var x: #^TYPE_NAME^#
+    |           `- error: expected a macro identifier for a pound literal declaration
+106 |   // TYPE_NAME-DAG: Decl[GenericTypeParam]/Local:       `Generic Param`[#Generic Param#]; name=`Generic Param`
+107 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:311:15: error: expected name of related precedence group after 'higherThan'
+309 | precedencegroup `Spacedence Group` {}
+310 | precedencegroup AnotherOne {
+311 |   higherThan: #^PREC_NAME^#
+    |               `- error: expected name of related precedence group after 'higherThan'
+312 |   // PREC_NAME: Decl[PrecedenceGroup]/CurrModule:   `Spacedence Group`; name=`Spacedence Group`
+313 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:322:6: error: expected a macro identifier for a pound literal expression
+320 | 
+321 | func test01() {
+322 |     #^GLOBAL_NAME^#
+    |      `- error: expected a macro identifier for a pound literal expression
+323 |     // GLOBAL_NAME-DAG: Decl[FreeFunction]/CurrModule:      `func with spaces`()[#Void#]; name=`func with spaces`()
+324 |     // GLOBAL_NAME-DAG: Decl[TypeAlias]/CurrModule:         `Space Alias`[#`Struct With Spaces`#]; name=`Space Alias`
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:335:5: error: expected member name following '.'
+333 | 
+334 | func test02(called x: S) {
+335 |   x.#^MEMBER_NAME^#
+    |     `- error: expected member name following '.'
+336 |   // MEMBER_NAME-DAG: Decl[InstanceVar]/CurrNominal:      `name with spaces :)`[#Int#]; name=`name with spaces :)`
+337 |   // MEMBER_NAME-DAG: Decl[InstanceMethod]/CurrNominal:   `some.method`({#`argument label!`: Int#})[#Void#]; name=`some.method`(`argument label!`:)
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:342:10: error: expected type
+340 | 
+341 | struct S2<`Generic Param`> {
+342 |   var x: #^TYPE_NAME^#
+    |          `- error: expected type
+343 |   // TYPE_NAME-DAG: Decl[GenericTypeParam]/Local:       `Generic Param`[#Generic Param#]; name=`Generic Param`
+344 |   // TYPE_NAME-DAG: Keyword[Self]/CurrNominal:          Self[#S2<Generic Param>#]; name=Self
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:342:9: error: consecutive declarations on a line must be separated by ';'
+340 | 
+341 | struct S2<`Generic Param`> {
+342 |   var x: #^TYPE_NAME^#
+    |         `- error: consecutive declarations on a line must be separated by ';'
+343 |   // TYPE_NAME-DAG: Decl[GenericTypeParam]/Local:       `Generic Param`[#Generic Param#]; name=`Generic Param`
+344 |   // TYPE_NAME-DAG: Keyword[Self]/CurrNominal:          Self[#S2<Generic Param>#]; name=Self
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:342:11: error: expected a macro identifier for a pound literal declaration
+340 | 
+341 | struct S2<`Generic Param`> {
+342 |   var x: #^TYPE_NAME^#
+    |           `- error: expected a macro identifier for a pound literal declaration
+343 |   // TYPE_NAME-DAG: Decl[GenericTypeParam]/Local:       `Generic Param`[#Generic Param#]; name=`Generic Param`
+344 |   // TYPE_NAME-DAG: Keyword[Self]/CurrNominal:          Self[#S2<Generic Param>#]; name=Self
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:349:15: error: expected name of related precedence group after 'higherThan'
+347 | precedencegroup `Spacedence Group` {}
+348 | precedencegroup AnotherOne {
+349 |   higherThan: #^PREC_NAME^#
+    |               `- error: expected name of related precedence group after 'higherThan'
+350 |   // PREC_NAME: Decl[PrecedenceGroup]/CurrModule:   `Spacedence Group`; name=`Spacedence Group`
+351 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:221:12: warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+219 | }
+220 | 
+221 | @available(SwiftStdlib 5.5, *)
+    |            `- warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+222 | typealias DefaultDistributedActorSystem = FakeActorSystem
+223 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:24:19: error: distributed actor 'SomeSpecificDistributedActor' does not declare ActorSystem it can be used with
+ 22 | }
+ 23 | 
+ 24 | distributed actor SomeSpecificDistributedActor {
+    |                   `- error: distributed actor 'SomeSpecificDistributedActor' does not declare ActorSystem it can be used with
+ 25 |   let state: String = "hi there"
+ 26 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpew1v44bc/c862de05.swift:24:19: error: distributed actor 'SomeSpecificDistributedActor' does not declare ActorSystem it can be used with
+ 22 | }
+ 23 | 
+ 24 | distributed actor SomeSpecificDistributedActor {
+    |             |     `- error: distributed actor 'SomeSpecificDistributedActor' does not declare ActorSystem it can be used with
+    |             `- note: you can provide a module-wide default actor system by declaring:
+typealias DefaultDistributedActorSystem = <#ConcreteActorSystem#>
+
+[... 174 more lines ...]

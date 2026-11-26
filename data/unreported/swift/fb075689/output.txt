@@ -1,0 +1,92 @@
+[... 40 lines omitted ...]
+  [P:Bob] => { conforms_to: [Escapable] }
+  [Copyable] => { conforms_to: [Copyable] }
+  [Escapable] => { conforms_to: [Escapable] }
+  [NoCopyReq] => { conforms_to: [NoCopyReq Escapable] }
+  τ_0_0 => { conforms_to: [P Copyable Escapable] }
+}
+Conformance paths: {
+}
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -wmo -sil-verify-all -enable-experimental-feature NonescapableTypes -disable-availability-checking /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp1yijx0ld/2a53ee62.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp1yijx0ld/2a53ee62.swift")
+4.	While type-checking 'bar1(_:)' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp1yijx0ld/2a53ee62.swift:23:9)
+5.	While evaluating request InterfaceTypeRequest(main.(file).bar1@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp1yijx0ld/2a53ee62.swift:23:14)
+6.	While evaluating request ResultTypeRequest(main.(file).bar1@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp1yijx0ld/2a53ee62.swift:23:14)
+7.	While evaluating request OpaqueResultTypeRequest(main.(file).bar1@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp1yijx0ld/2a53ee62.swift:23:14)
+8.	While evaluating request AbstractGenericSignatureRequest(NULL, {τ_0_0}, {τ_0_0 : P}, DefaultRequirementOptions(expandingDefaults=1, inferOutOfScopeImpliedInverses=1))
+9.	While checking generic signature <τ_0_0 where τ_0_0 : Copyable, τ_0_0 : P>
+10.	Abort: function operator() at GenericSignature.cpp:958
+| 	Redundant conformance requirements in signature <τ_0_0 where τ_0_0 : Copyable, τ_0_0 : P>:
+| 	Ours:
+| 	- Copyable
+| 	- P
+| 	Theirs:
+| 	- P
+| 	All requirements:
+| 	(requirement "τ_0_0" conforms_to "Copyable")
+| 	(requirement "τ_0_0" conforms_to "P")
+| 	Requirement machine for <τ_0_0 where τ_0_0 : Copyable, τ_0_0 : P>
+| 	Rewrite system: {
+| 	- [P].[P] => [P] [permanent]
+| 	- [P].AT => [P:AT] [permanent]
+| 	- [P].Bob => [P:Bob] [permanent]
+| 	- [P].Alice => [P:Alice] [permanent]
+| 	- [P:Alice].[NoCopyReq] => [P:Alice] [explicit]
+| 	- [P].[Escapable] => [P] [explicit]
+| 	- [P:AT].[Copyable] => [P:AT] [explicit]
+| 	- [P:AT].[Escapable] => [P:AT] [explicit]
+| 	- [P:Bob].[Escapable] => [P:Bob] [explicit]
+| 	- [P:Alice].[Escapable] => [P:Alice] [explicit]
+| 	- [P].[P:AT] => [P:AT]
+| 	- [P].[P:Bob] => [P:Bob]
+| 	- [P].[P:Alice] => [P:Alice]
+| 	- [Copyable].[Copyable] => [Copyable] [permanent]
+| 	- [Escapable].[Escapable] => [Escapable] [permanent]
+| 	- [NoCopyReq].[NoCopyReq] => [NoCopyReq] [permanent]
+| 	- [NoCopyReq].[Escapable] => [NoCopyReq] [explicit]
+| 	- τ_0_0.[P] => τ_0_0 [explicit]
+| 	- τ_0_0.[Copyable] => τ_0_0 [explicit]
+| 	- τ_0_0.[Escapable] => τ_0_0 [explicit]
+| 	- τ_0_0.AT => τ_0_0.[P:AT]
+| 	- τ_0_0.Bob => τ_0_0.[P:Bob]
+| 	- τ_0_0.Alice => τ_0_0.[P:Alice]
+| 	}
+| 	Property map: {
+| 	  [P] => { conforms_to: [P Escapable] }
+| 	  [P:Alice] => { conforms_to: [NoCopyReq Escapable] }
+| 	  [P:AT] => { conforms_to: [Copyable Escapable] }
+| 	  [P:Bob] => { conforms_to: [Escapable] }
+| 	  [Copyable] => { conforms_to: [Copyable] }
+| 	  [Escapable] => { conforms_to: [Escapable] }
+| 	  [NoCopyReq] => { conforms_to: [NoCopyReq Escapable] }
+| 	  τ_0_0 => { conforms_to: [P Copyable Escapable] }
+| 	}
+| 	Conformance paths: {
+| 	}
+ #0 0x000055f024c7bbab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055f024c792e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055f024c7c8c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f3c263b0330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f3c26409c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f3c263b027e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f3c263938ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000055f01f0b9622 (/usr/bin/swift-frontend+0x3055622)
+ #8 0x000055f01f0b970c (/usr/bin/swift-frontend+0x305570c)
+ #9 0x000055f01ede8288 swift::GenericSignature::verify(llvm::ArrayRef<swift::Requirement>) const (/usr/bin/swift-frontend+0x2d84288)
+#10 0x000055f01ef08709 swift::AbstractGenericSignatureRequest::evaluate(swift::Evaluator&, swift::GenericSignatureImpl const*, llvm::SmallVector<swift::GenericTypeParamType*, 2u>, llvm::SmallVector<swift::Requirement, 2u>, swift::optionset::OptionSet<swift::DefaultRequirementFlags, unsigned char>) const (/usr/bin/swift-frontend+0x2ea4709)
+#11 0x000055f01e62c504 llvm::PointerIntPair<swift::GenericSignature, 3u, swift::optionset::OptionSet<swift::GenericSignatureErrorFlags, unsigned int>, llvm::PointerLikeTypeTraits<swift::GenericSignature>, llvm::PointerIntPairInfo<swift::GenericSignature, 3u, llvm::PointerLikeTypeTraits<swift::GenericSignature>>> swift::SimpleRequest<swift::AbstractGenericSignatureRequest, llvm::PointerIntPair<swift::GenericSignature, 3u, swift::optionset::OptionSet<swift::GenericSignatureErrorFlags, unsigned int>, llvm::PointerLikeTypeTraits<swift::GenericSignature>, llvm::PointerIntPairInfo<swift::GenericSignature, 3u, llvm::PointerLikeTypeTraits<swift::GenericSignature>>> (swift::GenericSignatureImpl const*, llvm::SmallVector<swift::GenericTypeParamType*, 2u>, llvm::SmallVector<swift::Requirement, 2u>, swift::optionset::OptionSet<swift::DefaultRequirementFlags, unsigned char>), (swift::RequestFlags)2>::callDerived<0ul, 1ul, 2ul, 3ul>(swift::Evaluator&, std::integer_sequence<unsigned long, 0ul, 1ul, 2ul, 3ul>) const crtstuff.c:0:0
+#12 0x000055f01ededdc2 swift::AbstractGenericSignatureRequest::OutputType swift::Evaluator::getResultUncached<swift::AbstractGenericSignatureRequest, swift::AbstractGenericSignatureRequest::OutputType swift::evaluateOrDefault<swift::AbstractGenericSignatureRequest>(swift::Evaluator&, swift::AbstractGenericSignatureRequest, swift::AbstractGenericSignatureRequest::OutputType)::'lambda'()>(swift::AbstractGenericSignatureRequest const&, swift::AbstractGenericSignatureRequest::OutputType swift::evaluateOrDefault<swift::AbstractGenericSignatureRequest>(swift::Evaluator&, swift::AbstractGenericSignatureRequest, swift::AbstractGenericSignatureRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#13 0x000055f01ededbb6 swift::AbstractGenericSignatureRequest::OutputType swift::Evaluator::getResultCached<swift::AbstractGenericSignatureRequest, swift::AbstractGenericSignatureRequest::OutputType swift::evaluateOrDefault<swift::AbstractGenericSignatureRequest>(swift::Evaluator&, swift::AbstractGenericSignatureRequest, swift::AbstractGenericSignatureRequest::OutputType)::'lambda'(), (void*)0>(swift::AbstractGenericSignatureRequest const&, swift::AbstractGenericSignatureRequest::OutputType swift::evaluateOrDefault<swift::AbstractGenericSignatureRequest>(swift::Evaluator&, swift::AbstractGenericSignatureRequest, swift::AbstractGenericSignatureRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#14 0x000055f01ede9963 swift::buildGenericSignatureWithError(swift::ASTContext&, swift::GenericSignature, llvm::SmallVector<swift::GenericTypeParamType*, 2u>, llvm::SmallVector<swift::Requirement, 2u>, swift::optionset::OptionSet<swift::DefaultRequirementFlags, unsigned char>) (/usr/bin/swift-frontend+0x2d85963)
+#15 0x000055f01ede9d42 swift::buildGenericSignature(swift::ASTContext&, swift::GenericSignature, llvm::SmallVector<swift::GenericTypeParamType*, 2u>, llvm::SmallVector<swift::Requirement, 2u>, swift::optionset::OptionSet<swift::DefaultRequirementFlags, unsigned char>) (/usr/bin/swift-frontend+0x2d85d42)
+#16 0x000055f01e5ba93f swift::OpaqueResultTypeRequest::evaluate(swift::Evaluator&, swift::ValueDecl*) const (/usr/bin/swift-frontend+0x255693f)
+#17 0x000055f01ecbeb48 swift::OpaqueResultTypeRequest::OutputType swift::Evaluator::getResultUncached<swift::OpaqueResultTypeRequest, swift::OpaqueResultTypeRequest::OutputType swift::evaluateOrDefault<swift::OpaqueResultTypeRequest>(swift::Evaluator&, swift::OpaqueResultTypeRequest, swift::OpaqueResultTypeRequest::OutputType)::'lambda'()>(swift::OpaqueResultTypeRequest const&, swift::OpaqueResultTypeRequest::OutputType swift::evaluateOrDefault<swift::OpaqueResultTypeRequest>(swift::Evaluator&, swift::OpaqueResultTypeRequest, swift::OpaqueResultTypeRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#18 0x000055f01ec6fd26 swift::ValueDecl::getOpaqueResultTypeDecl() const (/usr/bin/swift-frontend+0x2c0bd26)
+#19 0x000055f01e538263 swift::ResultTypeRequest::evaluate(swift::Evaluator&, swift::ValueDecl*) const (/usr/bin/swift-frontend+0x24d4263)
+#20 0x000055f01ed33ef8 swift::ResultTypeRequest::OutputType swift::Evaluator::getResultUncached<swift::ResultTypeRequest, swift::ResultTypeRequest::OutputType swift::evaluateOrDefault<swift::ResultTypeRequest>(swift::Evaluator&, swift::ResultTypeRequest, swift::ResultTypeRequest::OutputType)::'lam
+[... truncated ...]

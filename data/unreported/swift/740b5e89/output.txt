@@ -1,0 +1,121 @@
+/fusion-fuzz/.fused/swift/tmpx0tt_2mq/31546be1.swift:11:21: error: initializers may only be declared within a type
+  9 | func foo() -> Bool {
+ 10 |     return !bar
+ 11 |     convenience init(ri: Int) { }
+    |                     `- error: initializers may only be declared within a type
+ 12 | 
+ 13 |     @_dynamicReplacement(for: init(c:)) // expected-error{{replaced initializer 'init(c:)' is marked as convenience}})
+
+/fusion-fuzz/.fused/swift/tmpx0tt_2mq/31546be1.swift:14:9: error: initializers may only be declared within a type
+ 12 | 
+ 13 |     @_dynamicReplacement(for: init(c:)) // expected-error{{replaced initializer 'init(c:)' is marked as convenience}})
+ 14 |     init(rc: Int) { }
+    |         `- error: initializers may only be declared within a type
+ 15 | 
+ 16 |     @_dynamicReplacement(for:finalFunction())
+
+Assertion failed: (ext->canNeverBeBound() && "Should have been bound by bindExtensions"), function evaluate at NameLookup.cpp:3698.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /opt/swift-coverage/bin/swift -frontend -typecheck -Osize -sil-verify-all /fusion-fuzz/.fused/swift/tmpx0tt_2mq/31546be1.swift
+1.	Swift version 6.3.3 (swift-6.3.3-RELEASE)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/fusion-fuzz/.fused/swift/tmpx0tt_2mq/31546be1.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(main.(file).foo()@/fusion-fuzz/.fused/swift/tmpx0tt_2mq/31546be1.swift:9:6)
+5.	While type-checking statement at [/fusion-fuzz/.fused/swift/tmpx0tt_2mq/31546be1.swift:9:20 - line:18:1] RangeText="{
+    return !bar
+    convenience init(ri: Int) { }
+
+    @_dynamicReplacement(for: init(c:)) // expected-error{{replaced initializer 'init(c:)' is marked as convenience}})
+    init(rc: Int) { }
+
+    @_dynamicReplacement(for:finalFunction())
+    func replacement_finalFunction() {}
+"
+6.	While type-checking 'replacement_finalFunction()' (at /fusion-fuzz/.fused/swift/tmpx0tt_2mq/31546be1.swift:17:5)
+7.	While evaluating request DynamicallyReplacedDeclRequest(main.(file).foo().replacement_finalFunction()@/fusion-fuzz/.fused/swift/tmpx0tt_2mq/31546be1.swift:17:10)
+8.	While evaluating request ExtendedNominalRequest(main.(file).foo()@/fusion-fuzz/.fused/swift/tmpx0tt_2mq/31546be1.swift:9:6)
+9.	Assertion failed: (ext->canNeverBeBound() && "Should have been bound by bindExtensions"), function evaluate at NameLookup.cpp:3698.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  swift     0x00005f3a198c12f8
+1  swift     0x00005f3a198bed45
+2  swift     0x00005f3a198c1f61
+3  libc.so.6 0x00007c58c982a330
+4  libc.so.6 0x00007c58c9883c0c pthread_kill + 284
+5  libc.so.6 0x00007c58c982a27e gsignal + 30
+6  libc.so.6 0x00007c58c980d8ff abort + 223
+7  swift     0x00005f3a120d1407
+8  swift     0x00005f3a120d1521
+9  swift     0x00005f3a15588b52
+10 swift     0x00005f3a1529b8af
+11 swift     0x00005f3a15011ec1
+12 swift     0x00005f3a15011ccd
+13 swift     0x00005f3a14fb27ed
+14 swift     0x00005f3a143ccebb
+15 swift     0x00005f3a143d2f28
+16 swift     0x00005f3a143c36d0
+17 swift     0x00005f3a15036356
+18 swift     0x00005f3a14fc518e
+19 swift     0x00005f3a14fc5003
+20 swift     0x00005f3a145279fa
+21 swift     0x00005f3a1451bf8a
+22 swift     0x00005f3a1451b43f
+23 swift     0x00005f3a14643052
+24 swift     0x00005f3a1463b847
+25 swift     0x00005f3a1463ad09
+26 swift     0x00005f3a1463a429
+27 swift     0x00005f3a150e01f4
+28 swift     0x00005f3a14fe7d5e
+29 swift     0x00005f3a14fe7cd7
+30 swift     0x00005f3a15229d13
+31 swift     0x00005f3a146da990
+32 swift     0x00005f3a146e0cdb
+33 swift     0x00005f3a146da6b1
+34 swift     0x00005f3a146da658
+35 swift     0x00005f3a127f5da7
+36 swift     0x00005f3a127e8cd8
+37 swift     0x00005f3a127e899c
+38 swift     0x00005f3a1248d201
+39 swift     0x00005f3a1247b81d
+40 swift     0x00005f3a124772ea
+41 swift     0x00005f3a121b753d
+42 swift     0x00005f3a121b6173
+43 libc.so.6 0x00007c58c980f1ca
+44 libc.so.6 0x00007c58c980f28b __libc_start_main + 139
+45 swift     0x00005f3a121b58a5
+
+*** Signal 6: Backtracing from 0x7c58c990c38d... done ***
+
+*** Program crashed: Aborted at 0x0000000000010dcb ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift" crashed:
+
+  0  0x00007c58c990c38d <unknown> in libc.so.6
+...
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007c58c990c38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x0000000000010dcb  69067
+rdi 0x0000000000010dcb  69067
+rbp 0x0000000000010dcb  69067
+rsp 0x00005f3a4f0c98a8  8b 1f 8c 19 3a 5f 00 00 30 9b 0c 4f 3a 5f 00 00  ····:_··0··O:_··
+ r8 0x00005f3a4f0c9b30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x00005f3a4f0c9b30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x00005f3a4f0c9b30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x00007fffb6a38070  f8 18 e8 28 3a 5f 00 00 02 00 00 00 ff 7f 00 00  ø·è(:_······ÿ···
+r14 0x0000000000000000  0
+r15 0x00005f3a4f0c9948  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007c58c990c38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+[... 13 more lines ...]

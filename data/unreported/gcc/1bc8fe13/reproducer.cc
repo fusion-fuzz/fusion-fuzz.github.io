@@ -1,0 +1,54 @@
+// { dg-do compile { target c++20 } }
+
+template<int I>
+struct A {
+  enum E { e = I };
+  static void f() requires (e != 0);
+};
+/* { dg-do run } */
+/* { dg-require-alias "" } */
+/* { dg-options "-O2" } */
+/* { dg-skip-if "weak alias" { powerpc-ibm-aix* } } */
+
+extern void abort (void);
+
+#define ASMNAME(cname)  ASMNAME2 (__USER_LABEL_PREFIX__, cname)
+#define ASMNAME2(prefix, cname) STRING (prefix) cname
+#define STRING(x)    #x
+
+int foo __asm__ (ASMNAME ("foo")) __attribute__((nocommon));
+extern __typeof (foo) bar __attribute__ ((weak, alias ("foo")));
+
+int
+main (void)
+{
+  if (&foo != &bar || foo || bar)
+    abort ();
+  return bar;
+}
+
+int main() {
+  A<1>::f();
+  A<0>::f(); // { dg-error "no match" }
+}
+/* { dg-do run } */
+/* { dg-require-alias "" } */
+/* { dg-options "-O2" } */
+/* { dg-skip-if "weak alias" { powerpc-ibm-aix* } } */
+
+extern void abort (void);
+
+#define ASMNAME(cname)  ASMNAME2 (__USER_LABEL_PREFIX__, cname)
+#define ASMNAME2(prefix, cname) STRING (prefix) cname
+#define STRING(x)    #x
+
+int foo __asm__ (ASMNAME ("foo")) __attribute__((nocommon));
+extern __typeof (foo) bar __attribute__ ((weak, alias ("foo")));
+
+int
+main (void)
+{
+  if (&foo != &bar || foo || bar)
+    abort ();
+  return bar;
+}

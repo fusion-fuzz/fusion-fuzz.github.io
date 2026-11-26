@@ -1,0 +1,80 @@
+swift-frontend: /home/build-user/swift/lib/IRGen/GenEnum.cpp:6693: static std::unique_ptr<EnumImplStrategy> swift::irgen::EnumImplStrategy::get(TypeConverter &, SILType, EnumDecl *): Assertion `alwaysFixedSize == IsFixedSize && "C enum with resilient payload?!"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -wmo -sil-verify-all -enable-library-evolution /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpe38z08il/972754ad.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request IRGenRequest(IR Generation for module main)
+4.	While evaluating request ExecuteSILPipelineRequest(Run pipelines { IRGen Preparation } on SIL for main)
+5.	While running pass #25 SILFunctionTransform "AllocStackHoisting" on SILFunction "@$s4main11FooCommentsO8rawValueACSgs5Int32V_tcfC".
+ for 'init(rawValue:)' (in module 'main')
+6.	While converting type 'FooComments' (declared at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpe38z08il/972754ad.swift:58:24 - line:62:1] RangeText="enum FooComments: CInt {
+  /// Zim: A zeer, a female zeer.
+  case Zim
+  case Zang, Zung
+")
+ #0 0x000055e7c547fbab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055e7c547d2e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055e7c54808c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f216f24b330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f216f2a4c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f216f24b27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f216f22e8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007f216f22e81b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007f216f241517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x000055e7bd9f423b swift::irgen::EnumImplStrategy::get(swift::irgen::TypeConverter&, swift::SILType, swift::EnumDecl*) (/usr/bin/swift-frontend+0x118c23b)
+#10 0x000055e7bd9f4f10 swift::irgen::TypeConverter::convertEnumType(swift::TypeBase*, swift::CanType, swift::EnumDecl*) (/usr/bin/swift-frontend+0x118cf10)
+#11 0x000055e7bdb08a21 swift::irgen::TypeConverter::convertAnyNominalType(swift::CanType, swift::NominalTypeDecl*) (/usr/bin/swift-frontend+0x12a0a21)
+#12 0x000055e7bdb06eb6 swift::irgen::TypeConverter::convertType(swift::CanType) (/usr/bin/swift-frontend+0x129eeb6)
+#13 0x000055e7bdb0651c swift::irgen::TypeConverter::getTypeEntry(swift::CanType) (/usr/bin/swift-frontend+0x129e51c)
+#14 0x000055e7bdb05ea5 swift::irgen::IRGenModule::getTypeInfo(swift::SILType) (/usr/bin/swift-frontend+0x129dea5)
+#15 0x000055e7bd952eb6 (anonymous namespace)::AllocStackHoisting::run() AllocStackHoisting.cpp:0:0
+#16 0x000055e7be482b2e swift::SILPassManager::runPassOnFunction(unsigned int, swift::SILFunction*) (/usr/bin/swift-frontend+0x1c1ab2e)
+#17 0x000055e7be4842b1 swift::SILPassManager::runFunctionPasses(unsigned int, unsigned int) (/usr/bin/swift-frontend+0x1c1c2b1)
+#18 0x000055e7be487b3e swift::SILPassManager::execute() (/usr/bin/swift-frontend+0x1c1fb3e)
+#19 0x000055e7be4802b8 swift::SILPassManager::executePassPipelinePlan(swift::SILPassPipelinePlan const&) (/usr/bin/swift-frontend+0x1c182b8)
+#20 0x000055e7be48026b swift::ExecuteSILPipelineRequest::evaluate(swift::Evaluator&, swift::SILPipelineExecutionDescriptor) const (/usr/bin/swift-frontend+0x1c1826b)
+#21 0x000055e7be4add8a swift::SimpleRequest<swift::ExecuteSILPipelineRequest, std::tuple<> (swift::SILPipelineExecutionDescriptor), (swift::RequestFlags)1>::evaluateRequest(swift::ExecuteSILPipelineRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#22 0x000055e7be48f6f3 swift::ExecuteSILPipelineRequest::OutputType swift::Evaluator::getResultUncached<swift::ExecuteSILPipelineRequest, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()>(swift::ExecuteSILPipelineRequest const&, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()) crtstuff.c:0:0
+#23 0x000055e7be48047f swift::executePassPipelinePlan(swift::SILModule*, swift::SILPassPipelinePlan const&, bool, swift::irgen::IRGenModule*) (/usr/bin/swift-frontend+0x1c1847f)
+#24 0x000055e7bd82e036 swift::IRGenRequest::evaluate(swift::Evaluator&, swift::IRGenDescriptor) const (/usr/bin/swift-frontend+0xfc6036)
+#25 0x000055e7bd89c6da swift::GeneratedModule swift::SimpleRequest<swift::IRGenRequest, swift::GeneratedModule (swift::IRGenDescriptor), (swift::RequestFlags)17>::callDerived<0ul>(swift::Evaluator&, std::integer_sequence<unsigned long, 0ul>) const crtstuff.c:0:0
+#26 0x000055e7bd89c5a9 swift::SimpleRequest<swift::IRGenRequest, swift::GeneratedModule (swift::IRGenDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::IRGenRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#27 0x000055e7bd23c095 swift::IRGenRequest::OutputType swift::Evaluator::getResultUncached<swift::IRGenRequest, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()>(swift::IRGenRequest const&, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()) crtstuff.c:0:0
+#28 0x000055e7bd82f253 swift::performIRGeneration(swift::ModuleDecl*, swift::IRGenOptions const&, swift::TBDGenOptions const&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::StringRef, swift::PrimarySpecificPaths const&, std::shared_ptr<llvm::cas::ObjectStore>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::GlobalVariable**, swift::cas::SwiftCASOutputBackend*, std::optional<llvm::cas::ObjectRef>) (/usr/bin/swift-frontend+0xfc7253)
+#29 0x000055e7bd54a469 generateIR(swift::IRGenOptions const&, swift::TBDGenOptions const&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, swift::PrimarySpecificPaths const&, std::shared_ptr<llvm::cas::ObjectStore>, swift::cas::SwiftCASOutputBackend*, llvm::StringRef, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, llvm::GlobalVariable*&, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, std::optional<llvm::cas::ObjectRef>) FrontendTool.cpp:0:0
+#30 0x000055e7bd54311f performCompileStepsPostSILGen(swift::CompilerInstance&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, swift::PrimarySpecificPaths const&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>, llvm::ArrayRef<swift::PrimarySpecificPaths>) FrontendTool.cpp:0:0
+#31 0x000055e7bd54177b swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xcd977b)
+#32 0x000055e7bd55b581 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#33 0x000055e7bd5470cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#34 0x000055e7bd543fef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcdbfef)
+#35 0x000055e7bd21324b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9ab24b)
+#36 0x00007f216f2301ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#37 0x00007f216f23028b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#38 0x000055e7bd2122a5 _start (/usr/bin/swift-frontend+0x9aa2a5)
+
+*** Signal 6: Backtracing from 0x7f216f32d38d... done ***
+
+*** Program crashed: Aborted at 0x00007f216f32d38d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007f216f32d38d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007f216f32d38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x00000000000dc688  902792
+rdi 0x00000000000dc688  902792
+rbp 0x00000000000dc688  902792
+rsp 0x000055e7cb3f04e8  eb 08 48 c5 e7 55 00 00 70 07 3f cb e7 55 00 00  ë·HÅçU··p·?ËçU··
+ r8 0x000055e7cb3f0770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x000055e7cb3f0770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x000055e7cb3f0770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ···
+[... truncated ...]

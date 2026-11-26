@@ -1,0 +1,41 @@
+semantic error: More than one main program found
+  --> /fusion-fuzz/.fused/lfortran/tmpbzz44rpl/b5b8d021.f90:1:1 - 45:31
+   |
+ 1 |    program TYPE_SCOPE_TEST_ffl
+   |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^...
+...
+   |
+45 |    end program TYPE_SCOPE_TEST_ffl
+   | ...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ first main program defined here
+   |
+46 |    program main
+   |    ^^^^^^^^^^^^...
+...
+   |
+67 |    end program main
+   | ...^^^^^^^^^^^^^^^^ second main program defined here
+
+semantic error: More than one main program found
+  --> /fusion-fuzz/.fused/lfortran/tmpbzz44rpl/b5b8d021.f90:1:1 - 45:31
+   |
+ 1 |    program TYPE_SCOPE_TEST_ffl
+   |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^...
+...
+   |
+45 |    end program TYPE_SCOPE_TEST_ffl
+   | ...^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ first main program defined here
+   |
+68 |    program type_scope_test
+   |    ^^^^^^^^^^^^^^^^^^^^^^^...
+...
+   |
+112 |    end program type_scope_test
+   | ...^^^^^^^^^^^^^^^^^^^^^^^^^^^ second main program defined here
+
+
+Note: Please report unclear, confusing or incorrect messages as bugs at
+https://github.com/lfortran/lfortran/issues.
+ASR verify pass error: Allocatable type conflicts with Pointer type
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+LCompilersException: Verify failed in the pass: nested_vars

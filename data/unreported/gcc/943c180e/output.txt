@@ -1,0 +1,56 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpxbtti9xp/6adb3f57.c: In function 'foo':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpxbtti9xp/6adb3f57.c:108:11: warning: 'x' offset ((sizetype)(n) + 2) * 4 in 'struct A' may not be aligned to 8 [-Wif-not-aligned]
+  108 |     __u64 x;    /* { dg-warning "in 'struct A' may not be aligned to 8" } */
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpxbtti9xp/6adb3f57.c: In function 'buf':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpxbtti9xp/6adb3f57.c:155:11: warning: 'x' offset ((sizetype)(n) + 2) * 4 in 'struct q' may not be aligned to 8 [-Wif-not-aligned]
+  155 |     __u64 x;    /* { dg-warning "in 'struct q' may not be aligned to 8" } */
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpxbtti9xp/6adb3f57.c: At top level:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpxbtti9xp/6adb3f57.c:175:1: internal compiler error: in tree_node_structure_for_code, at tree.cc:614
+  175 | }
+      | ^
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x960b21 tree_node_structure_for_code
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:614
+0x960b21 tree_node_structure_for_code
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:551
+0x960b21 tree_node_structure(tree_node const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:4273
+0xea2367 gt_ggc_mx_lang_tree_node(void*)
+	./gt-c-c-decl.h:65
+0xea2e55 gt_ggc_mx_lang_tree_node(void*)
+	./gt-c-c-decl.h:393
+0xea26ae gt_ggc_mx_lang_tree_node(void*)
+	./gt-c-c-decl.h:271
+0xea2e55 gt_ggc_mx_lang_tree_node(void*)
+	./gt-c-c-decl.h:393
+0xea2e1d gt_ggc_mx_lang_tree_node(void*)
+	./gt-c-c-decl.h:389
+0xea26ae gt_ggc_mx_lang_tree_node(void*)
+	./gt-c-c-decl.h:271
+0xea2b99 gt_ggc_mx_lang_tree_node(void*)
+	./gt-c-c-decl.h:449
+0xea30aa gt_ggc_mx_lang_tree_node(void*)
+	./gt-c-c-decl.h:316
+0xea26d8 gt_ggc_mx_lang_tree_node(void*)
+	./gt-c-c-decl.h:274
+0xea2e55 gt_ggc_mx_lang_tree_node(void*)
+	./gt-c-c-decl.h:393
+0xea26ae gt_ggc_mx_lang_tree_node(void*)
+	./gt-c-c-decl.h:271
+0xea2e55 gt_ggc_mx_lang_tree_node(void*)
+	./gt-c-c-decl.h:393
+0xea2e1d gt_ggc_mx_lang_tree_node(void*)
+	./gt-c-c-decl.h:389
+0xea2da7 gt_ggc_mx_lang_tree_node(void*)
+	./gt-c-c-decl.h:372
+0x13b05c8 gt_ggc_mx_ipa_return_value_summary(void*)
+	./gt-ipa-prop.h:44
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpxbtti9xp/6adb3f57.c -quiet -dumpbase 6adb3f57.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O3 -O2 -std=gnu99 -fno-omit-frame-pointer -fipa-pta -funroll-loops -ftree-loop-distribution -fdump-tree-ldist-details -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

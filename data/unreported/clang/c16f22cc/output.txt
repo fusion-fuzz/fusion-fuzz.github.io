@@ -1,0 +1,99 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk3oqd64z/f02c9300.cpp:10:37: error: no template named 'S_ffl'
+   10 |   template <class V_ffl> using T2 = S_ffl<O_ffl, T_ffl>;
+      |                                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk3oqd64z/f02c9300.cpp:12:11: error: unknown type name 'ffl_fusion'
+   12 |     I_ffl(ffl_fusion, V_ffl v, T2<V_ffl> t2) {}
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk3oqd64z/f02c9300.cpp:12:32: error: no template named 'T2'
+   12 |     I_ffl(ffl_fusion, V_ffl v, T2<V_ffl> t2) {}
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk3oqd64z/f02c9300.cpp:16:1: error: no template named 'S_ffl'; did you mean 'O_ffl'?
+   16 | S_ffl<int, char> s;
+      | ^~~~~
+      | O_ffl
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk3oqd64z/f02c9300.cpp:9:44: note: 'O_ffl' declared here
+    9 | template <class T_ffl, class U_ffl> struct O_ffl {
+      |                                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk3oqd64z/f02c9300.cpp:17:19: error: no type named 'I' in 't_1::O_ffl<char, int>'
+   17 | O_ffl<char, int>::I _1(t1, 42, s);
+      | ~~~~~~~~~~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk3oqd64z/f02c9300.cpp:17:24: error: unknown type name 't1'
+   17 | O_ffl<char, int>::I _1(t1, 42, s);
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk3oqd64z/f02c9300.cpp:17:28: error: expected parameter declarator
+   17 | O_ffl<char, int>::I _1(t1, 42, s);
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk3oqd64z/f02c9300.cpp:17:28: error: expected ')'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk3oqd64z/f02c9300.cpp:17:23: note: to match this '('
+   17 | O_ffl<char, int>::I _1(t1, 42, s);
+      |                       ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/include/llvm/ADT/SmallBitVector.h:457: llvm::SmallBitVector::reference llvm::SmallBitVector::operator[](unsigned int): Assertion `Idx < size() && "Out-of-bounds Bit access."' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -Oz -fstrict-enums -fno-strict-aliasing -fsanitize=undefined /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk3oqd64z/f02c9300.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk3oqd64z/f02c9300.cpp:28:30: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000561134e3b4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000561134e381bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000561134e38a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000561134d7ae88
+4  libc.so.6 0x00007fcc48d92520
+5  libc.so.6 0x00007fcc48de69bc pthread_kill + 300
+6  libc.so.6 0x00007fcc48d92476 raise + 22
+7  libc.so.6 0x00007fcc48d787f3 abort + 211
+8  libc.so.6 0x00007fcc48d7871b
+9  libc.so.6 0x00007fcc48d89e96
+10 clang++   0x000056113813cf35
+11 clang++   0x000056113813f6e4
+12 clang++   0x000056113813f028
+13 clang++   0x000056113813f028
+14 clang++   0x000056113817d2a7
+15 clang++   0x000056113817ea30 clang::Sema::DeduceTemplateArguments(clang::FunctionTemplateDecl*, clang::TemplateArgumentListInfo*, llvm::ArrayRef<clang::Expr*>, clang::FunctionDecl*&, clang::sema::TemplateDeductionInfo&, bool, bool, bool, clang::QualType, clang::Expr::Classification, bool, llvm::function_ref<bool (llvm::ArrayRef<clang::QualType>, bool)>) + 5104
+16 clang++   0x0000561137fc72c0
+17 clang++   0x0000561137fcc8cf clang::OverloadCandidateSet::InjectNonDeducedTemplateCandidates(clang::Sema&) + 367
+18 clang++   0x0000561137fcc942 clang::OverloadCandidateSet::BestViableFunction(clang::Sema&, clang::SourceLocation, clang::OverloadCandidate*&) + 82
+19 clang++   0x0000561137d83f6b
+20 clang++   0x0000561137d84ebd clang::Sema::DeduceTemplateSpecializationFromInitializer(clang::TypeSourceInfo*, clang::InitializedEntity const&, clang::InitializationKind const&, llvm::MutableArrayRef<clang::Expr*>) + 3661
+21 clang++   0x0000561137a374de clang::Sema::deduceVarTypeFromInitializer(clang::VarDecl*, clang::DeclarationName, clang::QualType, clang::TypeSourceInfo*, clang::SourceRange, bool, clang::Expr*) + 1150
+22 clang++   0x0000561137a39641 clang::Sema::DeduceVariableDeclarationType(clang::VarDecl*, bool, clang::Expr*) + 97
+23 clang++   0x0000561137a6522c clang::Sema::AddInitializerToDecl(clang::Decl*, clang::Expr*, bool) + 508
+24 clang++   0x000056113766dad9 clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 2361
+25 clang++   0x0000561137687a2c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+26 clang++   0x000056113763766c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+27 clang++   0x0000561137637e4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+28 clang++   0x0000561137643d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+29 clang++   0x0000561137644dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+30 clang++   0x0000561137621cf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+31 clang++   0x0000561135b29e51 clang::FrontendAction::Execute() + 65
+32 clang++   0x0000561135ab3df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+33 clang++   0x0000561135c01c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+34 clang++   0x000056113384ad3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+35 clang++   0x0000561133840ada
+36 clang++   0x0000561133840c6f
+37 clang++   0x000056113583842d
+38 clang++   0x0000561134d7b2a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+39 clang++   0x0000561135839283
+40 clang++   0x00005611357edd17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+41 clang++   0x00005611357f2600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+42 clang++   0x0000561135800714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+43 clang++   0x0000561133846383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+44 clang++   0x0000561133796901 main + 113
+45 libc.so.6 0x00007fcc48d79d90
+46 libc.so.6 0x00007fcc48d79e40 __libc_start_main + 128
+47 clang++   0x0000561133840105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/f02c9300-a5b822.cpp
+clang++: note: diagnostic msg: /tmp/f02c9300-a5b822.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

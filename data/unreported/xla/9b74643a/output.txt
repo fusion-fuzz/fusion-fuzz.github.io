@@ -1,0 +1,34 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1792036436.478370 2293572 hlo_rematerialization_data_structures.h:157] Check failed: iter != item_map_.end() Did not find loop.d
+*** Check failure stack trace: ***
+    @     0x6400f7461a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x6400f74619e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x6400ec337491  xla::HloRematInstructionList::GetItem()
+    @     0x6400ec334e38  xla::(anonymous namespace)::GetUsers()
+    @     0x6400ec32930a  xla::(anonymous namespace)::MemoryUsageTracker::MemoryUsageTracker()
+    @     0x6400ec3286ae  xla::HloRematerialization::ComputePeakMemoryAndInstruction()
+    @     0x6400ec3285a5  xla::HloRematerialization::ComputePeakMemory()
+    @     0x6400ec34f732  absl::lts_20260526::functional_internal::InvokeObject<>()
+    @     0x6400f6b0a21b  xla::CallGraph::VisitNodesInternal()
+    @     0x6400f6b0a1f6  xla::CallGraph::VisitNodesInternal()
+    @     0x6400f6b0a65c  xla::CallGraph::VisitNodes()
+    @     0x6400ec332259  xla::HloRematerialization::RunImpl()
+    @     0x6400f3518be7  xla::HloPassInterface::Run()
+    @     0x6400ef0963ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x6400ef0917bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x6400ef090bd5  xla::HloPassPipeline::RunImpl()
+    @     0x6400f3518be7  xla::HloPassInterface::Run()
+    @     0x6400ef0963ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x6400ef0917bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x6400ef090bd5  xla::HloPassPipeline::RunImpl()
+    @     0x6400f3518be7  xla::HloPassInterface::Run()
+    @     0x6400ebffaf38  xla::gpu::GpuCompiler::RunPostSchedulingPipelines()
+    @     0x6400ebff78e7  xla::gpu::GpuCompiler::CompileToBackendResult()
+    @     0x6400ebffcac3  xla::gpu::GpuCompiler::RunBackend()
+    @     0x6400ebf26f48  xla::CompiledOptProvider::GetExecutable()
+    @     0x6400ebf18ed1  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x6400f74b2466  main
+    @     0x742d415d4d90  (unknown)
+Aborted (core dumped)

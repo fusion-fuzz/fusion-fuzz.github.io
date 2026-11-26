@@ -1,0 +1,67 @@
+/tmp/test.m:2:1: warning: no 'assign', 'retain', or 'copy' attribute is specified - 'assign' is assumed [-Wobjc-property-no-attribute]
+    2 | @property (atomic) id atomic_prop;
+      | ^
+/tmp/test.m:2:1: warning: default property attribute 'assign' not appropriate for object [-Wobjc-property-no-attribute]
+/tmp/test.m:3:1: error: missing '@end'
+    3 | @implementation I
+      | ^
+/tmp/test.m:1:1: note: class started here
+    1 | @interface I
+      | ^
+/tmp/test.m:4:13: error: synthesized property 'atomic_prop' must either be named the same as a compatible instance variable or must explicitly name an instance variable
+    4 | @synthesize atomic_prop, atomic_prop1;
+      |             ^
+/tmp/test.m:4:26: error: property implementation must have its declaration in interface 'I' or one of its extensions
+    4 | @synthesize atomic_prop, atomic_prop1;
+      |                          ^
+clang-24: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaDeclObjC.cpp:4884: clang::Decl* clang::SemaObjC::ActOnMethodDeclaration(clang::Scope*, clang::SourceLocation, clang::SourceLocation, clang::tok::TokenKind, clang::ObjCDeclSpec&, clang::ParsedType, llvm::ArrayRef<clang::SourceLocation>, clang::Selector, clang::ParmVarDecl**, clang::DeclaratorChunk::ParamInfo*, unsigned int, const clang::ParsedAttributesView&, clang::tok::ObjCKeywordKind, bool, bool): Assertion `Getter->isSynthesizedAccessorStub() && "autosynth stub expected"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24 -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -dumpdir a- -disable-free -clear-ast-before-backend -main-file-name test.m -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -fcoverage-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -resource-dir /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24 -internal-isystem /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24/include -internal-isystem /usr/local/include -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fobjc-runtime=gcc -fobjc-encode-cxx-class-template-spec -fobjc-exceptions -faddrsig -fdwarf2-cfi-asm -o /tmp/test-1d6b48.o -x objective-c /tmp/test.m
+1.	/tmp/test.m:6:19: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang-24  0x0000555e217ca0f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang-24  0x0000555e217c6dcc llvm::sys::RunSignalHandlers() + 76
+2  clang-24  0x0000555e217c6f32
+3  clang-24  0x0000555e217c6fec
+4  libc.so.6 0x00007f3bf3047520
+5  libc.so.6 0x00007f3bf309b9fc pthread_kill + 300
+6  libc.so.6 0x00007f3bf3047476 raise + 22
+7  libc.so.6 0x00007f3bf302d7f3 abort + 211
+8  libc.so.6 0x00007f3bf302d71b
+9  libc.so.6 0x00007f3bf303ee96
+10 clang-24  0x0000555e2445ea97 clang::SemaObjC::ActOnMethodDeclaration(clang::Scope*, clang::SourceLocation, clang::SourceLocation, clang::tok::TokenKind, clang::ObjCDeclSpec&, clang::OpaquePtr<clang::QualType>, llvm::ArrayRef<clang::SourceLocation>, clang::Selector, clang::ParmVarDecl**, clang::DeclaratorChunk::ParamInfo*, unsigned int, clang::ParsedAttributesView const&, clang::tok::ObjCKeywordKind, bool, bool) + 8039
+11 clang-24  0x0000555e24018fb7 clang::Parser::ParseObjCMethodDecl(clang::SourceLocation, clang::tok::TokenKind, clang::tok::ObjCKeywordKind, bool) + 1015
+12 clang-24  0x0000555e2401a272 clang::Parser::ParseObjCMethodDefinition() + 130
+13 clang-24  0x0000555e23f69f4b clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2939
+14 clang-24  0x0000555e24015091 clang::Parser::ParseObjCAtImplementationDeclaration(clang::SourceLocation, clang::ParsedAttributes&) + 785
+15 clang-24  0x0000555e23f69e70 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2720
+16 clang-24  0x0000555e23f6a7df clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+17 clang-24  0x0000555e23f4770a clang::ParseAST(clang::Sema&, bool, bool) + 586
+18 clang-24  0x0000555e224c0071 clang::FrontendAction::Execute() + 65
+19 clang-24  0x0000555e22449c65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+20 clang-24  0x0000555e2259bea3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+21 clang-24  0x0000555e2019ec96 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7046
+22 clang-24  0x0000555e20194a2a
+23 clang-24  0x0000555e20198dd5 clang_main(int, char**, llvm::ToolContext const&) + 1893
+24 clang-24  0x0000555e200ec7a1 main + 113
+25 libc.so.6 0x00007f3bf302ed90
+26 libc.so.6 0x00007f3bf302ee40 __libc_start_main + 128
+27 clang-24  0x0000555e20194055 _start + 37
+clang: error: unable to execute command: Aborted (core dumped)
+clang: error: clang frontend command failed with exit code -2 (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git aefba88f46a6e55645c848f58f6ba56944d5ae62)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang: note: diagnostic msg: /tmp/test-b504e5.m
+clang: note: diagnostic msg: /tmp/test-b504e5.sh
+clang: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

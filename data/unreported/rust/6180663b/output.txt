@@ -1,0 +1,67 @@
+[... 2 lines omitted ...]
+  |
+1 | #![feature(generic_const_exprs)]
+  |            ^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `-Znext-solver=globally` is currently enabled by default for testing
+  = note: reverted the setting to `-Znext-solver=coherence` for this crate
+  = note: the currently stable trait solver will be used for this crate
+  = note: see issues #160895 <https://github.com/rust-lang/rust/issues/160895> for more information
+
+
+thread 'rustc' (2683166) panicked at compiler/rustc_type_ir/src/const_kind.rs:85:17:
+AliasConst::type_of got InherentSelf - args should always be InherentImpl at this point
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panicking.rs:80:14
+   2: <rustc_type_ir::ty::alias::Alias<rustc_middle::ty::context::TyCtxt, rustc_type_ir::const_kind::AliasConstKind<rustc_middle::ty::context::TyCtxt>>>::type_of
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/const_kind.rs:85:17
+   3: <rustc_trait_selection::traits::fulfill::FulfillProcessor as rustc_data_structures::obligation_forest::ObligationProcessor>::process_obligation
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/fulfill.rs:560:41
+   4: <rustc_data_structures::obligation_forest::ObligationForest<rustc_trait_selection::traits::fulfill::PendingPredicateObligation>>::process_obligations::<rustc_trait_selection::traits::fulfill::FulfillProcessor>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/obligation_forest/mod.rs:471:33
+   5: <rustc_trait_selection::traits::fulfill::FulfillmentContext<rustc_trait_selection::traits::FulfillmentError>>::select
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/fulfill.rs:116:29
+   6: <rustc_trait_selection::traits::fulfill::FulfillmentContext<rustc_trait_selection::traits::FulfillmentError> as rustc_infer::traits::engine::TraitEngine<rustc_trait_selection::traits::FulfillmentError>>::try_evaluate_obligations
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/fulfill.rs:168:14
+   7: <rustc_trait_selection::traits::engine::FulfillmentEngine<rustc_trait_selection::traits::FulfillmentError> as rustc_infer::traits::engine::TraitEngine<rustc_trait_selection::traits::FulfillmentError>>::try_evaluate_obligations
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/engine.rs:92:54
+   8: <rustc_trait_selection::traits::engine::FulfillmentEngine<rustc_trait_selection::traits::FulfillmentError> as rustc_infer::traits::engine::TraitEngine<rustc_trait_selection::traits::FulfillmentError>>::evaluate_obligations_error_on_ambiguity
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_infer/src/traits/engine.rs:187:27
+   9: <rustc_trait_selection::traits::engine::ObligationCtxt<rustc_trait_selection::traits::FulfillmentError>>::evaluate_obligations_error_on_ambiguity
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/engine.rs:328:34
+  10: rustc_hir_analysis::check::wfcheck::enter_wf_checking_ctxt::<rustc_hir_analysis::check::wfcheck::check_associated_item::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/check/wfcheck.rs:180:23
+  11: rustc_hir_analysis::check::wfcheck::check_associated_item
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/check/wfcheck.rs:920:5
+  12: rustc_hir_analysis::check::check::check_item_type
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/check/check.rs:1128:27
+  13: rustc_hir_analysis::check::wfcheck::check_well_formed
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/check/wfcheck.rs:230:19
+      [... omitted 13 frames ...]
+  14: rustc_middle::query::calls::query_ensure_result::<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 1]>, rustc_middle::dep_graph::graph::DepNodeIndex>, ()>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:197:19
+  15: <rustc_middle::query::calls::TyCtxtEnsureResult>::check_well_formed::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:323:21
+  16: rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/check/wfcheck.rs:2562:41
+  17: <rustc_middle::hir::ModuleItems>::par_impl_items::<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#1}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/hir/mod.rs:132:58
+  18: rustc_data_structures::sync::parallel::try_par_for_each_in::<&[rustc_hir::hir::ImplItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_impl_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#1}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:227:55
+  19: <core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::try_par_for_each_in<&[rustc_hir::hir::ImplItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_impl_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#1}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panic/unwind_safe.rs:275:9
+  20: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::try_par_for_each_in<&[rustc_hir::hir::ImplItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_impl_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#1}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>, core::result::Result<(), rustc_span::ErrorGuaranteed>>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:576:43
+  21: std::panicking::catch_unwind::<core::result::Result<(), rustc_span::ErrorGuaranteed>, core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::try_par_for_each_in<&[rustc_hir::hir::ImplItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_impl_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#1}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:544:19
+  22: std::panic::catch_unwind::<core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::try_par_for_each_in<&[rustc_hir::hir::ImplItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_impl_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#1}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>, core::result::Result<(), rustc_span::ErrorGuaranteed>>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panic.rs:359:14
+  23: <rustc_data_structures::sync::parallel::ParallelGuard>::run::<core::result::Result<(), rustc_span::ErrorGuaranteed>, rustc_data_structures::sync::parallel::try_par_for_each_in<&[rustc_hir::hir::ImplItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_impl_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#1}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:23:9
+  24: rustc_data_structures::sync::parallel::try_par_for_each_in::<&[rustc_hir::hir::ImplItemId], rustc_span::ErrorGuaranteed, <rustc_middle::hir::ModuleItems>::par_impl_items<rustc_hir_analysis::check::wfcheck::check_type_wf::{closure#1}>::{closure#0}>::{closure#0}::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:227:48
+  25: core::iter::adapters::filter_map::filter_map_fold::<&rustc_hir::hir::ImplItemId, core::result::Result<(), rustc_span::ErrorGuaranteed>, core::result::Result<(), rustc_span::ErrorGuaranteed>, rustc_data_structures::sync::para
+[... truncated ...]

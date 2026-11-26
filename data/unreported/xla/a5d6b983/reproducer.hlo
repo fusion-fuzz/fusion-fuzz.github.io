@@ -1,0 +1,18 @@
+HloModule GroupedGemmMatrixBiasRaggedInBatch
+
+ENTRY %test {
+  %p0 = f16[16,64,9]{2,1,0} parameter(0)
+  %p1 = f16[16,9,8]{2,1,0} parameter(1)
+  %p2 = s64[4] constant({4, 2, 6, 4})
+  %bias = f16[16,64,8]{2,1,0} parameter(2)
+  %ragged-dot = f16[16,64,8]{2,1,0} ragged-dot(p0, p1, p2), lhs_contracting_dims={2}, rhs_contracting_dims={1}, lhs_ragged_dims={0}, lhs_batch_dims={0}, rhs_batch_dims={0}
+  %out = f16[16,64,8]{2,1,0} add(ragged-dot, bias)
+  %dot_lhs = f32[2,4]{1,0} parameter(3)
+  %dynamic_slice_input = f32[4,5,2]{2,1,0} parameter(4)
+  %c0 = s32[] constant(0)
+  %c2 = s32[] constant(2)
+  %dynamic_slice = f32[4,1,2]{2,1,0} dynamic-slice(%ragged-dot, %c0, %c2, %c0), dynamic_slice_sizes={4,1,2}
+  %reshape = f32[4,2]{1,0} reshape(%dynamic_slice)
+  %dot = f32[4,4]{1,0} dot(%dot_lhs, %reshape), lhs_contracting_dims={0}, rhs_contracting_dims={1}
+  ROOT %ffl.root = (f16[16,64,8]{2,1,0}, f32[4,4]{1,0}) tuple(%out, %dot)
+}

@@ -1,0 +1,22 @@
+Fault at memory address: 0x7c3d28e00000
+
+[334175] signal 11 (1): Segmentation fault
+in expression starting at /home/fuzz/WorkSpace/fusion-fuzz/.fused/julia/tmp8d1n0x18/3773c586.jl:18
+julia: /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/ircode.c:1425: jl_uncompress1_codeloc: Assertion `jl_is_string(cl)' failed.
+
+[334175] signal 6 (-6): Aborted
+in expression starting at /home/fuzz/WorkSpace/fusion-fuzz/.fused/julia/tmp8d1n0x18/3773c586.jl:18
+pthread_kill at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+gsignal at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+abort at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+unknown function (ip: 0x7c3d3c2f081a) at /lib/x86_64-linux-gnu/libc.so.6
+__assert_fail at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+jl_uncompress1_codeloc at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/ircode.c:1425:5 [inlined]
+jl_uncompress1_codeloc at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/ircode.c:1422:34
+jl_fprint_debugloc at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/stackwalk.c:994:32
+jl_fprint_native_codeloc at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/stackwalk.c:936:9
+jl_fprint_critical_error at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/signal-handling.c:1086:9
+sigdie_handler at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/signals-unix.c:377:5
+unknown function (ip: 0x7c3d3c30d32f) at /lib/x86_64-linux-gnu/libc.so.6
+julia: /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/ircode.c:1425: jl_uncompress1_codeloc: Assertion `jl_is_string(cl)' failed.
+Aborted (core dumped)

@@ -1,0 +1,30 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1792180721.992292  724550 layout_util.h:198] Check failed: physical_dimension_number < layout.minor_to_major().size() (0 vs. 0) 
+*** Check failure stack trace: ***
+    @     0x5fe6f4821a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5fe6f48219e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5fe6ebd65316  xla::AlgebraicSimplifierVisitor::HandleBitcastConvert()
+    @     0x5fe6f4156c31  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x5fe6f4155ef7  xla::HloInstruction::Visit<>()
+    @     0x5fe6f415846e  xla::PostOrderDFS<>()
+    @     0x5fe6f4154cf8  xla::HloInstruction::Accept<>()
+    @     0x5fe6e92b6f07  xla::HloComputation::Accept<>()
+    @     0x5fe6ebd57ace  xla::AlgebraicSimplifierVisitor::Run()
+    @     0x5fe6e988ee4a  xla::gpu::GpuAlgebraicSimplifier::RunImpl()
+    @     0x5fe6e939c95a  xla::HloPassFix<>::RunOnChangedComputationsOnce()
+    @     0x5fe6e939bde7  xla::HloPassFix<>::RunToFixPoint()
+    @     0x5fe6e939baf4  xla::HloPassFix<>::RunImpl()
+    @     0x5fe6f08d8be7  xla::HloPassInterface::Run()
+    @     0x5fe6ec4563ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5fe6ec4517bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5fe6ec450bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5fe6f08d8be7  xla::HloPassInterface::Run()
+    @     0x5fe6e93a7ca4  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5fe6e93b206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5fe6e92e6934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5fe6e92d8fd1  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5fe6f4872466  main
+    @     0x7bd4b75d4d90  (unknown)
+Aborted (core dumped)

@@ -1,0 +1,79 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmpsfgiqvub/5382198a.rb:54: [BUG] Segmentation fault at 0x0000000000000068
+ruby 4.1.0dev (2026-09-15T05:36:12Z master 3296d5c99c) +PRISM [x86_64-linux]
+
+-- Control frame information -----------------------------------------------
+c:0004 p:---- s:0019 e:000018 l:y b:0001 r:(nil) CFUNC  :internal_encoding
+c:0003 p:---- s:0016 e:000015 l:y b:0001 r:(nil) CFUNC  :dump
+c:0002 p:0255 s:0011 E:002268 l:n b:---- r:(nil) EVAL   /home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmpsfgiqvub/5382198a.rb:54 [FINISH]
+c:0001 p:0000 s:0003 E:001ed8 l:y b:---- r:(nil) DUMMY  [FINISH]
+
+-- Ruby level backtrace information ----------------------------------------
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmpsfgiqvub/5382198a.rb:54:in '<main>'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmpsfgiqvub/5382198a.rb:54:in 'dump'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmpsfgiqvub/5382198a.rb:54:in 'internal_encoding'
+
+-- Threading information ---------------------------------------------------
+Total ractor count: 1
+Ruby thread count for this ractor: 1
+
+-- Machine register context ------------------------------------------------
+ RIP: 0x000062f503a7d42d RBP: 0x00007ffe124d4cd0 RSP: 0x00007ffe124d4cc0
+ RAX: 0x0000000000000068 RBX: 0x00007ffe124d4ce0 RCX: 0x000000000000000d
+ RDX: 0x0000000000000000 RDI: 0x0000000000000000 RSI: 0x0000000000000000
+  R8: 0x00000e83c17bfaea  R9: 0x0000741e0bdfd75f R10: 0x00000e83c17bfaeb
+ R11: 0x00000e84417b7ae8 R12: 0x00005170000000f0 R13: 0x0000741e0bdfd760
+ R14: 0x00000a2e0000001e R15: 0x0000000000000000 EFL: 0x0000000000010246
+
+-- C level backtrace information -------------------------------------------
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(___interceptor_backtrace) [0x62f50392571a]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_print_backtrace+0x14) [0x62f503e004ea] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_dump.c:1113
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_vm_bugreport) /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_dump.c:1479
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_bug_for_fatal_signal+0x3b8) [0x62f504085eb8] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../error.c:1173
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(sigsegv+0x97) [0x62f503c48357] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../signal.c:982
+/lib/x86_64-linux-gnu/libc.so.6(0x741e0f150330) [0x741e0f150330]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_io_internal_encoding+0x8d) [0x62f503a7d42d] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../io.c:13560
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_call0_body+0x100a) [0x62f503de49ba] ../vm_eval.c:164
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_funcallv_scope+0x349) [0x62f503d97269] ../vm_eval.c:101
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(RB_NIL_P+0x0) [0x62f50405776b] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../encoding.c:1008
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_enc_get_index) /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../encoding.c:1009
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(encoding_name+0xb1) [0x62f503ad9a21] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../marshal.c:656
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(w_object+0xaa1) [0x62f503ad6b31] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../marshal.c:929
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_marshal_dump_limited+0x356) [0x62f503ad4bb6] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../marshal.c:1230
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(marshal_dump+0x269) [0x62f503ad4789] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../marshal.c:1198
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_call_cfunc_with_frame_+0x27b) [0x62f503dcf20b] ../vm_insnhelper.c:3904
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_call_method_each_type+0x24a) [0x62f503db94ba] ../vm_insnhelper.c:4896
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_call_method+0x39f) [0x62f503db8c4f]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_exec_core+0x113dc) [0x62f503d7cc5c] ../vm_insnhelper.c:6283
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_vm_exec+0x1f7) [0x62f503d65b97] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm.c:2908
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_ec_exec_node+0x56) [0x62f5039bdc1d] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../eval.c:299
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(ruby_run_node) /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../eval.c:337
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_main+0x29) [0x62f5039ba321] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../main.c:42
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(main) /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../main.c:62
+/lib/x86_64-linux-gnu/libc.so.6(0x741e0f1351ca) [0x741e0f1351ca]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b) [0x741e0f13528b]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(_start) [0x62f5038e0e05]
+
+-- Other runtime information -----------------------------------------------
+
+* Loaded script: /home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmpsfgiqvub/5382198a.rb
+
+* Ruby Box: disabled
+* Loaded features:
+
+    0 enumerator.so
+    1 monitor.so
+    2 thread.rb
+    3 fiber.so
+    4 rational.so
+    5 complex.so
+    6 pathname.so
+    7 ruby2_keywords.rb
+    8 set.rb
+    9 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/x86_64-linux/enc/encdb.so
+   10 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/x86_64-linux/enc/trans/transdb.so
+   11 io/wait.rb
+   12 io/wait.so
+   13 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ffl_shim.rb
+
+AddressSanitizer:DEADLYSIGNAL
+Segmentation fault (core dumped)

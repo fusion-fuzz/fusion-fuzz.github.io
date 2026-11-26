@@ -1,0 +1,10 @@
+f {
+  p0 = f32[8] parameter(0)
+  p1 = f32[8] parameter(1)
+  ROOT t = (f32[8], f32[8]) tuple(p1, p0)
+}
+ENTRY e {
+  x = f32[8] parameter(0)
+  fusion = (f32[8], f32[8]) fusion(x, x), kind=kLoop, calls=f
+  ROOT gte = f32[8] get-tuple-element(fusion), index=1
+}

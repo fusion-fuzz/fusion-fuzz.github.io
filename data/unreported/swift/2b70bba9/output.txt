@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:89:2: error: 'using' is an experimental feature that is currently disabled
+ 87 |   func hasDefault(x: Int = { inner(); return 3 }()) {}
+ 88 |   hasDefault()
+ 89 | }
+    |  `- error: 'using' is an experimental feature that is currently disabled
+ 90 | // --- Seed B ---
+ 91 | // RUN: %target-typecheck-verify-swift -enable-experimental-feature DefaultIsolationPerFile
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:97:17: error: 'using' is an experimental feature that is currently disabled
+ 95 | // REQUIRES: concurrency
+ 96 | 
+ 97 | using @MainActor
+    |                 `- error: 'using' is an experimental feature that is currently disabled
+ 98 | // expected-note@-1 {{default isolation was previously declared here}}
+ 99 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:100:18: error: 'using' is an experimental feature that is currently disabled
+ 98 | // expected-note@-1 {{default isolation was previously declared here}}
+ 99 | 
+100 | using nonisolated
+    |                  `- error: 'using' is an experimental feature that is currently disabled
+101 | // expected-error@-1 {{invalid redeclaration of file-level default actor isolation}}
+102 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:103:12: error: 'using' is an experimental feature that is currently disabled
+101 | // expected-error@-1 {{invalid redeclaration of file-level default actor isolation}}
+102 | 
+103 | using @Test // expected-error {{default isolation can only be set to '@MainActor' or 'nonisolated'}}
+    |            `- error: 'using' is an experimental feature that is currently disabled
+104 | using test // expected-error {{default isolation can only be set to '@MainActor' or 'nonisolated'}}
+105 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:104:7: error: expected '@MainActor', 'nonisolated', '@available', or '@diagnose' after 'using'
+102 | 
+103 | using @Test // expected-error {{default isolation can only be set to '@MainActor' or 'nonisolated'}}
+104 | using test // expected-error {{default isolation can only be set to '@MainActor' or 'nonisolated'}}
+    |       `- error: expected '@MainActor', 'nonisolated', '@available', or '@diagnose' after 'using'
+105 | 
+106 | do {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:110:1: error: expected declaration
+108 |   @MainActor
+109 | // expected-error@+1 {{expected declaration}}
+110 | }
+    | `- error: expected declaration
+111 | 
+112 | do {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:137:5: error: 'using' is an experimental feature that is currently disabled
+135 | let (x: Int, using: String) = (x: 42, using: "")
+136 | 
+137 | do {
+    |     `- error: 'using' is an experimental feature that is currently disabled
+138 |   using @MainActor // expected-error {{declaration is only valid at file scope}}
+139 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:141:14: error: 'using' is an experimental feature that is currently disabled
+139 | }
+140 | 
+141 | func test() {
+    |              `- error: 'using' is an experimental feature that is currently disabled
+142 |   using @MainActor // expected-error {{declaration is only valid at file scope}}
+143 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:146:15: error: 'using' is an experimental feature that is currently disabled
+144 | 
+145 | struct S {
+146 |   var x: Int {
+    |               `- error: 'using' is an experimental feature that is currently disabled
+147 |     using @MainActor // expected-error {{declaration is only valid at file scope}}
+148 |   }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:148:4: error: 'using' is an experimental feature that is currently disabled
+146 |   var x: Int {
+147 |     using @MainActor // expected-error {{declaration is only valid at file scope}}
+148 |   }
+    |    `- error: 'using' is an experimental feature that is currently disabled
+149 | 
+150 |   using @MainActor func test() {}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:150:19: error: consecutive declarations on a line must be separated by ';'
+148 |   }
+149 | 
+150 |   using @MainActor func test() {}
+    |                   `- error: consecutive declarations on a line must be separated by ';'
+151 |   // expected-error@-1 {{declaration is only valid at file scope}}
+152 |   // expected-error@-2 {{consecutive declarations on a line must be separated by ';'}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:150:34: error: 'using' is an experimental feature that is currently disabled
+148 |   }
+149 | 
+150 |   using @MainActor func test() {}
+    |                                  `- error: 'using' is an experimental feature that is currently disabled
+151 |   // expected-error@-1 {{declaration is only valid at file scope}}
+152 |   // expected-error@-2 {{consecutive declarations on a line must be separated by ';'}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:154:20: error: consecutive declarations on a line must be separated by ';'
+152 |   // expected-error@-2 {{consecutive declarations on a line must be separated by ';'}}
+153 | 
+154 |   using nonisolated subscript(a: Int) -> Bool { false }
+    |                    `- error: consecutive declarations on a line must be separated by ';'
+155 |   // expected-error@-1 {{declaration is only valid at file scope}}
+156 |   // expected-error@-2 {{consecutive declarations on a line must be separated by ';'}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:160:9: error: 'using' is an experimental feature that is currently disabled
+158 | 
+159 | do {
+160 |   @objc using @MainActor
+    |         `- error: 'using' is an experimental feature that is currently disabled
+161 |   // expected-error@-1 {{declaration is only valid at file scope}}
+162 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpm10neit7/40d0eba7.swift:160:4: error: attribute cannot be attached to a 'using' declaration
+158 | 
+159 | do {
+160 |   @objc using @MainActor
+    |    `- error: attribute cannot be attached to a 'using' declaration
+161 |   // expected-error@-1 {{declaration is only valid at file scope}}
+162 | }
+
+[... 240 more lines ...]

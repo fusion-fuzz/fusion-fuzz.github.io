@@ -1,0 +1,17 @@
+HloModule module
+
+ENTRY %entry {
+  %p0 = f32[2,9] parameter(0)
+  %input = f32[2,9] copy(%p0)
+  %p0.d = f32[2] parameter(2)
+  %p1 = bf16[2] parameter(3)
+  %start = ((f32[2], bf16[2]), (f32[4], bf16[4])) all-gather-start(%p0.d, %p1), dimensions={0}
+  %done = (f32[4], bf16[4]) all-gather-done(%start)
+  %indices = s32[3] parameter(1), sharding={replicated metadata={op_name="a"}}
+  %gather = f32[3,9] gather(%input, %indices), offset_dims={1}, collapsed_slice_dims={0}, start_index_map={0}, index_vector_dim=1, slice_sizes={1,9}, sharding={devices=[1,2,2]0,1,2,3 last_tile_dim_replicate metadata={op_name="b"}}
+  %ffl.root = (f32[3,9], (f32[4], bf16[4])) tuple(%gather, %done)
+  %p1.d = bf16[2] parameter(4)
+  %start.d = ((f32[2], bf16[2]), (f32[4], bf16[4])) all-gather-start(%p0.d, %p1.d), dimensions={0}
+  %done.d = (f32[4], bf16[4]) all-gather-done(%start.d)
+  ROOT %ffl.root.1 = (f32[3,9], (f32[4], bf16[4]), (f32[4], bf16[4])) tuple(%gather, %done, %done.d)
+}

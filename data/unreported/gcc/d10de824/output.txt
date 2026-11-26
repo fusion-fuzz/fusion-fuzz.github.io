@@ -1,0 +1,51 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpub0u04sv/2609a353.cc: In function 'void fn()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpub0u04sv/2609a353.cc:21:27: error: too many braces around scalar initializer for type 'S::FP' {aka 'void (S::*)()'} [-Wtemplate-body]
+   21 |    constexpr S s3 = S{{{}}};
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpub0u04sv/2609a353.cc:23:24: internal compiler error: unexpected expression '(void (S::*)())(nullptr)' of kind cast_expr
+   23 |    constexpr S s5 = {{}};
+      |                        ^
+0x306c5cb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe671a1 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11341
+0xe70fb0 cxx_eval_bare_aggregate
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:7467
+0xe63b20 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10695
+0xe70fb0 cxx_eval_bare_aggregate
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:7467
+0xe63b20 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10695
+0xe73dfc cxx_eval_outermost_constant_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11677
+0xe7d6e8 maybe_constant_init_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:12324
+0x115f67f store_init_value(tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck2.cc:1098
+0xf03953 check_initializer
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:8827
+0xf09062 cp_finish_decl(tree_node*, tree_node*, bool, tree_node*, int, cp_decomp*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:9946
+0x1039ef0 cp_parser_init_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:26620
+0x103dd6b cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18283
+0x103ea8d cp_parser_declaration_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17139
+0x100597a cp_parser_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14645
+0x1008fb8 cp_parser_statement_seq_opt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:15215
+0x1009258 cp_parser_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:15062
+0x103ed45 cp_parser_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29104
+0x103ed45 cp_parser_ctor_initializer_opt_and_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29155
+0x10097be cp_parser_function_definition_after_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36477
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpub0u04sv/2609a353.cc -quiet -dumpdir a- -dumpbase 2609a353.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O1 -Wmissing-braces -std=gnu++26 -fsyntax-only -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

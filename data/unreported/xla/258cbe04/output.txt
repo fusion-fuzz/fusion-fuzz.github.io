@@ -1,0 +1,17 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1790065025.318282  170153 hlo_sharding.h:628] Check failed: !UseNamedShardingLeaf() TileAssignment is an internal concept of HloShardingV1/V2, should not be called for HloShardingV3. Please contact OpenXLA/Shardy team if you encounter this error.
+*** Check failure stack trace: ***
+    @     0x5c62e87cda34  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5c62e87cd9b6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5c62de9d4434  xla::HloSharding::tile_assignment()
+    @     0x5c62de9d36db  xla::test_only::(anonymous namespace)::MaybeConvertToV2()
+    @     0x5c62de9d2dfc  xla::test_only::ShardingFormatPicker::RunImpl()
+    @     0x5c62e7923277  xla::HloPassInterface::Run()
+    @     0x5c62e689d4ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5c62e689891f  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5c62e6897d45  xla::HloPassPipeline::RunImpl()
+    @     0x5c62e7923277  xla::HloPassInterface::Run()
+    @     0x5c62de9d9376  xla::OptProvider::BuildAndRunTransformPipeline()
+    @     0x5c62e8813a78  main
+    @     0x7570a42bcd90  (unknown)
+Aborted (core dumped)

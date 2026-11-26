@@ -1,0 +1,88 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzpxs37b2/586755b9.cpp:11:1: error: static assertion failed: co_await
+   11 | CORO_KEYWORD(co_await);
+      | ^~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzpxs37b2/586755b9.cpp:8:43: note: expanded from macro 'CORO_KEYWORD'
+    8 | #define CORO_KEYWORD(NAME) _Static_assert(__is_identifier(NAME), #NAME)
+      |                                           ^~~~~~~~~~~~~~~~~~~~~
+<scratch space>:5:1: note: expanded from here
+    5 | 0
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzpxs37b2/586755b9.cpp:12:1: error: static assertion failed: co_return
+   12 | CORO_KEYWORD(co_return);
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzpxs37b2/586755b9.cpp:8:43: note: expanded from macro 'CORO_KEYWORD'
+    8 | #define CORO_KEYWORD(NAME) _Static_assert(__is_identifier(NAME), #NAME)
+      |                                           ^~~~~~~~~~~~~~~~~~~~~
+<scratch space>:7:1: note: expanded from here
+    7 | 0
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzpxs37b2/586755b9.cpp:15:3: error: unknown type name 'va_list'
+   15 |   va_list args;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzpxs37b2/586755b9.cpp:18:1: error: static assertion failed: co_yield
+   18 | CORO_KEYWORD(co_yield);
+      | ^~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzpxs37b2/586755b9.cpp:8:43: note: expanded from macro 'CORO_KEYWORD'
+    8 | #define CORO_KEYWORD(NAME) _Static_assert(__is_identifier(NAME), #NAME)
+      |                                           ^~~~~~~~~~~~~~~~~~~~~
+<scratch space>:9:1: note: expanded from here
+    9 | 0
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzpxs37b2/586755b9.cpp:27:5: warning: GCC requires a function with the 'gnu::format' attribute to be variadic [-Wgcc-compat]
+   27 | int vprintf(const char *, va_list);
+      |     ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaChecking.cpp:8003: bool clang::Sema::CheckFormatArguments(llvm::ArrayRef<const clang::Expr*>, clang::Sema::FormatArgumentPassingKind, clang::StringLiteral*, unsigned int, unsigned int, clang::FormatStringType, clang::VariadicCallType, clang::SourceLocation, clang::SourceRange, llvm::SmallBitVector&): Assertion `ArgIdx < Args.size() && "ArgIdx outside bounds"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O2 -std=c++20 -fsanitize=undefined -ffp-contract=fast -funroll-loops /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzpxs37b2/586755b9.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzpxs37b2/586755b9.cpp:31:22: current parser token ')'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzpxs37b2/586755b9.cpp:29:16: parsing function body 'foo_ffl'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzpxs37b2/586755b9.cpp:29:16: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005629d1a654f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005629d1a621bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005629d1a62a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005629d19a4e88
+4  libc.so.6 0x00007f9389dcc520
+5  libc.so.6 0x00007f9389e209bc pthread_kill + 300
+6  libc.so.6 0x00007f9389dcc476 raise + 22
+7  libc.so.6 0x00007f9389db27f3 abort + 211
+8  libc.so.6 0x00007f9389db271b
+9  libc.so.6 0x00007f9389dc3e96
+10 clang++   0x00005629d450e5c1 clang::Sema::CheckFormatArguments(llvm::ArrayRef<clang::Expr const*>, clang::Sema::FormatArgumentPassingKind, clang::StringLiteral*, unsigned int, unsigned int, clang::FormatStringType, clang::VariadicCallType, clang::SourceLocation, clang::SourceRange, llvm::SmallBitVector&) + 4897
+11 clang++   0x00005629d450e85f clang::Sema::CheckFormatArguments(clang::FormatAttr const*, llvm::ArrayRef<clang::Expr const*>, bool, clang::VariadicCallType, clang::SourceLocation, clang::SourceRange, llvm::SmallBitVector&) + 127
+12 clang++   0x00005629d4515fbd clang::Sema::checkCall(clang::NamedDecl*, clang::FunctionProtoType const*, clang::Expr const*, llvm::ArrayRef<clang::Expr const*>, bool, clang::SourceLocation, clang::SourceRange, clang::VariadicCallType) + 2541
+13 clang++   0x00005629d45184c0 clang::Sema::CheckFunctionCall(clang::FunctionDecl*, clang::CallExpr*, clang::FunctionProtoType const*) + 272
+14 clang++   0x00005629d484d5e6 clang::Sema::BuildResolvedCallExpr(clang::Expr*, clang::NamedDecl*, clang::SourceLocation, llvm::ArrayRef<clang::Expr*>, clang::SourceLocation, clang::Expr*, bool, clang::CallExpr::ADLCallKind) + 5270
+15 clang++   0x00005629d4c0cae8 clang::Sema::BuildOverloadedCallExpr(clang::Scope*, clang::Expr*, clang::UnresolvedLookupExpr*, clang::SourceLocation, llvm::MutableArrayRef<clang::Expr*>, clang::SourceLocation, clang::Expr*, bool, bool) + 776
+16 clang++   0x00005629d4805a5c clang::Sema::BuildCallExpr(clang::Scope*, clang::Expr*, clang::SourceLocation, llvm::MutableArrayRef<clang::Expr*>, clang::SourceLocation, clang::Expr*, bool, bool) + 5580
+17 clang++   0x00005629d4806790 clang::Sema::ActOnCallExpr(clang::Scope*, clang::Expr*, clang::SourceLocation, llvm::MutableArrayRef<clang::Expr*>, clang::SourceLocation, clang::Expr*) + 96
+18 clang++   0x00005629d42e4ac0 clang::Parser::ParsePostfixExpressionSuffix(clang::ActionResult<clang::Expr*, true>) + 2160
+19 clang++   0x00005629d42de03b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 1259
+20 clang++   0x00005629d42dff1b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+21 clang++   0x00005629d42dffbd clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 61
+22 clang++   0x00005629d42e423d clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+23 clang++   0x00005629d4375281 clang::Parser::ParseExprStatement(clang::Parser::ParsedStmtContext) + 81
+24 clang++   0x00005629d436d23b clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 5275
+25 clang++   0x00005629d436dbfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+26 clang++   0x00005629d4375b07 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+27 clang++   0x00005629d437635f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+28 clang++   0x00005629d426772f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+29 clang++   0x00005629d42b2324 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+30 clang++   0x00005629d426166c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+31 clang++   0x00005629d4261e4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+32 clang++   0x00005629d426dd06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+33 clang++   0x00005629d426edbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+34 clang++   0x00005629d424bcf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+35 clang++   0x00005629d2753e51 clang::FrontendAction::Execute() + 65
+36 clang++   0x00005629d26dddf5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+37 clang++   0x00005629d282bc03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+38 clang++   0x00005629d0474d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+39 clang++   0x00005629d046aada
+40 clang++   0x00005629d046ac6f
+41 clang++   0x00005629d246242d
+42 clang++   0x00005629d19a52a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+43 clang++   0x00005629d2463283
+44 clang++   0x00005629d2417d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+45 clang++   0x00005629d241c600 clang::driver::Compilation::ExecuteJobs(clang::driver::Job
+[... truncated ...]

@@ -1,0 +1,67 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8gn6buz8/4e96a82b.mm:40:19: warning: comparison of distinct pointer types ('Class<SomeProtocol>' and 'Class<SomeProtocol1>') [-Wcompare-distinct-pointer-types]
+   40 |            classA == classD; // expected-warning {{comparison of distinct pointer types ('Class<SomeProtocol>' and 'Class<SomeProtocol1>')}}
+      |            ~~~~~~ ^  ~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CodeGenFunction.cpp:166: void clang::CodeGen::CodeGenFunction::CGFPOptionsRAII::ConstructorHelper(clang::FPOptions): Assertion `(CGF.CurFuncDecl == nullptr || CGF.Builder.getIsFPConstrained() || isa<CXXConstructorDecl>(CGF.CurFuncDecl) || isa<CXXDestructorDecl>(CGF.CurFuncDecl) || (NewExceptionBehavior == llvm::fp::ebIgnore && NewRoundingBehavior == llvm::RoundingMode::NearestTiesToEven)) && "FPConstrained should be enabled on entire function"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O1 -std=c++17 -fblocks -fobjc-runtime=gnustep-2.0 -fno-objc-arc -fsanitize=address -fno-elide-constructors -ffp-contract=fast -target x86_64-linux-gnu -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8gn6buz8/4e96a82b.mm
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp8gn6buz8/4e96a82b.mm:75:1: LLVM IR generation of declaration 'OtherClass::aMethod'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000056ae5533466b __interceptor_backtrace + 91
+1  clang++   0x000056ae5af8f027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x000056ae5af88cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x000056ae5af8d9c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x000056ae5addbcc5
+5  clang++   0x000056ae5addc4d3
+6  libc.so.6 0x00007f62c56f3520
+7  libc.so.6 0x00007f62c57479bc pthread_kill + 300
+8  libc.so.6 0x00007f62c56f3476 raise + 22
+9  libc.so.6 0x00007f62c56d97f3 abort + 211
+10 libc.so.6 0x00007f62c56d971b
+11 libc.so.6 0x00007f62c56eae96
+12 clang++   0x000056ae5c307833 clang::CodeGen::CodeGenFunction::CGFPOptionsRAII::ConstructorHelper(clang::FPOptions) + 1683
+13 clang++   0x000056ae5be9a069
+14 clang++   0x000056ae5be46870
+15 clang++   0x000056ae5be463ff clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 255
+16 clang++   0x000056ae5c1b4884 clang::CodeGen::CodeGenFunction::EmitReturnStmt(clang::ReturnStmt const&) + 4948
+17 clang++   0x000056ae5c1c1955 clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 469
+18 clang++   0x000056ae5bfb8a53 clang::CodeGen::CodeGenFunction::GenerateObjCMethod(clang::ObjCMethodDecl const*) + 1043
+19 clang++   0x000056ae5c39b66d clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) + 6589
+20 clang++   0x000056ae5ccde2e3
+21 clang++   0x000056ae5ccca445 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 837
+22 clang++   0x000056ae614b0add clang::ParseAST(clang::Sema&, bool, bool) + 2445
+23 clang++   0x000056ae5ccd49bc clang::CodeGenAction::ExecuteAction() + 4124
+24 clang++   0x000056ae5d38f2fe clang::FrontendAction::Execute() + 222
+25 clang++   0x000056ae5d2215f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+26 clang++   0x000056ae5d573989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+27 clang++   0x000056ae553ca1a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+28 clang++   0x000056ae553be0f9
+29 clang++   0x000056ae553c8637
+30 clang++   0x000056ae5cdf8317
+31 clang++   0x000056ae5addba7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+32 clang++   0x000056ae5cdf581a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+33 clang++   0x000056ae5cd4629c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+34 clang++   0x000056ae5cd47a2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+35 clang++   0x000056ae5cd97060 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+36 clang++   0x000056ae553bc517 clang_main(int, char**, llvm::ToolContext const&) + 12295
+37 clang++   0x000056ae553ebe27 main + 567
+38 libc.so.6 0x00007f62c56dad90
+39 libc.so.6 0x00007f62c56dae40 __libc_start_main + 128
+40 clang++   0x000056ae552f8b35 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git e996ce0d9ad6443a7ea3f88ccb0a8e114b0e840e)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/4e96a82b-cc3499.mm
+clang++: note: diagnostic msg: /tmp/4e96a82b-cc3499.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

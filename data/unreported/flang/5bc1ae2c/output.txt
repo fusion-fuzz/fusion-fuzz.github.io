@@ -1,0 +1,121 @@
+error: Semantic errors in /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:9:16: error: Generic 'assignment(=)' may not have specific procedures 't%assign_t4' and 't%assign_t5' as their interfaces are not distinguishable
+      generic :: assignment(=) => binding
+                 ^^^^^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:20:18: Declaration of 'assign_t4'
+      procedure :: assign_t4
+                   ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:21:18: Declaration of 'assign_t5'
+      procedure :: assign_t5
+                   ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:9:16: error: Generic 'assignment(=)' may not have specific procedures 't%assign_t4' and 't%assign_t6' as their interfaces are not distinguishable
+      generic :: assignment(=) => binding
+                 ^^^^^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:20:18: Declaration of 'assign_t4'
+      procedure :: assign_t4
+                   ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:22:18: Declaration of 'assign_t6'
+      procedure :: assign_t6
+                   ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:9:16: error: Generic 'assignment(=)' may not have specific procedures 't%assign_t5' and 't%assign_t6' as their interfaces are not distinguishable
+      generic :: assignment(=) => binding
+                 ^^^^^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:21:18: Declaration of 'assign_t5'
+      procedure :: assign_t5
+                   ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:22:18: Declaration of 'assign_t6'
+      procedure :: assign_t6
+                   ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:9:33: error: Defined assignment procedure 'binding' must be a subroutine
+      generic :: assignment(=) => binding
+                                  ^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:10:18: Declaration of 'binding'
+      procedure :: binding => assign_t1
+                   ^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:35:20: Procedure 'binding' of type 't' is bound to 'assign_t1'
+    logical function assign_t1(x, y)
+                     ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:19:43: error: Defined assignment subroutine 'assign_t2' must have two dummy arguments
+      generic :: assignment(=) => assign_t, assign_t2, assign_t3, assign_t4, assign_t5, assign_t6
+                                            ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:12:18: Declaration of 'assign_t2'
+      procedure :: assign_t2
+                   ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:19:54: warning: In defined assignment subroutine 'assign_t3', second dummy argument 'y' should have INTENT(IN) or VALUE attribute [-Wdefined-operator-args]
+      generic :: assignment(=) => assign_t, assign_t2, assign_t3, assign_t4, assign_t5, assign_t6
+                                                       ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:13:18: Declaration of 'assign_t3'
+      procedure :: assign_t3
+                   ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:19:65: warning: In defined assignment subroutine 'assign_t4', first dummy argument 'x' should have INTENT(OUT) or INTENT(INOUT) [-Wdefined-operator-args]
+      generic :: assignment(=) => assign_t, assign_t2, assign_t3, assign_t4, assign_t5, assign_t6
+                                                                  ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:20:18: Declaration of 'assign_t4'
+      procedure :: assign_t4
+                   ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:19:76: error: In defined assignment subroutine 'assign_t5', first dummy argument 'x' may not have INTENT(IN)
+      generic :: assignment(=) => assign_t, assign_t2, assign_t3, assign_t4, assign_t5, assign_t6
+                                                                             ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:21:18: Declaration of 'assign_t5'
+      procedure :: assign_t5
+                   ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:19:87: error: In defined assignment subroutine 'assign_t6', second dummy argument 'y' may not have INTENT(OUT)
+      generic :: assignment(=) => assign_t, assign_t2, assign_t3, assign_t4, assign_t5, assign_t6
+                                                                                        ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:22:18: Declaration of 'assign_t6'
+      procedure :: assign_t6
+                   ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:28:33: error: Defined assignment procedure 'assign_t' may not have NOPASS attribute
+      generic :: assignment(=) => assign_t
+                                  ^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:26:26: Declaration of 'assign_t'
+      procedure, nopass :: assign_t
+                           ^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:63:13: error: Generic 'assignment(=)' may not have specific procedures 's3' and 's4' as their interfaces are not distinguishable
+    interface assignment(=)
+              ^^^^^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:81:16: Declaration of 's3'
+      subroutine s3(x, y)
+                 ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:87:16: Declaration of 's4'
+      subroutine s4(x, y)
+                 ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:65:16: error: In defined assignment subroutine 's1', dummy argument 'y' may not be OPTIONAL
+      subroutine s1(x, y)
+                 ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:71:16: error: In defined assignment subroutine 's2', dummy argument 'y' must be a data object
+      subroutine s2(x, y)
+                 ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:81:16: error: In defined assignment subroutine 's3', second dummy argument 'y' must not be a pointer
+      subroutine s3(x, y)
+                 ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:87:16: error: In defined assignment subroutine 's4', second dummy argument 'y' must not be an allocatable
+      subroutine s4(x, y)
+                 ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:120:16: error: Defined assignment subroutine 'assign_10' conflicts with intrinsic assignment
+      subroutine assign_10(x, y)
+                 ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:125:16: error: Defined assignment subroutine 'assign_ir' conflicts with intrinsic assignment
+      subroutine assign_ir(x, y)
+                 ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:130:16: error: Defined assignment subroutine 'assign_ii' conflicts with intrinsic assignment
+      subroutine assign_ii(x, y)
+                 ^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:145:1: error: -funsigned is required to enable UNSIGNED type
+  implicit unsigned(u)
+  ^^^^^^^^^^^^^^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:149:11: error: Must have INTEGER type, but is UNSIGNED(4)
+  real(kind=4u) x
+            ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:152:10: error: Both operands must be UNSIGNED
+  print *, 0 + 1u
+           ^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:154:10: error: Both operands must be UNSIGNED
+  print *, 0u + 1
+           ^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:156:10: error: Both operands must be UNSIGNED
+  print *, 0. + 1u
+           ^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp9cr6vsnu/35758398.f90:158:10: error: Both operands must be UNSIGNED
+  print *, 0u + 1.
+[... 95 more lines ...]

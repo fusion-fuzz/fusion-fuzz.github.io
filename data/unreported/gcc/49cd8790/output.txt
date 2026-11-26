@@ -1,0 +1,53 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpd598g5mo/1c7043a1.cc:290:34: error: types may not be defined within '__builtin_offsetof'
+  290 | * d::b(__builtin_offsetof(struct { // { dg-error "types may not be defined" }
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpd598g5mo/1c7043a1.cc:292:23: error: types may not be defined within '__builtin_offsetof'
+  292 |   struct a : public Y { // { dg-error "types may not be defined" }
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpd598g5mo/1c7043a1.cc:292:10: internal compiler error: in write_compact_number, at cp/mangle.cc:1788
+  292 |   struct a : public Y { // { dg-error "types may not be defined" }
+      |          ^
+0x306c5cb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00e5e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x819b88 write_compact_number
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:1788
+0x819b88 write_compact_number
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:1786
+0xf642b3 write_unnamed_type_name
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:1838
+0xf642b3 write_unqualified_name
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:1612
+0xf5ffbc write_prefix
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:1383
+0xf5ffbc write_prefix
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:1307
+0xf602a0 write_nested_name
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:1292
+0xf5d613 write_class_enum_type
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:3205
+0xf5d613 write_type
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:2596
+0xf5eff5 mangle_special_for_type
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/mangle.cc:5035
+0xe3a30d get_vtable_name
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/class.cc:804
+0xe3a30d get_vtable_decl(tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/class.cc:887
+0xe4f310 modify_all_vtables
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/class.cc:3162
+0xe4f310 finish_struct_1(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/class.cc:8079
+0xe50bf7 finish_struct(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/class.cc:8361
+0x100a012 cp_parser_class_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:30061
+0x100b41f cp_parser_type_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:22583
+0x10285f4 cp_parser_decl_specifier_seq
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:19062
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpd598g5mo/1c7043a1.cc -quiet -dumpdir a- -dumpbase 1c7043a1.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -g -O1 -fsyntax-only -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

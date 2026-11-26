@@ -1,0 +1,84 @@
+[... 19 lines omitted ...]
+43 | fn main_0443bb6a() {
+   |    ^^^^^^^^^^^^^
+
+warning: function `hello` is never used
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpic9_j8gl/51998d2b.rs:12:4
+   |
+12 | fn hello(x: u64);
+   |    ^^^^^
+
+
+thread 'rustc' (2514996) panicked at compiler/rustc_errors/src/diagnostic.rs:782:9:
+assertion `left == right` failed: Span must not be empty and have no suggestion
+  left: Some(SubstitutionPart { span: /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpic9_j8gl/51998d2b.rs:30:2: 30:2 (#0), snippet: "" })
+ right: None
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panicking.rs:80:14
+   2: core::panicking::assert_failed_inner
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panicking.rs:447:23
+   3: core::panicking::assert_failed::<core::option::Option<&rustc_errors::SubstitutionPart>, core::option::Option<&rustc_errors::SubstitutionPart>>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panicking.rs:407:5
+   4: <rustc_errors::diagnostic::Diag>::multipart_suggestion_with_style::<alloc::borrow::Cow<str>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:782:9
+   5: <rustc_lint::diagnostics::UseLetUnderscoreIgnoreSuggestion as rustc_errors::diagnostic::Subdiagnostic>::add_to_diag
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/diagnostics.rs:923:10
+   6: <rustc_errors::diagnostic::Diag>::subdiagnostic::<rustc_lint::diagnostics::UseLetUnderscoreIgnoreSuggestion>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1063:23
+   7: <rustc_lint::diagnostics::DropCopyDiag as rustc_errors::diagnostic::Diagnostic>::into_diag
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/diagnostics.rs:977:10
+   8: rustc_middle::lint::emit_lint_base::<rustc_lint::diagnostics::DropCopyDiag, rustc_middle::lint::LevelSpec<rustc_lint_defs::StableLintExpectationId>>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/lint.rs:587:45
+   9: <rustc_middle::lint::emit_lint_base<rustc_lint::diagnostics::DropCopyDiag, rustc_middle::lint::LevelSpec<rustc_lint_defs::StableLintExpectationId>>::{closure#0} as core::ops::function::FnOnce<(rustc_errors::DiagCtxtHandle, rustc_errors::Level)>>::call_once::{shim:vtable#0}
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/ops/function.rs:250:5
+  10: <alloc::boxed::Box<dyn core::ops::function::FnOnce<(rustc_errors::DiagCtxtHandle, rustc_errors::Level), Output = rustc_errors::diagnostic::Diag>> as core::ops::function::FnOnce<(rustc_errors::DiagCtxtHandle, rustc_errors::Level)>>::call_once
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/alloc/src/boxed.rs:2320:9
+  11: rustc_middle::lint::emit_lint_base::emit_lint_base_impl
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/lint.rs:493:13
+  12: rustc_middle::lint::emit_lint_base::<rustc_lint::diagnostics::DropCopyDiag, rustc_middle::lint::LevelSpec<rustc_lint_defs::StableLintExpectationId>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/lint.rs:582:5
+  13: <rustc_middle::ty::context::TyCtxt>::emit_node_span_lint::<rustc_span::span_encoding::Span, rustc_lint::diagnostics::DropCopyDiag>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context.rs:2647:9
+  14: <rustc_lint::context::LateContext as rustc_lint::context::LintContext>::opt_span_lint::<rustc_span::span_encoding::Span, rustc_lint::diagnostics::DropCopyDiag>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/context.rs:593:33
+  15: <rustc_lint::context::LateContext as rustc_lint::context::LintContext>::emit_span_lint::<rustc_span::span_encoding::Span, rustc_lint::diagnostics::DropCopyDiag>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/context.rs:536:14
+  16: <rustc_lint::drop_forget_useless::DropForgetUseless as rustc_lint::passes::LateLintPass>::check_expr
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/drop_forget_useless.rs:217:24
+  17: <rustc_lint::BuiltinCombinedLateLintModPass as rustc_lint::passes::LateLintPass>::check_expr
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/passes.rs:74:23
+  18: <rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass> as rustc_hir::intravisit::Visitor>::visit_expr::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/late.rs:31:14
+  19: <rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass>>::with_lint_attrs::<<rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass> as rustc_hir::intravisit::Visitor>::visit_expr::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/late.rs:63:9
+  20: <rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass> as rustc_hir::intravisit::Visitor>::visit_expr
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/late.rs:171:14
+  21: <rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass> as rustc_hir::intravisit::Visitor>::visit_stmt
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/late.rs:184:9
+  22: rustc_hir::intravisit::walk_block::<rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir/src/intravisit.rs:720:5
+  23: <rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass> as rustc_hir::intravisit::Visitor>::visit_block
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/late.rs:256:9
+  24: <rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass> as rustc_hir::intravisit::Visitor>::visit_expr::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/late.rs:173:13
+  25: <rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass>>::with_lint_attrs::<<rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass> as rustc_hir::intravisit::Visitor>::visit_expr::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/late.rs:63:9
+  26: <rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass> as rustc_hir::intravisit::Visitor>::visit_expr
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/late.rs:171:14
+  27: <rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass> as rustc_hir::intravisit::Visitor>::visit_body
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/late.rs:127:9
+  28: <rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass> as rustc_hir::intravisit::Visitor>::visit_nested_body
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/late.rs:114:14
+  29: <rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass> as rustc_hir::intravisit::Visitor>::visit_fn
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/late.rs:213:9
+  30: rustc_hir::intravisit::walk_item::<rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir/src/intravisit.rs:574:32
+  31: <rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass> as rustc_hir::intravisit::Visitor>::visit_item::{closure#0}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/late.rs:139:17
+  32: <rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass>>::with_param_env::<<rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCombinedLateLintModPass> as rustc_hir::intravisit::Visitor>::visit_item::{closure#0}::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_lint/src/late.rs:75:9
+  33: <rustc_lint::late::LateContextAndPass<rustc_lint::BuiltinCom
+[... truncated ...]

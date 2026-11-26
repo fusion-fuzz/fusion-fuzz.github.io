@@ -1,0 +1,13 @@
+HloModule m
+
+sum {
+  a = f32[] parameter(0)
+  b = f32[] parameter(1)
+  ROOT add = f32[] add(a, b)
+}
+
+ENTRY e {
+  p = f32[4,8] parameter(0)
+  q = f32[4,8] parameter(1)
+  ROOT rs = (f32[4,2], f32[4,2]) reduce-scatter(p, q), replica_groups={{0,1,2,3}}, dimensions={1}, to_apply=sum
+}

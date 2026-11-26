@@ -1,0 +1,68 @@
+Abort: function typeCheckBinding at TypeCheckConstraints.cpp:684
+Cannot type-check PatternBindingDecl without closure context
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -c -Osize -sil-verify-all -enable-experimental-feature NonescapableTypes /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjiwtttz9/58ff7296.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjiwtttz9/58ff7296.swift")
+4.	While evaluating request EmitPerformanceHints(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjiwtttz9/58ff7296.swift")
+5.	While walking into body of 'detachedTask()' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjiwtttz9/58ff7296.swift:393:16)
+6.	While evaluating request InterfaceTypeRequest(main.(file).top-level code.explicit closure discriminator=65535.explicit closure discriminator=65535.detachedTask().explicit closure discriminator=65535.currentVoucher@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjiwtttz9/58ff7296.swift:400:14)
+7.	While evaluating request NamingPatternRequest(main.(file).top-level code.explicit closure discriminator=65535.explicit closure discriminator=65535.detachedTask().explicit closure discriminator=65535.currentVoucher@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjiwtttz9/58ff7296.swift:400:14)
+8.	While evaluating request PatternBindingEntryRequest((unknown decl)@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjiwtttz9/58ff7296.swift:400:10, 0)
+9.	Abort: function typeCheckBinding at TypeCheckConstraints.cpp:684
+| 	Cannot type-check PatternBindingDecl without closure context
+ #0 0x0000562148357bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x00005621483552e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x00005621483588c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f711b4f1330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f711b54ac0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f711b4f127e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f711b4d48ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x0000562142795622 (/usr/bin/swift-frontend+0x3055622)
+ #8 0x000056214279570c (/usr/bin/swift-frontend+0x305570c)
+ #9 0x0000562142795736 (/usr/bin/swift-frontend+0x3055736)
+#10 0x0000562141c03890 swift::TypeChecker::typeCheckPatternBinding(swift::PatternBindingDecl*, unsigned int, swift::Type, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>) (/usr/bin/swift-frontend+0x24c3890)
+#11 0x0000562141c039ac swift::TypeChecker::typeCheckPatternBinding(swift::PatternBindingDecl*, unsigned int, swift::Type, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>) (/usr/bin/swift-frontend+0x24c39ac)
+#12 0x0000562141d1fff9 swift::PatternBindingEntryRequest::evaluate(swift::Evaluator&, swift::PatternBindingDecl*, unsigned int) const (/usr/bin/swift-frontend+0x25dfff9)
+#13 0x000056214238eed9 swift::PatternBindingEntryRequest::OutputType swift::Evaluator::getResultUncached<swift::PatternBindingEntryRequest, swift::PatternBindingEntryRequest::OutputType swift::evaluateOrDefault<swift::PatternBindingEntryRequest>(swift::Evaluator&, swift::PatternBindingEntryRequest, swift::PatternBindingEntryRequest::OutputType)::'lambda'()>(swift::PatternBindingEntryRequest const&, swift::PatternBindingEntryRequest::OutputType swift::evaluateOrDefault<swift::PatternBindingEntryRequest>(swift::Evaluator&, swift::PatternBindingEntryRequest, swift::PatternBindingEntryRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#14 0x000056214234749d swift::PatternBindingDecl::getCheckedPatternBindingEntry(unsigned int) const (/usr/bin/swift-frontend+0x2c0749d)
+#15 0x0000562141c16f63 swift::NamingPatternRequest::evaluate(swift::Evaluator&, swift::VarDecl*) const (/usr/bin/swift-frontend+0x24d6f63)
+#16 0x00005621423f9428 swift::NamingPatternRequest::OutputType swift::Evaluator::getResultUncached<swift::NamingPatternRequest, swift::NamingPatternRequest::OutputType swift::evaluateOrDefault<swift::NamingPatternRequest>(swift::Evaluator&, swift::NamingPatternRequest, swift::NamingPatternRequest::OutputType)::'lambda'()>(swift::NamingPatternRequest const&, swift::NamingPatternRequest::OutputType swift::evaluateOrDefault<swift::NamingPatternRequest>(swift::Evaluator&, swift::NamingPatternRequest, swift::NamingPatternRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#17 0x000056214235df76 swift::VarDecl::getNamingPattern() const (/usr/bin/swift-frontend+0x2c1df76)
+#18 0x0000562141c14ff9 swift::InterfaceTypeRequest::evaluate(swift::Evaluator&, swift::ValueDecl*) const (/usr/bin/swift-frontend+0x24d4ff9)
+#19 0x000056214233e077 swift::ValueDecl::getInterfaceType() const (/usr/bin/swift-frontend+0x2bfe077)
+#20 0x0000562141b33bd4 (anonymous namespace)::PerformanceHintDiagnosticWalker::walkToDeclPost(swift::Decl*) PerformanceHints.cpp:0:0
+#21 0x00005621422ae601 (anonymous namespace)::Traversal::doIt(swift::Decl*) ASTWalker.cpp:0:0
+#22 0x00005621422b1968 swift::ASTVisitor<(anonymous namespace)::Traversal, swift::Expr*, swift::Stmt*, bool, swift::Pattern*, bool, void>::visit(swift::Pattern*) ASTWalker.cpp:0:0
+#23 0x00005621422b30a9 (anonymous namespace)::Traversal::visit(swift::Decl*) ASTWalker.cpp:0:0
+#24 0x00005621422ae5f1 (anonymous namespace)::Traversal::doIt(swift::Decl*) ASTWalker.cpp:0:0
+#25 0x00005621422b0622 swift::ASTVisitor<(anonymous namespace)::Traversal, swift::Expr*, swift::Stmt*, bool, swift::Pattern*, bool, void>::visit(swift::Stmt*) ASTWalker.cpp:0:0
+#26 0x00005621422af0ff (anonymous namespace)::Traversal::visitClosureExpr(swift::ClosureExpr*) ASTWalker.cpp:0:0
+#27 0x00005621422adb59 (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#28 0x00005621422b4548 (anonymous namespace)::Traversal::visit(swift::ArgumentList*) ASTWalker.cpp:0:0
+#29 0x00005621422b0125 (anonymous namespace)::Traversal::visitApplyExpr(swift::ApplyExpr*) ASTWalker.cpp:0:0
+#30 0x00005621422ad87e (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#31 0x00005621422b06b6 swift::ASTVisitor<(anonymous namespace)::Traversal, swift::Expr*, swift::Stmt*, bool, swift::Pattern*, bool, void>::visit(swift::Stmt*) ASTWalker.cpp:0:0
+#32 0x00005621422b4202 (anonymous namespace)::Traversal::visitAbstractFunctionDecl(swift::AbstractFunctionDecl*) ASTWalker.cpp:0:0
+#33 0x00005621422b294b (anonymous namespace)::Traversal::visit(swift::Decl*) ASTWalker.cpp:0:0
+#34 0x00005621422ae5f1 (anonymous namespace)::Traversal::doIt(swift::Decl*) ASTWalker.cpp:0:0
+#35 0x00005621422b0622 swift::ASTVisitor<(anonymous namespace)::Traversal, swift::Expr*, swift::Stmt*, bool, swift::Pattern*, bool, void>::visit(swift::Stmt*) ASTWalker.cpp:0:0
+#36 0x00005621422af0ff (anonymous namespace)::Traversal::visitClosureExpr(swift::ClosureExpr*) ASTWalker.cpp:0:0
+#37 0x00005621422adb59 (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#38 0x00005621422b4548 (anonymous namespace)::Traversal::visit(swift::ArgumentList*) ASTWalker.cpp:0:0
+#39 0x00005621422b0125 (anonymous namespace)::Traversal::visitApplyExpr(swift::ApplyExpr*) ASTWalker.cpp:0:0
+#40 0x00005621422ad87e (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#41 0x00005621422b0899 swift::ASTVisitor<(anonymous namespace)::Traversal, swift::Expr*, swift::Stmt*, bool, swift::Pattern*, bool, void>::visit(swift::Stmt*) ASTWalker.cpp:0:0
+#42 0x00005621422b0758 swift::ASTVisitor<(anonymous namespace)::Traversal, swift::Expr*, swift::Stmt*, bool, swift::Pattern*, bool, void>::visit(swift::Stmt*) ASTWalker.cpp:0:0
+#43 0x00005621422af0ff (anonymous namespace)::Traversal::visitClosureExpr(swift::ClosureExpr*) ASTWalker.cpp:0:0
+#44 0x00005621422adb59 (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#45 0x00005621422b4548 (anonymous namespace)::Traversal::visit(swift::ArgumentList*) ASTWalker.cpp:0:0
+#46 0x00005621422b0125 (anonymous namespace)::Traversal::visitApplyExpr(swift::ApplyExpr*) ASTWalker.cpp:0:0
+#47 0x00005621422ad87e (anonymous namespace)::Traversal::doIt(swift::Expr*) ASTWalker.cpp:0:0
+#48 0x00005621422b06b6 swift::ASTVisitor<(anonymous namespace)::Traversal, swift::Expr*, swift::Stmt*, bool, swift::Pattern*, bool, void>::visit(swift::Stmt*) ASTWalker.cpp:0:0
+#49 0x00005621422b1308 swift::ASTVisitor<(anonymous namespace)::Traversal, swift::Expr*, swift::Stmt*, bool, swift::Pattern*, bool, void>::visit(swift::Stmt*) ASTWalker.cpp:0:0
+#50 0x00005621422b0758 swift::ASTVisitor<(anonymous namespace)::Traversal, swift::Expr*, swift::Stmt*, bool, swift::Pattern*, bool, void>::visit(swift::Stmt*) ASTWalker.cpp:0:0
+#51 0x00005621422b3879 (anonymous namespace)::Traversal::visit(swift::Decl*) ASTWalker.cpp:
+[... truncated ...]

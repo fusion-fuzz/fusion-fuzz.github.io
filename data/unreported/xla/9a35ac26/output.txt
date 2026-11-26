@@ -1,0 +1,24 @@
+
+=== Iteration 1
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1790119831.123430 1825511 comparison_util.cc:241] Unexpected: TUPLE
+*** Check failure stack trace: ***
+    @     0x616dad6aee84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x616dad6aee06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x616dad090428  xla::Comparison::Comparison()
+    @     0x616dad01c634  xla::HloCompareInstruction::HloCompareInstruction()
+    @     0x616dacfe9988  xla::HloInstruction::CreateCompare()
+    @     0x616dacee3bff  xla::(anonymous namespace)::HloParserImpl::CreateInstruction()
+    @     0x616daced7dba  xla::(anonymous namespace)::HloParserImpl::ParseInstructionRhs()
+    @     0x616daced7419  xla::(anonymous namespace)::HloParserImpl::ParseInstruction()
+    @     0x616daced6e9e  xla::(anonymous namespace)::HloParserImpl::ParseInstructionList()
+    @     0x616dacebc5f8  xla::(anonymous namespace)::HloParserImpl::Run()
+    @     0x616daceb9d80  xla::ParseAndReturnUnverifiedModule()
+    @     0x616da35ac77a  xla::LoadModuleFromData()
+    @     0x616da35ae4c8  xla::LoadModuleFromFile()
+    @     0x616da358f91b  xla::RunAndCompare()
+    @     0x616da3589a8f  main
+    @     0x765a14b51d90  (unknown)
+Aborted (core dumped)
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmp_dd18i7y/0fb02350.hlo**

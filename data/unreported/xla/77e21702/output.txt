@@ -1,0 +1,32 @@
+Running HLO module with runner HloRunner...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791795670.787749   60749 fusion_emitter.cc:117] Check failed: instr.opcode() != HloOpcode::kFusion (fusion vs. fusion) 
+*** Check failure stack trace: ***
+    @     0x60cce00fa8a4  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x60cce00fa826  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x60ccd7173d2d  xla::cpu::EmitFusionKernel()
+    @     0x60ccd7143351  xla::cpu::ParallelFusionEmitter::AddFusion()
+    @     0x60ccd712ac06  xla::cpu::ThunkEmitter::EmitFusionKernelThunk()
+    @     0x60ccd712503d  xla::cpu::ThunkEmitter::EmitHloInstruction()
+    @     0x60ccd7123903  xla::cpu::ThunkEmitter::EmitHloComputation()
+    @     0x60ccd712367e  xla::cpu::ThunkEmitter::EmitEntryComputation()
+    @     0x60ccd6a16883  xla::cpu::CpuCompiler::CompileCpuExecutable()
+    @     0x60ccd6a1ce38  xla::cpu::CpuCompiler::RunBackend()
+    @     0x60ccd682fc24  xla::CompileCpuExecutableInternal()
+    @     0x60ccd682ea2c  xla::PjRtCpuRawClient::CompileInternal()
+    @     0x60ccd682e6af  xla::PjRtCpuRawClient::Compile()
+    @     0x60ccd684b1f5  xla::cpu::CpuPjRtCompiler::Compile()
+    @     0x60ccdec13c3b  xla::PjRtCompile()
+    @     0x60ccd6940918  xla::CommonPjRtClient::Compile()
+    @     0x60ccdebf9c9a  xla::HloRunner::CreateExecutable()
+    @     0x60ccdebf7d3c  xla::HloRunner::Execute()
+    @     0x60ccdec0182e  xla::HloRunnerInterface::Execute()
+    @     0x60ccd67e45e7  xla::(anonymous namespace)::ExecuteWithRunner()
+    @     0x60ccd67deee7  xla::(anonymous namespace)::RunAndCompareInternal()
+    @     0x60ccd67dce67  xla::RunAndCompare()
+    @     0x60ccd67e044e  xla::RunAndCompare()
+    @     0x60ccd67da04f  main
+    @     0x7da9cadb0d90  (unknown)
+Aborted (core dumped)
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmpsx71_gl8/dbfa3067.hlo**

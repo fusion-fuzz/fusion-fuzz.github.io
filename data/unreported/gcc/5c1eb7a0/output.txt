@@ -1,0 +1,30 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7l3_qitl/29d6e01d.c: In function 'buf':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7l3_qitl/29d6e01d.c:47:8: warning: right-hand operand of comma expression has no effect [-Wunused-value]
+   47 | #embed __FILE__ limit (128) prefix (c = 2 * ) suffix ( + 6)     /* { dg-warning "right-hand operand of comma expression has no effect" } */
+      |        ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7l3_qitl/29d6e01d.c:49:35: error: 'i' undeclared (first use in this function)
+   49 |   if (b != a[127] + 6 || c != 2 * i[0])
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7l3_qitl/29d6e01d.c:49:35: note: each undeclared identifier is reported only once for each function it appears in
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7l3_qitl/29d6e01d.c: At top level:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7l3_qitl/29d6e01d.c:57:21: error: redefinition of 'a'
+   57 | const unsigned char a[] = {
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7l3_qitl/29d6e01d.c:18:21: note: previous definition of 'a' with type 'const unsigned char[128]'
+   18 | const unsigned char a[] = {
+      |                     ^
+In file included from /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7l3_qitl/29d6e01d.c:1:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7l3_qitl/29d6e01d.c:62:1: error: expected identifier or '(' before '__builtin_c23_va_start'
+   62 | va_start (...)
+      | ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7l3_qitl/29d6e01d.c:79:9: error: macro 'va_arg' requires 2 arguments, but only 1 given
+   79 | va_arg ()
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/lib/gcc/x86_64-pc-linux-gnu/17.0.0/include/stdarg.h:54:9: note: macro 'va_arg' defined here
+   54 | #define va_arg(v,l)     __builtin_va_arg(v,l)
+      |         ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7l3_qitl/29d6e01d.c:80:1: error: expected '=', ',', ';', 'asm' or '__attribute__' before '{' token
+   80 | {
+      | ^
+gcc: internal compiler error: cc1 terminated by signal 11 (Segmentation fault)
+Segmentation fault (core dumped)

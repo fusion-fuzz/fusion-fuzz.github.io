@@ -1,0 +1,57 @@
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CodeGenFunction.cpp:3282: void clang::CodeGen::CodeGenFunction::EmitAArch64MultiVersionResolver(llvm::Function*, llvm::ArrayRef<clang::CodeGen::CodeGenFunction::FMVResolverOption>): Assertion `SupportsIFunc && "Multiversion resolver requires target IFUNC support"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O2 -fblocks -funroll-loops -fno-inline -target aarch64-none-elf -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp656tffus/bb99e64d.cpp
+1.	<eof> parser at end of file
+2.	Per-file LLVM IR generation
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005a8281808329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005a8281804fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005a82818058a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005a8281747218
+4  libc.so.6 0x00007b3138876520
+5  libc.so.6 0x00007b31388ca9bc pthread_kill + 300
+6  libc.so.6 0x00007b3138876476 raise + 22
+7  libc.so.6 0x00007b313885c7f3 abort + 211
+8  libc.so.6 0x00007b313885c71b
+9  libc.so.6 0x00007b313886de96
+10 clang++   0x00005a8281f0a37e clang::CodeGen::CodeGenFunction::EmitAArch64MultiVersionResolver(llvm::Function*, llvm::ArrayRef<clang::CodeGen::CodeGenFunction::FMVResolverOption>) + 190
+11 clang++   0x00005a8281f13068 clang::CodeGen::CodeGenFunction::EmitMultiVersionResolver(llvm::Function*, llvm::ArrayRef<clang::CodeGen::CodeGenFunction::FMVResolverOption>) + 184
+12 clang++   0x00005a8281f915d1 clang::CodeGen::CodeGenModule::emitMultiVersionFunctions() + 2609
+13 clang++   0x00005a8281f933f8 clang::CodeGen::CodeGenModule::Release() + 376
+14 clang++   0x00005a8282331afe
+15 clang++   0x00005a828232f065 clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 997
+16 clang++   0x00005a8283ffe84c clang::ParseAST(clang::Sema&, bool, bool) + 1068
+17 clang++   0x00005a828269f061 clang::FrontendAction::Execute() + 65
+18 clang++   0x00005a8282628e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+19 clang++   0x00005a8282776de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+20 clang++   0x00005a827f5d233e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+21 clang++   0x00005a827f5c813a
+22 clang++   0x00005a827f5c82cf
+23 clang++   0x00005a82823adcfd
+24 clang++   0x00005a8281747630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+25 clang++   0x00005a82823aeb53
+26 clang++   0x00005a8282363607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+27 clang++   0x00005a8282367ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+28 clang++   0x00005a8282376004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+29 clang++   0x00005a827f5cd923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+30 clang++   0x00005a827f5097f1 main + 113
+31 libc.so.6 0x00007b313885dd90
+32 libc.so.6 0x00007b313885de40 __libc_start_main + 128
+33 clang++   0x00005a827f5c7765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: aarch64-unknown-none-elf
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/bb99e64d-9994f0.cpp
+clang++: note: diagnostic msg: /tmp/bb99e64d-9994f0.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

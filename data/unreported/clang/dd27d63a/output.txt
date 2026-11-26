@@ -1,0 +1,62 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpubr98roz/8ce7fb0b.cpp:6:41: error: use of undeclared label 'bar'
+    6 | template <class T> void foo() { goto *&&bar; };
+      |                                         ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/JumpDiagnostics.cpp:994: void {anonymous}::JumpScopeChecker::CheckJump(clang::Stmt*, clang::Stmt*, clang::SourceLocation, unsigned int, unsigned int, unsigned int): Assertion `Permissive || !(!LabelAndGotoScopes.count(To))' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O2 -std=c++17 /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpubr98roz/8ce7fb0b.cpp
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpubr98roz/8ce7fb0b.cpp:6:25: instantiating function definition 'foo<int>'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005645263c14f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005645263be1bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005645263bea78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000564526300e88
+4  libc.so.6 0x00007f071c97c520
+5  libc.so.6 0x00007f071c9d09bc pthread_kill + 300
+6  libc.so.6 0x00007f071c97c476 raise + 22
+7  libc.so.6 0x00007f071c9627f3 abort + 211
+8  libc.so.6 0x00007f071c96271b
+9  libc.so.6 0x00007f071c973e96
+10 clang++   0x00005645299638b2
+11 clang++   0x00005645299699c4 clang::Sema::DiagnoseInvalidJumps(clang::Stmt*) + 1844
+12 clang++   0x0000564528fe9092 clang::Sema::ActOnFinishFunctionBody(clang::Decl*, clang::Stmt*, bool, bool) + 4066
+13 clang++   0x000056452989adc7 clang::Sema::InstantiateFunctionDefinition(clang::SourceLocation, clang::FunctionDecl*, bool, bool, bool) + 3543
+14 clang++   0x0000564529898f2d clang::Sema::PerformPendingInstantiations(bool, bool) + 301
+15 clang++   0x0000564528d6cfdd
+16 clang++   0x0000564528d6d316 clang::Sema::ActOnEndOfTranslationUnit() + 182
+17 clang++   0x0000564528bcaf32 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 946
+18 clang++   0x0000564528ba7cf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+19 clang++   0x00005645270afe51 clang::FrontendAction::Execute() + 65
+20 clang++   0x0000564527039df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+21 clang++   0x0000564527187c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+22 clang++   0x0000564524dd0d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+23 clang++   0x0000564524dc6ada
+24 clang++   0x0000564524dc6c6f
+25 clang++   0x0000564526dbe42d
+26 clang++   0x00005645263012a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+27 clang++   0x0000564526dbf283
+28 clang++   0x0000564526d73d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+29 clang++   0x0000564526d78600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+30 clang++   0x0000564526d86714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+31 clang++   0x0000564524dcc383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+32 clang++   0x0000564524d1c901 main + 113
+33 libc.so.6 0x00007f071c963d90
+34 libc.so.6 0x00007f071c963e40 __libc_start_main + 128
+35 clang++   0x0000564524dc6105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/8ce7fb0b-8987c7.cpp
+clang++: note: diagnostic msg: /tmp/8ce7fb0b-8987c7.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

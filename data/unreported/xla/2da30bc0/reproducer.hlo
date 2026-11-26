@@ -1,0 +1,24 @@
+HloModule module, num_partitions=2
+
+%branch_ceil {
+  %param = f32[8,2] parameter(0), sharding={devices=[2,2]<=[4]}
+  ROOT %tgte1 = f32[8,2] ceil(param), sharding={devices=[2,2]<=[4]}
+}
+
+%branch_floor {
+  %param = f32[8,2] parameter(0), sharding={devices=[2,2]<=[4]}
+  ROOT %tgte1 = f32[8,2] floor(param), sharding={devices=[2,2]<=[4]}
+}
+
+ENTRY %entry {
+  %lhs = f32[24,64] parameter(0)
+  %lhs.copy = f32[24,64] copy(%lhs), sharding={replicated}
+  %rhs = f32[39296,64] parameter(1)
+  %rhs.copy = f32[39296,64] copy(%rhs), sharding={devices=[2,1]0,1}
+  %dot = f32[24,39296] dot(%lhs.copy, %rhs.copy), lhs_batch_dims={}, rhs_batch_dims={}, lhs_contracting_dims={1}, rhs_contracting_dims={1}, sharding={devices=[1,2]0,1}
+  %p0 = f32[8,2] parameter(2), sharding={devices=[2,2]<=[4]}
+  %p1 = f32[8,2] parameter(3), sharding={devices=[4,1]<=[4]}
+  %b0 = s32[] parameter(4), sharding={replicated}
+  %conditional = f32[8,2] conditional(%b0, %dot, %p1, %dot, %dot), branch_computations={%branch_ceil, %branch_floor, %branch_ceil, %branch_floor}, sharding={devices=[2,2]<=[4]}
+  ROOT %ffl.root = (f32[24,39296], f32[8,2]) tuple(%dot, %conditional)
+}

@@ -1,0 +1,85 @@
+[... 35 lines omitted ...]
+- [P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C] => [P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:R]
+- [P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R] => [P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:C]
+- [P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R] => [P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C]
+}
+Property map: {
+}
+Conformance paths: {
+}
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -Osize -sil-verify-all -enable-experimental-feature ThenStatements -enable-experimental-feature Macros /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5kqhingc/ee6dd314.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5kqhingc/ee6dd314.swift")
+4.	While type-checking 'P2_b9befcd' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5kqhingc/ee6dd314.swift:37:1)
+5.	While type-checking 'R' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5kqhingc/ee6dd314.swift:38:3)
+6.	While evaluating request RequirementRequest(ee6dd314.(file).P2_b9befcd@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5kqhingc/ee6dd314.swift:37:10, 0, interface)
+7.	While evaluating request ResolveTypeRequest(while resolving type , R.R)
+8.	While building rewrite system for generic signature <τ_0_0 where τ_0_0 : P2_b9befcd>
+9.	Abort: function checkCompletionResult at RequirementMachine.cpp:245
+| 	Rewrite system exceeded rule length limit
+| 	Requirement machine for protocols [ P2_b9befcd ]
+| 	Rewrite system: {
+| 	- [Copyable].[Copyable] => [Copyable] [permanent]
+| 	- [Escapable].[Escapable] => [Escapable] [permanent]
+| 	- [P2_b9befcd].[P2_b9befcd] => [P2_b9befcd] [permanent]
+| 	- [P2_b9befcd].R => [P2_b9befcd:R] [permanent]
+| 	- [P2_b9befcd].C => [P2_b9befcd:C] [permanent]
+| 	- [P2_b9befcd].[Copyable] => [P2_b9befcd] [explicit]
+| 	- [P2_b9befcd].[Escapable] => [P2_b9befcd] [explicit]
+| 	- [P2_b9befcd].[concrete: _] => [P2_b9befcd] [explicit]
+| 	- [P2_b9befcd:C].[P2_b9befcd] => [P2_b9befcd:C] [explicit]
+| 	- [P2_b9befcd:R].[P2_b9befcd] => [P2_b9befcd:R] [explicit]
+| 	- [P2_b9befcd:C].[P2_b9befcd:C].[concrete: _] => [P2_b9befcd:C].[P2_b9befcd:C] [explicit] [lhs↓]
+| 	- [P2_b9befcd:R].[P2_b9befcd:R].[concrete: _] => [P2_b9befcd:R].[P2_b9befcd:R] [explicit] [lhs↓]
+| 	- [P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:R] => [P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C] [explicit]
+| 	- [P2_b9befcd].[P2_b9befcd:R] => [P2_b9befcd:R]
+| 	- [P2_b9befcd].[P2_b9befcd:C] => [P2_b9befcd:C]
+| 	- [P2_b9befcd:C].R => [P2_b9befcd:C].[P2_b9befcd:R]
+| 	- [P2_b9befcd:C].C => [P2_b9befcd:C].[P2_b9befcd:C]
+| 	- [P2_b9befcd:C].[Copyable] => [P2_b9befcd:C]
+| 	- [P2_b9befcd:C].[Escapable] => [P2_b9befcd:C]
+| 	- [P2_b9befcd:C].[concrete: _] => [P2_b9befcd:C]
+| 	- [P2_b9befcd:R].R => [P2_b9befcd:R].[P2_b9befcd:R]
+| 	- [P2_b9befcd:R].C => [P2_b9befcd:R].[P2_b9befcd:C]
+| 	- [P2_b9befcd:R].[Copyable] => [P2_b9befcd:R]
+| 	- [P2_b9befcd:R].[Escapable] => [P2_b9befcd:R]
+| 	- [P2_b9befcd:R].[concrete: _] => [P2_b9befcd:R]
+| 	- [P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C] => [P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R]
+| 	- [P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C] => [P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R] [lhs↓]
+| 	- [P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C] => [P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R]
+| 	- [P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C] => [P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:R] [lhs↓]
+| 	- [P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R] => [P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R] [lhs↓]
+| 	- [P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C] => [P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:R]
+| 	- [P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C] => [P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:R]
+| 	- [P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R] => [P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:C]
+| 	- [P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R] => [P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C].[P2_b9befcd:R].[P2_b9befcd:R].[P2_b9befcd:C].[P2_b9befcd:C]
+| 	}
+| 	Property map: {
+| 	}
+| 	Conformance paths: {
+| 	}
+ #0 0x000055ee034d3bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055ee034d12e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055ee034d48c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007fb235a21330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007fb235a7ac0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007fb235a2127e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007fb235a048ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000055edfd911622 (/usr/bin/swift-frontend+0x3055622)
+ #8 0x000055edfd91170c (/usr/bin/swift-frontend+0x305570c)
+ #9 0x000055edfd75b858 (/usr/bin/swift-frontend+0x2e9f858)
+#10 0x000055edfd7669e7 swift::rewriting::RewriteContext::getRequirementMachine(swift::ProtocolDecl const*) (/usr/bin/swift-frontend+0x2eaa9e7)
+#11 0x000055edfd772b2b swift::rewriting::RuleBuilder::collectRulesFromReferencedProtocols() (/usr/bin/swift-frontend+0x2eb6b2b)
+#12 0x000055edfd77274d swift::rewriting::RuleBuilder::initWithGenericSignature(llvm::ArrayRef<swift::GenericTypeParamType*>, llvm::ArrayRef<swift::Requirement>) (/usr/bin/swift-frontend+0x2eb674d)
+#13 0x000055edfd75c1e8 swift::rewriting::RequirementMachine::initWithGenericSignature(swift::GenericSignature) (/usr/bin/swift-frontend+0x2ea01e8)
+#14 0x000055edfd765379 swift::rewriting::RewriteContext::getRequirementMachine(swift::CanGenericSignature) (/usr/bin/swift-frontend+0x2ea9379)
+#15 0x000055edfd63e11a swift::GenericSignatureImpl::lookupNestedType(swift::Type, swift::Identifier) const (/usr/bin/swift-frontend+0x2d8211a)
+#16 0x000055edfcefd977 (anonymous namespace)::TypeResolver::resolveDeclRefTypeReprRec(swift::DeclRefTypeRepr*, swift::TypeResolutionOptions) TypeCheckType.cpp:0:0
+#17 0x000055edfceeb2f7 (anonymous namespace)::TypeResolver::resolveType(swift::TypeRepr*, swift::TypeResolutionOptions) TypeCheckType.cpp:0:0
+#18 0x000055edfcec1c14 evaluateTypeResolution(swift::TypeResolution const*, swift::TypeRepr*, swift::SILTypeResolutionContext*) TypeCheckType.cpp:0:0
+#19 0x000055edfcf07a31 swift::ResolveTypeRequest::OutputType swift::Evaluator::getResultUncached<swift::ResolveTypeRequest, swift::ResolveTypeRequest::OutputType swift::evaluateOrDe
+[... truncated ...]

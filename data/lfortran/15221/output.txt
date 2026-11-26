@@ -1,0 +1,10 @@
+$ lfortran -c repro.f90 -o /dev/null
+==973951==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x502000000430 ...
+READ of size 4 at 0x502000000430 thread T0
+    #0 in LCompilers::ASRUtils::fetch_ArrayConstant_value_helper(Allocator&, Location const&, void*, ttype_t*, int) src/libasr/asr_utils.h:9026
+    #1 in LCompilers::ASRUtils::fetch_ArrayConstant_value(Allocator&, ArrayConstant_t*, int) src/libasr/asr_utils.h:9088
+    #2 in CommonVisitor<SymbolTableVisitor>::visit_DeclarationUtil(Declaration_t const&)
+    #3 in SymbolTableVisitor::visit_Declaration(Declaration_t const&)
+0x502000000431 is located 0 bytes to the right of 1-byte region [0x502000000430,0x502000000431)
+allocated by thread T0 here:
+    #1 in LCompilers::ASRUtils::set_ArrayConstant_data(expr_t**, unsigned long, ttype_t*)

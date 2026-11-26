@@ -1,0 +1,18 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+I0000 00:00:1792941343.087198 4072753 latency_hiding_scheduler.cc:4598] [latency-hiding-scheduler] LatencyHidingScheduler current memory usage: 380 bytes. Current limit: 225736020268
+F0000 00:00:1792941343.089866 4072753 collective_opt_utils.cc:1436] Check failed: unique_user->users().front()->opcode() == HloOpcode::kWhile 
+*** Check failure stack trace: ***
+    @     0x5db08192da24  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5db08192d9a6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5db077e120e3  xla::FindCanonicalSendRecvStartOp()
+    @     0x5db077da9e89  xla::gpu::ExecutionStreamAssignment::ExecutionStreamAssignment()
+    @     0x5db07618b220  xla::gpu::CompileModuleToLlvmIr()
+    @     0x5db076160c7b  xla::gpu::GpuCompiler::CompileToBackendResult()
+    @     0x5db076165589  xla::gpu::GpuCompiler::RunBackend()
+    @     0x5db076090d58  xla::CompiledOptProvider::GetExecutable()
+    @     0x5db076082cf1  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5db08197e1d6  main
+    @     0x7bbe777d4d90  (unknown)
+Aborted (core dumped)

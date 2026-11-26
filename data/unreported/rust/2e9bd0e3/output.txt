@@ -1,0 +1,73 @@
+[... 457 lines / 17,637 bytes of output truncated before crash signature ...]
+
+error: lifetime may not live long enough
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpq2mtc67v/fd94b636.rs:37:5
+   |
+35 | fn assert_invariant<'a, 'b>(x: field_of!(Struct<'a>, field), y: field_of!(Struct<'b>, field)) {
+   |                     --  -- lifetime `'b` defined here
+   |                     |
+   |                     lifetime `'a` defined here
+36 |     //~^ ERROR one or more lifetime errors
+37 |     consume(x, y);
+   |     ^^^^^^^^^^^^^ argument requires that `'b` must outlive `'a`
+   |
+   = help: consider adding the following bound: `'b: 'a`
+   = note: requirement occurs because of the type `field_of!(Struct<'_>, field)`, which makes the generic argument `Struct<'_>` invariant
+   = note: the struct `FieldRepresentingType<T, VARIANT, FIELD>` is invariant over the parameter `T`
+   = help: see <https://doc.rust-lang.org/nomicon/subtyping.html> for more information about variance
+
+error: one or more lifetime errors were found in this item
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpq2mtc67v/fd94b636.rs:35:4
+   |
+35 | fn assert_invariant<'a, 'b>(x: field_of!(Struct<'a>, field), y: field_of!(Struct<'b>, field)) {
+   |    ^^^^^^^^^^^^^^^^
+   |
+   = help: `'a` and `'b` must be the same: replace one with the other
+
+error: internal compiler error: compiler/rustc_borrowck/src/type_check/relate_tys.rs:412:17: it should not be possible to encounter unnormalized aliases in borrowck
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpq2mtc67v/fd94b636.rs:268:34
+    |
+268 |     Some(do_async_b24c3e7()).map(|().unwrap_or_default()| {});
+    |                                  ^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+thread 'rustc' (2501970) panicked at compiler/rustc_borrowck/src/type_check/relate_tys.rs:412:17:
+Box<dyn Any>
+stack backtrace:
+   0: std::panicking::begin_panic::<rustc_span::macros::ExplicitBug>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:751:5
+   1: std::panic::panic_any::<rustc_span::macros::ExplicitBug>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panic.rs:260:5
+   2: rustc_span::macros::bug_impl
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_span/src/macros.rs:62:9
+   3: <rustc_borrowck::type_check::relate_tys::NllTypeRelating as rustc_type_ir::relate::TypeRelation<rustc_middle::ty::context::TyCtxt>>::tys
+   4: rustc_type_ir::relate::structurally_relate_tys::<rustc_middle::ty::context::TyCtxt, rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#0}::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/relate.rs:491:76
+   5: <&mut rustc_type_ir::relate::structurally_relate_tys<rustc_middle::ty::context::TyCtxt, rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#0}::{closure#1} as core::ops::function::FnOnce<((rustc_middle::ty::Ty, rustc_middle::ty::Ty),)>>::call_once
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/ops/function.rs:310:21
+   6: <core::option::Option<(rustc_middle::ty::Ty, rustc_middle::ty::Ty)>>::map::<core::result::Result<rustc_middle::ty::Ty, rustc_type_ir::error::TypeError<rustc_middle::ty::context::TyCtxt>>, &mut rustc_type_ir::relate::structurally_relate_tys<rustc_middle::ty::context::TyCtxt, rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#0}::{closure#1}>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/option.rs:1163:29
+   7: <core::iter::adapters::map::Map<core::iter::adapters::zip::Zip<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>, core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>>, rustc_type_ir::relate::structurally_relate_tys<rustc_middle::ty::context::TyCtxt, rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#0}::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/iter/adapters/map.rs:107:26
+   8: <core::result::Result<rustc_middle::ty::Ty, rustc_type_ir::error::TypeError<rustc_middle::ty::context::TyCtxt>> as rustc_type_ir::interner::CollectAndApply<rustc_middle::ty::Ty, rustc_middle::ty::Ty>>::collect_and_apply::<core::iter::adapters::map::Map<core::iter::adapters::zip::Zip<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>, core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>>, rustc_type_ir::relate::structurally_relate_tys<rustc_middle::ty::context::TyCtxt, rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#0}::{closure#1}>, <rustc_middle::ty::Ty>::new_tup_from_iter<core::iter::adapters::map::Map<core::iter::adapters::zip::Zip<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>, core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>>, rustc_type_ir::relate::structurally_relate_tys<rustc_middle::ty::context::TyCtxt, rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#0}::{closure#1}>, core::result::Result<rustc_middle::ty::Ty, rustc_type_ir::error::TypeError<rustc_middle::ty::context::TyCtxt>>>::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/interner.rs:700:29
+   9: <rustc_middle::ty::Ty>::new_tup_from_iter::<core::iter::adapters::map::Map<core::iter::adapters::zip::Zip<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>, core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>>, rustc_type_ir::relate::structurally_relate_tys<rustc_middle::ty::context::TyCtxt, rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#0}::{closure#1}>, core::result::Result<rustc_middle::ty::Ty, rustc_type_ir::error::TypeError<rustc_middle::ty::context::TyCtxt>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/sty.rs:704:9
+  10: <rustc_middle::ty::Ty as rustc_type_ir::inherent::Ty<rustc_middle::ty::context::TyCtxt>>::new_tup_from_iter::<core::iter::adapters::map::Map<core::iter::adapters::zip::Zip<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>, core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>>, rustc_type_ir::relate::structurally_relate_tys<rustc_middle::ty::context::TyCtxt, rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#0}::{closure#1}>, core::result::Result<rustc_middle::ty::Ty, rustc_type_ir::error::TypeError<rustc_middle::ty::context::TyCtxt>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/sty.rs:1068:9
+  11: rustc_type_ir::relate::structurally_relate_tys::<rustc_middle::ty::context::TyCtxt, rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/relate.rs:489:20
+  12: rustc_type_ir::relate::structurally_relate_tys::<rustc_middle::ty::context::TyCtxt, rustc_borrowck::type_check::relate_tys::NllTypeRelating>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/relate.rs:346:1
+  13: rustc_type_ir::relate::combine::super_combine_tys::<rustc_infer::infer::InferCtxt, rustc_middle::ty::context::TyCtxt, rustc_borrowck::type_check::relate_tys::NllTypeRelating>
+  14: <rustc_borrowck::type_check::relate_tys::NllTypeRelating as rustc_type_ir::relate::TypeRelation<rustc_middle::ty::context::TyCtxt>>::tys
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/relate_tys.rs:449:17
+  15: <rustc_middle::ty::Ty as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate::<rustc_borrowck::type_check::relate_tys::NllTypeRelating>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/relate.rs:17:18
+  16: <rustc_borrowck::type_check::relate_tys::NllTypeRelating as rustc_type_ir::relate::TypeRelation<rustc_middle::ty::context::TyCtxt>>::relate::<rustc_middle::ty::Ty>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/relate.rs:61:9
+  17: <rustc_borrowck::type_check::relate_tys::NllTypeRelating as rustc_type_ir::relate::TypeRelation<rustc_middle::ty::context::TyCtxt>>::relate_with_variance::<rustc_middle::ty::Ty>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/relate_tys.rs:379:81
+  18: <rustc_borrowck::type_check::relate_tys::NllTypeRelating as rustc_type_ir::relate::TypeRelation<rustc_middle::ty::context::TyCtxt>>::relate_with_variance::<rustc_middle::ty::Ty>
+             at /home/fuzz/WorkSpace/f
+[... truncated ...]

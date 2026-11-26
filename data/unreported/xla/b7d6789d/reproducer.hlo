@@ -1,0 +1,21 @@
+HloModule pjit__unnamed_wrapped_function_, allow_spmd_sharding_propagation_to_parameters={false,false,false,false}, num_partitions=4
+
+ENTRY %main {
+  %lhs = f8e4m3fn[2,16,48]{2,1,0} parameter(0), sharding={devices=[1,4,1]<=[4]}
+  %rhs = f8e4m3fn[48,192]{1,0} parameter(1), sharding={devices=[1,4]<=[4]}
+  %scale_lhs = bf16[] parameter(2)
+  %scale_rhs = bf16[] parameter(3)
+  %scale_lhs_bcast = bf16[2,16,48]{2,1,0} broadcast(scale_lhs), dimensions={}
+  %scale_rhs_bcast = bf16[48,192]{1,0} broadcast(scale_rhs), dimensions={}
+  %lhs_bf16 = bf16[2,16,48]{2,1,0} convert(lhs)
+  %rhs_bf16 = bf16[48,192]{1,0} convert(rhs)
+  %lhs_scaled = bf16[2,16,48]{2,1,0} multiply(scale_lhs_bcast, lhs_bf16)
+  %rhs_scaled = bf16[48,192]{1,0} multiply(scale_rhs_bcast, rhs_bf16)
+  %dot = bf16[2,16,192]{2,1,0} dot(lhs_scaled, rhs_scaled), lhs_contracting_dims={2}, rhs_contracting_dims={0}
+  %custom-call = bf16[2,16,192]{2,1,0} custom-call(dot), custom_call_target="Sharding", sharding={devices=[1,1,4]<=[4]}
+  %p0 = f32[2,3,2,2]{2,1,3,0} parameter(4)
+  %p1 = f32[2,2,2,3] parameter(5)
+  %transpose = f32[2,3,2,2]{2,1,3,0} transpose(%p1), dimensions={0,3,1,2}
+  %multiply = f32[2,3,2,2]{2,1,3,0} multiply(%lhs_scaled, %transpose)
+  ROOT %ffl.root = (bf16[2,16,192]{2,1,0}, f32[2,3,2,2]{2,1,3,0}) tuple(%custom-call, %multiply)
+}

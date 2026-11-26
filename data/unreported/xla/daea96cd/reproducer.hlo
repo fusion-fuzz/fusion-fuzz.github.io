@@ -1,0 +1,10 @@
+HloModule m
+
+ENTRY e {
+  a = f32[] parameter(0)
+  b = f32[] parameter(1)
+  d = (f32[], f32[]) tuple(a, b)
+  tok = token[] after-all()
+  s = ((f32[], f32[]), u32[], token[]) send(d, tok), channel_id=1
+  ROOT sd = token[] send-done(s), channel_id=1
+}

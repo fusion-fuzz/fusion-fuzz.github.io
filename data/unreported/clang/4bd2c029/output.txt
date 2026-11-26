@@ -1,0 +1,96 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphwn8n9r6/810f4514.mm:20:12: warning: class 'NSCachedURLResponse' defined without specifying a base class [-Wobjc-root-class]
+   20 | @interface NSCachedURLResponse
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphwn8n9r6/810f4514.mm:20:31: note: add a super class to fix this problem
+   20 | @interface NSCachedURLResponse
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphwn8n9r6/810f4514.mm:34:33: error: use of undeclared identifier 'end'
+   34 | static long ffl_fusion = (long)(end);
+      |                                 ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphwn8n9r6/810f4514.mm:51:18: error: 'auto' not allowed in lambda parameter before C++14
+   51 |     auto L = [i](auto a) { return i + a; };
+      |                  ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphwn8n9r6/810f4514.mm:58:15: error: 'auto' not allowed in lambda parameter before C++14
+   58 |   auto L = [](auto a) { return a; };
+      |               ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphwn8n9r6/810f4514.mm:60:5: error: 'operator()' does not name a template but is followed by template arguments
+   60 |   L.operator()<char>(3.14); //expected-warning{{implicit conversion}}
+      |     ^         ~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphwn8n9r6/810f4514.mm:58:12: note: non-template declaration found by name lookup
+   58 |   auto L = [](auto a) { return a; };
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphwn8n9r6/810f4514.mm:69:19: error: 'auto' not allowed in lambda parameter before C++14
+   69 |   T (*fp)(T) = [](auto a) { return a; };
+      |                   ^~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/ExprConstant.cpp:5725: bool EvaluateDependentExpr(const clang::Expr*, {anonymous}::EvalInfo&): Assertion `E->containsErrors() && "valid value-dependent expression should never " "reach invalid code path."' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Os -std=c++11 -fblocks -fobjc-runtime=gnustep-2.0 -fobjc-arc -target i386-windows-pc -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphwn8n9r6/810f4514.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphwn8n9r6/810f4514.mm:73:10: current parser token ';'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphwn8n9r6/810f4514.mm:65:1: parsing namespace 'test_conversion_to_fptr_2'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000062df4c49e329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000062df4c49afec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000062df4c49b8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000062df4c3dd218
+4  libc.so.6 0x000075214ce08520
+5  libc.so.6 0x000075214ce5c9bc pthread_kill + 300
+6  libc.so.6 0x000075214ce08476 raise + 22
+7  libc.so.6 0x000075214cdee7f3 abort + 211
+8  libc.so.6 0x000075214cdee71b
+9  libc.so.6 0x000075214cdffe96
+10 clang++   0x000062df500b9331
+11 clang++   0x000062df5014ce5b
+12 clang++   0x000062df5014d7af
+13 clang++   0x000062df5011b33c
+14 clang++   0x000062df5011b0ae
+15 clang++   0x000062df5011f288
+16 clang++   0x000062df5018159a clang::Expr::EvaluateAsInitializer(clang::ASTContext const&, clang::VarDecl const*, clang::Expr::EvalResult&, bool) const + 570
+17 clang++   0x000062df4ff47522 clang::VarDecl::evaluateValueImpl(llvm::SmallVectorImpl<std::pair<clang::SourceLocation, clang::PartialDiagnostic>>*, bool) const + 306
+18 clang++   0x000062df4ff47ab6 clang::VarDecl::checkForConstantInitialization(llvm::SmallVectorImpl<std::pair<clang::SourceLocation, clang::PartialDiagnostic>>&) const + 118
+19 clang++   0x000062df4f0a4739 clang::Sema::CheckCompleteVariableDeclaration(clang::VarDecl*) + 2841
+20 clang++   0x000062df4f0b3e61
+21 clang++   0x000062df4ecdfc5c clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 380
+22 clang++   0x000062df4ecfa36c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+23 clang++   0x000062df4eca9fac clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+24 clang++   0x000062df4ecaa78f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+25 clang++   0x000062df4ecb6646 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+26 clang++   0x000062df4ed1467b clang::Parser::ParseInnerNamespace(llvm::SmallVector<clang::Parser::InnerNamespaceInfo, 4u> const&, unsigned int, clang::SourceLocation&, clang::ParsedAttributes&, clang::BalancedDelimiterTracker&) + 507
+27 clang++   0x000062df4ed15424 clang::Parser::ParseNamespace(clang::DeclaratorContext, clang::SourceLocation&, clang::SourceLocation) + 3188
+28 clang++   0x000062df4ecfdc6b clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 827
+29 clang++   0x000062df4ecb666e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+30 clang++   0x000062df4ecb76ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+31 clang++   0x000062df4ec94632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+32 clang++   0x000062df4d335061 clang::FrontendAction::Execute() + 65
+33 clang++   0x000062df4d2bee65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+34 clang++   0x000062df4d40cde3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+35 clang++   0x000062df4a26833e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+36 clang++   0x000062df4a25e13a
+37 clang++   0x000062df4a25e2cf
+38 clang++   0x000062df4d043cfd
+39 clang++   0x000062df4c3dd630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+40 clang++   0x000062df4d044b53
+41 clang++   0x000062df4cff9607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+42 clang++   0x000062df4cffdef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+43 clang++   0x000062df4d00c004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+44 clang++   0x000062df4a263923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+45 clang++   0x000062df4a19f7f1 main + 113
+46 libc.so.6 0x000075214cdefd90
+47 libc.so.6 0x000075214cdefe40 __libc_start_main + 128
+48 clang++   0x000062df4a25d765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: i386-pc-windows-msvc
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/810f4514-12775b.mm
+clang++: note: diagnostic msg: /tmp/810f4514-12775b.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

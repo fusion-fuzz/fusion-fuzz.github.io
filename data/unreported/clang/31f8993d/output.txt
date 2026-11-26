@@ -1,0 +1,67 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1kr19rwf/2e19b769.cpp:17:31: error: '(unnamed struct at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1kr19rwf/2e19b769.cpp:17:31)' cannot be defined in a type specifier
+   17 | void c() { __builtin_offsetof(struct {int b;}, b); }
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1kr19rwf/2e19b769.cpp:41:6: error: redefinition of 'c'
+   41 | void c() = delete("baz");
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1kr19rwf/2e19b769.cpp:17:6: note: previous definition is here
+   17 | void c() { __builtin_offsetof(struct {int b;}, b); }
+      |      ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/Decl.cpp:3152: void clang::FunctionDecl::setDefaultedOrDeletedInfo(clang::FunctionDecl::DefaultedOrDeletedFunctionInfo*): Assertion `!Body && "can't replace function body with defaulted function info"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O2 -std=gnu++20 -fblocks /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1kr19rwf/2e19b769.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1kr19rwf/2e19b769.cpp:45:1: current parser token 'struct'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000061a5de4a2329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000061a5de49efec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000061a5de49f8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000061a5de3e1218
+4  libc.so.6 0x00007a24c312e520
+5  libc.so.6 0x00007a24c31829bc pthread_kill + 300
+6  libc.so.6 0x00007a24c312e476 raise + 22
+7  libc.so.6 0x00007a24c31147f3 abort + 211
+8  libc.so.6 0x00007a24c311471b
+9  libc.so.6 0x00007a24c3125e96
+10 clang++   0x000061a5e1f4be5f clang::FunctionDecl::setDeletedAsWritten(bool, clang::StringLiteral*) + 239
+11 clang++   0x000061a5e118ceef clang::Sema::SetDeclDeleted(clang::Decl*, clang::SourceLocation, clang::StringLiteral*) + 239
+12 clang++   0x000061a5e0cb4480 clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 3600
+13 clang++   0x000061a5e0cfec64 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+14 clang++   0x000061a5e0cadfac clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+15 clang++   0x000061a5e0cae78f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+16 clang++   0x000061a5e0cba646 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+17 clang++   0x000061a5e0cbb6ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+18 clang++   0x000061a5e0c98632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+19 clang++   0x000061a5df339061 clang::FrontendAction::Execute() + 65
+20 clang++   0x000061a5df2c2e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+21 clang++   0x000061a5df410de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+22 clang++   0x000061a5dc26c33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+23 clang++   0x000061a5dc26213a
+24 clang++   0x000061a5dc2622cf
+25 clang++   0x000061a5df047cfd
+26 clang++   0x000061a5de3e1630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+27 clang++   0x000061a5df048b53
+28 clang++   0x000061a5deffd607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+29 clang++   0x000061a5df001ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+30 clang++   0x000061a5df010004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+31 clang++   0x000061a5dc267923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+32 clang++   0x000061a5dc1a37f1 main + 113
+33 libc.so.6 0x00007a24c3115d90
+34 libc.so.6 0x00007a24c3115e40 __libc_start_main + 128
+35 clang++   0x000061a5dc261765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/2e19b769-f9d9d7.cpp
+clang++: note: diagnostic msg: /tmp/2e19b769-f9d9d7.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

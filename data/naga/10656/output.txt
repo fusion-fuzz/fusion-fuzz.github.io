@@ -1,0 +1,16 @@
+thread 'main' panicked at naga/src/back/spv/writer.rs:1423:67:
+called `Option::unwrap()` on a `None` value
+stack backtrace:
+   4: core::option::Option<T>::unwrap
+   5: naga::back::spv::writer::<impl naga::back::spv::Writer>::write_function
+             at naga/src/back/spv/writer.rs:1423:67
+   6: naga::back::spv::writer::<impl naga::back::spv::Writer>::write_entry_point
+             at naga/src/back/spv/writer.rs:1803:32
+   7: naga::back::spv::writer::<impl naga::back::spv::Writer>::write_logical_layout
+             at naga/src/back/spv/writer.rs:3899:22
+   8: naga::back::spv::writer::<impl naga::back::spv::Writer>::write
+             at naga/src/back/spv/writer.rs:3970:14
+   9: naga::back::spv::write_vec
+             at naga/src/back/spv/mod.rs:1171:7
+  10: naga::write_output
+             at naga-cli/src/bin/naga.rs:907:23

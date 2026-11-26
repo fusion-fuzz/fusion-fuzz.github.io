@@ -1,0 +1,79 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:16:22: warning: adding 'char' to a string pointer does not append to the string [-Wstring-plus-char]
+   16 |   A(char *p) : str(p + 'a') { } // expected-warning {{adding 'char' to a string pointer does not append to the string}} expected-note {{use array indexing to silence this warning}}
+      |                    ~~^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:16:22: note: use array indexing to silence this warning
+   16 |   A(char *p) : str(p + 'a') { } // expected-warning {{adding 'char' to a string pointer does not append to the string}} expected-note {{use array indexing to silence this warning}}
+      |                      ^    
+      |                    & [    ]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:23:11: warning: adding 'char' to a string pointer does not append to the string [-Wstring-plus-char]
+   23 |   A a = s + 'a'; // // expected-warning {{adding 'char' to a string pointer does not append to the string}} expected-note {{use array indexing to silence this warning}}
+      |         ~~^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:23:11: note: use array indexing to silence this warning
+   23 |   A a = s + 'a'; // // expected-warning {{adding 'char' to a string pointer does not append to the string}} expected-note {{use array indexing to silence this warning}}
+      |           ^    
+      |         & [    ]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:27:20: warning: adding 'char' to a string pointer does not append to the string [-Wstring-plus-char]
+   27 |   char *str2 = str + 'c'; // expected-warning {{adding 'char' to a string pointer does not append to the string}} expected-note {{use array indexing to silence this warning}}
+      |                ~~~~^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:27:20: note: use array indexing to silence this warning
+   27 |   char *str2 = str + 'c'; // expected-warning {{adding 'char' to a string pointer does not append to the string}} expected-note {{use array indexing to silence this warning}}
+      |                    ^    
+      |                &   [    ]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:29:28: warning: adding 'char' to a string pointer does not append to the string [-Wstring-plus-char]
+   29 |   const char *constStr = s + 'c'; // expected-warning {{adding 'char' to a string pointer does not append to the string}} expected-note {{use array indexing to silence this warning}}
+      |                          ~~^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:29:28: note: use array indexing to silence this warning
+   29 |   const char *constStr = s + 'c'; // expected-warning {{adding 'char' to a string pointer does not append to the string}} expected-note {{use array indexing to silence this warning}}
+      |                            ^    
+      |                          & [    ]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:31:13: warning: adding 'char' to a string pointer does not append to the string [-Wstring-plus-char]
+   31 |   str = 'c' + str;// expected-warning {{adding 'char' to a string pointer does not append to the string}} expected-note {{use array indexing to silence this warning}}
+      |         ~~~~^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:31:13: note: use array indexing to silence this warning
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:34:15: warning: adding 'wchar_t' to a string pointer does not append to the string [-Wstring-plus-char]
+   34 |   wstr = wstr + L'c'; // expected-warning {{adding 'wchar_t' to a string pointer does not append to the string}} expected-note {{use array indexing to silence this warning}}
+      |          ~~~~~^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:34:15: note: use array indexing to silence this warning
+   34 |   wstr = wstr + L'c'; // expected-warning {{adding 'wchar_t' to a string pointer does not append to the string}} expected-note {{use array indexing to silence this warning}}
+      |               ^     
+      |          &    [     ]
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/include/llvm/ADT/APInt.h:1563: uint64_t llvm::APInt::getZExtValue() const: Assertion `getActiveBits() <= 64 && "Too many bits for uint64_t"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -Oz -std=c++14 -fblocks -target x86_64-apple-darwin -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:35:20: current parser token ''a''
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:22:23: parsing function body 'f'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpu0ifpd9d/7bd3214d.cpp:22:23: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005939401bc65b __interceptor_backtrace + 91
+1  clang++   0x0000593945efd1b7 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x0000593945ef6e83 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x0000593945efbb54 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x0000593945d44e35
+5  clang++   0x0000593945d45643
+6  libc.so.6 0x0000754440477520
+7  libc.so.6 0x00007544404cb9bc pthread_kill + 300
+8  libc.so.6 0x0000754440477476 raise + 22
+9  libc.so.6 0x000075444045d7f3 abort + 211
+10 libc.so.6 0x000075444045d71b
+11 libc.so.6 0x000075444046ee96
+12 clang++   0x0000593940285e5f
+13 clang++   0x0000593950de75c5 clang::Sema::CheckArrayAccess(clang::Expr const*, clang::Expr const*, clang::ArraySubscriptExpr const*, bool, bool) + 3877
+14 clang++   0x00005939515ad86e clang::Sema::CheckAdditionOperands(clang::ActionResult<clang::Expr*, true>&, clang::ActionResult<clang::Expr*, true>&, clang::SourceLocation, clang::BinaryOperatorKind, clang::QualType*) + 5278
+15 clang++   0x00005939515df973 clang::Sema::CreateBuiltinBinOp(clang::SourceLocation, clang::BinaryOperatorKind, clang::Expr*, clang::Expr*, bool) + 6323
+16 clang++   0x00005939515e9f64 clang::Sema::BuildBinOp(clang::Scope*, clang::SourceLocation, clang::BinaryOperatorKind, clang::Expr*, clang::Expr*, bool) + 4996
+17 clang++   0x0000593951526eee clang::Sema::ActOnBinOp(clang::Scope*, clang::SourceLocation, clang::tok::TokenKind, clang::Expr*, clang::Expr*) + 3790
+18 clang++   0x000059395088b3a2 clang::Parser::ParseRHSOfBinaryExpression(clang::ActionResult<clang::Expr*, true>, clang::prec::Level) + 6946
+19 clang++   0x000059395088ac89 clang::Parser::ParseRHSOfBinaryExpression(clang::ActionResult<clang::Expr*, true>, clang::prec::Level) + 5129
+20 clang++   0x000059395088969e clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 14
+21 clang++   0x00005939509ab810 clang::Parser::ParseExprStatement(clang::Parser::ParsedStmtContext) + 384
+22 clang++   0x00005939509a75fc clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 3340
+23 clang++   0x00005939509a634a clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 970
+24 clang++   0x00005939509bbe6f clang::Parser::ParseCompoundStatementBody(bool) + 5887
+25 clang++   0x00005939509c084b clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 811
+26 clang++   0x000059395079dfb7 clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 7351
+27 clang++   0x00005939507fecb6 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 10470
+28 clang++   0x000059395079b360 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 2224
+29 clang++   0x000059395079a1d1 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 529
+30 clang++   0x00005939507980a3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*)
+[... truncated ...]

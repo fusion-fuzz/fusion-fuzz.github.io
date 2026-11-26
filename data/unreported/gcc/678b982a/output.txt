@@ -1,0 +1,63 @@
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpgbf2bcjn/17957528.cc:15:22: error: non-static initialization of a flexible array member
+   15 |   str x = {3, {1,2,3}}; /* { dg-error "(non-static)|(initialization)" } */
+      |                      ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpgbf2bcjn/17957528.cc:32:8: error: redefinition of 'struct NonTrivial3'
+   32 | struct NonTrivial3 {
+      |        ^~~~~~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpgbf2bcjn/17957528.cc:4:8: note: previous definition of 'struct NonTrivial3'
+    4 | struct NonTrivial3 {
+      |        ^~~~~~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpgbf2bcjn/17957528.cc:36:6: error: redefinition of 'void i()'
+   36 | void i() { thread_local NonTrivial3 tlarr[10]; }
+      |      ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpgbf2bcjn/17957528.cc:7:6: note: 'void i()' previously defined here
+    7 | void i() { thread_local NonTrivial3 tlarr[10]; }
+      |      ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpgbf2bcjn/17957528.cc: In function 'void __tcf_ZZ1ivE5tlarr(void*)':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpgbf2bcjn/17957528.cc:36:45: internal compiler error: in add_stmt, at cp/semantics.cc:553
+   36 | void i() { thread_local NonTrivial3 tlarr[10]; }
+      |                                             ^
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x87beac add_stmt(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:553
+0x1081555 register_dtor_fn(tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:11718
+0x1081e70 expand_static_init
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:11942
+0x107fddf cp_finish_decl(tree_node*, tree_node*, bool, tree_node*, int, cp_decomp*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:10323
+0x11af390 cp_parser_init_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:26515
+0x11b16fb cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18196
+0x11b489d cp_parser_declaration_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17052
+0x117bf5a cp_parser_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14559
+0x117f598 cp_parser_statement_seq_opt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:15129
+0x117f838 cp_parser_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14976
+0x11b4a17 cp_parser_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:28999
+0x11b4a17 cp_parser_ctor_initializer_opt_and_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29050
+0x117fd9e cp_parser_function_definition_after_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36353
+0x11b01bb cp_parser_function_definition_from_specifiers_and_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36268
+0x11b01bb cp_parser_init_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:26179
+0x11b16fb cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18196
+0x11c12cf cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17733
+0x11c3d33 cp_parser_toplevel_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17837
+/home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -iprefix /home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../lib/gcc/x86_64-pc-linux-gnu/17.0.0/ -D_GNU_SOURCE /home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmpgbf2bcjn/17957528.cc -quiet -dumpbase 17957528.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Ofast -Os -std=c++98 -std=c++11 -ffast-math -fexceptions -ftree-vectorize -fno-move-loop-invariants -o /tmp/cc9467Cy.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

@@ -1,0 +1,33 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1791990080.822091 2234938 shape_util.h:132] Check failed: shape.IsArray() token[]
+*** Check failure stack trace: ***
+    @     0x60638daf1a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x60638daf19e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x6063825fbdd8  xla::ShapeUtil::ExtentProduct<>()
+    @     0x606383b43c5a  xla::gpu::ComputeLoopFusionConfig()
+    @     0x606382e8930b  xla::gpu::GetFusionEmitter()
+    @     0x606382e7289b  xla::gpu::GpuPerformanceModelBase::EstimateFusionLaunchDimensions()
+    @     0x606382e655dc  xla::gpu::GpuPerformanceModel::EstimateRunTimeForInstructionImpl()
+    @     0x606382e65dc4  xla::gpu::GpuPerformanceModel::EstimateRunTimeForInstruction()
+    @     0x606382ac5ff6  xla::gpu::AnalyticalLatencyEstimator::NodeCost()
+    @     0x606383a97497  xla::HloScheduleGraph::HloScheduleGraph()
+    @     0x606383a9fa5e  std::make_unique<>()
+    @     0x606383a9f9cc  xla::DefaultSchedulerCore::CreateScheduleGraph()
+    @     0x606383a9fc58  xla::DefaultSchedulerCore::MakeSchedulingState()
+    @     0x606383aa0047  xla::DefaultSchedulerCore::ScheduleComputation()
+    @     0x606383aa6867  xla::LatencyHidingScheduler::RunImpl()
+    @     0x606389ba8be7  xla::HloPassInterface::Run()
+    @     0x6063857263ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x6063857217bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x606385720bd5  xla::HloPassPipeline::RunImpl()
+    @     0x606389ba8be7  xla::HloPassInterface::Run()
+    @     0x606382a8ba7c  xla::gpu::(anonymous namespace)::RunLatencyHidingSchedulerPasses()
+    @     0x606382a8997e  xla::gpu::ScheduleGpuModule()
+    @     0x6063826876df  xla::gpu::GpuCompiler::CompileToBackendResult()
+    @     0x60638268cac3  xla::gpu::GpuCompiler::RunBackend()
+    @     0x6063825a91d8  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x60638db42466  main
+    @     0x74d1011d4d90  (unknown)
+Aborted (core dumped)

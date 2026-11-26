@@ -1,0 +1,35 @@
+HloModule module
+
+ENTRY %entry {
+  %p = f32[1,4,32] parameter(0)
+  %ag = f32[1,16,32] all-gather(p), replica_groups={{0,1,2,3},{4,5,6,7}}, dimensions={1}, channel_id=1, use_global_device_ids=true
+  %pid = u32[] partition-id()
+  %permuted_idx_list = s32[8]{0} constant({12,8,4,0,8,4,12,0})
+  %offset = s32[1] dynamic-slice(permuted_idx_list, pid), dynamic_slice_sizes={1}
+  %offset_reshape = s32[] reshape(offset)
+  %zero = s32[] constant(0)
+  %ds = f32[1,4,32] dynamic-slice(ag, zero, offset_reshape, zero), dynamic_slice_sizes={1,4,32}
+  %n = s32[] parameter(1)
+  %e0 = s32[] constant(0)
+  %e1 = s32[] constant(4)
+  %a0 = s32[] constant(0)
+  %c0 = s32[] constant(2)
+  %c1 = s32[] constant(4)
+  %c2 = s32[] constant(8)
+  %t0 = s32[] add(%n, %e0)
+  %t1 = s32[] add(%t0, %e1)
+  %t2 = s32[] add(%t1, %a0)
+  %p.d = f32[1,4,32] parameter(2)
+  %ag.d = f32[1,16,32] all-gather(%p.d), replica_groups={{0,1,2,3},{4,5,6,7}}, dimensions={1}, channel_id=1, use_global_device_ids=true
+  %pid.d = u32[] partition-id()
+  %permuted_idx_list.d = s32[8]{0} constant({12,8,4,0,8,4,12,0})
+  %offset.d = s32[1] dynamic-slice(%permuted_idx_list.d, %offset), dynamic_slice_sizes={1}
+  %offset_reshape.d = s32[] reshape(%offset.d)
+  %zero.d = s32[] constant(0)
+  %ds.d = f32[1,4,32] dynamic-slice(%ag.d, %zero.d, %offset_reshape.d, %zero.d), dynamic_slice_sizes={1,4,32}
+  %t3 = s32[] add(%t2, %c0)
+  %t4 = s32[] add(%t3, %c1)
+  %out = s32[] add(%t4, %c2)
+  %ffl.root = (s32[], f32[1,4,32]) tuple(%out, %ds.d)
+  ROOT %ffl.root.1 = (f32[1,4,32], s32[], f32[1,4,32]) tuple(%ds, %out, %ds.d)
+}

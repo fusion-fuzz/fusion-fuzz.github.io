@@ -1,0 +1,118 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:65:19: error: expected type-specifier before '(' token
+   65 |     auto operator (g c) { return ab(f, c); }
+      |                   ^
+In file included from /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:76:
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/include/c++/17.0.0/coroutine:353:42: error: template argument 1 is invalid
+  353 |     struct hash<coroutine_handle<_Promise>>
+      |                                          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:90:24: error: reference to 'coroutine_handle' is ambiguous
+   90 |     void await_suspend(std::coroutine_handle<>) noexcept {}
+      |                        ^~~
+  • there are 2 candidates
+    • candidate 1: 'template<class _Promise> struct std::__n4861::coroutine_handle'
+      /home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/include/c++/17.0.0/coroutine:101:12:
+        101 |     struct coroutine_handle;
+            |            ^~~~~~~~~~~~~~~~
+    • candidate 2: 'template<class> struct std::coroutine_handle'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:4:35:
+          4 | template <typename = void> struct coroutine_handle;
+            |                                   ^~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:90:24: error: 'std::coroutine_handle' has not been declared
+   90 |     void await_suspend(std::coroutine_handle<>) noexcept {}
+      |                        ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:90:45: error: expected ',' or '...' before '<' token
+   90 |     void await_suspend(std::coroutine_handle<>) noexcept {}
+      |                                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:111:24: error: reference to 'coroutine_handle' is ambiguous
+  111 |     void await_suspend(std::coroutine_handle<> awaiter) {}
+      |                        ^~~
+  • there are 2 candidates
+    • candidate 1: 'template<class _Promise> struct std::__n4861::coroutine_handle'
+      /home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/include/c++/17.0.0/coroutine:101:12:
+        101 |     struct coroutine_handle;
+            |            ^~~~~~~~~~~~~~~~
+    • candidate 2: 'template<class> struct std::coroutine_handle'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:4:35:
+          4 | template <typename = void> struct coroutine_handle;
+            |                                   ^~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:111:24: error: 'std::coroutine_handle' has not been declared
+  111 |     void await_suspend(std::coroutine_handle<> awaiter) {}
+      |                        ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:111:45: error: expected ',' or '...' before '<' token
+  111 |     void await_suspend(std::coroutine_handle<> awaiter) {}
+      |                                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:118:24: error: reference to 'coroutine_handle' is ambiguous
+  118 |     void await_suspend(std::coroutine_handle<>) noexcept;
+      |                        ^~~
+  • there are 2 candidates
+    • candidate 1: 'template<class _Promise> struct std::__n4861::coroutine_handle'
+      /home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/include/c++/17.0.0/coroutine:101:12:
+        101 |     struct coroutine_handle;
+            |            ^~~~~~~~~~~~~~~~
+    • candidate 2: 'template<class> struct std::coroutine_handle'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:4:35:
+          4 | template <typename = void> struct coroutine_handle;
+            |                                   ^~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:118:24: error: 'std::coroutine_handle' has not been declared
+  118 |     void await_suspend(std::coroutine_handle<>) noexcept;
+      |                        ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:118:45: error: expected ',' or '...' before '<' token
+  118 |     void await_suspend(std::coroutine_handle<>) noexcept;
+      |                                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:128:19: error: expected type-specifier before '(' token
+  128 |     auto operator (g c) { return ab(f, c); }
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc: In function 'task myCoroutine()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:136:36: error: non-template type 'coroutine_handle' used as a template
+  136 |         co_await MoveOnlyAwaitable();
+      |                                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:136:9: error: cannot instantiate a 'coroutine handle' for promise type 'task::promise_type'
+  136 |         co_await MoveOnlyAwaitable();
+      |         ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc:142:36: internal compiler error: in build_new_method_call, at cp/call.cc:12082
+  142 |         co_await std::move(moveonly);
+      |                                    ^
+0x306c5cb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00e5e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7b6379 build_new_method_call(tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, tree_node*, int, tree_node**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:12082
+0xe952af finish_co_await_expr(unsigned long, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/coroutines.cc:1621
+0x100d50d cp_parser_unary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:10635
+0xff191a cp_parser_cast_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:11714
+0xff2811 cp_parser_binary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:11817
+0xff3632 cp_parser_assignment_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12170
+0xff8525 cp_parser_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12367
+0xffd52a cp_parser_expression_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14952
+0x1005786 cp_parser_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14700
+0x1008fb8 cp_parser_statement_seq_opt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:15215
+0x1009258 cp_parser_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:15062
+0x1005b5e cp_parser_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14575
+0x1008fb8 cp_parser_statement_seq_opt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:15215
+0x1009258 cp_parser_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:15062
+0x103ed45 cp_parser_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29104
+0x103ed45 cp_parser_ctor_initializer_opt_and_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29155
+0x10097be cp_parser_function_definition_after_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36477
+0x103ad19 cp_parser_function_definition_from_specifiers_and_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36392
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpe_2f8h41/7e0e5a05.cc -quiet -dumpbase 7e0e5a05.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O0 -std=gnu++20 -fstack-protector-all -fgraphite-identity -o /tmp/ccI9NYYI.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

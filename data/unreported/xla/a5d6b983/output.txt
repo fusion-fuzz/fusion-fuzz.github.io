@@ -1,0 +1,47 @@
+Running HLO module with runner HloRunner...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1790114176.976236 1384191 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/hlo/evaluator/hlo_evaluator.cc:3791) ShapeUtil::Compatible(result_shape, inferred_return_shape) return shape is set to: f32[4,1,2] but is inferred to be: f16[4,1,2]
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+... compiled and ran in 0.0707068s.
+INTERNAL: RET_CHECK failure (xla/hlo/evaluator/hlo_evaluator.cc:3791) ShapeUtil::Compatible(result_shape, inferred_return_shape) return shape is set to: f32[4,1,2] but is inferred to be: f16[4,1,2]
+	Failed to execute on HloRunner
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+xla/hlo/ir/hlo_instruction.cc:5263
+xla/hlo/ir/hlo_instruction.cc:5334
+xla/hlo/evaluator/hlo_evaluator.cc:1010
+xla/pjrt/interpreter/interpreter_client.cc:338
+xla/service/hlo_runner.cc:467
+xla/tools/run_hlo_module.cc:326
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmpejl0weo7/8dcdcbda.hlo**

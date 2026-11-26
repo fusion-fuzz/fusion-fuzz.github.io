@@ -1,0 +1,112 @@
+[... 9 lines omitted ...]
+  60: <rustc_middle::ty::context::GlobalCtxt>::enter::<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}, core::option::Option<rustc_interface::queries::Linker>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context.rs:804:9
+  61: <rustc_middle::ty::context::TyCtxt>::create_global_ctxt::<core::option::Option<rustc_interface::queries::Linker>, rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>::{closure#2}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context.rs:988:13
+  62: rustc_interface::passes::create_and_enter_global_ctxt::<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::run_compiler::{closure#0}::{closure#1}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1005:15
+  63: rustc_driver_impl::run_compiler::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_driver_impl/src/lib.rs:294:22
+  64: rustc_interface::interface::run_compiler::<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/interface.rs:504:80
+  65: <core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}::{closure#0}> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panic/unwind_safe.rs:275:9
+  66: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}::{closure#0}>, ()>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:576:43
+  67: std::panicking::catch_unwind::<(), core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}::{closure#0}>>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:544:19
+  68: std::panic::catch_unwind::<core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}::{closure#0}>, ()>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panic.rs:359:14
+  69: rustc_interface::interface::run_compiler::<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/interface.rs:504:23
+  70: rustc_interface::util::run_in_thread_pool_with_globals::<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/util.rs:219:17
+  71: rustc_interface::util::run_in_thread_with_globals::<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/util.rs:176:24
+  72: <scoped_tls::ScopedKey<rustc_span::SessionGlobals>>::set::<rustc_interface::util::run_in_thread_with_globals<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}::{closure#0}, ()>
+             at /home/fuzz/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/scoped-tls-1.0.1/src/lib.rs:137:9
+  73: rustc_span::create_session_globals_then::<(), rustc_interface::util::run_in_thread_with_globals<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_span/src/lib.rs:156:21
+  74: rustc_interface::util::run_in_thread_with_globals::<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/util.rs:172:17
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+
+note: we would appreciate a bug report: https://github.com/rust-lang/rust/issues/new?labels=C-bug%2C+I-ICE%2C+T-compiler&template=ice.md
+
+note: please make sure that you have updated to the latest nightly
+
+note: please attach the file at `/home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmprezfmq95/rustc-ice-2026-09-02T17_17_06-2821882.txt` to your bug report
+
+note: rustc 1.100.0-dev running on x86_64-unknown-linux-gnu
+
+note: compiler flags: -C opt-level=1 -C codegen-units=1 -Z validate-mir -C lto=fat -C panic=unwind
+
+query stack during panic:
+#0 [check_well_formed] checking that `<impl at /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmprezfmq95/e7052a88.rs:192:1: 192:94>` is well-formed
+#1 [check_type_wf] checking that types are well-formed
+#2 [analysis] running analysis passes on crate `e7052a88`
+end of query stack
+error[E0107]: enum takes 0 generic arguments but 1 generic argument was supplied
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmprezfmq95/e7052a88.rs:240:20
+    |
+240 | impl Case2_dc3bdef<Range<u8>, Range<u8>, Range<u8>, Once<A_dc3bdef>, B> for Dat...
+    |                    ^^^^^---- help: remove the unnecessary generics
+    |                    |
+    |                    expected 0 generic arguments
+    |
+note: enum defined here, with 0 generic parameters
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmprezfmq95/e7052a88.rs:113:17
+    |
+113 | pub enum struct Range {
+    |                 ^^^^^
+
+error[E0107]: enum takes 0 generic arguments but 1 generic argument was supplied
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmprezfmq95/e7052a88.rs:240:31
+    |
+240 | ...ef<Range<u8>, Range<u8>, Range<u8>, Once<A_dc3bdef>, B> for DataCase2_dc3bde...
+    |                  ^^^^^---- help: remove the unnecessary generics
+    |                  |
+    |                  expected 0 generic arguments
+    |
+note: enum defined here, with 0 generic parameters
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmprezfmq95/e7052a88.rs:113:17
+    |
+113 | pub enum struct Range {
+    |                 ^^^^^
+
+error[E0107]: enum takes 0 generic arguments but 1 generic argument was supplied
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmprezfmq95/e7052a88.rs:240:42
+    |
+240 | ...>, Range<u8>, Range<u8>, Once<A_dc3bdef>, B> for DataCase2_dc3bdef {}
+    |                  ^^^^^---- help: remove the unnecessary generics
+    |                  |
+    |                  expected 0 generic arguments
+    |
+note: enum defined here, with 0 generic parameters
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmprezfmq95/e7052a88.rs:113:17
+    |
+113 | pub enum struct Range {
+    |                 ^^^^^
+
+error[E0277]: `Range` is not an iterator
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmprezfmq95/e7052a88.rs:240:6
+    |
+240 | impl Case2_dc3bdef<Range<u8>, Range<u8>, Range<u8>, Once<A_dc3bdef>, B> for Dat...
+    |      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `Range` is not an iterator
+    |
+help: the trait `Iterator` is not implemented for `Range`
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmprezfmq95/e7052a88.rs:113:1
+    |
+113 | pub enum struct Range {
+    | ^^^^^^^^^^^^^^^^^^^^^
+note: required by a bound in `Case2_dc3bdef`
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmprezfmq95/e7052a88.rs:197:40
+    |
+194 | trait Case2_dc3bdef<
+    |       ------------- required by a bound in this trait
+...
+197 |     C: Iterator<Item: 'static + Copy + Send>,
+    |                                        ^^^^ required by this bound in `Case2_dc3bdef`
+
+error: internal compiler error: compiler/rustc_trait_selection/src/error_reporting/traits/fulfillment_errors.rs:662:25: outlives clauses should not error outside borrowck. obligation: `Obligation(predicate=Binder { value: OutlivesClause(Alias(No, Alias { kind: Projection { def_id: DefId(2:11030 ~ core[e47f]::iter::traits::iterator::Iterator::Item
+[... truncated ...]

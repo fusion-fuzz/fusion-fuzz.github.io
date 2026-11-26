@@ -1,0 +1,1 @@
+ulimit -n 4096; ulimit -v 8388608; hlo-opt --platform=cpu --passes=all-reduce-simplifier,batched_gather_scatter_normalizer,simplify-while-loops,host-offload-legalize,simplify-sorts,all-reduce-folder --xla_cpu_copy_insertion_use_region_analysis=true --xla_llvm_enable_alias_scope_metadata=false --xla_llvm_enable_invariant_load_metadata=false --o=/dev/null ./reproducer.hlo

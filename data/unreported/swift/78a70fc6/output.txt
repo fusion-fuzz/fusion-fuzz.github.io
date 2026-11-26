@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmph12zdi4e/6a31676f.swift:138:1: error: expected '}' at end of brace statement
+  3 | // --- Seed A ---
+  4 | func foo<T>(x: Collection<T>) {
+  5 |     for i in x {
+    |                `- note: to match this opening '{'
+  6 | 
+  7 | // RUN: %sourcekitd-test -req=format -line=3 -length=1 %s | %FileCheck --strict-whitespace %s
+    :
+136 | }
+137 | 
+138 | 
+    | `- error: expected '}' at end of brace statement
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmph12zdi4e/6a31676f.swift:138:1: error: expected '}' at end of brace statement
+  2 | 
+  3 | // --- Seed A ---
+  4 | func foo<T>(x: Collection<T>) {
+    |                               `- note: to match this opening '{'
+  5 |     for i in x {
+  6 | 
+    :
+136 | }
+137 | 
+138 | 
+    | `- error: expected '}' at end of brace statement
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmph12zdi4e/6a31676f.swift:4:16: warning: use of protocol 'Collection' as a type must be written 'any Collection'; this will be an error in a future Swift language mode [#ExistentialAny]
+  2 | 
+  3 | // --- Seed A ---
+  4 | func foo<T>(x: Collection<T>) {
+    |                `- warning: use of protocol 'Collection' as a type must be written 'any Collection'; this will be an error in a future Swift language mode [#ExistentialAny]
+  5 |     for i in x {
+  6 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmph12zdi4e/6a31676f.swift:18:13: error: type 'CrashActorSystem' cannot be nested in generic function 'foo(x:)'
+ 16 | 
+ 17 | 
+ 18 | final class CrashActorSystem: DistributedActorSystem {
+    |             `- error: type 'CrashActorSystem' cannot be nested in generic function 'foo(x:)'
+ 19 |   typealias ActorID = CrashActorID
+ 20 |   typealias InvocationEncoder = CrashInvocationEncoder
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmph12zdi4e/6a31676f.swift:65:8: error: type 'CrashActorID' cannot be nested in generic function 'foo(x:)'
+ 63 | }
+ 64 | 
+ 65 | struct CrashActorID: Hashable {
+    |        `- error: type 'CrashActorID' cannot be nested in generic function 'foo(x:)'
+ 66 |   func hash(into hasher: inout Hasher) { }
+ 67 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmph12zdi4e/6a31676f.swift:69:8: error: type 'CrashInvocationEncoder' cannot be nested in generic function 'foo(x:)'
+ 67 | }
+ 68 | 
+ 69 | struct CrashInvocationEncoder: DistributedTargetInvocationEncoder {
+    |        `- error: type 'CrashInvocationEncoder' cannot be nested in generic function 'foo(x:)'
+ 70 |   typealias SerializationRequirement = CrashActorSystem.SerializationRequirement
+ 71 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmph12zdi4e/6a31676f.swift:69:8: error: struct 'CrashInvocationEncoder' is missing witness for protocol requirement 'recordArgument'
+ 67 | }
+ 68 | 
+ 69 | struct CrashInvocationEncoder: DistributedTargetInvocationEncoder {
+    |        |- error: struct 'CrashInvocationEncoder' is missing witness for protocol requirement 'recordArgument'
+    |        `- note: add stubs for conformance
+ 70 |   typealias SerializationRequirement = CrashActorSystem.SerializationRequirement
+ 71 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmph12zdi4e/6a31676f.swift:79:8: error: type 'CrashInvocationDecoder' cannot be nested in generic function 'foo(x:)'
+ 77 | }
+ 78 | 
+ 79 | struct CrashInvocationDecoder: DistributedTargetInvocationDecoder {
+    |        `- error: type 'CrashInvocationDecoder' cannot be nested in generic function 'foo(x:)'
+ 80 |   typealias SerializationRequirement = CrashActorSystem.SerializationRequirement
+ 81 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmph12zdi4e/6a31676f.swift:100:8: error: type 'CrashResultHandler' cannot be nested in generic function 'foo(x:)'
+ 98 | }
+ 99 | 
+100 | struct CrashResultHandler: DistributedTargetInvocationResultHandler {
+    |        `- error: type 'CrashResultHandler' cannot be nested in generic function 'foo(x:)'
+101 |   typealias SerializationRequirement = CrashActorSystem.SerializationRequirement
+102 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmph12zdi4e/6a31676f.swift:111:10: error: type '_FflCastable' cannot be nested in generic function 'foo(x:)'
+109 | 
+110 | // P5: Dynamic casting chain stress
+111 | protocol _FflCastable: AnyObject {}
+    |          `- error: type '_FflCastable' cannot be nested in generic function 'foo(x:)'
+112 | class _FflBase: _FflCastable {
+113 |     var v: Int = 0
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmph12zdi4e/6a31676f.swift:112:7: error: type '_FflBase' cannot be nested in generic function 'foo(x:)'
+110 | // P5: Dynamic casting chain stress
+111 | protocol _FflCastable: AnyObject {}
+112 | class _FflBase: _FflCastable {
+    |       `- error: type '_FflBase' cannot be nested in generic function 'foo(x:)'
+113 |     var v: Int = 0
+114 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmph12zdi4e/6a31676f.swift:115:7: error: type '_FflDerived' cannot be nested in generic function 'foo(x:)'
+113 |     var v: Int = 0
+114 | }
+115 | class _FflDerived: _FflBase {
+    |       `- error: type '_FflDerived' cannot be nested in generic function 'foo(x:)'
+116 |     var extra: String = ""
+117 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmph12zdi4e/6a31676f.swift:127:11: error: '_FflDerived' cannot be constructed because it has no accessible initializers
+125 |     let _ffl_seed = String(describing: _ffl_sentinel).count
+126 |     let _ffl_obj: AnyObject = _ffl_seed % 2 == 0
+127 |         ? _FflDerived() as AnyObject
+    |           `- error: '_FflDerived' cannot be constructed because it has no accessible initializers
+128 |         : _FflBase()    as AnyObject
+129 |     _ = _ffl_p5_cast(_ffl_obj)
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmph12zdi4e/6a31676f.swift:128:11: error: '_FflBase' cannot be constructed because it has no accessible initializers
+126 |     let _ffl_obj: AnyObject = _ffl_seed % 2 == 0
+127 |         ? _FflDerived() as AnyObject
+128 |         : _FflBase()    as AnyObject
+    |           `- error: '_FflBase' cannot be constructed because it has no accessible initializers
+[... 104 more lines ...]

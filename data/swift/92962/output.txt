@@ -1,0 +1,14 @@
+Abort: function getMangledName at IRGenDebugInfo.cpp:1130
+Incorrect reconstructed type for $s6negval3FooVy$n255_GD
+Original type:
+(bound_generic_struct_type decl="negval.(file).Foo@negval.swift:1:8"
+  (integer_type is_negative value="-256" text="256"))
+Reconstructed type:
+(bound_generic_struct_type decl="negval.(file).Foo@negval.swift:1:8"
+  (integer_type is_negative value="0" text="-256"))
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Pass '-Xfrontend -disable-round-trip-debug-types' to disable this assertion.
+...
+ #10 (anonymous namespace)::IRGenDebugInfoImpl::getOrCreateType(swift::irgen::DebugTypeInfo, llvm::DIScope*)
+ #11 (anonymous namespace)::IRGenDebugInfoImpl::createParameterTypes(swift::CanTypeWrapper<swift::SILFunctionType>)
+ #12 (anonymous namespace)::IRGenDebugInfoImpl::emitFunction(...)

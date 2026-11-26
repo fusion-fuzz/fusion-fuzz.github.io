@@ -1,0 +1,67 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4o8dyilf/e20935d2.cc:15:20: error: 'A' is not a template [-Wtemplate-body]
+   15 |   using ret_type = A<args...>;
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4o8dyilf/e20935d2.cc: In function 'void foo()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4o8dyilf/e20935d2.cc:22:9: error: 'A' is not a base of 'B'
+   22 |   b->A::ma=0; // { dg-error "" }
+      |         ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4o8dyilf/e20935d2.cc: In function 'int main()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4o8dyilf/e20935d2.cc:27:27: error: 'B' is not a template
+   27 |   madscience_intitializer<B<int>,B<foo> >::ret_type<1,foo::y> a;
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4o8dyilf/e20935d2.cc:27:34: error: 'B' is not a template
+   27 |   madscience_intitializer<B<int>,B<foo> >::ret_type<1,foo::y> a;
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4o8dyilf/e20935d2.cc:14:39: error: no type named 'value_type' in 'struct B'
+   14 |   template <typename B::value_type... args>
+      |                                       ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4o8dyilf/e20935d2.cc:14:39: error: no type named 'value_type' in 'struct B'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4o8dyilf/e20935d2.cc:14:39: error: no type named 'value_type' in 'struct B'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4o8dyilf/e20935d2.cc:14:39: error: no type named 'value_type' in 'struct B'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4o8dyilf/e20935d2.cc:27:61: internal compiler error: tree check: expected template_parm_index, have error_mark in template_parameter_pack_p, at cp/pt.cc:3702
+   27 |   madscience_intitializer<B<int>,B<foo> >::ret_type<1,foo::y> a;
+      |                                                             ^
+0x306c5cb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xa68714 tree_check_failed(tree_node const*, char const*, int, char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:9246
+0x850948 tree_check(tree_node*, char const*, int, char const*, tree_code)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:3837
+0x850948 template_parameter_pack_p(tree_node const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:3702
+0x109c5f1 convert_template_argument
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:9088
+0x109a9ff convert_template_argument
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:8955
+0x109a9ff coerce_template_parameter_pack
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:9351
+0x109a9ff coerce_template_parms(tree_node*, tree_node*, tree_node*, int, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:9589
+0x10a567f instantiate_alias_template
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:24096
+0x108647e instantiate_alias_template
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:24093
+0x108647e lookup_template_class(tree_node*, tree_node*, tree_node*, tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:10510
+0x10f0e1c finish_template_type(tree_node*, tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:4558
+0x1026bb8 cp_parser_template_id
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:21510
+0x1027ed3 cp_parser_class_name
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29826
+0x1012caf cp_parser_qualifying_entity
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:8406
+0x1012caf cp_parser_nested_name_specifier_opt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:8074
+0x100e08a cp_parser_simple_type_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:23027
+0x100b37d cp_parser_type_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:22668
+0x10285f4 cp_parser_decl_specifier_seq
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:19062
+0x103dc4f cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18162
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp4o8dyilf/e20935d2.cc -quiet -dumpbase e20935d2.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O2 -std=c++23 -fipa-pta -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

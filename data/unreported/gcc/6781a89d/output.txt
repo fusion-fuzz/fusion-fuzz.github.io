@@ -1,0 +1,51 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmppjdmo3nq/8d85bfab.cc:62:2: error: invalid preprocessing directive #adt
+   62 | #adt <new>
+      |  ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmppjdmo3nq/8d85bfab.cc: In destructor 'virtual W::~W()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmppjdmo3nq/8d85bfab.cc:49:8: internal compiler error: in build_if_in_charge, at cp/class.cc:232
+   49 | struct W : virtual V { using V::V; }
+      |        ^
+0x306c5cb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00e5e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7c09bc build_if_in_charge(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/class.cc:232
+0xe4cc97 build_base_path(tree_code, tree_node*, tree_node*, int, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/class.cc:511
+0xe1ccee convert_like_internal
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:9479
+0xe27150 convert_like
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:9570
+0xe27150 perform_implicit_conversion_flags(tree_node*, tree_node*, int, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:14203
+0x1154204 convert_arguments
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck.cc:4923
+0x1154204 cp_build_function_call_vec(tree_node*, vec<tree_node*, va_gc, vl_embed>**, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck.cc:4756
+0xe113e0 build_op_delete_call_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:8392
+0xe11950 build_op_delete_call(tree_code, tree_node*, tree_node*, bool, tree_node*, vec<tree_node*, va_gc, vl_embed>*, tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:8452
+0xfd7a58 build_delete_destructor_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/optimize.cc:142
+0xfd9ab9 maybe_clone_body(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/optimize.cc:613
+0x10e7a71 expand_or_defer_fn_1(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:5769
+0x10f446e expand_or_defer_fn_1(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:5803
+0x10f446e expand_or_defer_fn(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:5804
+0xf6ee47 synthesize_method(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/method.cc:1859
+0xf19f17 mark_used(tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl2.cc:6867
+0xe18332 build_over_call
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:11095
+0xe15813 build_new_method_call(tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, tree_node*, int, tree_node**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:12384
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmppjdmo3nq/8d85bfab.cc -quiet -dumpbase 8d85bfab.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O0 -std=c++20 -fgraphite-identity -fwrapv -o /tmp/cco0EB5Y.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

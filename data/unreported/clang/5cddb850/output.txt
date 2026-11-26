@@ -1,0 +1,106 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:10:12: error: cannot find interface declaration for 'A'
+   10 | @interface A(Blah) // no warning
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:11:4: error: expected a type
+   11 | - (A*)getA;
+      |    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:11:1: warning: method has no return type specified; defaults to 'id' [-Wmissing-method-return-type]
+   11 | - (A*)getA;
+      | ^     
+      |       (id)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:14:17: error: cannot find interface declaration for 'A'
+   14 | @implementation A(Blah) // Don't warn by default
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:15:4: error: expected a type
+   15 | - (A*)getA {
+      |    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:15:1: warning: method has no return type specified; defaults to 'id' [-Wmissing-method-return-type]
+   15 | - (A*)getA {
+      | ^     
+      |       (id)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:25:2: warning: 'footype' is deprecated [-Wdeprecated-declarations]
+   25 |         footype a; // expected-warning {{'footype' is deprecated}}
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:22:24: note: 'footype' has been explicitly marked deprecated here
+   22 | } footype __attribute((deprecated)); // expected-note 2 {{'footype' has been explicitly marked deprecated here}}
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:28:11: warning: 'footype' is deprecated [-Wdeprecated-declarations]
+   28 | @property footype c; // expected-warning {{'footype' is deprecated}}
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:22:24: note: 'footype' has been explicitly marked deprecated here
+   22 | } footype __attribute((deprecated)); // expected-note 2 {{'footype' has been explicitly marked deprecated here}}
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:38:17: warning: 'DeprI' is deprecated: blah [-Wdeprecated-declarations]
+   38 | @interface SI : DeprI // expected-warning {{'DeprI' is deprecated: blah}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:36:35: note: 'DeprI' has been explicitly marked deprecated here
+   36 | typedef NewI DeprI __attribute__((deprecated("blah"))); // expected-note 4 {{'DeprI' has been explicitly marked deprecated here}}
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:39:3: warning: 'DeprI' is deprecated: blah [-Wdeprecated-declarations]
+   39 | -(DeprI*)meth; // expected-warning {{'DeprI' is deprecated: blah}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:36:35: note: 'DeprI' has been explicitly marked deprecated here
+   36 | typedef NewI DeprI __attribute__((deprecated("blah"))); // expected-note 4 {{'DeprI' has been explicitly marked deprecated here}}
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:43:3: warning: 'DeprI' is deprecated: blah [-Wdeprecated-declarations]
+   43 | -(DeprI*)meth { // expected-warning {{'DeprI' is deprecated: blah}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:36:35: note: 'DeprI' has been explicitly marked deprecated here
+   36 | typedef NewI DeprI __attribute__((deprecated("blah"))); // expected-note 4 {{'DeprI' has been explicitly marked deprecated here}}
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:44:4: warning: 'DeprI' is deprecated: blah [-Wdeprecated-declarations]
+   44 |   [DeprI cmeth]; // expected-warning {{'DeprI' is deprecated: blah}}
+      |    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:36:35: note: 'DeprI' has been explicitly marked deprecated here
+   36 | typedef NewI DeprI __attribute__((deprecated("blah"))); // expected-note 4 {{'DeprI' has been explicitly marked deprecated here}}
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:56:12: warning: class 'DeprecatedClassB' defined without specifying a base class [-Wobjc-root-class]
+   56 | @interface DeprecatedClassB
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:56:28: note: add a super class to fix this problem
+   56 | @interface DeprecatedClassB
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:86:12: warning: class 'TestBase' defined without specifying a base class [-Wobjc-root-class]
+   86 | @interface TestBase
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:86:20: note: add a super class to fix this problem
+   86 | @interface TestBase
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:94:34: warning: auto property synthesis will not synthesize property 'object'; it will be implemented by its superclass, use @dynamic to acknowledge intention [-Wobjc-property-synthesis]
+   94 | @property (nonatomic, strong) id object; //expected-warning {{auto property synthesis will not synthesize property 'object'; it will be implemented by its superclass}}
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:87:34: note: property declared here
+   87 | @property (nonatomic, strong) id object __attribute__((deprecated("deprecated"))); // expected-note {{'object' has been explicitly marked deprecated here}} \
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:101:17: note: detected while default synthesizing properties in class implementation
+  101 | @implementation TestDerived @end // expected-note {{detected while default synthesizing properties in class implementation}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:111:10: warning: 'object' is deprecated: deprecated [-Wdeprecated-declarations]
+  111 |     base.object = object; // expected-warning {{'object' is deprecated: deprecated}}
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:87:56: note: 'object' has been explicitly marked deprecated here
+   87 | @property (nonatomic, strong) id object __attribute__((deprecated("deprecated"))); // expected-note {{'object' has been explicitly marked deprecated here}} \
+      |                                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:114:11: warning: 'setObject:' is deprecated: deprecated [-Wdeprecated-declarations]
+  114 |     [base setObject:object];  // expected-warning {{'setObject:' is deprecated: deprecated}}
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:87:34: note: property 'object' is declared deprecated here
+   87 | @property (nonatomic, strong) id object __attribute__((deprecated("deprecated"))); // expected-note {{'object' has been explicitly marked deprecated here}} \
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:87:56: note: 'setObject:' has been explicitly marked deprecated here
+   87 | @property (nonatomic, strong) id object __attribute__((deprecated("deprecated"))); // expected-note {{'object' has been explicitly marked deprecated here}} \
+      |                                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:97:12: warning: class 'TestUse' defined without specifying a base class [-Wobjc-root-class]
+   97 | @interface TestUse @end
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:97:19: note: add a super class to fix this problem
+   97 | @interface TestUse @end
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:126:15: warning: 'cString' is deprecated: first deprecated in macOS 10.4 [-Wdeprecated-declarations]
+  126 |   return [PID cString]; // expected-warning {{'cString' is deprecated: first deprecated in macOS 10.4}}
+      |               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:121:1: note: 'cString' has been explicitly marked deprecated here
+  121 | - (const char *)cString __attribute__((availability(macosx,introduced=10.0 ,deprecated=10.4,message="" ))); // expected-note {{'cString' has been explicitly marked deprecated here}}
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmput32qe9c/1ce06cc2.mm:148:1
+[... truncated ...]

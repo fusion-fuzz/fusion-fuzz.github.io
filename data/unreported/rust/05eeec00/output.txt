@@ -1,0 +1,78 @@
+[... 14 lines omitted ...]
+   | ^^^^^^^^---------------^^^^^------^^^
+   |         |                   |
+   |         |                   `Struct` is not local
+   |         `Deref` is not local
+   |
+   = note: an `impl` is never scoped, even when it is nested inside an item, as it may impact type checking outside of that item, which can be the case if neither the trait or the self type are at the same nesting level as the `impl`
+   = note: `#[warn(non_local_definitions)]` on by default
+
+warning: 10 warnings emitted
+
+note: no errors encountered even though delayed bugs were created
+
+note: those delayed bugs will now be shown as internal compiler errors
+
+error: internal compiler error: error performing operation: fully_perform
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpd7darp48/149560c8.rs:82:5
+   |
+82 | /     mir! {
+83 | |         {
+84 | |             let x = [u32::MAX; C];
+85 | |             let y = &raw const x;
+...  |
+91 | |     }
+   | |_____^
+   |
+note: delayed at compiler/rustc_trait_selection/src/traits/query/type_op/custom.rs:126:26
+         0: <rustc_errors::DiagCtxtInner>::emit_diagnostic
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1248:41
+         1: <rustc_errors::DiagCtxtHandle>::emit_diagnostic
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:867:37
+         2: <rustc_errors::diagnostic::Diag>::emit_err
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1213:29
+         3: <rustc_errors::DiagCtxtHandle>::span_delayed_bug::<rustc_span::span_encoding::Span, alloc::string::String>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1085:63
+         4: rustc_trait_selection::traits::query::type_op::custom::scrape_region_constraints::<rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate>, (), <rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate> as rustc_trait_selection::traits::query::type_op::TypeOp>::fully_perform::{closure#0}>::{closure#0}::{closure#0}::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/query/type_op/custom.rs:126:26
+         5: <core::option::Option<rustc_span::ErrorGuaranteed>>::unwrap_or_else::<rustc_trait_selection::traits::query::type_op::custom::scrape_region_constraints<rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate>, (), <rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate> as rustc_trait_selection::traits::query::type_op::TypeOp>::fully_perform::{closure#0}>::{closure#0}::{closure#0}::{closure#0}>
+                   at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/option.rs:1065:21
+         6: rustc_trait_selection::traits::query::type_op::custom::scrape_region_constraints::<rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate>, (), <rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate> as rustc_trait_selection::traits::query::type_op::TypeOp>::fully_perform::{closure#0}>::{closure#0}::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/query/type_op/custom.rs:95:83
+         7: <core::result::Result<(), rustc_type_ir::solve::NoSolution>>::map_err::<rustc_span::ErrorGuaranteed, rustc_trait_selection::traits::query::type_op::custom::scrape_region_constraints<rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate>, (), <rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate> as rustc_trait_selection::traits::query::type_op::TypeOp>::fully_perform::{closure#0}>::{closure#0}::{closure#0}>
+                   at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/result.rs:967:27
+         8: rustc_trait_selection::traits::query::type_op::custom::scrape_region_constraints::<rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate>, (), <rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate> as rustc_trait_selection::traits::query::type_op::TypeOp>::fully_perform::{closure#0}>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/query/type_op/custom.rs:94:30
+         9: <rustc_infer::infer::InferCtxt>::commit_if_ok::<(), rustc_span::ErrorGuaranteed, rustc_trait_selection::traits::query::type_op::custom::scrape_region_constraints<rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate>, (), <rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate> as rustc_trait_selection::traits::query::type_op::TypeOp>::fully_perform::{closure#0}>::{closure#0}>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_infer/src/infer/snapshot/mod.rs:86:17
+        10: rustc_trait_selection::traits::query::type_op::custom::scrape_region_constraints::<rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate>, (), <rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate> as rustc_trait_selection::traits::query::type_op::TypeOp>::fully_perform::{closure#0}>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/query/type_op/custom.rs:92:23
+        11: <rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate> as rustc_trait_selection::traits::query::type_op::TypeOp>::fully_perform
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/query/type_op/mod.rs:145:13
+        12: rustc_borrowck::type_check::canonical::fully_perform_op_raw::<(), rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate>>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/canonical.rs:39:12
+        13: <rustc_borrowck::type_check::TypeChecker>::fully_perform_op::<(), rustc_middle::ty::ParamEnvAnd<rustc_middle::traits::query::type_op::ProvePredicate>>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/canonical.rs:100:9
+        14: <rustc_borrowck::type_check::TypeChecker>::prove_clause::<rustc_type_ir::predicate_kind::ClauseKind<rustc_middle::ty::context::TyCtxt>>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/canonical.rs:178:50
+        15: <rustc_borrowck::type_check::TypeChecker>::prove_trait_ref
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/canonical.rs:132:14
+        16: <rustc_borrowck::type_check::TypeChecker as rustc_middle::mir::visit::Visitor>::visit_rvalue
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/mod.rs:1245:30
+        17: <rustc_borrowck::type_check::TypeChecker as rustc_middle::mir::visit::Visitor>::super_assign
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/visit.rs:513:22
+        18: <rustc_borrowck::type_check::TypeChecker as rustc_middle::mir::visit::Visitor>::visit_assign
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/visit.rs:120:22
+        19: <rustc_borrowck::type_check::TypeChecker as rustc_middle::mir::visit::Visitor>::super_statement
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/visit.rs:425:30
+        20: <rustc_borrowck::type_check::TypeChecker as rustc_middle::mir::visit::Visitor>::visit_statement
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/mod.rs:608:14
+        21: <rustc_borrowck::type_check::TypeChecker as rustc_middle::mir::visit::Visitor>::visit_body
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/mod.rs:597:22
+        22: rustc_borrowck::type_check::type_check
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/type_check/mod.rs:166:12
+        23: rustc_borrowck::borrowck_collect_region_constraints
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/lib.rs:363:9
+        24: <rustc_borrowck::root_cx::BorrowCheckRootCtxt>::do_mir_borrowck
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/ru
+[... truncated ...]

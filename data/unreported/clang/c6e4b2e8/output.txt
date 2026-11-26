@@ -1,0 +1,91 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:4:17: error: no template named 'g2'
+    4 | template<> void g2<int>::f(int);
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:7:43: error: no template named 'g2'
+    7 | template<class T> template<class X1> void g2<T>::g1(T, X1) { }
+      |                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:10:36: error: no template named 'g2'
+   10 | template<> template<class X1> void g2<int>::g1(int, X1);
+      |                                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:14:8: error: no template named 'g2'
+   14 |   void g2<int>::g1(int, char);  // X1 deduced as char 
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:17:8: error: no template named 'g2'
+   17 |   void g2<int>::g2<char>(int, char); // X2 specified as char 
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:20:17: error: no template named 'g2'
+   20 | template<> void g2<int>::h(int) { }
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:31:17: error: cannot specialize (with 'template<>') a member of an unspecialized template
+   30 |   template <>
+      |   ~~~~~~~~~~~
+   31 |   void Test<T>::get<double>(double i) {}  // expected-error{{cannot specialize (with 'template<>') a member of an unspecialized template}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:41:3: error: extraneous template parameter list in template specialization [-Wextraneous-template-head]
+   41 |   template<> // expected-error{{extraneous template parameter list in template specialization}}
+      |   ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:45:3: error: extraneous template parameter list in template specialization [-Wextraneous-template-head]
+   45 |   template<> // expected-error{{extraneous template parameter list in template specialization}}
+      |   ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:49:3: error: extraneous template parameter list in template specialization [-Wextraneous-template-head]
+   49 |   template<> // expected-error{{extraneous template parameter list in template specialization}}
+      |   ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:58:12: error: member 'D' has the same name as its class
+   58 |     struct D;
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:76:3: error: extraneous 'template<>' in declaration of struct 'C'
+   76 |   template<> // expected-error{{extraneous 'template<>' in declaration of struct 'no'}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:77:18: error: no struct named 'C' in 'extraneous::D<int>'
+   77 |   struct D<int>::C;
+      |          ~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:82:18: warning: extra qualification on member 'D' [-Wextra-qualification]
+   82 |   struct D<int>::D<int>;
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:80:3: error: extraneous template parameter list in template specialization [-Wextraneous-template-head]
+   80 |   template<> // expected-error{{extraneous template parameter list in template specialization}}
+      |   ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:82:18: error: explicit specialization of 'extraneous::D<int>' after instantiation
+   82 |   struct D<int>::D<int>;
+      |                  ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:77:10: note: implicit instantiation first required here
+   77 |   struct D<int>::C;
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:85:3: error: extraneous template parameter list in template specialization [-Wextraneous-template-head]
+   85 |   template<> // expected-error{{extraneous template parameter list in template specialization}}
+      |   ^~~~~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/AST/DeclTemplate.h:863: void clang::RedeclarableTemplateDecl::setMemberSpecialization(): Assertion `getCommonPtr()->InstantiatedFromMember.getPointer() && "Only member templates can be member template specializations"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -Oz -std=c++20 -fblocks -funroll-loops -target i686-pc-windows-msvc -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:87:19: current parser token ';'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7_kcbsqr/736e6ee3.cpp:34:1: parsing namespace 'extraneous'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000057a93572c8cb __interceptor_backtrace + 91
+1  clang++   0x000057a93b3da037 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x000057a93b3d3d03 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x000057a93b3d89d4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x000057a93b2240d5
+5  clang++   0x000057a93b2248e3
+6  libc.so.6 0x000077b6183e6520
+7  libc.so.6 0x000077b61843a9bc pthread_kill + 300
+8  libc.so.6 0x000077b6183e6476 raise + 22
+9  libc.so.6 0x000077b6183cc7f3 abort + 211
+10 libc.so.6 0x000077b6183cc71b
+11 libc.so.6 0x000077b6183dde96
+12 clang++   0x000057a93dc3678b
+13 clang++   0x000057a9434d51e1 clang::Sema::CheckClassTemplate(clang::Scope*, unsigned int, clang::TagUseKind, clang::SourceLocation, clang::CXXScopeSpec&, clang::IdentifierInfo*, clang::SourceLocation, clang::ParsedAttributesView const&, clang::TemplateParameterList*, clang::AccessSpecifier, clang::SourceLocation, clang::SourceLocation, unsigned int, clang::TemplateParameterList**, bool, clang::SkipBodyInfo*) + 10097
+14 clang++   0x000057a9423d1a19 clang::Sema::ActOnTag(clang::Scope*, unsigned int, clang::TagUseKind, clang::SourceLocation, clang::CXXScopeSpec&, clang::IdentifierInfo*, clang::SourceLocation, clang::ParsedAttributesView const&, clang::AccessSpecifier, clang::SourceLocation, llvm::MutableArrayRef<clang::TemplateParameterList*>, bool&, bool&, clang::SourceLocation, bool, clang::ActionResult<clang::OpaquePtr<clang::QualType>, false>, bool, bool, clang::OffsetOfKind, clang::SkipBodyInfo*) + 6633
+15 clang++   0x000057a941a23fdb clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 13739
+16 clang++   0x000057a9419ca541 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 5793
+17 clang++   0x000057a9419be76d
+18 clang++   0x000057a941b94874 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 1236
+19 clang++   0x000057a941b92af4 clang::Parser::ParseTemplateDeclarationOrSpecialization(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2932
+20 clang++   0x000057a941b91b48 clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) + 328
+21 clang++   0x000057a9419bd68f clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 975
+22 clang++   0x000057a94195ff6a clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 1002
+23 clang++   0x000057a941a11194 clang::Parser::ParseInnerNamespace(llvm::SmallVector<clang::Parser::InnerNamespaceInfo, 4u> const&, unsigned int, clang::SourceLocation&, clang::ParsedAttributes&, clang::BalancedDelimiterTracker&) + 612
+24 clang++   0x000057a941a0ec5a clang::Parser::ParseNamespace(clang::DeclaratorContext, clang::SourceLocation&, clang::SourceLocation) + 6970
+25 clang++   0x000057a9419bd952 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 1682
+26 clang++   0x000057
+[... truncated ...]

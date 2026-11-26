@@ -1,0 +1,113 @@
+error: cannot find attribute `derive` in this scope
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp4iwm9yix/bb164efd.rs:75:3
+   |
+75 | #[derive(Debug)]
+   |   ^^^^^^
+
+error: cannot find attribute `derive` in this scope
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp4iwm9yix/bb164efd.rs:96:3
+   |
+96 | #[derive(Debug)]
+   |   ^^^^^^
+
+error: cannot find macro `println` in this scope
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp4iwm9yix/bb164efd.rs:110:5
+    |
+110 |     println!("FFL Fusion Done");
+    |     ^^^^^^^
+
+warning: the feature `lang_items` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp4iwm9yix/bb164efd.rs:1:12
+  |
+1 | #![feature(lang_items)]
+  |            ^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+  = note: `#[warn(internal_features)]` on by default
+
+warning: type `Foo_b5effa8` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp4iwm9yix/bb164efd.rs:97:8
+   |
+97 | struct Foo_b5effa8;
+   |        ^^^^^^^^^^^ help: convert the identifier to upper camel case: `FooB5effa8`
+   |
+   = note: `#[warn(non_camel_case_types)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: unknown diagnostic attribute
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp4iwm9yix/bb164efd.rs:73:1
+   |
+73 | #[diagnostic::on_move(message = "Foo")]
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this is an experimental diagnostic attribute
+   = help: add `#![feature(diagnostic_on_move)]` to the crate attributes to enable
+   = note: `#[warn(unknown_diagnostic_attributes)]` (part of `#[warn(unknown_or_malformed_diagnostic_attributes)]`) on by default
+
+warning: unknown diagnostic attribute
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp4iwm9yix/bb164efd.rs:94:1
+   |
+94 | #[diagnostic::on_move(message = "Foo_b5effa8")]
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: this is an experimental diagnostic attribute
+   = help: add `#![feature(diagnostic_on_move)]` to the crate attributes to enable
+
+
+thread 'rustc' (1587587) panicked at compiler/rustc_borrowck/src/diagnostics/conflict_errors.rs:1387:59:
+called `Option::unwrap()` on a `None` value
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panicking.rs:80:14
+   2: core::panicking::panic
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panicking.rs:150:5
+   3: core::option::unwrap_failed
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/option.rs:2248:5
+   4: <core::option::Option<rustc_span::def_id::DefId>>::unwrap
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/option.rs:1014:21
+   5: <rustc_borrowck::MirBorrowckCtxt>::suggest_cloning
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/diagnostics/conflict_errors.rs:1387:59
+   6: <rustc_borrowck::MirBorrowckCtxt>::suggest_ref_or_clone
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/diagnostics/conflict_errors.rs:561:26
+   7: <rustc_borrowck::MirBorrowckCtxt>::report_use_of_moved_or_uninitialized
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/diagnostics/conflict_errors.rs:234:26
+   8: <rustc_borrowck::MirBorrowckCtxt>::check_if_full_path_is_moved
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/lib.rs:2082:18
+   9: <rustc_borrowck::MirBorrowckCtxt>::check_if_path_or_subpath_is_moved
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/lib.rs:2164:14
+  10: <rustc_borrowck::MirBorrowckCtxt>::consume_operand
+  11: <rustc_borrowck::MirBorrowckCtxt>::consume_rvalue
+  12: <rustc_borrowck::MirBorrowckCtxt as rustc_mir_dataflow::framework::visitor::ResultsVisitor<rustc_borrowck::dataflow::Borrowck>>::visit_after_early_statement_effect
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/lib.rs:824:22
+  13: <rustc_mir_dataflow::framework::direction::Forward as rustc_mir_dataflow::framework::direction::Direction>::visit_results_in_block::<rustc_borrowck::dataflow::Borrowck, rustc_borrowck::MirBorrowckCtxt>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_dataflow/src/framework/direction.rs:234:17
+  14: rustc_mir_dataflow::framework::visitor::visit_results::<rustc_borrowck::dataflow::Borrowck, core::iter::adapters::map::Map<core::iter::adapters::map::Map<core::slice::iter::Iter<rustc_middle::mir::BasicBlock>, rustc_middle::mir::traversal::reverse_postorder::{closure#0}>, rustc_borrowck::borrowck_check_region_constraints::{closure#1}>, rustc_borrowck::MirBorrowckCtxt>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_dataflow/src/framework/visitor.rs:26:9
+  15: rustc_borrowck::borrowck_check_region_constraints
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/lib.rs:549:5
+  16: <rustc_borrowck::root_cx::BorrowCheckRootCtxt>::apply_closure_requirements_modulo_opaques
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/root_cx.rs:229:30
+  17: <rustc_borrowck::root_cx::BorrowCheckRootCtxt>::do_mir_borrowck
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/root_cx.rs:293:14
+  18: rustc_borrowck::mir_borrowck
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_borrowck/src/lib.rs:146:17
+      [... omitted 13 frames ...]
+  19: rustc_middle::query::calls::query_ensure_ok::<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:170:13
+  20: <rustc_middle::query::calls::TyCtxtEnsureOk>::mir_borrowck::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:302:21
+  21: rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1166:33
+  22: <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners::<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/hir/map.rs:378:79
+  23: rustc_data_structures::sync::parallel::par_for_each_in::<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:182:30
+  24: <core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panic/unwind_safe.rs:275:9
+  25: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>, ()>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:576:43
+  26: std::panicking::catch_unwind::<(), core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_interface::passes::run_required_analyses::{closure#2}::{closure#0}>::{closure#0}>::{closure#0}::{closure#1}::{closure#0}>>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:544:19
+  27: std::panic::catch_unwind::<core::panic::unwind_safe::AssertUnwindSafe<rustc_d
+[... truncated ...]

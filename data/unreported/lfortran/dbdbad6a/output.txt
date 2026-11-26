@@ -1,0 +1,58 @@
+warning: Assuming implicit save attribute for variable declaration
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/lfortran/tmpai7lmdda/74d55390.f90:33:27
+   |
+33 |   procedure(), pointer :: tick1 => null(), tick2 => null()
+   |                           ^^^^^^^^^^^^^^^ help: add explicit save attribute or parameter attribute or initialize in a separate statement
+
+warning: Assuming implicit save attribute for variable declaration
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/lfortran/tmpai7lmdda/74d55390.f90:33:44
+   |
+33 |   procedure(), pointer :: tick1 => null(), tick2 => null()
+   |                                            ^^^^^^^^^^^^^^^ help: add explicit save attribute or parameter attribute or initialize in a separate statement
+
+
+Note: Please report unclear, confusing or incorrect messages as bugs at
+https://github.com/lfortran/lfortran/issues.
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/nested_vars.cpp:591:58: runtime error: reference binding to null pointer of type 'const struct symbol_t'
+    #0 0x5555df089ac5 in LCompilers::ReplaceNestedVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/nested_vars.cpp:591
+    #1 0x5555deffbde9 in LCompilers::pass_nested_vars(Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::PassOptions const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/nested_vars.cpp:1751
+    #2 0x5555dbfa8956 in LCompilers::PassManager::apply_passes(Allocator&, LCompilers::ASR::TranslationUnit_t*, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >&, LCompilers::PassOptions&, LCompilers::diag::Diagnostics&, double&) (/opt/lfortran/bin/lfortran+0x2c919956)
+    #3 0x5555dbfb1849 in LCompilers::PassManager::apply_passes(Allocator&, LCompilers::ASR::TranslationUnit_t*, LCompilers::PassOptions&, LCompilers::diag::Diagnostics&) (/opt/lfortran/bin/lfortran+0x2c922849)
+    #4 0x5555e681e8e2 in LCompilers::asr_to_llvm(LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, llvm::LLVMContext&, LCompilers::LLVMTargetConfig const&, Allocator&, LCompilers::PassManager&, LCompilers::CompilerOptions&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp:26589
+    #5 0x5555dc73b1ef in LCompilers::FortranEvaluator::get_llvm3(LCompilers::ASR::TranslationUnit_t&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&, LCompilers::LocationManager&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int*) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:782
+    #6 0x5555dc942923 in LCompilers::compile_asr_to_object(LCompilers::ASR::TranslationUnit_t&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool, LCompilers::CompilerOptions&, LCompilers::PassManager&, LCompilers::FortranEvaluator&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/pipeline.cpp:79
+    #7 0x5555dbf235e0 in compile_src_to_object_file /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:1375
+    #8 0x5555dbf26f52 in compile_to_assembly_file /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:1425
+    #9 0x5555dbf50357 in main_app(int, char**) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:2961
+    #10 0x5555dbf56e60 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3149
+    #11 0x7f3cd368ed8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #12 0x7f3cd368ee3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #13 0x5555dba0e9b4 in _start (/opt/lfortran/bin/lfortran+0x2c37f9b4)
+
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/asr.h:32:31: runtime error: member access within null pointer of type 'const struct symbol_t'
+    #0 0x5555dba9a1be in bool LCompilers::ASR::is_a<LCompilers::ASR::Program_t, LCompilers::ASR::symbol_t>(LCompilers::ASR::symbol_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr.h:32
+    #1 0x5555df089acd in LCompilers::ReplaceNestedVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/nested_vars.cpp:591
+    #2 0x5555deffbde9 in LCompilers::pass_nested_vars(Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::PassOptions const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/nested_vars.cpp:1751
+    #3 0x5555dbfa8956 in LCompilers::PassManager::apply_passes(Allocator&, LCompilers::ASR::TranslationUnit_t*, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >&, LCompilers::PassOptions&, LCompilers::diag::Diagnostics&, double&) (/opt/lfortran/bin/lfortran+0x2c919956)
+    #4 0x5555dbfb1849 in LCompilers::PassManager::apply_passes(Allocator&, LCompilers::ASR::TranslationUnit_t*, LCompilers::PassOptions&, LCompilers::diag::Diagnostics&) (/opt/lfortran/bin/lfortran+0x2c922849)
+    #5 0x5555e681e8e2 in LCompilers::asr_to_llvm(LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, llvm::LLVMContext&, LCompilers::LLVMTargetConfig const&, Allocator&, LCompilers::PassManager&, LCompilers::CompilerOptions&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp:26589
+    #6 0x5555dc73b1ef in LCompilers::FortranEvaluator::get_llvm3(LCompilers::ASR::TranslationUnit_t&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&, LCompilers::LocationManager&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int*) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:782
+    #7 0x5555dc942923 in LCompilers::compile_asr_to_object(LCompilers::ASR::TranslationUnit_t&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool, LCompilers::CompilerOptions&, LCompilers::PassManager&, LCompilers::FortranEvaluator&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/pipeline.cpp:79
+    #8 0x5555dbf235e0 in compile_src_to_object_file /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:1375
+    #9 0x5555dbf26f52 in compile_to_assembly_file /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:1425
+    #10 0x5555dbf50357 in main_app(int, char**) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:2961
+    #11 0x5555dbf56e60 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3149
+    #12 0x7f3cd368ed8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #13 0x7f3cd368ee3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #14 0x5555dba0e9b4 in _start (/opt/lfortran/bin/lfortran+0x2c37f9b4)
+
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3149, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 2961, in main_app(int, char**)
+    int result = compile_to_assembly_file(opts.arg_file, outfile,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 1425, in (anonymous namespace)::compile_to_assembly_file(std::__cxx11::basic_string<
+[... truncated ...]

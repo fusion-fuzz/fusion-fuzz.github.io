@@ -1,0 +1,22 @@
+HloModule module
+
+ENTRY %fusion {
+  %p0 = f64[256] parameter(0)
+  %param = f32[16,10] parameter(1)
+  %ag = f32[32,10] all-gather(%param), dimensions={0}, replica_groups={{0,1}}
+  %bitcast = f32[32,10] bitcast(%ag)
+  %zero = s32[] constant(0)
+  %replica_id = u32[] replica-id()
+  %slice_index = s32[] convert(%replica_id)
+  %ds = f32[16,10] dynamic-slice(%bitcast, %slice_index, %zero), dynamic_slice_sizes={16,10}
+  %sinh = f64[256] sinh(p0)
+  %ffl.root = (f64[256], f32[16,10]) tuple(%sinh, %ds)
+  %param.d = f32[16,10] parameter(2)
+  %ag.d = f32[32,10] all-gather(%param.d), dimensions={0}, replica_groups={{0,1}}
+  %bitcast.d = f32[32,10] bitcast(%ffl.root)
+  %zero.d = s32[] constant(0)
+  %replica_id.d = u32[] replica-id()
+  %slice_index.d = s32[] convert(%replica_id.d)
+  %ds.d = f32[16,10] dynamic-slice(%bitcast.d, %slice_index.d, %zero.d), dynamic_slice_sizes={16,10}
+  ROOT %ffl.root.1 = (f64[256], f32[16,10], f32[16,10]) tuple(%sinh, %ds, %ds.d)
+}

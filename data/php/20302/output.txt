@@ -1,0 +1,28 @@
+/home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_string.h:329:2: runtime error: member access within misaligned address 0x000000000106 for type 'zend_string' (aka 'struct _zend_string'), which requires 8 byte alignment
+0x000000000106: note: pointer points here
+<memory cannot be printed>
+    #0 0x34e7ea2 in zend_string_efree /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_string.h:329:2
+    #1 0x35075c8 in zim_PharFileInfo___destruct /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/phar/phar_object.c:4469:4
+    #2 0x5af4dbf in zend_call_function /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_execute_API.c:1028:4
+    #3 0x5afa84e in zend_call_known_function /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_execute_API.c:1109:23
+    #4 0x6789f84 in zend_call_known_instance_method /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_API.h:866:2
+    #5 0x678281b in zend_call_known_instance_method_with_0_params /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_API.h:872:2
+    #6 0x678139c in zend_objects_destroy_object /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_objects.c:170:3
+    #7 0x3e56af4 in spl_filesystem_object_destroy_object /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/spl/spl_directory.c:109:2
+    #8 0x677987a in zend_objects_store_del /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_objects_API.c:181:4
+    #9 0x6890767 in rc_dtor_func /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_variables.c:57:2
+    #10 0x68909ee in i_zval_ptr_dtor /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_variables.h:45:4
+    #11 0x68907a4 in zval_ptr_dtor /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_variables.c:84:2
+    #12 0x63b10e1 in _zend_hash_del_el_ex /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_hash.c:1493:3
+    #13 0x63ae85d in _zend_hash_del_el /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_hash.c:1520:2
+    #14 0x63c81a4 in zend_hash_reverse_apply /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_hash.c:2236:5
+    #15 0x5ad035c in shutdown_destructors /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_execute_API.c:262:4
+    #16 0x68d94bb in zend_call_destructors /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend.c:1336:3
+    #17 0x50af9a3 in php_request_shutdown /home/phpfuzz/WorkSpace/flowfusion/php-src/main/main.c:1980:3
+    #18 0x6906b41 in do_cli /home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php_cli.c:1158:3
+    #19 0x68fbb1f in main /home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php_cli.c:1362:18
+    #20 0x7962e22abd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #21 0x7962e22abe3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #22 0x606204 in _start (/home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php+0x606204)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_string.h:329:2

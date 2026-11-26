@@ -1,0 +1,17 @@
+HloModule m
+
+%fusion {
+  %lhs = f8e4m3fn[128,64] parameter(0)
+  %rhs = f8e4m3fn[64,128] parameter(1)
+  %lhs_scale = f8e8m0fnu[128,2] parameter(2)
+  %rhs_scale = f8e8m0fnu[2,128] parameter(3)
+  ROOT %dot = f32[128,128] scaled-dot(lhs, rhs, lhs_scale, rhs_scale), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+}
+
+ENTRY %main {
+  %lhs = f8e4m3fn[128,64] parameter(0)
+  %rhs = f8e4m3fn[64,128] parameter(1)
+  %lhs_scale = f8e8m0fnu[128,2] parameter(2)
+  %rhs_scale = f8e8m0fnu[2,128] parameter(3)
+  ROOT %fusion = f32[128,128] fusion(%lhs, %rhs, %lhs_scale, %rhs_scale), kind=kLoop, calls=%fusion
+}

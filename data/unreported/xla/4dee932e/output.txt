@@ -1,0 +1,29 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1791993331.563457 2495943 literal_util.cc:182] No min value for given type.
+*** Check failure stack trace: ***
+    @     0x6541f2589a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x6541f25899e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x6541f1f81471  xla::LiteralUtil::MinValue()
+    @     0x6541e9ae3474  xla::AlgebraicSimplifierVisitor::HandleMaximum()
+    @     0x6541f1ebe700  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x6541f1ebdef7  xla::HloInstruction::Visit<>()
+    @     0x6541f1ec046e  xla::PostOrderDFS<>()
+    @     0x6541f1ebccf8  xla::HloInstruction::Accept<>()
+    @     0x6541e701ed95  xla::HloComputation::Accept<>()
+    @     0x6541e9abface  xla::AlgebraicSimplifierVisitor::Run()
+    @     0x6541e75f6e4a  xla::gpu::GpuAlgebraicSimplifier::RunImpl()
+    @     0x6541ee640be7  xla::HloPassInterface::Run()
+    @     0x6541ea1be3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x6541ea1b97bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x6541ea1b8bd5  xla::HloPassPipeline::RunImpl()
+    @     0x6541ee640be7  xla::HloPassInterface::Run()
+    @     0x6541e710ce11  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x6541e711a06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x6541e704e934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x6541e704ee85  xla::CompiledOptProvider::GetExecutable()
+    @     0x6541e7040ed1  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x6541f25da466  main
+    @     0x739cf5bd4d90  (unknown)
+Aborted (core dumped)

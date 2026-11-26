@@ -1,0 +1,12 @@
+HloModule m
+
+ENTRY %e {
+  %p0 = f32[64,32] parameter(0)
+  %t = f32[32,64] transpose(p0), dimensions={1,0}
+  %mul = f32[32,32,32]{2,1,0} parameter(1)
+  %broadcast = f32[32,32,32,32]{3,2,1,0} broadcast(%mul), dimensions={3,2,1}
+  %ffl.root = (f32[32,64], f32[32,32,32,32]{3,2,1,0}) tuple(%t, %broadcast)
+  %mul.d = f32[32,32,32]{2,1,0} parameter(2)
+  %broadcast.d = f32[32,32,32,32]{3,2,1,0} broadcast(%broadcast), dimensions={3,2,1}
+  ROOT %ffl.root.1 = (f32[32,64], f32[32,32,32,32]{3,2,1,0}, f32[32,32,32,32]{3,2,1,0}) tuple(%t, %broadcast, %broadcast.d)
+}

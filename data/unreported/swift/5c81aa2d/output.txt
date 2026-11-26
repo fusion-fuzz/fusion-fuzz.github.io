@@ -1,0 +1,100 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp591ohudy/57be5fee.swift:24:10: error: declaration is only valid at file scope
+22 | public extension AnyIterator {
+23 |   @available(*, deprecated)
+24 |   public extension AnySequence {
+   |          `- error: declaration is only valid at file scope
+25 |     public func take(n: Int) -> AnySequence<Element> {
+26 |       return AnySequence([])
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp591ohudy/57be5fee.swift:41:1: error: declaration is only valid at file scope
+39 | }
+40 | 
+41 | extension KappaProtocolImpl {
+   | `- error: declaration is only valid at file scope
+42 |   distributed func echo(name: String) -> String {
+43 |     return "Echo: \(name)"
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp591ohudy/57be5fee.swift:66:1: error: expected 'func' keyword in instance method declaration
+64 |   }
+65 | }
+66 | Main.main()  // entry point, was @main
+   | `- error: expected 'func' keyword in instance method declaration
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp591ohudy/57be5fee.swift:66:5: error: expected '(' in argument list of function declaration
+64 |   }
+65 | }
+66 | Main.main()  // entry point, was @main
+   |     `- error: expected '(' in argument list of function declaration
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp591ohudy/57be5fee.swift:66:5: error: consecutive declarations on a line must be separated by ';'
+64 |   }
+65 | }
+66 | Main.main()  // entry point, was @main
+   |     `- error: consecutive declarations on a line must be separated by ';'
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp591ohudy/57be5fee.swift:66:5: error: expected declaration
+20 | 
+21 | // UNSUPPORTED: OS=windows-msvc
+22 | public extension AnyIterator {
+   |        `- note: in extension of 'AnyIterator'
+23 |   @available(*, deprecated)
+24 |   public extension AnySequence {
+   :
+64 |   }
+65 | }
+66 | Main.main()  // entry point, was @main
+   |     `- error: expected declaration
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp591ohudy/57be5fee.swift:66:39: error: expected '}' at end of extension
+20 | 
+21 | // UNSUPPORTED: OS=windows-msvc
+22 | public extension AnyIterator {
+   |                              `- note: to match this opening '{'
+23 |   @available(*, deprecated)
+24 |   public extension AnySequence {
+   :
+64 |   }
+65 | }
+66 | Main.main()  // entry point, was @main
+   |                                       `- error: expected '}' at end of extension
+
+swift-frontend: /home/build-user/swift/lib/AST/GenericEnvironment.cpp:335: static Type swift::GenericEnvironment::mapTypeIntoEnvironment(GenericEnvironment *, Type): Assertion `!type->hasTypeParameter() && "no generic environment provided for type with type parameters"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -Osize -sil-verify-all -enable-experimental-feature ThenStatements /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp591ohudy/57be5fee.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp591ohudy/57be5fee.swift")
+4.	While type-checking extension of AnyIterator (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp591ohudy/57be5fee.swift:22:8)
+5.	While type-checking 'KappaProtocolImpl' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp591ohudy/57be5fee.swift:37:13)
+6.	While evaluating request SynthesizeDefaultInitRequest(main.(file).AnyIterator extension.KappaProtocolImpl@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp591ohudy/57be5fee.swift:37:19)
+7.	While evaluating request TypeWitnessRequest(<Element> AnyIterator<Element>.KappaProtocolImpl: DistributedActor module main, Distributed.(file).DistributedActor.ActorSystem)
+8.	While evaluating request ResolveTypeWitnessesRequest(<Element> AnyIterator<Element>.KappaProtocolImpl: DistributedActor module main)
+ #0 0x000055d7613f2bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055d7613f02e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055d7613f38c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f87ccf15330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f87ccf6ec0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f87ccf1527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f87ccef88ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007f87ccef881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007f87ccf0b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x000055d75b5552a5 (/usr/bin/swift-frontend+0x2d7a2a5)
+#10 0x000055d75ad53d0c swift::TypeChecker::lookupUnqualified(swift::DeclContext*, swift::DeclNameRef, swift::SourceLoc, swift::optionset::OptionSet<swift::NLFlags, unsigned int>) (/usr/bin/swift-frontend+0x2578d0c)
+#11 0x000055d75af2e763 swift::DerivedConformance::deriveDistributedActor(swift::AssociatedTypeDecl*) (/usr/bin/swift-frontend+0x2753763)
+#12 0x000055d75ae43147 (anonymous namespace)::AssociatedTypeInference::solve() AssociatedTypeInference.cpp:0:0
+#13 0x000055d75ae427f6 swift::ResolveTypeWitnessesRequest::evaluate(swift::Evaluator&, swift::NormalProtocolConformance*) const (/usr/bin/swift-frontend+0x26677f6)
+#14 0x000055d75ab5a564 swift::ResolveTypeWitnessesRequest::OutputType swift::Evaluator::getResultUncached<swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'()>(swift::ResolveTypeWitnessesRequest const&, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#15 0x000055d75ab5a398 swift::ResolveTypeWitnessesRequest::OutputType swift::Evaluator::getResultCached<swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'(), (void*)0>(swift::ResolveTypeWitnessesRequest const&, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#16 0x000055d75ae469f6 swift::TypeWitnessRequest::evaluate(swift::Evaluator&, swift::NormalProtocolConformance*, swift::AssociatedTypeDecl*) const (/usr/bin/swift-frontend+0x266b9f6)
+#17 0x000055d75b62584d swift::TypeWitnessRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeWitnessRequest, swift::TypeWitnessRequest::OutputType swift::evaluateOrDefault<swift::TypeWitnessRequest>(swift::Evaluator&, swift::TypeWitnessRequest, swift::TypeWitnessRequest::OutputType)::'lambda'()>(swift::TypeWitnessRequest const&, swift::TypeWitnessRequest::OutputType swift::evaluateOrDefault<swift::TypeWitnessRequest>(swift::Evaluator&, swift::TypeWitnessRequest, swift::TypeWitnessRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#18 0x000055d75b61c81a swift::NormalProtocolConformance::getTypeWitnessAndDecl(swift::AssociatedTypeDecl*, swift::SubstOptions) const (/usr/bin/swift-frontend+0x2e4181a)
+#19 0x000055d75b61c25c swift::ProtocolConformance::getTypeWitnessAndDecl(swift::AssociatedTypeDecl*, swift::SubstOptions) const (/usr/bin/swift-frontend+0x2e4125c)
+#20 0x000055d75b61cc34 swift::ProtocolConformance::getTypeWitness(swift::AssociatedTypeDecl*, swift::SubstOptions) const (/usr/bin/swift-frontend+0x2e41c34)
+#21 0x000055d75b62ebfe swift::ProtocolConformanceRef::getTypeWitness(swift::AssociatedTypeDecl*, swift::SubstOptions) const (/usr/bin/swift-frontend+0x2e53bfe)
+#22 0x000055d75b62e8a6 swift::ProtocolConformanceRef::getTypeWitnessByName(swift::Identifier) const (/usr/bin/swift-frontend+0x2e538a6)
+#23 0x000055d75b4ef8b5 swift::getDistributedActorSystemType(swift::NominalTypeDecl*) (/usr/bin/swift-frontend+0x2d148b5)
+#24 0x000055d75aeff3ce createImplicitConstructor(swift::NominalTypeDecl*, ImplicitConstructorKind, std::optional<swift::MemberwiseInitKind>, swift::ASTContext&) CodeSynthesis.cpp:0:0
+#25 0x000055d75af00376 swift::SynthesizeDefaultInitRequest::evaluate(swift::Evaluator&, swift::NominalTypeDecl*) const (/usr/bin/swift-frontend+0x2725376)
+#26 0x000055d75b463f03 swift::SynthesizeDefaultInitRequest::OutputType swift::Evaluator::getResultUncached<swift::SynthesizeDefaultInitRequest, swift::SynthesizeDefaultInitRequest::OutputType swift::evaluateOrDefault<swift::SynthesizeDefaultInitRequest>(swift::Evaluator&, swift::
+[... truncated ...]

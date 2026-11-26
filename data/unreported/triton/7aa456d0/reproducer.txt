@@ -1,0 +1,7 @@
+module {
+tt.func @test_empty_kernel(%lb : index, %A : !tt.ptr<i8>) {
+    %0 = ttg.global_scratch_alloc {third_party_allocation, alignment = 128 : i32, nbytes = 384 : i32} : !tt.ptr<i8>
+    %1 = ttg.global_scratch_alloc {third_party_allocation, alignment = 128 : i32, nbytes = 384 : i32} : !tt.ptr<i8>
+    tt.return
+  }
+}

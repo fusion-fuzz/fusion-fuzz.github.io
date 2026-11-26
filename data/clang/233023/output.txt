@@ -1,0 +1,57 @@
+<source>:5:8: warning: 'auto' parameters are a C++20 extension [-Wc++20-extensions]
+    5 | void f(auto) { [](auto) {}(0); }
+      |        ^
+<source>:1:12: warning: class 'I' defined without specifying a base class [-Wobjc-root-class]
+    1 | @interface I
+      |            ^
+<source>:1:13: note: add a super class to fix this problem
+    1 | @interface I
+      |             ^
+clang-24: /root/llvm-project/llvm/tools/clang/lib/AST/ASTContext.cpp:6094: clang::QualType clang::ASTContext::getTemplateTypeParmType(int, int, bool, clang::TemplateTypeParmDecl*) const: Assertion `Depth >= 0 && "Depth must be non-negative"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24 -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -dumpdir /app/output.s- -disable-free -clear-ast-before-backend -main-file-name example.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -fno-verbose-asm -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debug-info-kind=constructor -dwarf-version=5 -debugger-tuning=gdb -fdebug-compilation-dir=/app -fcoverage-compilation-dir=/app -resource-dir /cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/lib/clang/24 -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0 -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0/x86_64-linux-gnu -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0/backward -internal-isystem /cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/lib/clang/24/include -internal-isystem /cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/../include/x86_64-unknown-linux-gnu -internal-isystem /usr/local/include -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fobjc-runtime=gcc -fobjc-encode-cxx-class-template-spec -fobjc-exceptions -fcxx-exceptions -fexceptions -fcolor-diagnostics -faddrsig -fdwarf2-cfi-asm -o /tmp/example-fa155b.o -x objective-c++ <source>
+1.	<eof> parser at end of file
+2.	<source>:5:6: instantiating function definition 'f<int>'
+ #0 0x00000000045074a8 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x45074a8)
+ #1 0x0000000004504704 llvm::sys::RunSignalHandlers() (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x4504704)
+ #2 0x000000000450487e SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x0000000004504928 SignalHandlerTerminate(int, siginfo_t*, void*) Signals.cpp:0:0
+ #4 0x0000703589c45330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x0000703589c9ec0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #6 0x0000703589c4527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x0000703589c288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x0000703589c2881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x0000703589c3b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x0000000007e9f75b clang::ASTContext::getTemplateTypeParmType(int, int, bool, clang::TemplateTypeParmDecl*) const (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x7e9f75b)
+#11 0x0000000008115763 clang::TemplateTypeParmDecl::Create(clang::ASTContext const&, clang::DeclContext*, clang::SourceLocation, clang::SourceLocation, int, int, clang::IdentifierInfo*, bool, bool, bool, clang::OptionalUnsigned<unsigned int>) (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x8115763)
+#12 0x0000000007aac916 clang::TemplateDeclInstantiator::VisitTemplateTypeParmDecl(clang::TemplateTypeParmDecl*) (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x7aac916)
+#13 0x0000000007b18313 clang::TemplateDeclInstantiator::SubstTemplateParams(clang::TemplateParameterList*) (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x7b18313)
+#14 0x0000000007a497e1 clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::TransformLambdaExpr(clang::LambdaExpr*) SemaTemplateInstantiate.cpp:0:0
+#15 0x0000000007a1ea0d clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::TransformExpr(clang::Expr*) SemaTemplateInstantiate.cpp:0:0
+#16 0x0000000007a4bec6 clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::TransformCallExpr(clang::CallExpr*) SemaTemplateInstantiate.cpp:0:0
+#17 0x0000000007a1e1ea clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::TransformExpr(clang::Expr*) SemaTemplateInstantiate.cpp:0:0
+#18 0x0000000007a1c5d7 clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::TransformStmt(clang::Stmt*, clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::StmtDiscardKind) SemaTemplateInstantiate.cpp:0:0
+#19 0x0000000007a1cd15 clang::TreeTransform<(anonymous namespace)::TemplateInstantiator>::TransformCompoundStmt(clang::CompoundStmt*, bool) SemaTemplateInstantiate.cpp:0:0
+#20 0x0000000007a1d86a clang::Sema::SubstStmt(clang::Stmt*, clang::MultiLevelTemplateArgumentList const&) (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x7a1d86a)
+#21 0x0000000007b0a86c clang::Sema::InstantiateFunctionDefinition(clang::SourceLocation, clang::FunctionDecl*, bool, bool, bool) (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x7b0a86c)
+#22 0x0000000007b089b6 clang::Sema::PerformPendingInstantiations(bool, bool) (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x7b089b6)
+#23 0x000000000701feb2 clang::Sema::ActOnEndOfTranslationUnitFragment(clang::TUFragmentKind) (.part.0) Sema.cpp:0:0
+#24 0x00000000070201f2 clang::Sema::ActOnEndOfTranslationUnit() (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x70201f2)
+#25 0x0000000006e7ab6a clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x6e7ab6a)
+#26 0x0000000006e56efa clang::ParseAST(clang::Sema&, bool, bool) (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x6e56efa)
+#27 0x0000000004ff4148 clang::CodeGenAction::ExecuteAction() (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x4ff4148)
+#28 0x0000000005317a68 clang::FrontendAction::Execute() (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x5317a68)
+#29 0x00000000052a4a2d clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x52a4a2d)
+#30 0x00000000053ed6f3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0x53ed6f3)
+#31 0x0000000000d6f788 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0xd6f788)
+#32 0x0000000000d6662a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#33 0x0000000000d6a9ce clang_main(int, char**, llvm::ToolContext const&) (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0xd6a9ce)
+#34 0x0000000000cd69a3 main (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0xcd69a3)
+#35 0x0000703589c2a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#36 0x0000703589c2a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#37 0x0000000000d65fd5 _start (/cefs/68/681a339e72612d1ba2dc86a2_clang-assertions-trunk-20261016/bin/clang-24+0xd65fd5)
+clang++: error: unable to execute command: Aborted (core dumped)
+clang++: error: clang frontend command failed with exit code -2 (use -v to see invocation)
+Program terminated with signal SIGABRT (6)
+x86-64 clang (assertions trunk) - 862ms

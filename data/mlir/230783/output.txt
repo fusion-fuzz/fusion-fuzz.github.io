@@ -1,0 +1,6 @@
+$ mlir-opt constrain-params.mlir
+LLVM ERROR: smt.yield created with unregistered dialect. If this is intended, please call allowUnregisteredDialects() on the MLIRContext, or use -allow-unregistered-dialect with the MLIR tool used.
+1.	MLIR Parser: custom op parser 'transform.smt.constrain_params'
+ #9  mlir::Operation::Operation(...)
+ #13 mlir::Operation::create(mlir::OperationState const&)
+ #14 mlir::OpTrait::SingleBlockImplicitTerminator<mlir::smt::YieldOp>::Impl<mlir::transform::smt::ConstrainParamsOp>::buildTerminator(...)

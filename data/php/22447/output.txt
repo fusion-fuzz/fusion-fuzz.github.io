@@ -1,0 +1,63 @@
+=================================================================
+==2861052==ERROR: AddressSanitizer: heap-use-after-free on address 0x608000006fa8 at pc 0x0000010efc14 bp 0x7ffca2c92740 sp 0x7ffca2c92738
+READ of size 4 at 0x608000006fa8 thread T0
+    #0 0x10efc13 in dom_objects_free_storage /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/dom/php_dom.c:1489:13
+    #1 0x65445c1 in zend_objects_store_del /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_objects_API.c:193:4
+    #2 0x6656367 in rc_dtor_func /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_variables.c:56:2
+    #3 0x66565ee in i_zval_ptr_dtor /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_variables.h:44:4
+    #4 0x66563a4 in zval_ptr_dtor /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_variables.c:83:2
+    #5 0x617d191 in _zend_hash_del_el_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_hash.c:1502:3
+    #6 0x617a90d in _zend_hash_del_el /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_hash.c:1529:2
+    #7 0x61940d4 in zend_hash_reverse_apply /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_hash.c:2245:5
+    #8 0x5928bbc in shutdown_destructors /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_execute_API.c:259:4
+    #9 0x669e63b in zend_call_destructors /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend.c:1340:3
+    #10 0x4ef7ff5 in php_request_shutdown /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:1992:3
+    #11 0x66ca766 in do_cli /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:1166:3
+    #12 0x66bf82f in main /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:1370:18
+    #13 0x7f6632bc1d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #14 0x7f6632bc1e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #15 0x6058e4 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x6058e4)
+
+0x608000006fa8 is located 8 bytes inside of 96-byte region [0x608000006fa0,0x608000007000)
+freed by thread T0 here:
+    #0 0x680542 in free (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x680542)
+    #1 0x7f66334defc3 in xmlAddChild (/lib/x86_64-linux-gnu/libxml2.so.2+0x65fc3)
+
+previously allocated by thread T0 here:
+    #0 0x6807ad in malloc (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x6807ad)
+    #1 0x7f66334e12ae in xmlNewDocProp (/lib/x86_64-linux-gnu/libxml2.so.2+0x682ae)
+
+SUMMARY: AddressSanitizer: heap-use-after-free /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/dom/php_dom.c:1489:13 in dom_objects_free_storage
+Shadow bytes around the buggy address:
+  0x0c107fff8da0: fa fa fa fa 00 00 00 00 00 00 00 00 00 00 00 fa
+  0x0c107fff8db0: fa fa fa fa 00 00 00 00 00 00 00 00 00 00 00 fa
+  0x0c107fff8dc0: fa fa fa fa 00 00 00 00 00 00 00 00 00 00 00 fa
+  0x0c107fff8dd0: fa fa fa fa 00 00 00 00 00 00 00 00 00 00 00 fa
+  0x0c107fff8de0: fa fa fa fa 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0c107fff8df0: fa fa fa fa fd[fd]fd fd fd fd fd fd fd fd fd fd
+  0x0c107fff8e00: fa fa fa fa fd fd fd fd fd fd fd fd fd fd fd fd
+  0x0c107fff8e10: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c107fff8e20: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c107fff8e30: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c107fff8e40: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==2861052==ABORTING

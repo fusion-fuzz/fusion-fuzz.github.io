@@ -1,0 +1,13 @@
+HloModule SimpleX64SplitCombine
+
+ENTRY %entry {
+  %param = (f64[]) parameter(0)
+  %gte = f64[] get-tuple-element(param), index=0
+  %param-low = f32[] custom-call(gte), custom_call_target="X64SplitLow"
+  %param-high = f32[] custom-call(gte), custom_call_target="X64SplitHigh"
+  %result-combine = f64[] custom-call(param-low, param-high), custom_call_target="X64Combine"
+  %a = f32[] parameter(1)
+  %b = f32[] parameter(2)
+  %dot = f32[] dot(%a, %gte), algorithm=dot_tf32_tf32_f32
+  ROOT %ffl.root = (f64[], f32[]) tuple(%result-combine, %dot)
+}

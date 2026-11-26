@@ -1,0 +1,17 @@
+======================================================================
+ERROR: test_no_deadlock (__main__.DeadlockAvoidanceTests.test_no_deadlock)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/min.py", line 62, in test_no_deadlock
+    results = self.run_deadlock_avoidance_test(False)
+  File "/tmp/min.py", line 59, in run_deadlock_avoidance_test
+    with Bunch(f, NTHREADS):
+         ~~~~~^^^^^^^^^^^^^
+TypeError: 'Bunch' object does not support the context manager protocol (missed __enter__ method)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.009s
+
+FAILED (errors=1)
+python: ../Python/lock.c:128: PyLockStatus _PyMutex_LockTimed(PyMutex *, PyTime_t, _PyLockFlags): Assertion `_Py_atomic_load_uint8_relaxed(&m->_bits) & _Py_LOCKED' failed.
+Aborted

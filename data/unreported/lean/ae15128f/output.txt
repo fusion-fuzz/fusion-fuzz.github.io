@@ -1,0 +1,69 @@
+import took 606ms
+cumulative profiling times:
+	attribute application 0.252ms
+	blocked (unaccounted) 21.6ms
+	congr simp thm 1.32ms
+	elaboration 312ms
+	fix level params 0.392ms
+	import 606ms
+	initialization 216ms
+	instantiate metavars 1.03ms
+	interpretation 18ms
+	linting 19.6ms
+	parsing 13.8ms
+	process pre-definitions 4.58ms
+	share common exprs 1.76ms
+	simp 49.7ms
+	tactic execution 16.1ms
+	type checking 13.6ms
+	typeclass inference 517ms
+id.{u} {α : Sort u} (a : α) : α
+@id : {α : Sort u_1} → α → α
+@[implicit_reducible] def id.{u} : {α : Sort u} → α → α :=
+fun {α} a => a
+id.{u} : forall {α : Sort.{u}}, α -> α
+id.{u_1} : forall {α : Sort.{u_1}}, α -> α
+@[implicit_reducible] def id.{u} : forall {α : Sort.{u}}, α -> α :=
+fun {α : Sort.{u}} (a : α) => a
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpzqtuk1e1/f0794573.lean:105:4: warning: exponent 2008 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+k : Nat
+h : k = 2008 ^ 2 + 2 ^ 2008
+⊢ ((2008 ^ 2 + 2 ^ 2008) ^ 2 + 2 ^ (2008 ^ 2 + 2 ^ 2008)) % 10 = 6
+k : Nat
+h : k = 2008 ^ 2 + 2 ^ 2008
+⊢ ((4032064 + 2 ^ 2008) ^ 2 + 2 ^ (4032064 + 2 ^ 2008)) % 10 = 6
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpzqtuk1e1/f0794573.lean:101:0: warning: declaration uses `sorry`
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpzqtuk1e1/f0794573.lean:101:0: error: (kernel) the kernel refused to evaluate `Nat.pow` because its second argument does not fit in a 32-bit unsigned integer
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpzqtuk1e1/f0794573.lean:105:10: warning: This simp argument is unused:
+  h
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpzqtuk1e1/f0794573.lean:100:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
++ warning: exponent 2008 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
++ ---
+  trace: k : Nat
+  h : k = 2008 ^ 2 + 2 ^ 2008
+- ⊢ ((2008 ^ 2 + 2 ^ 2008) ^ 2 + 2 ^ (2008 ^ 2 + 2 ^ 2008)) % 10 = 6
++ ⊢ ((2008 ^ 2 + 2 ^ 2008) ^ 2 + 2 ^ (2008 ^ 2 + 2 ^ 2008)) % 10 = 6
+  ---
+- warning: declaration uses `sorry`
++ trace: k : Nat
++ h : k = 2008 ^ 2 + 2 ^ 2008
++ ⊢ ((4032064 + 2 ^ 2008) ^ 2 + 2 ^ (4032064 + 2 ^ 2008)) % 10 = 6
++ ---
++ warning: declaration uses `sorry`
++ ---
++ error: (kernel) the kernel refused to evaluate `Nat.pow` because its second argument does not fit in a 32-bit unsigned integer
++ ---
++ warning: This simp argument is unused:
++   h
++
++ Hint: Omit it from the simp argument list.
++   [apply] simp
++
++ Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpzqtuk1e1/f0794573.lean:115:4: error: unexpected token 'sorry'; expected '#guard_msgs', 'abbrev', 'add_decl_doc', 'axiom', 'binder_predicate', 'builtin_cbv_simproc', 'builtin_cbv_simproc_decl', 'builtin_dsimproc', 'builtin_dsimproc_decl', 'builtin_grind_propagator', 'builtin_initialize', 'builtin_simproc', 'builtin_simproc_decl', 'cbv_simproc', 'cbv_simproc_decl', 'class', 'coinductive', 'declare_simp_like_tactic', 'declare_syntax_cat', 'def', 'dsimproc', 'dsimproc_decl', 'elab', 'elab_rules', 'example', 'grind_propagator', 'inductive', 'infix', 'infixl', 'infixr', 'initialize', 'instance', 'macro', 'macro_rules', 'notation', 'opaque', 'postfix', 'prefix', 'recall', 'recommended_spelling', 'register_error_explanation', 'register_tactic_tag', 'register_try?_tactic', 'simproc', 'simproc_decl', 'structure', 'syntax', 'tactic_extension', 'theorem' or 'unif_hint'

@@ -1,0 +1,54 @@
+julia: /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/builtins.c:1492: jl_f_isdefined: Assertion `jl_is_datatype(vt)' failed.
+
+[414403] signal 6 (-6): Aborted
+in expression starting at /home/fuzz/WorkSpace/fusion-fuzz/.fused/julia/tmp3f63nqea/bd2a4eb6.jl:55
+pthread_kill at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+gsignal at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+abort at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+unknown function (ip: 0x7d1dad91181a) at /lib/x86_64-linux-gnu/libc.so.6
+__assert_fail at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+jl_f_isdefined at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/builtins.c:1492:5
+invalidate_method_for_globalref! at ../usr/share/julia/Compiler/src/bindinginvalidations.jl:69:0 (pc: 45)
+invalidate_code_for_globalref! at ../usr/share/julia/Compiler/src/bindinginvalidations.jl:112:0 (pc: 78)
+invalidate_code_for_globalref! at ../usr/share/julia/Compiler/src/bindinginvalidations.jl:167:0 (pc: 6)
+jfptr_invalidate_code_for_globalrefNOT._1 at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/usr/lib/julia/sys.so (unknown line)
+_jl_invoke at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/gf.c:4852:27 [inlined]
+ijl_apply_generic at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/gf.c:5144:12
+jl_apply at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/julia.h:2580:12 [inlined]
+jl_invalidate_binding_refs at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/module.c:1878:5
+jl_replace_binding_locked2 at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/module.c:2013:9
+jl_declare_constant_val3 at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/module.c:691:25
+jl_declare_constant_val2 at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/toplevel.c:574:37
+ijl_begin_new_module at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/toplevel.c:172:9
+jl_eval_module_expr at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/toplevel.c:264:25 [inlined]
+jl_toplevel_eval_flex at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/toplevel.c:670:27
+jl_eval_toplevel_stmts at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/toplevel.c:602:15
+jl_toplevel_eval_flex at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/toplevel.c:689:27
+ijl_toplevel_eval at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/toplevel.c:787:12
+fl_toplevel_eval at syntax.jl:771:0 (pc: 17)
+jfptr_fl_toplevel_eval_0 at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/usr/lib/julia/sys.so (unknown line)
+_jl_invoke at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/gf.c:4852:27 [inlined]
+ijl_apply_generic at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/gf.c:5144:12
+jl_apply at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/julia.h:2580:12 [inlined]
+ijl_toplevel_eval_in at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/toplevel.c:841:17
+eval at boot.jl:620:0 (pc: 3)
+include_string at loading.jl:3434:0 (pc: 84)
+_jl_invoke at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/gf.c:4852:27 [inlined]
+ijl_apply_generic at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/gf.c:5144:12
+_include at loading.jl:3495:0 (pc: 37)
+__script_entry_include at client.jl:104:0 (pc: 3) [inlined]
+exec_options at client.jl:350:0 (pc: 510)
+_start at client.jl:670:0 (pc: 40)
+jfptr__start_0 at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/usr/lib/julia/sys.so (unknown line)
+_jl_invoke at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/gf.c:4852:27 [inlined]
+ijl_apply_generic at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/gf.c:5144:12
+jl_apply at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/julia.h:2580:12 [inlined]
+true_main at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/jlapi.c:991:29
+jl_repl_entrypoint at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/jlapi.c:1191:15
+main at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/cli/loader_exe.c:117:15
+unknown function (ip: 0x7d1dad9131c9) at /lib/x86_64-linux-gnu/libc.so.6
+__libc_start_main at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+_start at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/julia (unknown line)
+Allocations: 1 (Pool: 1; Big: 0); GC: 0
+Aborted (core dumped)
+0000111

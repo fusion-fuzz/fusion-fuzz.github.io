@@ -1,0 +1,96 @@
+error: Semantic errors in /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:84:8: error: The derived type 't2' has not been defined
+    type(t2), pointer :: p2
+         ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:128:20: error: Multiple initialization of COMMON block /a/
+    real, pointer :: p
+                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:33:20: Previous initialization of COMMON block /a/
+    real, pointer :: p
+                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:144:12: error: 'tied' is already declared in this scoping unit
+  block data tied
+             ^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:49:12: Previous declaration of 'tied'
+  block data tied
+             ^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:145:19: error: Multiple initialization of COMMON block /c1/
+    real, target :: x1 = 42
+                    ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:50:19: Previous initialization of COMMON block /c1/
+    real, target :: x1 = 42
+                    ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:146:19: error: Multiple initialization of COMMON block /c2/
+    real, target :: x2 = 43
+                    ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:51:19: Previous initialization of COMMON block /c2/
+    real, target :: x2 = 43
+                    ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:158:12: error: 'bdsnake' is already declared in this scoping unit
+  block data bdsnake
+             ^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:63:12: Previous declaration of 'bdsnake'
+  block data bdsnake
+             ^^^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:160:23: error: Multiple initialization of COMMON block /snake/
+    integer, pointer :: p => b
+                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:65:23: Previous initialization of COMMON block /snake/
+    integer, pointer :: p => b
+                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:218:20: error: Multiple initialization of COMMON block /a/
+    real, pointer :: p
+                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:33:20: Previous initialization of COMMON block /a/
+    real, pointer :: p
+                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:235:19: error: Multiple initialization of COMMON block /c1/
+    real, target :: x1 = 42
+                    ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:50:19: Previous initialization of COMMON block /c1/
+    real, target :: x1 = 42
+                    ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:236:19: error: Multiple initialization of COMMON block /c2/
+    real, target :: x2 = 43
+                    ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:51:19: Previous initialization of COMMON block /c2/
+    real, target :: x2 = 43
+                    ^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:250:23: error: Multiple initialization of COMMON block /snake/
+    integer, pointer :: p => b
+                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90:65:23: Previous initialization of COMMON block /snake/
+    integer, pointer :: p => b
+                        ^
+
+fatal internal error: nullptr dereference at /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-project/flang/lib/Semantics/runtime-type-info.cpp(823)
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-flang-build/bin/flang -fc1 -fdebug-dump-all -O0 -ffree-form -std=f2018 -fversion-loops-for-stride -fno-underscoring -ffp-contract=off -fhermetic-module-files /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp1re5zqo7/c16b44f7.f90
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  flang     0x000058dc0d27533a ___interceptor_backtrace + 74
+1  flang     0x000058dc0f78f833 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 323
+2  flang     0x000058dc0f789677 llvm::sys::RunSignalHandlers() + 455
+3  flang     0x000058dc0f79219f
+4  libc.so.6 0x00007d13723f7330
+5  libc.so.6 0x00007d1372450c0c pthread_kill + 284
+6  libc.so.6 0x00007d13723f727e gsignal + 30
+7  libc.so.6 0x00007d13723da8ff abort + 223
+8  flang     0x000058dc1a9749f2 Fortran::common::die(char const*, ...) + 402
+9  flang     0x000058dc118077ef Fortran::semantics::RuntimeTableBuilder::DescribeComponent(Fortran::semantics::Symbol const&, Fortran::semantics::ObjectEntityDetails const&, Fortran::semantics::Scope&, Fortran::semantics::Scope&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> const&, std::vector<Fortran::common::Reference<Fortran::semantics::Symbol const>, std::allocator<Fortran::common::Reference<Fortran::semantics::Symbol const>>> const*) + 20863
+10 flang     0x000058dc117fb453 Fortran::semantics::RuntimeTableBuilder::DescribeType(Fortran::semantics::Scope&, bool) + 12499
+11 flang     0x000058dc117f82a4 Fortran::semantics::RuntimeTableBuilder::DescribeTypes(Fortran::semantics::Scope&, bool) + 244
+12 flang     0x000058dc117f82fb Fortran::semantics::RuntimeTableBuilder::DescribeTypes(Fortran::semantics::Scope&, bool) + 331
+13 flang     0x000058dc117f82fb Fortran::semantics::RuntimeTableBuilder::DescribeTypes(Fortran::semantics::Scope&, bool) + 331
+14 flang     0x000058dc11812fdf Fortran::semantics::BuildRuntimeDerivedTypeTables(Fortran::semantics::SemanticsContext&) + 719
+15 flang     0x000058dc0f863795 Fortran::frontend::FrontendAction::generateRtTypeTables() + 293
+16 flang     0x000058dc0f8712b4 Fortran::frontend::PrescanAndSemaDebugAction::beginSourceFileAction() + 52
+17 flang     0x000058dc0f85fd6c Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) + 2764
+18 flang     0x000058dc0f827370 Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) + 2448
+19 flang     0x000058dc0f86f3c3 Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) + 10211
+20 flang     0x000058dc0d31615b fc1_main(llvm::ArrayRef<char const*>, char const*) + 1355
+21 flang     0x000058dc0d30dd87 main + 3031
+22 libc.so.6 0x00007d13723dc1ca
+23 libc.so.6 0x00007d13723dc28b __libc_start_main + 139
+24 flang     0x000058dc0d22d0e5 _start + 37
+Aborted

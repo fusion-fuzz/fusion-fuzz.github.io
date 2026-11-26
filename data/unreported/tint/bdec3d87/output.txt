@@ -1,0 +1,57 @@
+=================================================================
+==178015==ERROR: AddressSanitizer: heap-use-after-free on address 0x503000048f78 at pc 0x5627c59e9e1d bp 0x7ffdd1065660 sp 0x7ffdd1065650
+READ of size 8 at 0x503000048f78 thread T0
+    #0 0x5627c59e9e1c in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:570
+    #1 0x5627c5a35694 in __invoke_impl<void, tint::hlsl::writer::(anonymous namespace)::Printer::EmitLoop(const tint::core::ir::Loop*)::<lambda()>&> /usr/include/c++/13/bits/invoke.h:61
+    #2 0x5627c5a352fe in __invoke_r<void, tint::hlsl::writer::(anonymous namespace)::Printer::EmitLoop(const tint::core::ir::Loop*)::<lambda()>&> /usr/include/c++/13/bits/invoke.h:111
+    #3 0x5627c5a33216 in _M_invoke /usr/include/c++/13/bits/std_function.h:290
+    #4 0x5627c56ffa42 in std::function<void ()>::operator()() const /usr/include/c++/13/bits/std_function.h:591
+    #5 0x5627c59e9002 in EmitContinue /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:498
+    #6 0x5627c5a25ed8 in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:354
+    #7 0x5627c5a2718e in operator()<tint::hlsl::writer::(anonymous namespace)::Printer::EmitBlock<tint::hlsl::writer::(anonymous namespace)::Printer::EmitBlock(const tint::core::ir::Block*)::<lambda(const tint::core::ir::Instruction*)>&>(const tint::core::ir::Block*, tint::hlsl::writer::(anonymous namespace)::Printer::EmitBlock(const tint::core::ir::Block*)::<lambda(const tint::core::ir::Instruction*)>&)::<lambda(const tint::core::ir::Continue*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:347
+    #8 0x5627c5a29e38 in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #9 0x5627c5a2b30b in EmitBlock<tint::hlsl::writer::(anonymous namespace)::Printer::EmitBlock(const tint::core::ir::Block*)::<lambda(const tint::core::ir::Instruction*)>&> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:346
+    #10 0x5627c59e5f3c in EmitBlock /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:335
+    #11 0x5627c59eaf11 in EmitLoop /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:581
+    #12 0x5627c5a2627a in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:360
+    #13 0x5627c5a27c9e in operator()<tint::hlsl::writer::(anonymous namespace)::Printer::EmitBlock<tint::hlsl::writer::(anonymous namespace)::Printer::EmitBlock(const tint::core::ir::Block*)::<lambda(const tint::core::ir::Instruction*)>&>(const tint::core::ir::Block*, tint::hlsl::writer::(anonymous namespace)::Printer::EmitBlock(const tint::core::ir::Block*)::<lambda(const tint::core::ir::Instruction*)>&)::<lambda(const tint::core::ir::Loop*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:347
+    #14 0x5627c5a2a042 in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #15 0x5627c5a2b30b in EmitBlock<tint::hlsl::writer::(anonymous namespace)::Printer::EmitBlock(const tint::core::ir::Block*)::<lambda(const tint::core::ir::Instruction*)>&> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:346
+    #16 0x5627c59e5f3c in EmitBlock /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:335
+    #17 0x5627c59e5803 in EmitFunction /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:318
+    #18 0x5627c59e1198 in Generate /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:182
+    #19 0x5627c5a25ac2 in tint::hlsl::writer::Print(tint::core::ir::Module&, tint::hlsl::writer::Options const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:2649
+    #20 0x5627c54036ee in tint::hlsl::writer::Generate(tint::core::ir::Module&, tint::hlsl::writer::Options const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/writer.cc:204
+    #21 0x5627c4c529f2 in GenerateHlsl /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd/tint/main.cc:1327
+    #22 0x5627c4c57463 in Generate /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd/tint/main.cc:1571
+    #23 0x5627c4c5b1c2 in Run /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd/tint/main.cc:1727
+    #24 0x5627c4c5bf48 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd/tint/main.cc:1791
+    #25 0x7fbc768a81c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 328820b908de8ea1ef79afa8995e302e819163d7)
+    #26 0x7fbc768a828a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 328820b908de8ea1ef79afa8995e302e819163d7)
+    #27 0x5627c4c31664 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/out/fuzz/tint+0x9fad664) (BuildId: 5b60fa03cdd2bd77683d387e34f983a1e79068f8)
+
+0x503000048f78 is located 8 bytes inside of 24-byte region [0x503000048f70,0x503000048f88)
+freed by thread T0 here:
+    #0 0x7fbc7753c5e8 in operator delete(void*, unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:164
+    #1 0x5627c5a35792 in _M_destroy /usr/include/c++/13/bits/std_function.h:175
+    #2 0x5627c5a3552e in _M_manager /usr/include/c++/13/bits/std_function.h:203
+    #3 0x5627c5a3337d in _M_manager /usr/include/c++/13/bits/std_function.h:282
+    #4 0x5627c4c72e4c in std::_Function_base::~_Function_base() /usr/include/c++/13/bits/std_function.h:244
+    #5 0x5627c56ef729 in std::function<void ()>::~function() /usr/include/c++/13/bits/std_function.h:334
+    #6 0x5627c57f2273 in std::function<void ()>::operator=(std::function<void ()> const&) /usr/include/c++/13/bits/std_function.h:471
+    #7 0x5627c57e1e7a in tint::ScopedAssignment<std::function<void ()> >::ScopedAssignment(std::function<void ()>&, std::function<void ()>) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/macros/scoped_assignment.h:49
+    #8 0x5627c59eacb4 in EmitLoop /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:572
+    #9 0x5627c5a2627a in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:360
+    #10 0x5627c5a27c9e in operator()<tint::hlsl::writer::(anonymous namespace)::Printer::EmitBlock<tint::hlsl::writer::(anonymous namespace)::Printer::EmitBlock(const tint::core::ir::Block*)::<lambda(const tint::core::ir::Instruction*)>&>(const tint::core::ir::Block*, tint::hlsl::writer::(anonymous namespace)::Printer::EmitBlock(const tint::core::ir::Block*)::<lambda(const tint::core::ir::Instruction*)>&)::<lambda(const tint::core::ir::Loop*)> > /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:347
+    #11 0x5627c5a2a042 in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #12 0x5627c5a2b30b in EmitBlock<tint::hlsl::writer::(anonymous namespace)::Printer::EmitBlock(const tint::core::ir::Block*)::<lambda(const tint::core::ir::Instruction*)>&> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:346
+    #13 0x5627c59e5f3c in EmitBlock /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:335
+    #14 0x5627c59e9d5f in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:568
+    #15 0x5627c5a35694 in __invoke_impl<void, tint::hlsl::writer::(anonymous namespace)::Printer::EmitLoop(const tint::core::ir::Loop*)::<lambda()>&> /usr/include/c++/13/bits/invoke.h:61
+    #16 0x5627c5a352fe in __invoke_r<void, tint::hlsl::writer::(anonymous namespace)::Printer::EmitLoop(const tint::core::ir::Loop*)::<lambda()>&> /usr/include/c++/13/bits/invoke.h:111
+    #17 0x5627c5a33216 in _M_invoke /usr/include/c++/13/bits/std_function.h:290
+    #18 0x5627c56ffa42 in std::function<void ()>::operator()() const /usr/include/c++/13/bits/std_function.h:591
+    #19 0x5627c59e9002 in EmitContinue /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:498
+    #20 0x5627c5a25ed8 in operator() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/hlsl/writer/printer/printer.cc:354
+    #21 0x5627c5a2718e in operator()<tint::hlsl::writer::(anonymous namespace)::Printer::EmitBlock<tint::hlsl
+[... truncated ...]

@@ -1,0 +1,61 @@
+HloModule module, allow_spmd_sharding_propagation_to_parameters={false,false,false,false}, num_partitions=4
+
+%while_cond {
+  %input = (s32[], bf16[128,128], bf16[32,128], bf16[], bf16[], bf16[512,128]) parameter(0)
+  %loop_counter = s32[] get-tuple-element(input), index=0
+  %c4 = s32[] constant(4)
+  ROOT %compare = pred[] compare(loop_counter, c4), direction=LT
+}
+
+%while_body {
+  %input = (s32[], bf16[128,128], bf16[32,128], bf16[], bf16[], bf16[512,128]) parameter(0)
+  %loop_counter = s32[] get-tuple-element(input), index=0
+  %lhs = bf16[128,128] get-tuple-element(input), index=1
+  %rhs = bf16[32,128] get-tuple-element(input), index=2
+  %partial_dot_output = bf16[512,128] get-tuple-element(input), index=5
+  %lhs_f8 = f8e4m3fnuz[128,128] convert(lhs)
+  %rhs_f8 = f8e4m3fnuz[32,128] convert(rhs)
+  %lhs_bf16 = bf16[128,128] convert(lhs_f8)
+  %rhs_bf16 = bf16[32,128] convert(rhs_f8)
+  %scale_lhs = bf16[] get-tuple-element(input), index=3
+  %scale_rhs = bf16[] get-tuple-element(input), index=4
+  %scale_lhs_bcast = bf16[128,128] broadcast(scale_lhs), dimensions={}
+  %scale_rhs_bcast = bf16[32,128] broadcast(scale_rhs), dimensions={}
+  %lhs_scaled = bf16[128,128] multiply(lhs_bf16, scale_lhs_bcast)
+  %rhs_scaled = bf16[32,128] multiply(rhs_bf16, scale_rhs_bcast)
+  %rhs_scaled_all_gathered = bf16[128,128] all-gather(rhs_scaled), channel_id=1, use_global_device_ids=true, dimensions={0}, replica_groups={{0,1,2,3}}
+  %dot = bf16[128,128] dot(lhs_scaled, rhs_scaled_all_gathered), lhs_contracting_dims={1}, rhs_contracting_dims={1}
+  %c0 = s32[] constant(0)
+  %size = s32[] constant(128)
+  %iteration_offset = s32[] multiply(loop_counter, size)
+  %updated_dot_output = bf16[512,128] dynamic-update-slice(partial_dot_output, dot, iteration_offset, c0)
+  %c1 = s32[] constant(1)
+  %loop_counter_plus_one = s32[] add(loop_counter, c1)
+  ROOT %tuple = (s32[], bf16[128,128], bf16[32,128], bf16[], bf16[], bf16[512,128]) tuple(loop_counter_plus_one, lhs, rhs, scale_lhs, scale_rhs, updated_dot_output)
+}
+
+%fused_computation {
+  %param = (f32[2,2]{1,0}, f32[2,2]{1,0}) parameter(0)
+  %gte0 = f32[2,2]{1,0} get-tuple-element(param), index=0
+  %gte1 = f32[2,2]{1,0} get-tuple-element(param), index=1
+  %add = f32[2,2]{1,0} add(gte0, gte1)
+  %mul = f32[2,2]{1,0} multiply(gte0, gte1)
+  ROOT %root = (f32[2,2]{1,0}, f32[2,2]{1,0}) tuple(add, mul)
+}
+
+ENTRY %entry {
+  %c0 = s32[] constant(0)
+  %lhs = bf16[128,128] parameter(0)
+  %rhs = bf16[32,128] parameter(1)
+  %scale_lhs = bf16[] parameter(2)
+  %scale_rhs = bf16[] parameter(3)
+  %result_buffer = bf16[512,128] constant(0.)
+  %while_input = (s32[], bf16[128,128], bf16[32,128], bf16[], bf16[], bf16[512,128]) tuple(c0, lhs, rhs, scale_lhs, scale_rhs, result_buffer)
+  %while = (s32[], bf16[128,128], bf16[32,128], bf16[], bf16[], bf16[512,128]) while(while_input), condition=while_cond, body=while_body
+  %dot_output = bf16[512,128] get-tuple-element(while), index=5
+  %param0 = f32[2,2]{1,0} parameter(4)
+  %param1 = f32[2,2]{1,0} parameter(5)
+  %tuple = (f32[2,2]{1,0}, f32[2,2]{1,0}) tuple(%param0, %param1)
+  %fusion = (f32[2,2]{1,0}, f32[2,2]{1,0}) fusion(%c0), kind=kLoop, calls=%fused_computation
+  ROOT %ffl.root = (bf16[512,128], (f32[2,2]{1,0}, f32[2,2]{1,0})) tuple(%dot_output, %fusion)
+}

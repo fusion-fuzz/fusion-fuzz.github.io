@@ -1,0 +1,70 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7_kbjcnt/7b90907b.swift:47:4: warning: result of call to 'withCString' is unused [#NoUsage]
+45 | let s2 = "Int: %d\n"
+46 | 
+47 | s1.withCString { fmt in
+   |    `- warning: result of call to 'withCString' is unused [#NoUsage]
+48 |     printf(fmt, 1.5)
+49 | }
+
+swift-frontend: /home/build-user/swift/lib/SIL/IR/AbstractionPattern.cpp:499: const clang::Type *getClangFunctionParameterType(const clang::Type *, unsigned int): Assertion `index < fnType->getNumParams()' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-silgen -Onone -sil-verify-all -enforce-exclusivity=checked -disable-availability-checking /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7_kbjcnt/7b90907b.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module main)
+4.	While silgen emitApplyExpr expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7_kbjcnt/7b90907b.swift:47:1 - line:49:1] RangeText="s1.withCString { fmt in
+    printf(fmt, 1.5)
+"
+5.	While silgen closureexpr SIL function "@$s4mains5Int32VSPys4Int8VGXEfU_".
+ for expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7_kbjcnt/7b90907b.swift:47:16 - line:49:1] RangeText="{ fmt in
+    printf(fmt, 1.5)
+"
+6.	While silgen emitApplyExpr expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp7_kbjcnt/7b90907b.swift:48:5 - line:48:20] RangeText="printf(fmt, 1.5"
+ #0 0x000055bcfcb50bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055bcfcb4e2e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055bcfcb518c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007ff0b3080330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007ff0b30d9c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007ff0b308027e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007ff0b30638ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007ff0b306381b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007ff0b3076517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x000055bcf5898907 swift::Lowering::AbstractionPattern::getFunctionParamType(unsigned int) const (/usr/bin/swift-frontend+0x195f907)
+#10 0x000055bcf58a0754 swift::Lowering::TypeConverter::getBridgedParams(swift::SILFunctionTypeRepresentation, swift::Lowering::AbstractionPattern, llvm::ArrayRef<swift::AnyFunctionType::Param>, llvm::SmallVectorImpl<swift::AnyFunctionType::Param>&, swift::Bridgeability) (/usr/bin/swift-frontend+0x1967754)
+#11 0x000055bcf58fe346 swift::Lowering::TypeConverter::getBridgedFunctionType(swift::Lowering::AbstractionPattern, swift::CanTypeWrapper<swift::AnyFunctionType>, swift::Bridgeability, swift::SILFunctionTypeRepresentation) (/usr/bin/swift-frontend+0x19c5346)
+#12 0x000055bcf58f8f9c swift::Lowering::TypeConverter::getLoweredFormalTypes(swift::SILDeclRef, swift::CanTypeWrapper<swift::AnyFunctionType>) (/usr/bin/swift-frontend+0x19bff9c)
+#13 0x000055bcf58fc31c swift::Lowering::TypeConverter::getConstantInfo(swift::TypeExpansionContext, swift::SILDeclRef) (/usr/bin/swift-frontend+0x19c331c)
+#14 0x000055bcf5434667 (anonymous namespace)::SILGenApply::visitDeclRefExpr(swift::DeclRefExpr*) SILGenApply.cpp:0:0
+#15 0x000055bcf5417772 (anonymous namespace)::CallEmission::forApplyExpr(swift::Lowering::SILGenFunction&, swift::ApplyExpr*) SILGenApply.cpp:0:0
+#16 0x000055bcf54175ce swift::Lowering::SILGenFunction::emitApplyExpr(swift::ApplyExpr*, swift::Lowering::SGFContext) crtstuff.c:0:0
+#17 0x000055bcf5318a08 swift::ASTVisitor<(anonymous namespace)::RValueEmitter, swift::Lowering::RValue, void, void, void, void, void, swift::Lowering::SGFContext>::visit(swift::Expr*, swift::Lowering::SGFContext) SILGenExpr.cpp:0:0
+#18 0x000055bcf53075cb swift::Lowering::SILGenFunction::emitExprInto(swift::Expr*, swift::Lowering::Initialization*, std::optional<swift::SILLocation>) crtstuff.c:0:0
+#19 0x000055bcf53d11ff swift::Lowering::SILGenFunction::emitReturnExpr(swift::SILLocation, swift::Expr*) crtstuff.c:0:0
+#20 0x000055bcf53ce588 swift::ASTVisitor<(anonymous namespace)::StmtEmitter, void, void, void, void, void, void>::visit(swift::Stmt*) SILGenStmt.cpp:0:0
+#21 0x000055bcf53d4902 (anonymous namespace)::StmtEmitter::visitBraceStmt(swift::BraceStmt*) SILGenStmt.cpp:0:0
+#22 0x000055bcf53cbffd swift::Lowering::SILGenFunction::emitStmt(swift::Stmt*) crtstuff.c:0:0
+#23 0x000055bcf53402bf swift::Lowering::SILGenFunction::emitClosure(swift::AbstractClosureExpr*) crtstuff.c:0:0
+#24 0x000055bcf52a6ee7 swift::Lowering::SILGenModule::emitFunctionDefinition(swift::SILDeclRef, swift::SILFunction*) crtstuff.c:0:0
+#25 0x000055bcf52b133a void llvm::function_ref<void ()>::callback_fn<swift::Lowering::SILGenModule::emitClosure(swift::AbstractClosureExpr*, swift::Lowering::FunctionTypeInfo const&)::$_0>(long) SILGen.cpp:0:0
+#26 0x000055bcf59c325e swift::Lowering::TypeConverter::withClosureTypeInfo(swift::AbstractClosureExpr*, swift::Lowering::FunctionTypeInfo const&, llvm::function_ref<void ()>) (/usr/bin/swift-frontend+0x1a8a25e)
+#27 0x000055bcf52aa4d1 swift::Lowering::SILGenModule::emitClosure(swift::AbstractClosureExpr*, swift::Lowering::FunctionTypeInfo const&) crtstuff.c:0:0
+#28 0x000055bcf5331a4e (anonymous namespace)::RValueEmitter::emitClosureReference(swift::AbstractClosureExpr*, swift::Lowering::FunctionTypeInfo const&) SILGenExpr.cpp:0:0
+#29 0x000055bcf533146d (anonymous namespace)::RValueEmitter::visitAbstractClosureExpr(swift::AbstractClosureExpr*, swift::Lowering::SGFContext) SILGenExpr.cpp:0:0
+#30 0x000055bcf5318a3f swift::ASTVisitor<(anonymous namespace)::RValueEmitter, swift::Lowering::RValue, void, void, void, void, void, swift::Lowering::SGFContext>::visit(swift::Expr*, swift::Lowering::SGFContext) SILGenExpr.cpp:0:0
+#31 0x000055bcf5316bbc swift::Lowering::SILGenFunction::emitRValueAsSingleValue(swift::Expr*, swift::Lowering::SGFContext) crtstuff.c:0:0
+#32 0x000055bcf52e38c3 swift::Lowering::SILGenFunction::emitConvertedRValue(swift::SILLocation, swift::Lowering::Conversion const&, swift::Lowering::SGFContext, llvm::function_ref<swift::Lowering::ManagedValue (swift::Lowering::SILGenFunction&, swift::SILLocation, swift::Lowering::SGFContext)>) crtstuff.c:0:0
+#33 0x000055bcf53ef26f swift::Lowering::ArgumentSource::getConverted(swift::Lowering::SILGenFunction&, swift::Lowering::Conversion const&, swift::Lowering::SGFContext) && (/usr/bin/swift-frontend+0x14b626f)
+#34 0x000055bcf542ccda (anonymous namespace)::ArgEmitter::emit(swift::Lowering::ArgumentSource&&, swift::Lowering::AbstractionPattern, bool, std::optional<swift::AnyFunctionType::Param>) SILGenApply.cpp:0:0
+#35 0x000055bcf5415040 (anonymous namespace)::ArgEmitter::emitSingleArg(swift::Lowering::ArgumentSource&&, swift::Lowering::AbstractionPattern, bool, std::optional<swift::AnyFunctionType::Param>) SILGenApply.cpp:0:0
+#36 0x000055bcf542a302 (anonymous namespace)::ArgEmitter::emitPreparedArgs(swift::Lowering::PreparedArguments&&, swift::Lowering::AbstractionPattern, llvm::ArrayRef<swift::LifetimeDependenceInfo>) SILGenApply.cpp:0:0
+#37 0x000055bcf543a626 (anonymous namespace)::CallSite::emit(swift::Lowering::SILGenFunction&, swift::Lowering::AbstractionPattern, swift::CanTypeWrapper<swift::SILFunctionType>, llvm::ArrayRef<swift::LifetimeDependenceInfo>, (anonymous namespace)::ParamLowering&, llvm::SmallVectorImpl<swift::Lowering::ManagedValue>&, llvm::SmallVectorImpl<(anonymous namespace)::DelayedArgument>&, swift::ForeignInfo const&) && SILGenApply.cpp:0:0
+#38 0x000055bcf54399e5 (anonymous namespace)::CallEmission::emitArgumentsForNormalApply(swift::Lowering::AbstractionPattern, swift::CanTypeWrapper<swift::SILFunctionType>, llvm::ArrayRef<swift::LifetimeDependenceInfo>, swift::ForeignInfo const&, llvm::SmallVectorImpl<swift::Lowering::ManagedValue>&, std::optional<swift::SILLocation>&) SILGenApply.cpp:0:0
+#39 0x000055bcf541ab89 (anonymous namespace)::CallEmission::apply(swift::Lowering::SGFContext) SILGenApply.cpp:0:0
+#40 0x000055bcf54175dc swift::Lowering::SILGenFunction::emitApplyExpr(swift::ApplyExpr*, swift::Lowering::SGFContext) crtstuff.c:0:0
+#41 0x000055bcf5318a08 swift::ASTVisitor<(anonymous namespace)::RValueEmitter, swift::Lowering::RValue, void, void, void, void, void, swift::Lowering::SGFContext>::visit(swift::Expr*, swift::Lowering::SGFContext) SILGenExpr.cpp:0:0
+#42 0x000055bcf530bffb swift::Lowering::SILGenFunction::emitIgnoredExpr(swift::Expr*) crtstuff.c:0:0
+#43 0x000055bcf53e1679 swift::Lowering::SILGenTopLevel::visitTopLevelCodeDecl(swift::TopLevelCodeDecl*) (/usr/bin/swift-frontend+0x14a8679)
+#44 0x000055bcf53df3db swift::Lowering::SILGenTopLevel::visitSourceFile(swift::SourceFile*) (/usr/bin/swift-frontend+0x14a63db)
+#45 0x000055bcf53de828 swift::L
+[... truncated ...]

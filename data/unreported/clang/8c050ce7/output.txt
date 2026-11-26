@@ -1,0 +1,92 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:29:33: error: use of undeclared identifier 'L'
+   29 | static long ffl_fusion = (long)(L);
+      |                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:50:20: warning: definition of a static variable in a constexpr function is a C++23 extension [-Wc++23-extensions]
+   50 |   static const int m = n; // all-note {{control flows through the definition of a static variable}} \
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:49:15: error: constexpr function never produces a constant expression [-Winvalid-constexpr]
+   49 | constexpr int f(int n) {  // all20-error {{constexpr function never produces a constant expression}}
+      |               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:50:20: note: control flows through the definition of a static variable
+   50 |   static const int m = n; // all-note {{control flows through the definition of a static variable}} \
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:56:15: error: static assertion expression is not an integral constant expression
+   56 | static_assert(f(0) == 0, ""); // all-error {{not an integral constant expression}} \
+      |               ^~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:50:20: note: control flows through the definition of a static variable
+   50 |   static const int m = n; // all-note {{control flows through the definition of a static variable}} \
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:56:15: note: in call to 'f(0)'
+   56 | static_assert(f(0) == 0, ""); // all-error {{not an integral constant expression}} \
+      |               ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:60:26: warning: definition of a thread_local variable in a constexpr function is a C++23 extension [-Wc++23-extensions]
+   60 |   thread_local const int m = n; // all-note {{control flows through the definition of a thread_local variable}} \
+      |                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:59:15: error: constexpr function never produces a constant expression [-Winvalid-constexpr]
+   59 | constexpr int g(int n) {        // all20-error {{constexpr function never produces a constant expression}}
+      |               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:60:26: note: control flows through the definition of a thread_local variable
+   60 |   thread_local const int m = n; // all-note {{control flows through the definition of a thread_local variable}} \
+      |                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:65:15: error: static assertion expression is not an integral constant expression
+   65 | static_assert(g(0) == 0, ""); // all-error {{not an integral constant expression}} \
+      |               ^~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:60:26: note: control flows through the definition of a thread_local variable
+   60 |   thread_local const int m = n; // all-note {{control flows through the definition of a thread_local variable}} \
+      |                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:65:15: note: in call to 'g(0)'
+   65 | static_assert(g(0) == 0, ""); // all-error {{not an integral constant expression}} \
+      |               ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:69:28: warning: definition of a static variable in a constexpr function is a C++23 extension [-Wc++23-extensions]
+   69 |   static _Thread_local int m = 0;     // all20-note 2{{control flows through the definition of a thread_local variable}} \
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:68:15: error: constexpr function never produces a constant expression [-Winvalid-constexpr]
+   68 | constexpr int c_thread_local(int n) { // all20-error {{constexpr function never produces a constant expression}}
+      |               ^~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:69:28: note: control flows through the definition of a thread_local variable
+   69 |   static _Thread_local int m = 0;     // all20-note 2{{control flows through the definition of a thread_local variable}} \
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:74:15: error: static assertion expression is not an integral constant expression
+   74 | static_assert(c_thread_local(0) == 0, ""); // all-error {{not an integral constant expression}} \
+      |               ^~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:69:28: note: control flows through the definition of a thread_local variable
+   69 |   static _Thread_local int m = 0;     // all20-note 2{{control flows through the definition of a thread_local variable}} \
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:74:15: note: in call to 'c_thread_local(0)'
+   74 | static_assert(c_thread_local(0) == 0, ""); // all-error {{not an integral constant expression}} \
+      |               ^~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:79:23: warning: definition of a static variable in a constexpr function is a C++23 extension [-Wc++23-extensions]
+   79 |   static __thread int m = 0;            // all20-note 2{{control flows through the definition of a thread_local variable}} \
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:78:15: error: constexpr function never produces a constant expression [-Winvalid-constexpr]
+   78 | constexpr int gnu_thread_local(int n) { // all20-error {{constexpr function never produces a constant expression}}
+      |               ^~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:79:23: note: control flows through the definition of a thread_local variable
+   79 |   static __thread int m = 0;            // all20-note 2{{control flows through the definition of a thread_local variable}} \
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:84:15: error: static assertion expression is not an integral constant expression
+   84 | static_assert(gnu_thread_local(0) == 0, ""); // all-error {{not an integral constant expression}} \
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:79:23: note: control flows through the definition of a thread_local variable
+   79 |   static __thread int m = 0;            // all20-note 2{{control flows through the definition of a thread_local variable}} \
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:84:15: note: in call to 'gnu_thread_local(0)'
+   84 | static_assert(gnu_thread_local(0) == 0, ""); // all-error {{not an integral constant expression}} \
+      |               ^~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:88:20: warning: definition of a static variable in a constexpr function is a C++23 extension [-Wc++23-extensions]
+   88 |   static const int m = n; // all20-note {{control flows through the definition of a static variable}} \
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:87:15: error: constexpr function never produces a constant expression [-Winvalid-constexpr]
+   87 | constexpr int h(int n) {  // all20-error {{constexpr function never produces a constant expression}}
+      |               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:88:20: note: control flows through the definition of a static variable
+   88 |   static const int m = n; // all20-note {{control flows through the definition of a static variable}} \
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:94:26: warning: definition of a thread_local variable in a constexpr function is a C++23 extension [-Wc++23-extensions]
+   94 |   thread_local const int m = n; // all20-note {{control flows through the definition of a thread_local variable}} \
+      |                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7ya0j/41aa5706.cpp:93:15: error: constexpr function never produces a constant expression [-Winvalid-constexpr]
+   93 | constexpr int i(int n) {        // all20-error {{constexpr function never produces a constant expression}}
+      |               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1vr7y
+[... truncated ...]

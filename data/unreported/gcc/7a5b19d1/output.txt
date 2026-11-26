@@ -1,0 +1,92 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:17:33: error: 'bufsz' was not declared in this scope
+   17 | static long fusion_var = (long)(bufsz);
+      |                                 ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:33:32: error: template argument 1 is invalid
+   33 |   struct remove_reference <T &&>
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:37:3: error: 'constexpr' does not name a type
+   37 |   constexpr typename std::remove_reference <T>::type &&
+      |   ^~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:37:3: note: C++11 'constexpr' only available with '-std=c++11' or '-std=gnu++11'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:43:13: warning: defaulted and deleted functions only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   43 |   A (A &) = default;
+      |             ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:44:24: warning: defaulted and deleted functions only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   44 |   A &operator= (A &) = default;
+      |                        ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:55:14: error: expected ',' or '...' before '&&' token
+   55 |   B (const B &&) = default;             // { dg-error "explicitly defaulted move constructor is implicitly deleted because its declared type does not match the type of an implicit move constructor" "" { target c++17_down } }
+      |              ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:55:20: warning: defaulted and deleted functions only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   55 |   B (const B &&) = default;             // { dg-error "explicitly defaulted move constructor is implicitly deleted because its declared type does not match the type of an implicit move constructor" "" { target c++17_down } }
+      |                    ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:55:3: error: invalid constructor; you probably meant 'B (const B&)'
+   55 |   B (const B &&) = default;             // { dg-error "explicitly defaulted move constructor is implicitly deleted because its declared type does not match the type of an implicit move constructor" "" { target c++17_down } }
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:59:25: error: expected ',' or '...' before '&&' token
+   59 |   B &operator= (const B &&) = default;  // { dg-error "explicitly defaulted move assignment operator is implicitly deleted because its declared type does not match the type of an implicit move assignment operator" "" { target c++17_down } }
+      |                         ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:59:31: warning: defaulted and deleted functions only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   59 |   B &operator= (const B &&) = default;  // { dg-error "explicitly defaulted move assignment operator is implicitly deleted because its declared type does not match the type of an implicit move assignment operator" "" { target c++17_down } }
+      |                               ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:59:6: error: defaulted declaration 'B& B::operator=(B)' does not match the expected signature
+   59 |   B &operator= (const B &&) = default;  // { dg-error "explicitly defaulted move assignment operator is implicitly deleted because its declared type does not match the type of an implicit move assignment operator" "" { target c++17_down } }
+      |      ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:59:6: note: expected signature: 'B& B::operator=(B&)'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc: In function 'void foo(B)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:68:12: error: 'move' is not a member of 'std'
+   68 |   a = std::move (a);    // { dg-error "use of deleted function 'constexpr B\\\& B::operator=\\\(const B\\\&\\\&\\\)'" "" { target { c++14 && c++26_down } } }
+      |            ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:68:12: note: 'std::move' is only available from C++11 onwards
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:70:14: error: 'move' is not a member of 'std'
+   70 |   B b = std::move (a);  // { dg-error "use of deleted function 'constexpr B::B\\\(const B\\\&\\\&\\\)'" "" { target fusion_var++26_down } }
+      |              ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:70:14: note: 'std::move' is only available from C++11 onwards
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:74:36: warning: defaulted and deleted functions only available with '-std=c++11' or '-std=gnu++11' [-Wc++11-extensions]
+   74 |   C &operator= (const C &) const = default; // { dg-error "explicitly defaulted copy assignment operator is implicitly deleted because its declared type does not match the type of an implicit copy assignment operator" "" { target c++17_down } }
+      |                                    ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:74:6: warning: explicitly defaulted copy assignment operator is implicitly deleted because its declared type does not match the type of an implicit copy assignment operator [-Wdefaulted-function-deleted]
+   74 |   C &operator= (const C &) const = default; // { dg-error "explicitly defaulted copy assignment operator is implicitly deleted because its declared type does not match the type of an implicit copy assignment operator" "" { target c++17_down } }
+      |      ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:74:6: note: expected signature: 'C& C::operator=(const C&)'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc: In function 'void foo(C&)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:84:7: error: use of deleted function 'C& C::operator=(const C&) const'
+   84 |   c = c;        // { dg-error "use of deleted function 'constexpr C\\\& C::operator=\\\(const C\\\&\\\) const'" "" { target { c++14 && c++26_down } } }
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpovu78pua/765a5a21.cc:74:6: internal compiler error: in maybe_explain_implicit_delete, at cp/method.cc:3366
+   74 |   C &operator= (const C &) const = default; // { dg-error "explicitly defaulted copy assignment operator is implicitly deleted because its declared type does not match the type of an implicit copy assignment operator" "" { target c++17_down } }
+      |      ^~~~~~~~
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x817cfb maybe_explain_implicit_delete(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/method.cc:3366
+0x1090427 mark_used(tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl2.cc:6725
+0xf912d4 build_over_call
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:10431
+0xfa9a3a build_new_op(op_location_t const&, tree_code, int, tree_node*, tree_node*, tree_node*, tree_node*, tree_node**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:7562
+0x12cb0ce cp_build_modify_expr(unsigned long, tree_node*, tree_code, tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck.cc:10088
+0x12cb917 build_x_modify_expr(unsigned long, tree_node*, tree_code, tree_node*, tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck.cc:10346
+0x1169f39 cp_parser_assignment_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12122
+0x116ea95 cp_parser_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12281
+0x1173a7a cp_parser_expression_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14866
+0x117bd66 cp_parser_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14614
+0x117f598 cp_parser_statement_seq_opt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:15129
+0x117f838 cp_parser_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14976
+0x11b4a17 cp_parser_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:28999
+0x11b4a17 cp_parser_ctor_initializer_opt_and_function_body
+	/home/fuzz/W
+[... truncated ...]

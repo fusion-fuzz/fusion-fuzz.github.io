@@ -1,0 +1,26 @@
+HloModule module
+
+%fused_computation {
+  %param_0.1 = f16[16,32]{1,0} parameter(0)
+  %s.1 = s16[16,32]{1,0} convert(param_0.1)
+  ROOT %t.1 = s16[32,16]{1,0} transpose(s.1), dimensions={1,0}
+}
+
+ENTRY %main {
+  %p = f16[16,32]{1,0} parameter(0)
+  %fusion = s16[32,16]{1,0} fusion(p), kind=kInput, calls=fused_computation
+  %t1 = f16[32,16]{1,0} transpose(p), dimensions={1,0}
+  %t = (s16[32,16]{1,0}, f16[32,16]{1,0}) tuple(fusion, t1)
+  %p0 = s8[100,3] parameter(1)
+  %c0 = s16[100,3] convert(%p0)
+  %ids = s32[20] parameter(2)
+  %g = s16[20,3] gather(%c0, %ids), offset_dims={1}, collapsed_slice_dims={0}, start_index_map={0}, index_vector_dim=1, slice_sizes={1,3}
+  %t.d = s16[3,20] transpose(%g), dimensions={1,0}
+  %p1 = s8[25,3] parameter(3)
+  %c1 = s16[25,3] convert(%p1)
+  %z = s32[] constant(0)
+  %s = s32[] parameter(4)
+  %ds = s16[20,3] dynamic-slice(%fusion, %s, %z), dynamic_slice_sizes={20,3}
+  %dot = s16[3,3] dot(%t.d, %ds), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  ROOT %ffl.root = ((s16[32,16]{1,0}, f16[32,16]{1,0}), s16[3,3]) tuple(%t, %dot)
+}

@@ -1,0 +1,56 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphbl_nsoi/82e5a9af.cc:10:1: error: variable or field 'n' declared void
+   10 | n (Bug *p)
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphbl_nsoi/82e5a9af.cc:10:4: error: 'Bug' was not declared in this scope
+   10 | n (Bug *p)
+      |    ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphbl_nsoi/82e5a9af.cc:10:9: error: 'p' was not declared in this scope
+   10 | n (Bug *p)
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphbl_nsoi/82e5a9af.cc:25:21: error: 'float f(float)' aliased to undefined symbol 'f_ifunc'
+   25 | extern __typeof (f) f __attribute__ ((ifunc ("f_ifunc")));
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphbl_nsoi/82e5a9af.cc: In function 'void arr(Bug*)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphbl_nsoi/82e5a9af.cc:79:9: internal compiler error: in gimple_add_tmp_var, at gimplify.cc:845
+   79 |   *p = {};
+      |         ^
+0x3046dcb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xdd9a1e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x93b8c6 gimple_add_tmp_var(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:845
+0x14f8739 gimplify_target_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8475
+0x14d5d8c gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20919
+0x14f2311 gimplify_init_ctor_preeval
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:5922
+0x14f23b5 gimplify_init_ctor_preeval
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:5908
+0x14f2f73 gimplify_init_constructor
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:6575
+0x14f6308 gimplify_modify_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:7288
+0x14d43da gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20516
+0x14e19ab gimplify_cleanup_point_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x14d50e7 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20915
+0x14e0ec6 gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x14e0ec6 gimplify_body(tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:21823
+0x14e138c gimplify_function_tree(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:22032
+0x1296c97 cgraph_node::analyze()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:690
+0x1299387 analyze_functions
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:1269
+0x129a166 symbol_table::finalize_compilation_unit()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2592
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphbl_nsoi/82e5a9af.cc -quiet -dumpbase 82e5a9af.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Og -O2 -ftree-vectorize -fgraphite-identity -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

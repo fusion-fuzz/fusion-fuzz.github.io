@@ -1,0 +1,12 @@
+HloModule DotBlockScalingConfigModule
+
+ENTRY %DotBlockScalingConfig {
+  %lhs = bf16[64,64] parameter(0)
+  %rhs = bf16[128,64] parameter(1)
+  %lhs_scale = f8e8m0fnu[64,2] parameter(2)
+  %lhs_indices = s8[64,16] parameter(3)
+  %param = f32[4,8]{1,0} parameter(4), sharding={devices=[2,1]<=[2]}
+  %copy = f32[4,8]{1,0} copy(%param), sharding={replicated}
+  %dot = bf16[64,64] dot(%lhs, %rhs, %lhs_scale, %lhs_indices), lhs_contracting_dims={1}, rhs_contracting_dims={0}, sparsity_config={lhs={sparsity=2x4 dimension=1 stride=1 idx=3}}, block_scaling_config={lhs={scale_idx=2 strides=1x32 steps=1x1}}
+  ROOT %ffl.root = (bf16[64,64], f32[4,8]{1,0}) tuple(%dot, %copy)
+}

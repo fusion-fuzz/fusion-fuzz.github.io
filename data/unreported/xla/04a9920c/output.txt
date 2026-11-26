@@ -1,0 +1,25 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1791990479.985606 2271540 repeated_ptr_field.h:207] Check failed: index < current_size_ (1 vs. 1) 
+*** Check failure stack trace: ***
+    @     0x582a27df1a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x582a27df19e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x582a1cb8e0f1  google::protobuf::internal::RepeatedPtrFieldBase::Mutable<>()
+    @     0x582a1ce684d6  xla::gpu::ConvPaddingLegalization::CanonicalizeForwardConvolution()
+    @     0x582a1ce6b5a9  xla::gpu::ConvPaddingLegalization::RunOnComputation()
+    @     0x582a1ce6b77b  xla::gpu::ConvPaddingLegalization::RunImpl()
+    @     0x582a23ea8be7  xla::HloPassInterface::Run()
+    @     0x582a1fa263ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x582a1fa217bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x582a1fa20bd5  xla::HloPassPipeline::RunImpl()
+    @     0x582a23ea8be7  xla::HloPassInterface::Run()
+    @     0x582a1c962e03  xla::gpu::NVPTXCompiler::OptimizeHloConvolutionCanonicalization()
+    @     0x582a1c9772ec  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x582a1c98206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x582a1c8b6934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x582a1c8b6e85  xla::CompiledOptProvider::GetExecutable()
+    @     0x582a1c8a8ed1  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x582a27e42466  main
+    @     0x75dffedd4d90  (unknown)
+Aborted (core dumped)

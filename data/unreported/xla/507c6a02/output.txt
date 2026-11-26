@@ -1,0 +1,38 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+I0000 00:00:1791989684.004308 2198604 latency_hiding_scheduler.cc:4596] [latency-hiding-scheduler] LatencyHidingScheduler current memory usage: 112 bytes. Current limit: 300804577644
+E0000 00:00:1791989684.011567 2198604 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/service/gpu/thunk_emitter.cc:2813) it != hlo_async_executions_.end() could not find async execution for start operation
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+INTERNAL: Unsupported instruction opcode: async-update
+=== Source Location Trace: === 
+./xla/util.h:303
+xla/service/gpu/compile_module_to_llvm_ir.cc:284
+xla/service/gpu/gpu_compiler.cc:2962
+xla/service/gpu/gpu_compiler.cc:3087
+xla/tools/hlo_opt/gpu_opt.cc:291
+xla/tools/hlo_opt/gpu_opt.cc:112
+xla/hlo/tools/hlo_opt/opt_main.cc:202
+xla/hlo/tools/hlo_opt/opt_main.cc:214

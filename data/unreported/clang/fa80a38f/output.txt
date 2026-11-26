@@ -1,0 +1,88 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:16:20: error: no member named 'B' in 'to<bool>'
+   16 |   return to<bool>::B<int>::twice(4);
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:16:25: error: expected '(' for function-style cast or type construction
+   16 |   return to<bool>::B<int>::twice(4);
+      |                      ~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:16:28: error: no member named 'twice' in the global namespace
+   16 |   return to<bool>::B<int>::twice(4);
+      |                            ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:69:48: error: no type named 'B' in 'OutOfLine::to<parameter>'
+   69 |   template<typename U, typename to<parameter>::B V>
+      |                        ~~~~~~~~~~~~~~~~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:73:48: error: no type named 'B' in 'OutOfLine::to<parameter>'
+   73 |   template<typename U, typename to<parameter>::B V>
+      |                        ~~~~~~~~~~~~~~~~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:77:48: error: no type named 'B' in 'OutOfLine::to<parameter>'
+   77 |   template<typename U, typename to<parameter>::B V>
+      |                        ~~~~~~~~~~~~~~~~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:81:48: error: no type named 'B' in 'OutOfLine::to<parameter>'
+   81 |   template<typename U, typename to<parameter>::B V>
+      |                        ~~~~~~~~~~~~~~~~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:85:48: error: no type named 'B' in 'OutOfLine::to<parameter>'
+   85 |   template<typename U, typename to<parameter>::B V>
+      |                        ~~~~~~~~~~~~~~~~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:89:48: error: no type named 'B' in 'OutOfLine::to<parameter>'
+   89 |   template<typename U, typename to<parameter>::B V>
+      |                        ~~~~~~~~~~~~~~~~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:93:48: error: no type named 'B' in 'OutOfLine::to<parameter>'
+   93 |   template<typename U, typename to<parameter>::B V>
+      |                        ~~~~~~~~~~~~~~~~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:97:48: error: no type named 'B' in 'OutOfLine::to<parameter>'
+   97 |   template<typename U, typename to<parameter>::B V>
+      |                        ~~~~~~~~~~~~~~~~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:81:48: error: no type named 'B' in 'OutOfLine::to<int>'
+   81 |   template<typename U, typename to<parameter>::B V>
+      |                        ~~~~~~~~~~~~~~~~~~~~~~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:102:24: note: in instantiation of template class 'OutOfLine::to<int>' requested here
+  102 |   template<typename U, to<int>::B V>
+      |                        ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/DeclBase.cpp:180: void clang::Decl::setInvalidDecl(bool): Assertion `!isa<TagDecl>(this) || !cast<TagDecl>(this)->isCompleteDefinition()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O1 -std=gnu++20 -fblocks -fno-strict-aliasing -ffp-contract=fast -fsanitize=address /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:102:33: current parser token 'B'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:38:1: parsing namespace 'OutOfLine'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpte3rtr5p/018cf281.cpp:40:10: instantiating class definition 'OutOfLine::to<int>'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005588dcd3866b __interceptor_backtrace + 91
+1  clang++   0x00005588e2993027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005588e298ccf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005588e29919c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005588e27dfcc5
+5  clang++   0x00005588e27e04d3
+6  libc.so.6 0x00007b19f73a9520
+7  libc.so.6 0x00007b19f73fd9bc pthread_kill + 300
+8  libc.so.6 0x00007b19f73a9476 raise + 22
+9  libc.so.6 0x00007b19f738f7f3 abort + 211
+10 libc.so.6 0x00007b19f738f71b
+11 libc.so.6 0x00007b19f73a0e96
+12 clang++   0x00005588ec07631f clang::Decl::setInvalidDecl(bool) + 655
+13 clang++   0x00005588eaddc95e clang::Sema::InstantiateClassImpl(clang::SourceLocation, clang::CXXRecordDecl*, clang::CXXRecordDecl*, clang::MultiLevelTemplateArgumentList const&, clang::TemplateSpecializationKind, bool) + 6942
+14 clang++   0x00005588eade25ff clang::Sema::InstantiateClassTemplateSpecialization(clang::SourceLocation, clang::ClassTemplateSpecializationDecl*, clang::TemplateSpecializationKind, bool, bool) + 7007
+15 clang++   0x00005588eb1aff0a
+16 clang++   0x00005588ed5f0872 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 274
+17 clang++   0x00005588eb1544ed clang::Sema::RequireCompleteTypeImpl(clang::SourceLocation, clang::QualType, clang::Sema::CompleteTypeKind, clang::Sema::TypeDiagnoser*) + 4509
+18 clang++   0x00005588eb152f1d clang::Sema::RequireCompleteType(clang::SourceLocation, clang::QualType, clang::Sema::CompleteTypeKind, clang::Sema::TypeDiagnoser&) + 205
+19 clang++   0x00005588e9448c60 clang::Sema::RequireCompleteDeclContext(clang::CXXScopeSpec&, clang::DeclContext*) + 736
+20 clang++   0x00005588eaa2b130 clang::Sema::LookupTemplateName(clang::LookupResult&, clang::Scope*, clang::CXXScopeSpec&, clang::QualType, bool, clang::Sema::RequiredTemplateKind, clang::Sema::AssumedTemplateKind*, bool) + 2320
+21 clang++   0x00005588eaa299e3 clang::Sema::isTemplateName(clang::Scope*, clang::CXXScopeSpec&, bool, clang::UnqualifiedId const&, clang::OpaquePtr<clang::QualType>, bool, clang::OpaquePtr<clang::TemplateName>&, bool&, bool) + 1059
+22 clang++   0x00005588e911549f clang::Parser::TryAnnotateTypeConstraint() + 991
+23 clang++   0x00005588e9114e7a clang::Parser::isStartOfTemplateTypeParameter() + 266
+24 clang++   0x00005588e91143ef clang::Parser::ParseTemplateParameter(unsigned int, unsigned int) + 399
+25 clang++   0x00005588e9113f21 clang::Parser::ParseTemplateParameterList(unsigned int, llvm::SmallVectorImpl<clang::NamedDecl*>&) + 321
+26 clang++   0x00005588e9111a64 clang::Parser::ParseTemplateParameters(clang::Parser::MultiParseScope&, unsigned int, llvm::SmallVectorImpl<clang::NamedDecl*>&, clang::SourceLocation&, clang::SourceLocation&) + 484
+27 clang++   0x00005588e9110db2 clang::Parser::ParseTemplateDeclarationOrSpecialization(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 1282
+28 clang++   0x00005588e9110478 clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) + 328
+29 clang++   0x00005588e8f3ce5f clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 975
+30 clang++   0x00005588e8edf87a clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 1002
+31 clang++   0x00005588e8f90084 clang::Parser::ParseInnerNamespace(llvm::SmallVector<clang::Parser::InnerNamespaceInfo, 4u> const&, unsigned int, clang::SourceLocation&, clang::ParsedAttributes&, clang::BalancedDelimiterTracker&) + 612
+32 clang++   0x00005588e8f8db4a clang::Parser::ParseNamespace(clang::DeclaratorContext, clang::SourceLocation&, clang::SourceLocation) + 6970
+33 clang++   0x00005588e8f3d122 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 1682
+34 clang++   0x00005588e8edf87a clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 1002
+35 clang++   0x00005588e8edbfe5 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1765
+36 clang++   0x00005588e8eb4a7f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+37 clang++   0x00005588e4d932fe clang::FrontendAction::Execute() + 222
+38 clang++   0x00005588e4c255f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+39 clang++   0x00005588e4f77989 clang::ExecuteCompilerInvocation(clang::Compi
+[... truncated ...]

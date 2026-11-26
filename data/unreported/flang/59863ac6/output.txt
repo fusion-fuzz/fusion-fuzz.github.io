@@ -1,0 +1,56 @@
+
+fatal internal error: SemanticsContext::FindScope(): invalid source location for '([1.,2.], 3.)'
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /usr/lib/llvm-22/bin/flang -fc1 -triple x86_64-pc-linux-gnu -S -ffree-form -fno-automatic -fdefault-real-8 -mrelocation-model pic -pic-level 2 -pic-is-pie -target-cpu x86-64 -vectorize-loops -vectorize-slp -debug-info-kind=standalone -resource-dir /usr/lib/llvm-22/lib/clang/22 -mframe-pointer=none -O2 -o /dev/null -x f95 /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpbascdcmp/4ad677fd.f90
+ #0 0x00007f96b1493d5f llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc7d5f)
+ #1 0x00007f96b14915d7 llvm::sys::RunSignalHandlers() (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc55d7)
+ #2 0x00007f96b1494b2a (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc8b2a)
+ #3 0x00007f96ac168330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f96ac1c1b2c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9eb2c)
+ #5 0x00007f96ac16827e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f96ac14b8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00005616727db61c (/usr/lib/llvm-22/bin/flang+0x2b2061c)
+ #8 0x00005616711346fa Fortran::semantics::SemanticsContext::FindScope(Fortran::parser::CharBlock) (/usr/lib/llvm-22/bin/flang+0x14796fa)
+ #9 0x0000561671134dcd Fortran::semantics::SemanticsContext::IsInModuleFile(Fortran::parser::CharBlock) const (/usr/lib/llvm-22/bin/flang+0x1479dcd)
+#10 0x0000561670ef6c7e Fortran::evaluate::ExpressionAnalyzer::Analyze(Fortran::parser::Expr::ComplexConstructor const&) (/usr/lib/llvm-22/bin/flang+0x123bc7e)
+#11 0x0000561670f57b0a (/usr/lib/llvm-22/bin/flang+0x129cb0a)
+#12 0x0000561670ef977e std::optional<Fortran::evaluate::Expr<Fortran::evaluate::SomeType>> Fortran::evaluate::ExpressionAnalyzer::ExprOrVariable<Fortran::parser::Expr>(Fortran::parser::Expr const&, Fortran::parser::CharBlock) (/usr/lib/llvm-22/bin/flang+0x123e77e)
+#13 0x0000561670ef8e42 Fortran::evaluate::ExpressionAnalyzer::IterativelyAnalyzeSubexpressions(Fortran::parser::Expr const&) (/usr/lib/llvm-22/bin/flang+0x123de42)
+#14 0x0000561670edef93 Fortran::evaluate::ExpressionAnalyzer::Analyze(Fortran::parser::Expr const&) (/usr/lib/llvm-22/bin/flang+0x1223f93)
+#15 0x0000561670dd8315 (/usr/lib/llvm-22/bin/flang+0x111d315)
+#16 0x0000561670f0bc99 (/usr/lib/llvm-22/bin/flang+0x1250c99)
+#17 0x0000561670f0bb0a (/usr/lib/llvm-22/bin/flang+0x1250b0a)
+#18 0x0000561670f0b41a (/usr/lib/llvm-22/bin/flang+0x125041a)
+#19 0x0000561670f0fd91 (/usr/lib/llvm-22/bin/flang+0x1254d91)
+#20 0x0000561670f0f860 (/usr/lib/llvm-22/bin/flang+0x1254860)
+#21 0x0000561670f09b97 (/usr/lib/llvm-22/bin/flang+0x124eb97)
+#22 0x0000561670f60fbc (/usr/lib/llvm-22/bin/flang+0x12a5fbc)
+#23 0x0000561670f023b7 Fortran::semantics::ExprChecker::Walk(Fortran::parser::Program const&) (/usr/lib/llvm-22/bin/flang+0x12473b7)
+#24 0x0000561671136051 Fortran::semantics::Semantics::Perform() (/usr/lib/llvm-22/bin/flang+0x147b051)
+#25 0x000056167088591e Fortran::frontend::FrontendAction::runSemanticChecks() (/usr/lib/llvm-22/bin/flang+0xbca91e)
+#26 0x000056167088a7da Fortran::frontend::CodeGenAction::beginSourceFileAction() (/usr/lib/llvm-22/bin/flang+0xbcf7da)
+#27 0x0000561670884f9e Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) (/usr/lib/llvm-22/bin/flang+0xbc9f9e)
+#28 0x000056167086ce7f Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) (/usr/lib/llvm-22/bin/flang+0xbb1e7f)
+#29 0x0000561670889ba0 Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) (/usr/lib/llvm-22/bin/flang+0xbceba0)
+#30 0x000056167086ad34 fc1_main(llvm::ArrayRef<char const*>, char const*) (/usr/lib/llvm-22/bin/flang+0xbafd34)
+#31 0x0000561670869fa4 main (/usr/lib/llvm-22/bin/flang+0xbaefa4)
+#32 0x00007f96ac14d1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#33 0x00007f96ac14d28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#34 0x0000561670868f45 _start (/usr/lib/llvm-22/bin/flang+0xbadf45)
+flang-22: error: unable to execute command: Aborted (core dumped)
+flang-22: error: flang frontend command failed due to signal (use -v to see invocation)
+Ubuntu flang version 22.1.8 (++20260613092238+e80beda6e255-1~exp1~20260613092253.78)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/llvm-22/bin
+flang-22: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING FILES TO THE BUG REPORT:
+Preprocessed source(s) and associated run script(s) are located at:
+flang-22: note: diagnostic msg: /tmp/4ad677fd-b3e169
+flang-22: note: diagnostic msg: /tmp/4ad677fd-b3e169.sh
+flang-22: note: diagnostic msg: 
+
+********************

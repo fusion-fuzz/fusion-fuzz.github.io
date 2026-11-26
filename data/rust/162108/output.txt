@@ -1,0 +1,56 @@
+error[E0802]: `derive(CoerceShared)` requires exactly one `#[coerce_shared(Target)]` attribute
+ --> /home/fuzz/WorkSpace/fusion-fuzz/output/bugs/rust/PANIC__compiler_rustc_borrowck_src_borrow_set.rs_402__mir_borrowck_/min.rs:4:20
+  |
+4 | #[derive(Reborrow, CoerceShared)]
+  |                    ^^^^^^^^^^^^
+
+warning: the feature `min_generic_const_args` is incomplete and may not be safe to use and/or cause compiler crashes
+ --> /home/fuzz/WorkSpace/fusion-fuzz/output/bugs/rust/PANIC__compiler_rustc_borrowck_src_borrow_set.rs_402__mir_borrowck_/min.rs:2:34
+  |
+2 | #![feature(min_adt_const_params, min_generic_const_args, macroless_generic_const_args)]
+  |                                  ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: see issue #132980 <https://github.com/rust-lang/rust/issues/132980> for more information
+  = note: `#[warn(incomplete_features)]` on by default
+
+warning: the feature `macroless_generic_const_args` is incomplete and may not be safe to use and/or cause compiler crashes
+ --> /home/fuzz/WorkSpace/fusion-fuzz/output/bugs/rust/PANIC__compiler_rustc_borrowck_src_borrow_set.rs_402__mir_borrowck_/min.rs:2:58
+  |
+2 | #![feature(min_adt_const_params, min_generic_const_args, macroless_generic_const_args)]
+  |                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: see issue #159006 <https://github.com/rust-lang/rust/issues/159006> for more information
+
+error: implementing `Reborrow` requires that a single lifetime parameter is passed between source and target
+ --> /home/fuzz/WorkSpace/fusion-fuzz/output/bugs/rust/PANIC__compiler_rustc_borrowck_src_borrow_set.rs_402__mir_borrowck_/min.rs:4:10
+  |
+4 | #[derive(Reborrow, CoerceShared)]
+  |          ^^^^^^^^
+
+error: internal compiler error: compiler/rustc_borrowck/src/borrow_set.rs:402:17: ADT containing no '&mut T' or 'T: Reborrow' fields must only have one lifetime to implement Reborrow
+
+
+thread 'rustc' (564576) panicked at compiler/rustc_borrowck/src/borrow_set.rs:402:17:
+Box<dyn Any>
+stack backtrace:
+   0: std::panicking::begin_panic::<rustc_errors::ExplicitBug>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:751:5
+   1: std::panic::panic_any::<rustc_errors::ExplicitBug>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panic.rs:260:5
+   2: <rustc_errors::diagnostic::BugAbort as rustc_errors::diagnostic::EmissionGuarantee>::emit_producing_guarantee
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:58:9
+   3: <rustc_errors::diagnostic::Diag<rustc_errors::diagnostic::BugAbort>>::emit
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1319:9
+   4: <rustc_errors::DiagCtxtHandle>::bug::<alloc::string::String>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:968:30
+   5: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:39:48
+   6: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:109:23
+   7: rustc_middle::ty::context::tls::with_context_opt::<rustc_middle::ty::context::tls::with_opt<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}, !>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:75:18
+   8: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:107:5
+   9: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:33:5
+... (backtrace truncated)

@@ -1,0 +1,42 @@
+# fflreduce
+./main.go:12:6: internal compiler error: bad type: struct { large_d430158; b [1500000000]byte }
+
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/runtime/debug/stack.go:26 +0x5e
+cmd/compile/internal/base.FatalfAt({0x1ccfdc0?, 0x0?}, {0x103add2, 0xc}, {0x3bc9129eeaa8, 0x1, 0x1})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/base/print.go:232 +0x18b
+cmd/compile/internal/base.Fatalf(...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/base/print.go:197
+cmd/compile/internal/types.typePos(0x59682f00?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types/size.go:54 +0x90
+cmd/compile/internal/types.calcStructOffset(0x3bc912a0e9c0, {0x3bc91250fcb0, 0x2, 0x1?}, 0x1?)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types/size.go:193 +0x111
+cmd/compile/internal/types.CalcStructSize(...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types/size.go:522
+cmd/compile/internal/types.CalcSize(0x3bc912a0e9c0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types/size.go:420 +0xa25
+cmd/compile/internal/types.ResumeCheckSize()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/types/size.go:721 +0x65
+cmd/compile/internal/noder.(*pkgReader).objIdxMayFail(0x3bc9129bc1c0, 0x5, {0x0, 0x0, 0x0}, {0x1d10160, 0x0, 0x0}, 0x0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/noder/reader.go:855 +0x82a
+cmd/compile/internal/noder.(*pkgReader).objIdx(...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/noder/reader.go:684
+cmd/compile/internal/noder.(*pkgReader).objInstIdx(0x3bc9129bc1c0, {0x6?, {0x3bc9129ef258?, 0x3bc9129bc1c0?, 0x3bc912504ae0?}}, 0x0, 0x0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/noder/reader.go:676 +0x8f
+cmd/compile/internal/noder.(*reader).obj(0x3bc9125194a0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/noder/reader.go:646 +0x13c
+cmd/compile/internal/noder.(*reader).pkgObjs(0x3bc9125194a0, 0x3bc9126b4240)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/noder/reader.go:3684 +0x9b
+cmd/compile/internal/noder.(*reader).pkgDecls(0x3bc9125194a0, 0x3bc9126b4240)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/noder/reader.go:3673 +0x194
+cmd/compile/internal/noder.(*reader).pkgInit(0x3bc9125194a0, 0x3bc9126bb8b0?, 0x3bc9126b4240)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/noder/reader.go:3537 +0xee
+cmd/compile/internal/noder.unified({0x0?, {0x0?, 0x0?}}, {0x3bc9124dc6e8?, 0x197aba0?, 0x1b53b98?})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/noder/unified.go:206 +0x1f9
+cmd/compile/internal/noder.LoadPackage({0x3bc9124fc270, 0x1, 0x1})
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/noder/noder.go:76 +0x525
+cmd/compile/internal/gc.Main(0x1a77de0)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/internal/gc/main.go:219 +0xd05
+main.main()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/go/go-src/src/cmd/compile/main.go:57 +0x105

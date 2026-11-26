@@ -1,0 +1,24 @@
+HloModule pjit__unnamed_wrapped_function_, num_partitions=2
+
+%computation1 (p1: f32[2,2]) -> f32[2,2] {
+  %p1 = f32[2,2]{1,0} parameter(0)
+  %c1 = f32[2,2]{1,0} constant({{1,1},{1,1}})
+  ROOT %add1 = f32[2,2]{1,0} add(%p1, %c1)
+}
+
+%computation2 (p2: f32[2,2]) -> f32[2,2] {
+  %p2 = f32[2,2]{1,0} parameter(0)
+  %c2 = f32[2,2]{1,0} constant({{2,2},{2,2}})
+  ROOT %add2 = f32[2,2]{1,0} add(%p2, %c2)
+}
+
+ENTRY %entry {
+  %input = bf16[2] constant({2., 4.})
+  %input_f32 = f32[2] convert(input)
+  %scale = f32[] constant(2.)
+  %scale_bcast = f32[2] broadcast(scale), dimensions={}
+  %input_scaled = f32[2] multiply(input_f32, scale_bcast)
+  %all-to-all = f32[2] all-to-all(input_scaled), channel_id=1, replica_groups={{0,1}}, dimensions={0}
+  %ffl.call = f32[2,2]{1,0} call(%input_scaled), to_apply=%computation1
+  ROOT %ffl.root = (f32[2], f32[2,2]{1,0}) tuple(%all-to-all, %ffl.call)
+}

@@ -1,0 +1,38 @@
+LLVM ERROR: shared memory size for scalar type is unspecified: !llvm.ptr<3>
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmp1fpuy5x0/5180d5fd.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic --convert-triton-amdgpu-to-llvm=gfx-arch=gfx1250
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x00005618bc792d8a
+1  triton-opt 0x00005618bc78fc8e
+2  triton-opt 0x00005618bc793c8b
+3  libc.so.6  0x00007fd2a03cd520
+4  libc.so.6  0x00007fd2a04219bc pthread_kill + 300
+5  libc.so.6  0x00007fd2a03cd476 raise + 22
+6  libc.so.6  0x00007fd2a03b37f3 abort + 211
+7  triton-opt 0x00005618bc6e4a04
+8  triton-opt 0x00005618b4947741
+9  triton-opt 0x00005618b4effc2d
+10 triton-opt 0x00005618b472d4cf
+11 triton-opt 0x00005618b4726596
+12 triton-opt 0x00005618b472662e
+13 triton-opt 0x00005618b472ca77
+14 triton-opt 0x00005618b4729d5b
+15 triton-opt 0x00005618b4aa1083
+16 triton-opt 0x00005618b4aa0875
+17 triton-opt 0x00005618b5026e66
+18 triton-opt 0x00005618b5160b3b
+19 triton-opt 0x00005618b51616b9
+20 triton-opt 0x00005618b51686d2
+21 triton-opt 0x00005618b5167f42
+22 triton-opt 0x00005618b5152fd7
+23 triton-opt 0x00005618b515226c
+24 triton-opt 0x00005618bc3b09d1
+25 triton-opt 0x00005618b51485d2
+26 triton-opt 0x00005618b51489d1
+27 triton-opt 0x00005618b5148c0d
+28 triton-opt 0x00005618b5133cfc
+29 libc.so.6  0x00007fd2a03b4d90
+30 libc.so.6  0x00007fd2a03b4e40 __libc_start_main + 128
+31 triton-opt 0x00005618b4707e65
+Aborted (core dumped)

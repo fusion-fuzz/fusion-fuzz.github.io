@@ -1,0 +1,12 @@
+HloModule m
+
+called {
+  p = s32[<=4096] parameter(0)
+  ROOT n = s32[<=4096] negate(p)
+}
+
+ENTRY e {
+  a = s32[<=4096] parameter(0)
+  cs = ((s32[<=4096]), s32[<=4096], u32[]) call-start(a), async_execution_thread="host", to_apply=called
+  ROOT cd = s32[<=4096] call-done(cs)
+}

@@ -1,0 +1,41 @@
+Running HLO module with runner HloRunner...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1790066490.609466 1921525 literal.h:1884] Check failed: subshape().element_type() == primitive_util::NativeToPrimitiveType<NativeT>() (16 vs. 11) Attempting to access F32 type, but literal element type is BF16
+*** Check failure stack trace: ***
+    @     0x58305eaa6e84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x58305eaa6e06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x583054bae6c6  xla::LiteralBase::Piece::data<>()
+    @     0x583054bae3e9  xla::LiteralBase::Piece::GetLinear<>()
+    @     0x58305dc21818  absl::lts_20260526::functional_internal::InvokeObject<>()
+    @     0x58305e4cfdee  xla::MutableLiteralBase::PopulateLinearInplaceInternal()
+    @     0x58305dc216d8  xla::MutableLiteralBase::PopulateLinearInternal<>()
+    @     0x58305dc21425  xla::MutableLiteralBase::PopulateLinearParallel<>()
+    @     0x58305dbffa7d  xla::HloEvaluatorTypedVisitor<>::ElementWiseBinaryOp<>()
+    @     0x58305dbff7b3  xla::HloEvaluatorTypedVisitor<>::HandleAdd()
+    @     0x58305e3d12fb  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x58305e3cfb37  xla::HloInstruction::Visit<>()
+    @     0x58305d993316  xla::HloEvaluator::DefaultAction()
+    @     0x58305d992d82  xla::DfsHloVisitorWithDefaultBase<>::HandleElementwiseBinary()
+    @     0x58305e3a2f3f  xla::DfsHloVisitorBase<>::HandleAdd()
+    @     0x58305e3d12fb  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x58305e3cfb37  xla::HloInstruction::Visit<>()
+    @     0x58305e3ced00  xla::HloInstruction::Accept<>()
+    @     0x5830549800a5  xla::HloComputation::Accept<>()
+    @     0x58305d96df9f  xla::HloEvaluator::Evaluate()
+    @     0x58305d96f142  xla::HloEvaluator::Evaluate()
+    @     0x5830549b2e7b  xla::InterpreterLoadedExecutable::Evaluate()
+    @     0x5830549b1b04  xla::InterpreterLoadedExecutable::ExecuteSharded()
+    @     0x58305cf4f704  xla::HloRunner::ExecuteWithDeviceBuffers()
+    @     0x58305cf50643  xla::HloRunner::ExecuteWithExecutable()
+    @     0x58305cf59a70  xla::HloRunnerInterface::ExecuteWithExecutable()
+    @     0x58305cf4f28d  xla::HloRunner::Execute()
+    @     0x58305cf5974e  xla::HloRunnerInterface::Execute()
+    @     0x58305498c057  xla::(anonymous namespace)::ExecuteWithRunner()
+    @     0x583054986927  xla::(anonymous namespace)::RunAndCompareInternal()
+    @     0x5830549848a7  xla::RunAndCompare()
+    @     0x583054987e8e  xla::RunAndCompare()
+    @     0x583054981a8f  main
+    @     0x78efad0f9d90  (unknown)
+Aborted (core dumped)
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmpo9bzrro9/33ddd3c9.hlo**

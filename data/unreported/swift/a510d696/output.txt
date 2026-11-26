@@ -1,0 +1,95 @@
+[... 51 lines omitted ...]
+  destroy_value %31                               // id: %34
+  dealloc_stack %22                               // id: %35
+  %36 = string_literal utf8 "main/6cbf942d.swift" // user: %41
+  %37 = integer_literal $Builtin.Word, 19         // user: %41
+  %38 = integer_literal $Builtin.Int1, -1         // user: %41
+  %39 = metatype $@thin StaticString.Type         // user: %41
+  // function_ref StaticString.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)
+  %40 = function_ref @$ss12StaticStringV08_builtinB7Literal17utf8CodeUnitCount7isASCIIABBp_BwBi1_tcfC : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin StaticString.Type) -> StaticString // user: %41
+  %41 = apply %40(%36, %37, %38, %39) : $@convention(method) (Builtin.RawPointer, Builtin.Word, Builtin.Int1, @thin StaticString.Type) -> StaticString // user: %50
+  %42 = integer_literal $Builtin.IntLiteral, 44   // user: %45
+  %43 = metatype $@thin UInt.Type                 // user: %45
+  // function_ref UInt.init(_builtinIntegerLiteral:)
+  %44 = function_ref @$sSu22_builtinIntegerLiteralSuBI_tcfC : $@convention(method) (Builtin.IntLiteral, @thin UInt.Type) -> UInt // user: %45
+  %45 = apply %44(%42, %43) : $@convention(method) (Builtin.IntLiteral, @thin UInt.Type) -> UInt // user: %50
+  // function_ref default argument 0 of fatalError(_:file:line:)
+  %46 = function_ref @$ss10fatalError_4file4lines5NeverOSSyXK_s12StaticStringVSutFfA_ : $@convention(thin) () -> @owned @callee_guaranteed () -> @owned String // user: %47
+  %47 = apply %46() : $@convention(thin) () -> @owned @callee_guaranteed () -> @owned String // users: %52, %48
+  %48 = convert_escape_to_noescape [not_guaranteed] %47 to $@noescape @callee_guaranteed () -> @owned String // users: %51, %50
+  // function_ref fatalError(_:file:line:)
+  %49 = function_ref @$ss10fatalError_4file4lines5NeverOSSyXK_s12StaticStringVSutF : $@convention(thin) (@guaranteed @noescape @callee_guaranteed () -> @owned String, StaticString, UInt) -> Never // user: %50
+  %50 = apply %49(%48, %41, %45) : $@convention(thin) (@guaranteed @noescape @callee_guaranteed () -> @owned String, StaticString, UInt) -> Never // user: %53
+  destroy_value %48                               // id: %51
+  destroy_value %47                               // id: %52
+  ignored_use %50                                 // id: %53
+  copy_addr %5 to [init] %0                       // id: %54
+  end_formal_scope %5                             // id: %55
+  end_borrow %4                                   // id: %56
+  destroy_value %3                                // id: %57
+  %58 = tuple ()                                  // user: %59
+  return %58                                      // id: %59
+} // end sil function '$s4main1SVACycfC'
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -wmo -sil-verify-all -enable-library-evolution /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4is_xzmb/6cbf942d.swift
+1.	Swift version 6.5-dev (LLVM b57635c461931c5, Swift 4f57c3ebcd65115)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module main)
+4.	While silgen visitDecl 'S' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4is_xzmb/6cbf942d.swift:27:1)
+5.	While silgen emitValueConstructor SIL function "@$s4main1SVACycfC".
+ for 'init()' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4is_xzmb/6cbf942d.swift:44:5)
+6.	While verifying SIL function "@$s4main1SVACycfC".
+ for 'init()' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp4is_xzmb/6cbf942d.swift:44:5)
+ #0 0x00005ea5b1eb09cb llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x92269cb)
+ #1 0x00005ea5b1ead8b1 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x92238b1)
+ #2 0x00005ea5b1eb177b SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007176f2e92330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007176f2eebc0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007176f2e9227e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007176f2e758ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00005ea5aa854873 swift::verificationFailure(llvm::Twine const&, swift::SILInstruction const*, llvm::function_ref<void (swift::SILPrintContext&)>) (/usr/bin/swift-frontend+0x1bca873)
+ #8 0x00005ea5aa88afb1 (anonymous namespace)::SILVerifier::checkAssignByWrapperArgsRecursively(swift::SILType, swift::SILFunctionConventions&, unsigned int&) SILVerifier.cpp:0:0
+ #9 0x00005ea5aa88ae12 (anonymous namespace)::SILVerifier::checkAssignByWrapperArgsRecursively(swift::SILType, swift::SILFunctionConventions&, unsigned int&) SILVerifier.cpp:0:0
+#10 0x00005ea5aa87c613 (anonymous namespace)::SILVerifierBase<(anonymous namespace)::SILVerifier>::visitAssignOrInitInst(swift::AssignOrInitInst*) SILVerifier.cpp:0:0
+#11 0x00005ea5aa85e0ab (anonymous namespace)::SILVerifier::visitSILBasicBlock(swift::SILBasicBlock*) SILVerifier.cpp:0:0
+#12 0x00005ea5aa8578bb swift::SILFunction::verify(swift::CalleeCache*, swift::DominanceInfo*, bool, bool, bool) const (/usr/bin/swift-frontend+0x1bcd8bb)
+#13 0x00005ea5aa02fd7f swift::Lowering::SILGenModule::postEmitFunction(swift::SILDeclRef, swift::SILFunction*) crtstuff.c:0:0
+#14 0x00005ea5aa02f1d4 swift::Lowering::SILGenModule::emitFunctionDefinition(swift::SILDeclRef, swift::SILFunction*) crtstuff.c:0:0
+#15 0x00005ea5aa030946 swift::Lowering::SILGenModule::emitOrDelayFunction(swift::SILDeclRef) crtstuff.c:0:0
+#16 0x00005ea5aa031f41 swift::Lowering::SILGenModule::emitConstructor(swift::ConstructorDecl*) crtstuff.c:0:0
+#17 0x00005ea5aa172ad4 (anonymous namespace)::SILGenType::emitType() SILGenType.cpp:0:0
+#18 0x00005ea5aa172958 swift::Lowering::SILGenModule::visitNominalTypeDecl(swift::NominalTypeDecl*) crtstuff.c:0:0
+#19 0x00005ea5aa0340d1 swift::Lowering::SILGenModule::emitSourceFile(swift::SourceFile*) crtstuff.c:0:0
+#20 0x00005ea5aa0347e4 swift::ASTLoweringRequest::evaluate(swift::Evaluator&, swift::ASTLoweringDescriptor) const (/usr/bin/swift-frontend+0x13aa7e4)
+#21 0x00005ea5aa156967 swift::SimpleRequest<swift::ASTLoweringRequest, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>> (swift::ASTLoweringDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::ASTLoweringRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#22 0x00005ea5aa03a26d swift::ASTLoweringRequest::OutputType swift::Evaluator::getResultUncached<swift::ASTLoweringRequest, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()>(swift::ASTLoweringRequest const&, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#23 0x00005ea5aa039fec swift::ASTLoweringRequest::OutputType swift::Evaluator::getResultUncached<swift::ASTLoweringRequest, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()>(swift::ASTLoweringRequest const&, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()) crtstuff.c:0:0
+#24 0x00005ea5aa034f34 swift::performASTLowering(swift::ModuleDecl*, swift::Lowering::TypeConverter&, swift::SILOptions const&, swift::IRGenOptions const*) (/usr/bin/swift-frontend+0x13aaf34)
+#25 0x00005ea5a997223f swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xce823f)
+#26 0x00005ea5a9990231 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#27 0x00005ea5a99798cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#28 0x00005ea5a9974af8 swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xceaaf8)
+#29 0x00005ea5a9615f0b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x98bf0b)
+#30 0x00007176f2e771ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#31 0x00007176f2e7728b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#32 0x00005ea5a9614f95 _start (/usr/bin/swift-frontend+0x98af95)
+
+*** Signal 6: Backtracing from 0x7176f2f7452d... done ***
+
+*** Program crashed: Aborted at 0x00007176f2f7452d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.5 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007176f2f7452d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007176f2f7452d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d bb c8 0d 00  H=·ðÿÿs·ÃH··»È
+[... truncated ...]

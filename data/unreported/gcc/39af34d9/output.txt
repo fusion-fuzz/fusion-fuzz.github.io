@@ -1,0 +1,49 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpetp7ic5y/5a3dbf22.c:19:5: error: '__GIMPLE' only valid with '-fgimple'
+   19 | int __GIMPLE foo(int a)
+      |     ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpetp7ic5y/5a3dbf22.c:30:5: error: '__GIMPLE' only valid with '-fgimple'
+   30 | int __GIMPLE foo(int t1)
+      |     ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpetp7ic5y/5a3dbf22.c:30:14: error: redefinition of 'foo'
+   30 | int __GIMPLE foo(int t1)
+      |              ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpetp7ic5y/5a3dbf22.c:19:14: note: previous definition of 'foo' with type 'int(int)'
+   19 | int __GIMPLE foo(int a)
+      |              ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpetp7ic5y/5a3dbf22.c: In function 'foo':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpetp7ic5y/5a3dbf22.c:32:7: error: 't1' redeclared as different kind of symbol
+   32 |   int t1;
+      |       ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpetp7ic5y/5a3dbf22.c:30:22: note: previous definition of 't1' with type 'int'
+   30 | int __GIMPLE foo(int t1)
+      |                  ~~~~^~
+during GIMPLE pass: lower
+cc1: internal compiler error: in force_gimple_operand_1, at gimplify-me.cc:79
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x84d02f force_gimple_operand_1(tree_node*, gimple**, bool (*)(tree_node*), tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify-me.cc:79
+0x1252d39 gimplify_and_update_call_from_tree(gimple_stmt_iterator*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-fold.cc:794
+0x126ee8e gimple_fold_builtin
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-fold.cc:5740
+0x126ee8e gimple_fold_call
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-fold.cc:6274
+0x1267064 fold_stmt_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-fold.cc:7121
+0x2cd52e9 lower_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-low.cc:876
+0x2cd5ff2 lower_sequence
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-low.cc:266
+0x2cd5ff2 lower_gimple_bind
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-low.cc:965
+0x2cd61d5 lower_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-low.cc:147
+0x2cd61d5 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-low.cc:243
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpetp7ic5y/5a3dbf22.c -quiet -dumpbase 5a3dbf22.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O1 -std=gnu11 -fwrapv -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

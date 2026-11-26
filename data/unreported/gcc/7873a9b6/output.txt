@@ -1,0 +1,40 @@
+cc1: note: disable pass rtl-split1 for functions in the range of [0, 4294967295]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpyf1cnyx2/8ad87fb8.c: In function 'foo.simdclone.7':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpyf1cnyx2/8ad87fb8.c:44:1: error: could not split insn
+   44 | }
+      | ^
+(jump_insn:TI 14 13 15 3 (parallel [
+            (set (pc)
+                (if_then_else (eq (zero_extract:SI (reg:SI 40 r12 [orig:118 mask.45 ] [118])
+                            (const_int 1 [0x1])
+                            (reg:QI 3 bx [orig:104 ivtmp.146 ] [104]))
+                        (const_int 0 [0]))
+                    (label_ref:DI 23)
+                    (pc)))
+            (clobber (reg:CC 17 flags))
+        ]) 1550 {*jcc_btsi}
+     (expr_list:REG_UNUSED (reg:CC 17 flags)
+        (int_list:REG_BR_PROB 214748361 (nil)))
+ -> 23)
+during RTL pass: final
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpyf1cnyx2/8ad87fb8.c:44:1: internal compiler error: in final_scan_insn_1, at final.cc:2817
+0x2ccb70b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xd03700 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x8cfe27 _fatal_insn(char const*, rtx_def const*, char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/rtl-error.cc:108
+0x81ff72 final_scan_insn_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/final.cc:2817
+0x1056f5f final_scan_insn(rtx_insn*, _IO_FILE*, int, int, int*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/final.cc:2896
+0x105704c final_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/final.cc:1978
+0x1057dba rest_of_handle_final
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/final.cc:4259
+0x1057dba execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/final.cc:4337
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpyf1cnyx2/8ad87fb8.c -quiet -dumpbase 8ad87fb8.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Og -O2 -fgraphite-identity -fdisable-rtl-split1 -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

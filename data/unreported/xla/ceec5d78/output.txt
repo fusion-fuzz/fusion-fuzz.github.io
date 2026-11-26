@@ -1,0 +1,24 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1792006257.105483 3568634 layout_assignment.cc:1863] Check failed: position.index.empty() 
+*** Check failure stack trace: ***
+    @     0x5a5233661a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5a52336619e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5a522b086439  xla::LayoutAssignment::GetArrayUsesOfBuffer()
+    @     0x5a522b0887e3  xla::LayoutAssignment::PropagateBufferConstraintToUses()
+    @     0x5a522b0886a0  xla::LayoutAssignment::PropagateBufferConstraint()
+    @     0x5a522b085448  xla::LayoutAssignment::PropagateConstraints()
+    @     0x5a522b0908a3  xla::LayoutAssignment::RunImpl()
+    @     0x5a522f718be7  xla::HloPassInterface::Run()
+    @     0x5a522b2963ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5a522b2917bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5a522b290bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5a522f718be7  xla::HloPassInterface::Run()
+    @     0x5a52281e758b  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5a52281f206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5a5228126934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5a5228118fd1  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5a52336b2466  main
+    @     0x7c8c0cbd4d90  (unknown)
+Aborted (core dumped)

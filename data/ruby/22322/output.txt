@@ -1,0 +1,169 @@
+=================================================================
+==839325==ERROR: AddressSanitizer: use-after-poison on address 0x7664525e15b8 at pc 0x6230783ee1e5 bp 0x7ffc7a7a1760 sp 0x7ffc7a7a1758
+READ of size 1 at 0x7664525e15b8 thread T0
+    #0 0x6230783ee1e4 in econv_description /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../transcode.c:2069:9
+    #1 0x6230783f3cfd in econv_inspect /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../transcode.c:3572:9
+    #2 0x6230784ab9b9 in vm_call0_cfunc_with_frame /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_eval.c:164:15
+    #3 0x6230784ab9b9 in vm_call0_cfunc /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_eval.c:178:12
+    #4 0x6230784ab9b9 in vm_call0_body /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_eval.c:229:15
+    #5 0x6230784ae704 in vm_call0_cc /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_eval.c:101:12
+    #6 0x6230784ae704 in rb_call0 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_eval.c:577:12
+    #7 0x62307845fb7c in rb_call /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_eval.c:896:12
+    #8 0x62307845fb7c in rb_funcall_with_block_kw /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_eval.c:1216:12
+    #9 0x6230784b2e8e in vm_yield_with_symbol /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_insnhelper.c:5291:16
+    #10 0x6230784b24e1 in invoke_block_from_c_bh /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm.c:1912:16
+    #11 0x6230784600b3 in vm_yield_with_cref /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm.c:1946:12
+    #12 0x6230784600b3 in vm_yield /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm.c:1954:12
+    #13 0x6230784600b3 in rb_ec_yield /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_eval.c
+    #14 0x62307851ea35 in rb_ary_each /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../array.c:2792:9
+    #15 0x62307849620a in vm_call_cfunc_with_frame_ /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_insnhelper.c:3904:11
+    #16 0x6230784804b9 in vm_call_method_each_type /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_insnhelper.c:4896:16
+    #17 0x62307847fc4e in vm_call_method /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_insnhelper.c
+    #18 0x6230784449ea in vm_sendish /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_insnhelper.c:6283:15
+    #19 0x6230784449ea in vm_exec_core /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../insns.def:864:11
+    #20 0x62307842cb96 in vm_exec_loop /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm.c:2908:22
+    #21 0x62307842cb96 in rb_vm_exec /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm.c:2887:18
+    #22 0x623078084c1c in rb_ec_exec_node /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../eval.c:299:9
+    #23 0x623078084c1c in ruby_run_node /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../eval.c:337:30
+    #24 0x623078081320 in rb_main /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../main.c:42:12
+    #25 0x623078081320 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../main.c:62:12
+    #26 0x76647494b1c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: a4a7992a8e66555c8141ab2a08a8465ff6e0ea65)
+    #27 0x76647494b28a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: a4a7992a8e66555c8141ab2a08a8465ff6e0ea65)
+    #28 0x623077fa7e04 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby+0x19fe04) (BuildId: 60d780efc31674a8e58ea90d4aa519e2faa6f441)
+
+Address 0x7664525e15b8 is a wild pointer inside of access range of size 0x000000000001.
+SUMMARY: AddressSanitizer: use-after-poison /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../transcode.c:2069:9 in econv_description
+Shadow bytes around the buggy address:
+  0x7664525e1300: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0x7664525e1380: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0x7664525e1400: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0x7664525e1480: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0x7664525e1500: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+=>0x7664525e1580: f7 f7 f7 f7 f7 f7 f7[f7]f7 00 00 00 00 00 f7 f7
+  0x7664525e1600: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0x7664525e1680: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0x7664525e1700: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0x7664525e1780: f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7 f7
+  0x7664525e1800: f7 f7 f7 f7 f7 f7 f7 f7 f7 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==839325==ABORTING
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmpz5ct5unt/df68b0a7.rb:23: [BUG] ASAN error
+ruby 4.1.0dev (2026-09-15T05:36:12Z master 3296d5c99c) [x86_64-linux]
+
+-- Control frame information -----------------------------------------------
+c:0004 p:---- s:0014 e:000013 l:y b:0001 r:(nil) CFUNC  :inspect
+c:0003 p:---- s:0011 e:000010 l:y b:0001 r:(nil) CFUNC  :each
+c:0002 p:0212 s:0007 E:001bf0 l:n b:---- r:(nil) EVAL   /home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmpz5ct5unt/df68b0a7.rb:23 [FINISH]
+c:0001 p:0000 s:0003 E:001ed8 l:y b:---- r:(nil) DUMMY  [FINISH]
+
+-- Ruby level backtrace information ----------------------------------------
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmpz5ct5unt/df68b0a7.rb:23:in '<main>'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmpz5ct5unt/df68b0a7.rb:23:in 'each'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmpz5ct5unt/df68b0a7.rb:23:in 'inspect'
+
+-- Threading information ---------------------------------------------------
+Total ractor count: 1
+Ruby thread count for this ractor: 1
+
+-- C level backtrace information -------------------------------------------
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(___interceptor_backtrace) [0x623077fec71a]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_print_backtrace+0x14) [0x6230784c74ea] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_dump.c:1113
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_vm_bugreport) /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm_dump.c:1479
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_bug_without_die_internal+0x2ea) [0x62307874c93a] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../error.c:1140
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_bug_without_die+0x128) [0x62307874c5c8] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../error.c:1149
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(0x62307806731a) [0x62307806731a]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(0x623078047a9f) [0x623078047a9f]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(0x62307804ab25) [0x62307804ab25]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(__asan_report_load1) [0x62307804b64c]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(econv_description+0x2e5) [0x6230783ee1e5] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../transcode.c:2069
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rbimpl_str_cat_cstr+0x0) [0x6230783f3cfe] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../transcode.c:3572
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(econv_inspect) /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../transcode.c:3573
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_call0_body+0x100a) [0x6230784ab9ba] ../vm_eval.c:164
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_call0+0x4c5) [0x6230784ae705] ../vm_eval.c:101
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_funcall_with_block_kw+0x14d) [0x62307845fb7d] ../vm_eval.c:896
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_yield_with_symbol+0x1ff) [0x6230784b2e8f] ../vm_insnhelper.c:5291
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(invoke_block_from_c_bh+0x372) [0x6230784b24e2] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm.c:1912
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_ec_yield+0x124) [0x6230784600b4] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm.c:1946
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_ary_each+0x96) [0x62307851ea36] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../array.c:2792
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_call_cfunc_with_frame_+0x27b) [0x62307849620b] ../vm_insnhelper.c:3904
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_call_method_each_type+0x24a) [0x6230784804ba] ../vm_insnhelper.c:4896
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_call_method+0x39f) [0x62307847fc4f]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(vm_exec_core+0x1216b) [0x6230784449eb] ../vm_insnhelper.c:6283
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_vm_exec+0x1f7) [0x62307842cb97] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../vm.c:2908
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_ec_exec_node+0x56) [0x623078084c1d] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../eval.c:299
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(ruby_run_node) /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../eval.c:337
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(rb_main+0x29) [0x623078081321] /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../main.c:42
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(main) /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ruby-src/build/../main.c:62
+/lib/x86_64-linux-gnu/libc.so.6(0x76647494b1ca) [0x76647494b1ca]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x8b) [0x76647494b28b]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/bin/ruby(_start) [0x623077fa7e05]
+
+-- Other runtime information -----------------------------------------------
+
+* Loaded script: /home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmpz5ct5unt/df68b0a7.rb
+
+* Ruby Box: disabled
+* Loaded features:
+
+    0 enumerator.so
+    1 monitor.so
+    2 thread.rb
+    3 fiber.so
+    4 rational.so
+    5 complex.so
+    6 pathname.so
+    7 ruby2_keywords.rb
+    8 set.rb
+    9 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/x86_64-linux/enc/encdb.so
+   10 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/x86_64-linux/enc/trans/transdb.so
+   11 io/wait.rb
+   12 io/wait.so
+   13 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/x86_64-linux/rbconfig.rb
+   14 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/defaults.rb
+   15 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/deprecate.rb
+   16 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/errors.rb
+   17 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/target_rbconfig.rb
+   18 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/win_platform.rb
+   19 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/util/atomic_file_writer.rb
+   20 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/unknown_command_spell_checker.rb
+   21 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/exceptions.rb
+   22 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/basic_specification.rb
+   23 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/stub_specification.rb
+   24 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/platform.rb
+   25 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/specification_record.rb
+   26 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/version.rb
+   27 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/requirement.rb
+   28 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/specification.rb
+   29 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/util.rb
+   30 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/content_address.rb
+   31 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/dependency.rb
+   32 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems/core_ext/kernel_gem.rb
+   33 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/monitor.rb
+   34 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/rubygems.rb
+   35 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/bundled_gems.rb
+   36 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/ffl_shim.rb
+   37 /home/fuzz/WorkSpace/fusion-fuzz/projects/ruby/install/lib/ruby/4.1.0+4/x86_64-linux/enc/trans/escape.so
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/ruby/tmpz5ct5unt/df68b0a7.rb:23: [BUG] Aborted at 0x000003e8000cce9d
+ruby 4.1.0dev (2026-09-15T05:36:12Z master 3296d5c99c) [x86_64-linux]
+
+Crashed while printing bug report
+Aborted (core dumped)

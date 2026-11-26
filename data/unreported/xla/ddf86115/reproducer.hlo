@@ -1,0 +1,20 @@
+HloModule m, num_partitions=8
+
+ENTRY %main {
+  %p = f32[256] parameter(0)
+  %_ = f32[256] collective-permute(p), source_target_pairs={{0,4},{1,5},{2,6},{3,7}}, channel_id=1
+  %p0 = f32[8,128] parameter(1)
+  %p1 = f32[8,128] parameter(2)
+  %c0 = f32[8,128] copy(%p0)
+  %c1 = f32[8,128] copy(%p1)
+  %concat = f32[16,128] concatenate(%c0, %c1), dimensions={0}, sharding={devices=[1,2]0,1 metadata={op_name="a"}}
+  %tuple = (f32[16,128]) tuple(%concat)
+  %ffl.root = (f32[256], (f32[16,128])) tuple(%_, %tuple)
+  %p0.d = f32[8,128] parameter(3)
+  %p1.d = f32[8,128] parameter(4)
+  %c0.d = f32[8,128] copy(%p0.d)
+  %c1.d = f32[8,128] copy(%p1.d)
+  %concat.d = f32[16,128] concatenate(%tuple, %c1.d), dimensions={0}, sharding={devices=[1,2]0,1 metadata={op_name="a"}}
+  %tuple.d = (f32[16,128]) tuple(%concat.d)
+  ROOT %ffl.root.1 = (f32[256], (f32[16,128]), (f32[16,128])) tuple(%_, %tuple, %tuple.d)
+}

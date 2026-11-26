@@ -1,0 +1,81 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:29:16: error: 'foo' is a private member of 'test1::expected'
+   29 |       __super::foo(); // expected-error {{'foo' is a private member of 'test1::A'}}
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:22:18: note: constrained by private inheritance here
+   22 |   struct error : private expected { // expected-note {{constrained by private inheritance here}}
+      |                  ^~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:20:17: note: member is declared here
+   20 |     static void foo(); // expected-note {{member is declared here}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:85:36: warning: 'gnu_inline' attribute without 'extern' in C++ treated as externally available, this changed in Clang 10 [-Wgnu-inline-cpp-without-extern]
+   85 |   inline void foo() __attribute__((gnu_inline)); // expected-warning {{'gnu_inline' attribute without 'extern' in C++ treated as externally available, this changed in Clang 10}}
+      |                                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:91:36: warning: 'gnu_inline' attribute without 'extern' in C++ treated as externally available, this changed in Clang 10 [-Wgnu-inline-cpp-without-extern]
+   91 |   inline void foo() __attribute__((gnu_inline)); // expected-warning {{'gnu_inline' attribute without 'extern' in C++ treated as externally available, this changed in Clang 10}}
+      |                                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:96:36: warning: 'gnu_inline' attribute without 'extern' in C++ treated as externally available, this changed in Clang 10 [-Wgnu-inline-cpp-without-extern]
+   96 |   inline void foo() __attribute__((gnu_inline)); // expected-warning {{'gnu_inline' attribute without 'extern' in C++ treated as externally available, this changed in Clang 10}}
+      |                                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:107:33: error: use of undeclared identifier 'x'
+  107 | static long ffl_fusion = (long)(x);
+      |                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:132:22: error: unknown class name 'A'; did you mean 'test0::A'?
+  132 |   struct B : private A { // expected-note {{constrained by private inheritance here}}
+      |                      ^
+      |                      test0::A
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:113:9: note: 'test0::A' declared here
+  113 |   class A {
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:134:16: error: no matching member function for call to 'foo'
+  134 |       __super::foo();
+      |       ~~~~~~~~~^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:115:10: note: candidate function not viable: requires 1 argument, but 0 were provided
+  115 |     void foo(int*);
+      |          ^   ~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:117:10: note: candidate function not viable: requires 1 argument, but 0 were provided
+  117 |     void foo(long*);
+      |          ^   ~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/AST/DeclCXX.h:1742: static clang::AccessSpecifier clang::CXXRecordDecl::MergeAccess(clang::AccessSpecifier, clang::AccessSpecifier): Assertion `DeclAccess != AS_none' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O3 -fblocks -target i686-pc-win32 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:139:16: current parser token 'foo'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:128:1: parsing namespace 'test1'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:137:3: parsing struct/union/class body 'test1::C'
+4.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:138:14: parsing function body 'test1::C::x'
+5.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpbh5_215n/ec458030.cpp:138:14: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00006097c49c5329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00006097c49c1fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00006097c49c28a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00006097c4904218
+4  libc.so.6 0x00007dc5493da520
+5  libc.so.6 0x00007dc54942e9bc pthread_kill + 300
+6  libc.so.6 0x00007dc5493da476 raise + 22
+7  libc.so.6 0x00007dc5493c07f3 abort + 211
+8  libc.so.6 0x00007dc5493c071b
+9  libc.so.6 0x00007dc5493d1e96
+10 clang++   0x00006097c795ea1f clang::Sema::LookupInSuper(clang::LookupResult&, clang::CXXRecordDecl*) + 1279
+11 clang++   0x00006097c795eea7 clang::Sema::LookupParsedName(clang::LookupResult&, clang::Scope*, clang::CXXScopeSpec*, clang::QualType, bool, bool) + 503
+12 clang++   0x00006097c7616be0 clang::Sema::ClassifyName(clang::Scope*, clang::CXXScopeSpec&, clang::IdentifierInfo*&, clang::SourceLocation, clang::Token const&, clang::CorrectionCandidateCallback*) + 384
+13 clang++   0x00006097c71dc061 clang::Parser::TryAnnotateName(clang::CorrectionCandidateCallback*, clang::ImplicitTypenameContext) + 657
+14 clang++   0x00006097c7304759 clang::Parser::isCXXDeclarationSpecifier(clang::ImplicitTypenameContext, clang::Parser::TPResult, bool*) + 6441
+15 clang++   0x00006097c730a130 clang::Parser::isCXXSimpleDeclaration(bool) + 64
+16 clang++   0x00006097c72dc543 clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 3683
+17 clang++   0x00006097c72dd53b clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+18 clang++   0x00006097c72e5447 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+19 clang++   0x00006097c72e5c9f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+20 clang++   0x00006097c71ee06c clang::Parser::ParseLexedMethodDef(clang::Parser::LexedMethod&) + 684
+21 clang++   0x00006097c71ecbcd clang::Parser::ParseLexedMethodDefs(clang::Parser::ParsingClass&) + 125
+22 clang++   0x00006097c72438c9 clang::Parser::ParseCXXMemberSpecification(clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributes&, unsigned int, clang::Decl*) + 1561
+23 clang++   0x00006097c724628c clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 8028
+24 clang++   0x00006097c72154a5 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2821
+25 clang++   0x00006097c71d0cd8 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 200
+26 clang++   0x00006097c71d178f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+27 clang++   0x00006097c71dd646 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+28 clang++   0x00006097c723b67b clang::Parser::ParseInnerNamespace(llvm::SmallVector<clang::Parser::InnerNamespaceInfo, 4u> const&, unsigned int, clang::SourceLocation&, clang::ParsedAttributes&, clang::BalancedDelimiterTracker&) + 507
+29 clang++   0x00006097c723c424 clang::Parser::ParseNamespace(clang::DeclaratorContext, clang::SourceLocation&, clang::SourceLocation) + 3188
+30 clang++   0x00006097c7224c6b clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 827
+31 clang++   0x00006097c71dd66e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+32 clang++   0x00006097c71de6ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroup
+[... truncated ...]

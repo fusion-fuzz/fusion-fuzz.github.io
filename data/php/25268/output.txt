@@ -1,0 +1,16 @@
+ext/dom/php_dom.c:665:22: runtime error: member access within null pointer of type 'php_libxml_ref_obj' (aka 'struct _php_libxml_ref_obj')
+    #0 0x1109e54 in dom_objects_store_clone_obj ext/dom/php_dom.c:665:22
+    #1 0x6329cf1 in ZEND_CLONE_SPEC_CV_HANDLER Zend/zend_vm_execute.h:40322:2
+    #2 0x5fabacc in execute_ex Zend/zend_vm_execute.h:110621:12
+    #3 0x5fad941 in zend_execute Zend/zend_vm_execute.h:116059:2
+    #4 0x6b9a226 in zend_execute_script Zend/zend.c:1980:3
+    #5 0x550f6d6 in php_execute_script_ex main/main.c:2636:13
+    #6 0x5510358 in php_execute_script main/main.c:2676:9
+    #7 0x6bab555 in do_cli sapi/cli/php_cli.c:943:5
+    #8 0x6ba61e7 in do_php_cli sapi/cli/php_cli.c:1360:18
+    #9 0x6ba4851 in main sapi/cli/php_cli_main.c:18:9
+    #10 0x7ff2028dfd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #11 0x7ff2028dfe3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #12 0x606504 in _start (sapi/cli/php+0x606504)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior ext/dom/php_dom.c:665:22 in

@@ -1,0 +1,27 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1792046917.947835 3417063 hlo_computation.cc:832] Check failed: info->inst() == instruction (0x811 vs. 0x654613af6460) 
+*** Check failure stack trace: ***
+    @     0x6545ec171a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x6545ec1719e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x6545eba807c6  xla::HloComputation::RemoveInstructionImpl()
+    @     0x6545eba811df  xla::HloComputation::RemoveInstructionAndUnusedOperands()
+    @     0x6545eba8ba0b  xla::HloComputation::ReplaceInstructionWithDifferentShape()
+    @     0x6545eba8b193  xla::HloComputation::ReplaceInstruction()
+    @     0x6545eba8837f  xla::HloComputation::ReplaceInstruction()
+    @     0x6545e1259bbc  xla::gpu::(anonymous namespace)::F8GraphConv()
+    @     0x6545e12525d1  xla::gpu::CudnnFusedConvRewriter::RunImpl()
+    @     0x6545e8228be7  xla::HloPassInterface::Run()
+    @     0x6545e3da63ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x6545e3da17bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x6545e3da0bd5  xla::HloPassPipeline::RunImpl()
+    @     0x6545e8228be7  xla::HloPassInterface::Run()
+    @     0x6545e0ce2e03  xla::gpu::NVPTXCompiler::OptimizeHloConvolutionCanonicalization()
+    @     0x6545e0cf72ec  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x6545e0d0206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x6545e0c36934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x6545e0c28fd1  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x6545ec1c2466  main
+    @     0x701fb9fd4d90  (unknown)
+Aborted (core dumped)

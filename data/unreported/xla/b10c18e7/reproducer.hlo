@@ -1,0 +1,37 @@
+HloModule m, num_partitions=8
+
+%condition.1 (tup: (s32[], token[], f32[512,1024]{0,1})) -> pred[] {
+  %tup.1 = (s32[], token[], f32[512,1024]{0,1}) parameter(0)
+  %counter.1 = s32[] get-tuple-element(tup.1), index=0
+  %five = s32[] constant(5)
+  ROOT %lt = pred[] compare(counter.1, five), direction=LT
+}
+
+%body.2 (tup: (s32[], token[], f32[512,1024]{0,1})) -> (s32[], token[], f32[512,1024]{0,1}) {
+  %tup.2 = (s32[], token[], f32[512,1024]{0,1}) parameter(0)
+  %counter.2 = s32[] get-tuple-element(tup.2), index=0
+  %tok.2 = token[] get-tuple-element(tup.2), index=1
+  %ifeed.2 = (f32[512,1024]{1,0}, token[]) infeed(tok.2)
+  %next_tok = token[] get-tuple-element(ifeed.2), index=1
+  %next_buf = f32[512,1024]{1,0} get-tuple-element(ifeed.2), index=0
+  %one = s32[] constant(1)
+  %next_counter = s32[] add(counter.2, one)
+  ROOT %tup = (s32[], token[], f32[512,1024]{0,1}) tuple(next_counter, next_tok, next_buf)
+}
+
+ENTRY %e {
+  %p = f32[128] parameter(0)
+  %_ = f32[1024] all-gather(p), dimensions={0}, use_global_device_ids=true, channel_id=1, replica_groups=[1,8]<=[8]
+  %start_tok = token[] after-all()
+  %ifeed.3 = (f32[512,1024]{0,1}, token[]) infeed(%start_tok)
+  %itok = token[] get-tuple-element(%ifeed.3), index=1
+  %ibuf = f32[512,1024]{0,1} get-tuple-element(%ifeed.3), index=0
+  %zero = s32[] constant(0)
+  %itup = (s32[], token[], f32[512,1024]{0,1}) tuple(%zero, %itok, %ibuf)
+  %loop = (s32[], token[], f32[512,1024]{0,1}) while(%itup), condition=%condition.1, body=%body.2
+  %result = f32[512,1024]{0,1} get-tuple-element(%loop), index=2
+  %p.d = f32[128] parameter(1)
+  %_.d = f32[1024] all-gather(%p), dimensions={0}, use_global_device_ids=true, channel_id=1, replica_groups=[1,8]<=[8]
+  %ffl.root = (f32[512,1024]{0,1}, f32[1024]) tuple(%result, %_.d)
+  ROOT %ffl.root.1 = (f32[1024], f32[512,1024]{0,1}, f32[1024]) tuple(%_, %result, %_.d)
+}

@@ -1,0 +1,20 @@
+HloModule module
+
+ENTRY %main {
+  %p0 = f32[1024] parameter(0)
+  %copy = f32[1024] copy(p0)
+  %param = s32[2, 3, 3] parameter(1)
+  %size = s32[] constant(2)
+  %param_padded_partial = s32[2, <=3, 3] set-dimension-size(%param, %size), dimensions={1}
+  %param_padded = s32[2, <=3, <=3] set-dimension-size(%param_padded_partial, %size), dimensions={2}
+  %result_size = s32[] constant(8)
+  %reshaped = s32[<=18] dynamic-reshape(%param_padded, %result_size)
+  %ffl.root = (f32[1024], s32[<=18]) tuple(%copy, %reshaped)
+  %param.d = s32[2, 3, 3] parameter(2)
+  %size.d = s32[] constant(2)
+  %param_padded_partial.d = s32[2, <=3, 3] set-dimension-size(%param.d, %size.d), dimensions={1}
+  %param_padded.d = s32[2, <=3, <=3] set-dimension-size(%param, %size.d), dimensions={2}
+  %result_size.d = s32[] constant(8)
+  %reshaped.d = s32[<=18] dynamic-reshape(%param_padded.d, %result_size.d)
+  ROOT %ffl.root.1 = (f32[1024], s32[<=18], s32[<=18]) tuple(%copy, %reshaped, %reshaped.d)
+}

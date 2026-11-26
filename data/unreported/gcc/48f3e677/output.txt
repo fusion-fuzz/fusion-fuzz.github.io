@@ -1,0 +1,87 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c: In function 'a0':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c:24:10: warning: function returns address of nested function referencing local context [-Wreturn-local-addr]
+   24 |   return &e;    /* { dg-warning "referencing local context" } */
+      |          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c: In function 'e':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c:37:20: error: implicit declaration of function 'typeof' [-Wimplicit-function-declaration]
+   37 |   struct bar e() { typeof(struct bar) referencing; return referencing; }
+      |                    ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c:37:27: error: expected expression before 'struct'
+   37 |   struct bar e() { typeof(struct bar) referencing; return referencing; }
+      |                           ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c:37:38: error: expected ';' before 'referencing'
+   37 |   struct bar e() { typeof(struct bar) referencing; return referencing; }
+      |                                      ^~~~~~~~~~~~
+      |                                      ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c:37:59: error: 'referencing' undeclared (first use in this function)
+   37 |   struct bar e() { typeof(struct bar) referencing; return referencing; }
+      |                                                           ^~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c:37:59: note: each undeclared identifier is reported only once for each function it appears in
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c: In function 'e':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c:45:34: error: expected ';' before 'referencing'
+   45 |   struct bar e() { typeof((*d)()) referencing; return referencing; }
+      |                                  ^~~~~~~~~~~~
+      |                                  ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c:45:55: error: 'referencing' undeclared (first use in this function)
+   45 |   struct bar e() { typeof((*d)()) referencing; return referencing; }
+      |                                                       ^~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c: In function 'a3':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c:46:10: warning: function returns address of nested function referencing local context [-Wreturn-local-addr]
+   46 |   return &e;    /* { dg-warning "referencing local context" } */
+      |          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c: In function 'a4':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c:53:10: warning: function returns address of nested function referencing local context [-Wreturn-local-addr]
+   53 |   return &e;    /* { dg-warning "referencing local context" } */
+      |          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c: In function 'referencing':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c:69:14: error: 'c' undeclared (first use in this function)
+   69 |       x[i] = c;
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c: In function 'e':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c:45:28: internal compiler error: in force_constant_size, at gimplify.cc:813
+   45 |   struct bar e() { typeof((*d)()) referencing; return referencing; }
+      |                           ~^~~
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x83892f force_constant_size
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:813
+0x12d8247 gimple_add_tmp_var(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:851
+0x124916b create_tmp_var(tree_node*, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple-expr.cc:486
+0x12d76e1 create_tmp_from_val
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:633
+0x12d76e1 lookup_tmp_var
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:655
+0x12f69c7 internal_get_tmp_var
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:710
+0x12e800c get_formal_tmp_var(tree_node*, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:743
+0x12e800c gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:21580
+0x12e9074 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20972
+0x1308633 gimplify_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:21625
+0x1308633 gimplify_arg(tree_node**, gimple**, unsigned long, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:3791
+0x1308fe6 gimplify_call_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:4805
+0x12e9668 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20485
+0x12ec27a gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x12ed8e4 gimplify_bind_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:1561
+0x12e94e0 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20717
+0x12f5496 gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x12f5496 gimplify_body(tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:21823
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnysz5tji/0b69d22c.c -quiet -dumpbase 0b69d22c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O0 -std=c11 -fexceptions -finline-functions -o /tmp/ccWDz3xT.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

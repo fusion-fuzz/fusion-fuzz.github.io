@@ -1,0 +1,43 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpn6q_poiq/0e125cfb.c:80:1: internal compiler error: tree check: expected integer_cst, have nop_expr in get_len, at tree.h:6800
+   80 | typedef basetype __attribute__ ((hardbool (falseval, a))) hbool;
+      | ^~~~~~~
+0x2cdd1bb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0x96c814 tree_check_failed(tree_node const*, char const*, int, char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:9246
+0xe77d04 tree_check(tree_node const*, char const*, int, char const*, tree_code)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:4125
+0xe77d04 wi::extended_tree<131072>::get_len() const
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:6800
+0xe77d04 wi::int_traits<generic_wide_int<wi::extended_tree<131072> > >::decompose(long*, unsigned int, generic_wide_int<wi::extended_tree<131072> > const&)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/wide-int.h:1050
+0xe77d04 wide_int_ref_storage<true, false>::wide_int_ref_storage<generic_wide_int<wi::extended_tree<131072> > >(generic_wide_int<wi::extended_tree<131072> > const&, unsigned int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/wide-int.h:1099
+0xe77d04 generic_wide_int<wide_int_ref_storage<true, false> >::generic_wide_int<generic_wide_int<wi::extended_tree<131072> > >(generic_wide_int<wi::extended_tree<131072> > const&, unsigned int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/wide-int.h:855
+0xe77d04 int wi::cmps<generic_wide_int<wi::extended_tree<131072> >, generic_wide_int<wi::extended_tree<131072> > >(generic_wide_int<wi::extended_tree<131072> > const&, generic_wide_int<wi::extended_tree<131072> > const&)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/wide-int.h:2448
+0xe75319 tree_int_cst_compare(tree_node const*, tree_node const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:6985
+0xe75319 handle_hardbool_attribute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-attribs.cc:988
+0xd12436 decl_attributes(tree_node**, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/attribs.cc:905
+0xd1ff75 c_decl_attributes
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-decl.cc:5747
+0xd35969 start_decl(c_declarator*, c_declspecs*, bool, tree_node*, bool, unsigned long*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-decl.cc:5902
+0xdba0ea c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3083
+0xdc9439 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2276
+0xdca380 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2115
+0xdca380 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31603
+0xe50659 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1442
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpn6q_poiq/0e125cfb.c -quiet -dumpbase 0e125cfb.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Os -std=gnu99 -fno-tree-vectorize -fsanitize=unreachable -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

@@ -1,0 +1,39 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp8a24r6nr/b3837db2.c: In function 'main':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp8a24r6nr/b3837db2.c:54:1: error: unable to generate reloads for:
+   54 | }
+      | ^
+(insn 13 66 14 3 (parallel [
+            (set (reg:SI 117)
+                (div:SI (reg:SI 103 [ _10 ])
+                    (reg:SI 101 [ _8 ])))
+            (set (reg:SI 116 [ _11 ])
+                (mod:SI (reg:SI 103 [ _10 ])
+                    (reg:SI 101 [ _8 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp8a24r6nr/b3837db2.c":25:10 678 {*divmodsi4}
+     (expr_list:REG_DEAD (reg:SI 101 [ _8 ])
+        (expr_list:REG_UNUSED (reg:SI 117)
+            (expr_list:REG_UNUSED (reg:CC 17 flags)
+                (nil)))))
+during RTL pass: reload
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp8a24r6nr/b3837db2.c:54:1: internal compiler error: in curr_insn_transform, at lra-constraints.cc:4871
+0x2ccb70b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xd03700 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x8cfe27 _fatal_insn(char const*, rtx_def const*, char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/rtl-error.cc:108
+0x8841c4 curr_insn_transform
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/lra-constraints.cc:4871
+0x12ec4e6 lra_constraints(bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/lra-constraints.cc:6223
+0x12ce3e4 lra(_IO_FILE*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/lra.cc:2511
+0x12798a7 do_reload
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/ira.cc:6097
+0x12798a7 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/ira.cc:6285
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp8a24r6nr/b3837db2.c -quiet -dumpbase b3837db2.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Os -O2 -std=c90 -fPIC -ffixed-rax -ffixed-rbx -ffixed-rcx -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

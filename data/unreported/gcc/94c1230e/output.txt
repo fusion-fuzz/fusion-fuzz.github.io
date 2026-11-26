@@ -1,0 +1,63 @@
+[... 898 lines / 74,940 bytes of output truncated before crash signature ...]
+      |                             ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgwhum1tj/b8b1c453.cc:237:7: note: but 'S::s' is a data member
+  237 |   int s;
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgwhum1tj/b8b1c453.cc:707:31: error: cannot use constructor or destructor 'constexpr S::S(const S&)' in a splice expression
+  707 |   static_assert (s.template [:members_of (^^A, uctx)[5]:] (10, 1.0f) == 84);
+      |                             ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgwhum1tj/b8b1c453.cc:708:31: error: cannot use constructor or destructor 'constexpr S::S(const S&)' in a splice expression
+  708 |   static_assert (s.template [:members_of (^^A, uctx)[5]:] (20L, 1.0) == 94);
+      |                             ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgwhum1tj/b8b1c453.cc:709:31: error: cannot use constructor or destructor 'constexpr S::S(const S&)' in a splice expression
+  709 |   static_assert (s.template [:members_of (^^A, uctx)[5]:] (30LL, 1.0L) == 104);
+      |                             ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgwhum1tj/b8b1c453.cc:713:31: error: cannot use constructor or destructor 'constexpr S::S(int)' in a splice expression
+  713 |   static_assert (s.template [:members_of (^^A, uctx)[3]:] <float> (10, 1.0f) == 82);
+      |                             ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgwhum1tj/b8b1c453.cc:714:31: error: cannot use constructor or destructor 'constexpr S::S(int)' in a splice expression
+  714 |   static_assert (s.template [:members_of (^^A, uctx)[3]:] <double> (20L, 1.0) == 92);
+      |                             ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgwhum1tj/b8b1c453.cc:715:31: error: cannot use constructor or destructor 'constexpr S::S(int)' in a splice expression
+  715 |   static_assert (s.template [:members_of (^^A, uctx)[3]:] <long double> (30LL, 1.0L) == 102);
+      |                             ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgwhum1tj/b8b1c453.cc:716:31: error: 'int S::s' is not a function template
+  716 |   static_assert (s.template [:members_of (^^A, uctx)[4]:] <float> (10, 1.0f) == 83);
+      |                             ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgwhum1tj/b8b1c453.cc:716:31: internal compiler error: in tsubst_splice_expr, at cp/pt.cc:17180
+0x3046dcb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xdd9a1e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x856211 tsubst_splice_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:17180
+0x104f939 tsubst_name
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:18227
+0x104f939 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:22872
+0x104fee3 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:22451
+0x104f219 tsubst_expr(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:21978
+0x107ef3e tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:20447
+0x10806e1 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:19833
+0x107ec9e tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:20270
+0x10890c2 tsubst_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:19819
+0x10890c2 instantiate_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:28986
+0x1089e9d instantiate_decl(tree_node*, bool, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:29277
+0x1093cda instantiate_pending_templates(int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:29352
+0xef5558 c_parse_final_cleanups()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl2.cc:5882
+0x11b8648 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1455
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpgwhum1tj/b8b1c453.cc -quiet -dumpdir a- -dumpbase b8b1c453.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O2 -std=gnu++26 -fsyntax-only -fwrapv -fexceptions -freflection -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

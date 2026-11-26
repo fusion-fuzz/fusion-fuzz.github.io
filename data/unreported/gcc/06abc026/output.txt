@@ -1,0 +1,39 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfkvamdyr/dc9e61c4.cc:4:8: internal compiler error: in type_node, at cp/module.cc:9735
+    4 | export module foo;
+      |        ^~~~~~
+0x305a98b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00d26 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x82bb68 type_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:9735
+0xf9e812 tree_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:10333
+0xf9edf1 type_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:9641
+0xf9e812 tree_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:10333
+0xf9f19d type_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:9758
+0xf9e812 tree_node
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:10333
+0xfa06bf core_vals
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:6727
+0xfa06bf tree_node_vals
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:7893
+0xf9c03a decl_value
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:8539
+0xfa5196 depset::hash::find_dependencies(module_state*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:15736
+0xfa5e31 module_state::write_begin(elf_out*, cpp_reader*, module_state_config&, unsigned int&)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:21118
+0xfa7974 finish_module_processing(cpp_reader*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/module.cc:24015
+0xf1d530 c_parse_final_cleanups()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl2.cc:6122
+0x11e18a8 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1460
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfkvamdyr/dc9e61c4.cc -quiet -dumpbase dc9e61c4.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O0 -std=c++14 -fmodules -fopenmp-simd -o /tmp/cc4vwIDI.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

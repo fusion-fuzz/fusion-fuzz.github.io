@@ -1,0 +1,9 @@
+HloModule pjit_f, num_partitions=2
+
+ENTRY %main.2 {
+  %lhs = u32[] partition-id(), sharding={manual}
+  %tuple.1 = () tuple()
+  %ffl.root = ((), u32[]) tuple(%tuple.1, %lhs)
+  %lhs.d = u32[] partition-id(), sharding={manual}
+  ROOT %ffl.root.1 = ((), u32[], u32[]) tuple(%tuple.1, %lhs, %lhs.d)
+}

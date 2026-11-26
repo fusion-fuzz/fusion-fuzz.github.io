@@ -1,0 +1,11 @@
+HloModule m
+
+ENTRY e {
+  p0 = f32[16] parameter(0)
+  tok = token[] after-all()
+  snd = (f32[16], u32[], token[]) send(p0, tok), channel_id=1, frontend_attributes={_xla_send_recv_source_target_pairs="{{0,1}}"}
+  sd = token[] send-done(snd), channel_id=1
+  rcv = (f32[16], u32[], token[]) recv(tok), channel_id=1, frontend_attributes={_xla_send_recv_source_target_pairs="{{0,1}}"}
+  rd = (f32[16], token[]) recv-done(rcv), channel_id=1
+  ROOT d = f32[16] get-tuple-element(rd), index=0
+}

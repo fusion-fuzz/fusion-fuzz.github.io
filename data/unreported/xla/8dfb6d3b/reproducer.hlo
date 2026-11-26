@@ -1,0 +1,19 @@
+HloModule multiple_output_fusion_1
+
+%fused_computation.1 {
+  %param0 = f32[4,30,56]{2,1,0} parameter(0)
+  %convert = f16[4,30,56]{2,1,0} convert(param0)
+  ROOT %t = f16[4,56,30]{2,1,0} transpose(convert), dimensions={0,2,1}
+}
+
+ENTRY %copy_in_fusion_run_without_hlo_passes {
+  %para0 = f32[4,30,56]{2,1,0} parameter(0)
+  %x = f32[50,2] parameter(1)
+  %y = f32[2,2] parameter(2)
+  %dot = f32[50,2] dot(%x, %y), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %fusion.1 = f16[4,56,30]{2,1,0} fusion(para0), kind=kLoop, calls=fused_computation.1
+  %ffl.root = (f16[4,56,30]{2,1,0}, f32[50,2]) tuple(%fusion.1, %dot)
+  %y.d = f32[2,2] parameter(3)
+  %dot.d = f32[50,2] dot(%x, %y.d), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  ROOT %ffl.root.1 = (f16[4,56,30]{2,1,0}, f32[50,2], f32[50,2]) tuple(%fusion.1, %dot, %dot.d)
+}

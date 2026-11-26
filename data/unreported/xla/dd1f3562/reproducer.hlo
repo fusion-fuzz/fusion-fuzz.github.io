@@ -1,0 +1,46 @@
+HloModule test, num_partitions=4
+
+%compare {
+  %p0 = f8e5m2[] parameter(0)
+  %p1 = f8e5m2[] parameter(1)
+  %p2 = s32[] parameter(2)
+  %p3 = s32[] parameter(3)
+  ROOT %cmp = pred[] compare(p0, p1), direction=LT
+}
+
+ENTRY %main {
+  %p0 = f32[64] parameter(0)
+  %p1 = f32[64] parameter(1)
+  %p2 = f32[64] parameter(2)
+  %after_all = token[] after-all()
+  %send_start = (f32[64], u32[], token[]) send(p0, after_all), frontend_attributes={_xla_send_recv_source_target_pairs={{0,1},{1,2},{2,3}},_xla_gpu_collective_stream="p2p"}
+  %send_done = token[] send-done(send_start)
+  %cp_start = (f32[64], f32[64], u32[], u32[]) collective-permute-start(p1), source_target_pairs={{0,1},{1,2},{2,3},{3,0}}, channel_id=1, frontend_attributes={_xla_gpu_collective_stream="p2p"}, control-predecessors={send_done}
+  %cp_done = f32[64] collective-permute-done(cp_start)
+  %add_0 = f32[64] add(p2, p2)
+  %add_1 = f32[64] add(add_0, add_0)
+  %add_2 = f32[64] add(add_1, add_1)
+  %recv_start = (f32[64], u32[], token[]) recv(after_all), frontend_attributes={_xla_send_recv_source_target_pairs={{0,1},{1,2},{2,3}},_xla_gpu_collective_stream="p2p"}, control-predecessors={cp_done}
+  %recv_done = (f32[64], token[]) recv-done(recv_start)
+  %recv_data = f32[64] get-tuple-element(recv_done), index=0
+  %tuple = (f32[64], f32[64]) tuple(cp_done, add_2)
+  %k = f8e5m2[100] parameter(3)
+  %v = s32[100] parameter(4)
+  %sort = (f8e5m2[100], s32[100]) sort(%k, %v), dimensions={0}, to_apply=%compare, is_stable=true
+  %p0.d = f32[64] parameter(5)
+  %p2.d = f32[64] parameter(6)
+  %after_all.d = token[] after-all()
+  %send_start.d = (f32[64], u32[], token[]) send(%p0.d, %after_all.d), frontend_attributes={_xla_send_recv_source_target_pairs={{0,1},{1,2},{2,3}},_xla_gpu_collective_stream="p2p"}
+  %send_done.d = token[] send-done(%send_start.d)
+  %cp_start.d = (f32[64], f32[64], u32[], u32[]) collective-permute-start(%add_2), source_target_pairs={{0,1},{1,2},{2,3},{3,0}}, channel_id=1, frontend_attributes={_xla_gpu_collective_stream="p2p"}, control-predecessors={%send_done.d}
+  %cp_done.d = f32[64] collective-permute-done(%cp_start.d)
+  %add_0.d = f32[64] add(%p2.d, %p2.d)
+  %add_1.d = f32[64] add(%add_0.d, %add_0.d)
+  %add_2.d = f32[64] add(%add_1.d, %add_1.d)
+  %recv_start.d = (f32[64], u32[], token[]) recv(%after_all.d), frontend_attributes={_xla_send_recv_source_target_pairs={{0,1},{1,2},{2,3}},_xla_gpu_collective_stream="p2p"}, control-predecessors={%cp_done.d}
+  %recv_done.d = (f32[64], token[]) recv-done(%recv_start.d)
+  %recv_data.d = f32[64] get-tuple-element(%recv_done.d), index=0
+  %tuple.d = (f32[64], f32[64]) tuple(%cp_done.d, %add_2.d)
+  %ffl.root = ((f8e5m2[100], s32[100]), (f32[64], f32[64])) tuple(%sort, %tuple.d)
+  ROOT %ffl.root.1 = ((f32[64], f32[64]), (f8e5m2[100], s32[100]), (f32[64], f32[64])) tuple(%tuple, %sort, %tuple.d)
+}

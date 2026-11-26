@@ -1,0 +1,52 @@
+
+=== Iteration 1
+Running HLO module with runner HloRunner...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1790070235.535770 2213190 shape.h:397] Check failed: has_layout() f64[]
+*** Check failure stack trace: ***
+    @     0x5d52f9c2ee84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5d52f9c2ee06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5d52efb29e3c  xla::Shape::layout()
+    @     0x5d52f8d6db9a  xla::HloEvaluator::ElementWiseUnaryOpImpl<>()
+    @     0x5d52f8d6d9b6  xla::HloEvaluatorTypedVisitor<>::ElementWiseUnaryOp<>()
+    @     0x5d52f8d50183  xla::HloEvaluatorTypedVisitor<>::HandleNegate<>()
+    @     0x5d52f8d5012e  xla::HloEvaluatorTypedVisitor<>::HandleNegate()
+    @     0x5d52f9559a09  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x5d52f9557b37  xla::HloInstruction::Visit<>()
+    @     0x5d52f8b1b316  xla::HloEvaluator::DefaultAction()
+    @     0x5d52f8b1ad62  xla::DfsHloVisitorWithDefaultBase<>::HandleElementwiseUnary()
+    @     0x5d52f952b13f  xla::DfsHloVisitorBase<>::HandleNegate()
+    @     0x5d52f9559a09  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x5d52f9557b37  xla::HloInstruction::Visit<>()
+    @     0x5d52f8af80e6  xla::HloEvaluator::EvaluateInternal()
+    @     0x5d52f8af7c65  xla::HloEvaluator::EvaluateInternal()
+    @     0x5d52f8af7328  xla::HloEvaluator::Evaluate()
+    @     0x5d52f8b0a887  xla::HloEvaluator::HandleFusion()
+    @     0x5d52f95591de  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x5d52f9557b37  xla::HloInstruction::Visit<>()
+    @     0x5d52f9556d00  xla::HloInstruction::Accept<>()
+    @     0x5d52efb081f2  xla::HloComputation::Accept<>()
+    @     0x5d52f8af5f9f  xla::HloEvaluator::Evaluate()
+    @     0x5d52f8b0ac55  xla::HloEvaluator::HandleConditional()
+    @     0x5d52f95595f5  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x5d52f9557b37  xla::HloInstruction::Visit<>()
+    @     0x5d52f9556d00  xla::HloInstruction::Accept<>()
+    @     0x5d52efb080a5  xla::HloComputation::Accept<>()
+    @     0x5d52f8af5f9f  xla::HloEvaluator::Evaluate()
+    @     0x5d52f8af7142  xla::HloEvaluator::Evaluate()
+    @     0x5d52efb3ae7b  xla::InterpreterLoadedExecutable::Evaluate()
+    @     0x5d52efb39b04  xla::InterpreterLoadedExecutable::ExecuteSharded()
+    @     0x5d52f80d7704  xla::HloRunner::ExecuteWithDeviceBuffers()
+    @     0x5d52f80d8643  xla::HloRunner::ExecuteWithExecutable()
+    @     0x5d52f80e1a70  xla::HloRunnerInterface::ExecuteWithExecutable()
+    @     0x5d52f80d728d  xla::HloRunner::Execute()
+    @     0x5d52f80e174e  xla::HloRunnerInterface::Execute()
+    @     0x5d52efb14057  xla::(anonymous namespace)::ExecuteWithRunner()
+    @     0x5d52efb0e927  xla::(anonymous namespace)::RunAndCompareInternal()
+    @     0x5d52efb0c8a7  xla::RunAndCompare()
+    @     0x5d52efb0fe8e  xla::RunAndCompare()
+    @     0x5d52efb09a8f  main
+    @     0x7eea3705cd90  (unknown)
+Aborted (core dumped)
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmpast5fmla/ca127ba0.hlo**

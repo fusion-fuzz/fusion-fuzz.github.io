@@ -1,0 +1,3 @@
+run_hlo_module --platform=interpreter --reference_platform= --random_init_input_literals=true clamp_scalar.hlo
+run_hlo_module --platform=cpu --reference_platform= --random_init_input_literals=true clamp_scalar.hlo
+hlo-opt --platform=cpu --stage=hlo --o=/dev/null clamp_scalar.hlo # accepted

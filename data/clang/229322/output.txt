@@ -1,0 +1,50 @@
+clang++: warning: unable to find a Visual Studio installation; try running Clang from a developer command prompt [-Wmsvc-not-found]
+clang++: warning: argument unused during compilation: '--gcc-toolchain=/opt/compiler-explorer/gcc-snapshot' [-Wunused-command-line-argument]
+clang-24: /root/llvm-project/llvm/tools/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp:368: void {anonymous}::CGRecordLowering::lowerUnion(bool): Assertion `(Layout.getSize().isMultipleOf(StorageAlignment) || !Layout.getDataSize().isMultipleOf(StorageAlignment)) && "Union's standard layout and no_unique_address layout must agree on " "packedness"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24 -cc1 -triple i686-pc-windows-msvc19.33.0 -emit-obj -dumpdir /app/output.s- -disable-free -clear-ast-before-backend -main-file-name example.cpp -mrelocation-model static -mframe-pointer=all -relaxed-aliasing -fmath-errno -ffp-contract=on -fno-rounding-math -fno-verbose-asm -mconstructor-aliases -fms-volatile -target-cpu pentium4 -tune-cpu generic -gno-column-info -gcodeview -debug-info-kind=constructor -fdebug-compilation-dir=/app -object-file-name=/tmp/example-55a457.o -fcoverage-compilation-dir=/app -resource-dir /cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/lib/clang/24 -internal-isystem /cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/lib/clang/24/include -fdeprecated-macro -ferror-limit 19 -fno-use-cxa-atexit -fms-extensions -fms-compatibility -fwrapv -fms-compatibility-version=19.33 -std=c++14 -fskip-odr-check-in-gmf -fdelayed-template-parsing -fcxx-exceptions -fexceptions -fcolor-diagnostics -faddrsig -o /tmp/example-55a457.o -x c++ <source>
+1.	<eof> parser at end of file
+2.	<source>:1:7: LLVM IR generation of declaration 'U'
+3.	<source>:1:23: Generating code for declaration 'u'
+ #0 0x00000000044c56f8 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x44c56f8)
+ #1 0x00000000044c2954 llvm::sys::RunSignalHandlers() (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x44c2954)
+ #2 0x00000000044c2ace SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00000000044c2b78 SignalHandlerTerminate(int, siginfo_t*, void*) Signals.cpp:0:0
+ #4 0x000077c31bc45330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x000077c31bc9ec0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #6 0x000077c31bc4527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x000077c31bc288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x000077c31bc2881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x000077c31bc3b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x0000000004b3cdfb (anonymous namespace)::CGRecordLowering::lowerUnion(bool) CGRecordLayoutBuilder.cpp:0:0
+#11 0x0000000004b3dfea (anonymous namespace)::CGRecordLowering::lower(bool) CGRecordLayoutBuilder.cpp:0:0
+#12 0x0000000004b401b6 clang::CodeGen::CodeGenTypes::ComputeRecordLayout(clang::RecordDecl const*, llvm::StructType*) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4b401b6)
+#13 0x0000000004c9b2f4 clang::CodeGen::CodeGenTypes::ConvertRecordDeclType(clang::RecordDecl const*) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4c9b2f4)
+#14 0x0000000004c9e60f clang::CodeGen::CodeGenTypes::getCGRecordLayout(clang::RecordDecl const*) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4c9e60f)
+#15 0x0000000004c9e8db clang::CodeGen::CodeGenTypes::isZeroInitializable(clang::QualType) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4c9e8db)
+#16 0x0000000004a03788 clang::CodeGen::CodeGenModule::EmitNullConstant(clang::QualType) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4a03788)
+#17 0x0000000004a0d661 clang::CodeGen::ConstantEmitter::tryEmitPrivateForVarInit(clang::VarDecl const&) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4a0d661)
+#18 0x0000000004a0d89e clang::CodeGen::ConstantEmitter::tryEmitForInitializer(clang::VarDecl const&) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4a0d89e)
+#19 0x0000000004c16c12 clang::CodeGen::CodeGenModule::EmitGlobalVarDefinition(clang::VarDecl const*, bool) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4c16c12)
+#20 0x0000000004c423b1 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4c423b1)
+#21 0x0000000004c43430 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4c43430)
+#22 0x0000000004c507fb clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) (.part.0) CodeGenModule.cpp:0:0
+#23 0x0000000004fc71b9 (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl(clang::DeclGroupRef) ModuleBuilder.cpp:0:0
+#24 0x0000000004fbbac4 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4fbbac4)
+#25 0x0000000006e02244 clang::ParseAST(clang::Sema&, bool, bool) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x6e02244)
+#26 0x0000000004fc48c8 clang::CodeGenAction::ExecuteAction() (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x4fc48c8)
+#27 0x00000000052e5e38 clang::FrontendAction::Execute() (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x52e5e38)
+#28 0x0000000005273635 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x5273635)
+#29 0x00000000053bacdd clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0x53bacdd)
+#30 0x0000000000d9b3d8 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0xd9b3d8)
+#31 0x0000000000d9229a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#32 0x0000000000d9663e clang_main(int, char**, llvm::ToolContext const&) (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0xd9663e)
+#33 0x0000000000cd9563 main (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0xcd9563)
+#34 0x000077c31bc2a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#35 0x000077c31bc2a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#36 0x0000000000d91c45 _start (/cefs/be/be77fad7b501946005016dda_clang-assertions-trunk-20261005/bin/clang-24+0xd91c45)
+clang++: error: unable to execute command: Aborted (core dumped)
+clang++: error: clang frontend command failed with exit code -2 (use -v to see invocation)
+Program terminated with signal SIGABRT (6)
+x86-64 clang (assertions trunk) - 1661ms

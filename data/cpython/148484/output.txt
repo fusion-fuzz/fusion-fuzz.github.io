@@ -1,0 +1,14 @@
+ValueError: bad typecode (must be b, B, u, w, h, H, i, I, l, L, q, Q, f or d)
+
+=================================================================
+==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 64 byte(s) in 1 object(s) allocated from:
+    #0 malloc
+    #1 _PyMem_DebugRawAlloc  Objects/obmalloc.c:3097
+    #2 _PyObject_New          Objects/object.c:556
+    #3 fast_range_iter        Objects/rangeobject.c:1024
+    #4 PyObject_GetIter       Objects/abstract.c:2825
+    #5 cfunction_vectorcall_FASTCALL  Objects/methodobject.c:449
+
+SUMMARY: AddressSanitizer: 64 byte(s) leaked in 1 allocation(s).

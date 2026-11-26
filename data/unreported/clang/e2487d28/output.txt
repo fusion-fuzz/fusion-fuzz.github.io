@@ -1,0 +1,118 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:22:10: error: expected expression
+   22 |   V<self*> vec([self protocolMethod]);
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:26:10: error: expected expression
+   26 |   V<self*> va; return va;
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:8:33: error: field has incomplete type 'self'
+    8 | template<class va> class V { va x; }; // expected-error {{field has incomplete type 'self'}}
+      |                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:28:1: note: in instantiation of template class 'V<self>' requested here
+   28 | - (V<self>)method2 { // expected-note {{in instantiation of}}
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:7:7: note: forward declaration of 'self'
+    7 | class self; // expected-note {{forward declaration of 'self'}}
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:16:12: warning: class 'I' defined without specifying a base class [-Wobjc-root-class]
+   16 | @interface I<Protocol>
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:16:13: note: add a super class to fix this problem
+   16 | @interface I<Protocol>
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:70:35: error: expected expression
+   70 | static long ffl_fusion = (long)(S);
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:79:25: error: redefinition of 'V'
+   79 | template<class T> class V { T x; }
+      |                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:8:26: note: previous definition is here
+    8 | template<class va> class V { va x; }; // expected-error {{field has incomplete type 'self'}}
+      |                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:83:1: error: '@end' must appear in an Objective-C context
+   83 | @end
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:86:17: error: reimplementation of class 'I'
+   86 | @implementation I
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:20:17: note: previous definition is here
+   20 | @implementation I
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:88:9: error: no matching constructor for initialization of 'V<A *>'
+   88 |   V<A*> vec([self protocolMethod]);
+      |         ^   ~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:8:26: note: candidate constructor (the implicit copy constructor) not viable: no known conversion from 'V<self *>' to 'const V<A *>' for 1st argument
+    8 | template<class va> class V { va x; }; // expected-error {{field has incomplete type 'self'}}
+      |                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:8:26: note: candidate constructor (the implicit move constructor) not viable: no known conversion from 'V<self *>' to 'V<A *>' for 1st argument
+    8 | template<class va> class V { va x; }; // expected-error {{field has incomplete type 'self'}}
+      |                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:8:26: note: candidate constructor (the implicit default constructor) not viable: requires 0 arguments, but 1 was provided
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:8:33: error: field has incomplete type 'A'
+    8 | template<class va> class V { va x; }; // expected-error {{field has incomplete type 'self'}}
+      |                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:94:1: note: in instantiation of template class 'V<A>' requested here
+   94 | - (V<A>)method2 { // expected-note {{in instantiation of}}
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:77:7: note: forward declaration of 'A'
+   77 | class A;
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:91:1: warning: conflicting return type in implementation of 'protocolMethod': 'V<self *>' vs 'V<A *>' [-Wmismatched-return-types]
+   91 | - (V<A*>)protocolMethod {
+      | ^  ~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:11:1: note: previous definition is here
+   11 | - (V<self*>)protocolMethod;
+      | ^  ~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:94:1: warning: conflicting return type in implementation of 'method2': 'V<self>' vs 'V<A>' [-Wmismatched-return-types]
+   94 | - (V<A>)method2 { // expected-note {{in instantiation of}}
+      | ^  ~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:12:1: note: previous definition is here
+   12 | - (V<self>)method2;
+      | ^  ~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:16:12: warning: class 'I' defined without specifying a base class [-Wobjc-root-class]
+   16 | @interface I<Protocol>
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:16:13: note: add a super class to fix this problem
+   16 | @interface I<Protocol>
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:97:11: warning: duplicate protocol definition of 'Protocol' is ignored [-Wduplicate-protocol]
+   97 | @protocol Protocol
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:10:11: note: previous definition is here
+   10 | @protocol Protocol
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:103:1: error: duplicate interface definition for class 'I'
+  103 | @interface I<Protocol>
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:16:12: note: previous definition is here
+   16 | @interface I<Protocol>
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:107:17: error: reimplementation of class 'I'
+  107 | @implementation I
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:20:17: note: previous definition is here
+   20 | @implementation I
+      |                 ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/DeclObjC.cpp:1391: void clang::ObjCMethodDecl::getOverriddenMethods(llvm::SmallVectorImpl<const clang::ObjCMethodDecl*>&) const: Assertion `!Overridden.empty() && "ObjCMethodDecl's overriding bit is not as expected"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O3 -std=c++20 -fblocks -fobjc-runtime=ios-7 -fno-objc-arc -Wall -fno-inline -target x86_64-unknown-linux-gnu -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:109:34: current parser token ')'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:108:31: parsing function body '-[I randomMethod:]'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp73_0rcdy/7f552ea5.mm:108:31: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005e2f6c27a329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005e2f6c276fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005e2f6c2778a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005e2f6c1b9218
+4  libc.so.6 0x00007d139930f520
+5  libc.so.6 0x00007d13993639bc pthread_kill + 300
+6  libc.so.6 0x00007d139930f476 raise + 22
+7  libc.so.6 0x00007d13992f57f3 abort + 211
+8  libc.so.6 0x00007d13992f571b
+9  libc.so.6 0x00007d1399306e96
+10 clang++   0x00005e2f6fd6224c clang::ObjCMethodDecl::getOverriddenMethods(llvm::SmallVectorImpl<clang::ObjCMethodDecl const*>&) const + 284
+11 clang++   0x00005e2f6fd63860 clang::ObjCMethodDecl::findPropertyDecl(bool) const + 176
+12 clang++   0x00005e2f6f01d04d clang::Sema::DiagnoseUseOfDecl(clang::NamedDecl*, llvm::ArrayRef<clang::SourceLocation>, clang::ObjCInterfaceDecl const*, bool, bool, clang::ObjCInterfaceDecl*, bool) + 765
+13 clang++   0x00005e2f6f166954 clang::SemaObjC::BuildInstanceMessage(clang::Expr*, clang::QualType, clang::SourceLocation, clang::Selector, clang::ObjCMethodDecl*, clang::SourceLocation, llvm::ArrayRef<clang::SourceLocation>, clang::SourceLocation, llvm::MutableArrayRef<clang::Expr*>, bool) + 932
+14 clang++   0x00005e2f6f168bfb clan
+[... truncated ...]

@@ -1,0 +1,97 @@
+error[E0210]: type parameter `A` must be used as an argument to some local type (e.g., `MyStruct<A>`)
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp70zcwunr/7ef37777.rs:9:6
+  |
+9 | impl<A> std::ops::CoerceUnsized<A> for A {}
+  |      ^ uncovered type parameter
+  |
+  = note: implementing a foreign trait is only possible if at least one of the types for which it is implemented is local
+  = note: only traits defined in the current crate can be implemented for a type parameter
+
+error[E0210]: type parameter `A` must be used as an argument to some local type (e.g., `MyStruct<A>`)
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp70zcwunr/7ef37777.rs:48:6
+   |
+48 | impl<A> std::ops::CoerceUnsized<A> for A {}
+   |      ^ uncovered type parameter
+   |
+   = note: implementing a foreign trait is only possible if at least one of the types for which it is implemented is local
+   = note: only traits defined in the current crate can be implemented for a type parameter
+
+error[E0377]: the trait `CoerceUnsized` may only be implemented for a coercion between structures
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp70zcwunr/7ef37777.rs:9:1
+  |
+9 | impl<A> std::ops::CoerceUnsized<A> for A {}
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0377]: the trait `CoerceUnsized` may only be implemented for a coercion between structures
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp70zcwunr/7ef37777.rs:48:1
+   |
+48 | impl<A> std::ops::CoerceUnsized<A> for A {}
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: internal compiler error: compiler/rustc_const_eval/src/interpret/cast.rs:519:17: invalid pointer unsizing &Option<NoDerive> -> Option<NoDerive>
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp70zcwunr/7ef37777.rs:96:23
+   |
+96 | const ADDR_OF: &OND = &None;
+   |                       ^^^^^
+
+
+thread 'rustc' (3252997) panicked at compiler/rustc_const_eval/src/interpret/cast.rs:519:17:
+Box<dyn Any>
+stack backtrace:
+   0: std::panicking::begin_panic::<rustc_errors::ExplicitBug>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:751:5
+   1: std::panic::panic_any::<rustc_errors::ExplicitBug>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panic.rs:260:5
+   2: <rustc_errors::diagnostic::BugAbort as rustc_errors::diagnostic::EmissionGuarantee>::emit_producing_guarantee
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:58:9
+   3: <rustc_errors::diagnostic::Diag<rustc_errors::diagnostic::BugAbort>>::emit
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1319:9
+   4: <rustc_errors::DiagCtxtHandle>::span_bug::<rustc_span::span_encoding::Span, alloc::string::String>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:982:48
+   5: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:38:54
+   6: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:109:23
+   7: rustc_middle::ty::context::tls::with_context_opt::<rustc_middle::ty::context::tls::with_opt<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}, !>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:75:18
+   8: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:107:5
+   9: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:33:5
+  10: rustc_middle::util::bug::span_bug_fmt::<rustc_span::span_encoding::Span>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:24:5
+  11: <rustc_const_eval::interpret::eval_context::InterpCx<rustc_const_eval::const_eval::machine::CompileTimeMachine>>::unsize_into_ptr::<rustc_const_eval::interpret::place::PlaceTy>
+  12: <rustc_const_eval::interpret::eval_context::InterpCx<rustc_const_eval::const_eval::machine::CompileTimeMachine>>::unsize_into::<rustc_const_eval::interpret::place::PlaceTy>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/cast.rs:545:62
+  13: <rustc_const_eval::interpret::eval_context::InterpCx<rustc_const_eval::const_eval::machine::CompileTimeMachine>>::cast
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/cast.rs:83:22
+  14: <rustc_const_eval::interpret::eval_context::InterpCx<rustc_const_eval::const_eval::machine::CompileTimeMachine>>::eval_rvalue_into_place
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/step.rs:281:22
+  15: <rustc_const_eval::interpret::eval_context::InterpCx<rustc_const_eval::const_eval::machine::CompileTimeMachine>>::step
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/step.rs:57:18
+  16: rustc_const_eval::const_eval::eval_queries::eval_body_using_ecx::<rustc_middle::mir::consts::ConstAlloc>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:123:15
+  17: rustc_const_eval::const_eval::eval_queries::eval_in_interpreter::<rustc_middle::mir::consts::ConstAlloc>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:462:30
+  18: <rustc_middle::mir::interpret::error::InterpResult<&rustc_middle::mir::Body>>::and_then::<rustc_middle::mir::consts::ConstAlloc, rustc_const_eval::const_eval::eval_queries::eval_in_interpreter<rustc_middle::mir::consts::ConstAlloc>::{closure#0}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/interpret/error.rs:1079:54
+  19: <core::result::Result<&rustc_middle::mir::Body, rustc_middle::mir::interpret::error::InterpErrorInfo>>::and_then::<rustc_middle::mir::consts::ConstAlloc, <rustc_middle::mir::interpret::error::InterpResult<&rustc_middle::mir::Body>>::and_then<rustc_middle::mir::consts::ConstAlloc, rustc_const_eval::const_eval::eval_queries::eval_in_interpreter<rustc_middle::mir::consts::ConstAlloc>::{closure#0}>::{closure#0}>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/result.rs:1492:22
+  20: <rustc_middle::mir::interpret::error::InterpResult<&rustc_middle::mir::Body>>::and_then::<rustc_middle::mir::consts::ConstAlloc, rustc_const_eval::const_eval::eval_queries::eval_in_interpreter<rustc_middle::mir::consts::ConstAlloc>::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/interpret/error.rs:1079:41
+  21: rustc_const_eval::const_eval::eval_queries::eval_in_interpreter::<rustc_middle::mir::consts::ConstAlloc>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:462:14
+  22: rustc_const_eval::const_eval::eval_queries::eval_to_allocation_raw_provider
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:434:5
+      [... omitted 13 frames ...]
+  23: rustc_middle::query::calls::query_get_at::<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::mir::interpret::GlobalId>, rustc_middle::query::erase::ErasedData<[u8; 24]>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:154:17
+  24: <rustc_middle::query::calls::TyCtxtAt>::eval_to_allocation_raw
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:287:61
+  25: <rustc_middle::ty::context::TyCtxt>::eval_to_allocation_raw
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:277:39
+  26: rustc_const_eval::const_eval::eval_queries::eval_to_const_value_raw_provider
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:374:9
+      [... omitted 13 frames ...]
+  27: rustc_middle::query::calls::query_get_at::<rustc_middle::que
+[... truncated ...]

@@ -1,0 +1,62 @@
+HloModule ForwardingChainsLatePinRipple
+
+%fcond {
+  %pc = (f32[4,4], f32[4,4], s32[]) parameter(0)
+  %ic = s32[] get-tuple-element(pc), index=2
+  %lim = s32[] constant(6)
+  ROOT %lt = pred[] compare(ic, lim), direction=LT
+}
+
+%fbody {
+  %pb = (f32[4,4], f32[4,4], s32[]) parameter(0)
+  %x = f32[4,4] get-tuple-element(pb), index=0
+  %y = f32[4,4] get-tuple-element(pb), index=1
+  %i = s32[] get-tuple-element(pb), index=2
+  %one = s32[] constant(1)
+  %ni = s32[] add(i, one)
+  %t1 = (f32[4,4], f32[4,4]) tuple(y, x)
+  %xg = f32[4,4] get-tuple-element(t1), index=0
+  %yg = f32[4,4] get-tuple-element(t1), index=1
+  %nx = f32[4,4] dot(xg, xg), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  ROOT %tb = (f32[4,4], f32[4,4], s32[]) tuple(nx, yg, ni)
+}
+
+%fused_computation {
+  %p0 = f32[10,20,30] parameter(0)
+  %p1 = s32[] parameter(1)
+  %p2 = s32[] parameter(2)
+  %p3 = s32[] parameter(3)
+  %slice = f32[1,1,30] dynamic-slice(p0, p1, p2, p3), dynamic_slice_sizes={1,1,30}
+  ROOT %dus = f32[10,20,30] dynamic-update-slice(p0, slice, p1, p2, p3)
+}
+
+%fused_computation.d {
+  %p0 = f32[10,20,30] parameter(0)
+  %p1 = s32[] parameter(1)
+  %p2 = s32[] parameter(2)
+  %p3 = s32[] parameter(3)
+  %slice = f32[1,1,30] dynamic-slice(p0, p1, p2, p3), dynamic_slice_sizes={1,1,30}
+  ROOT %dus = f32[10,20,30] dynamic-update-slice(p0, slice, p1, p2, p3)
+}
+
+ENTRY %main {
+  %pa = f32[4,4] parameter(0)
+  %pb0 = f32[4,4] parameter(1)
+  %zero = s32[] constant(0)
+  %init = (f32[4,4], f32[4,4], s32[]) tuple(pa, pb0, zero)
+  %w = (f32[4,4], f32[4,4], s32[]) while(init), condition=fcond, body=fbody
+  %g0 = f32[4,4] get-tuple-element(w), index=0
+  %g1 = f32[4,4] get-tuple-element(w), index=1
+  %t2 = (f32[4,4], f32[4,4]) tuple(g0, g1)
+  %p0 = f32[10,20,30] parameter(2)
+  %fusion = f32[10,20,30] fusion(%p0, %zero, %zero, %zero), kind=kLoop, calls=%fused_computation
+  %g2 = f32[4,4] get-tuple-element(t2), index=0
+  %g3 = f32[4,4] get-tuple-element(t2), index=1
+  %d = f32[4,4] dot(g2, g2), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %ex = f32[4,4] maximum(pa, pa)
+  %dex = f32[4,4] dot(ex, ex), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %out = (f32[4,4], f32[4,4], f32[4,4]) tuple(d, g3, dex)
+  %ffl.root = ((f32[4,4], f32[4,4], f32[4,4]), f32[10,20,30]) tuple(%out, %fusion)
+  %ffl.call = f32[10,20,30] call(%fusion, %zero, %zero, %zero), to_apply=%fused_computation.d
+  ROOT %ffl.root.1 = ((f32[4,4], f32[4,4], f32[4,4]), f32[10,20,30], f32[10,20,30]) tuple(%out, %fusion, %ffl.call)
+}

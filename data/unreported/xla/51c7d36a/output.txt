@@ -1,0 +1,31 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+W0000 00:00:1792030619.049140 1667712 sharding_propagation.cc:3202] GSPMD sharding propagation is going to be deprecated and not supported in the future. Please consider migrating to Shardy (https://openxla.org/shardy). For reference, Shardy is already the default partitioner in JAX.
+F0000 00:00:1792030619.049323 1667712 tile_assignment.cc:407] Check failed: reshape_ndims_ == new_perm.size() (3 vs. 4) 
+*** Check failure stack trace: ***
+    @     0x615cdc3c1a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x615cdc3c19e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x615cdbedc60e  xla::IotaTileAssignment::Transpose()
+    @     0x615cdbede8f4  xla::TileAssignment::Transpose()
+    @     0x615cd41af4aa  xla::hlo_sharding_util::TransposeSharding()
+    @     0x615cd41bd25d  xla::hlo_sharding_util::TransposeShardingWithCollapsedDims()
+    @     0x615cd41bc91c  xla::hlo_sharding_util::TransposeShardingWithCollapsedDims()
+    @     0x615cd400bff3  xla::InferDotShardingFromOperands()::$_0::operator()()
+    @     0x615cd400ad70  xla::InferDotShardingFromOperands()
+    @     0x615cd401532e  xla::ShardingPropagation::InferShardingFromOperands()
+    @     0x615cd401aa4c  xla::ShardingPropagation::RunToFixPoint()
+    @     0x615cd4020dc3  xla::ShardingPropagation::RunImpl()
+    @     0x615cd8478be7  xla::HloPassInterface::Run()
+    @     0x615cd3ff63ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x615cd3ff17bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x615cd3ff0bd5  xla::HloPassPipeline::RunImpl()
+    @     0x615cd8478be7  xla::HloPassInterface::Run()
+    @     0x615cd0f44fd2  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x615cd0f5206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x615cd0e86934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x615cd0e86e85  xla::CompiledOptProvider::GetExecutable()
+    @     0x615cd0e78ed1  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x615cdc412466  main
+    @     0x743642dd4d90  (unknown)
+Aborted (core dumped)

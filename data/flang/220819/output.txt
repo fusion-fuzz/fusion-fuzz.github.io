@@ -1,0 +1,54 @@
+loc("/app/example.f90":4:3): error: cannot implicitly convert between two floating-point representations of the same bitwidth
+loc("/app/example.f90":4:3): error: cannot implicitly convert between two floating-point representations of the same bitwidth
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24 -fc1 -triple x86_64-unknown-linux-gnu -emit-obj -fno-color-diagnostics -mrelocation-model pic -pic-level 2 -pic-is-pie -target-cpu x86-64 -debug-info-kind=standalone -dwarf-version=5 -resource-dir /cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/lib/clang/24 -fintrinsic-modules-path /cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/lib/clang/24/finclude/flang/x86_64-unknown-linux-gnu -mframe-pointer=all -o /tmp/example-c2b297.o -x f95 /app/example.f90
+ #0 0x0000000004a9b5d8 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x4a9b5d8)
+ #1 0x0000000004a98a1d SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #2 0x00007f7c96645330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #3 0x000000000d17968f mlir::detail::OperandStorage::OperandStorage(mlir::Operation*, mlir::OpOperand*, mlir::ValueRange) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xd17968f)
+ #4 0x000000000d16c302 mlir::Operation::create(mlir::Location, mlir::OperationName, mlir::TypeRange, mlir::ValueRange, mlir::DictionaryAttr, mlir::PropertyRef, mlir::BlockRange, unsigned int) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xd16c302)
+ #5 0x000000000d16c643 mlir::Operation::create(mlir::Location, mlir::OperationName, mlir::TypeRange, mlir::ValueRange, mlir::NamedAttrList&&, mlir::PropertyRef, mlir::BlockRange, mlir::RegionRange) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xd16c643)
+ #6 0x000000000d16c891 mlir::Operation::create(mlir::OperationState const&) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xd16c891)
+ #7 0x000000000d0cd89f mlir::OpBuilder::create(mlir::OperationState const&) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xd0cd89f)
+ #8 0x000000000c7b5139 mlir::LLVM::InsertValueOp::create(mlir::OpBuilder&, mlir::Location, mlir::Value, mlir::Value, llvm::ArrayRef<long>) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xc7b5139)
+ #9 0x0000000008a14cdc (anonymous namespace)::ConvertOpConversion::matchAndRewrite(fir::ConvertOp, fir::ConvertOpAdaptor, mlir::ConversionPatternRewriter&) const CodeGen.cpp:0:0
+#10 0x0000000008a00132 llvm::LogicalResult mlir::ConversionPattern::dispatchTo1To1<fir::FIROpConversion<fir::ConvertOp>, fir::ConvertOp>(fir::FIROpConversion<fir::ConvertOp> const&, fir::ConvertOp, fir::ConvertOp::GenericAdaptor<llvm::ArrayRef<mlir::ValueRange>>, mlir::ConversionPatternRewriter&) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x8a00132)
+#11 0x0000000008a001c3 fir::FIROpConversion<fir::ConvertOp>::matchAndRewrite(mlir::Operation*, llvm::ArrayRef<mlir::ValueRange>, mlir::ConversionPatternRewriter&) const (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x8a001c3)
+#12 0x000000000ce1b1e9 mlir::ConversionPattern::matchAndRewrite(mlir::Operation*, mlir::PatternRewriter&) const (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xce1b1e9)
+#13 0x000000000ce601a4 mlir::PatternApplicator::matchAndRewrite(mlir::Operation*, mlir::PatternRewriter&, llvm::function_ref<bool (mlir::Pattern const&)>, llvm::function_ref<void (mlir::Pattern const&)>, llvm::function_ref<llvm::LogicalResult (mlir::Pattern const&)>) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xce601a4)
+#14 0x000000000ce1d8bd (anonymous namespace)::OperationLegalizer::legalize(mlir::Operation*) DialectConversion.cpp:0:0
+#15 0x000000000ce1d9c2 mlir::OperationConverter::convert(mlir::Operation*, bool) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xce1d9c2)
+#16 0x000000000ce21d66 mlir::OperationConverter::applyConversion(llvm::ArrayRef<mlir::Operation*>) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xce21d66)
+#17 0x000000000ce2337c applyConversion(llvm::ArrayRef<mlir::Operation*>, mlir::ConversionTarget const&, mlir::FrozenRewritePatternSet const&, mlir::ConversionConfig, (anonymous namespace)::OpConversionMode) DialectConversion.cpp:0:0
+#18 0x000000000ce235b5 mlir::applyFullConversion(mlir::Operation*, mlir::ConversionTarget const&, mlir::FrozenRewritePatternSet const&, mlir::ConversionConfig) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xce235b5)
+#19 0x00000000089f518e (anonymous namespace)::FIRToLLVMLowering::runOnOperation() CodeGen.cpp:0:0
+#20 0x000000000cf52671 mlir::detail::OpToOpPassAdaptor::run(mlir::Pass*, mlir::Operation*, mlir::AnalysisManager, bool, unsigned int) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xcf52671)
+#21 0x000000000cf52949 mlir::detail::OpToOpPassAdaptor::runPipeline(mlir::OpPassManager&, mlir::Operation*, mlir::AnalysisManager, bool, unsigned int, mlir::PassInstrumentor*, mlir::PassInstrumentation::PipelineParentInfo const*) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xcf52949)
+#22 0x000000000cf53aa4 mlir::PassManager::run(mlir::Operation*) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0xcf53aa4)
+#23 0x0000000004e017bb Fortran::frontend::CodeGenAction::generateLLVMIR() (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x4e017bb)
+#24 0x0000000004e07838 Fortran::frontend::CodeGenAction::executeAction() (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x4e07838)
+#25 0x0000000004afe38d Fortran::frontend::FrontendAction::execute() (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x4afe38d)
+#26 0x0000000004aeb4cf Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x4aeb4cf)
+#27 0x0000000004b0b90f Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x4b0b90f)
+#28 0x0000000002c43325 fc1_main(llvm::ArrayRef<char const*>, char const*) (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x2c43325)
+#29 0x0000000002b92896 main (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x2b92896)
+#30 0x00007f7c9662a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#31 0x00007f7c9662a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#32 0x0000000002c41bc5 _start (/cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin/flang-24+0x2c41bc5)
+flang-24: error: unable to execute command: Segmentation fault (core dumped)
+flang-24: error: flang frontend command failed with exit code -2 (use -v to see invocation)
+flang version 24.0.0git (https://github.com/llvm/llvm-project.git d378144735cb1021608003ee418b54d402a5ac98)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /cefs/58/587c289f30855a2a9c7a1509_clang-llvmflang-trunk-20260902/bin
+flang-24: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+flang-24: note: diagnostic msg: /tmp/example-d4d4b9
+flang-24: note: diagnostic msg: /tmp/example-d4d4b9.sh
+flang-24: note: diagnostic msg: 
+
+********************
+flang-trunk - 1936ms

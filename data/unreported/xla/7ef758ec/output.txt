@@ -1,0 +1,22 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791803921.278825  584012 literal.h:950] Check failed: subshape_->IsArray() 
+*** Check failure stack trace: ***
+    @     0x60d0d0fada84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x60d0d0fada06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x60d0cfa3d7ef  xla::LiteralBase::Piece::size_bytes_dense()
+    @     0x60d0c7b5f04c  xla::(anonymous namespace)::LiteralCanonicalizerVisitor::HandleConstant()
+    @     0x60d0d01690fa  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x60d0d0168747  xla::HloInstruction::Visit<>()
+    @     0x60d0d016acbe  xla::PostOrderDFS<>()
+    @     0x60d0d0167548  xla::HloInstruction::Accept<>()
+    @     0x60d0c793d915  xla::HloComputation::Accept<>()
+    @     0x60d0c7b5ed4c  xla::LiteralCanonicalizer::RunImpl()
+    @     0x60d0d0131007  xla::HloPassInterface::Run()
+    @     0x60d0cf967a3c  xla::HloPassPipeline::RunHelper<>()
+    @     0x60d0cf962e4d  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x60d0cf962265  xla::HloPassPipeline::RunImpl()
+    @     0x60d0d0131007  xla::HloPassInterface::Run()
+    @     0x60d0c79bfd9d  xla::OptProvider::BuildAndRunTransformPipeline()
+    @     0x60d0d0ff3af8  main
+    @     0x7a63747dad90  (unknown)
+Aborted (core dumped)

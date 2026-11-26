@@ -1,0 +1,76 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpz32bpk_d/b490843c.cpp:22:10: warning: structured binding declarations are a C++17 extension [-Wc++17-extensions]
+   22 |     auto [e1, e2] = arr;
+      |          ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpz32bpk_d/b490843c.cpp:23:20: warning: captured structured bindings are a C++20 extension [-Wc++20-extensions]
+   23 |     auto lambda = [e1] { e1 = 42; };
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpz32bpk_d/b490843c.cpp:22:11: note: 'e1' declared here
+   22 |     auto [e1, e2] = arr;
+      |           ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaExpr.cpp:14114: NonConstCaptureKind isReferenceToNonConstCapture(clang::Sema&, clang::Expr*): Assertion `!isa<BlockDecl>(Binding->getDeclContext())' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O3 -std=c++11 /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpz32bpk_d/b490843c.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpz32bpk_d/b490843c.cpp:23:33: current parser token ';'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpz32bpk_d/b490843c.cpp:19:16: parsing function body 'foo_ffl'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpz32bpk_d/b490843c.cpp:19:16: in compound statement ('{}')
+4.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpz32bpk_d/b490843c.cpp:20:10: block literal parsing
+5.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpz32bpk_d/b490843c.cpp:20:11: in compound statement ('{}')
+6.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpz32bpk_d/b490843c.cpp:23:19: lambda expression parsing
+7.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpz32bpk_d/b490843c.cpp:23:24: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000562cc11184f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000562cc11151bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000562cc1115a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000562cc1057e88
+4  libc.so.6 0x00007fd06a25a520
+5  libc.so.6 0x00007fd06a2ae9bc pthread_kill + 300
+6  libc.so.6 0x00007fd06a25a476 raise + 22
+7  libc.so.6 0x00007fd06a2407f3 abort + 211
+8  libc.so.6 0x00007fd06a24071b
+9  libc.so.6 0x00007fd06a251e96
+10 clang++   0x0000562cc3ead891
+11 clang++   0x0000562cc3ef6af4 clang::Sema::CheckAssignmentOperands(clang::Expr*, clang::ActionResult<clang::Expr*, true>&, clang::SourceLocation, clang::QualType, clang::BinaryOperatorKind) + 116
+12 clang++   0x0000562cc3ef81d1 clang::Sema::CreateBuiltinBinOp(clang::SourceLocation, clang::BinaryOperatorKind, clang::Expr*, clang::Expr*, bool) + 3185
+13 clang++   0x0000562cc3efa541 clang::Sema::ActOnBinOp(clang::Scope*, clang::SourceLocation, clang::tok::TokenKind, clang::Expr*, clang::Expr*) + 209
+14 clang++   0x0000562cc3994294 clang::Parser::ParseRHSOfBinaryExpression(clang::ActionResult<clang::Expr*, true>, clang::prec::Level) + 772
+15 clang++   0x0000562cc399723d clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+16 clang++   0x0000562cc3a28281 clang::Parser::ParseExprStatement(clang::Parser::ParsedStmtContext) + 81
+17 clang++   0x0000562cc3a2023b clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 5275
+18 clang++   0x0000562cc3a20bfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+19 clang++   0x0000562cc3a28b07 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+20 clang++   0x0000562cc39ace1a clang::Parser::ParseLambdaExpressionAfterIntroducer(clang::LambdaIntroducer&) + 4906
+21 clang++   0x0000562cc39adf13 clang::Parser::ParseLambdaExpression() + 259
+22 clang++   0x0000562cc39925c5 clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 6773
+23 clang++   0x0000562cc3992f1b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+24 clang++   0x0000562cc3992fbd clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 61
+25 clang++   0x0000562cc39bd274 clang::Parser::ParseInitializer(clang::Decl*) + 52
+26 clang++   0x0000562cc394ad0f clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 2927
+27 clang++   0x0000562cc3964a2c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+28 clang++   0x0000562cc3967c1b clang::Parser::ParseSimpleDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, bool, clang::Parser::ForRangeInit*, clang::SourceLocation*) + 875
+29 clang++   0x0000562cc3968123 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 307
+30 clang++   0x0000562cc3a202ec clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 5452
+31 clang++   0x0000562cc3a20bfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+32 clang++   0x0000562cc3a28b07 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+33 clang++   0x0000562cc398d872 clang::Parser::ParseBlockLiteralExpression() + 1666
+34 clang++   0x0000562cc39921ed clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 5789
+35 clang++   0x0000562cc3992f1b clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 59
+36 clang++   0x0000562cc3992fbd clang::Parser::ParseAssignmentExpression(clang::TypoCorrectionTypeBehavior) + 61
+37 clang++   0x0000562cc399723d clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+38 clang++   0x0000562cc3a1ae26 clang::Parser::ParseReturnStatement() + 166
+39 clang++   0x0000562cc3a1f485 clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 1765
+40 clang++   0x0000562cc3a20bfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+41 clang++   0x0000562cc3a28b07 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+42 clang++   0x0000562cc3a2935f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+43 clang++   0x0000562cc391a72f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+44 clang++   0x0000562cc3965324 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+45 clang++   0x0000562cc391466c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+46 clang++   0x0000562cc3914e4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+47 clang++   0x0000562cc3920d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+48 clang++   0x0000562cc3921dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+49 clang++   0x0000562cc38fecf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+50 clang++   0x0000562cc1e06e51 clang::FrontendAction::Execute() + 65
+51 clang++   0x0000562cc1d90df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+52 clang++   0x0000562cc1edec03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+53 clang++   0x0000562cbfb27d3e cc1_main(llvm::ArrayRef<char const*>, ch
+[... truncated ...]

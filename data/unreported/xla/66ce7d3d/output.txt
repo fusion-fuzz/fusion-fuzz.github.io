@@ -1,0 +1,24 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+W0000 00:00:1792332453.514941 3935080 while_loop_trip_count_annotator.cc:229] WhileLoopTripCountAnnotator is overwriting an existing non-empty WhileLoopBackendConfig on while: goo.gle/debugstr   known_trip_count { n: 10 } known_induction_variable { tuple_index: 2 }
+F0000 00:00:1792332453.522530 3935080 hlo_instructions.cc:2625] Check failed: IsUserOf(instruction_to_append) 
+*** Check failure stack trace: ***
+    @     0x614148d79a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x614148d799e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x614148703488  xla::HloCallableInstruction::AppendInstructionIntoCalledComputation()
+    @     0x61413daf6eea  xla::gpu::ScalarConstantSinker::RunImpl()
+    @     0x614144e30be7  xla::HloPassInterface::Run()
+    @     0x6141409ae3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x6141409a97bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x6141409a8bd5  xla::HloPassPipeline::RunImpl()
+    @     0x614144e30be7  xla::HloPassInterface::Run()
+    @     0x61413d90587b  xla::gpu::(anonymous namespace)::RunPostFusionPasses()
+    @     0x61413d900505  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x61413d90a06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x61413d83e934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x61413d83e373  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x61413d830d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x614148dca466  main
+    @     0x73def2bd4d90  (unknown)
+Aborted (core dumped)

@@ -1,0 +1,55 @@
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/asr_scopes.cpp:120:39: runtime error: member access within misaligned address 0x5599ffdf6404 for type 'struct SymbolTable', which requires 8 byte alignment
+0x5599ffdf6404: note: pointer points here
+  77 6e 3e 00 31 20 33 32  20 38 20 39 20 3c 75 6e  6b 6e 6f 77 6e 3e 00 00  00 00 00 00 00 00 00 00
+              ^ 
+    #0 0x5599fc93b9eb in LCompilers::SymbolTable::get_unique_name(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/asr_scopes.cpp:120
+    #1 0x5599f586a804 in LCompilers::ASRToCVisitor::allocate_array_members_of_struct(LCompilers::ASR::Struct_t*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:168
+    #2 0x5599f5877409 in LCompilers::ASRToCVisitor::convert_variable_decl[abi:cxx11](LCompilers::ASR::Variable_t const&, LCompilers::DeclarationOptions*) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:485
+    #3 0x5599f5888b28 in LCompilers::ASRToCVisitor::visit_Program(LCompilers::ASR::Program_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:839
+    #4 0x5599f5838871 in visit_symbol_t<LCompilers::ASRToCVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:30
+    #5 0x5599f58b8dd8 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:380
+    #6 0x5599f5882ec5 in LCompilers::ASRToCVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:724
+    #7 0x5599f5847efe in visit_unit_t<LCompilers::ASRToCVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:22
+    #8 0x5599f59670d2 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_unit(LCompilers::ASR::unit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:378
+    #9 0x5599f583b44d in visit_asr_t<LCompilers::ASRToCVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:351
+    #10 0x5599f58d76d8 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_asr(LCompilers::ASR::asr_t const&) (/opt/lfortran/bin/lfortran+0x2f2856d8)
+    #11 0x5599f580d37e in LCompilers::asr_to_c[abi:cxx11](Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:1740
+    #12 0x5599f37016a1 in LCompilers::FortranEvaluator::get_c3[abi:cxx11](LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::PassManager&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:924
+    #13 0x5599f2edbe1a in emit_c /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:949
+    #14 0x5599f2f12d0d in main_app(int, char**) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:2946
+    #15 0x5599f2f19e60 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3149
+    #16 0x7ff30a9afd8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #17 0x7ff30a9afe3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #18 0x5599f29d19b4 in _start (/opt/lfortran/bin/lfortran+0x2c37f9b4)
+
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/asr_scopes.cpp:120:48: runtime error: member call on misaligned address 0x5599ffdf6404 for type 'struct map', which requires 8 byte alignment
+0x5599ffdf6404: note: pointer points here
+  77 6e 3e 00 31 20 33 32  20 38 20 39 20 3c 75 6e  6b 6e 6f 77 6e 3e 00 00  00 00 00 00 00 00 00 00
+              ^ 
+    #0 0x5599fc93ba17 in LCompilers::SymbolTable::get_unique_name(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/asr_scopes.cpp:120
+    #1 0x5599f586a804 in LCompilers::ASRToCVisitor::allocate_array_members_of_struct(LCompilers::ASR::Struct_t*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:168
+    #2 0x5599f5877409 in LCompilers::ASRToCVisitor::convert_variable_decl[abi:cxx11](LCompilers::ASR::Variable_t const&, LCompilers::DeclarationOptions*) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:485
+    #3 0x5599f5888b28 in LCompilers::ASRToCVisitor::visit_Program(LCompilers::ASR::Program_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:839
+    #4 0x5599f5838871 in visit_symbol_t<LCompilers::ASRToCVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:30
+    #5 0x5599f58b8dd8 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:380
+    #6 0x5599f5882ec5 in LCompilers::ASRToCVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:724
+    #7 0x5599f5847efe in visit_unit_t<LCompilers::ASRToCVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:22
+    #8 0x5599f59670d2 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_unit(LCompilers::ASR::unit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:378
+    #9 0x5599f583b44d in visit_asr_t<LCompilers::ASRToCVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:351
+    #10 0x5599f58d76d8 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_asr(LCompilers::ASR::asr_t const&) (/opt/lfortran/bin/lfortran+0x2f2856d8)
+    #11 0x5599f580d37e in LCompilers::asr_to_c[abi:cxx11](Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp:1740
+    #12 0x5599f37016a1 in LCompilers::FortranEvaluator::get_c3[abi:cxx11](LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::PassManager&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:924
+    #13 0x5599f2edbe1a in emit_c /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:949
+    #14 0x5599f2f12d0d in main_app(int, char**) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:2946
+    #15 0x5599f2f19e60 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3149
+    #16 0x7ff30a9afd8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #17 0x7ff30a9afe3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #18 0x5599f29d19b4 in _start (/opt/lfortran/bin/lfortran+0x2c37f9b4)
+
+/usr/include/c++/11/bits/stl_map.h:375:16: runtime error: member access within misaligned address 0x5599ffdf6404 for type 'struct map', which requires 8 byte alignment
+0x5599ffdf6404: note: pointer points here
+  77 6e 3e 00 31 20 33 32  20 38 20 39 20 3c 75 6e  6b 6e 6f 77 6e 3e 00 00  00 00 00 00 00 00 00 00
+              ^ 
+    #0 0x5599f2f893e6 in std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, LCompilers::ASR::symbol_t*, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, LCompilers::ASR::symbol_t*> > >::end() /usr/include/c++/11/bits/stl_map.h:375
+    #1 0x5599fc93ba43 in LCompilers::SymbolTable::get_unique_name(std::__cxx11::basic_
+[... truncated ...]

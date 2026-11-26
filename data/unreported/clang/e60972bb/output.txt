@@ -1,0 +1,93 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:4:30: error: format argument not a string type
+    4 | void f(int i) __attribute__((format_arg(1)));
+      |        ~~~~~                 ^          ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:7:35: error: format argument not a string type
+    7 | void g(int i, ...) __attribute__((format(printf, 1, 1)));
+      |        ~~~~~                      ^              ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:10:28: warning: 'returns_nonnull' attribute only applies to return values that are pointers [-Wignored-attributes]
+   10 | int h(void) __attribute__((returns_nonnull));
+      | ~~~                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:13:30: warning: 'nonnull' attribute only applies to pointer arguments [-Wignored-attributes]
+   13 | void i(int j) __attribute__((nonnull(1)));
+      |        ~~~~~                 ^       ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:13:30: warning: 'nonnull' attribute applied to function with no pointer arguments [-Wignored-attributes]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:16:23: warning: 'nonnull' attribute only applies to pointer arguments [-Wignored-attributes]
+   16 | void j(__attribute__((nonnull)) int i);
+      |        ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:20:52: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+   20 |     char *(*fn)(char *) __attribute__((alloc_align(1))));
+      |                 ~~~~~~                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:26:58: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+   26 |     char *(*const fn)(char *) __attribute__((alloc_align(1))));
+      |                       ~~~~~~                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:31:55: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+   31 |     char *(S::*fn)(char *) __attribute__((alloc_align(1))));
+      |                    ~~~~~~                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:35:52: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+   35 |     char *(&fn)(char *) __attribute__((alloc_align(1))));
+      |                 ~~~~~~                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:39:52: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+   39 |     char *(^fn)(char *) __attribute__((alloc_align(1))));
+      |                 ~~~~~~                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:44:32: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+   43 | char *(&alloc_align_function_reference_variable)(char *)
+      |                                                  ~~~~~~
+   44 |     __attribute__((alloc_align(1))) = reference_target;
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:48:53: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+   48 |   char *(S::*fn)(char *) __attribute__((alloc_align(1)));
+      |                  ~~~~~~                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:53:57: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+   53 |   static char *(*fn)(char *) __attribute__((alloc_align(1)));
+      |                      ~~~~~~                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:58:59: warning: alias declarations are a C++11 extension [-Wc++11-extensions]
+   58 | using alloc_align_alias __attribute__((alloc_align(1))) = char *(*)(char *);
+      |                                                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:58:52: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+   58 | using alloc_align_alias __attribute__((alloc_align(1))) = char *(*)(char *);
+      |                                                    ^                ~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:62:73: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+   62 | typedef char *alloc_align_function_t(char *) __attribute__((alloc_align(1)));
+      |                                      ~~~~~~                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:93:50: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+   93 |   char *(*fn)(char *) __attribute__((alloc_align(1))));
+      |               ~~~~~~                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:99:56: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+   99 |   char *(*const fn)(char *) __attribute__((alloc_align(1))));
+      |                     ~~~~~~                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:104:54: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+  104 |   char *(fn::*fn)(char *) __attribute__((alloc_align(1))));
+      |                   ~~~~~~                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:108:50: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+  108 |   char *(&fn)(char *) __attribute__((alloc_align(1))));
+      |               ~~~~~~                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:112:50: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+  112 |   char *(^fn)(char *) __attribute__((alloc_align(1))));
+      |               ~~~~~~                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:117:30: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+  116 |   char *(&alloc_align_function_reference_variable)(char *)
+      |                                                    ~~~~~~
+  117 |   __attribute__((alloc_align(1))) = reference_target;
+      |                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:117:35: warning: default member initializer for non-static data member is a C++11 extension [-Wc++11-extensions]
+  117 |   __attribute__((alloc_align(1))) = reference_target;
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:121:54: error: 'alloc_align' attribute argument may only refer to a function parameter of integer type
+  121 |   char *(fn::*fn)(char *) __attribute__((alloc_align(1)));
+      |                   ~~~~~~                             ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/AST/Expr.h:153: void clang::Expr::setType(clang::QualType): Assertion `(t.isNull() || !t->isReferenceType()) && "Expressions can't have reference type"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -Oz -std=c++03 -fblocks -g -target x86_64-unknown-linux-gnu -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:295:22: current parser token ';'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:290:36: parsing function body 'designated_init_update_expr'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptwle2euj/fffe4f21.cpp:290:36: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005fd50b73c329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005fd50b738fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005fd50b7398a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005fd50b67b218
+4  libc.so.6 0x000072b9148c1520
+5  libc.so.6 0x00007
+[... truncated ...]

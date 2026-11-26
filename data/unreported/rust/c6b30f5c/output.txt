@@ -1,0 +1,60 @@
+[... 60 lines / 2,236 bytes of output truncated — no crash signature found; showing tail ...]
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:876:33
+         2: <rustc_errors::diagnostic::Diag>::emit_producing_error_guaranteed
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1312:29
+         3: <rustc_errors::diagnostic::Diag>::emit
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1319:9
+         4: <rustc_errors::DiagCtxtHandle>::span_delayed_bug::<rustc_span::span_encoding::Span, &str>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1097:82
+         5: <rustc_const_eval::check_consts::check::Checker>::revalidate_conditional_constness
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/check_consts/check.rs:376:18
+         6: <rustc_const_eval::check_consts::check::Checker as rustc_middle::mir::visit::Visitor>::visit_terminator
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/check_consts/check.rs:744:26
+         7: <rustc_const_eval::check_consts::check::Checker as rustc_middle::mir::visit::Visitor>::super_basic_block_data
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/visit.rs:320:26
+         8: <rustc_const_eval::check_consts::check::Checker as rustc_middle::mir::visit::Visitor>::visit_basic_block_data
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/check_consts/check.rs:515:14
+         9: <rustc_const_eval::check_consts::check::Checker as rustc_middle::mir::visit::Visitor>::super_body
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/visit.rs:1071:19
+        10: <rustc_const_eval::check_consts::check::Checker as rustc_middle::mir::visit::Visitor>::visit_body
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/visit.rs:78:22
+        11: <rustc_const_eval::check_consts::check::Checker>::check_body
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/check_consts/check.rs:171:18
+        12: rustc_mir_transform::mir_const_qualif
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/lib.rs:383:15
+        13: rustc_query_impl::query_vtables::mir_const_qualif::invoke_provider_fn::__rust_begin_short_backtrace
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/query_vtables.rs:124:29
+        14: rustc_query_impl::execution::execute_job_non_incr::<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 4]>>>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:391:59
+        15: rustc_middle::ty::context::tls::enter_context::<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 4]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 4]>>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:56:9
+        16: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::try_with::<rustc_middle::ty::context::tls::enter_context<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 4]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 4]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 4]>>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:464:12
+        17: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::with::<rustc_middle::ty::context::tls::enter_context<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 4]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 4]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 4]>>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:428:20
+        18: rustc_middle::ty::context::tls::enter_context::<rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 4]>>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 4]>>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:53:9
+        19: rustc_query_impl::execution::start_query::<rustc_middle::query::erase::ErasedData<[u8; 4]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 4]>>>::{closure#0}>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:375:9
+        20: rustc_middle::ty::context::tls::with_context::<rustc_query_impl::execution::start_query<rustc_middle::query::erase::ErasedData<[u8; 4]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 4]>>>::{closure#0}>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 4]>>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:86:36
+        21: rustc_middle::ty::context::tls::with_context_opt::<rustc_middle::ty::context::tls::with_context<rustc_query_impl::execution::start_query<rustc_middle::query::erase::ErasedData<[u8; 4]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 4]>>>::{closure#0}>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 4]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 4]>>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:75:18
+        22: rustc_middle::ty::context::tls::with_context::<rustc_query_impl::execution::start_query<rustc_middle::query::erase::ErasedData<[u8; 4]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 4]>>>::{closure#0}>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 4]>>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:86:5
+        23: rustc_query_impl::execution::start_query::<rustc_middle::query::erase::ErasedData<[u8; 4]>, rustc_query_impl::execution::execute_job_non_incr<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 4]>>>::{closure#0}>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:362:5
+        24: rustc_query_impl::execution::execute_job_non_incr::<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 4]>>>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:391:17
+        25: rustc_query_impl::execution::try_execute_query::<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 4]>>, false>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:262:17
+        26: rustc_query_impl::execution::execute_query_non_incr_inner::<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 4]>>>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:576:5
+        27: rustc_query_impl::query_vtables::mir_const_qualif::execute_query_non_incr::__rust_end_short_backtrace
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/query_vtables.rs:94:30
+        28: rustc_middle::query::calls::query_get_at::<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 4]>>>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:154:17
+        29: <rustc_middle::query::calls::TyCtxtAt>::mir_const_qualif::<rustc_span::def_id::LocalDefId>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:287:61
+        30:
+[... truncated ...]

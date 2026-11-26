@@ -1,0 +1,108 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:17:7: warning: variable templates only available with '-std=c++14' or '-std=gnu++14' [-Wc++14-extensions]
+   17 |     T y1;  // { dg-message "declared here with internal linkage" }
+      |       ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:26:17: error: exporting 'struct s::{anonymous}::a1' that does not have external linkage
+   26 | export using s::a1;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:9:12: note: 'struct s::{anonymous}::a1' declared here with internal linkage
+    9 |     struct a1 {};  // { dg-message "declared here with internal linkage" }
+      |            ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:27:17: error: exporting 'template<class T> struct s::{anonymous}::b1' that does not have external linkage
+   27 | export using s::b1;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:12:12: note: 'template<class T> struct s::{anonymous}::b1' declared here with internal linkage
+   12 |     struct b1;  // { dg-message "declared here with internal linkage" }
+      |            ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:28:17: error: exporting 'int s::{anonymous}::x1' that does not have external linkage
+   28 | export using s::x1;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:14:9: note: 'int s::{anonymous}::x1' declared here with internal linkage
+   14 |     int x1;  // { dg-message "declared here with internal linkage" }
+      |         ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:29:17: error: exporting 'template<class T> T s::{anonymous}::y1<T>' that does not have external linkage
+   29 | export using s::y1;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:17:7: note: 'template<class T> T s::{anonymous}::y1<T>' declared here with internal linkage
+   17 |     T y1;  // { dg-message "declared here with internal linkage" }
+      |       ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:30:17: error: exporting 'void s::{anonymous}::f1()' that does not have external linkage
+   30 | export using s::f1;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:19:10: note: 'void s::{anonymous}::f1()' declared here with internal linkage
+   19 |     void f1();  // { dg-message "declared here with internal linkage" }
+      |          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:31:17: error: exporting 'template<class T> void s::{anonymous}::g1()' that does not have external linkage
+   31 | export using s::g1;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:22:10: note: 'template<class T> void s::{anonymous}::g1()' declared here with internal linkage
+   22 |     void g1();  // { dg-message "declared here with internal linkage" }
+      |          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:43:5: warning: variable templates only available with '-std=c++14' or '-std=gnu++14' [-Wc++14-extensions]
+   43 |   T y2;  // { dg-message "declared here with module linkage" }
+      |     ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:51:17: error: exporting 'struct m::a2' that does not have external linkage
+   51 | export using m::a2;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:35:10: note: 'struct m::a2' declared here with module linkage
+   35 |   struct a2 {};  // { dg-message "declared here with module linkage" }
+      |          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:52:17: error: exporting 'template<class T> struct m::b2' that does not have external linkage
+   52 | export using m::b2;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:38:10: note: 'template<class T> struct m::b2' declared here with module linkage
+   38 |   struct b2;  // { dg-message "declared here with module linkage" }
+      |          ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:53:17: error: exporting 'int m::x2' that does not have external linkage
+   53 | export using m::x2;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:40:7: note: 'int m::x2' declared here with module linkage
+   40 |   int x2;  // { dg-message "declared here with module linkage" }
+      |       ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:54:17: error: exporting 'template<class T> T m::y2<T>' that does not have external linkage
+   54 | export using m::y2;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:43:5: note: 'template<class T> T m::y2<T>' declared here with module linkage
+   43 |   T y2;  // { dg-message "declared here with module linkage" }
+      |     ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:55:17: error: exporting 'void m::f2()' that does not have external linkage
+   55 | export using m::f2;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:45:8: note: 'void m::f2()' declared here with module linkage
+   45 |   void f2();  // { dg-message "declared here with module linkage" }
+      |        ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:56:17: error: exporting 'template<class T> void m::g2()' that does not have external linkage
+   56 | export using m::g2;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:48:8: note: 'template<class T> void m::g2()' declared here with module linkage
+   48 |   void g2();  // { dg-message "declared here with module linkage" }
+      |        ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:68:3: error: 'foo' function uses 'auto' type specifier without trailing return type
+   68 |   auto foo() {
+      |   ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:68:3: note: deduced return type only available with '-std=c++14' or '-std=gnu++14'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:75:17: error: exporting 'using n::a3 = struct n::<unnamed>' that does not have external linkage
+   75 | export using n::a3;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:60:21: note: 'struct n::<unnamed>' declared here with no linkage
+   60 |   using a3 = struct { int x; };  // { dg-message "declared here with no linkage" }
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:76:17: error: exporting 'using n::b3 = struct n::<unnamed>' that does not have external linkage
+   76 | export using n::b3;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:62:10: note: 'struct n::<unnamed>' declared here with no linkage
+   62 |   struct {} tmp_s;  // { dg-message "declared here with no linkage" }
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:77:17: error: exporting 'using n::c3 = enum n::<unnamed>' that does not have external linkage
+   77 | export using n::c3;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:65:8: note: 'enum n::<unnamed>' declared here with no linkage
+   65 |   enum {} tmp_e;  // { dg-message "declared here with no linkage" }
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:78:17: error: exporting 'using n::d3 = struct n::foo()::s' that does not have external linkage
+   78 | export using n::d3;  // { dg-error "does not have external linkage" }
+      |                 ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:69:12: note: 'struct n::foo()::s' declared here with no linkage
+   69 |     struct s {};  // { dg-message "declared here with no linkage" }
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp3w10hfho/f9bd4e6a.cc:102:17: e
+[... truncated ...]

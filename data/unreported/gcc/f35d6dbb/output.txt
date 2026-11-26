@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:15:1: error: two or more data types in declaration of 'id'
+   15 | void
+      | ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: In function 'constexpr int f1(auto:1)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:26:21: error: 'id' was not declared in this scope; did you mean 'i'? [-Wtemplate-body]
+   26 |   auto p = sizeof (&id);
+      |                     ^~
+      |                     i
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: In function 'constexpr int f2(auto:2)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:35:22: error: 'id' was not declared in this scope; did you mean 'i'? [-Wtemplate-body]
+   35 |   auto p = noexcept (id);
+      |                      ^~
+      |                      i
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:49:1: error: ISO C++ forbids declaration of 'foo' with no type [-fpermissive]
+   49 | foo (int n)
+      | ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: In function 'int foo(int)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:64:1: warning: no return statement in function returning non-void [-Wreturn-type]
+   64 | }
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: In function 'constexpr int f4(auto:4)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:71:12: error: 'id' was not declared in this scope; did you mean 'i'? [-Wtemplate-body]
+   71 |   decltype(id) p;
+      |            ^~
+      |            i
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: In function 'void g(int)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:104:6: error: no matching function for call to 'f6(int)'
+  104 |   f6 (42);
+      |   ~~~^~~~
+  • there is 1 candidate
+    • candidate 1: 'template<class auto:6> constexpr int f6(auto:6) requires requires{id(f6::i);}'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:86:1:
+         86 | f6 (auto i) requires requires { id (i); }
+            | ^~
+      • template argument deduction/substitution failed:
+        • constraints not satisfied
+          • /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: In substitution of 'template<class auto:6> constexpr int f6(auto:6) requires requires{id(i);} [with auto:6 = int]':
+          • required from here
+            /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:104:6:   
+              104 |   f6 (42);
+                  |   ~~~^~~~
+          • required by the constraints of 'template<class auto:6> constexpr int f6(auto:6) requires requires{id(i);}'
+            /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:86:1:   
+               86 | f6 (auto i) requires requires { id (i); }
+                  | ^~
+          • in requirements  [with auto:6 = int]
+            /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:86:22:   
+               86 | f6 (auto i) requires requires { id (i); }
+                  |                      ^~~~~~~~~~~~~~~~~~~~
+          • the required expression 'id(i)' is invalid
+            /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:86:36:
+               86 | f6 (auto i) requires requires { id (i); }
+                  |                                 ~~~^~~
+          • set '-fconcepts-diagnostics-depth=' to at least 2 for more detail
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:105:6: error: no matching function for call to 'f6(int&)'
+  105 |   f6 (non_const);
+      |   ~~~^~~~~~~~~~~
+  • there is 1 candidate
+    • candidate 1: 'template<class auto:6> constexpr int f6(auto:6) requires requires{id(f6::i);}'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:86:1:
+         86 | f6 (auto i) requires requires { id (i); }
+            | ^~
+      • template argument deduction/substitution failed:
+        • constraints not satisfied
+          • /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: In substitution of 'template<class auto:6> constexpr int f6(auto:6) requires requires{id(i);} [with auto:6 = int]':
+          • required from here
+            /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:105:6:   
+              105 |   f6 (non_const);
+                  |   ~~~^~~~~~~~~~~
+          • required by the constraints of 'template<class auto:6> constexpr int f6(auto:6) requires requires{id(i);}'
+            /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:86:1:   
+               86 | f6 (auto i) requires requires { id (i); }
+                  | ^~
+          • in requirements  [with auto:6 = int]
+            /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:86:22:   
+               86 | f6 (auto i) requires requires { id (i); }
+                  |                      ^~~~~~~~~~~~~~~~~~~~
+          • the required expression 'id(i)' is invalid
+            /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:86:36:
+               86 | f6 (auto i) requires requires { id (i); }
+                  |                                 ~~~^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: In instantiation of 'constexpr int f3(auto:3) [with auto:3 = int]':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:98:6:   required from here
+   98 |   f3 (42);
+      |   ~~~^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:44:25: error: 'id' was not declared in this scope; did you mean 'i'?
+   44 |   auto p = noexcept (id (i));
+      |                      ~~~^~~
+      |                      i
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: In instantiation of 'constexpr int f5(auto:5) [with auto:5 = int]':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:102:6:   required from here
+  102 |   f5 (42);
+      |   ~~~^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:80:38: error: 'id' was not declared in this scope; did you mean 'i'?
+   80 |   __extension__ auto p = alignof (id (i));
+      |                                  ~~~~^~~~
+      |                                  i
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:111:15: error: expected unqualified-id before '__extension__'
+  111 | consteval int __extension__ (int i) { return i; }
+      |               ^~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: In function 'constexpr int Unevaluated(auto:7)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:117:34: error: expected primary-expression before ')' token [-Wtemplate-body]
+  117 |   auto p = sizeof (&__extension__);
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: In function 'constexpr int y(auto:8)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:126:35: error: expected primary-expression before ')' token [-Wtemplate-body]
+  126 |   auto p = noexcept (__extension__);
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: In function 'constexpr int t(auto:10)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:144:25: error: expected primary-expression before ')' token [-Wtemplate-body]
+  144 |   decltype(__extension__) p;
+      |                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc: In function 'void don(int)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfx_7t4cq/1ea2ea13.cc:177:6: error: no matching function for call to 'f6(int)'
+  177 |   f6 (42);
+      |   ~~~^~~~
+  • there are 2 candidates
+    • candidate 1: 'template<class auto:6> constexpr int f6(auto:6) requires requires{id(f6::i);}'
+[... 71 more lines ...]

@@ -1,0 +1,21 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1791995335.798829 2668658 collective_ops_utils.cc:416] Check failed: collective != nullptr Instruction is not a collective instruction: tuple.4
+*** Check failure stack trace: ***
+    @     0x6499b5cf9a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x6499b5cf99e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x6499b3ebebec  xla::gpu::IsCollectiveSingleHost()
+    @     0x6499ab7e6491  xla::gpu::GetSymmetricMemoryType()
+    @     0x6499ab1180e3  xla::gpu::TritonFusion::Emit()
+    @     0x6499aa8f3cf9  xla::gpu::ThunkEmitter::EmitFusion()
+    @     0x6499aa8f68ca  xla::gpu::ThunkEmitter::EmitHloInstruction()
+    @     0x6499aa8eda02  xla::gpu::ThunkEmitter::EmitHloComputation()
+    @     0x6499aa903a02  xla::gpu::ThunkEmitter::EmitHloEntryComputation()
+    @     0x6499aa8ba087  xla::gpu::CompileModuleToLlvmIr()
+    @     0x6499aa89018b  xla::gpu::GpuCompiler::CompileToBackendResult()
+    @     0x6499aa894ac3  xla::gpu::GpuCompiler::RunBackend()
+    @     0x6499aa7b11d8  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x6499b5d4a466  main
+    @     0x7728a61d4d90  (unknown)
+Aborted (core dumped)

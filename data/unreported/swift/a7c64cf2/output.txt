@@ -1,0 +1,53 @@
+Abort: function getRequirementMachine at RewriteContext.cpp:272
+Re-entrant construction of requirement machine for <τ_0_0 where τ_0_0 : P>
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-sil -Onone -sil-verify-all -strict-concurrency=complete /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpg50eplyl/19c14be0.swift
+1.	Swift version 6.5-dev (LLVM b57635c461931c5, Swift 4f57c3ebcd65115)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpg50eplyl/19c14be0.swift")
+4.	While type-checking 'D' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpg50eplyl/19c14be0.swift:30:1)
+5.	While type-checking protocol conformance D: P at 'D' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpg50eplyl/19c14be0.swift:30:1)
+6.	While evaluating request ResolveTypeWitnessesRequest(D: P module main)
+7.	While building rewrite system for generic signature <τ_0_0 where τ_0_0 : P>
+8.	While evaluating request RequirementSignatureRequest(main.(file).P@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpg50eplyl/19c14be0.swift:32:10)
+9.	Abort: function getRequirementMachine at RewriteContext.cpp:272
+| 	Re-entrant construction of requirement machine for <τ_0_0 where τ_0_0 : P>
+ #0 0x00005a7804ad59cb llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x92269cb)
+ #1 0x00005a7804ad28b1 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x92238b1)
+ #2 0x00005a7804ad677b SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007dd31d135330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007dd31d18ec0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007dd31d13527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007dd31d1188ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00005a77fea09972 (/usr/bin/swift-frontend+0x315a972)
+ #8 0x00005a77fea09a5c (/usr/bin/swift-frontend+0x315aa5c)
+ #9 0x00005a77fe8571c3 (/usr/bin/swift-frontend+0x2fa81c3)
+#10 0x00005a77fe720dc2 swift::GenericSignatureImpl::getSuperclassBound(swift::Type) const (/usr/bin/swift-frontend+0x2e71dc2)
+#11 0x00005a77fe8065f5 (anonymous namespace)::ConcreteContraction::performConcreteContraction(llvm::ArrayRef<swift::StructuralRequirement>, llvm::SmallVectorImpl<swift::StructuralRequirement>&, llvm::SmallVectorImpl<swift::rewriting::RequirementError>&) ConcreteContraction.cpp:0:0
+#12 0x00005a77fe805b77 swift::rewriting::performConcreteContraction(llvm::ArrayRef<swift::StructuralRequirement>, llvm::SmallVectorImpl<swift::StructuralRequirement>&, llvm::SmallVectorImpl<swift::rewriting::RequirementError>&, bool) (/usr/bin/swift-frontend+0x2f56b77)
+#13 0x00005a77fe84f72a swift::RequirementSignatureRequest::evaluate(swift::Evaluator&, swift::ProtocolDecl*) const (/usr/bin/swift-frontend+0x2fa072a)
+#14 0x00005a77fdf00b2c swift::SimpleRequest<swift::RequirementSignatureRequest, swift::RequirementSignature (swift::ProtocolDecl*), (swift::RequestFlags)4>::evaluateRequest(swift::RequirementSignatureRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#15 0x00005a77fe594932 swift::ProtocolDecl::getRequirementSignature() const (/usr/bin/swift-frontend+0x2ce5932)
+#16 0x00005a77fe8587ee swift::rewriting::RewriteContext::getRequirementMachine(swift::ProtocolDecl const*) (/usr/bin/swift-frontend+0x2fa97ee)
+#17 0x00005a77fe86548b swift::rewriting::RuleBuilder::collectRulesFromReferencedProtocols() (/usr/bin/swift-frontend+0x2fb648b)
+#18 0x00005a77fe86509d swift::rewriting::RuleBuilder::initWithGenericSignature(llvm::ArrayRef<swift::GenericTypeParamType*>, llvm::ArrayRef<swift::Requirement>) (/usr/bin/swift-frontend+0x2fb609d)
+#19 0x00005a77fe84cfb8 swift::rewriting::RequirementMachine::initWithGenericSignature(swift::GenericSignature) (/usr/bin/swift-frontend+0x2f9dfb8)
+#20 0x00005a77fe8570ea swift::rewriting::RewriteContext::getRequirementMachine(swift::CanGenericSignature) (/usr/bin/swift-frontend+0x2fa80ea)
+#21 0x00005a77fe7219f9 swift::GenericSignatureImpl::isValidTypeParameter(swift::Type) const (/usr/bin/swift-frontend+0x2e729f9)
+#22 0x00005a77fdfb0c7b (anonymous namespace)::AssociatedTypeInference::computeFixedTypeWitness(swift::AssociatedTypeDecl*)::$_0::operator()(swift::GenericSignature) const AssociatedTypeInference.cpp:0:0
+#23 0x00005a77fdfaddf8 (anonymous namespace)::AssociatedTypeInference::inferTypeWitnessesViaValueWitnesses(llvm::SetVector<swift::AssociatedTypeDecl*, llvm::SmallVector<swift::AssociatedTypeDecl*, 0u>, llvm::DenseSet<swift::AssociatedTypeDecl*, llvm::DenseMapInfo<swift::AssociatedTypeDecl*, void>>, 0u> const&) AssociatedTypeInference.cpp:0:0
+#24 0x00005a77fdfa5e1a (anonymous namespace)::AssociatedTypeInference::solve() AssociatedTypeInference.cpp:0:0
+#25 0x00005a77fdfa5356 swift::ResolveTypeWitnessesRequest::evaluate(swift::Evaluator&, swift::NormalProtocolConformance*) const (/usr/bin/swift-frontend+0x26f6356)
+#26 0x00005a77fdca3728 swift::ResolveTypeWitnessesRequest::OutputType swift::Evaluator::getResultUncached<swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'()>(swift::ResolveTypeWitnessesRequest const&, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#27 0x00005a77fdca253f swift::ResolveTypeWitnessesRequest::OutputType swift::Evaluator::getResultUncached<swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'()>(swift::ResolveTypeWitnessesRequest const&, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#28 0x00005a77fdca23a9 swift::ResolveTypeWitnessesRequest::OutputType swift::Evaluator::getResultCached<swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'(), (void*)0>(swift::ResolveTypeWitnessesRequest const&, swift::ResolveTypeWitnessesRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeWitnessesRequest>(swift::Evaluator&, swift::ResolveTypeWitnessesRequest, swift::ResolveTypeWitnessesRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#29 0x00005a77fdee5025 (anonymous namespace)::MultiConformanceChecker::checkIndividualConformance(swift::NormalProtocolConformance*) TypeCheckProtocol.cpp:0:0
+#30 0x00005a77fded93af swift::TypeChecker::checkConformancesInContext(swift::IterableDeclContext*) (/usr/bin/swift-frontend+0x262a3af)
+#31 0x00005a77fde4f938 (anonymous namespace)::DeclChecker::visitClassDecl(swift::ClassDecl*) TypeCheckDeclPrimary.cpp:0:0
+#32 0x00005a77fde49022 (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#33 0x00005a77fde48218 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x2599218)
+#34 0x00005a77fdf8b7a5 swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x26dc7a5)
+#35 0x00005a77fdf90928 swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#36 0x00005a77fdf9003f swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift:
+[... truncated ...]

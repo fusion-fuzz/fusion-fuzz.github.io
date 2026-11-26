@@ -1,0 +1,39 @@
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang -fc1 -triple x86_64-unknown-linux-gnu -emit-obj -mrelocation-model pic -pic-level 2 -pic-is-pie -target-cpu x86-64 -debug-info-kind=standalone -resource-dir /cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/lib/clang/23 -fintrinsic-modules-path /cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/lib/clang/23/finclude/flang/x86_64-unknown-linux-gnu -mframe-pointer=all -o /tmp/example-e6e977.o -x f95 /app/example.f90
+ #0 0x0000000004b89cc8 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x4b89cc8)
+ #1 0x0000000004b86e04 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #2 0x00007ce936245330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #3 0x00000000057492b4 Fortran::semantics::ScopeHandler::SayDerivedType(Fortran::parser::CharBlock const&, Fortran::parser::MessageFixedText&&, Fortran::semantics::Scope const&) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x57492b4)
+ #4 0x000000000575024c Fortran::semantics::InterfaceVisitor::CheckGenericProcedures(Fortran::semantics::Symbol&) (.part.0) resolve-names.cpp:0:0
+ #5 0x0000000005788933 Fortran::semantics::ResolveNamesVisitor::FinishSpecificationPart(std::__cxx11::list<Fortran::parser::DeclarationConstruct, std::allocator<Fortran::parser::DeclarationConstruct>> const&) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x5788933)
+ #6 0x00000000057becf3 Fortran::semantics::ResolveNamesVisitor::Pre(Fortran::parser::SpecificationPart const&) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x57becf3)
+ #7 0x00000000057cab97 Fortran::semantics::ResolveNamesVisitor::ResolveSpecificationParts(Fortran::semantics::ProgramTree&) (.part.0) resolve-names.cpp:0:0
+ #8 0x00000000057d84d3 Fortran::semantics::ResolveNamesVisitor::Pre(Fortran::parser::ProgramUnit const&) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x57d84d3)
+ #9 0x00000000057d9b64 Fortran::semantics::ResolveNames(Fortran::semantics::SemanticsContext&, Fortran::parser::Program const&, Fortran::semantics::Scope&) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x57d9b64)
+#10 0x0000000005869440 Fortran::semantics::Semantics::Perform() (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x5869440)
+#11 0x0000000004bef318 Fortran::frontend::FrontendAction::runSemanticChecks() (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x4bef318)
+#12 0x0000000004ed9f40 Fortran::frontend::CodeGenAction::beginSourceFileAction() (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x4ed9f40)
+#13 0x0000000004bedf75 Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x4bedf75)
+#14 0x0000000004bdb16f Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x4bdb16f)
+#15 0x0000000004bf9b1f Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x4bf9b1f)
+#16 0x0000000002e8be05 fc1_main(llvm::ArrayRef<char const*>, char const*) (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x2e8be05)
+#17 0x0000000002d85f79 main (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x2d85f79)
+#18 0x00007ce93622a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#19 0x00007ce93622a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#20 0x0000000002e8a6d5 _start (/cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin/flang+0x2e8a6d5)
+flang-23: error: unable to execute command: Segmentation fault (core dumped)
+flang-23: error: flang frontend command failed with exit code -2 (use -v to see invocation)
+flang version 23.0.0git (https://github.com/llvm/llvm-project.git 8d61da2569a975346150371cb0d317fb9339be0c)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /cefs/de/de160e63334011ce09fe1629_clang-llvmflang-trunk-20260616/bin
+flang-23: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+flang-23: note: diagnostic msg: /tmp/example-87cd6f
+flang-23: note: diagnostic msg: /tmp/example-87cd6f.sh
+flang-23: note: diagnostic msg: 
+
+********************

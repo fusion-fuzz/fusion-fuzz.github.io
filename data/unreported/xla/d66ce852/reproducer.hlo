@@ -1,0 +1,18 @@
+HloModule module
+
+ENTRY %entry {
+  %p0 = f32[11,13,15] parameter(0)
+  %c0 = f32[11,13,15] copy(%p0)
+  %p1 = f32[11,1,15] parameter(1)
+  %c1 = f32[11,1,15] copy(%p1), sharding={devices=[2,2,2]<=[8] metadata={op_name="a"}}
+  %p2 = s32[] parameter(2)
+  %i0 = s32[] constant(0)
+  %dus = f32[11,13,15] dynamic-update-slice(%c0, %c1, %i0, %p2, %i0)
+  %p0.d.1 = f32[8, 2, 32] parameter(4)
+  %transpose_p0.d = f32[32, 2, 8] transpose(%p0.d.1), dimensions={2, 1, 0}
+  %root = (f32[11,13,15]) tuple(%dus)
+  %p0.d = f32[8, 2, 32] parameter(3)
+  %transpose_p0 = f32[32, 2, 8] transpose(%p1), dimensions={2, 1, 0}
+  %ffl.root = ((f32[11,13,15]), f32[32, 2, 8]) tuple(%root, %transpose_p0)
+  ROOT %ffl.root.1 = ((f32[11,13,15]), f32[32, 2, 8], f32[32, 2, 8]) tuple(%root, %transpose_p0, %transpose_p0.d)
+}

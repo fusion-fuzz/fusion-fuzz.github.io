@@ -1,0 +1,13 @@
+HloModule TestModule
+
+ENTRY %Test {
+  %lhs = f32[3,3,7,7] parameter(0)
+  %rhs = f32[5,11,11,7] parameter(1)
+  %convolution = f32[5,11,4,7] convolution(lhs, rhs), window={size=11x11 pad=3_25x3_6 lhs_dilate=1x2 rhs_dilate=2x1}, dim_labels=01bf_o01i->f01b
+  %lhs.d = f8e4m3fn[1024,512]{1,0} parameter(2), sharding={devices=[4,2]<=[8]}
+  %lhs_scale = f8e8m0fnu[1024,16]{1,0} parameter(3), sharding={devices=[4,2]<=[8]}
+  %rhs.d = f8e4m3fn[128,512]{1,0} parameter(4), sharding={devices=[2,4]<=[8]}
+  %rhs_scale = f8e8m0fnu[128,16] parameter(5), sharding={devices=[2,4]<=[8]}
+  %block_scaled_dot = f32[1024,128]{1,0} custom-call(%lhs.d, %rhs.d, %lhs, %rhs_scale), custom_call_target="__op$block_scaled_dot", sharding={devices=[4,2]<=[8]}
+  ROOT %ffl.root = (f32[5,11,4,7], f32[1024,128]{1,0}) tuple(%convolution, %block_scaled_dot)
+}

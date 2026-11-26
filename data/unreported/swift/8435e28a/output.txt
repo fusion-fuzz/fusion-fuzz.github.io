@@ -1,0 +1,121 @@
+Assertion failed: (originalTy && "The bare ErrorType singleton is already canonical"), function computeCanonicalType at Type.cpp:1815.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /opt/swift-coverage/bin/swift -frontend -emit-ir -O -sil-verify-all /fusion-fuzz/.fused/swift/tmpyops5006/3c7619aa.swift
+1.	Swift version 6.3.3 (swift-6.3.3-RELEASE)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/fusion-fuzz/.fused/swift/tmpyops5006/3c7619aa.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(main.(file).main()@/fusion-fuzz/.fused/swift/tmpyops5006/3c7619aa.swift:53:6)
+5.	While type-checking statement at [/fusion-fuzz/.fused/swift/tmpyops5006/3c7619aa.swift:53:13 - line:58:1] RangeText="{
+    let generator = TestGenerator()
+    for item in generator {
+        print(42) // This will not execute because the iterator always returns nil.
+    }
+"
+6.	While type-checking statement at [/fusion-fuzz/.fused/swift/tmpyops5006/3c7619aa.swift:55:5 - line:57:5] RangeText="for item in generator {
+        print(42) // This will not execute because the iterator always returns nil.
+    "
+7.	While type-checking-for-each statement at [/fusion-fuzz/.fused/swift/tmpyops5006/3c7619aa.swift:55:5 - line:57:5] RangeText="for item in generator {
+        print(42) // This will not execute because the iterator always returns nil.
+    "
+8.	While type-checking-target starting at /fusion-fuzz/.fused/swift/tmpyops5006/3c7619aa.swift:55:5
+9.	Assertion failed: (originalTy && "The bare ErrorType singleton is already canonical"), function computeCanonicalType at Type.cpp:1815.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  swift     0x000060a0783f72f8
+1  swift     0x000060a0783f4d45
+2  swift     0x000060a0783f7f61
+3  libc.so.6 0x0000713c2a169330
+4  libc.so.6 0x0000713c2a1c2c0c pthread_kill + 284
+5  libc.so.6 0x0000713c2a16927e gsignal + 30
+6  libc.so.6 0x0000713c2a14c8ff abort + 223
+7  swift     0x000060a070c07407
+8  swift     0x000060a070c07521
+9  swift     0x000060a0740beb52
+10 swift     0x000060a073f2cf3a
+11 swift     0x000060a073f1a71f
+12 swift     0x000060a072fa398e
+13 swift     0x000060a072ed68ab
+14 swift     0x000060a072edf063
+15 swift     0x000060a072ee4983
+16 swift     0x000060a072cd7f76
+17 swift     0x000060a072cd6dde
+18 swift     0x000060a072c8036e
+19 swift     0x000060a072c84607
+20 swift     0x000060a072c736c2
+21 swift     0x000060a072c68670
+22 swift     0x000060a073a05f52
+23 swift     0x000060a073a0ae19
+24 swift     0x000060a073a05b7a
+25 swift     0x000060a073a053f1
+26 swift     0x000060a072c5e234
+27 swift     0x000060a072c5a89d
+28 swift     0x000060a072c5d50c
+29 swift     0x000060a072d2699a
+30 swift     0x000060a072d2638e
+31 swift     0x000060a072fdd85c
+32 swift     0x000060a072fe04dc
+33 swift     0x000060a073177838
+34 swift     0x000060a073176837
+35 swift     0x000060a07316dddb
+36 swift     0x000060a073179052
+37 swift     0x000060a073171847
+38 swift     0x000060a073170d09
+39 swift     0x000060a073170429
+40 swift     0x000060a073c161f4
+41 swift     0x000060a073b1dd5e
+42 swift     0x000060a073b1dcd7
+43 swift     0x000060a073d5fd13
+44 swift     0x000060a073210990
+45 swift     0x000060a073216cdb
+46 swift     0x000060a0732106b1
+47 swift     0x000060a073210658
+48 swift     0x000060a07132bda7
+49 swift     0x000060a07131ecd8
+50 swift     0x000060a07131e99c
+51 swift     0x000060a070fc3201
+52 swift     0x000060a070fb181d
+53 swift     0x000060a070fad2ea
+54 swift     0x000060a070ced53d
+55 swift     0x000060a070cec173
+56 libc.so.6 0x0000713c2a14e1ca
+57 libc.so.6 0x0000713c2a14e28b __libc_start_main + 139
+58 swift     0x000060a070ceb8a5
+
+*** Signal 6: Backtracing from 0x713c2a24b38d... done ***
+
+*** Program crashed: Aborted at 0x0000000000293937 ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift" crashed:
+
+  0  0x0000713c2a24b38d <unknown> in libc.so.6
+...
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x0000713c2a24b38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x0000000000293937  2701623
+rdi 0x0000000000293937  2701623
+rbp 0x0000000000293937  2701623
+rsp 0x000060a0be5578a8  8b 7f 3f 78 a0 60 00 00 30 7b 55 be a0 60 00 00  ··?x `··0{U¾ `··
+ r8 0x000060a0be557b30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x000060a0be557b30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x000060a0be557b30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x00007fffcd172870  f8 78 9b 87 a0 60 00 00 02 00 00 00 a0 60 00 00  øx·· `······ `··
+r14 0x0000000000000000  0
+r15 0x000060a0be557948  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x0000713c2a24b38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+[... 10 more lines ...]

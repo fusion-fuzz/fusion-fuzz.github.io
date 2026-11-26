@@ -1,0 +1,92 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpds86c6xv/04978020.cpp:26:43: error: expected '(' after '__declspec'
+   26 | static long ffl_fusion = (long)(__declspec);
+      |                                           ^
+      |                                           (
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpds86c6xv/04978020.cpp:26:44: error: type name requires a specifier or qualifier
+   26 | static long ffl_fusion = (long)(__declspec);
+      |                                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpds86c6xv/04978020.cpp:26:44: error: expected ')'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpds86c6xv/04978020.cpp:26:32: note: to match this '('
+   26 | static long ffl_fusion = (long)(__declspec);
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpds86c6xv/04978020.cpp:42:5: error: redefinition of 'ffl_fusion' as different kind of symbol
+   42 | int ffl_fusion() { return X1() != X2(bar<int>()); }
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpds86c6xv/04978020.cpp:26:13: note: previous definition is here
+   26 | static long ffl_fusion = (long)(__declspec);
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpds86c6xv/04978020.cpp:42:38: error: use of undeclared identifier 'bar'
+   42 | int ffl_fusion() { return X1() != X2(bar<int>()); }
+      |                                      ^~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaExprCXX.cpp:6361: clang::QualType clang::Sema::FindCompositePointerType(clang::SourceLocation, clang::Expr*&, clang::Expr*&, bool): Assertion `!T1->isNullPtrType() && !T2->isNullPtrType() && "nullptr_t should be a null pointer constant"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O3 -std=c++11 -fblocks -fstrict-enums -target x86_64-windows-msvc -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpds86c6xv/04978020.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpds86c6xv/04978020.cpp:42:49: current parser token ';'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpds86c6xv/04978020.cpp:42:18: parsing function body 'ffl_fusion'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpds86c6xv/04978020.cpp:42:18: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005568fbe6a409 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005568fbe670cc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005568fbe67988 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005568fbda9368
+4  libc.so.6 0x00007f7fb2e82520
+5  libc.so.6 0x00007f7fb2ed69bc pthread_kill + 300
+6  libc.so.6 0x00007f7fb2e82476 raise + 22
+7  libc.so.6 0x00007f7fb2e687f3 abort + 211
+8  libc.so.6 0x00007f7fb2e6871b
+9  libc.so.6 0x00007f7fb2e79e96
+10 clang++   0x00005568fed2519c clang::Sema::FindCompositePointerType(clang::SourceLocation, clang::Expr*&, clang::Expr*&, bool) + 5916
+11 clang++   0x00005568febf3709
+12 clang++   0x00005568fec4a14a clang::Sema::CheckCompareOperands(clang::ActionResult<clang::Expr*, true>&, clang::ActionResult<clang::Expr*, true>&, clang::SourceLocation, clang::BinaryOperatorKind) + 1882
+13 clang++   0x00005568fec526ca clang::Sema::CreateBuiltinBinOp(clang::SourceLocation, clang::BinaryOperatorKind, clang::Expr*, clang::Expr*, bool) + 2762
+14 clang++   0x00005568ff01bde7 clang::Sema::CreateOverloadedBinOp(clang::SourceLocation, clang::BinaryOperatorKind, clang::UnresolvedSetImpl const&, clang::Expr*, clang::Expr*, bool, bool, clang::FunctionDecl*) + 2167
+15 clang++   0x00005568febefca5
+16 clang++   0x00005568fec54be1 clang::Sema::ActOnBinOp(clang::Scope*, clang::SourceLocation, clang::tok::TokenKind, clang::Expr*, clang::Expr*) + 209
+17 clang++   0x00005568fe6ee934 clang::Parser::ParseRHSOfBinaryExpression(clang::ActionResult<clang::Expr*, true>, clang::prec::Level) + 772
+18 clang++   0x00005568fe6f18dd clang::Parser::ParseExpression(clang::TypoCorrectionTypeBehavior) + 13
+19 clang++   0x00005568fe7754c6 clang::Parser::ParseReturnStatement() + 166
+20 clang++   0x00005568fe779b25 clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 1765
+21 clang++   0x00005568fe77b29b clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+22 clang++   0x00005568fe7831a7 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+23 clang++   0x00005568fe7839ff clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+24 clang++   0x00005568fe674dcf clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+25 clang++   0x00005568fe6bf9c4 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+26 clang++   0x00005568fe66ed0c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+27 clang++   0x00005568fe66f4ef clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+28 clang++   0x00005568fe67b3a6 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+29 clang++   0x00005568fe67c45f clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+30 clang++   0x00005568fe659392 clang::ParseAST(clang::Sema&, bool, bool) + 530
+31 clang++   0x00005568fcd02ad1 clang::FrontendAction::Execute() + 65
+32 clang++   0x00005568fcc8ca75 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+33 clang++   0x00005568fcdda713 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+34 clang++   0x00005568f9c3527e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+35 clang++   0x00005568f9c2af8a
+36 clang++   0x00005568f9c2b11f
+37 clang++   0x00005568fca1151d
+38 clang++   0x00005568fbda9780 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+39 clang++   0x00005568fca12373
+40 clang++   0x00005568fc9c6e07 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+41 clang++   0x00005568fc9cb6f0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+42 clang++   0x00005568fc9d9804 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+43 clang++   0x00005568f9c30863 clang_main(int, char**, llvm::ToolContext const&) + 7315
+44 clang++   0x00005568f9b6c7c1 main + 113
+45 libc.so.6 0x00007f7fb2e69d90
+46 libc.so.6 0x00007f7fb2e69e40 __libc_start_main + 128
+47 clang++   0x00005568f9c2a5b5 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-windows-msvc
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/04978020-5f5aa6.cpp
+clang++: note: diagnostic msg: /tmp/04978020-5f5aa6.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

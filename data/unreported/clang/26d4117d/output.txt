@@ -1,0 +1,73 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpavsenigl/a35caa78.cpp:7:15: fatal error: use of old-style cast [-Wold-style-cast]
+    7 |   return a == (const long long*)b; // expected-error {{use of old-style cast}}
+      |               ^                 ~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/ExprConstant.cpp:22273: llvm::APSInt clang::Expr::EvaluateKnownConstInt(const clang::ASTContext&) const: Assertion `!isValueDependent() && "Expression evaluator can't be called on a dependent expression."' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O1 -std=c++14 -fblocks -fstrict-enums -funroll-loops -fno-inline /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpavsenigl/a35caa78.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpavsenigl/a35caa78.cpp:31:1: current parser token 'static'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpavsenigl/a35caa78.cpp:27:22: parsing function body 'e'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005972552eb329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005972552e7fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005972552e88a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000059725522a218
+4  libc.so.6 0x00007866908eb520
+5  libc.so.6 0x000078669093f9bc pthread_kill + 300
+6  libc.so.6 0x00007866908eb476 raise + 22
+7  libc.so.6 0x00007866908d17f3 abort + 211
+8  libc.so.6 0x00007866908d171b
+9  libc.so.6 0x00007866908e2e96
+10 clang++   0x0000597258f85054 clang::Expr::EvaluateKnownConstInt(clang::ASTContext const&) const + 1476
+11 clang++   0x00005972589c877f
+12 clang++   0x00005972589dccb1
+13 clang++   0x00005972589dfe15
+14 clang++   0x00005972589e2645
+15 clang++   0x00005972589e42b5
+16 clang++   0x00005972589e5602 clang::CFG::buildCFG(clang::Decl const*, clang::Stmt*, clang::ASTContext*, clang::CFG::BuildOptions const&) + 626
+17 clang++   0x00005972589afd58 clang::AnalysisDeclContext::getCFG() + 152
+18 clang++   0x0000597258875623
+19 clang++   0x000059725887971d clang::sema::AnalysisBasedWarnings::IssueWarnings(clang::sema::AnalysisBasedWarnings::Policy, clang::sema::FunctionScopeInfo*, clang::Decl const*, clang::QualType) + 1149
+20 clang++   0x0000597257c97780 clang::Sema::PopFunctionScopeInfo(clang::sema::AnalysisBasedWarnings::Policy const*, clang::Decl*, clang::QualType) + 2272
+21 clang++   0x0000597257f22341 clang::Sema::ActOnFinishFunctionBody(clang::Decl*, clang::Stmt*, bool, bool) + 2177
+22 clang++   0x0000597257c0bcdd clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 269
+23 clang++   0x0000597257afd06f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+24 clang++   0x0000597257b47c64 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+25 clang++   0x0000597257af6fac clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+26 clang++   0x0000597257af778f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+27 clang++   0x0000597257b03646 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+28 clang++   0x0000597257b046ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+29 clang++   0x0000597257ae1632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+30 clang++   0x0000597256182061 clang::FrontendAction::Execute() + 65
+31 clang++   0x000059725610be65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+32 clang++   0x0000597256259de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+33 clang++   0x00005972530b533e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+34 clang++   0x00005972530ab13a
+35 clang++   0x00005972530ab2cf
+36 clang++   0x0000597255e90cfd
+37 clang++   0x000059725522a630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+38 clang++   0x0000597255e91b53
+39 clang++   0x0000597255e46607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+40 clang++   0x0000597255e4aef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+41 clang++   0x0000597255e59004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+42 clang++   0x00005972530b0923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+43 clang++   0x0000597252fec7f1 main + 113
+44 libc.so.6 0x00007866908d2d90
+45 libc.so.6 0x00007866908d2e40 __libc_start_main + 128
+46 clang++   0x00005972530aa765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/a35caa78-32d4f3.cpp
+clang++: note: diagnostic msg: /tmp/a35caa78-32d4f3.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

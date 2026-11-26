@@ -1,0 +1,77 @@
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -Onone -sil-verify-all /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5q47v6nc/14cf1a5a.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request IRGenRequest(IR Generation for module main)
+4.	While evaluating request ExecuteSILPipelineRequest(Run pipelines { IRGen Preparation } on SIL for main)
+5.	While running pass #12 SILModuleTransform "LoadableByAddress".
+6.	While Running LoadableByAddress on  SIL function "@$s4main3zim1xAA2EUOyAA2ERVGAH_tF".
+ for 'zim(x:)' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5q47v6nc/14cf1a5a.swift:51:1)
+7.	While converting type 'EU<ER>' (declared at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5q47v6nc/14cf1a5a.swift:47:1 - line:49:1] RangeText="enum EU<T: P> {
+    case x(E<T>)
+")
+8.	While converting type 'E<ER>' (declared at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp5q47v6nc/14cf1a5a.swift:38:1 - line:41:1] RangeText="enum E<T: P> {
+    case recursive(T.A)
+    case blah
+")
+ #0 0x00005a28ba4ab658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x00005a28ba4a8e75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x00005a28ba4ac411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x000072520a0b8330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00005a28b275cf37 swift::irgen::EnumImplStrategy::get(swift::irgen::TypeConverter&, swift::SILType, swift::EnumDecl*) (/usr/bin/swift-frontend+0xf00f37)
+ #5 0x00005a28b275e5d4 swift::irgen::TypeConverter::convertEnumType(swift::TypeBase*, swift::CanType, swift::EnumDecl*) (/usr/bin/swift-frontend+0xf025d4)
+ #6 0x00005a28b287417b swift::irgen::TypeConverter::convertAnyNominalType(swift::CanType, swift::NominalTypeDecl*) (/usr/bin/swift-frontend+0x101817b)
+ #7 0x00005a28b28725b6 swift::irgen::TypeConverter::convertType(swift::CanType) (/usr/bin/swift-frontend+0x10165b6)
+ #8 0x00005a28b2871c2e swift::irgen::TypeConverter::getTypeEntry(swift::CanType) (/usr/bin/swift-frontend+0x1015c2e)
+ #9 0x00005a28b2871595 swift::irgen::IRGenModule::getTypeInfo(swift::SILType) (/usr/bin/swift-frontend+0x1015595)
+#10 0x00005a28b275cf2a swift::irgen::EnumImplStrategy::get(swift::irgen::TypeConverter&, swift::SILType, swift::EnumDecl*) (/usr/bin/swift-frontend+0xf00f2a)
+#11 0x00005a28b275e5d4 swift::irgen::TypeConverter::convertEnumType(swift::TypeBase*, swift::CanType, swift::EnumDecl*) (/usr/bin/swift-frontend+0xf025d4)
+#12 0x00005a28b287417b swift::irgen::TypeConverter::convertAnyNominalType(swift::CanType, swift::NominalTypeDecl*) (/usr/bin/swift-frontend+0x101817b)
+#13 0x00005a28b28725b6 swift::irgen::TypeConverter::convertType(swift::CanType) (/usr/bin/swift-frontend+0x10165b6)
+#14 0x00005a28b2871c2e swift::irgen::TypeConverter::getTypeEntry(swift::CanType) (/usr/bin/swift-frontend+0x1015c2e)
+#15 0x00005a28b2603ae2 isLargeLoadableType(swift::GenericEnvironment*, swift::SILType, swift::irgen::IRGenModule&) LoadableByAddress.cpp:0:0
+#16 0x00005a28b2602979 LargeSILTypeMapper::getNewSILType(swift::GenericEnvironment*, swift::SILType, swift::irgen::IRGenModule&) (/usr/bin/swift-frontend+0xda6979)
+#17 0x00005a28b26055c6 (anonymous namespace)::LoadableByAddress::run() LoadableByAddress.cpp:0:0
+#18 0x00005a28b31fc442 swift::SILPassManager::runModulePass(unsigned int) (/usr/bin/swift-frontend+0x19a0442)
+#19 0x00005a28b31ff4cb swift::SILPassManager::execute() (/usr/bin/swift-frontend+0x19a34cb)
+#20 0x00005a28b31f8068 swift::SILPassManager::executePassPipelinePlan(swift::SILPassPipelinePlan const&) (/usr/bin/swift-frontend+0x199c068)
+#21 0x00005a28b31f801d swift::ExecuteSILPipelineRequest::evaluate(swift::Evaluator&, swift::SILPipelineExecutionDescriptor) const (/usr/bin/swift-frontend+0x199c01d)
+#22 0x00005a28b321fe6a swift::SimpleRequest<swift::ExecuteSILPipelineRequest, std::tuple<> (swift::SILPipelineExecutionDescriptor), (swift::RequestFlags)1>::evaluateRequest(swift::ExecuteSILPipelineRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#23 0x00005a28b3206dfa swift::ExecuteSILPipelineRequest::OutputType swift::Evaluator::getResultUncached<swift::ExecuteSILPipelineRequest, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()>(swift::ExecuteSILPipelineRequest const&, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()) crtstuff.c:0:0
+#24 0x00005a28b31f825f swift::executePassPipelinePlan(swift::SILModule*, swift::SILPassPipelinePlan const&, bool, swift::irgen::IRGenModule*) (/usr/bin/swift-frontend+0x199c25f)
+#25 0x00005a28b2584a5c swift::IRGenRequest::evaluate(swift::Evaluator&, swift::IRGenDescriptor) const (/usr/bin/swift-frontend+0xd28a5c)
+#26 0x00005a28b25fb982 swift::GeneratedModule swift::SimpleRequest<swift::IRGenRequest, swift::GeneratedModule (swift::IRGenDescriptor), (swift::RequestFlags)17>::callDerived<0ul>(swift::Evaluator&, std::integer_sequence<unsigned long, 0ul>) const crtstuff.c:0:0
+#27 0x00005a28b25fb859 swift::SimpleRequest<swift::IRGenRequest, swift::GeneratedModule (swift::IRGenDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::IRGenRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#28 0x00005a28b1fc278c swift::IRGenRequest::OutputType swift::Evaluator::getResultUncached<swift::IRGenRequest, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()>(swift::IRGenRequest const&, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()) crtstuff.c:0:0
+#29 0x00005a28b2585bef swift::performIRGeneration(swift::ModuleDecl*, swift::IRGenOptions const&, swift::TBDGenOptions const&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::StringRef, swift::PrimarySpecificPaths const&, std::shared_ptr<llvm::cas::ObjectStore>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::GlobalVariable**, swift::cas::SwiftCASOutputBackend*, std::optional<llvm::cas::ObjectRef>) (/usr/bin/swift-frontend+0xd29bef)
+#30 0x00005a28b2297a47 generateIR(swift::IRGenOptions const&, swift::TBDGenOptions const&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, swift::PrimarySpecificPaths const&, std::shared_ptr<llvm::cas::ObjectStore>, swift::cas::SwiftCASOutputBackend*, llvm::StringRef, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, llvm::GlobalVariable*&, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, std::optional<llvm::cas::ObjectRef>) FrontendTool.cpp:0:0
+#31 0x00005a28b229039e performCompileStepsPostSILGen(swift::CompilerInstance&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, swift::PrimarySpecificPaths const&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>, llvm::ArrayRef<swift::PrimarySpecificPaths>) FrontendTool.cpp:0:0
+#32 0x00005a28b228e9d3 swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xa329d3)
+#33 0x00005a28b22a788a withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#34 0x00005a28b2294595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#35 0x00005a28b229121e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#36 0x00005a28b1f98b21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#37 0x000072520a09d1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#38 0x000072520a09d28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#39 0x00005a28b1f97a15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 11: Backtracing from 0x72520a19a38d... done ***
+
+*** Program crashed: Bad pointer dereference at 0x0000000000000008 ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x000072520a19a38d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x000000000000000b  11
+rcx 0x000072520a19a38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x000000000000000b  11
+rsi 0x000000
+[... truncated ...]

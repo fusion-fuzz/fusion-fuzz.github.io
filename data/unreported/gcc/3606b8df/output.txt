@@ -1,0 +1,49 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1q2icyia/384c1444.c: In function 'y':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1q2icyia/384c1444.c:38:11: error: invalid type for iteration variable 'x'
+   38 |   #pragma omp for reduction (task, *: j) schedule (monotonic: dynamic, 3)
+      |           ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1q2icyia/384c1444.c:43:5: internal compiler error: in c_finish_omp_for, at c-family/c-omp.cc:1043
+   43 |     }
+      |     ^
+0x2cb9bab internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xcdc9e4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7b2c15 c_finish_omp_for(unsigned long, tree_code, tree_node*, tree_node*, tree_node*, tree_node*, tree_node*, tree_node*, tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-omp.cc:1043
+0xd9e114 c_parser_omp_for_loop
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:25642
+0xd9efc5 c_parser_omp_for
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:25937
+0xd65c65 c_parser_omp_construct
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31127
+0xd65c65 c_parser_pragma
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:16379
+0xd97232 c_parser_statement_after_labels
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:8553
+0xda01b6 c_parser_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:8318
+0xda01b6 c_parser_omp_parallel
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:26495
+0xd65edc c_parser_omp_construct
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31144
+0xd65edc c_parser_pragma
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:16379
+0xd96a17 c_parser_compound_statement_nostart
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:7914
+0xd96c78 c_parser_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:7172
+0xd94f6f c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3354
+0xda2139 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2256
+0xda3080 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xda3080 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xe28b99 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu -D_REENTRANT /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp1q2icyia/384c1444.c -quiet -dumpbase 384c1444.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Ofast -O2 -std=gnu99 -fipa-pta -fopenmp -fdump-tree-optimized -o /tmp/ccRwHSCi.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

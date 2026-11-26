@@ -1,0 +1,58 @@
+HloModule outline
+
+%a {
+  %p = f32[] parameter(0)
+  ROOT %add = f32[] add(p, p)
+}
+
+%branch_0 {
+  %param_0 = f64[] parameter(0)
+  %negate.2 = f64[] negate(param_0)
+  ROOT %tuple = (f64[], f64[]) tuple(negate.2, negate.2)
+}
+
+%fused_computation {
+  %param_0.1 = f64[] parameter(0)
+  %abs.2 = f64[] abs(param_0.1)
+  %negate.1 = f64[] negate(param_0.1)
+  ROOT %tuple.2 = (f64[], f64[]) tuple(negate.1, abs.2)
+}
+
+%branch_1 {
+  %param_0.2 = f64[] parameter(0)
+  ROOT %fusion = (f64[], f64[]) fusion(param_0.2), kind=kLoop, calls=%fused_computation
+}
+
+%branch_0.d {
+  %param_0 = f64[] parameter(0)
+  %negate.2 = f64[] negate(param_0)
+  ROOT %tuple = (f64[], f64[]) tuple(negate.2, negate.2)
+}
+
+%fused_computation.d {
+  %param_0.1 = f64[] parameter(0)
+  %abs.2 = f64[] abs(param_0.1)
+  %negate.1 = f64[] negate(param_0.1)
+  ROOT %tuple.2 = (f64[], f64[]) tuple(negate.1, abs.2)
+}
+
+%branch_1.d {
+  %param_0.2 = f64[] parameter(0)
+  ROOT %fusion = (f64[], f64[]) fusion(param_0.2), kind=kLoop, calls=%fused_computation.d
+}
+
+ENTRY %entry {
+  %c = f32[] constant(1)
+  %call = f32[] call(c), to_apply=a
+  %tuple = (f32[], f32[]) tuple(call, c)
+  %pred.0 = s32[] parameter(0)
+  %param_1 = f64[] parameter(1)
+  %param_2 = f64[] parameter(2)
+  %conditional.0 = (f64[], f64[]) conditional(%pred.0, %param_1, f64[] %param_2), branch_computations={%branch_0, %branch_1}
+  %ffl.root = ((f32[], f32[]), (f64[], f64[])) tuple(%tuple, %conditional.0)
+  %pred.0.d = s32[] parameter(3)
+  %param_1.d = f64[] parameter(4)
+  %param_2.d = f64[] parameter(5)
+  %conditional.0.d = (f64[], f64[]) conditional(%pred.0, %param_1.d, f64[] %param_2.d), branch_computations={%branch_0.d, %branch_1.d}
+  ROOT %ffl.root.1 = ((f32[], f32[]), (f64[], f64[]), (f64[], f64[])) tuple(%tuple, %conditional.0, %conditional.0.d)
+}

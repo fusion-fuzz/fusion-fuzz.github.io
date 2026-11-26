@@ -1,0 +1,11 @@
+$ lfortran -c repro.f90 -o /dev/null
+==973531==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x5020000003b2 ...
+READ of size 1 at 0x5020000003b2 thread T0
+    #0 in LCompilers::BinaryWriter::write_void(void*, long) src/libasr/bwriter.h:168
+    #1 in SerializationBaseVisitor<ASRSerializationVisitor>::visit_ArrayConstant(ArrayConstant_t const&) src/libasr/asr_serialization_visitor.h:3113
+    #4 in SerializationBaseVisitor<ASRSerializationVisitor>::visit_Variable(Variable_t const&) asr_serialization_visitor.h:425
+    #7 in SerializationBaseVisitor<ASRSerializationVisitor>::visit_Module(Module_t const&) asr_serialization_visitor.h:109
+0x5020000003b2 is located 0 bytes to the right of 2-byte region [0x5020000003b0,0x5020000003b2)
+allocated by thread T0 here:
+    #1 in LCompilers::ASRUtils::set_ArrayConstant_data(expr_t**, unsigned long, ttype_t*) src/libasr/asr_utils.h:9174
+    #2 in LCompilers::ASRUtils::make_ArrayConstructor_t_util(...)

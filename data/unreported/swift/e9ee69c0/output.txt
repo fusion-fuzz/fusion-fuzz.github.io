@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:2:20: error: expected ')' in parameter
+  1 | class Foo {
+  2 |     func foo(x: Int
+    |             |      `- error: expected ')' in parameter
+    |             `- note: to match this opening '('
+  3 |     
+  4 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:127:33: error: expected '}' in class
+  1 | class Foo {
+    |           `- note: to match this opening '{'
+  2 |     func foo(x: Int
+  3 |     
+    :
+125 | }
+126 | // RUN: %sourcekitd-test -req=format -line=3 -length=1 %s | %FileCheck --strict-whitespace %s
+127 | // CHECK: key.sourcetext: "    "
+    |                                 `- error: expected '}' in class
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:16:7: error: cannot find 'publicFunction' in scope
+ 14 |       // OK
+ 15 | 
+ 16 |       publicFunction()
+    |       `- error: cannot find 'publicFunction' in scope
+ 17 |       // OK
+ 18 |       usableFromInlineFunction()
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:18:7: error: cannot find 'usableFromInlineFunction' in scope
+ 16 |       publicFunction()
+ 17 |       // OK
+ 18 |       usableFromInlineFunction()
+    |       `- error: cannot find 'usableFromInlineFunction' in scope
+ 19 |       // OK
+ 20 |       internalFunction()
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:20:7: error: cannot find 'internalFunction' in scope
+ 18 |       usableFromInlineFunction()
+ 19 |       // OK
+ 20 |       internalFunction()
+    |       `- error: cannot find 'internalFunction' in scope
+ 21 |       // OK
+ 22 |       fileprivateFunction()
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:22:7: error: cannot find 'fileprivateFunction' in scope
+ 20 |       internalFunction()
+ 21 |       // OK
+ 22 |       fileprivateFunction()
+    |       `- error: cannot find 'fileprivateFunction' in scope
+ 23 |       // OK
+ 24 |       privateFunction()
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:24:7: error: cannot find 'privateFunction' in scope
+ 22 |       fileprivateFunction()
+ 23 |       // OK
+ 24 |       privateFunction()
+    |       `- error: cannot find 'privateFunction' in scope
+ 25 |       // OK
+ 26 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:29:14: error: cannot find 'internalIntFunction' in scope
+ 27 |       return 0
+ 28 |     }(),
+ 29 |     y: Int = internalIntFunction()) {}
+    |              `- error: cannot find 'internalIntFunction' in scope
+ 30 | 
+ 31 | @usableFromInline func usableFromInlineFunctionWithDefaultValue(
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:36:7: error: cannot find 'publicFunction' in scope
+ 34 |       // expected-error@-1 {{type 'Nested' cannot be nested inside a default argument value}}
+ 35 | 
+ 36 |       publicFunction()
+    |       `- error: cannot find 'publicFunction' in scope
+ 37 |       // OK
+ 38 |       usableFromInlineFunction()
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:38:7: error: cannot find 'usableFromInlineFunction' in scope
+ 36 |       publicFunction()
+ 37 |       // OK
+ 38 |       usableFromInlineFunction()
+    |       `- error: cannot find 'usableFromInlineFunction' in scope
+ 39 |       // OK
+ 40 |       internalFunction2()
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:42:7: error: cannot find 'fileprivateFunction2' in scope
+ 40 |       internalFunction2()
+ 41 |       // expected-error@-1 {{global function 'internalFunction2()' is internal and cannot be referenced from a default argument value}}
+ 42 |       fileprivateFunction2()
+    |       `- error: cannot find 'fileprivateFunction2' in scope
+ 43 |       // expected-error@-1 {{global function 'fileprivateFunction2()' is fileprivate and cannot be referenced from a default argument value}}
+ 44 |       privateFunction2()
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:44:7: error: cannot find 'privateFunction2' in scope
+ 42 |       fileprivateFunction2()
+ 43 |       // expected-error@-1 {{global function 'fileprivateFunction2()' is fileprivate and cannot be referenced from a default argument value}}
+ 44 |       privateFunction2()
+    |       `- error: cannot find 'privateFunction2' in scope
+ 45 |       // expected-error@-1 {{global function 'privateFunction2()' is private and cannot be referenced from a default argument value}}
+ 46 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:49:14: error: cannot use instance member 'internalIntFunction2' as a default parameter
+ 47 |       return 0
+ 48 |     }(),
+ 49 |     y: Int = internalIntFunction2()) {}
+    |              `- error: cannot use instance member 'internalIntFunction2' as a default parameter
+ 50 |     // expected-error@-1 {{global function 'internalIntFunction2()' is internal and cannot be referenced from a default argument value}}
+ 51 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:59:7: error: cannot find 'publicFunction' in scope
+ 57 |       // FIXME: Some errors below are diagnosed twice
+ 58 | 
+ 59 |       publicFunction()
+    |       `- error: cannot find 'publicFunction' in scope
+ 60 | 
+ 61 |       usableFromInlineFunction()
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpddubqy_4/795df4a6.swift:61:7: error: cannot find 'usableFromInlineFunction' in scope
+ 59 |       publicFunction()
+ 60 | 
+ 61 |       usableFromInlineFunction()
+    |       `- error: cannot find 'usableFromInlineFunction' in scope
+[... 175 more lines ...]

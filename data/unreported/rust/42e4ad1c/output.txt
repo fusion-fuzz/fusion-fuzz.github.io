@@ -1,0 +1,121 @@
+error[E0428]: the name `M0` is defined multiple times
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpt_qznoiw/f196affc.rs:87:1
+   |
+22 | auto trait M0 {}
+   | ------------- previous definition of the trait `M0` here
+...
+87 | auto trait M0 {}
+   | ^^^^^^^^^^^^^ `M0` redefined here
+   |
+   = note: `M0` must be defined only once in the type namespace of this module
+
+error[E0428]: the name `M1` is defined multiple times
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpt_qznoiw/f196affc.rs:88:1
+   |
+23 | auto trait M1 {}
+   | ------------- previous definition of the trait `M1` here
+...
+88 | auto trait M1 {}
+   | ^^^^^^^^^^^^^ `M1` redefined here
+   |
+   = note: `M1` must be defined only once in the type namespace of this module
+
+error[E0428]: the name `M2` is defined multiple times
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpt_qznoiw/f196affc.rs:89:1
+   |
+24 | auto trait M2 {}
+   | ------------- previous definition of the trait `M2` here
+...
+89 | auto trait M2 {}
+   | ^^^^^^^^^^^^^ `M2` redefined here
+   |
+   = note: `M2` must be defined only once in the type namespace of this module
+
+warning: the feature `rustc_attrs` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpt_qznoiw/f196affc.rs:2:12
+  |
+2 | #![feature(rustc_attrs, auto_traits)]
+  |            ^^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+  = note: `#[warn(internal_features)]` on by default
+
+warning: trait `T_b6a61e2` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpt_qznoiw/f196affc.rs:92:7
+   |
+92 | trait T_b6a61e2 {
+   |       ^^^^^^^^^ help: convert the identifier to upper camel case: `TB6a61e2`
+   |
+   = note: `#[warn(non_camel_case_types)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: trait `A_b6a61e2` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpt_qznoiw/f196affc.rs:96:7
+   |
+96 | trait A_b6a61e2: M0 + M1 + M2 + T_b6a61e2 {}
+   |       ^^^^^^^^^ help: convert the identifier to upper camel case: `AB6a61e2`
+
+warning: trait `B_b6a61e2` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpt_qznoiw/f196affc.rs:98:7
+   |
+98 | trait B_b6a61e2: M0 + M1 + T_b6a61e2 + M2 {}
+   |       ^^^^^^^^^ help: convert the identifier to upper camel case: `BB6a61e2`
+
+warning: trait `C_b6a61e2` should have an upper camel case name
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpt_qznoiw/f196affc.rs:100:7
+    |
+100 | trait C_b6a61e2: M0 + T_b6a61e2 + M1 + M2 {}
+    |       ^^^^^^^^^ help: convert the identifier to upper camel case: `CB6a61e2`
+
+warning: trait `D_b6a61e2` should have an upper camel case name
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpt_qznoiw/f196affc.rs:102:7
+    |
+102 | trait D_b6a61e2: T_b6a61e2 + M0 + M1 + M2 {}
+    |       ^^^^^^^^^ help: convert the identifier to upper camel case: `DB6a61e2`
+
+warning: type `S_b6a61e2` should have an upper camel case name
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpt_qznoiw/f196affc.rs:104:8
+    |
+104 | struct S_b6a61e2;
+    |        ^^^^^^^^^ help: convert the identifier to upper camel case: `SB6a61e2`
+
+error[E0053]: method `fmt` has an incompatible type for trait
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpt_qznoiw/f196affc.rs:11:21
+   |
+11 |    fn fmt(&self, x: &str) -> () { }
+   |                     ^^^^ types differ in mutability
+   |
+   = note: expected signature `fn(&MyType, &mut Formatter<'_>) -> Result<(), std::fmt::Error>`
+              found signature `fn(&MyType, &str) -> ()`
+help: change the parameter type to match the trait
+   |
+11 -    fn fmt(&self, x: &str) -> () { }
+11 +    fn fmt(&self, x: &mut Formatter<'_>) -> () { }
+   |
+
+error[E0050]: method `fmt` has 1 parameter but the declaration in trait `std::fmt::Display::fmt` has 2
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpt_qznoiw/f196affc.rs:48:11
+   |
+48 |    fn fmt(&self) -> () { }
+   |           ^^^^^ expected 2 parameters, found 1
+   |
+   = note: `fmt` from trait: `fn(&Self, &mut Formatter<'_>) -> Result<(), std::fmt::Error>`
+help: add the missing parameter from the trait
+   |
+48 |    fn fmt(&self, f: &mut Formatter<'_>) -> () { }
+   |                +++++++++++++++++++++++
+
+error[E0186]: method `fmt` has a `&self` declaration in the trait, but not in the impl
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpt_qznoiw/f196affc.rs:53:4
+   |
+53 |    fn fmt() -> () { }
+   |    ^^^^^^^^^^^^^^ expected `&self` in impl
+   |
+   = note: `fmt` from trait: `fn(&Self, &mut Formatter<'_>) -> Result<(), std::fmt::Error>`
+
+error[E0046]: not all trait items implemented, missing: `fmt`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpt_qznoiw/f196affc.rs:57:1
+   |
+57 | impl std::fmt::Display for MyType4 {}
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `fmt` in implementation
+   |
+[... 164 more lines ...]

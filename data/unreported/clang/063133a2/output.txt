@@ -1,0 +1,91 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprjc4cmbr/509b12e2.mm:18:3: error: expected member name or ';' after declaration specifiers
+   18 |   +(MyClass*)fromInteger:(int)_j;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprjc4cmbr/509b12e2.mm:19:3: error: expected member name or ';' after declaration specifiers
+   19 |   -(int)getInteger;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprjc4cmbr/509b12e2.mm:20:3: error: unexpected '@' in member specification
+   20 |   @end
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprjc4cmbr/509b12e2.mm:27:15: error: invalid application of '__datasizeof' to an incomplete type 'HasUsablePadding'
+   27 | static_assert(__datasizeof(HasUsablePadding) == 5);
+      |               ^           ~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprjc4cmbr/509b12e2.mm:13:8: note: definition of 'HasUsablePadding' is not complete until the closing '}'
+   13 | struct HasUsablePadding {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprjc4cmbr/509b12e2.mm:28:15: error: invalid application of '__datasizeof' to an incomplete type 'void'
+   28 | static_assert(__datasizeof(void)); // expected-error {{invalid application of '__datasizeof' to an incomplete type 'void'}}
+      |               ^           ~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprjc4cmbr/509b12e2.mm:29:15: error: invalid application of '__datasizeof' to an incomplete type 'Incomplete'
+   29 | static_assert(__datasizeof(Incomplete)); // expected-error {{invalid application of '__datasizeof' to an incomplete type 'Incomplete'}}
+      |               ^           ~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprjc4cmbr/509b12e2.mm:23:8: note: forward declaration of 'HasUsablePadding::Incomplete'
+   23 | struct Incomplete; // expected-note {{forward declaration of 'Incomplete'}}
+      |        ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/Type.cpp:2646: bool clang::Type::isConstantSizeType() const: Assertion `!isIncompleteType() && "This doesn't make sense for incomplete types"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O2 -std=c++23 -fblocks -fobjc-runtime=macosx-10.14 -fno-objc-arc -funroll-loops -g -Wall -target x86_64-linux-gnu -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprjc4cmbr/509b12e2.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprjc4cmbr/509b12e2.mm:40:3: current parser token 'return'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprjc4cmbr/509b12e2.mm:13:1: parsing struct/union/class body 'HasUsablePadding'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprjc4cmbr/509b12e2.mm:31:15: lambda expression parsing
+4.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprjc4cmbr/509b12e2.mm:31:18: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000064bb8e39a8cb __interceptor_backtrace + 91
+1  clang++   0x000064bb94048037 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x000064bb94041d03 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x000064bb940469d4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x000064bb93e920d5
+5  clang++   0x000064bb93e928e3
+6  libc.so.6 0x00007356424ac520
+7  libc.so.6 0x00007356425009bc pthread_kill + 300
+8  libc.so.6 0x00007356424ac476 raise + 22
+9  libc.so.6 0x00007356424927f3 abort + 211
+10 libc.so.6 0x000073564249271b
+11 libc.so.6 0x00007356424a3e96
+12 clang++   0x000064bb9e75d2bc clang::Type::isConstantSizeType() const + 588
+13 clang++   0x000064bb9dbc24f4
+14 clang++   0x000064bb9dbf2e65
+15 clang++   0x000064bb9db82e04
+16 clang++   0x000064bb9db7b1fb
+17 clang++   0x000064bb9db7f686 clang::Expr::isCXX11ConstantExpr(clang::ASTContext const&, clang::APValue&, bool) const + 982
+18 clang++   0x000064bb9db7c2a6
+19 clang++   0x000064bb9db7e9ff clang::Expr::getIntegerConstantExpr(clang::ASTContext const&, bool) const + 1407
+20 clang++   0x000064bb9ac5776e
+21 clang++   0x000064bb9ac0bee2
+22 clang++   0x000064bb9ac1013a clang::Sema::CheckCompletedExpr(clang::Expr*, clang::SourceLocation, bool) + 170
+23 clang++   0x000064bb9b7293fd clang::Sema::ActOnFinishFullExpr(clang::Expr*, clang::SourceLocation, bool, bool, bool) + 733
+24 clang++   0x000064bb9b242960 clang::Sema::BuildStaticAssertDeclaration(clang::SourceLocation, clang::Expr*, clang::Expr*, clang::SourceLocation, bool) + 1040
+25 clang++   0x000064bb9a6889f6 clang::Parser::ParseStaticAssertDeclaration(clang::SourceLocation&) + 3286
+26 clang++   0x000064bb9a62b55f clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 671
+27 clang++   0x000064bb9a7d7972 clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 4146
+28 clang++   0x000064bb9a7d639a clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 970
+29 clang++   0x000064bb9a7ebdbf clang::Parser::ParseCompoundStatementBody(bool) + 5887
+30 clang++   0x000064bb9a6f860e clang::Parser::ParseLambdaExpressionAfterIntroducer(clang::LambdaIntroducer&) + 11694
+31 clang++   0x000064bb9a6f1ce1 clang::Parser::ParseLambdaExpression() + 657
+32 clang++   0x000064bb9a6f9dda clang::Parser::TryParseLambdaExpression() + 778
+33 clang++   0x000064bb9a6c8e0a clang::Parser::ParseCastExpression(clang::CastParseKind, bool, bool&, clang::TypoCorrectionTypeBehavior, bool, bool*) + 15962
+34 clang++   0x000064bb9a6be02e clang::Parser::ParseCastExpression(clang::CastParseKind, bool, clang::TypoCorrectionTypeBehavior, bool, bool*) + 238
+35 clang++   0x000064bb9a6c37ce clang::Parser::ParseConstantExpressionInExprEvalContext(clang::TypoCorrectionTypeBehavior) + 110
+36 clang++   0x000064bb9a6881e9 clang::Parser::ParseStaticAssertDeclaration(clang::SourceLocation&) + 1225
+37 clang++   0x000064bb9a69f851 clang::Parser::ParseCXXClassMemberDeclaration(clang::AccessSpecifier, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject*) + 5073
+38 clang++   0x000064bb9a6a61be clang::Parser::ParseCXXClassMemberDeclarationWithPragmas(clang::AccessSpecifier&, clang::ParsedAttributes&, clang::TypeSpecifierType, clang::Decl*) + 4110
+39 clang++   0x000064bb9a6989a7 clang::Parser::ParseCXXMemberSpecification(clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributes&, unsigned int, clang::Decl*) + 6135
+40 clang++   0x000064bb9a692455 clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 14885
+41 clang++   0x000064bb9a638541 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 5793
+42 clang++   0x000064bb9a5d16fe clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 574
+43 clang++   0x000064bb9a5d0be1 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 529
+44 clang++   0x000064bb9a5ceac3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 3907
+45 clang++   0x000064bb9a5ca6d5 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1765
+46 clang++   0x000064bb9a5a31ef clang::ParseAST(clang::Sema&, bool, bool) + 2351
+47 clang++   0x000064bb95d9b2ab clang::CodeGenAction::ExecuteAction() + 1771
+48 clang++   0x000064bb9645952e clang::FrontendAction::Execute() + 222
+49 clang++   0x000064bb962ea900 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+50 clang++   0x000064bb9663e2df clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 751
+51 clang++   0x000064bb8e4303e6 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4390
+52 clang++   0x000064bb8e424349
+53 clang++   0x000064bb8e42e887
+54 clang++   0x000064bb95ec1d37
+55 clang++   0x000064bb93e91e8d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+56 clang++   0x000064bb95ebf23a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optio
+[... truncated ...]

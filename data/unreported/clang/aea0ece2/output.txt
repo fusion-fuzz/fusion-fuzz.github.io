@@ -1,0 +1,82 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpktumgk76/7e833e2e.cpp:17:35: error: cannot initialize a parameter of type 'int *' with an lvalue of type 'int'
+   17 |   return __sync_fetch_and_add (a, b);
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpktumgk76/7e833e2e.cpp:24:35: error: cannot initialize a parameter of type 'int *' with an lvalue of type 'int'
+   24 |   return __sync_fetch_and_sub (a, b);
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpktumgk76/7e833e2e.cpp:45:25: error: unknown type name 'size_t'
+   45 | template <int D> int f1(size_t x) { return x; }
+      |                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpktumgk76/7e833e2e.cpp:48:55: warning: pack fold expression is a C++17 extension [-Wc++17-extensions]
+   48 |   [[clang::always_inline]] return f2(x) + (f1<D>(x) + ...);
+      |                                                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpktumgk76/7e833e2e.cpp:48:44: error: no matching function for call to 'f1'
+   48 |   [[clang::always_inline]] return f2(x) + (f1<D>(x) + ...);
+      |                                            ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpktumgk76/7e833e2e.cpp:51:12: note: in instantiation of function template specialization 'f3<0, 1, 2>' requested here
+   51 | void g() { f3<0, 1, 2>(0); }
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpktumgk76/7e833e2e.cpp:48:44: error: no matching function for call to 'f1'
+   48 |   [[clang::always_inline]] return f2(x) + (f1<D>(x) + ...);
+      |                                            ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpktumgk76/7e833e2e.cpp:48:44: error: no matching function for call to 'f1'
+   48 |   [[clang::always_inline]] return f2(x) + (f1<D>(x) + ...);
+      |                                            ^~~~~
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Oz -std=c++14 -fblocks -fstrict-enums /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpktumgk76/7e833e2e.cpp
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpktumgk76/7e833e2e.cpp:47:25: instantiating function definition 'f3<0, 1, 2>'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055c1fc9074f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055c1fc9041bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055c1fc904a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055c1fc846e88
+4  libc.so.6 0x00007f03c4460520
+5  libc.so.6 0x00007f03c44b49bc pthread_kill + 300
+6  libc.so.6 0x00007f03c4460476 raise + 22
+7  libc.so.6 0x00007f03c44467f3 abort + 211
+8  clang++   0x000055c1fb30f948
+9  clang++   0x000055c1ffb1c227
+10 clang++   0x000055c1ffd399cc
+11 clang++   0x000055c1ffd23051
+12 clang++   0x000055c1ffd23c05 clang::Sema::SubstStmt(clang::Stmt*, clang::MultiLevelTemplateArgumentList const&) + 133
+13 clang++   0x000055c1ffde182f clang::Sema::InstantiateFunctionDefinition(clang::SourceLocation, clang::FunctionDecl*, bool, bool, bool) + 6207
+14 clang++   0x000055c1ffddef2d clang::Sema::PerformPendingInstantiations(bool, bool) + 301
+15 clang++   0x000055c1ff2b2fdd
+16 clang++   0x000055c1ff2b3316 clang::Sema::ActOnEndOfTranslationUnit() + 182
+17 clang++   0x000055c1ff110f32 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 946
+18 clang++   0x000055c1ff0edcf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+19 clang++   0x000055c1fd5f5e51 clang::FrontendAction::Execute() + 65
+20 clang++   0x000055c1fd57fdf5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+21 clang++   0x000055c1fd6cdc03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+22 clang++   0x000055c1fb316d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+23 clang++   0x000055c1fb30cada
+24 clang++   0x000055c1fb30cc6f
+25 clang++   0x000055c1fd30442d
+26 clang++   0x000055c1fc8472a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+27 clang++   0x000055c1fd305283
+28 clang++   0x000055c1fd2b9d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+29 clang++   0x000055c1fd2be600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+30 clang++   0x000055c1fd2cc714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+31 clang++   0x000055c1fb312383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+32 clang++   0x000055c1fb262901 main + 113
+33 libc.so.6 0x00007f03c4447d90
+34 libc.so.6 0x00007f03c4447e40 __libc_start_main + 128
+35 clang++   0x000055c1fb30c105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/7e833e2e-863777.cpp
+clang++: note: diagnostic msg: /tmp/7e833e2e-863777.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

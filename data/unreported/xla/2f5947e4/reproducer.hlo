@@ -1,0 +1,49 @@
+HloModule test
+
+%collective_broadcast {
+  %p0 = u32[2] parameter(0)
+  ROOT %result = u32[2] collective-broadcast(p0), replica_groups={{1, 0}}
+}
+
+%while_body {
+  %input = (s32[], s32[]) parameter(0)
+  %counter = s32[] get-tuple-element(input), index=0
+  %buffer = s32[] get-tuple-element(input), index=1
+  %one = s32[] constant(1)
+  %updated_counter = s32[] add(counter, one)
+  %updated_buffer = s32[] add(buffer, counter)
+  ROOT %out = (s32[], s32[]) tuple(updated_counter, updated_buffer)
+}
+
+%while_cond {
+  %input = (s32[], s32[]) parameter(0)
+  %counter = s32[] get-tuple-element(input), index=0
+  %bound = s32[] constant(100)
+  ROOT %cmp = pred[] compare(counter, bound), direction=LT
+}
+
+%collective_broadcast.d {
+  %p0 = u32[2] parameter(0)
+  ROOT %result = u32[2] collective-broadcast(p0), replica_groups={{1, 0}}
+}
+
+ENTRY %test_computation {
+  %replica = u32[] replica-id()
+  %ten = u32[] constant(10)
+  %sum = u32[] add(replica, ten)
+  %zero = s32[] constant(0)
+  %buffer = s32[] parameter(0)
+  %while_input = (s32[], s32[]) tuple(%zero, %buffer)
+  %out = (s32[], s32[]) while(%while_input), condition=%while_cond, body=%while_body
+  %replica.d = u32[] replica-id()
+  %ten.d = u32[] constant(10)
+  %sum.d = u32[] add(%replica.d, %ten.d)
+  %p.d = u32[2] broadcast(%sum.d), dimensions={}
+  %cb.d = ((u32[2]), u32[2]) async-start(u32[2] %p.d), calls=%collective_broadcast.d
+  %res.d = u32[2] async-done(%zero), calls=%collective_broadcast.d
+  %ffl.root = ((s32[], s32[]), u32[2]) tuple(%out, %res.d)
+  %p = u32[2] broadcast(sum), dimensions={}
+  %cb = ((u32[2]), u32[2]) async-start(u32[2] %p), calls=collective_broadcast
+  %res = u32[2] async-done(cb), calls=collective_broadcast
+  ROOT %ffl.root.1 = (u32[2], (s32[], s32[]), u32[2]) tuple(%res, %out, %res.d)
+}

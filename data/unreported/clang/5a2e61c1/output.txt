@@ -1,0 +1,70 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpiz1nfaqm/a6a8c0d8.mm:4:12: warning: class 'ns_array' defined without specifying a base class [-Wobjc-root-class]
+    4 | @interface ns_array
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpiz1nfaqm/a6a8c0d8.mm:4:20: note: add a super class to fix this problem
+    4 | @interface ns_array
+      |                    ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGObjCMac.cpp:8657: virtual llvm::Constant* {anonymous}::CGObjCNonFragileABIMac::GetEHType(clang::QualType): Assertion `IT && "Invalid @catch type."' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -Os -fblocks -fobjc-runtime=ios-7 -fno-objc-arc -Wextra -target riscv32 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpiz1nfaqm/a6a8c0d8.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpiz1nfaqm/a6a8c0d8.mm:48:1: current parser token 'int'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpiz1nfaqm/a6a8c0d8.mm:21:4: LLVM IR generation of declaration 'FUNC'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpiz1nfaqm/a6a8c0d8.mm:21:4: Generating code for declaration 'FUNC'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000062198f1ba329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000062198f1b6fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000062198f1b78a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000062198f0f9218
+4  libc.so.6 0x000079328da91520
+5  libc.so.6 0x000079328dae59bc pthread_kill + 300
+6  libc.so.6 0x000079328da91476 raise + 22
+7  libc.so.6 0x000079328da777f3 abort + 211
+8  libc.so.6 0x000079328da7771b
+9  libc.so.6 0x000079328da88e96
+10 clang++   0x000062198fca81aa
+11 clang++   0x000062198fc3f2f5 clang::CodeGen::CodeGenFunction::EnterCXXTryStmt(clang::CXXTryStmt const&, bool) + 917
+12 clang++   0x000062198fc471ff clang::CodeGen::CodeGenFunction::EmitCXXTryStmt(clang::CXXTryStmt const&) + 143
+13 clang++   0x000062198f84ff3c clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+14 clang++   0x000062198f8b9901 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) + 177
+15 clang++   0x000062198f8d09d4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 1396
+16 clang++   0x000062198f93ace8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 2152
+17 clang++   0x000062198f933f64 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 580
+18 clang++   0x000062198f934e60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+19 clang++   0x000062198f940335
+20 clang++   0x000062198fce3ef1
+21 clang++   0x000062198fcd30f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+22 clang++   0x00006219919b061c clang::ParseAST(clang::Sema&, bool, bool) + 508
+23 clang++   0x0000621990051061 clang::FrontendAction::Execute() + 65
+24 clang++   0x000062198ffdae65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+25 clang++   0x0000621990128de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+26 clang++   0x000062198cf8433e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+27 clang++   0x000062198cf7a13a
+28 clang++   0x000062198cf7a2cf
+29 clang++   0x000062198fd5fcfd
+30 clang++   0x000062198f0f9630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+31 clang++   0x000062198fd60b53
+32 clang++   0x000062198fd15607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+33 clang++   0x000062198fd19ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+34 clang++   0x000062198fd28004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+35 clang++   0x000062198cf7f923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+36 clang++   0x000062198cebb7f1 main + 113
+37 libc.so.6 0x000079328da78d90
+38 libc.so.6 0x000079328da78e40 __libc_start_main + 128
+39 clang++   0x000062198cf79765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: riscv32
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/a6a8c0d8-54eb4c.mm
+clang++: note: diagnostic msg: /tmp/a6a8c0d8-54eb4c.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

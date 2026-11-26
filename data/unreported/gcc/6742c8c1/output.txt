@@ -1,0 +1,113 @@
+[... 8 lines omitted ...]
+   11 | [[__gnu__::assume (1)]];                /* { dg-warning "'assume' attribute at top level" } */
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:12:1: warning: 'assume' attribute not followed by ';' [-Wattributes]
+   12 | __attribute__((assume (1))) void f1b ();/* { dg-warning "'assume' attribute not followed by ';'" } */
+      | ^~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:12:1: warning: 'assume' attribute ignored [-Wattributes]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:14:1: warning: 'assume' attribute ignored [-Wattributes]
+   14 | typedef int inty __attribute__((assume (1)));   /* { dg-warning "'assume' attribute ignored" } */
+      | ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c: In function 'foo':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:20:18: error: wrong number of arguments specified for 'assume' attribute
+   20 |   [[gnu::assume]];                      /* { dg-error "wrong number of arguments specified for 'assume' attribute" } */
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:20:18: note: expected 1, found 0
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:22:22: error: parentheses must be omitted if attribute argument list is empty
+   22 |   [[gnu::__assume__ ()]];               /* { dg-error "parentheses must be omitted if attribute argument list is empty" } */
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:22:25: error: wrong number of arguments specified for 'assume' attribute
+   22 |   [[gnu::__assume__ ()]];               /* { dg-error "parentheses must be omitted if attribute argument list is empty" } */
+      |                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:22:25: note: expected 1, found 0
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:25:25: error: wrong number of arguments specified for 'assume' attribute
+   25 |   [[gnu::assume (1, 1)]];               /* { dg-error "wrong number of arguments specified for 'assume' attribute" } */
+      |                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:25:25: note: expected 1, found 2
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:27:3: warning: 'assume' attribute ignored [-Wattributes]
+   27 |   [[gnu::assume (1)]] i = 1;            /* { dg-warning "'assume' attribute ignored" } */
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:28:19: error: expected ')' before '=' token
+   28 |   [[gnu::assume (i = 1)]];              /* { dg-error "expected" } */
+      |                 ~ ^~
+      |                   )
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:28:23: error: expected ']' before ')' token
+   28 |   [[gnu::assume (i = 1)]];              /* { dg-error "expected" } */
+      |                       ^
+      |                       ]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:28:3: warning: 'assume' attribute ignored [-Wattributes]
+   28 |   [[gnu::assume (i = 1)]];              /* { dg-error "expected" } */
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:28:23: error: expected statement before ')' token
+   28 |   [[gnu::assume (i = 1)]];              /* { dg-error "expected" } */
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:28:24: error: expected statement before ']' token
+   28 |   [[gnu::assume (i = 1)]];              /* { dg-error "expected" } */
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:28:25: error: expected statement before ']' token
+   28 |   [[gnu::assume (i = 1)]];              /* { dg-error "expected" } */
+      |                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:30:3: error: wrong number of arguments specified for 'assume' attribute
+   30 |   __attribute__((assume));              /* { dg-error "wrong number of arguments specified for 'assume' attribute" } */
+      |   ^~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:30:3: note: expected 1, found 0
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:32:3: error: wrong number of arguments specified for 'assume' attribute
+   32 |   __attribute__((assume ()));           /* { dg-error "wrong number of arguments specified for 'assume' attribute" } */
+      |   ^~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:32:3: note: expected 1, found 0
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:34:3: error: wrong number of arguments specified for 'assume' attribute
+   34 |   __attribute__((assume (1, 1)));       /* { dg-error "wrong number of arguments specified for 'assume' attribute" } */
+      |   ^~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:34:3: note: expected 1, found 2
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:36:27: error: expected ')' before '=' token
+   36 |   __attribute__((assume (i = 1)));      /* { dg-error "expected" } */
+      |                           ^~
+      |                           )
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:36:32: error: expected identifier or '(' before ')' token
+   36 |   __attribute__((assume (i = 1)));      /* { dg-error "expected" } */
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c: In function 'f4':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:68:16: error: storage class specified for parameter 'fn_t'
+   68 | typedef void (*fn_t)(int);
+      |                ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:71:5: error: expected specifier-qualifier-list before 'fn_t'
+   71 |     fn_t invoke;
+      |     ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:70:1: warning: empty declaration
+   70 | struct vtable {
+      | ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:74:1: warning: empty declaration
+   74 | struct object {
+      | ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:79:28: error: expected '=', ',', ';', 'asm' or '__attribute__' before '{' token
+   79 | void closure_invoke(int x) {
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:83:16: error: expected '=', ',', ';', 'asm' or '__attribute__' before '{' token
+   83 | int main(void) {
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:63:1: error: old-style parameter declarations in prototyped function definition
+   63 | f4 ()
+      | ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:114:22: error: used struct type value where scalar is required
+  114 |   [[gnu::assume (s)]];                  /* { dg-error "used struct type value where scalar is required" } */
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:115:3: error: used struct type value where scalar is required
+  115 |   __attribute__((assume (s)));          /* { dg-error "used struct type value where scalar is required" } */
+      |   ^~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c: At top level:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:122:1: warning: 'assume' attribute not followed by ';' [-Wattributes]
+  122 | [[gnu::__assume__ (1)]] void f1 (void); /* { dg-warning "'assume' attribute not followed by ';'" } */
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:122:1: warning: 'assume' attribute ignored [-Wattributes]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:124:1: warning: 'assume' attribute ignored [-Wattributes]
+  124 | typedef int intx [[gnu::assume (1)]];   /* { dg-warning "'assume' attribute ignored" } */
+      | ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:125:1: warning: 'assume' attribute at top level [-Wattributes]
+  125 | [[__gnu__::assume (1)]];                /* { dg-warning "'assume' attribute at top level" } */
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:126:1: warning: 'assume' attribute not followed by ';' [-Wattributes]
+  126 | __attribute__((assume (1))) void f1b ();/* { dg-warning "'assume' attribute not followed by ';'" } */
+      | ^~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:126:1: warning: 'assume' attribute ignored [-Wattributes]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpk0buwsk2/b9fc55f5.c:128:1: warning: 'assume' attribute ignored [-Wat
+[... truncated ...]

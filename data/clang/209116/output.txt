@@ -1,0 +1,65 @@
+/tmp/test.cpp:3:42: error: unknown type name 'baz'
+    3 |   template <typename U> static constexpr baz my_const = U(1);
+      |                                          ^
+/tmp/test.cpp:5:2: error: expected ';' after struct
+    5 | }
+      |  ^
+      |  ;
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace, preprocessed source, and associated run script.
+Stack dump:
+0.	Program arguments: /usr/lib/llvm-22/bin/clang -cc1 -triple x86_64-pc-linux-gnu -emit-obj -dumpdir a- -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name test.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -fcoverage-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -resource-dir /usr/lib/llvm-22/lib/clang/22 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/15/../../../../include/c++/15 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/15/../../../../include/x86_64-linux-gnu/c++/15 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/15/../../../../include/c++/15/backward -internal-isystem /usr/lib/llvm-22/lib/clang/22/include -internal-isystem /usr/local/include -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/15/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -faddrsig -fdwarf2-cfi-asm -o /tmp/test-534856.o -x c++ /tmp/test.cpp
+1.	/tmp/test.cpp:6:39: current parser token 'my_const'
+2.	/tmp/test.cpp:2:8: instantiating class definition 'Wrapper<float>'
+ #0 0x00007ff4e4aa65ea llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/lib/llvm-22/bin/../lib/libLLVM.so.22.1+0x4e9f5ea)
+ #1 0x00007ff4e4aa3df7 llvm::sys::RunSignalHandlers() (/usr/lib/llvm-22/bin/../lib/libLLVM.so.22.1+0x4e9cdf7)
+ #2 0x00007ff4e4aa7334 (/usr/lib/llvm-22/bin/../lib/libLLVM.so.22.1+0x4ea0334)
+ #3 0x00007ff4df678970 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x40970)
+ #4 0x00007ff4ea55b395 clang::Decl::getASTContext() const (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x1909395)
+ #5 0x00007ff4ea597d14 clang::VarTemplateDecl::findPartialSpecInstantiatedFromMember(clang::VarTemplatePartialSpecializationDecl*) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x1945d14)
+ #6 0x00007ff4eb4149c2 clang::TemplateDeclInstantiator::VisitVarTemplatePartialSpecializationDecl(clang::VarTemplatePartialSpecializationDecl*) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x27c29c2)
+ #7 0x00007ff4eb39d461 clang::Sema::InstantiateClassImpl(clang::SourceLocation, clang::CXXRecordDecl*, clang::CXXRecordDecl*, clang::MultiLevelTemplateArgumentList const&, clang::TemplateSpecializationKind, bool) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x274b461)
+ #8 0x00007ff4eb39f55d clang::Sema::InstantiateClassTemplateSpecialization(clang::SourceLocation, clang::ClassTemplateSpecializationDecl*, clang::TemplateSpecializationKind, bool, bool) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x274d55d)
+ #9 0x00007ff4eb47b3e2 (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x28293e2)
+#10 0x00007ff4ea122a41 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x14d0a41)
+#11 0x00007ff4eb46aacd clang::Sema::RequireCompleteTypeImpl(clang::SourceLocation, clang::QualType, clang::Sema::CompleteTypeKind, clang::Sema::TypeDiagnoser*) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x2818acd)
+#12 0x00007ff4eb46a2a3 clang::Sema::RequireCompleteType(clang::SourceLocation, clang::QualType, clang::Sema::CompleteTypeKind, clang::Sema::TypeDiagnoser&) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x28182a3)
+#13 0x00007ff4ead49259 clang::Sema::RequireCompleteDeclContext(clang::CXXScopeSpec&, clang::DeclContext*) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x20f7259)
+#14 0x00007ff4eb2bf0b2 clang::Sema::LookupTemplateName(clang::LookupResult&, clang::Scope*, clang::CXXScopeSpec&, clang::QualType, bool, clang::Sema::RequiredTemplateKind, clang::Sema::AssumedTemplateKind*, bool) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x266d0b2)
+#15 0x00007ff4eb2becc4 clang::Sema::isTemplateName(clang::Scope*, clang::CXXScopeSpec&, bool, clang::UnqualifiedId const&, clang::OpaquePtr<clang::QualType>, bool, clang::OpaquePtr<clang::TemplateName>&, bool&, bool) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x266ccc4)
+#16 0x00007ff4ea2d9094 clang::Parser::ParseOptionalCXXScopeSpecifier(clang::CXXScopeSpec&, clang::OpaquePtr<clang::QualType>, bool, bool, bool*, bool, clang::IdentifierInfo const**, bool, bool, bool) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x1687094)
+#17 0x00007ff4ea2a9aea clang::Parser::ParseDeclaratorInternal(clang::Declarator&, void (clang::Parser::*)(clang::Declarator&)) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x1657aea)
+#18 0x00007ff4ea122a41 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x14d0a41)
+#19 0x00007ff4ea2aa5f4 clang::Parser::ParseDeclaratorInternal(clang::Declarator&, void (clang::Parser::*)(clang::Declarator&)) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x16585f4)
+#20 0x00007ff4ea122a41 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x14d0a41)
+#21 0x00007ff4ea29b446 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x1649446)
+#22 0x00007ff4ea34b3ae clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x16f93ae)
+#23 0x00007ff4ea34ae1c clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x16f8e1c)
+#24 0x00007ff4ea34a11f clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x16f811f)
+#25 0x00007ff4ea3488f7 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x16f68f7)
+#26 0x00007ff4ea28767e clang::ParseAST(clang::Sema&, bool, bool) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x163567e)
+#27 0x00007ff4ebfc1bef clang::FrontendAction::Execute() (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x336fbef)
+#28 0x00007ff4ebf35044 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x32e3044)
+#29 0x00007ff4ec04ff9a clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/usr/lib/llvm-22/bin/../lib/libclang-cpp.so.22.1+0x33fdf9a)
+#30 0x00005621cbb60cdd cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/usr/lib/llvm-22/bin/clang+0x13cdd)
+#31 0x00005621cbb5d53b (/usr/lib/llvm-22/bin/clang+0x1053b)
+#32 0x00005621cbb5c8a3 clang_main(int, char**, llvm::ToolContext const&) (/usr/lib/llvm-22/bin/clang+0xf8a3)
+#33 0x00005621cbb6b9aa main (/usr/lib/llvm-22/bin/clang+0x1e9aa)
+#34 0x00007ff4df661f77 (/usr/lib/x86_64-linux-gnu/libc.so.6+0x29f77)
+#35 0x00007ff4df662027 __libc_start_main (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a027)
+#36 0x00005621cbb5b1d1 _start (/usr/lib/llvm-22/bin/clang+0xe1d1)
+clang++: error: unable to execute command: Segmentation fault (core dumped)
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+Debian clang version 22.1.8 (1+b1)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/llvm-22/bin
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING FILES TO THE BUG REPORT:
+Preprocessed source(s) and associated run script(s) are located at:
+clang++: note: diagnostic msg: /tmp/test-aceec5.cpp
+clang++: note: diagnostic msg: /tmp/test-aceec5.sh
+clang++: note: diagnostic msg: 
+
+********************

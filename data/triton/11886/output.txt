@@ -1,0 +1,37 @@
+triton-opt: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-src/include/triton/Analysis/AxisInfo.h:39: mlir::triton::AxisInfo::AxisInfo(ArrayRef<int64_t>, ArrayRef<int64_t>, ArrayRef<int64_t>, std::optional<APInt>): Assertion `constancy.size() == contiguity.size()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt ./min.txt --convert-triton-amdgpu-to-llvm=gfx-arch=gfx942
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x0000575f6d8ac48a
+1  triton-opt 0x0000575f6d8a938e
+2  triton-opt 0x0000575f6d8ad38b
+3  libc.so.6  0x0000797d67dfa520
+4  libc.so.6  0x0000797d67e4e9bc pthread_kill + 300
+5  libc.so.6  0x0000797d67dfa476 raise + 22
+6  libc.so.6  0x0000797d67de07f3 abort + 211
+7  libc.so.6  0x0000797d67de071b
+8  libc.so.6  0x0000797d67df1e96
+9  triton-opt 0x0000575f6580d044
+10 triton-opt 0x0000575f657f9466
+11 triton-opt 0x0000575f657f8a95
+12 triton-opt 0x0000575f6cd0a5ba
+13 triton-opt 0x0000575f6ccd083f
+14 triton-opt 0x0000575f657fe7cc
+15 triton-opt 0x0000575f65ca7068
+16 triton-opt 0x0000575f6613fc08
+17 triton-opt 0x0000575f6627a89b
+18 triton-opt 0x0000575f6627b419
+19 triton-opt 0x0000575f66282432
+20 triton-opt 0x0000575f66281ca2
+21 triton-opt 0x0000575f6626cd37
+22 triton-opt 0x0000575f6626bfcc
+23 triton-opt 0x0000575f6d4ca6b1
+24 triton-opt 0x0000575f66262332
+25 triton-opt 0x0000575f66262731
+26 triton-opt 0x0000575f6626296d
+27 triton-opt 0x0000575f6624d92c
+28 libc.so.6  0x0000797d67de1d90
+29 libc.so.6  0x0000797d67de1e40 __libc_start_main + 128
+30 triton-opt 0x0000575f657f4df5
+Aborted (core dumped)

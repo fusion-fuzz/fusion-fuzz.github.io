@@ -1,0 +1,104 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:18:5: error: type name requires a specifier or qualifier
+   18 |     (void)(^^long long);
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:18:6: error: expected member name or ';' after declaration specifiers
+   18 |     (void)(^^long long);
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:18:6: error: expected ')'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:18:5: note: to match this '('
+   18 |     (void)(^^long long);
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:18:14: error: invalid parameter name: 'long' is a keyword
+   18 |     (void)(^^long long);
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:18:14: error: a type specifier is required for all declarations
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:18:14: error: block pointer to non-function type is invalid
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:18:14: error: block pointer to non-function type is invalid
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:18:19: error: expected ')'
+   18 |     (void)(^^long long);
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:18:11: note: to match this '('
+   18 |     (void)(^^long long);
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:19:5: error: type name requires a specifier or qualifier
+   19 |     (void)(^^float);
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:19:6: error: expected member name or ';' after declaration specifiers
+   19 |     (void)(^^float);
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:19:6: error: expected ')'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:19:5: note: to match this '('
+   19 |     (void)(^^float);
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:19:14: error: invalid parameter name: 'float' is a keyword
+   19 |     (void)(^^float);
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:19:14: error: a type specifier is required for all declarations
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:19:14: error: block pointer to non-function type is invalid
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:19:14: error: block pointer to non-function type is invalid
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:20:5: error: type name requires a specifier or qualifier
+   20 |     (void)(^^double);
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:20:6: error: expected member name or ';' after declaration specifiers
+   20 |     (void)(^^double);
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:20:6: error: expected ')'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:20:5: note: to match this '('
+   20 |     (void)(^^double);
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:20:14: error: invalid parameter name: 'double' is a keyword
+   20 |     (void)(^^double);
+      |              ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/Parse/Parser.h:348: clang::SourceLocation clang::Parser::ConsumeToken(): Assertion `!isTokenSpecial() && "Should consume special tokens with Consume*Token"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O2 -fblocks -fobjc-runtime=ios-7 -fno-objc-arc -Wall -target x86_64-apple-darwin -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp6zlq0dpn/8db195e3.mm:24:16: current parser token ')'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005ae801a74329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005ae801a70fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005ae801a718a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005ae8019b3218
+4  libc.so.6 0x000075687d61c520
+5  libc.so.6 0x000075687d6709bc pthread_kill + 300
+6  libc.so.6 0x000075687d61c476 raise + 22
+7  libc.so.6 0x000075687d6027f3 abort + 211
+8  libc.so.6 0x000075687d60271b
+9  libc.so.6 0x000075687d613e96
+10 clang++   0x00005ae80427e28a
+11 clang++   0x00005ae8042d75f9 clang::Parser::ParseDirectDeclarator(clang::Declarator&) + 4009
+12 clang++   0x00005ae8042bddc0 clang::Parser::ParseDeclaratorInternal(clang::Declarator&, void (clang::Parser::*)(clang::Declarator&)) + 1232
+13 clang++   0x00005ae805e6b395 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+14 clang++   0x00005ae8042bdf12 clang::Parser::ParseDeclaratorInternal(clang::Declarator&, void (clang::Parser::*)(clang::Declarator&)) + 1570
+15 clang++   0x00005ae805e6b395 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+16 clang++   0x00005ae8042bdf12 clang::Parser::ParseDeclaratorInternal(clang::Declarator&, void (clang::Parser::*)(clang::Declarator&)) + 1570
+17 clang++   0x00005ae805e6b395 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+18 clang++   0x00005ae8042d408e clang::Parser::ParseParameterDeclarationClause(clang::DeclaratorContext, clang::ParsedAttributes&, llvm::SmallVectorImpl<clang::DeclaratorChunk::ParamInfo>&, clang::SourceLocation&, bool) + 654
+19 clang++   0x00005ae8042d56c2 clang::Parser::ParseFunctionDeclarator(clang::Declarator&, clang::ParsedAttributes&, clang::BalancedDelimiterTracker&, bool, bool) + 1266
+20 clang++   0x00005ae8042d7159 clang::Parser::ParseDirectDeclarator(clang::Declarator&) + 2825
+21 clang++   0x00005ae8042bde2f clang::Parser::ParseDeclaratorInternal(clang::Declarator&, void (clang::Parser::*)(clang::Declarator&)) + 1343
+22 clang++   0x00005ae805e6b395 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+23 clang++   0x00005ae8042d1744 clang::Parser::ParseStructDeclaration(clang::ParsingDeclSpec&, llvm::function_ref<clang::Decl* (clang::ParsingFieldDeclarator&)>, clang::LateParsedAttrList*) + 628
+24 clang++   0x00005ae804332131 clang::Parser::ParseObjCClassInstanceVariables(clang::ObjCContainerDecl*, clang::tok::ObjCKeywordKind, clang::SourceLocation) + 497
+25 clang++   0x00005ae80433f42b clang::Parser::ParseObjCAtInterfaceDeclaration(clang::SourceLocation, clang::ParsedAttributes&) + 1755
+26 clang++   0x00005ae80433fff5 clang::Parser::ParseObjCAtDirectives(clang::ParsedAttributes&, clang::ParsedAttributes&) + 1317
+27 clang++   0x00005ae80428cdf3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2563
+28 clang++   0x00005ae80428d6ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+29 clang++   0x00005ae80426a632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+30 clang++   0x00005ae80290b061 clang::FrontendAction::Execute() + 65
+31 clang++   0x00005ae802894e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+32 clang++   0x00005ae8029e2de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+33 clang++   0x00005ae7ff83e33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+34 clang++   0x00005ae7ff83413a
+35 clang++   0x00005ae7ff8342cf
+36 clang++   0x00005ae802619cfd
+37 clang++   0x00005ae8019b3630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+38 clang++   0x00005ae80261ab53
+39 clang++   0x00005ae8025cf607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+40 clang++   0x00005ae8025d3ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+41 clang++   0x00005ae8025e2004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+42 clang++   0x00005ae7ff839923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+43 clang++   0x00005ae7ff7757f1 main + 113
+44 libc.so.6 0x0
+[... truncated ...]

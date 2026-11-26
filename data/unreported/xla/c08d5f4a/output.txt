@@ -1,0 +1,28 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+I0000 00:00:1792019697.891025  492789 latency_hiding_scheduler.cc:4596] [latency-hiding-scheduler] LatencyHidingScheduler current memory usage: 96 bytes. Current limit: 225736020268
+F0000 00:00:1792019697.894060  492789 all_reduce_thunk.cc:81] Check failed: reduction_kind.has_value() 
+*** Check failure stack trace: ***
+    @     0x59d2732d9a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x59d2732d99e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x59d2694287b0  xla::gpu::GetAllReduceConfigInst()
+    @     0x59d26942adf1  xla::gpu::AddOpDescription<>()
+    @     0x59d26942ad4f  xla::gpu::ReduceScatterThunk::CheckImplementable()
+    @     0x59d267edd2db  xla::gpu::ThunkEmitter::EmitCollective<>()
+    @     0x59d267ecabf8  xla::gpu::ThunkEmitter::EmitCollective()
+    @     0x59d267ed634b  xla::gpu::ThunkEmitter::EmitHloInstruction()
+    @     0x59d267ecda02  xla::gpu::ThunkEmitter::EmitHloComputation()
+    @     0x59d267eb3db3  xla::gpu::ThunkEmitter::EmitAsyncStart()
+    @     0x59d267eb1dc2  xla::gpu::ThunkEmitter::DispatchAsyncStart()
+    @     0x59d267ed6b1c  xla::gpu::ThunkEmitter::EmitHloInstruction()
+    @     0x59d267ecda02  xla::gpu::ThunkEmitter::EmitHloComputation()
+    @     0x59d267ee3a02  xla::gpu::ThunkEmitter::EmitHloEntryComputation()
+    @     0x59d267e9a087  xla::gpu::CompileModuleToLlvmIr()
+    @     0x59d267e7018b  xla::gpu::GpuCompiler::CompileToBackendResult()
+    @     0x59d267e74ac3  xla::gpu::GpuCompiler::RunBackend()
+    @     0x59d267d93028  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x59d267d9127d  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x59d27332a466  main
+    @     0x730be43d4d90  (unknown)
+Aborted (core dumped)

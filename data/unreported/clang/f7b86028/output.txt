@@ -1,0 +1,84 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2e1nbaog/70bd8c86.c:55:40: error: incompatible pointer to integer conversion assigning to 'int' from 'void *' [-Wint-conversion]
+   55 | void *f3_1(int a, void *b) { return (a += b); }
+      |                                        ^  ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2e1nbaog/70bd8c86.c:55:37: error: incompatible integer to pointer conversion returning 'int' from a function with result type 'void *' [-Wint-conversion]
+   55 | void *f3_1(int a, void *b) { return (a += b); }
+      |                                     ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2e1nbaog/70bd8c86.c:61:34: error: incompatible pointer to integer conversion assigning to 'int' from 'FP' (aka 'void (*)(void)') [-Wint-conversion]
+   61 | FP f6_1(int a, FP b) { return (a += b); }
+      |                                  ^  ~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2e1nbaog/70bd8c86.c:61:31: error: incompatible integer to pointer conversion returning 'int' from a function with result type 'FP' (aka 'void (*)(void)') [-Wint-conversion]
+   61 | FP f6_1(int a, FP b) { return (a += b); }
+      |                               ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2e1nbaog/70bd8c86.c:64:34: warning: ISO C does not allow indirection on operand of type 'void *' [-Wvoid-ptr-dereference]
+   64 | void f8(void *a, int b) { return *(a + b); }
+      |                                  ^~~~~~~~
+clang: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CodeGenTBAA.cpp:630: llvm::MDNode* clang::CodeGen::CodeGenTBAA::getAccessTagInfo(clang::CodeGen::TBAAAccessInfo): Assertion `!Info.isIncomplete() && "Access to an object of an incomplete type!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -c -o /dev/null -Os -std=c23 -ffast-math -Wextra /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2e1nbaog/70bd8c86.c
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2e1nbaog/70bd8c86.c:65:6: LLVM IR generation of declaration 'f8_1'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2e1nbaog/70bd8c86.c:65:6: Generating code for declaration 'f8_1'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x00005575e037e4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x00005575e037b1bc llvm::sys::RunSignalHandlers() + 76
+2  clang     0x00005575e037ba78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x00005575e02bde88
+4  libc.so.6 0x00007efce8b7a520
+5  libc.so.6 0x00007efce8bce9bc pthread_kill + 300
+6  libc.so.6 0x00007efce8b7a476 raise + 22
+7  libc.so.6 0x00007efce8b607f3 abort + 211
+8  libc.so.6 0x00007efce8b6071b
+9  libc.so.6 0x00007efce8b71e96
+10 clang     0x00005575e099ef3f clang::CodeGen::CodeGenTBAA::getAccessTagInfo(clang::CodeGen::TBAAAccessInfo) + 1007
+11 clang     0x00005575e0901c84 clang::CodeGen::CodeGenModule::DecorateInstructionWithTBAA(llvm::Instruction*, clang::CodeGen::TBAAAccessInfo) + 84
+12 clang     0x00005575e069beef clang::CodeGen::CodeGenFunction::EmitLoadOfScalar(clang::CodeGen::Address, bool, clang::QualType, clang::SourceLocation, clang::CodeGen::LValueBaseInfo, clang::CodeGen::TBAAAccessInfo, bool) + 1695
+13 clang     0x00005575e069cdd9 clang::CodeGen::CodeGenFunction::EmitLoadOfLValue(clang::CodeGen::LValue, clang::SourceLocation) + 1545
+14 clang     0x00005575e072b459
+15 clang     0x00005575e072ac9d clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 141
+16 clang     0x00005575e06904fe clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) + 238
+17 clang     0x00005575e085a21b clang::CodeGen::CodeGenFunction::EmitReturnStmt(clang::ReturnStmt const&) + 1931
+18 clang     0x00005575e086aadc clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+19 clang     0x00005575e08d4871 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) + 177
+20 clang     0x00005575e08eb884 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 1380
+21 clang     0x00005575e0955c0a clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 2106
+22 clang     0x00005575e094ef64 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 580
+23 clang     0x00005575e094fe60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+24 clang     0x00005575e095b495
+25 clang     0x00005575e0cff3e1
+26 clang     0x00005575e0ceebc1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+27 clang     0x00005575e2b64cdc clang::ParseAST(clang::Sema&, bool, bool) + 508
+28 clang     0x00005575e106ce51 clang::FrontendAction::Execute() + 65
+29 clang     0x00005575e0ff6df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+30 clang     0x00005575e1144c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+31 clang     0x00005575ded8dd3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+32 clang     0x00005575ded83ada
+33 clang     0x00005575ded83c6f
+34 clang     0x00005575e0d7b42d
+35 clang     0x00005575e02be2a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+36 clang     0x00005575e0d7c283
+37 clang     0x00005575e0d30d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+38 clang     0x00005575e0d35600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+39 clang     0x00005575e0d43714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+40 clang     0x00005575ded89383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+41 clang     0x00005575decd9901 main + 113
+42 libc.so.6 0x00007efce8b61d90
+43 libc.so.6 0x00007efce8b61e40 __libc_start_main + 128
+44 clang     0x00005575ded83105 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang: note: diagnostic msg: /tmp/70bd8c86-9ca30e.c
+clang: note: diagnostic msg: /tmp/70bd8c86-9ca30e.sh
+clang: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

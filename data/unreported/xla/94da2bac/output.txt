@@ -1,0 +1,27 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1792020490.330666  567111 host_offloader.cc:405] Check failed: predecessors.size() == 1 (2 vs. 1) 
+*** Check failure stack trace: ***
+    @     0x5d2c9c199a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5d2c9c1999e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5d2c93685aa8  xla::HostOffloader::WalkDownHostMemoryOffloadPaths()
+    @     0x5d2c93688ede  xla::HostOffloader::HandleMoveToHostCustomCall()
+    @     0x5d2c9368f707  xla::HostOffloader::ProcessNextMoveToHostInstr()
+    @     0x5d2c93690a30  xla::HostOffloader::RunImpl()
+    @     0x5d2c98250be7  xla::HloPassInterface::Run()
+    @     0x5d2c93dce3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5d2c93dc97bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5d2c93dc8bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5d2c98250be7  xla::HloPassInterface::Run()
+    @     0x5d2c90d28a8e  xla::gpu::GpuCompiler::OptimizeHloPostLayoutAssignment()
+    @     0x5d2c90d0b84a  xla::gpu::NVPTXCompiler::OptimizeHloPostLayoutAssignment()
+    @     0x5d2c90d1fe57  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5d2c90d2a06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5d2c90c5e934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5d2c90c5ee85  xla::CompiledOptProvider::GetExecutable()
+    @     0x5d2c90c5e245  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5d2c90c50d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5d2c9c1ea466  main
+    @     0x7103bb7d4d90  (unknown)
+Aborted (core dumped)

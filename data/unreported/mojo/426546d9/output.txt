@@ -1,0 +1,53 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mojo/tmp_m3n671n/220e5b55.mojo:313:8: error: invalid redefinition of 'Foo_d'
+struct Foo_d[T: AnyType](def(T)):
+       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mojo/tmp_m3n671n/220e5b55.mojo:282:8: note: conflicts with this previous struct declaration
+struct Foo_d[T: AnyType](def(T)):
+       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/mojo/tmp_m3n671n/220e5b55.mojo:172:24: warning: 'Int' value is unused; assign to '_' to discard the result
+            maybeRaises()  # expected-warning {{'Int' value is unused; assign to '_' to discard the result}}
+            ~~~~~~~~~~~^~
+            _ = 
+Please submit a bug report to https://github.com/modular/modular/issues and include the crash backtrace along with all the relevant source codes.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo build --emit exe -O3 --debug-level line-tables -DASSERT=all -j 1 -I /home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/modular/Mojo/stdlib/test -I /home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/modular/Mojo/test/test-packages -o /home/fuzz/WorkSpace/fusion-fuzz/.fused/mojo/tmp_m3n671n/out.exe /home/fuzz/WorkSpace/fusion-fuzz/.fused/mojo/tmp_m3n671n/220e5b55.mojo
+1.	Crash resolving decl body at loc("/home/fuzz/WorkSpace/fusion-fuzz/.fused/mojo/tmp_m3n671n/220e5b55.mojo":166:5)
+    >> def rethrowsToRethrow():
+           ^                   
+2.	Crash parsing statement at loc("/home/fuzz/WorkSpace/fusion-fuzz/.fused/mojo/tmp_m3n671n/220e5b55.mojo":168:5)
+    >>     try:
+           ^   
+3.	Crash parsing statement at loc("/home/fuzz/WorkSpace/fusion-fuzz/.fused/mojo/tmp_m3n671n/220e5b55.mojo":170:9)
+    >>         try:
+               ^   
+4.	Crash parsing statement at loc("/home/fuzz/WorkSpace/fusion-fuzz/.fused/mojo/tmp_m3n671n/220e5b55.mojo":177:13)
+    >>             raise
+                   ^    
+ #0 0x0000557d19e4059e (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x853959e)
+ #1 0x0000557d19e3d5fe (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x85365fe)
+ #2 0x0000557d19e41110 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x853a110)
+ #3 0x00007fdb03ed2520 (/lib/x86_64-linux-gnu/libc.so.6+0x42520)
+ #4 0x0000557d1594590b (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x403e90b)
+ #5 0x0000557d1593a450 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x4033450)
+ #6 0x0000557d15941c51 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x403ac51)
+ #7 0x0000557d1596deb4 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x4066eb4)
+ #8 0x0000557d159686f9 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x40616f9)
+ #9 0x0000557d159765c6 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x406f5c6)
+#10 0x0000557d159686f9 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x40616f9)
+#11 0x0000557d1596bdac (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x4064dac)
+#12 0x0000557d159686f9 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x40616f9)
+#13 0x0000557d15968666 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x4061666)
+#14 0x0000557d15851f84 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x3f4af84)
+#15 0x0000557d15848f80 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x3f41f80)
+#16 0x0000557d1583e662 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x3f37662)
+#17 0x0000557d1583f829 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x3f38829)
+#18 0x0000557d158aab32 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x3fa3b32)
+#19 0x0000557d158aadfe (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x3fa3dfe)
+#20 0x0000557d157a1a39 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x3e9aa39)
+#21 0x0000557d157a889f (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x3ea189f)
+#22 0x0000557d1579830c (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x3e9130c)
+#23 0x0000557d15795707 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x3e8e707)
+#24 0x00007fdb03eb9d90 (/lib/x86_64-linux-gnu/libc.so.6+0x29d90)
+#25 0x00007fdb03eb9e40 __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e40)
+#26 0x0000557d15795065 (/home/fuzz/WorkSpace/fusion-fuzz/projects/mojo/venv/bin/mojo+0x3e8e065)
+Segmentation fault (core dumped)

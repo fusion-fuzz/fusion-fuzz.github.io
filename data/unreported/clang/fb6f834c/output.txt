@@ -1,0 +1,61 @@
+clang: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CodeGenModule.cpp:3875: void clang::CodeGen::CodeGenModule::ProcessPragmaCommentCopyright(llvm::StringRef, bool): Assertion `getTriple().isOSAIX() && "pragma comment copyright is supported only when targeting AIX"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -S -o /dev/null -O3 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -target x86_64-windows-msvc -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpej8d3yun/ebe80118.c
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpej8d3yun/ebe80118.c:43:2: current parser token 'pragma'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpej8d3yun/ebe80118.c:43:9: LLVM IR generation of declaration
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x00005dea8e75e329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x00005dea8e75afec llvm::sys::RunSignalHandlers() + 76
+2  clang     0x00005dea8e75b8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x00005dea8e69d218
+4  libc.so.6 0x000074d3e6e86520
+5  libc.so.6 0x000074d3e6eda9bc pthread_kill + 300
+6  libc.so.6 0x000074d3e6e86476 raise + 22
+7  libc.so.6 0x000074d3e6e6c7f3 abort + 211
+8  libc.so.6 0x000074d3e6e6c71b
+9  libc.so.6 0x000074d3e6e7de96
+10 clang     0x00005dea8ee8d078 clang::CodeGen::CodeGenModule::ProcessPragmaCommentCopyright(llvm::StringRef, bool) + 584
+11 clang     0x00005dea8f287ef1
+12 clang     0x00005dea8f2770f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+13 clang     0x00005dea9105af31
+14 clang     0x00005dea92ab66c5 clang::Preprocessor::HandlePragmaDirective(clang::PragmaIntroducer) + 101
+15 clang     0x00005dea92a8c5b8 clang::Preprocessor::HandleDirective(clang::Token&) + 1784
+16 clang     0x00005dea92a1e6c5 clang::Lexer::LexTokenInternal(clang::Token&) + 1317
+17 clang     0x00005dea92a2094e clang::Lexer::Lex(clang::Token&) + 174
+18 clang     0x00005dea92acfeec clang::Preprocessor::Lex(clang::Token&) + 60
+19 clang     0x00005dea90f682c0
+20 clang     0x00005dea90f545d5 clang::ParseAST(clang::Sema&, bool, bool) + 437
+21 clang     0x00005dea8f5f5061 clang::FrontendAction::Execute() + 65
+22 clang     0x00005dea8f57ee65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+23 clang     0x00005dea8f6ccde3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+24 clang     0x00005dea8c52833e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+25 clang     0x00005dea8c51e13a
+26 clang     0x00005dea8c51e2cf
+27 clang     0x00005dea8f303cfd
+28 clang     0x00005dea8e69d630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+29 clang     0x00005dea8f304b53
+30 clang     0x00005dea8f2b9607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+31 clang     0x00005dea8f2bdef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+32 clang     0x00005dea8f2cc004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+33 clang     0x00005dea8c523923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+34 clang     0x00005dea8c45f7f1 main + 113
+35 libc.so.6 0x000074d3e6e6dd90
+36 libc.so.6 0x000074d3e6e6de40 __libc_start_main + 128
+37 clang     0x00005dea8c51d765 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-windows-msvc
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang: note: diagnostic msg: /tmp/ebe80118-86dc11.c
+clang: note: diagnostic msg: /tmp/ebe80118-86dc11.sh
+clang: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

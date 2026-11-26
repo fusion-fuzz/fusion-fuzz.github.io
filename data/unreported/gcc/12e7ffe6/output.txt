@@ -1,0 +1,89 @@
+cc1plus: warning: command-line option '-fgimple' is valid for C but not for C++
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc:11:6: error: variable or field '__GIMPLE' declared void
+   11 | void __GIMPLE (ssa, startwith ("expand"))
+      |      ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc:11:16: error: 'ssa' was not declared in this scope
+   11 | void __GIMPLE (ssa, startwith ("expand"))
+      |                ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc:11:21: error: 'startwith' was not declared in this scope
+   11 | void __GIMPLE (ssa, startwith ("expand"))
+      |                     ^~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc:512:27: error: conflicting declaration of template 'template<bool __v> using __bool_constant = rebind_alloc<__v>'
+  512 | template <bool __v> using __bool_constant = rebind_alloc<__v>;
+      |                           ^~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc:42:27: note: previous declaration 'template<bool __v> using __bool_constant = integral_constant<__v>'
+   42 | template <bool __v> using __bool_constant = integral_constant<__v>;
+      |                           ^~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc:520:7: error: redefinition of 'void* operator new(long unsigned int, void*)'
+  520 | void *operator new(__SIZE_TYPE__, void *__p) { return __p; }
+      |       ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc:50:7: note: 'void* operator new(long unsigned int, void*)' previously defined here
+   50 | void *operator new(__SIZE_TYPE__, void *__p) { return __p; }
+      |       ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc:548:30: error: redefinition of 'template<class _Tp> void construct_at(_Tp*)'
+  548 | template <typename _Tp> void construct_at(_Tp *__location) noexcept {
+      |                              ^~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc:78:30: note: 'template<class _Tp> void construct_at(_Tp*)' previously declared here
+   78 | template <typename _Tp> void construct_at(_Tp *__location) noexcept {
+      |                              ^~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc:634:39: error: too many template-parameter-lists
+  634 | _Tr<__collate(_ArgTypes...)>::function(_Functor) {
+      |                                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc: In function '_ForwardIterator std::_M_automaton(_InputIterator, _InputIterator, _ForwardIterator)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc:718:17: error: '__uninit_copy' is not a member of 'std::__e' [-Wtemplate-body]
+  718 |     return __e::__uninit_copy(__first, __last, __result);
+      |                 ^~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc:734:51: error: conflicting declaration of template 'template<class _Tp, class _Alloc> struct std::__enable_if_contiguous_iter'
+  734 |   template <typename _Tp, typename _Alloc> struct __enable_if_contiguous_iter {
+      |                                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc:396:9: note: previous declaration 'template<class, class> using std::__enable_if_contiguous_iter = __enable_if_t<false, std::__shared_ptr_access<std::_NFA> >'
+  396 |   using __enable_if_contiguous_iter =
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc:798:50: internal compiler error: in resolve_typename_type, at cp/pt.cc:31204
+  798 |       typename __x<typename _Base::_Tp_alloc_type>::const_pointer,
+      |                                                  ^
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x86b7c9 resolve_typename_type(tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:31204
+0x12b03c1 structural_comptypes
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck.cc:1453
+0x11d0d17 template_args_equal(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:9836
+0x11d08fa template_args_equal(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:9799
+0x11d08fa comp_template_args(tree_node*, tree_node*, tree_node**, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:9880
+0x11d08fa comp_template_args(tree_node*, tree_node*, tree_node**, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:9863
+0x11fb5a4 lookup_template_class(tree_node*, tree_node*, tree_node*, tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:10693
+0x1266b3c finish_template_type(tree_node*, tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:4497
+0x119cd18 cp_parser_template_id
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:21423
+0x119e023 cp_parser_class_name
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29721
+0x118922f cp_parser_qualifying_entity
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:8320
+0x118922f cp_parser_nested_name_specifier_opt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:7988
+0x11abfd5 cp_parser_nested_name_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:8229
+0x11abfd5 cp_parser_elaborated_type_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:23545
+0x11818aa cp_parser_type_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:22531
+0x1181d0f cp_parser_type_specifier_seq
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:28154
+0x118dd31 cp_parser_type_id_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:27917
+0x1192d26 cp_parser_template_type_arg
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:28037
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpjpcev7ru/38816456.cc -quiet -dumpbase 38816456.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Os -O2 -std=c++23 -fstack-protector-all -fgimple -ffloat-store -ftree-coalesce-vars -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

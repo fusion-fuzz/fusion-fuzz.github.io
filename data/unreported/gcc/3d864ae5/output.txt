@@ -1,0 +1,100 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:85:15: error: variable or field 'B' declared void
+   85 | template void A2<int>::B<int>::f<int,int>();
+      |               ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:85:25: error: expected ';' before '<' token
+   85 | template void A2<int>::B<int>::f<int,int>();
+      |                         ^
+      |                         ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:97:18: error: too many initializers for 'int [2]'
+   97 | int a1[2](1, 2, 3);
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:99:5: error: declaration of 'a2' as array of functions
+   99 | int a2[]();
+      |     ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:101:11: error: expected primary-expression before ')' token
+  101 | int a3[](());
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:103:10: error: invalid conversion from 'const char*' to 'int' [-fpermissive]
+  103 | int a4[]("raccoon");
+      |          ^~~~~~~~~
+      |          |
+      |          const char*
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:111:13: error: too many initializers for 'S'
+  111 | S s1(1, 1, 1);
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:122:16: error: too many initializers for 'U2'
+  122 | U2 u4 = U2(1, 2);
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:127:23: error: too many initializers for 'int [2][2]'
+  127 | int a[2][2](1, 2, 3, 4);
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:127:13: error: array must be initialized with a brace-enclosed initializer
+  127 | int a[2][2](1, 2, 3, 4);
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:127:16: error: array must be initialized with a brace-enclosed initializer
+  127 | int a[2][2](1, 2, 3, 4);
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:127:19: error: array must be initialized with a brace-enclosed initializer
+  127 | int a[2][2](1, 2, 3, 4);
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:127:22: error: array must be initialized with a brace-enclosed initializer
+  127 | int a[2][2](1, 2, 3, 4);
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:133:8: error: 'struct D' redeclared as different kind of entity
+  133 | struct D : private B {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:6:28: note: previous declaration 'template<class T> concept D'
+    6 | template <class T> concept D = true;
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:138:1: error: expected 'auto' or 'decltype(auto)' after 'D'
+  138 | D d({}, 1, 2);
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:138:13: warning: list-initializer for non-class type must not be parenthesized
+  138 | D d({}, 1, 2);
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:138:13: error: expression list treated as compound expression in initializer [-fpermissive]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:138:13: warning: list-initializer for non-class type must not be parenthesized
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:138:13: error: expression list treated as compound expression in initializer [-fpermissive]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc:138:13: internal compiler error: in cxx_eval_bare_aggregate, at cp/constexpr.cc:7416
+0x306c5cb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00e5e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7d3ccd cxx_eval_bare_aggregate
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:7416
+0xe63b20 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10695
+0xe617f9 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10740
+0xe61c2f cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10529
+0xe61c2f cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10529
+0xe73dfc cxx_eval_outermost_constant_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11677
+0xe7d6e8 maybe_constant_init_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:12324
+0x115f655 store_init_value(tree_node*, tree_node*, vec<tree_node*, va_gc, vl_embed>**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck2.cc:1115
+0xf03953 check_initializer
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:8827
+0xf097a6 cp_finish_decl(tree_node*, tree_node*, bool, tree_node*, int, cp_decomp*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:10111
+0x1039ef0 cp_parser_init_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:26620
+0x103dd6b cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18283
+0x104b80f cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17820
+0x104e273 cp_parser_toplevel_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17924
+0x104e273 cp_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:5685
+0x104e273 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:58097
+0x11e22c9 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1442
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpi4rslq7l/e2751be7.cc -quiet -dumpbase e2751be7.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O2 -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

@@ -1,0 +1,20 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpradezxjk/16b3f5e4.cc:85:7: warning: line number out of range
+   85 | #line 9223372036854775807       /* { dg-warning "line number out of range" } */
+      |       ^~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpradezxjk/16b3f5e4.cc:-1:9: internal compiler error: in linemap_position_for_loc_and_offset, at libcpp/line-map.cc:1170
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x33bae31 linemap_position_for_loc_and_offset(line_maps*, unsigned long, unsigned int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/line-map.cc:1170
+0x11c3bb9 cp_lexer_new_main
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:914
+0x11c3bb9 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:57897
+0x1357329 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpradezxjk/16b3f5e4.cc -quiet -dumpbase 16b3f5e4.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -g -Ofast -std=gnu++17 -finline-functions -fPIC -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

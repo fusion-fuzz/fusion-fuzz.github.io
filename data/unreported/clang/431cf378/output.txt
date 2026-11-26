@@ -1,0 +1,80 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmbjlysx_/546134b6.cpp:51:23: warning: unsupported 'fpmath=' in the 'target' attribute string; 'target' attribute ignored [-Wignored-attributes]
+   51 | __attribute__((target("fpmath=387")))
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmbjlysx_/546134b6.cpp:118:1: warning: empty struct has size 0 in C, size 1 in C++ [-Wextern-c-compat]
+  118 | struct S {};
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmbjlysx_/546134b6.cpp:119:16: error: templates must have C++ linkage
+  119 | void S(struct {template <typename T> friend void foo(){}});
+      |                ^~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmbjlysx_/546134b6.cpp:117:1: note: extern "C" language linkage specification begins here
+  117 | extern "C" {
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmbjlysx_/546134b6.cpp:119:8: error: '(unnamed struct at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmbjlysx_/546134b6.cpp:119:8)' cannot be defined in a parameter type
+  119 | void S(struct {template <typename T> friend void foo(){}});
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmbjlysx_/546134b6.cpp:122:23: warning: unknown CPU 'lakemont' in the 'target' attribute string; 'target' attribute ignored [-Wignored-attributes]
+  122 | __attribute__((target("arch=lakemont,mmx")))
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmbjlysx_/546134b6.cpp:132:23: warning: unknown CPU 'lakemont' in the 'target' attribute string; 'target' attribute ignored [-Wignored-attributes]
+  132 | __attribute__((target("arch=lakemont,mmx")))
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmbjlysx_/546134b6.cpp:203:1: warning: empty struct has size 0 in C, size 1 in C++ [-Wextern-c-compat]
+  203 | struct S_ffl {};
+      | ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/Decl.cpp:3782: void clang::FunctionDecl::setPreviousDeclaration(clang::FunctionDecl*): Assertion `(!PrevDecl || PrevFunTmpl) && "Function/function template mismatch"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Os /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmbjlysx_/546134b6.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmbjlysx_/546134b6.cpp:204:63: current parser token '{'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmbjlysx_/546134b6.cpp:204:12: parsing struct/union/class body '(unnamed struct at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpmbjlysx_/546134b6.cpp:204:12)'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000563b13b1b4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000563b13b181bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000563b13b18a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000563b13a5ae88
+4  libc.so.6 0x00007f29c9cef520
+5  libc.so.6 0x00007f29c9d439bc pthread_kill + 300
+6  libc.so.6 0x00007f29c9cef476 raise + 22
+7  libc.so.6 0x00007f29c9cd57f3 abort + 211
+8  libc.so.6 0x00007f29c9cd571b
+9  libc.so.6 0x00007f29c9ce6e96
+10 clang++   0x0000563b175bebd5 clang::FunctionDecl::setPreviousDeclaration(clang::FunctionDecl*) + 133
+11 clang++   0x0000563b1674cd60 clang::Sema::CheckFunctionDeclaration(clang::Scope*, clang::FunctionDecl*, clang::LookupResult&, bool, bool) + 4224
+12 clang++   0x0000563b16752b42 clang::Sema::ActOnFunctionDeclarator(clang::Scope*, clang::Declarator&, clang::DeclContext*, clang::TypeSourceInfo*, clang::LookupResult&, llvm::MutableArrayRef<clang::TemplateParameterList*>, bool&) + 12770
+13 clang++   0x0000563b167e1b32 clang::Sema::ActOnFriendFunctionDecl(clang::Scope*, clang::Declarator&, llvm::MutableArrayRef<clang::TemplateParameterList*>) + 1394
+14 clang++   0x0000563b1633cfb8 clang::Parser::ParseCXXInlineMethodDef(clang::AccessSpecifier, clang::ParsedAttributesView const&, clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::VirtSpecifiers const&, clang::SourceLocation) + 232
+15 clang++   0x0000563b163884dd clang::Parser::ParseCXXClassMemberDeclaration(clang::AccessSpecifier, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject*) + 7821
+16 clang++   0x0000563b164459f8
+17 clang++   0x0000563b163876cd clang::Parser::ParseCXXClassMemberDeclaration(clang::AccessSpecifier, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject*) + 4221
+18 clang++   0x0000563b16389720 clang::Parser::ParseCXXClassMemberDeclarationWithPragmas(clang::AccessSpecifier&, clang::ParsedAttributes&, clang::TypeSpecifierType, clang::Decl*) + 1296
+19 clang++   0x0000563b16389de8 clang::Parser::ParseCXXMemberSpecification(clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributes&, unsigned int, clang::Decl*) + 1144
+20 clang++   0x0000563b1638c94c clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 8028
+21 clang++   0x0000563b1635bb65 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2821
+22 clang++   0x0000563b1636b6d6 clang::Parser::ParseParameterDeclarationClause(clang::DeclaratorContext, clang::ParsedAttributes&, llvm::SmallVectorImpl<clang::DeclaratorChunk::ParamInfo>&, clang::SourceLocation&, bool) + 534
+23 clang++   0x0000563b1636cd82 clang::Parser::ParseFunctionDeclarator(clang::Declarator&, clang::ParsedAttributes&, clang::BalancedDelimiterTracker&, bool, bool) + 1266
+24 clang++   0x0000563b1636e819 clang::Parser::ParseDirectDeclarator(clang::Declarator&) + 2825
+25 clang++   0x0000563b163554ef clang::Parser::ParseDeclaratorInternal(clang::Declarator&, void (clang::Parser::*)(clang::Declarator&)) + 1343
+26 clang++   0x0000563b17f02fe5 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+27 clang++   0x0000563b163671df clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 719
+28 clang++   0x0000563b1631766c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+29 clang++   0x0000563b16317e4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+30 clang++   0x0000563b16323d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+31 clang++   0x0000563b1638384b clang::Parser::ParseLinkage(clang::ParsingDeclSpec&, clang::DeclaratorContext) + 1467
+32 clang++   0x0000563b163178cb clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 1531
+33 clang++   0x0000563b16317e4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+34 clang++   0x0000563b16323d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+35 clang++   0x0000563b16324dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+36 clang++   0x0000563b16301cf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+37 clang++   0x0000563b14809e51 clang::FrontendAction::Execute() + 65
+38 clang++   0x0000563b14793df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+39 clang++   0x0000563b148e1c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+40 clang++   0x0000563b1252ad3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+41 clang++   0x0000563b12520ada
+42 clang++   0x0000563b12520c6f
+43 clang++   0x0000563b1451842d
+44 clang++   0x0000563b13a5b2a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+45 clang++   0x0000563b14519283
+46 clang++   0x0000563b144cdd17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+47 clang++   0x0000563b144d2600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<s
+[... truncated ...]

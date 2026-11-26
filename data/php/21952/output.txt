@@ -1,0 +1,85 @@
+=================================================================
+==83950==ERROR: AddressSanitizer: heap-use-after-free on address 0x60c0000304c0 at pc 0x0000010d633f bp 0x7ffc80798b10 sp 0x7ffc80798b08
+READ of size 8 at 0x60c0000304c0 thread T0
+    #0 0x10d633e in php_dom_object_get_data /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/dom/php_dom.c:322:18
+    #1 0x113054f in php_dom_create_object /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/dom/php_dom.c:1648:23
+    #2 0x1071988 in dom_node_parent_get /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/dom/node.c:258:2
+    #3 0x107164e in dom_node_parent_node_read /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/dom/node.c:269:9
+    #4 0x113ec4b in dom_get_debug_info_helper /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/dom/php_dom.c:528:7
+    #5 0x10e724c in dom_get_debug_info /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/dom/php_dom.c:551:9
+    #6 0x665a28a in zend_std_get_properties_for /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_object_handlers.c:2596:10
+    #7 0x665afa1 in zend_get_properties_for /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_object_handlers.c:2645:9
+    #8 0x45a976d in php_var_dump /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/standard/var.c:182:11
+    #9 0x45ab7be in php_array_element_dump /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/standard/var.c:49:2
+    #10 0x45a84a6 in php_var_dump /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/standard/var.c:156:5
+    #11 0x45addba in zif_var_dump /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/standard/var.c:248:3
+    #12 0x5f45cce in ZEND_DO_ICALL_SPEC_RETVAL_UNUSED_HANDLER /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_vm_execute.h:1317:2
+    #13 0x5ad705b in execute_ex /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_vm_execute.h:110168:12
+    #14 0x5ad95ec in zend_execute /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_vm_execute.h:115586:2
+    #15 0x67d2579 in zend_execute_script /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend.c:1971:3
+    #16 0x5047d9a in php_execute_script_ex /home/phpfuzz/WorkSpace/flowfusion/php-src/main/main.c:2646:13
+    #17 0x50492d8 in php_execute_script /home/phpfuzz/WorkSpace/flowfusion/php-src/main/main.c:2686:9
+    #18 0x67e6959 in do_cli /home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php_cli.c:947:5
+    #19 0x67e0e2f in main /home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php_cli.c:1370:18
+    #20 0x745072042d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #21 0x745072042e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #22 0x606274 in _start (/home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php+0x606274)
+
+0x60c0000304c0 is located 0 bytes inside of 128-byte region [0x60c0000304c0,0x60c000030540)
+freed by thread T0 here:
+    #0 0x680ed2 in free (/home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php+0x680ed2)
+    #1 0x8c6846 in php_libxml_node_free /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/libxml/libxml.c:277:4
+    #2 0x8d966c in php_libxml_node_free_resource /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/libxml/libxml.c:1448:5
+    #3 0x8d9881 in php_libxml_node_decrement_resource /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/libxml/libxml.c:1462:4
+    #4 0x10e5efc in dom_objects_free_storage /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/dom/php_dom.c:1496:4
+    #5 0x6664f91 in zend_objects_store_del /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_objects_API.c:193:4
+    #6 0x67776b7 in rc_dtor_func /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_variables.c:56:2
+    #7 0x614066e in i_zval_ptr_dtor /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_variables.h:44:4
+    #8 0x5d22b4d in ZEND_DO_FCALL_SPEC_RETVAL_UNUSED_HANDLER /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_vm_execute.h:2051:4
+    #9 0x5ad705b in execute_ex /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_vm_execute.h:110168:12
+    #10 0x5ad95ec in zend_execute /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend_vm_execute.h:115586:2
+    #11 0x67d2579 in zend_execute_script /home/phpfuzz/WorkSpace/flowfusion/php-src/Zend/zend.c:1971:3
+    #12 0x5047d9a in php_execute_script_ex /home/phpfuzz/WorkSpace/flowfusion/php-src/main/main.c:2646:13
+    #13 0x50492d8 in php_execute_script /home/phpfuzz/WorkSpace/flowfusion/php-src/main/main.c:2686:9
+    #14 0x67e6959 in do_cli /home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php_cli.c:947:5
+    #15 0x67e0e2f in main /home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php_cli.c:1370:18
+    #16 0x745072042d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+
+previously allocated by thread T0 here:
+    #0 0x68113d in malloc (/home/phpfuzz/WorkSpace/flowfusion/php-src/sapi/cli/php+0x68113d)
+    #1 0x745072a9df6c in xmlCreateIntSubset (/lib/x86_64-linux-gnu/libxml2.so.2+0x61f6c)
+
+SUMMARY: AddressSanitizer: heap-use-after-free /home/phpfuzz/WorkSpace/flowfusion/php-src/ext/dom/php_dom.c:322:18 in php_dom_object_get_data
+Shadow bytes around the buggy address:
+  0x0c187fffe040: 00 00 00 00 00 00 00 fa fa fa fa fa fa fa fa fa
+  0x0c187fffe050: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fa
+  0x0c187fffe060: fa fa fa fa fa fa fa fa 00 00 00 00 00 00 00 00
+  0x0c187fffe070: 00 00 00 00 00 00 00 fa fa fa fa fa fa fa fa fa
+  0x0c187fffe080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 04
+=>0x0c187fffe090: fa fa fa fa fa fa fa fa[fd]fd fd fd fd fd fd fd
+  0x0c187fffe0a0: fd fd fd fd fd fd fd fd fa fa fa fa fa fa fa fa
+  0x0c187fffe0b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fa
+  0x0c187fffe0c0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c187fffe0d0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c187fffe0e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==83950==ABORTING

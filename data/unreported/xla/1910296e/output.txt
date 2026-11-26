@@ -1,0 +1,40 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+E0000 00:00:1791990142.984295 2240770 gpu_hlo_schedule.cc:1076] The byte size of input/output arguments (353545440460856) exceeds the base limit (33864810496). This indicates an error in the calculation!
+W0000 00:00:1791990142.990485 2240770 hlo_rematerialization.cc:3402] Can't reduce memory use below 321.07TiB (353024527564840 bytes) by rematerialization; only reduced to 321.07TiB (353024527564856 bytes), down from 321.07TiB (353024527564856 bytes) originally
+E0000 00:00:1791990143.160959 2240788 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/backends/gpu/codegen/fusion_emitter.cc:121) (limit.x == 0 || block_count.x <= limit.x) && (limit.y == 0 || block_count.y <= limit.y) Kernel 'input_transpose_fusion' launch needs more blocks (43093854720, 1) than allowed by hardware (2147483647, 65535).
+=== Source Location Trace: ===
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	clone
+*** End stack trace ***
+
+INTERNAL: RET_CHECK failure (xla/backends/gpu/codegen/fusion_emitter.cc:121) (limit.x == 0 || block_count.x <= limit.x) && (limit.y == 0 || block_count.y <= limit.y) Kernel 'input_transpose_fusion' launch needs more blocks (43093854720, 1) than allowed by hardware (2147483647, 65535).
+=== Source Location Trace: ===
+xla/status_macros.cc:81
+xla/backends/gpu/codegen/emitters/mlir_kernel_emitter.cc:364
+xla/service/gpu/compile_module_to_llvm_ir.cc:284
+xla/service/gpu/gpu_compiler.cc:2962
+xla/service/gpu/gpu_compiler.cc:3087
+xla/tools/hlo_opt/compiled_opt_lib.cc:141
+xla/tools/hlo_opt/compiled_opt_lib.cc:93
+xla/tools/hlo_opt/gpu_opt.cc:125
+xla/hlo/tools/hlo_opt/opt_main.cc:202
+xla/hlo/tools/hlo_opt/opt_main.cc:214

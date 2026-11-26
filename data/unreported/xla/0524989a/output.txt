@@ -1,0 +1,55 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+E0000 00:00:1792103094.034879  744859 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/hlo/ir/hlo_computation.cc:820) ignore_safety_check || IsSafelyRemovable(instruction) cannot remove instruction: %dot1 = f32[10,10]{1,0} dot(%lhs1, %rhs), lhs_contracting_dims={0}, rhs_contracting_dims={0}
+=== Source Location Trace: ===
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+F0000 00:00:1792103094.034962  744859 dot_algorithm_rewriter.cc:177] Check failed: original_dot->parent()->RemoveInstruction(original_dot) is OK (INTERNAL: RET_CHECK failure (xla/hlo/ir/hlo_computation.cc:820) ignore_safety_check || IsSafelyRemovable(instruction) cannot remove instruction: %dot1 = f32[10,10]{1,0} dot(%lhs1, %rhs), lhs_contracting_dims={0}, rhs_contracting_dims={0}
+=== Source Location Trace: ===
+xla/status_macros.cc:81
+) 
+*** Check failure stack trace: ***
+    @     0x60aab6339a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x60aab63399e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x60aaac4e8587  xla::gpu::DotAlgorithmRewriter::RunImpl()
+    @     0x60aab23f0be7  xla::HloPassInterface::Run()
+    @     0x60aaadf6e3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x60aaadf697bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x60aaadf68bd5  xla::HloPassPipeline::RunImpl()
+    @     0x60aab23f0be7  xla::HloPassInterface::Run()
+    @     0x60aaaaec7de7  xla::gpu::GpuCompiler::OptimizeHloPostLayoutAssignment()
+    @     0x60aaaaeab84a  xla::gpu::NVPTXCompiler::OptimizeHloPostLayoutAssignment()
+    @     0x60aaaaebfe57  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x60aaaaeca06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x60aaaadfe934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x60aaaadf2e5e  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x60aaaadf0dc7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x60aab638a466  main
+    @     0x7adf169d4d90  (unknown)
+Aborted (core dumped)

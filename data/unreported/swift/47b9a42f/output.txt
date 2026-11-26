@@ -1,0 +1,50 @@
+swift-frontend: /home/build-user/swift/lib/Sema/AssociatedTypeInference.cpp:307: void recordTypeWitness(NormalProtocolConformance *, AssociatedTypeDecl *, Type, TypeDecl *): Assertion `conformance->getTypeWitnessUncached(assocType) .getWitnessType() ->isEqual(type) && "Conflicting type witness deductions"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -Osize -sil-verify-all -enable-experimental-feature ThenStatements -enable-experimental-feature NonescapableTypes /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpqmplequt/65f10af2.swift
+1.	Swift version 6.5-dev (LLVM 9b3700c0bd7ce7a, Swift f62414fd1d17227)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpqmplequt/65f10af2.swift")
+4.	While type-checking 'ScalarProtocol' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpqmplequt/65f10af2.swift:55:8)
+5.	While evaluating request RequirementSignatureRequest(main.(file).ScalarProtocol@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpqmplequt/65f10af2.swift:55:17)
+6.	While evaluating request TypeWitnessRequest(Double: ScalarMultiplicative module main, main.(file).ScalarMultiplicative.Scalar@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpqmplequt/65f10af2.swift:59:18)
+ #0 0x000060450556c78b llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x929e78b)
+ #1 0x0000604505569671 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x929b671)
+ #2 0x000060450556d53b SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x0000799c4774c330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x0000799c477a5c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x0000799c4774c27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x0000799c4772f8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x0000799c4772f81b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x0000799c47742517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x00006044fe969ab5 recordTypeWitness(swift::NormalProtocolConformance*, swift::AssociatedTypeDecl*, swift::Type, swift::TypeDecl*) AssociatedTypeInference.cpp:0:0
+#10 0x00006044fe96a587 recordTypeWitness(swift::NormalProtocolConformance*, swift::AssociatedTypeDecl*, swift::Type, swift::TypeDecl*) AssociatedTypeInference.cpp:0:0
+#11 0x00006044fe96bd72 resolveTypeWitnessViaLookup(swift::NormalProtocolConformance*, swift::AssociatedTypeDecl*) AssociatedTypeInference.cpp:0:0
+#12 0x00006044fe96a8cf swift::TypeWitnessRequest::evaluate(swift::Evaluator&, swift::NormalProtocolConformance*, swift::AssociatedTypeDecl*) const (/usr/bin/swift-frontend+0x269c8cf)
+#13 0x00006044ff22f068 swift::TypeWitnessRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeWitnessRequest, swift::TypeWitnessRequest::OutputType swift::evaluateOrDefault<swift::TypeWitnessRequest>(swift::Evaluator&, swift::TypeWitnessRequest, swift::TypeWitnessRequest::OutputType)::'lambda'()>(swift::TypeWitnessRequest const&, swift::TypeWitnessRequest::OutputType swift::evaluateOrDefault<swift::TypeWitnessRequest>(swift::Evaluator&, swift::TypeWitnessRequest, swift::TypeWitnessRequest::OutputType)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#14 0x00006044ff22e807 swift::TypeWitnessRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeWitnessRequest, swift::TypeWitnessRequest::OutputType swift::evaluateOrDefault<swift::TypeWitnessRequest>(swift::Evaluator&, swift::TypeWitnessRequest, swift::TypeWitnessRequest::OutputType)::'lambda'()>(swift::TypeWitnessRequest const&, swift::TypeWitnessRequest::OutputType swift::evaluateOrDefault<swift::TypeWitnessRequest>(swift::Evaluator&, swift::TypeWitnessRequest, swift::TypeWitnessRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#15 0x00006044ff224cbe swift::NormalProtocolConformance::getTypeWitnessAndDecl(swift::AssociatedTypeDecl*, swift::SubstOptions) const (/usr/bin/swift-frontend+0x2f56cbe)
+#16 0x00006044ff22475c swift::ProtocolConformance::getTypeWitnessAndDecl(swift::AssociatedTypeDecl*, swift::SubstOptions) const (/usr/bin/swift-frontend+0x2f5675c)
+#17 0x00006044ff225164 swift::ProtocolConformance::getTypeWitness(swift::AssociatedTypeDecl*, swift::SubstOptions) const (/usr/bin/swift-frontend+0x2f57164)
+#18 0x00006044ff36874f swift::rewriting::PropertyMap::concretizeTypeWitnessInConformance(swift::rewriting::Term, swift::RequirementKind, swift::rewriting::Symbol, swift::ProtocolConformanceRef, swift::AssociatedTypeDecl*) const (/usr/bin/swift-frontend+0x309a74f)
+#19 0x00006044ff3679ed swift::rewriting::PropertyMap::concretizeNestedTypesFromConcreteParent(swift::rewriting::Term, swift::RequirementKind, unsigned int, swift::CanType, llvm::ArrayRef<swift::rewriting::Term>, llvm::ArrayRef<unsigned int>, llvm::ArrayRef<swift::ProtocolDecl const*>) (/usr/bin/swift-frontend+0x30999ed)
+#20 0x00006044ff367535 swift::rewriting::PropertyMap::concretizeNestedTypesFromConcreteParents() (/usr/bin/swift-frontend+0x3099535)
+#21 0x00006044ff250161 swift::rewriting::PropertyMap::buildPropertyMap() (/usr/bin/swift-frontend+0x2f82161)
+#22 0x00006044ff2850c0 swift::rewriting::RequirementMachine::computeCompletion(swift::rewriting::RewriteSystem::ValidityPolicy) (/usr/bin/swift-frontend+0x2fb70c0)
+#23 0x00006044ff285a7c swift::rewriting::RequirementMachine::initWithProtocolWrittenRequirements(llvm::ArrayRef<swift::ProtocolDecl const*>, llvm::DenseMap<swift::ProtocolDecl const*, llvm::SmallVector<swift::StructuralRequirement, 4u>, llvm::DenseMapInfo<swift::ProtocolDecl const*, void>, llvm::detail::DenseMapPair<swift::ProtocolDecl const*, llvm::SmallVector<swift::StructuralRequirement, 4u>>>) (/usr/bin/swift-frontend+0x2fb7a7c)
+#24 0x00006044ff287bce swift::RequirementSignatureRequest::evaluate(swift::Evaluator&, swift::ProtocolDecl*) const (/usr/bin/swift-frontend+0x2fb9bce)
+#25 0x00006044fe8c3d3c swift::SimpleRequest<swift::RequirementSignatureRequest, swift::RequirementSignature (swift::ProtocolDecl*), (swift::RequestFlags)4>::evaluateRequest(swift::RequirementSignatureRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#26 0x00006044fefd0a42 swift::ProtocolDecl::getRequirementSignature() const (/usr/bin/swift-frontend+0x2d02a42)
+#27 0x00006044fe80b7e9 (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#28 0x00006044fe80a958 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x253c958)
+#29 0x00006044fe94d375 swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x267f375)
+#30 0x00006044fe9524f8 swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#31 0x00006044fe951c0f swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#32 0x00006044fe94d2a5 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x267f2a5)
+#33 0x00006044fd1952f9 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_0>(long, swift::SourceFile&) Frontend.cpp:0:0
+#34 0x00006044fd18d45e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xebf45e)
+#35 0x00006044fd18d1eb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xebf1eb)
+#36 0x00006044fcff1e8e withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#37 0x00006044fcfdb97d performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#38 0x00006044fcfd6b97 swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::Fr
+[... truncated ...]

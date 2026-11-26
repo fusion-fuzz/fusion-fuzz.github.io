@@ -1,0 +1,29 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1792000309.656059 3086669 permutation_util.h:94] Check failed: IsPermutation(input_permutation) 
+*** Check failure stack trace: ***
+    @     0x592b73b01a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x592b73b019e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x592b689c6b6b  xla::InversePermutation<>()
+    @     0x592b6b061ddd  xla::AlgebraicSimplifierVisitor::HandleBroadcast()
+    @     0x592b73436202  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x592b73435ef7  xla::HloInstruction::Visit<>()
+    @     0x592b7343846e  xla::PostOrderDFS<>()
+    @     0x592b73434cf8  xla::HloInstruction::Accept<>()
+    @     0x592b68596f07  xla::HloComputation::Accept<>()
+    @     0x592b6b037ace  xla::AlgebraicSimplifierVisitor::Run()
+    @     0x592b68b6ee4a  xla::gpu::GpuAlgebraicSimplifier::RunImpl()
+    @     0x592b6fbb8be7  xla::HloPassInterface::Run()
+    @     0x592b6b7363ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x592b6b7317bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x592b6b730bd5  xla::HloPassPipeline::RunImpl()
+    @     0x592b6fbb8be7  xla::HloPassInterface::Run()
+    @     0x592b68684e11  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x592b6869206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x592b685c6934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x592b685bae5e  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x592b685b8dc7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x592b73b52466  main
+    @     0x7797f19d4d90  (unknown)
+Aborted (core dumped)

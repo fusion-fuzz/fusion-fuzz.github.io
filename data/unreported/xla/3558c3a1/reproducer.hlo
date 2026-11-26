@@ -1,0 +1,98 @@
+HloModule Test
+
+%apply {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  ROOT %c = f32[] maximum(a, b)
+}
+
+%body {
+  %p = (s32[], bf16[4,8]) parameter(0)
+  %it = s32[] get-tuple-element(p), index=0
+  %acc = bf16[4,8] get-tuple-element(p), index=1
+  %it_bf16 = bf16[] convert(it)
+  %update = bf16[1,8] broadcast(it_bf16), dimensions={}
+  %z = s32[] constant(0)
+  %dus = bf16[4,8] dynamic-update-slice(acc, update, it, z)
+  %one = s32[] constant(1)
+  %next = s32[] add(it, one)
+  ROOT %out = (s32[], bf16[4,8]) tuple(next, dus)
+}
+
+%cond {
+  %p = (s32[], bf16[4,8]) parameter(0)
+  %it = s32[] get-tuple-element(p), index=0
+  %limit = s32[] constant(4)
+  ROOT %cmp = pred[] compare(it, limit), direction=LT
+}
+
+%apply.d {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  ROOT %c = f32[] maximum(a, b)
+}
+
+ENTRY %Test {
+  %input = f8e4m3fn[1,128,6,6] parameter(0)
+  %filter = f8e4m3fn[3,3,128,16] parameter(1)
+  %input_scale = f32[] parameter(2)
+  %input_scale_bcast = f32[1,128,6,6] broadcast(input_scale), dimensions={}
+  %filter_scale = f32[] parameter(3)
+  %filter_scale_bcast = f32[3,3,128,16] broadcast(filter_scale), dimensions={}
+  %input_f32 = f32[1,128,6,6] convert(input)
+  %input_unscaled = f32[1,128,6,6] multiply(input_f32, input_scale_bcast)
+  %filter_f32 = f32[3,3,128,16] convert(filter)
+  %filter_unscaled = f32[3,3,128,16] multiply(filter_f32, filter_scale_bcast)
+  %c = f32[] constant(0)
+  %c_bcast = f32[1,16,6,6] broadcast(c), dimensions={}
+  %conv_a = f32[1,16,6,6] convolution(input_unscaled, filter_unscaled), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_01io->bf01, feature_group_count=1
+  %relu_a = f32[1,16,6,6] maximum(conv_a, c_bcast)
+  %z_scale = f32[] parameter(4)
+  %z_scale_bcast = f32[1,16,6,6] broadcast(z_scale), dimensions={}
+  %relu_a_scaled = f32[1,16,6,6] multiply(relu_a, z_scale_bcast)
+  %c1 = f32[] constant(-448.)
+  %c1_bcast = f32[1,16,6,6] broadcast(c1), dimensions={}
+  %c2 = f32[] constant(448.)
+  %c2_bcast = f32[1,16,6,6] broadcast(c2), dimensions={}
+  %relu_a_clamped = f32[1,16,6,6] clamp(c1_bcast, relu_a_scaled, c2_bcast)
+  %relu_a_clamped_f8 = f8e4m3fn[1,16,6,6] convert(relu_a_clamped)
+  %abs_relu_a = f32[1,16,6,6] abs(relu_a)
+  %c0 = f32[] constant(-inf)
+  %amax = f32[] reduce(abs_relu_a, c0), dimensions={0,1,2,3}, to_apply=apply
+  %conv_f8 = (f8e4m3fn[1,16,6,6], f32[]) tuple(relu_a_clamped_f8, amax)
+  %init_it = s32[] constant(0)
+  %input.d = f8e4m3fn[1,128,6,6] parameter(5)
+  %filter.d = f8e4m3fn[3,3,128,16] parameter(6)
+  %input_scale.d = f32[] parameter(7)
+  %input_scale_bcast.d = f32[1,128,6,6] broadcast(%input_scale.d), dimensions={}
+  %filter_scale.d = f32[] parameter(8)
+  %filter_scale_bcast.d = f32[3,3,128,16] broadcast(%filter_scale.d), dimensions={}
+  %input_f32.d = f32[1,128,6,6] convert(%input.d)
+  %input_unscaled.d = f32[1,128,6,6] multiply(%input_f32.d, %input_scale_bcast.d)
+  %filter_f32.d = f32[3,3,128,16] convert(%filter.d)
+  %filter_unscaled.d = f32[3,3,128,16] multiply(%filter_f32.d, %filter_scale_bcast.d)
+  %c.d = f32[] constant(0)
+  %c_bcast.d = f32[1,16,6,6] broadcast(%c.d), dimensions={}
+  %conv_a.d = f32[1,16,6,6] convolution(%input_unscaled.d, %filter_unscaled.d), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_01io->bf01, feature_group_count=1
+  %relu_a.d = f32[1,16,6,6] maximum(%conv_a.d, %c_bcast.d)
+  %z_scale.d = f32[] parameter(9)
+  %z_scale_bcast.d = f32[1,16,6,6] broadcast(%z_scale.d), dimensions={}
+  %relu_a_scaled.d = f32[1,16,6,6] multiply(%relu_a.d, %z_scale_bcast.d)
+  %c1.d = f32[] constant(-448.)
+  %c1_bcast.d = f32[1,16,6,6] broadcast(%c1.d), dimensions={}
+  %c2.d = f32[] constant(448.)
+  %c2_bcast.d = f32[1,16,6,6] broadcast(%c2.d), dimensions={}
+  %relu_a_clamped.d = f32[1,16,6,6] clamp(%c1_bcast.d, %abs_relu_a, %c2_bcast.d)
+  %relu_a_clamped_f8.d = f8e4m3fn[1,16,6,6] convert(%relu_a_clamped.d)
+  %abs_relu_a.d = f32[1,16,6,6] abs(%relu_a.d)
+  %c0.d = f32[] constant(-inf)
+  %amax.d = f32[] reduce(%abs_relu_a.d, %c0.d), dimensions={0,1,2,3}, to_apply=%apply.d
+  %conv_f8.d = (f8e4m3fn[1,16,6,6], f32[]) tuple(%relu_a_clamped_f8.d, %amax.d)
+  %c0.d.1 = bf16[] constant(0)
+  %zero_init = bf16[4,8] broadcast(%c0.d.1), dimensions={}
+  %init_tuple = (s32[], bf16[4,8]) tuple(%init_it, %zero_init)
+  %w = (s32[], bf16[4,8]) while(%init_tuple), condition=%cond, body=%body
+  %result = bf16[4,8] get-tuple-element(%w), index=1
+  %ffl.root = (bf16[4,8], (f8e4m3fn[1,16,6,6], f32[])) tuple(%result, %conv_f8.d)
+  ROOT %ffl.root.1 = ((f8e4m3fn[1,16,6,6], f32[]), bf16[4,8], (f8e4m3fn[1,16,6,6], f32[])) tuple(%conv_f8, %result, %conv_f8.d)
+}

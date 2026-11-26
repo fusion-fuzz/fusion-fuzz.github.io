@@ -1,0 +1,58 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpx09s3zah/912a6ff2.cc: In function 'void bar(void (*)())':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpx09s3zah/912a6ff2.cc:10:53: warning: invalid conversion from 'void (*)()' to 'void (__attribute__((nocf_check)) *)()' [-fpermissive]
+   10 |   void (*func) (void) __attribute__((nocf_check)) = foo; /* { dg-warning "incompatible pointer type" } */
+      |                                                     ^~~
+      |                                                     |
+      |                                                     void (*)()
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpx09s3zah/912a6ff2.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpx09s3zah/912a6ff2.cc:32:3: warning: declaration of 'X<T>& X<T>::operator=(X<T>&&) noexcept ((traits<T>::foo() && traits<T>::bar()))' has a different exception specifier [-Wtemplate-body]
+   32 |   X<T>::operator=(X&&) noexcept(traits<T>::foo() && traits<T>::bar()) // { dg-error "different exception" }
+      |   ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpx09s3zah/912a6ff2.cc:27:6: note: from previous declaration 'X<T>& X<T>::operator=(X<T>&&) noexcept (traits<T>::foo())'
+   27 |   X& operator=(X&&) noexcept(traits<T>::foo());
+      |      ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpx09s3zah/912a6ff2.cc:32:69: internal compiler error: in merge_exception_specifiers, at cp/typeck2.cc:2944
+   32 |   X<T>::operator=(X&&) noexcept(traits<T>::foo() && traits<T>::bar()) // { dg-error "different exception" }
+      |                                                                     ^
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x89cd8c merge_exception_specifiers(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck2.cc:2944
+0x12b5ddb merge_types(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck.cc:1075
+0x12b5ddb merge_types(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck.cc:935
+0x10581b7 duplicate_decls(tree_node*, tree_node*, bool, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:2876
+0x1060d28 grokfndecl
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:12872
+0x106e4f8 grokdeclarator(cp_declarator const*, cp_decl_specifier_seq*, decl_context, int, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:17075
+0x1072bba start_function(cp_decl_specifier_seq*, cp_declarator const*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:20309
+0x11afd6f cp_parser_function_definition_from_specifiers_and_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36228
+0x11afd6f cp_parser_init_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:26179
+0x11b07b5 cp_parser_single_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36772
+0x11b0a12 cp_parser_template_declaration_after_parameters
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36425
+0x11b0a12 cp_parser_explicit_template_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36599
+0x11c130d cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17727
+0x11c3d33 cp_parser_toplevel_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17837
+0x11c3d33 cp_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:5599
+0x11c3d33 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:57899
+0x1357329 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpx09s3zah/912a6ff2.cc -quiet -dumpdir a- -dumpbase 912a6ff2.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Og -O -fsyntax-only -fipa-pta -fpermissive -fcf-protection=full -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

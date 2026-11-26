@@ -1,0 +1,121 @@
+error: cannot find macro `println` in this scope
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp2irkhtbd/ed626bce.rs:94:5
+   |
+94 |     println!("FFL Fusion Done");
+   |     ^^^^^^^
+
+warning: the feature `panic_runtime` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp2irkhtbd/ed626bce.rs:4:12
+  |
+4 | #![feature(panic_runtime)]
+  |            ^^^^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+  = note: `#[warn(internal_features)]` on by default
+
+warning: the feature `rustc_attrs` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp2irkhtbd/ed626bce.rs:5:12
+  |
+5 | #![feature(rustc_attrs)]
+  |            ^^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+
+warning: type `DropMe_bcd6036` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp2irkhtbd/ed626bce.rs:71:12
+   |
+71 | pub struct DropMe_bcd6036;
+   |            ^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `DropMeBcd6036`
+   |
+   = note: `#[warn(non_camel_case_types)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+error: `#[panic_handler]` function required, but not found
+
+error: unwinding panics are not supported without std
+  |
+  = help: using nightly cargo, use -Zbuild-std with panic="abort" to avoid unwinding
+  = note: since the core library is usually precompiled with panic="unwind", rebuilding your crate with panic="abort" may not be enough to fix the problem
+
+error: aborting due to 3 previous errors; 3 warnings emitted
+#![attr = Feature([diagnostic_on_const#0, panic_runtime#0, rustc_attrs#0])]
+#![attr = NoStd]
+#![attr = PanicRuntime]
+extern crate core;
+#[attr = PreludeImport]
+use ::core::prelude::rust_2015::*;
+
+// Seed A (non-inlined items)
+//@ compile-flags: -Zunpretty=hir
+//@ check-pass
+//@ edition: 2015
+
+#[attr = OnUnimplemented {directive: Directive {is_rustc_attr: false,
+filters: [],
+message: FormatString {input: "My Message for `ImportantTrait<{A}>` implemented for `{Self}`",
+pieces: [Lit("My Message for `ImportantTrait<"),
+Arg(GenericParam {generic_param: "A"}), Lit(">` implemented for `"),
+Arg(SelfUpper), Lit("`")]}, label: FormatString {input: "My Label",
+pieces: [Lit("My Label")]}, notes: [FormatString {input: "Note 1",
+pieces: [Lit("Note 1")]}, FormatString {input: "Note 2",
+pieces: [Lit("Note 2")]}]}}]
+trait ImportantTrait<A> { }
+
+// Check that rust_eh_personality can have a different type signature than the
+// one hardcoded in the compiler.  Regression test for #70117. Used to fail with:
+//
+// Assertion `isa<X>(Val) && "cast<Ty>() argument of incompatible type!"' failed.
+//
+//@ build-pass
+//@ compile-flags: --crate-type=lib -Ccodegen-units=1
+
+struct DropMe;
+
+impl Drop for DropMe {
+    fn drop(&mut self) { }
+}
+
+fn test(_:
+        DropMe) {
+
+
+
+
+
+
+    // Seed B (non-inlined items)
+    // Check that rust_eh_personality_bcd6036 can have a different type signature than the
+    // one hardcoded in the compiler.  Regression test_bcd6036 for #70117. Used to fail with:
+    //
+    // Assertion `isa<X>(Val) && "cast<Ty>() argument of incompatible type!"' failed.
+    //
+    //@ build-pass
+    //@ compile-flags: --crate-type=lib -Ccodegen-units=1
+
+
+
+
+
+
+    ::core::panicking::panic("internal error: entered unreachable code");
+}
+#[attr = DoNotRecommend]
+impl <T> ImportantTrait<T> for T where T: Clone { }
+struct X;
+#[attr = OnConst {directive: Directive {is_rustc_attr: false, filters: [],
+message: FormatString {input: "My Message for `ImportantTrait<u8>` implemented for `{Self}`",
+pieces: [Lit("My Message for `ImportantTrait<u8>` implemented for `"),
+Arg(SelfUpper), Lit("`")]}, label: FormatString {input: "My Label",
+pieces: [Lit("My Label")]}, notes: [FormatString {input: "Note 1",
+pieces: [Lit("Note 1")]}, FormatString {input: "Note 2",
+pieces: [Lit("Note 2")]}]}}]
+impl ImportantTrait<u8> for X { }
+#[attr = RustcStdInternalSymbol]
+unsafe extern "C" fn rust_eh_personality(_version: i32, _actions: i32,
+    _exception_class: u64, _exception_object: *mut (), _context: *mut ())
+    -> i32 { loop { } }
+struct DropMe_bcd6036;
+impl Drop for DropMe_bcd6036 {
+    fn drop(&mut self) { }
+}
+fn test_bcd6036(_:
+[... 8 more lines ...]

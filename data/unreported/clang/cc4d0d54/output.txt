@@ -1,0 +1,84 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:181:21: error: no matching function for call to 'CFStringCreateWithFormat'
+  181 |   CFStringRef ref = CFStringCreateWithFormat(kCFAllocatorDefault, ((void*)0), ((CFStringRef) __builtin___CFStringMakeConstantString ("" "%d" "")), 100);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:35:20: note: candidate function not viable: cannot convert argument of incomplete type 'void *' to 'CFDictionaryRef' (aka 'const struct __CFDictionary *') for 2nd argument
+   35 | extern CFStringRef CFStringCreateWithFormat(CFAllocatorRef alloc, CFDictionaryRef formatOptions, CFStringRef format, ...);
+      |                    ^                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:194:12: warning: class 'TestAutorelease' defined without specifying a base class [-Wobjc-root-class]
+  194 | @interface TestAutorelease
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:194:27: note: add a super class to fix this problem
+  194 | @interface TestAutorelease
+      |                           ^
+      |                            : NSObject 
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:395:10: error: no matching function for call to 'CFStringCreateWithFormat'
+  395 |   return CFStringCreateWithFormat(kCFAllocatorDefault, ((void*)0), ((CFStringRef) __builtin___CFStringMakeConstantString ("" "%d" "")), 100); // no-warning
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:35:20: note: candidate function not viable: cannot convert argument of incomplete type 'void *' to 'CFDictionaryRef' (aka 'const struct __CFDictionary *') for 2nd argument
+   35 | extern CFStringRef CFStringCreateWithFormat(CFAllocatorRef alloc, CFDictionaryRef formatOptions, CFStringRef format, ...);
+      |                    ^                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:398:10: error: no matching function for call to 'CFStringCreateWithFormat'
+  398 |   return CFStringCreateWithFormat(kCFAllocatorDefault, ((void*)0), ((CFStringRef) __builtin___CFStringMakeConstantString ("" "%d" "")), 100); // expected-warning{{leak}}
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:35:20: note: candidate function not viable: cannot convert argument of incomplete type 'void *' to 'CFDictionaryRef' (aka 'const struct __CFDictionary *') for 2nd argument
+   35 | extern CFStringRef CFStringCreateWithFormat(CFAllocatorRef alloc, CFDictionaryRef formatOptions, CFStringRef format, ...);
+      |                    ^                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:388:12: warning: class 'TestIsCFTracked' defined without specifying a base class [-Wobjc-root-class]
+  388 | @interface TestIsCFTracked
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:388:27: note: add a super class to fix this problem
+  388 | @interface TestIsCFTracked
+      |                           ^
+      |                            : NSObject 
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:458:31: error: redefinition of 'needs'
+  458 | template<typename value> void needs() noexcept(noexcept(value())) {} // expected-error {{redefinition}}
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:456:31: note: previous definition is here
+  456 | template<typename value> void needs() noexcept(noexcept(value())) {} // expected-note {{previous}}
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:461:46: error: exception specification in declaration does not match previous declaration
+  461 | template<bool specifier, bool throwing> void redecl2() noexcept(throwing); // expected-error {{does not match previous}}
+      |                                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:460:46: note: previous declaration is here
+  460 | template<bool specifier, bool throwing> void redecl2() noexcept(specifier); // expected-note {{previous}}
+      |                                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:464:64: error: ISO C++17 does not allow dynamic exception specifications [-Wdynamic-exception-spec]
+  464 | template<typename specifier, typename throwing> void redecl3() throw(specifier); // expected-note {{previous}}
+      |                                                                ^~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:464:64: note: use 'noexcept(false)' instead
+  464 | template<typename specifier, typename throwing> void redecl3() throw(specifier); // expected-note {{previous}}
+      |                                                                ^~~~~~~~~~~~~~~~
+      |                                                                noexcept(false)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:465:64: error: ISO C++17 does not allow dynamic exception specifications [-Wdynamic-exception-spec]
+  465 | template<typename specifier, typename throwing> void redecl3() throw(throwing); // expected-error {{does not match previous}}
+      |                                                                ^~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:465:64: note: use 'noexcept(false)' instead
+  465 | template<typename specifier, typename throwing> void redecl3() throw(throwing); // expected-error {{does not match previous}}
+      |                                                                ^~~~~~~~~~~~~~~
+      |                                                                noexcept(false)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:465:54: error: exception specification in declaration does not match previous declaration
+  465 | template<typename specifier, typename throwing> void redecl3() throw(throwing); // expected-error {{does not match previous}}
+      |                                                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:464:54: note: previous declaration is here
+  464 | template<typename specifier, typename throwing> void redecl3() throw(specifier); // expected-note {{previous}}
+      |                                                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:478:8: error: cannot initialize a variable of type 'void (*)(int) noexcept' with an lvalue of type 'void (I) noexcept(false)' (aka 'void (int) noexcept(false)'): different exception specifications
+  478 | void (*init_with_mismatched_type_b)(int) noexcept = redecl4<false>; // expected-error {{cannot initialize a variable of type}}
+      |        ^                                            ~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:490:24: error: static_cast from 'void (*)(int)' to 'decltype(init_with_exact_type_a)' (aka 'void (*)(int) noexcept') is not allowed
+  490 | static_assert(noexcept(static_cast<decltype(init_with_exact_type_a)>(init_with_exact_type_b)(0))); // expected-error {{is not allowed}}
+      |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:499:55: error: member 'value' has the same name as its class
+  499 |   template<typename> struct value { static const bool value = true; };
+      |                                                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:499:55: error: redefinition of 'value' as different kind of symbol
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:508:25: note: in instantiation of template class 'DependentDefaultCtorExceptionSpec::value<int>' requested here
+  508 |     implicit() noexcept(value<b>::COMPARE_SWAP_BARRIER) {}
+      |                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:512:36: note: in instantiation of exception specification for 'implicit' requested here
+  512 |   struct specifier { implicit<int> Map; } a;
+      |                                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp81ntqyhc/4b8497d4.mm:512:43: note: in evaluation of exception specification for 'DependentDefaultCtorExceptionSpec::specifier::specifier' needed here
+  512 |   struct specifier { implicit<int> Map; } a;
+      |                               
+[... truncated ...]

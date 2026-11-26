@@ -1,0 +1,95 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm:98:21: error: receiver type 'NSArray' for instance message is a forward declaration
+   98 |   NSInteger i, c = [allItems count];
+      |                     ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm:28:19: note: forward declaration of class here
+   28 | @end       @class NSArray, NSDictionary, NSString, NSError;
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm:102:28: error: receiver type 'NSArray' for instance message is a forward declaration
+  102 |     NSTabViewItem *item = [allItems objectAtIndex:i];
+      |                            ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm:28:19: note: forward declaration of class here
+   28 | @end       @class NSArray, NSDictionary, NSString, NSError;
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm:103:11: error: receiver type 'NSTabViewItem' for instance message is a forward declaration
+  103 |     if ([[item label] isEqual:perspectiveIdentifer]) {
+      |           ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm:40:30: note: forward declaration of class here
+   40 | @end @class NSArray, NSFont, NSTabViewItem;
+      |                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm:105:25: error: receiver type 'NSMutableArray' for instance message is a forward declaration
+  105 |       PBXModule *obj = [XCFindPossibleKeyModules(pModule, (BOOL)0) objectOfType:type     matchingFunction:comparator usingData:data];
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm:15:73: note: forward declaration of class here
+   15 | @end       @class NSString, NSData, NSMutableData, NSMutableDictionary, NSMutableArray;
+      |                                                                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm:93:17: warning: method definition for 'moduleForTab:' not found [-Wincomplete-implementation]
+   93 | @implementation XCPerspectiveModule // expected-warning {{method 'performAction:withSelection:' in protocol 'PBXSelectionTarget' not implemented}}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm:91:1: note: method 'moduleForTab:' declared here
+   91 | - (PBXModule *) moduleForTab:(NSTabViewItem *)item;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm:93:17: warning: method 'performAction:withSelection:' in protocol 'PBXSelectionTarget' not implemented [-Wprotocol]
+   93 | @implementation XCPerspectiveModule // expected-warning {{method 'performAction:withSelection:' in protocol 'PBXSelectionTarget' not implemented}}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm:77:30: note: method 'performAction:withSelection:' declared here
+   77 | @protocol PBXSelectionTarget - (NSObject <PBXSelectionTarget> *) performAction:(id)action withSelection:(NSArray *)selection;  // expected-note {{method 'performAction:withSelection:' declared here}}
+      |                              ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/ExprConstant.cpp:21997: bool clang::Expr::EvaluateAsInt(clang::Expr::EvalResult &, const clang::ASTContext &, clang::Expr::SideEffectsKind, bool) const: Assertion `!isValueDependent() && "Expression evaluator can't be called on a dependent expression."' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -Oz -fblocks -fobjc-runtime=macosx-10.14 -fobjc-arc -fno-inline /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm:94:1: LLVM IR generation of declaration 'XCPerspectiveModule::openForProjectDocument:'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp7k40x34c/ff2ac725.mm:101:13: LLVM IR generation of compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000058c43673c66b __interceptor_backtrace + 91
+1  clang++   0x000058c43c397027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x000058c43c390cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x000058c43c3959c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x000058c43c1e3cc5
+5  clang++   0x000058c43c1e44d3
+6  libc.so.6 0x000073161973f520
+7  libc.so.6 0x00007316197939bc pthread_kill + 300
+8  libc.so.6 0x000073161973f476 raise + 22
+9  libc.so.6 0x00007316197257f3 abort + 211
+10 libc.so.6 0x000073161972571b
+11 libc.so.6 0x0000731619736e96
+12 clang++   0x000058c445e6e608 clang::Expr::EvaluateAsInt(clang::Expr::EvalResult&, clang::ASTContext const&, clang::Expr::SideEffectsKind, bool) const + 1608
+13 clang++   0x000058c43d72f6cc clang::CodeGen::CodeGenFunction::ConstantFoldsToSimpleInteger(clang::Expr const*, llvm::APSInt&, bool) + 460
+14 clang++   0x000058c43d72f2ad clang::CodeGen::CodeGenFunction::ConstantFoldsToSimpleInteger(clang::Expr const*, bool&, bool) + 573
+15 clang++   0x000058c43d5b72dd clang::CodeGen::CodeGenFunction::EmitIfStmt(clang::IfStmt const&) + 1149
+16 clang++   0x000058c43d5c9955 clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 469
+17 clang++   0x000058c43d5c5b60 clang::CodeGen::CodeGenFunction::EmitCompoundStmt(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 784
+18 clang++   0x000058c43d5b6352 clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 770
+19 clang++   0x000058c43d5b4b9a clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 122
+20 clang++   0x000058c43d5badfc clang::CodeGen::CodeGenFunction::EmitForStmt(clang::ForStmt const&, llvm::ArrayRef<clang::Attr const*>) + 3788
+21 clang++   0x000058c43d5c9955 clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 469
+22 clang++   0x000058c43d3c0a53 clang::CodeGen::CodeGenFunction::GenerateObjCMethod(clang::ObjCMethodDecl const*) + 1043
+23 clang++   0x000058c43d7a366d clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) + 6589
+24 clang++   0x000058c43e0e62e3
+25 clang++   0x000058c43e0d2445 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 837
+26 clang++   0x000058c4428b8add clang::ParseAST(clang::Sema&, bool, bool) + 2445
+27 clang++   0x000058c43e0dc9bc clang::CodeGenAction::ExecuteAction() + 4124
+28 clang++   0x000058c43e7972fe clang::FrontendAction::Execute() + 222
+29 clang++   0x000058c43e6295f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+30 clang++   0x000058c43e97b989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+31 clang++   0x000058c4367d21a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+32 clang++   0x000058c4367c60f9
+33 clang++   0x000058c4367d0637
+34 clang++   0x000058c43e200317
+35 clang++   0x000058c43c1e3a7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+36 clang++   0x000058c43e1fd81a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+37 clang++   0x000058c43e14e29c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+38 clang++   0x000058c43e14fa2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+39 clang++   0x000058c43e19f060 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+40 clang++   0x000058c4367c4517 clang_main(int, char**, llvm::ToolContext const&) + 12295
+41 clang++   0x000058c4367f3e27 main + 567
+42 libc.so.6 0x0000731619726d90
+43 libc.so.6 0x0000731619726e40 __libc_start_main + 128
+44 clang++   0x000058c436700b35 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git e996ce0d9ad6443a7ea3f88ccb0a8e114b0e840e)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang
+[... truncated ...]

@@ -1,0 +1,45 @@
+error: Semantic errors in /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp4d7d5nc9/5648f69c.cuf
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp4d7d5nc9/5648f69c.cuf:3:8: error: Derived type 'c_ptr' not found
+    type(C_PTR) :: my_cptr
+         ^^^^^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp4d7d5nc9/5648f69c.cuf:29:21: warning: Object 'x' with ATTRIBUTES(PINNED) should also be allocatable [-Wcuda-usage]
+      real, pinned :: x
+                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp4d7d5nc9/5648f69c.cuf:75:21: warning: Object 'x' with ATTRIBUTES(PINNED) should also be allocatable [-Wcuda-usage]
+      real, pinned :: x
+                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp4d7d5nc9/5648f69c.cuf:121:21: warning: Object 'x' with ATTRIBUTES(PINNED) should also be allocatable [-Wcuda-usage]
+      real, pinned :: x
+                      ^
+
+fatal internal error: CHECK(typeAndShape.has_value()) failed at /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-project/flang/lib/Semantics/runtime-type-info.cpp(778)
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-flang-build/bin/flang -fc1 -fdebug-dump-all -O1 -ffree-form -std=f2018 -fapprox-func -finit-global-zero -fno-realloc-lhs /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmp4d7d5nc9/5648f69c.cuf
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  flang     0x00005afd9c60033a ___interceptor_backtrace + 74
+1  flang     0x00005afd9eb1a833 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 323
+2  flang     0x00005afd9eb14677 llvm::sys::RunSignalHandlers() + 455
+3  flang     0x00005afd9eb1d19f
+4  libc.so.6 0x0000710b5b489330
+5  libc.so.6 0x0000710b5b4e2c0c pthread_kill + 284
+6  libc.so.6 0x0000710b5b48927e gsignal + 30
+7  libc.so.6 0x0000710b5b46c8ff abort + 223
+8  flang     0x00005afda9cff9f2 Fortran::common::die(char const*, ...) + 402
+9  flang     0x00005afda0b923f2 Fortran::semantics::RuntimeTableBuilder::DescribeComponent(Fortran::semantics::Symbol const&, Fortran::semantics::ObjectEntityDetails const&, Fortran::semantics::Scope&, Fortran::semantics::Scope&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> const&, std::vector<Fortran::common::Reference<Fortran::semantics::Symbol const>, std::allocator<Fortran::common::Reference<Fortran::semantics::Symbol const>>> const*) + 19842
+10 flang     0x00005afda0b86453 Fortran::semantics::RuntimeTableBuilder::DescribeType(Fortran::semantics::Scope&, bool) + 12499
+11 flang     0x00005afda0b832a4 Fortran::semantics::RuntimeTableBuilder::DescribeTypes(Fortran::semantics::Scope&, bool) + 244
+12 flang     0x00005afda0b832fb Fortran::semantics::RuntimeTableBuilder::DescribeTypes(Fortran::semantics::Scope&, bool) + 331
+13 flang     0x00005afda0b832fb Fortran::semantics::RuntimeTableBuilder::DescribeTypes(Fortran::semantics::Scope&, bool) + 331
+14 flang     0x00005afda0b9dfdf Fortran::semantics::BuildRuntimeDerivedTypeTables(Fortran::semantics::SemanticsContext&) + 719
+15 flang     0x00005afd9ebee795 Fortran::frontend::FrontendAction::generateRtTypeTables() + 293
+16 flang     0x00005afd9ebfc2b4 Fortran::frontend::PrescanAndSemaDebugAction::beginSourceFileAction() + 52
+17 flang     0x00005afd9ebead6c Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) + 2764
+18 flang     0x00005afd9ebb2370 Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) + 2448
+19 flang     0x00005afd9ebfa3c3 Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) + 10211
+20 flang     0x00005afd9c6a115b fc1_main(llvm::ArrayRef<char const*>, char const*) + 1355
+21 flang     0x00005afd9c698d87 main + 3031
+22 libc.so.6 0x0000710b5b46e1ca
+23 libc.so.6 0x0000710b5b46e28b __libc_start_main + 139
+24 flang     0x00005afd9c5b80e5 _start + 37
+Aborted

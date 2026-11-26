@@ -1,0 +1,161 @@
+/tmp/test.swift:6:68: error: expected '}' in protocol
+3 |   typealias GenericAlias = (T, T)
+4 | protocol BaseProto: C {}
+5 | protocol ProtoRefinesClass where Self : Generic<Int>, Self : BaseProto {
+  |                                                                        `- note: to match this opening '{'
+6 |   func requirementUsesClassTypes(_: ConcreteAlias, _: GenericAlias)
+  |                                                                    `- error: expected '}' in protocol
+
+/tmp/test.swift:6:68: error: expected '}' in class
+1 | class C: P {}
+2 | class Generic<T> : Concrete {
+  |                             `- note: to match this opening '{'
+3 |   typealias GenericAlias = (T, T)
+4 | protocol BaseProto: C {}
+5 | protocol ProtoRefinesClass where Self : Generic<Int>, Self : BaseProto {
+6 |   func requirementUsesClassTypes(_: ConcreteAlias, _: GenericAlias)
+  |                                                                    `- error: expected '}' in class
+
+/tmp/test.swift:1:10: error: cannot find type 'P' in scope
+1 | class C: P {}
+  |          `- error: cannot find type 'P' in scope
+2 | class Generic<T> : Concrete {
+3 |   typealias GenericAlias = (T, T)
+
+/tmp/test.swift:2:20: error: cannot find type 'Concrete' in scope
+1 | class C: P {}
+2 | class Generic<T> : Concrete {
+  |                    `- error: cannot find type 'Concrete' in scope
+3 |   typealias GenericAlias = (T, T)
+4 | protocol BaseProto: C {}
+
+/tmp/test.swift:4:10: error: protocol 'BaseProto' cannot be nested in a generic context
+2 | class Generic<T> : Concrete {
+3 |   typealias GenericAlias = (T, T)
+4 | protocol BaseProto: C {}
+  |          `- error: protocol 'BaseProto' cannot be nested in a generic context
+5 | protocol ProtoRefinesClass where Self : Generic<Int>, Self : BaseProto {
+6 |   func requirementUsesClassTypes(_: ConcreteAlias, _: GenericAlias)
+
+/tmp/test.swift:5:10: error: protocol 'ProtoRefinesClass' cannot be nested in a generic context
+3 |   typealias GenericAlias = (T, T)
+4 | protocol BaseProto: C {}
+5 | protocol ProtoRefinesClass where Self : Generic<Int>, Self : BaseProto {
+  |          `- error: protocol 'ProtoRefinesClass' cannot be nested in a generic context
+6 |   func requirementUsesClassTypes(_: ConcreteAlias, _: GenericAlias)
+
+/tmp/test.swift:5:10: error: no type for 'Self' can satisfy both 'Self : C' and 'Self : Generic<Int>'
+3 |   typealias GenericAlias = (T, T)
+4 | protocol BaseProto: C {}
+5 | protocol ProtoRefinesClass where Self : Generic<Int>, Self : BaseProto {
+  |          `- error: no type for 'Self' can satisfy both 'Self : C' and 'Self : Generic<Int>'
+6 |   func requirementUsesClassTypes(_: ConcreteAlias, _: GenericAlias)
+
+Assertion failed: (baseClass->isSuperclassOf(currentClass) && "no inheritance relationship between given classes"), function getSuperclassForDecl at TypeSubstitution.cpp:550.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -frontend -interpret /tmp/test.swift -disable-objc-interop -no-color-diagnostics -Xcc -fno-color-diagnostics -empty-abi-descriptor -no-auto-bridging-header-chaining -module-name test -in-process-plugin-server-path /usr/lib/swift/host/libSwiftInProcPluginServer.so -plugin-path /usr/lib/swift/host/plugins -plugin-path /usr/local/lib/swift/host/plugins
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/tmp/test.swift")
+4.	While type-checking 'Generic' (at /tmp/test.swift:2:1)
+5.	While type-checking 'ProtoRefinesClass' (at /tmp/test.swift:5:1)
+6.	While type-checking 'requirementUsesClassTypes(_:_:)' (at /tmp/test.swift:6:3)
+7.	While evaluating request InterfaceTypeRequest(test.(file).Generic.ProtoRefinesClass.requirementUsesClassTypes@/tmp/test.swift:6:8)
+8.	While evaluating request LifetimeDependenceInfoRequest(test.(file).Generic.ProtoRefinesClass.requirementUsesClassTypes@/tmp/test.swift:6:8)
+9.	While evaluating request InterfaceTypeRequest(test.(file).Generic.ProtoRefinesClass.requirementUsesClassTypes(_:_:)._@/tmp/test.swift:6:52)
+10.	While evaluating request ResolveTypeRequest(while resolving type , GenericAlias)
+11.	Assertion failed: (baseClass->isSuperclassOf(currentClass) && "no inheritance relationship between given classes"), function getSuperclassForDecl at TypeSubstitution.cpp:550.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+ #0 0x000055bba84b7658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x000055bba84b4e75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x000055bba84b8411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007fb2fd48d330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007fb2fd4e6b2c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9eb2c)
+ #5 0x00007fb2fd48d27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007fb2fd4708ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000055bba25e25c2 (/usr/bin/swift-frontend+0x2d7a5c2)
+ #8 0x000055bba25e2574 (/usr/bin/swift-frontend+0x2d7a574)
+ #9 0x000055bba24d37c5 swift::TypeBase::getSuperclassForDecl(swift::ClassDecl const*, bool) (/usr/bin/swift-frontend+0x2c6b7c5)
+#10 0x000055bba1b7f1bb swift::TypeChecker::substMemberTypeWithBase(swift::TypeDecl*, swift::Type, bool) (/usr/bin/swift-frontend+0x23171bb)
+#11 0x000055bba1b7eda4 swift::TypeResolution::resolveTypeInContext(swift::TypeDecl*, swift::DeclContext*, bool) const (/usr/bin/swift-frontend+0x2316da4)
+#12 0x000055bba1bbd897 (anonymous namespace)::TypeResolver::resolveTypeDecl(swift::TypeDecl*, swift::DeclContext*, swift::UnqualifiedIdentTypeRepr*, swift::TypeResolutionOptions) TypeCheckType.cpp:0:0
+#13 0x000055bba1bbbf12 (anonymous namespace)::TypeResolver::resolveDeclRefTypeReprRec(swift::DeclRefTypeRepr*, swift::TypeResolutionOptions) TypeCheckType.cpp:0:0
+#14 0x000055bba1baa1ae (anonymous namespace)::TypeResolver::resolveType(swift::TypeRepr*, swift::TypeResolutionOptions) TypeCheckType.cpp:0:0
+#15 0x000055bba1b80d34 evaluateTypeResolution(swift::TypeResolution const*, swift::TypeRepr*, swift::SILTypeResolutionContext*) TypeCheckType.cpp:0:0
+#16 0x000055bba1bc6278 swift::ResolveTypeRequest::OutputType swift::Evaluator::getResultUncached<swift::ResolveTypeRequest, swift::ResolveTypeRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeRequest>(swift::Evaluator&, swift::ResolveTypeRequest, swift::ResolveTypeRequest::OutputType)::'lambda'()>(swift::ResolveTypeRequest const&, swift::ResolveTypeRequest::OutputType swift::evaluateOrDefault<swift::ResolveTypeRequest>(swift::Evaluator&, swift::ResolveTypeRequest, swift::ResolveTypeRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#17 0x000055bba1b80ccd swift::TypeResolution::resolveType(swift::TypeRepr*, swift::SILTypeResolutionContext*) const (/usr/bin/swift-frontend+0x2318ccd)
+#18 0x000055bba1a5728c validateParameterType(swift::ParamDecl*) TypeCheckDecl.cpp:0:0
+#19 0x000055bba21712d5 swift::ValueDecl::getInterfaceType() const (/usr/bin/swift-frontend+0x29092d5)
+#20 0x000055bba2193fd4 swift::ParamDecl::toFunctionParam(swift::Type) const (/usr/bin/swift-frontend+0x292bfd4)
+#21 0x000055bba2310cdf swift::LifetimeDependenceInfo::get(swift::ValueDecl*) (/usr/bin/swift-frontend+0x2aa8cdf)
+#22 0x000055bba1a58e4c swift::LifetimeDependenceInfoRequest::evaluate(swift::Evaluator&, swift::ValueDecl*) const (/usr/bin/swift-frontend+0x21f0e4c)
+#23 0x000055bba1b435bc swift::SimpleRequest<swift::LifetimeDependenceInfoRequest, std::optional<llvm::ArrayRef<swift::LifetimeDependenceInfo>> (swift::ValueDecl*), (swift::RequestFlags)12>::evaluateRequest(swift::LifetimeDependenceInfoRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#24 0x000055bba0e0e91f swift::LifetimeDependenceInfoRequest::OutputType swift::Evaluator::getResultUncached<swift::LifetimeDependenceInfoRequest, swift::LifetimeDependenceInfoRequest::OutputType swift::evaluateOrDefault<swift::LifetimeDependenceInfoRequest>(swift::Evaluator&, swift::LifetimeDependenceInfoRequest, swift::LifetimeDependenceInfoRequest::OutputType)::'lambda'()>(swift::LifetimeDependenceInfoRequest const&, swift::LifetimeDependenceInfoRequest::OutputType swift::evaluateOrDefault<swift::LifetimeDependenceInfoRequest>(swift::Evaluator&, swift::LifetimeDependenceInfoRequest, swift::LifetimeDependenceInfoRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#25 0x000055bba2199d6f swift::AbstractFunctionDecl::getLifetimeDependencies() const (/usr/bin/swift-frontend+0x2931d6f)
+#26 0x000055bba1a55eaf swift::InterfaceTypeRequest::evaluate(swift::Evaluator&, swift::ValueDecl*) const (/usr/bin/swift-frontend+0x21edeaf)
+#27 0x000055bba21712d5 swift::ValueDecl::getInterfaceType() const (/usr/bin/swift-frontend+0x29092d5)
+#28 0x000055bba1a97bf3 (anonymous namespace)::DeclChecker::visitFuncDecl(swift::FuncDecl*) TypeCheckDeclPrimary.cpp:0:0
+#29 0x000055bba1a8f9c1 (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#30 0x000055bba1a8fbbb (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#31 0x000055bba1a955fc (anonymous namespace)::DeclChecker::visitClassDecl(swift::ClassDecl*) TypeCheckDeclPrimary.cpp:0:0
+#32 0x000055bba1a905ab (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#33 0x000055bba1a8f864 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x2227864)
+#34 0x000055bba1bca885 swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x2362885)
+#35 0x000055bba1bcf23b swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#36 0x000055bba1bca7b8 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x23627b8)
+#37 0x000055bba0448fd9 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_10>(long, swift::SourceFile&) Frontend.cpp:0:0
+#38 0x000055bba043c73e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xbd473e)
+#39 0x000055bba043c4bb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xbd44bb)
+#40 0x000055bba02b3822 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#41 0x000055bba02a0595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#42 0x000055bba029d21e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#43 0x000055bb9ffa4b21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#44 0x00007fb2fd4721ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#45 0x00007fb2fd47228b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#46 0x000055bb9ffa3a15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x7fb2fd56f28d... done ***
+
+*** Program crashed: Aborted at 0x00007fb2fd56f28d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007fb2fd56f28d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007fb2fd56f28d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b bb 0d 00  H=·ðÿÿs·ÃH··[»··
+rbx 0x0000000000000006  6
+rsi 0x0000000000046852  288850
+rdi 0x0000000000046852  288850
+rbp 0x0000000000046852  288850
+rsp 0x000055bbaeca32e8  3b 84 4b a8 bb 55 00 00 70 35 ca ae bb 55 00 00  ;·K¨»U··p5Ê®»U··
+ r8 0x000055bbaeca3570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x000055bbaeca3570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x000055bbaeca3570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x0000000000000014  20
+r14 0x0000000000000000  0
+r15 0x000055bbaeca3388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007fb2fd56f28d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b bb 0d 00  H=·ðÿÿs·ÃH··[»··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007fb2fd448000–0x00007fb2fd5f7d39 8e9fd827446c24067541ac5390e6f527fb5947bb libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

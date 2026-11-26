@@ -1,0 +1,95 @@
+Assertion failed: (isLoadableOrOpaque(Ty)), function createTuple at SILBuilder.h:1725.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /opt/swift-coverage/bin/swift -frontend -c -Osize -sil-verify-all -enable-experimental-feature Macros -enable-experimental-feature MoveOnly /fusion-fuzz/.fused/swift/tmpe99sozp0/72275a46.swift
+1.	Swift version 6.3.3 (swift-6.3.3-RELEASE)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ExecuteSILPipelineRequest(Run pipelines { Mandatory Diagnostic Passes + Enabling Optimization Passes } on SIL for main)
+4.	While running pass #855 SILFunctionTransform "InitializeStaticGlobals" on SILFunction "@$s4main8MyStructV1a_WZ".
+ for declaration 0x6283a3a0dd20 (at /fusion-fuzz/.fused/swift/tmpe99sozp0/72275a46.swift:41:10)
+5.	Assertion failed: (isLoadableOrOpaque(Ty)), function createTuple at SILBuilder.h:1725.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  swift     0x000062838da302f8
+1  swift     0x000062838da2dd45
+2  swift     0x000062838da30f61
+3  libc.so.6 0x00007b0fdf20e330
+4  libc.so.6 0x00007b0fdf267c0c pthread_kill + 284
+5  libc.so.6 0x00007b0fdf20e27e gsignal + 30
+6  libc.so.6 0x00007b0fdf1f18ff abort + 223
+7  swift     0x0000628386240407
+8  swift     0x0000628386240521
+9  swift     0x00006283896f7b52
+10 swift     0x00006283865df710
+11 swift     0x00006283865df647
+12 swift     0x00006283865db1f7
+13 swift     0x00006283865aecad
+14 swift     0x000062838642865b
+15 swift     0x00006283864271d0
+16 swift     0x00006283879989b2
+17 swift     0x0000628387999cb0
+18 swift     0x000062838799c5a7
+19 swift     0x0000628387995634
+20 swift     0x0000628387995432
+21 swift     0x00006283879d735f
+22 swift     0x00006283879a884b
+23 swift     0x00006283879956ab
+24 swift     0x00006283879a9f27
+25 swift     0x0000628386958474
+26 swift     0x00006283865e4c88
+27 swift     0x00006283865e346a
+28 swift     0x00006283865fc294
+29 swift     0x00006283865ea81d
+30 swift     0x00006283865e62ea
+31 swift     0x000062838632653d
+32 swift     0x0000628386325173
+33 libc.so.6 0x00007b0fdf1f31ca
+34 libc.so.6 0x00007b0fdf1f328b __libc_start_main + 139
+35 swift     0x00006283863248a5
+
+*** Signal 6: Backtracing from 0x7b0fdf2f038d... done ***
+
+*** Program crashed: Aborted at 0x000000000014ae98 ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift" crashed:
+
+  0  0x00007b0fdf2f038d <unknown> in libc.so.6
+...
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007b0fdf2f038d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x000000000014ae98  1355416
+rdi 0x000000000014ae98  1355416
+rbp 0x000000000014ae98  1355416
+rsp 0x00006283a373e8a8  8b 0f a3 8d 83 62 00 00 30 eb 73 a3 83 62 00 00  ··£··b··0ës£·b··
+ r8 0x00006283a373eb30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x00006283a373eb30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x00006283a373eb30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x00007ffc87e3f610  f8 08 ff 9c 83 62 00 00 02 00 00 00 83 62 00 00  ø·ÿ··b·······b··
+r14 0x0000000000000000  0
+r15 0x00006283a373e948  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007b0fdf2f038d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (28 omitted):
+
+0x00007b0fdf1c9000–0x00007b0fdf378eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

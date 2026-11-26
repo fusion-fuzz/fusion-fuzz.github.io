@@ -1,0 +1,47 @@
+LLVM ERROR: can't create Attribute 'mlir::gpu::DimensionAttr' because storage uniquer isn't initialized: the dialect was likely not loaded, or the attribute wasn't added with addAttributes<...>() in the Dialect::initialize() method.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmphscpbu7g/21c9bca0.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic --convert-triton-amdgpu-to-llvm=gfx-arch=gfx1250
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x00005622c90b2d8a
+1  triton-opt 0x00005622c90afc8e
+2  triton-opt 0x00005622c90b3c8b
+3  libc.so.6  0x00007f0a9ad36520
+4  libc.so.6  0x00007f0a9ad8a9bc pthread_kill + 300
+5  libc.so.6  0x00007f0a9ad36476 raise + 22
+6  libc.so.6  0x00007f0a9ad1c7f3 abort + 211
+7  triton-opt 0x00005622c9004a04
+8  triton-opt 0x00005622c798b961
+9  triton-opt 0x00005622c79071d7
+10 triton-opt 0x00005622c7907406
+11 triton-opt 0x00005622c147597b
+12 triton-opt 0x00005622c1474964
+13 triton-opt 0x00005622c14747af
+14 triton-opt 0x00005622c192b3fe
+15 triton-opt 0x00005622c1795e93
+16 triton-opt 0x00005622c179587e
+17 triton-opt 0x00005622c8420f54
+18 triton-opt 0x00005622c847c662
+19 triton-opt 0x00005622c8478cd4
+20 triton-opt 0x00005622c8422d1e
+21 triton-opt 0x00005622c84224f5
+22 triton-opt 0x00005622c84237ce
+23 triton-opt 0x00005622c8432fd8
+24 triton-opt 0x00005622c8429655
+25 triton-opt 0x00005622c842972b
+26 triton-opt 0x00005622c1947be1
+27 triton-opt 0x00005622c1a80b3b
+28 triton-opt 0x00005622c1a816b9
+29 triton-opt 0x00005622c1a886d2
+30 triton-opt 0x00005622c1a87f42
+31 triton-opt 0x00005622c1a72fd7
+32 triton-opt 0x00005622c1a7226c
+33 triton-opt 0x00005622c8cd09d1
+34 triton-opt 0x00005622c1a685d2
+35 triton-opt 0x00005622c1a689d1
+36 triton-opt 0x00005622c1a68c0d
+37 triton-opt 0x00005622c1a53cfc
+38 libc.so.6  0x00007f0a9ad1dd90
+39 libc.so.6  0x00007f0a9ad1de40 __libc_start_main + 128
+40 triton-opt 0x00005622c1027e65
+Aborted (core dumped)

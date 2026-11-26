@@ -1,0 +1,93 @@
+[... 7 lines omitted ...]
+  = note: `#[warn(internal_features)]` on by default
+
+warning: trait `Trait_baaf6392f` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpvyagmd3n/c690d408.rs:71:7
+   |
+71 | trait Trait_baaf6392f<T> {}
+   |       ^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `TraitBaaf6392f`
+   |
+   = note: `#[warn(non_camel_case_types)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+error[E0107]: missing generics for trait `Trait_baaf6392f`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpvyagmd3n/c690d408.rs:16:17
+   |
+16 | trait Identity: Trait_baaf6392f {
+   |                 ^^^^^^^^^^^^^^^ expected 1 generic argument
+   |
+note: trait defined here, with 1 generic parameter: `T`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpvyagmd3n/c690d408.rs:71:7
+   |
+71 | trait Trait_baaf6392f<T> {}
+   |       ^^^^^^^^^^^^^^^ -
+help: add missing generic argument
+   |
+16 | trait Identity: Trait_baaf6392f<T> {
+   |                                +++
+
+error[E0107]: missing generics for trait `Trait_baaf6392f`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpvyagmd3n/c690d408.rs:36:9
+   |
+36 | impl<T: Trait_baaf6392f> Middle<T> for () {
+   |         ^^^^^^^^^^^^^^^ expected 1 generic argument
+   |
+note: trait defined here, with 1 generic parameter: `T`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpvyagmd3n/c690d408.rs:71:7
+   |
+71 | trait Trait_baaf6392f<T> {}
+   |       ^^^^^^^^^^^^^^^ -
+help: add missing generic argument
+   |
+36 | impl<T: Trait_baaf6392f<T>> Middle<T> for () {
+   |                        +++
+
+error[E0282]: type annotations needed
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpvyagmd3n/c690d408.rs:81:16
+   |
+81 |     if false { is_trait(foo()) } else { Default::default() }
+   |                ^^^^^^^^ cannot infer type of the type parameter `T` declared on the function `is_trait`
+   |
+   = note: cannot infer type of hidden type of opaque
+help: consider specifying the generic arguments
+   |
+81 |     if false { is_trait::<T, U>(foo()) } else { Default::default() }
+   |                        ++++++++
+
+error: internal compiler error: compiler/rustc_middle/src/ty/instance.rs:640:21: failed to resolve instance for <() as Middle<()>>::say_hello
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpvyagmd3n/c690d408.rs:30:5
+   |
+30 |     fn say_hello(&self, _: &usize) {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+thread 'rustc' (60587) panicked at compiler/rustc_middle/src/ty/instance.rs:640:21:
+Box<dyn Any>
+stack backtrace:
+   0: std::panicking::begin_panic::<rustc_span::macros::ExplicitBug>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:751:5
+   1: std::panic::panic_any::<rustc_span::macros::ExplicitBug>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panic.rs:260:5
+   2: rustc_span::macros::bug_impl
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_span/src/macros.rs:62:9
+   3: <rustc_middle::ty::instance::Instance>::expect_resolve
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/instance.rs:640:21
+   4: <rustc_middle::ty::instance::Instance>::expect_resolve_for_vtable
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/instance.rs:722:28
+   5: rustc_trait_selection::traits::vtable::vtable_entries::{closure#0}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_trait_selection/src/traits/vtable.rs:283:36
+   6: core::iter::adapters::map::map_fold::<rustc_span::def_id::DefId, rustc_middle::ty::vtable::VtblEntry, (), rustc_trait_selection::traits::vtable::vtable_entries::{closure#0}::{closure#0}, core::iter::traits::iterator::Iterator::for_each::call<rustc_middle::ty::vtable::VtblEntry, <alloc::vec::Vec<rustc_middle::ty::vtable::VtblEntry>>::extend_trusted<core::iter::adapters::map::Map<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_span::def_id::DefId>>, rustc_trait_selection::traits::vtable::vtable_entries::{closure#0}::{closure#0}>>::{closure#0}>::{closure#0}>::{closure#0}
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/iter/adapters/map.rs:88:28
+   7: core::iter::adapters::copied::copy_fold::<rustc_span::def_id::DefId, (), core::iter::adapters::map::map_fold<rustc_span::def_id::DefId, rustc_middle::ty::vtable::VtblEntry, (), rustc_trait_selection::traits::vtable::vtable_entries::{closure#0}::{closure#0}, core::iter::traits::iterator::Iterator::for_each::call<rustc_middle::ty::vtable::VtblEntry, <alloc::vec::Vec<rustc_middle::ty::vtable::VtblEntry>>::extend_trusted<core::iter::adapters::map::Map<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_span::def_id::DefId>>, rustc_trait_selection::traits::vtable::vtable_entries::{closure#0}::{closure#0}>>::{closure#0}>::{closure#0}>::{closure#0}>::{closure#0}
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/iter/adapters/copied.rs:36:22
+   8: <core::slice::iter::Iter<rustc_span::def_id::DefId> as core::iter::traits::iterator::Iterator>::fold::<(), core::iter::adapters::copied::copy_fold<rustc_span::def_id::DefId, (), core::iter::adapters::map::map_fold<rustc_span::def_id::DefId, rustc_middle::ty::vtable::VtblEntry, (), rustc_trait_selection::traits::vtable::vtable_entries::{closure#0}::{closure#0}, core::iter::traits::iterator::Iterator::for_each::call<rustc_middle::ty::vtable::VtblEntry, <alloc::vec::Vec<rustc_middle::ty::vtable::VtblEntry>>::extend_trusted<core::iter::adapters::map::Map<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_span::def_id::DefId>>, rustc_trait_selection::traits::vtable::vtable_entries::{closure#0}::{closure#0}>>::{closure#0}>::{closure#0}>::{closure#0}>::{closure#0}>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/slice/iter/macros.rs:274:27
+   9: <core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_span::def_id::DefId>> as core::iter::traits::iterator::Iterator>::fold::<(), core::iter::adapters::map::map_fold<rustc_span::def_id::DefId, rustc_middle::ty::vtable::VtblEntry, (), rustc_trait_selection::traits::vtable::vtable_entries::{closure#0}::{closure#0}, core::iter::traits::iterator::Iterator::for_each::call<rustc_middle::ty::vtable::VtblEntry, <alloc::vec::Vec<rustc_middle::ty::vtable::VtblEntry>>::extend_trusted<core::iter::adapters::map::Map<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_span::def_id::DefId>>, rustc_trait_selection::traits::vtable::vtable_entries::{closure#0}::{closure#0}>>::{closure#0}>::{closure#0}>::{closure#0}>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/iter/adapters/copied.rs:81:17
+  10: <core::iter::adapters::map::Map<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_span::def_id::DefId>>, rustc_trait_selection::traits::vtable::vtable_entries::{closure#0}::{closure#0}> as core::iter::traits::iterator::Iterator>::fold::<(), core::iter::traits::iterator::Iterator::for_each::call<rustc_middle::ty::vtable::VtblEntry, <alloc::vec::Vec<rustc_middle::ty::vtable::VtblEntry>>::extend_trusted<core::iter::adapters::map::Map<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_span::def_id::DefId>>, rustc_trait_selection::traits::vtable::vtable_entries::{closure#0}::{closure#0}>>::{closure#0}>::{closure#0}>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/iter/adapters/map.rs:128:19
+  11: <core::iter::adapters::map::Map<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_span::def_id::DefId>>, rustc_trait_selection::traits::vtable::vtable_entries::{closure#0}::{closure#0}> as core::iter::traits::iterator::Iterator>::for_each::<<alloc::vec::Vec<rustc_middle::ty::vtable::VtblEntry>>::extend_trusted<core::iter::adapters::map::Map<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_span::def_id::DefId>>, rustc_trait_selection::traits::vtable::vtable_entries::{closure#0}::{closure#0}>>::{closure#0}>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/iter/traits/iterator.rs:887:14
+  12: <alloc::vec::Vec<rustc_middle::ty::vtable::VtblEntry>>::extend_trusted::<core::iter::adapters::map::Map<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_span::def_id::DefId>>, rustc_trait_selection::traits::vtable::vtable_entries::{closure#0}::{closure#0}>>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/alloc/src/vec/mod.rs:4132:26
+  13: <alloc::vec::Vec<rustc_middle::ty::vtable::VtblEntry> as alloc::vec::spec_extend::SpecExtend<rustc_middle::ty::vtable::VtblEntry, core::iter::adapters::map::Map<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_span::def_id::DefId>>, rustc_trait_selection::traits::vt
+[... truncated ...]

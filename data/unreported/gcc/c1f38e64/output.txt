@@ -1,0 +1,31 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp2aytdm1p/3afb6932.cc: In function 'void* foo()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp2aytdm1p/3afb6932.cc:38:12: error: invalid conversion from 'const void*' to 'void*' [-fpermissive]
+   38 |   return &r+1;
+      |          ~~^~
+      |            |
+      |            const void*
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp2aytdm1p/3afb6932.cc:38:10: error: consteval-only value outside an immediate function context
+   38 |   return &r+1;
+      |          ^~
+At global scope:
+cc1plus: internal compiler error: in record_reference, at cgraphbuild.cc:64
+0x3046dcb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xdd9a1e fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x8deb3c record_reference
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphbuild.cc:64
+0x1c31643 walk_tree_1(tree_node**, tree_node* (*)(tree_node**, int*, void*), void*, hash_set<tree_node*, false, default_hash_traits<tree_node*> >*, tree_node* (*)(tree_node**, int*, tree_node* (*)(tree_node**, int*, void*), void*, hash_set<tree_node*, false, default_hash_traits<tree_node*> >*))
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:11868
+0x12944ab record_references_in_initializer(tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphbuild.cc:415
+0x1cabc72 varpool_node::analyze()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/varpool.cc:537
+0x12992fe analyze_functions
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:1333
+0x129a166 symbol_table::finalize_compilation_unit()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2592
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp2aytdm1p/3afb6932.cc -quiet -dumpbase 3afb6932.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O0 -std=c++26 -ftrapv -floop-nest-optimize -freflection -o /tmp/cc9EBHNy.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

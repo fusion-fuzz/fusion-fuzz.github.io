@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl5m9yo51/39176ed1.swift:157:33: error: variable 'y' used before being initialized
+149 | struct Test1 {
+150 |   var x: Int // expected-note {{variable defined here}}
+151 |   var y: Int // expected-note {{variable defined here}}
+    |       `- note: variable defined here
+152 |   var full: (Int, Int)
+153 | 
+    :
+155 |     @storageRestrictions(initializes: y, full, accesses: x)
+156 |     init(initialValue) {
+157 |       self.full = (self.x, self.y) // expected-error {{variable 'y' used before being initialized}}
+    |                                 `- error: variable 'y' used before being initialized
+158 |     }
+159 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl5m9yo51/39176ed1.swift:176:5: error: property 'x' not initialized by init accessor
+174 |   var errorPoint1: (Int, Int) {
+175 |     @storageRestrictions(initializes: x, y)
+176 |     init(initialValue) {
+    |     `- error: property 'x' not initialized by init accessor
+177 |       // expected-error@-1 {{property 'x' not initialized by init accessor}}
+178 |       // expected-error@-2 {{property 'y' not initialized by init accessor}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl5m9yo51/39176ed1.swift:176:5: error: property 'y' not initialized by init accessor
+174 |   var errorPoint1: (Int, Int) {
+175 |     @storageRestrictions(initializes: x, y)
+176 |     init(initialValue) {
+    |     `- error: property 'y' not initialized by init accessor
+177 |       // expected-error@-1 {{property 'x' not initialized by init accessor}}
+178 |       // expected-error@-2 {{property 'y' not initialized by init accessor}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl5m9yo51/39176ed1.swift:187:5: error: property 'y' not initialized by init accessor
+185 |   var errorPoint2: (Int, Int) {
+186 |     @storageRestrictions(initializes: x, y)
+187 |     init(initialValue) {
+    |     `- error: property 'y' not initialized by init accessor
+188 |       // expected-error@-1 {{property 'y' not initialized by init accessor}}
+189 |       self.x = initialValue.0
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl5m9yo51/39176ed1.swift:201:13: error: variable 'x' used before being initialized
+148 | 
+149 | struct Test1 {
+150 |   var x: Int // expected-note {{variable defined here}}
+    |       `- note: variable defined here
+151 |   var y: Int // expected-note {{variable defined here}}
+152 |   var full: (Int, Int)
+    :
+199 |       self.y = initialValue.1
+200 |       print(y) // Ok
+201 |       print(x) // expected-error {{variable 'x' used before being initialized}}
+    |             `- error: variable 'x' used before being initialized
+202 |     }
+203 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl5m9yo51/39176ed1.swift:249:14: error: immutable value 'x' may only be initialized once
+241 | 
+242 | struct TestDoubleInit1 {
+243 |   let x: Int // expected-note {{change 'let' to 'var' to make it mutable}}
+    |   `- note: change 'let' to 'var' to make it mutable
+244 | 
+245 |   var invalidPointX: Int {
+    :
+247 |     init(initialValue) {
+248 |       self.x = initialValue
+249 |       self.x = 42 // expected-error {{immutable value 'x' may only be initialized once}}
+    |              `- error: immutable value 'x' may only be initialized once
+250 |     }
+251 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl5m9yo51/39176ed1.swift:272:12: error: immutable value 'self.x' may only be initialized once
+256 | 
+257 | struct TestDoubleInit2 {
+258 |   let x: Int // expected-note {{change 'let' to 'var' to make it mutable}}
+    |   `- note: change 'let' to 'var' to make it mutable
+259 | 
+260 |   var pointX: Int {
+    :
+270 |   init(x: Int) {
+271 |     self.pointX = x
+272 |     self.x = 0 // expected-error {{immutable value 'self.x' may only be initialized once}}
+    |            `- error: immutable value 'self.x' may only be initialized once
+273 |   }
+274 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl5m9yo51/39176ed1.swift:291:12: error: variable 'self.y' used before being initialized
+289 | 
+290 |   init(x: Int, y: Int) {
+291 |     self.x = x // expected-error {{variable 'self.y' used before being initialized}}
+    |            `- error: variable 'self.y' used before being initialized
+292 |     self.y = y
+293 |   }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl5m9yo51/39176ed1.swift:302:5: error: property '_b' not initialized by init accessor
+300 |   var pair1: (Int, Int) {
+301 |     @storageRestrictions(initializes: _a, _b)
+302 |     init(initialValue) { // expected-error {{property '_b' not initialized by init accessor}}
+    |     `- error: property '_b' not initialized by init accessor
+303 |       _a = initialValue.0
+304 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl5m9yo51/39176ed1.swift:633:5: error: property 'empty1' not initialized by init accessor
+631 |   var storage: Bool {
+632 |     @storageRestrictions(initializes: empty1, empty2, empty3, empty4, empty5)
+633 |     init(initialValue) { // expected-error {{property 'empty1' not initialized by init accessor}} // expected-error {{property 'empty4' not initialized by init accessor}} // expected-error {{property 'empty5.0' not initialized by init accessor}}
+    |     `- error: property 'empty1' not initialized by init accessor
+634 | 
+635 |     }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl5m9yo51/39176ed1.swift:633:5: error: property 'empty4' not initialized by init accessor
+631 |   var storage: Bool {
+632 |     @storageRestrictions(initializes: empty1, empty2, empty3, empty4, empty5)
+633 |     init(initialValue) { // expected-error {{property 'empty1' not initialized by init accessor}} // expected-error {{property 'empty4' not initialized by init accessor}} // expected-error {{property 'empty5.0' not initialized by init accessor}}
+    |     `- error: property 'empty4' not initialized by init accessor
+634 | 
+635 |     }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl5m9yo51/39176ed1.swift:633:5: error: property 'empty5.0' not initialized by init accessor
+631 |   var storage: Bool {
+632 |     @storageRestrictions(initializes: empty1, empty2, empty3, empty4, empty5)
+633 |     init(initialValue) { // expected-error {{property 'empty1' not initialized by init accessor}} // expected-error {{property 'empty4' not initialized by init accessor}} // expected-error {{property 'empty5.0' not initialized by init accessor}}
+[... 104 more lines ...]

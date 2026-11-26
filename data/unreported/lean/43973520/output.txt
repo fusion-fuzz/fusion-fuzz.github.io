@@ -1,0 +1,121 @@
+INTERNAL PANIC: Nat.pow exponent is too big
+'ex1' depends on axioms: [ex1._native.native_decide.ax_1]
+output: step
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp5dhv8_87/00e4972a.lean:70:48: error: Expected type must not contain free variables
+  @LE.le Nat instLENat
+    (@HAdd.hAdd Nat Nat Nat (@instHAdd Nat instAddNat) x (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+    (@OfNat.ofNat Nat (nat_lit 5) (instOfNatNat (nat_lit 5)))
+
+Hint: Use the `+revert` option to automatically clean up and revert free variables
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp5dhv8_87/00e4972a.lean:69:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+  error: Expected type must not contain free variables
+-   x + 1 ≤ 5
++   @LE.le Nat instLENat
++     (@HAdd.hAdd Nat Nat Nat (@instHAdd Nat instAddNat) x (@OfNat.ofNat Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
++     (@OfNat.ofNat Nat (nat_lit 5) (instOfNatNat (nat_lit 5)))
+ 
+  Hint: Use the `+revert` option to automatically clean up and revert free variables
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp5dhv8_87/00e4972a.lean:87:36: error: Tactic `native_decide` evaluated that the proposition
+  False
+is false
+have this : False :=
+  sorryAx (∀ (tag : Lean.Name), False) true `00e4972a.87.22.87.49.22.49._sorry._@.00e4972a.1346969072._hygCtx._hyg.17;
+this : False
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp5dhv8_87/00e4972a.lean:87:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+  error: Tactic `native_decide` evaluated that the proposition
+    False
+  is false
+  ---
+- info: have this := sorry;
++ info: have this : False :=
++   sorryAx (∀ (tag : Lean.Name), False) true `00e4972a.87.22.87.49.22.49._sorry._@.00e4972a.1346969072._hygCtx._hyg.17;
+  this : False
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp5dhv8_87/00e4972a.lean:105:0: warning: declaration uses `sorryAx (Lean.Name → Decidable ItsTrue) false
+  `00e4972a.105.32.105.37.32.37._sorry._@.00e4972a.1596399016._hygCtx._hyg.5`
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp5dhv8_87/00e4972a.lean:137:63: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  OfNat (Nat → Prop) (nat_lit 6)
+numerals are polymorphic in Lean, but the numeral `6` cannot be used in a context where the expected type is
+  Nat → Prop
+due to the absence of the instance above
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp5dhv8_87/00e4972a.lean:137:47: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HPow (Nat → Prop) Nat (Nat → Prop)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp5dhv8_87/00e4972a.lean:137:47: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HAdd (Nat → Prop) Nat ?_
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp5dhv8_87/00e4972a.lean:138:2: warning: exponent 2008 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+k : Nat
+h :
+  @Eq Nat k
+    (@HAdd.hAdd Nat Nat Nat (@instHAdd Nat instAddNat)
+      (@HPow.hPow Nat Nat Nat (@instHPow Nat Nat (@instPowNat Nat instNatPowNat))
+        (@OfNat.ofNat Nat (nat_lit 2008) (instOfNatNat (nat_lit 2008)))
+        (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@HPow.hPow Nat Nat Nat (@instHPow Nat Nat (@instPowNat Nat instNatPowNat))
+        (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (@OfNat.ofNat Nat (nat_lit 2008) (instOfNatNat (nat_lit 2008)))))
+⊢ @Eq (Nat → Prop)
+    (@HMod.hMod (?_ k h) Nat (Nat → Prop) (?_ k h)
+      (@HAdd.hAdd (Nat → Prop) Nat (?_ k h) (?_ k h)
+        (@HPow.hPow (Nat → Prop) Nat (Nat → Prop) (?_ k h) P (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+        (@HPow.hPow Nat Nat Nat (@instHPow Nat Nat (@instPowNat Nat instNatPowNat))
+          (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@HAdd.hAdd Nat Nat Nat (@instHAdd Nat instAddNat)
+            (@OfNat.ofNat Nat (nat_lit 4032064) (instOfNatNat (nat_lit 4032064)))
+            (@HPow.hPow Nat Nat Nat (@instHPow Nat Nat (@instPowNat Nat instNatPowNat))
+              (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+              (@OfNat.ofNat Nat (nat_lit 2008) (instOfNatNat (nat_lit 2008)))))))
+      (@OfNat.ofNat Nat (nat_lit 10) (instOfNatNat (nat_lit 10))))
+    (@OfNat.ofNat (Nat → Prop) (nat_lit 6) (?_ k h))
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp5dhv8_87/00e4972a.lean:136:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
++ error: failed to synthesize instance of type class
++   OfNat (Nat → Prop) (nat_lit 6)
++ numerals are polymorphic in Lean, but the numeral `6` cannot be used in a context where the expected type is
++   Nat → Prop
++ due to the absence of the instance above
++
++ Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
++ ---
++ error: failed to synthesize instance of type class
++   HPow (Nat → Prop) Nat (Nat → Prop)
++
++ Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
++ ---
++ error: failed to synthesize instance of type class
++   HAdd (Nat → Prop) Nat ?_
++
++ Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
++ ---
+  warning: exponent 2008 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+  ---
+  trace: k : Nat
+- h : k = 2008 ^ 2 + 2 ^ 2008
+- ⊢ ((4032064 + 2 ^ 2008) ^ 2 + 2 ^ (4032064 + 2 ^ 2008)) % 10 = 6
+- ---
+- warning: declaration uses `sorry`
++ h :
++   @Eq Nat k
++     (@HAdd.hAdd Nat Nat Nat (@instHAdd Nat instAddNat)
++       (@HPow.hPow Nat Nat Nat (@instHPow Nat Nat (@instPowNat Nat instNatPowNat))
++         (@OfNat.ofNat Nat (nat_lit 2008) (instOfNatNat (nat_lit 2008)))
++         (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
++       (@HPow.hPow Nat Nat Nat (@instHPow Nat Nat (@instPowNat Nat instNatPowNat))
++         (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
++         (@OfNat.ofNat Nat (nat_lit 2008) (instOfNatNat (nat_lit 2008)))))
++ ⊢ @Eq (Nat → Prop)
++     (@HMod.hMod (?_ k h) Nat (Nat → Prop) (?_ k h)
++       (@HAdd.hAdd (Nat → Prop) Nat (?_ k h) (?_ k h)
++         (@HPow.hPow (Nat → Prop) Nat (Nat → Prop) (?_ k h) P (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
++         (@HPow.hPow Nat Nat Nat (@instHPow Nat Nat (@instPowNat Nat instNatPowNat))
++           (@OfNat.ofNat Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
++           (@HAdd.hAdd Nat Nat Nat (@instHAdd Nat instAddNat)
++             (@OfNat.ofNat Nat (nat_lit 4032064) (instOfNatNat (nat_lit 4032064)))
++             (@HPow.hPow Nat Nat Nat (@instHPow Nat Nat (@instPowNat Nat instNatPowNat))
+[... 241 more lines ...]

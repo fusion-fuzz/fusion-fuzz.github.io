@@ -1,0 +1,13 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfewro4sg/bac30b19.cpp:5:52: error: unknown type name 'T'
+    5 | template <typename O> void foo(const O &) { static T t; }
+      |                                                    ^
+unexpected conversion required for non-type template argument
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaTemplate.cpp:8042!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O3 -std=c++20 -fblocks /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfewro4sg/bac30b19.cpp
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfewro4sg/bac30b19.cpp:9:30: instantiating function definition 'C<int, &foo>::baz<int>'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005565344ee409 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1

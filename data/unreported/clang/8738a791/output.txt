@@ -1,0 +1,97 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp:47:8: error: translation unit contains multiple module declarations
+   47 | export module A:Foo;
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp:42:1: note: previous module declaration is here
+   42 | module A:Internals;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp:49:1: error: module partition imports must be within a module purview
+   49 | import :Internals;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp:51:1: error: export declaration can only be used within a module interface
+   51 | export int foo() { return 2 * (bar() + 1); }
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp:42:1: note: add 'export' here if this is intended to be a module interface unit
+   42 | module A:Internals;
+      | ^
+      | export 
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp:55:8: error: translation unit contains multiple module declarations
+   55 | export module A;
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp:42:1: note: previous module declaration is here
+   42 | module A:Internals;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp:56:8: error: module partition imports must be within a module purview
+   56 | export import :Foo;
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp:57:1: error: export declaration can only be used within a module interface
+   57 | export int baz();
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp:42:1: note: add 'export' here if this is intended to be a module interface unit
+   42 | module A:Internals;
+      | ^
+      | export 
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp:61:1: error: translation unit contains multiple module declarations
+   61 | module A;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp:42:1: note: previous module declaration is here
+   42 | module A:Internals;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp:63:1: error: module partition imports must be within a module purview
+   63 | import :Internals;
+      | ^
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O2 -std=gnu++20 -fblocks /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp30smnxv0/49397f11.cpp:79:11: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005d9b9473c329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005d9b94738fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005d9b947398a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005d9b9467b218
+4  libc.so.6 0x0000772a9c17e520
+5  clang++   0x00005d9b98b00b08 clang::Module::getFullModuleName[abi:cxx11](bool) const + 104
+6  clang++   0x00005d9b979dad38 clang::Sema::CheckTemplateParameterList(clang::TemplateParameterList*, clang::TemplateParameterList*, clang::Sema::TemplateParamListContext, clang::SkipBodyInfo*) + 2200
+7  clang++   0x00005d9b97a1f40f clang::Sema::CheckClassTemplate(clang::Scope*, unsigned int, clang::TagUseKind, clang::SourceLocation, clang::CXXScopeSpec&, clang::IdentifierInfo*, clang::SourceLocation, clang::ParsedAttributesView const&, clang::TemplateParameterList*, clang::AccessSpecifier, clang::SourceLocation, clang::SourceLocation, unsigned int, clang::TemplateParameterList**, bool, clang::SkipBodyInfo*) + 991
+8  clang++   0x00005d9b9735aa5d clang::Sema::ActOnTag(clang::Scope*, unsigned int, clang::TagUseKind, clang::SourceLocation, clang::CXXScopeSpec&, clang::IdentifierInfo*, clang::SourceLocation, clang::ParsedAttributesView const&, clang::AccessSpecifier, clang::SourceLocation, llvm::MutableArrayRef<clang::TemplateParameterList*>, bool&, bool&, clang::SourceLocation, bool, clang::ActionResult<clang::OpaquePtr<clang::QualType>, false>, bool, bool, clang::OffsetOfKind, clang::SkipBodyInfo*) + 2717
+9  clang++   0x00005d9b96fbc4db clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 4523
+10 clang++   0x00005d9b96f8c4a5 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2821
+11 clang++   0x00005d9b9706a069 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2361
+12 clang++   0x00005d9b97076338
+13 clang++   0x00005d9b9707675a clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) + 250
+14 clang++   0x00005d9b96f9bbb1 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 641
+15 clang++   0x00005d9b96f5466e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+16 clang++   0x00005d9b96f556ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+17 clang++   0x00005d9b96f32632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+18 clang++   0x00005d9b955d3061 clang::FrontendAction::Execute() + 65
+19 clang++   0x00005d9b9555ce65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+20 clang++   0x00005d9b956aade3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+21 clang++   0x00005d9b9250633e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+22 clang++   0x00005d9b924fc13a
+23 clang++   0x00005d9b924fc2cf
+24 clang++   0x00005d9b952e1cfd
+25 clang++   0x00005d9b9467b630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+26 clang++   0x00005d9b952e2b53
+27 clang++   0x00005d9b95297607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+28 clang++   0x00005d9b9529bef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+29 clang++   0x00005d9b952aa004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+30 clang++   0x00005d9b92501923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+31 clang++   0x00005d9b9243d7f1 main + 113
+32 libc.so.6 0x0000772a9c165d90
+33 libc.so.6 0x0000772a9c165e40 __libc_start_main + 128
+34 clang++   0x00005d9b924fb765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/49397f11-7fcc28.cpp
+clang++: note: diagnostic msg: /tmp/49397f11-7fcc28.sh
+clang++: note: diagnostic msg: 
+
+********************
+Segmentation fault (core dumped)

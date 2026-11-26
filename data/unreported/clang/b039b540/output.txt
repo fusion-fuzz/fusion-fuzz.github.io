@@ -1,0 +1,75 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpml550mp0/cad022e7.cpp:24:10: error: no member named 'left' in 'ChildNoOverride'
+   24 |   child->left();
+      |   ~~~~~  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpml550mp0/cad022e7.cpp:27:21: error: out-of-line definition of 'left' does not match any declaration in 'ChildOverride'
+   27 | void ChildOverride::left() {}
+      |                     ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpml550mp0/cad022e7.cpp:15:8: note: ChildOverride defined here
+   15 | struct ChildOverride : Left, Right {
+      |        ^~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpml550mp0/cad022e7.cpp:30:10: error: no member named 'right' in 'ChildNoOverride'
+   30 |   child->right();
+      |   ~~~~~  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpml550mp0/cad022e7.cpp:39:21: error: out-of-line definition of 'right' does not match any declaration in 'ChildOverride'
+   39 | void ChildOverride::right() {
+      |                     ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpml550mp0/cad022e7.cpp:15:8: note: ChildOverride defined here
+   15 | struct ChildOverride : Left, Right {
+      |        ^~~~~~~~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Basic/Attributes.cpp:171: llvm::SmallString<64> normalizeName(llvm::StringRef, llvm::StringRef, clang::AttributeCommonInfo::Syntax): Assertion `SyntaxUsed == AttributeCommonInfo::AS_CXX11 || SyntaxUsed == AttributeCommonInfo::AS_C23' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O3 -std=c++14 -fblocks -target i386-pc-win32 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpml550mp0/cad022e7.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpml550mp0/cad022e7.cpp:56:12: current parser token '('
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055d99da7d409 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055d99da7a0cc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055d99da7a988 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055d99d9bc368
+4  libc.so.6 0x00007f7d24081520
+5  libc.so.6 0x00007f7d240d59bc pthread_kill + 300
+6  libc.so.6 0x00007f7d24081476 raise + 22
+7  libc.so.6 0x00007f7d240677f3 abort + 211
+8  libc.so.6 0x00007f7d2406771b
+9  libc.so.6 0x00007f7d24078e96
+10 clang++   0x000055d9a1df7309
+11 clang++   0x000055d9a1e09f77 clang::AttributeCommonInfo::getParsedKind(clang::IdentifierInfo const*, clang::IdentifierInfo const*, clang::AttributeCommonInfo::Syntax) + 103
+12 clang++   0x000055d9a02cf705 clang::Parser::ParseGNUAttributeArgs(clang::IdentifierInfo*, clang::SourceLocation, clang::ParsedAttributes&, clang::SourceLocation*, clang::IdentifierInfo*, clang::SourceLocation, clang::AttributeCommonInfo::Form, clang::Declarator*) + 117
+13 clang++   0x000055d9a02e9ced clang::Parser::ParseCXX11AttributeArgs(clang::IdentifierInfo*, clang::SourceLocation, clang::ParsedAttributes&, clang::SourceLocation*, clang::IdentifierInfo*, clang::SourceLocation, llvm::SmallVector<clang::Token, 4u>&) + 3117
+14 clang++   0x000055d9a02eb8f6 clang::Parser::ParseCXX11AttributeSpecifierInternal(clang::ParsedAttributes&, llvm::SmallVector<clang::Token, 4u>&, clang::SourceLocation*) + 2438
+15 clang++   0x000055d9a02ebba1 clang::Parser::ParseCXX11Attributes(clang::ParsedAttributes&) + 113
+16 clang++   0x000055d9a028f423 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 515
+17 clang++   0x000055d9a026c392 clang::ParseAST(clang::Sema&, bool, bool) + 530
+18 clang++   0x000055d99e915ad1 clang::FrontendAction::Execute() + 65
+19 clang++   0x000055d99e89fa75 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+20 clang++   0x000055d99e9ed713 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+21 clang++   0x000055d99b84827e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+22 clang++   0x000055d99b83df8a
+23 clang++   0x000055d99b83e11f
+24 clang++   0x000055d99e62451d
+25 clang++   0x000055d99d9bc780 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+26 clang++   0x000055d99e625373
+27 clang++   0x000055d99e5d9e07 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+28 clang++   0x000055d99e5de6f0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+29 clang++   0x000055d99e5ec804 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+30 clang++   0x000055d99b843863 clang_main(int, char**, llvm::ToolContext const&) + 7315
+31 clang++   0x000055d99b77f7c1 main + 113
+32 libc.so.6 0x00007f7d24068d90
+33 libc.so.6 0x00007f7d24068e40 __libc_start_main + 128
+34 clang++   0x000055d99b83d5b5 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: i386-pc-windows-msvc
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/cad022e7-f5a90c.cpp
+clang++: note: diagnostic msg: /tmp/cad022e7-f5a90c.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

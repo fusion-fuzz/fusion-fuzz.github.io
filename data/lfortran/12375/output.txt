@@ -1,0 +1,48 @@
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3010, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 2782, in main_app(int, char**)
+    return emit_asr(opts.arg_file, lfortran_pass_manager,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 854, in (anonymous namespace)::emit_asr(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::PassManager&, LCompilers::CompilerOptions&)
+    std::cout << LCompilers::pickle(*asr, compiler_options.use_colors, compiler_options.indent,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pickle.cpp", line 215, in LCompilers::pickle[abi:cxx11](LCompilers::ASR::TranslationUnit_t&, bool, bool, bool, bool)
+    return pickle((ASR::asr_t &)asr, colors, indent, show_intrinsic_modules, clojure);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pickle.cpp", line 210, in LCompilers::pickle[abi:cxx11](LCompilers::ASR::asr_t&, bool, bool, bool, bool)
+    v.visit_asr(asr);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 374, in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_asr(LCompilers::ASR::asr_t const&)
+    void visit_asr(const asr_t &b) { visit_asr_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 348, in void LCompilers::ASR::visit_asr_t<LCompilers::ASRPickleVisitor>(LCompilers::ASR::asr_t const&, LCompilers::ASRPickleVisitor&)
+    case asrType::unit: { v.visit_unit((const unit_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 375, in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_unit(LCompilers::ASR::unit_t const&)
+    void visit_unit(const unit_t &b) { visit_unit_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 22, in void LCompilers::ASR::visit_unit_t<LCompilers::ASRPickleVisitor>(LCompilers::ASR::unit_t const&, LCompilers::ASRPickleVisitor&)
+    case unitType::TranslationUnit: { v.visit_TranslationUnit((const TranslationUnit_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_pickle_visitor.h", line 100, in LCompilers::ASR::PickleBaseVisitor<LCompilers::ASRPickleVisitor>::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&)
+    this->visit_symbol(*a.second);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 377, in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&)
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 32, in void LCompilers::ASR::visit_symbol_t<LCompilers::ASRPickleVisitor>(LCompilers::ASR::symbol_t const&, LCompilers::ASRPickleVisitor&)
+    case symbolType::Function: { v.visit_Function((const Function_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_pickle_visitor.h", line 425, in LCompilers::ASR::PickleBaseVisitor<LCompilers::ASRPickleVisitor>::visit_Function(LCompilers::ASR::Function_t const&)
+    this->visit_symbol(*a.second);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 377, in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&)
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 32, in void LCompilers::ASR::visit_symbol_t<LCompilers::ASRPickleVisitor>(LCompilers::ASR::symbol_t const&, LCompilers::ASRPickleVisitor&)
+    case symbolType::Function: { v.visit_Function((const Function_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_pickle_visitor.h", line 425, in LCompilers::ASR::PickleBaseVisitor<LCompilers::ASRPickleVisitor>::visit_Function(LCompilers::ASR::Function_t const&)
+    this->visit_symbol(*a.second);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 377, in LCompilers::ASR::BaseVisitor<LCompilers::ASRPickleVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&)
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 45, in void LCompilers::ASR::visit_symbol_t<LCompilers::ASRPickleVisitor>(LCompilers::ASR::symbol_t const&, LCompilers::ASRPickleVisitor&)
+    case symbolType::Namelist: { v.visit_Namelist((const Namelist_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_pickle_visitor.h", line 1797, in LCompilers::ASR::PickleBaseVisitor<LCompilers::ASRPickleVisitor>::visit_Namelist(LCompilers::ASR::Namelist_t const&)
+    self().visit_symbol(*x.m_var_list[i]);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pickle.cpp", line 24, in LCompilers::ASRPickleVisitor::visit_symbol(LCompilers::ASR::symbol_t const&)
+    s.append(ASRUtils::symbol_parent_symtab(&x)->get_counter());
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_utils.h", line 1428, in LCompilers::ASRUtils::symbol_parent_symtab(LCompilers::ASR::symbol_t const*)
+    switch (f->type) {
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+Segfault: Signal SIGSEGV (segmentation fault) received

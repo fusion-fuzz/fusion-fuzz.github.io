@@ -1,0 +1,104 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9u6b1iu4/dc07c76a.swift:6:17: error: cannot find type 'Builtin' in scope
+  4 | // RUN: %target-swift-emit-silgen -parse-stdlib %s | %FileCheck %s
+  5 | 
+  6 | typealias Int = Builtin.Int64
+    |                 `- error: cannot find type 'Builtin' in scope
+  7 | 
+  8 | var zero: Int
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9u6b1iu4/dc07c76a.swift:79:3: warning: synthesis of the 'Differentiable.move(by:)' requirement for 'ImmutableStoredProperties' requires all stored properties not marked with '@noDerivative' to be mutable or have a non-mutating 'move(by:)'; use 'var' instead, or add an explicit '@noDerivative' attribute 
+ 77 | 
+ 78 |   // expected-warning @+1 {{synthesis of the 'Differentiable.move(by:)' requirement for 'ImmutableStoredProperties' requires all stored properties not marked with '@noDerivative' to be mutable or have a non-mutating 'move(by:)'; use 'var' instead, or add an explicit '@noDerivative' attribute}} {{3-3=@noDerivative }}
+ 79 |   let diff: Float
+    |   `- warning: synthesis of the 'Differentiable.move(by:)' requirement for 'ImmutableStoredProperties' requires all stored properties not marked with '@noDerivative' to be mutable or have a non-mutating 'move(by:)'; use 'var' instead, or add an explicit '@noDerivative' attribute 
+ 80 | 
+ 81 |   let nonmutatingMoveAlongStruct: EmptyWithConcreteNonmutatingMoveAlong
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9u6b1iu4/dc07c76a.swift:101:3: warning: synthesis of the 'Differentiable.move(by:)' requirement for 'AllMixedStoredPropertiesHaveInitialValue' requires all stored properties not marked with '@noDerivative' to be mutable or have a non-mutating 'move(by:)'; use 'var' instead, or add an explicit '@noDerivative' attribute 
+ 99 | struct AllMixedStoredPropertiesHaveInitialValue: Differentiable {
+100 |   // expected-warning @+1 {{synthesis of the 'Differentiable.move(by:)' requirement for 'AllMixedStoredPropertiesHaveInitialValue' requires all stored properties not marked with '@noDerivative' to be mutable or have a non-mutating 'move(by:)'; use 'var' instead, or add an explicit '@noDerivative' attribute}} {{3-3=@noDerivative }}
+101 |   let x = Float(1)
+    |   `- warning: synthesis of the 'Differentiable.move(by:)' requirement for 'AllMixedStoredPropertiesHaveInitialValue' requires all stored properties not marked with '@noDerivative' to be mutable or have a non-mutating 'move(by:)'; use 'var' instead, or add an explicit '@noDerivative' attribute 
+102 |   var y = Float(1)
+103 |   // Memberwise initializer should be `init(y:)` since `x` is immutable.
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9u6b1iu4/dc07c76a.swift:301:8: error: type 'VectorSpaceTypeAlias' does not conform to protocol 'Differentiable'
+299 | // types are customized.
+300 | // expected-error @+1 {{type 'VectorSpaceTypeAlias' does not conform to protocol 'Differentiable'}}
+301 | struct VectorSpaceTypeAlias: AdditiveArithmetic, Differentiable {
+    |        `- error: type 'VectorSpaceTypeAlias' does not conform to protocol 'Differentiable'
+302 |   var w: Float
+303 |   var b: Float
+
+_Differentiation.Differentiable.move:2:15: note: protocol requires function 'move(by:)' with type 'Differentiable'
+1 | protocol Differentiable {
+2 | mutating func move(by offset: Self.TangentVector)}
+  |               `- note: protocol requires function 'move(by:)' with type 'Differentiable'
+3 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9u6b1iu4/dc07c76a.swift:307:8: error: type 'VectorSpaceCustomStruct' does not conform to protocol 'Differentiable'
+305 | }
+306 | // expected-error @+1 {{type 'VectorSpaceCustomStruct' does not conform to protocol 'Differentiable'}}
+307 | struct VectorSpaceCustomStruct: AdditiveArithmetic, Differentiable {
+    |        `- error: type 'VectorSpaceCustomStruct' does not conform to protocol 'Differentiable'
+308 |   var w: Float
+309 |   var b: Float
+
+_Differentiation.Differentiable.move:2:15: note: protocol requires function 'move(by:)' with type 'Differentiable'
+1 | protocol Differentiable {
+2 | mutating func move(by offset: Self.TangentVector)}
+  |               `- note: protocol requires function 'move(by:)' with type 'Differentiable'
+3 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9u6b1iu4/dc07c76a.swift:329:3: warning: stored property 'b' has no derivative because 'Bool' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute
+327 | struct ImplicitNoDerivative: Differentiable {
+328 |   var a: Float
+329 |   var b: Bool  // expected-warning {{stored property 'b' has no derivative because 'Bool' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute}}
+    |   `- warning: stored property 'b' has no derivative because 'Bool' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute
+330 | }
+331 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9u6b1iu4/dc07c76a.swift:334:3: warning: stored property 'b' has no derivative because 'Bool' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute
+332 | struct ImplicitNoDerivativeWithSeparateTangent: Differentiable {
+333 |   var x: DifferentiableSubset
+334 |   var b: Bool  // expected-warning {{stored property 'b' has no derivative because 'Bool' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute}} {{3-3=@noDerivative }}
+    |   `- warning: stored property 'b' has no derivative because 'Bool' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute
+335 | }
+336 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9u6b1iu4/dc07c76a.swift:344:3: warning: stored property 'x' has no derivative because 'T' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute
+342 |   // expected-warning @+2 {{stored property 'x' has no derivative because 'T' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute}}
+343 |   // expected-warning @+1 {{stored property 'y' has no derivative because 'T' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute}}
+344 |   var x, y: T
+    |   `- warning: stored property 'x' has no derivative because 'T' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute
+345 |   // expected-warning @+1 {{stored property 'nondiff' has no derivative because 'Bool' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute}}
+346 |   var nondiff: Bool
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9u6b1iu4/dc07c76a.swift:344:3: warning: stored property 'y' has no derivative because 'T' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute
+342 |   // expected-warning @+2 {{stored property 'x' has no derivative because 'T' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute}}
+343 |   // expected-warning @+1 {{stored property 'y' has no derivative because 'T' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute}}
+344 |   var x, y: T
+    |   `- warning: stored property 'y' has no derivative because 'T' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute
+345 |   // expected-warning @+1 {{stored property 'nondiff' has no derivative because 'Bool' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute}}
+346 |   var nondiff: Bool
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9u6b1iu4/dc07c76a.swift:346:3: warning: stored property 'nondiff' has no derivative because 'Bool' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute
+344 |   var x, y: T
+345 |   // expected-warning @+1 {{stored property 'nondiff' has no derivative because 'Bool' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute}}
+346 |   var nondiff: Bool
+    |   `- warning: stored property 'nondiff' has no derivative because 'Bool' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute
+347 | }
+348 | extension ExtensionDifferentiableNoDerivative: Differentiable {}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9u6b1iu4/dc07c76a.swift:359:3: warning: stored property 'nondiff' has no derivative because 'Bool' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute
+357 |   var x, y: T
+358 |   // expected-warning @+1 {{stored property 'nondiff' has no derivative because 'Bool' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute}}
+359 |   var nondiff: Bool
+    |   `- warning: stored property 'nondiff' has no derivative because 'Bool' does not conform to 'Differentiable'; add an explicit '@noDerivative' attribute
+360 | }
+361 | extension ConditionalDifferentiableNoDerivative: Differentiable
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -O -sil-verify-all -disabl
+[... truncated ...]

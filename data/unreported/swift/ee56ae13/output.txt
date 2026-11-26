@@ -1,0 +1,101 @@
+/fusion-fuzz/.fused/swift/tmpo6z_yf2a/a9e2b8c2.swift:106:7: error: variable already has a getter
+103 |   var inlinableOpaqueVarPattern: some V {
+104 |       @inlinable
+105 |       get { EV() }
+    |       `- note: previous definition of getter here
+106 |       get { EV() }
+    |       `- error: variable already has a getter
+107 |   }
+108 | }
+
+Assertion failed: (!UniqueUnderlyingType.has_value() && "resetting underlying type?!"), function setUniqueUnderlyingTypeSubstitutions at Decl.h:3738.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /opt/swift-coverage/bin/swift -frontend -emit-sil -O -sil-verify-all /fusion-fuzz/.fused/swift/tmpo6z_yf2a/a9e2b8c2.swift
+1.	Swift version 6.3.3 (swift-6.3.3-RELEASE)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/fusion-fuzz/.fused/swift/tmpo6z_yf2a/a9e2b8c2.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(a9e2b8c2.(file).V extension.inlinableOpaqueVarPattern.getter@/fusion-fuzz/.fused/swift/tmpo6z_yf2a/a9e2b8c2.swift:106:7)
+5.	Assertion failed: (!UniqueUnderlyingType.has_value() && "resetting underlying type?!"), function setUniqueUnderlyingTypeSubstitutions at Decl.h:3738.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  swift     0x000056f6e85222f8
+1  swift     0x000056f6e851fd45
+2  swift     0x000056f6e8522f61
+3  libc.so.6 0x000076835d51b330
+4  libc.so.6 0x000076835d574c0c pthread_kill + 284
+5  libc.so.6 0x000076835d51b27e gsignal + 30
+6  libc.so.6 0x000076835d4fe8ff abort + 223
+7  swift     0x000056f6e0d32407
+8  swift     0x000056f6e0d32521
+9  swift     0x000056f6e41e9b52
+10 swift     0x000056f6e0cd1e7a
+11 swift     0x000056f6e2fb0a1f
+12 swift     0x000056f6e2f9edf7
+13 swift     0x000056f6e329b50c
+14 swift     0x000056f6e3d411f4
+15 swift     0x000056f6e3c48d5e
+16 swift     0x000056f6e3c48cd7
+17 swift     0x000056f6e3e8ad13
+18 swift     0x000056f6e333b990
+19 swift     0x000056f6e3341cdb
+20 swift     0x000056f6e333b6b1
+21 swift     0x000056f6e333b658
+22 swift     0x000056f6e1456da7
+23 swift     0x000056f6e1449cd8
+24 swift     0x000056f6e144999c
+25 swift     0x000056f6e10ee201
+26 swift     0x000056f6e10dc81d
+27 swift     0x000056f6e10d82ea
+28 swift     0x000056f6e0e1853d
+29 swift     0x000056f6e0e17173
+30 libc.so.6 0x000076835d5001ca
+31 libc.so.6 0x000076835d50028b __libc_start_main + 139
+32 swift     0x000056f6e0e168a5
+
+*** Signal 6: Backtracing from 0x76835d5fd38d... done ***
+
+*** Program crashed: Aborted at 0x00000000000a5b4f ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift" crashed:
+
+  0  0x000076835d5fd38d <unknown> in libc.so.6
+...
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x000076835d5fd38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x00000000000a5b4f  678735
+rdi 0x00000000000a5b4f  678735
+rbp 0x00000000000a5b4f  678735
+rsp 0x000056f73876f8a8  8b 2f 52 e8 f6 56 00 00 30 fb 76 38 f7 56 00 00  ·/RèöV··0ûv8÷V··
+ r8 0x000056f73876fb30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x000056f73876fb30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x000056f73876fb30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x00007fff5e9b8420  f8 28 ae f7 f6 56 00 00 02 00 00 00 00 00 00 00  ø(®÷öV··········
+r14 0x0000000000000000  0
+r15 0x000056f73876f948  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x000076835d5fd38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (28 omitted):
+
+0x000076835d4d6000–0x000076835d685eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Aborted (core dumped)

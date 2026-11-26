@@ -1,0 +1,62 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuek08rl_/30c43810.cc: In function 'void f()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuek08rl_/30c43810.cc:7:22: error: size of array 'b' is not an integral constant-expression
+    7 | void f(void) { int b[(__SIZE_TYPE__)&a]; g(b); }
+      |                      ^~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuek08rl_/30c43810.cc: In static member function '<lambda()> static':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuek08rl_/30c43810.cc:33:1:   in 'constexpr' expansion of '<lambda()> static()'
+   33 | }
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuek08rl_/30c43810.cc:31:32: error: 'std::meta::data_member_options' must be a cv-unqualified structural type that is not a reference type
+   31 |   auto dmsa = data_member_spec (^^int, a);
+      |               ~~~~~~~~~~~~~~~~~^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuek08rl_/30c43810.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuek08rl_/30c43810.cc:33:1:   in 'constexpr' expansion of '<lambda()> static()'
+   33 | }
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuek08rl_/30c43810.cc:32:20: internal compiler error: tree check: expected reflect_expr, have error_mark in eval_define_aggregate, at cp/reflect.cc:6582
+   32 |   define_aggregate (^^T, { dmsa });
+      |   ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+0x305a98b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xa69e5a tree_check_failed(tree_node const*, char const*, int, char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:9247
+0x881ca6 tree_check(tree_node*, char const*, int, char const*, tree_code)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:3837
+0x881ca6 eval_define_aggregate
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/reflect.cc:6582
+0xe5d224 cxx_eval_call_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:4552
+0xe622a1 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10018
+0xe616a9 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10740
+0xe6237f cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10244
+0xe6211f cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10296
+0xe626c4 cxx_eval_statement_list
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:9293
+0xe626c4 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11064
+0xe62e3a cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10416
+0xe626c4 cxx_eval_statement_list
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:9293
+0xe626c4 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11064
+0xe61cd8 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11073
+0xe61cd8 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11073
+0xe5e903 cxx_eval_call_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:5055
+0xe622a1 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10018
+0xe61b2a cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10537
+0xe73cac cxx_eval_outermost_constant_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11677
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuek08rl_/30c43810.cc -quiet -dumpbase 30c43810.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O1 -std=c++26 -finline-functions -ftrapv -fwrapv -freflection -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

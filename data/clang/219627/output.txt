@@ -1,0 +1,69 @@
+/tmp/test.cpp:8:1: error: unknown type name 'struct_0'; did you mean 'struct_9'?
+    8 | struct_0 test_struct_0 = { 123 }
+      | ^~~~~~~~
+      | struct_9
+/tmp/test.cpp:7:26: note: 'struct_9' declared here
+    7 | typedef struct _struct_9 struct_9;
+      |                          ^
+clang-24: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/RecordLayoutBuilder.cpp:1999: {anonymous}::ItaniumRecordLayoutBuilder::LayoutField(const clang::FieldDecl*, bool)::<lambda(const clang::BuiltinType*)>: Assertion `PreferredAlign == CharUnits::fromQuantity(4) && "No need to upgrade the alignment value."' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24 -cc1 -triple powerpc64-ibm-aix -emit-obj -dumpdir a- -disable-free -clear-ast-before-backend -main-file-name test.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -fxl-pragma-pack -fno-sized-deallocation -target-cpu pwr7 -target-feature +modern-aix-as -mfloat-abi hard -gstrict-dwarf -gno-column-info -fdebug-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -fdata-sections -fcoverage-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -resource-dir /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24 -internal-isystem /opt/IBM/openxlCSDK/include/c++/v1 -D__LIBC_NO_CPP_MATH_OVERLOADS__ -internal-isystem /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24/include/ppc_wrappers -internal-isystem /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24/include -internal-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fno-signed-char -fno-use-cxa-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -o /tmp/test-6d4352.o -x c++ /tmp/test.cpp
+1.	<eof> parser at end of file
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang-24  0x00005ce11ad8d329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang-24  0x00005ce11ad89fec llvm::sys::RunSignalHandlers() + 76
+2  clang-24  0x00005ce11ad8a156
+3  clang-24  0x00005ce11ad8a21c
+4  libc.so.6 0x00007c6a914d3520
+5  libc.so.6 0x00007c6a915279bc pthread_kill + 300
+6  libc.so.6 0x00007c6a914d3476 raise + 22
+7  libc.so.6 0x00007c6a914b97f3 abort + 211
+8  libc.so.6 0x00007c6a914b971b
+9  libc.so.6 0x00007c6a914cae96
+10 clang-24  0x00005ce11edebfa5
+11 clang-24  0x00005ce11edfaf88
+12 clang-24  0x00005ce11edfb02a
+13 clang-24  0x00005ce11edf4ce8 clang::ASTContext::getASTRecordLayout(clang::RecordDecl const*) const + 1528
+14 clang-24  0x00005ce11ea12da5
+15 clang-24  0x00005ce11ea0a0ae
+16 clang-24  0x00005ce11ea0e288
+17 clang-24  0x00005ce11ea7059a clang::Expr::EvaluateAsInitializer(clang::ASTContext const&, clang::VarDecl const*, clang::Expr::EvalResult&, bool) const + 570
+18 clang-24  0x00005ce11e836522 clang::VarDecl::evaluateValueImpl(llvm::SmallVectorImpl<std::pair<clang::SourceLocation, clang::PartialDiagnostic>>*, bool) const + 306
+19 clang-24  0x00005ce11e836ab6 clang::VarDecl::checkForConstantInitialization(llvm::SmallVectorImpl<std::pair<clang::SourceLocation, clang::PartialDiagnostic>>&) const + 118
+20 clang-24  0x00005ce11d993739 clang::Sema::CheckCompleteVariableDeclaration(clang::VarDecl*) + 2841
+21 clang-24  0x00005ce11d9c6e91 clang::Sema::AddInitializerToDecl(clang::Decl*, clang::Expr*, bool) + 1105
+22 clang-24  0x00005ce11d5cf7d1 clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 3313
+23 clang-24  0x00005ce11d5e936c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+24 clang-24  0x00005ce11d598fac clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+25 clang-24  0x00005ce11d59978f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+26 clang-24  0x00005ce11d5a5646 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+27 clang-24  0x00005ce11d5a66ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+28 clang-24  0x00005ce11d583632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+29 clang-24  0x00005ce11bc24061 clang::FrontendAction::Execute() + 65
+30 clang-24  0x00005ce11bbade65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+31 clang-24  0x00005ce11bcfbde3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+32 clang-24  0x00005ce118b5733e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+33 clang-24  0x00005ce118b4d13a
+34 clang-24  0x00005ce118b51425 clang_main(int, char**, llvm::ToolContext const&) + 1941
+35 clang-24  0x00005ce118a8e7f1 main + 113
+36 libc.so.6 0x00007c6a914bad90
+37 libc.so.6 0x00007c6a914bae40 __libc_start_main + 128
+38 clang-24  0x00005ce118b4c765 _start + 37
+clang++: error: unable to execute command: Aborted (core dumped)
+clang++: error: clang frontend command failed with exit code -2 (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: powerpc64-ibm-aix
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/test-332676.cpp
+clang++: note: diagnostic msg: /tmp/test-332676.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

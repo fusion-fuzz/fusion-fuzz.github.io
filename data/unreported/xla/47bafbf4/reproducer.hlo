@@ -1,0 +1,14 @@
+HloModule m
+
+ENTRY %main {
+  %x = f32[1,4,84,128] parameter(0)
+  %ag = f32[8,4,84,128]{3,2,1,0} all-gather(x), channel_id=6, replica_groups={{0,1,2,3,4,5,6,7}}, dimensions={0}, use_global_device_ids=true
+  %lhs = f8e4m3fn[1024,512]{1,0} parameter(1), sharding={replicated}
+  %lhs_scale = f8e8m0fnu[1024,16]{1,0} parameter(2), sharding={replicated}
+  %rhs = f8e4m3fn[128,512]{1,0} parameter(3), sharding={replicated}
+  %rhs_scale = f8e8m0fnu[128,16]{1,0} parameter(4), sharding={replicated}
+  %block_scaled_dot = f32[1024,128]{1,0} custom-call(%lhs, %rhs, %x, %rhs_scale), custom_call_target="__op$block_scaled_dot", sharding={devices=[8,1]<=[8]}
+  %ffl.root = (f32[8,4,84,128]{3,2,1,0}, f32[1024,128]{1,0}) tuple(%ag, %block_scaled_dot)
+  %block_scaled_dot.d = f32[1024,128]{1,0} custom-call(%lhs, %rhs, %lhs_scale, %rhs_scale), custom_call_target="__op$block_scaled_dot", sharding={devices=[8,1]<=[8]}
+  ROOT %ffl.root.1 = (f32[8,4,84,128]{3,2,1,0}, f32[1024,128]{1,0}, f32[1024,128]{1,0}) tuple(%ag, %block_scaled_dot, %block_scaled_dot.d)
+}

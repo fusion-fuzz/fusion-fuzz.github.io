@@ -1,0 +1,23 @@
+HloModule pjit_f, num_partitions=2
+
+%add {
+  %p0 = f32[] parameter(0)
+  %p1 = f32[] parameter(1)
+  ROOT %result = f32[] add(p0, p1)
+}
+
+%add.d {
+  %p0 = f32[] parameter(0)
+  %p1 = f32[] parameter(1)
+  ROOT %result = f32[] add(p0, p1)
+}
+
+ENTRY %main.2 {
+  %tuple.1 = () tuple()
+  %p0 = f32[8,16,256]{2,1,0} parameter(0)
+  %p1 = f32[] constant(0)
+  %result = f32[8,16]{1,0} reduce(%p0, %tuple.1), dimensions={2}, to_apply=%add
+  %ffl.root = ((), f32[8,16]{1,0}) tuple(%tuple.1, %result)
+  %ffl.call = f32[] call(%p1, %p1), to_apply=%add.d
+  ROOT %ffl.root.1 = ((), f32[8,16]{1,0}, f32[]) tuple(%tuple.1, %result, %ffl.call)
+}

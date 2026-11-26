@@ -1,0 +1,41 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuiostalu/d8a48119.c:22:6: error: '__GIMPLE' only valid with '-fgimple'
+   22 | void __GIMPLE (ssa,startwith("switchlower1"))
+      |      ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuiostalu/d8a48119.c:23:1: error: conflicting types for 'foo'; have 'void(int)'
+   23 | foo (int p)
+      | ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuiostalu/d8a48119.c:10:1: note: previous definition of 'foo' with type 'void(void)'
+   10 | foo (void)
+      | ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuiostalu/d8a48119.c: In function 'foo':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuiostalu/d8a48119.c:26:11: error: 'b' undeclared (first use in this function)
+   26 |   switch (b) {default: L9; case 0: L5; case 5: L5; case 101: L5; }
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuiostalu/d8a48119.c:26:11: note: each undeclared identifier is reported only once for each function it appears in
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuiostalu/d8a48119.c:44:1: internal compiler error: in calc_dfs_tree, at dominance.cc:458
+   44 | }
+      | ^
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7ecaeb calc_dfs_tree
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dominance.cc:458
+0x10ec4fd calculate_dominance_info(cdi_direction, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dominance.cc:743
+0xf4dd30 c_parser_parse_gimple_body(c_parser*, char*, c_declspec_il, profile_count)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:354
+0xf3625e c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3348
+0xf43529 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2256
+0xf44470 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xf44470 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xfc9e09 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpuiostalu/d8a48119.c -quiet -dumpdir a- -dumpbase d8a48119.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O2 -O2 -Wextra -std=c23 -fsyntax-only -ffast-math -fsched2-use-superblocks -ftree-tail-merge -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

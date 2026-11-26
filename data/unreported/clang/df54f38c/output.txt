@@ -1,0 +1,80 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp97m_wmr9/6ca26c3b.cpp:9:13: warning: default member initializer for non-static data member is a C++11 extension [-Wc++11-extensions]
+    9 |       int i = 0;
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp97m_wmr9/6ca26c3b.cpp:11:16: error: integral constant expression must have integral or unscoped enumeration type, not 'S2'
+   11 |     enum { E = S2() };
+      |                ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp97m_wmr9/6ca26c3b.cpp:7:10: note: in instantiation of member class 'S1' requested here
+    7 |   struct S1 {
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp97m_wmr9/6ca26c3b.cpp:15:14: note: in instantiation of function template specialization 'foo<int>' requested here
+   15 | void bar() { foo<int>(); }
+      |              ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/Decl.cpp:4803: void clang::FieldDecl::setLazyInClassInitializer(clang::LazyDeclStmtPtr): Assertion `hasInClassInitializer() && !getInClassInitializer()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O0 -std=c++03 /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp97m_wmr9/6ca26c3b.cpp
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp97m_wmr9/6ca26c3b.cpp:6:25: instantiating function definition 'foo<int>'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp97m_wmr9/6ca26c3b.cpp:9:11: instantiating default member init 'foo()::S1::S2::i'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055fa6eec84f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055fa6eec51bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055fa6eec5a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055fa6ee07e88
+4  libc.so.6 0x00007f30dd018520
+5  libc.so.6 0x00007f30dd06c9bc pthread_kill + 300
+6  libc.so.6 0x00007f30dd018476 raise + 22
+7  libc.so.6 0x00007f30dcffe7f3 abort + 211
+8  libc.so.6 0x00007f30dcffe71b
+9  libc.so.6 0x00007f30dd00fe96
+10 clang++   0x000055fa7295989f
+11 clang++   0x000055fa7230fd6d clang::Sema::InstantiateInClassInitializer(clang::SourceLocation, clang::FieldDecl*, clang::FieldDecl*, clang::MultiLevelTemplateArgumentList const&) + 1085
+12 clang++   0x000055fa72310d9b clang::Sema::InstantiateClassMembers(clang::SourceLocation, clang::CXXRecordDecl*, clang::MultiLevelTemplateArgumentList const&, clang::TemplateSpecializationKind) + 2491
+13 clang++   0x000055fa72310918 clang::Sema::InstantiateClassMembers(clang::SourceLocation, clang::CXXRecordDecl*, clang::MultiLevelTemplateArgumentList const&, clang::TemplateSpecializationKind) + 1336
+14 clang++   0x000055fa723a0dae clang::TemplateDeclInstantiator::VisitCXXRecordDecl(clang::CXXRecordDecl*) + 1646
+15 clang++   0x000055fa723b0228
+16 clang++   0x000055fa732affe5 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+17 clang++   0x000055fa7233c421 clang::Sema::SubstDecl(clang::Decl*, clang::DeclContext*, clang::MultiLevelTemplateArgumentList const&) + 225
+18 clang++   0x000055fa72296264
+19 clang++   0x000055fa722e4051
+20 clang++   0x000055fa722e4c05 clang::Sema::SubstStmt(clang::Stmt*, clang::MultiLevelTemplateArgumentList const&) + 133
+21 clang++   0x000055fa723a282f clang::Sema::InstantiateFunctionDefinition(clang::SourceLocation, clang::FunctionDecl*, bool, bool, bool) + 6207
+22 clang++   0x000055fa7239ff2d clang::Sema::PerformPendingInstantiations(bool, bool) + 301
+23 clang++   0x000055fa71873fdd
+24 clang++   0x000055fa71874316 clang::Sema::ActOnEndOfTranslationUnit() + 182
+25 clang++   0x000055fa716d1f32 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 946
+26 clang++   0x000055fa716aecf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+27 clang++   0x000055fa6fbb6e51 clang::FrontendAction::Execute() + 65
+28 clang++   0x000055fa6fb40df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+29 clang++   0x000055fa6fc8ec03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+30 clang++   0x000055fa6d8d7d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+31 clang++   0x000055fa6d8cdada
+32 clang++   0x000055fa6d8cdc6f
+33 clang++   0x000055fa6f8c542d
+34 clang++   0x000055fa6ee082a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+35 clang++   0x000055fa6f8c6283
+36 clang++   0x000055fa6f87ad17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+37 clang++   0x000055fa6f87f600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+38 clang++   0x000055fa6f88d714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+39 clang++   0x000055fa6d8d3383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+40 clang++   0x000055fa6d823901 main + 113
+41 libc.so.6 0x00007f30dcfffd90
+42 libc.so.6 0x00007f30dcfffe40 __libc_start_main + 128
+43 clang++   0x000055fa6d8cd105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/6ca26c3b-f65fee.cpp
+clang++: note: diagnostic msg: /tmp/6ca26c3b-f65fee.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

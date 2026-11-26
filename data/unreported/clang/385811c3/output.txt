@@ -1,0 +1,90 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:9:46: error: excess elements in vector initializer
+    9 | float4 foo2 = (float4){ 1.0, 2.0, 3.0, 4.0 , 5.0 }; // expected-warning{{excess elements in vector initializer}}
+      |                                              ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:15:22: error: excess elements in array initializer
+   15 |                      9.0 }; // expected-warning {{excess elements in array initializer}}
+      |                      ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:18:22: error: excess elements in array initializer
+   18 |                      9.0 }; // expected-warning {{excess elements in array initializer}}
+      |                      ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:43:22: error: cannot initialize an array element of type 'short4' (vector of 4 'short' values) with an rvalue of type 'short8' (vector of 8 'short' values)
+   43 |   short4 arr2[2] = { test3_helper(), test3_helper() }; // expected-error 2 {{initializing 'short4' (vector of 4 'short' values) with an expression of incompatible type 'short8' (vector of 8 'short' values)}}
+      |                      ^~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:43:38: error: cannot initialize an array element of type 'short4' (vector of 4 'short' values) with an rvalue of type 'short8' (vector of 8 'short' values)
+   43 |   short4 arr2[2] = { test3_helper(), test3_helper() }; // expected-error 2 {{initializing 'short4' (vector of 4 'short' values) with an expression of incompatible type 'short8' (vector of 8 'short' values)}}
+      |                                      ^~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:53:23: error: unknown type name 'non_dependent'
+   53 |   [[clang::noinline]] non_dependent(x);
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:53:5: warning: 'clang::noinline' attribute only applies to functions and statements [-Wignored-attributes]
+   53 |   [[clang::noinline]] non_dependent(x);
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:54:3: error: expected unqualified-id
+   54 |   if constexpr (D>0) {
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:63:3: error: expected unqualified-id
+   63 |   return x;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:76:6: error: redefinition of 'foo' as different kind of symbol
+   76 | void foo() {
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:7:8: note: previous definition is here
+    7 | float4 foo = (float4){ 1.0, 2.0, 3.0, 4.0 };
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:78:5: error: 'clang::noinline' attribute takes no arguments
+   78 |   [[clang::noinline(0)]] bar(); // expected-error {{'clang::noinline' attribute takes no arguments}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:80:23: warning: 'clang::noinline' attribute is ignored because there exists no call expression inside the statement [-Wignored-attributes]
+   80 |   [[clang::noinline]] x = 0; // expected-warning {{'clang::noinline' attribute is ignored because there exists no call expression inside the statement}}
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:81:23: warning: 'clang::noinline' attribute is ignored because there exists no call expression inside the statement [-Wignored-attributes]
+   81 |   [[clang::noinline]] { asm("nop"); } // expected-warning {{'clang::noinline' attribute is ignored because there exists no call expression inside the statement}}
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:82:5: warning: 'clang::noinline' attribute only applies to functions and statements [-Wignored-attributes]
+   82 |   [[clang::noinline]] label: x = 1; // expected-warning {{'clang::noinline' attribute only applies to functions and statements}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:85:23: warning: statement attribute 'clang::noinline' has higher precedence than function attribute 'always_inline' [-Wignored-attributes]
+   85 |   [[clang::noinline]] always_inline_fn(); // expected-warning {{statement attribute 'clang::noinline' has higher precedence than function attribute 'always_inline'}}
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:71:24: note: conflicting attribute is here
+   71 | [[gnu::always_inline]] void always_inline_fn(void) { }
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:86:23: warning: statement attribute 'clang::noinline' has higher precedence than function attribute 'flatten' [-Wignored-attributes]
+   86 |   [[clang::noinline]] flatten_fn(); // expected-warning {{statement attribute 'clang::noinline' has higher precedence than function attribute 'flatten'}}
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:73:18: note: conflicting attribute is here
+   73 | [[gnu::flatten]] void flatten_fn(void) { }
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:89:21: warning: attribute is ignored on this statement as it only applies to functions; use '[[clang::noinline]]' on statements [-Wignored-attributes]
+   89 |   [[gnu::noinline]] bar(); // expected-warning {{attribute is ignored on this statement as it only applies to functions; use '[[clang::noinline]]' on statements}}
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:90:8: error: use of undeclared identifier 'noinline'; did you mean 'inline'?
+   90 |   vec((noinline)) bar(); // expected-warning {{attribute is ignored on this statement as it only applies to functions; use '[[clang::noinline]]' on statements}}
+      |        ^~~~~~~~
+      |        inline
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:90:8: error: type name does not allow function specifier to be specified
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:90:17: error: expected expression
+   90 |   vec((noinline)) bar(); // expected-warning {{attribute is ignored on this statement as it only applies to functions; use '[[clang::noinline]]' on statements}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:90:18: error: expected ';' after expression
+   90 |   vec((noinline)) bar(); // expected-warning {{attribute is ignored on this statement as it only applies to functions; use '[[clang::noinline]]' on statements}}
+      |                  ^
+      |                  ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:95:5: error: 'msvc::noinline' attribute takes no arguments
+   95 |   [[msvc::noinline(0)]] bar(); // expected-error {{'msvc::noinline' attribute takes no arguments}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:97:22: warning: 'msvc::noinline' attribute is ignored because there exists no call expression inside the statement [-Wignored-attributes]
+   97 |   [[msvc::noinline]] x = 0; // expected-warning {{'msvc::noinline' attribute is ignored because there exists no call expression inside the statement}}
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:98:22: warning: 'msvc::noinline' attribute is ignored because there exists no call expression inside the statement [-Wignored-attributes]
+   98 |   [[msvc::noinline]] { asm("nop"); } // expected-warning {{'msvc::noinline' attribute is ignored because there exists no call expression inside the statement}}
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:99:5: warning: 'msvc::noinline' attribute only applies to functions and statements [-Wignored-attributes]
+   99 |   [[msvc::noinline]] label: x = 1; // expected-warning {{'msvc::noinline' attribute only applies to functions and statements}}
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:101:22: warning: statement attribute 'msvc::noinline' has higher precedence than function attribute 'always_inline' [-Wignored-attributes]
+  101 |   [[msvc::noinline]] always_inline_fn(); // expected-warning {{statement attribute 'msvc::noinline' has higher precedence than function attribute 'always_inline'}}
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppwhm7i2r/4c88c773.cpp:71:24: note: conflicting attribute is here
+   71 | [[gnu::always_inline]] vo
+[... truncated ...]

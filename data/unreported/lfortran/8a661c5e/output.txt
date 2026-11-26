@@ -1,0 +1,54 @@
+/usr/include/llvm-14/llvm/Support/Casting.h:105:36: runtime error: reference binding to misaligned address 0xbebebebebebebebe for type 'const struct Value', which requires 8 byte alignment
+0xbebebebebebebebe: note: pointer points here
+<memory cannot be printed>
+    #0 0x5646b41cdbe8 in llvm::isa_impl_cl<llvm::Constant, llvm::Value const*>::doit(llvm::Value const*) /usr/include/llvm-14/llvm/Support/Casting.h:105
+    #1 0x5646b416674a in llvm::isa_impl_wrap<llvm::Constant, llvm::Value const*, llvm::Value const*>::doit(llvm::Value const* const&) /usr/include/llvm-14/llvm/Support/Casting.h:131
+    #2 0x5646b40b4286 in llvm::isa_impl_wrap<llvm::Constant, llvm::Value* const, llvm::Value const*>::doit(llvm::Value* const&) /usr/include/llvm-14/llvm/Support/Casting.h:122
+    #3 0x5646b3f488c8 in bool llvm::isa<llvm::Constant, llvm::Value*>(llvm::Value* const&) /usr/include/llvm-14/llvm/Support/Casting.h:143
+    #4 0x5646b3f4b332 in llvm::cast_retty<llvm::Constant, llvm::Value*>::ret_type llvm::dyn_cast<llvm::Constant, llvm::Value>(llvm::Value*) /usr/include/llvm-14/llvm/Support/Casting.h:345
+    #5 0x5646b3b6e28f in llvm::IRBuilderBase::foldConstant(llvm::Instruction::BinaryOps, llvm::Value*, llvm::Value*, llvm::Twine const&) const /usr/include/llvm-14/llvm/IR/IRBuilder.h:1168
+    #6 0x5646b3b71692 in llvm::IRBuilderBase::CreateXor(llvm::Value*, llvm::Value*, llvm::Twine const&) (/opt/lfortran/bin/lfortran+0x37204692)
+    #7 0x5646b3df2eb9 in LCompilers::ASRToLLVMVisitor::visit_LogicalNot(LCompilers::ASR::LogicalNot_t const&) (/opt/lfortran/bin/lfortran+0x37485eb9)
+    #8 0x5646b3b3eb54 in visit_expr_t<LCompilers::ASRToLLVMVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:155
+    #9 0x5646b3f7d0e6 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToLLVMVisitor>::visit_expr(LCompilers::ASR::expr_t const&) (/opt/lfortran/bin/lfortran+0x376100e6)
+    #10 0x5646b3da2d28 in LCompilers::ASRToLLVMVisitor::visit_expr_wrapper(LCompilers::ASR::expr_t*, bool, bool) (/opt/lfortran/bin/lfortran+0x37435d28)
+    #11 0x5646b3da3b8a in LCompilers::ASRToLLVMVisitor::visit_expr_load_wrapper(LCompilers::ASR::expr_t*, int, bool) (/opt/lfortran/bin/lfortran+0x37436b8a)
+    #12 0x5646b3dcf730 in LCompilers::ASRToLLVMVisitor::visit_LogicalBinOp(LCompilers::ASR::LogicalBinOp_t const&) (/opt/lfortran/bin/lfortran+0x37462730)
+    #13 0x5646b3b3ec48 in visit_expr_t<LCompilers::ASRToLLVMVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:157
+    #14 0x5646b3f7d0e6 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToLLVMVisitor>::visit_expr(LCompilers::ASR::expr_t const&) (/opt/lfortran/bin/lfortran+0x376100e6)
+    #15 0x5646b3da2d28 in LCompilers::ASRToLLVMVisitor::visit_expr_wrapper(LCompilers::ASR::expr_t*, bool, bool) (/opt/lfortran/bin/lfortran+0x37435d28)
+    #16 0x5646b3d690d0 in LCompilers::ASRToLLVMVisitor::visit_Assignment(LCompilers::ASR::Assignment_t const&) (/opt/lfortran/bin/lfortran+0x373fc0d0)
+    #17 0x5646b3b42441 in visit_stmt_t<LCompilers::ASRToLLVMVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:56
+    #18 0x5646b3fdcf74 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToLLVMVisitor>::visit_stmt(LCompilers::ASR::stmt_t const&) (/opt/lfortran/bin/lfortran+0x3766ff74)
+    #19 0x5646b3cde28c in LCompilers::ASRToLLVMVisitor::generate_function(LCompilers::ASR::Function_t const&) (/opt/lfortran/bin/lfortran+0x3737128c)
+    #20 0x5646b3cc40e0 in LCompilers::ASRToLLVMVisitor::visit_Function(LCompilers::ASR::Function_t const&) (/opt/lfortran/bin/lfortran+0x373570e0)
+    #21 0x5646b3b41938 in visit_symbol_t<LCompilers::ASRToLLVMVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:32
+    #22 0x5646b3f7e6dc in LCompilers::ASR::BaseVisitor<LCompilers::ASRToLLVMVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:380
+    #23 0x5646b3bfe69a in LCompilers::ASRToLLVMVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp:1989
+    #24 0x5646b3b50b65 in visit_unit_t<LCompilers::ASRToLLVMVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:22
+    #25 0x5646b41cd6b2 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToLLVMVisitor>::visit_unit(LCompilers::ASR::unit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:378
+    #26 0x5646b3b440b4 in visit_asr_t<LCompilers::ASRToLLVMVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:351
+    #27 0x5646b40b2f10 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToLLVMVisitor>::visit_asr(LCompilers::ASR::asr_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:377
+    #28 0x5646b3afdcc4 in LCompilers::asr_to_llvm(LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, llvm::LLVMContext&, LCompilers::LLVMTargetConfig const&, Allocator&, LCompilers::PassManager&, LCompilers::CompilerOptions&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp:26629
+    #29 0x5646a9a191ef in LCompilers::FortranEvaluator::get_llvm3(LCompilers::ASR::TranslationUnit_t&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&, LCompilers::LocationManager&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int*) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:782
+    #30 0x5646a9a18111 in LCompilers::FortranEvaluator::get_llvm2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:722
+    #31 0x5646a9a19e3a in LCompilers::FortranEvaluator::get_asm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:821
+    #32 0x5646a91feb64 in emit_asm /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:1266
+    #33 0x5646a922d952 in main_app(int, char**) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:2933
+    #34 0x5646a9234e60 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3149
+    #35 0x7f0c3566ad8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #36 0x7f0c3566ae3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #37 0x5646a8cec9b4 in _start (/opt/lfortran/bin/lfortran+0x2c37f9b4)
+
+/usr/include/llvm-14/llvm/IR/Value.h:957:26: runtime error: member call on misaligned address 0xbebebebebebebebe for type 'const struct Value', which requires 8 byte alignment
+0xbebebebebebebebe: note: pointer points here
+<memory cannot be printed>
+    #0 0x5646b3b5b670 in llvm::isa_impl<llvm::Constant, llvm::Value, void>::doit(llvm::Value const&) /usr/include/llvm-14/llvm/IR/Value.h:957
+    #1 0x5646b41cdbf0 in llvm::isa_impl_cl<llvm::Constant, llvm::Value const*>::doit(llvm::Value const*) /usr/include/llvm-14/llvm/Support/Casting.h:105
+    #2 0x5646b416674a in llvm::isa_impl_wrap<llvm::Constant, llvm::Value const*, llvm::Value const*>::doit(llvm::Value const* const&) /usr/include/llvm-14/llvm/Support/Casting.h:131
+    #3 0x5646b40b4286 in llvm::isa_impl_wrap<llvm::Constant, llvm::Value* const, llvm::Value const*>::doit(llvm::Value* const&) /usr/include/llvm-14/llvm/Support/Casting.h:122
+    #4 0x5646b3f488c8 in bool llvm::isa<llvm::Constant, llvm::Value*>(llvm::Value* const&) /usr/include/llvm-14/llvm/Support/Casting.h:143
+    #5 0x5646b3f4b332 in llvm::cast_retty<llvm::Constant, llvm::Value*>::ret_type llvm::dyn_cast<llvm::Constant, llvm::Value>(llvm::Value*) /usr/include/llvm-14/llvm/Support/Casting.h:345
+    #6 0x5646b3b6e28f in llvm::IRBuilderBase::foldConstant(llvm::Instruction::BinaryOps, llvm::Value*, llvm::Value*, llvm::Twine const&) const /usr/include/llvm-14/llvm/IR/IRBuilder.h:1168
+    #7 0x5646b3b71692 in llvm::IRBuilderBase::CreateXor(llvm::Value*, llvm::Value*, llvm::Twine const
+[... truncated ...]

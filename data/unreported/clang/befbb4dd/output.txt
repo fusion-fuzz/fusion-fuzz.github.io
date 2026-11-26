@@ -1,0 +1,86 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfzug0f94/6eb30c56.cpp:51:23: error: 'auto' not allowed in template parameter until C++17
+   51 | template <typename T, auto Value, typename U>
+      |                       ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfzug0f94/6eb30c56.cpp:163:8: error: redefinition of 'baz'
+  163 | nested(baz)  rise of the dead tokens
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfzug0f94/6eb30c56.cpp:22:8: note: previous definition is here
+   22 | nested(baz)  rise of the dead tokens
+      |        ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Lex/PPLexerChange.cpp:690: void clang::Preprocessor::HandleMicrosoftCommentPaste(clang::Token &): Assertion `!FoundLexer && "Lexer should return EOD before EOF in PP mode"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O0 -fblocks -target i386-pc-win32 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfzug0f94/6eb30c56.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpfzug0f94/6eb30c56.cpp:203:1: current parser token 'nested'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005c934a6b665b __interceptor_backtrace + 91
+1  clang++   0x00005c93503f71b7 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005c93503f0e83 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005c93503f5b54 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005c935023ee35
+5  clang++   0x00005c935023f643
+6  libc.so.6 0x000070b07baa8520
+7  libc.so.6 0x000070b07bafc9bc pthread_kill + 300
+8  libc.so.6 0x000070b07baa8476 raise + 22
+9  libc.so.6 0x000070b07ba8e7f3 abort + 211
+10 libc.so.6 0x000070b07ba8e71b
+11 libc.so.6 0x000070b07ba9fe96
+12 clang++   0x00005c935f2988ee clang::Preprocessor::HandleMicrosoftCommentPaste(clang::Token&) + 846
+13 clang++   0x00005c935f3231bc clang::TokenLexer::HandleMicrosoftCommentPaste(clang::Token&, clang::SourceLocation) + 460
+14 clang++   0x00005c935f31f0be clang::TokenLexer::pasteTokens(clang::Token&, llvm::ArrayRef<clang::Token>, unsigned int&) + 5230
+15 clang++   0x00005c935f3223a6 clang::TokenLexer::Lex(clang::Token&) + 1078
+16 clang++   0x00005c935f30170b clang::Preprocessor::Lex(clang::Token&) + 251
+17 clang++   0x00005c935f324b0d clang::MacroArgs::getPreExpArgument(unsigned int, clang::Preprocessor&) + 893
+18 clang++   0x00005c935f31ac08 clang::TokenLexer::ExpandFunctionArguments() + 6680
+19 clang++   0x00005c935f318bf2 clang::TokenLexer::Init(clang::Token&, clang::SourceLocation, clang::MacroInfo*, clang::MacroArgs*) + 1266
+20 clang++   0x00005c935f290337 clang::Preprocessor::EnterMacro(clang::Token&, clang::SourceLocation, clang::MacroInfo*, clang::MacroArgs*) + 503
+21 clang++   0x00005c935f2a6e42 clang::Preprocessor::HandleMacroExpandedIdentifier(clang::Token&, clang::MacroDefinition const&) + 4674
+22 clang++   0x00005c935f3003f9 clang::Preprocessor::HandleIdentifier(clang::Token&) + 1081
+23 clang++   0x00005c935f18a2e0 clang::Lexer::LexIdentifierContinue(clang::Token&, char const*) + 2016
+24 clang++   0x00005c935f1aa76e clang::Lexer::LexTokenInternal(clang::Token&) + 21214
+25 clang++   0x00005c935f19f70b clang::Lexer::Lex(clang::Token&) + 571
+26 clang++   0x00005c935f30170b clang::Preprocessor::Lex(clang::Token&) + 251
+27 clang++   0x00005c935f242104 clang::Preprocessor::CachingLex(clang::Token&) + 308
+28 clang++   0x00005c935f242619
+29 clang++   0x00005c935f30170b clang::Preprocessor::Lex(clang::Token&) + 251
+30 clang++   0x00005c935ac854a0
+31 clang++   0x00005c935ac84ec4 clang::Parser::ExpectAndConsumeSemi(unsigned int, llvm::StringRef) + 244
+32 clang++   0x00005c935acf8756 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 9094
+33 clang++   0x00005c935ac95360 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 2224
+34 clang++   0x00005c935ac941d1 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 529
+35 clang++   0x00005c935ac920a3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 3907
+36 clang++   0x00005c935ac8dc45 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1701
+37 clang++   0x00005c935ac6682f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+38 clang++   0x00005c93527fb77e clang::FrontendAction::Execute() + 222
+39 clang++   0x00005c935268c360 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+40 clang++   0x00005c93529e1043 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1395
+41 clang++   0x00005c934a74c217 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4551
+42 clang++   0x00005c934a7400d9
+43 clang++   0x00005c934a74a617
+44 clang++   0x00005c9352260d47
+45 clang++   0x00005c935023ebed llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+46 clang++   0x00005c935225e24a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+47 clang++   0x00005c93521ad70c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+48 clang++   0x00005c93521aefcc clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4732
+49 clang++   0x00005c93521ff3b0 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+50 clang++   0x00005c934a73e507 clang_main(int, char**, llvm::ToolContext const&) + 12295
+51 clang++   0x00005c934a76e7e7 main + 567
+52 libc.so.6 0x000070b07ba8fd90
+53 libc.so.6 0x000070b07ba8fe40 __libc_start_main + 128
+54 clang++   0x00005c934a67ab25 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git f9c45b362c71ac659c96ed0b70e84d19d64b13fb)
+Target: i386-pc-windows-msvc
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/6eb30c56-a656c8.cpp
+clang++: note: diagnostic msg: /tmp/6eb30c56-a656c8.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

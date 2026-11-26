@@ -1,0 +1,87 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc:24:1: error: 'vbool16_t' does not name a type
+   24 | vbool16_t test (vuint64m4_t a) {
+      | ^~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc:30:19: error: 'int c [10][2]' redeclared as different kind of entity
+   30 | int b[10], c[10][2], d[10], e[10], f[10];
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc:7:14: note: previous declaration 'typedef long int c'
+    7 | typedef long c;
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc:30:26: error: 'int d [10]' redeclared as different kind of entity
+   30 | int b[10], c[10][2], d[10], e[10], f[10];
+      |                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc:11:33: note: previous declaration 'template<long unsigned int <anonymous> > struct d'
+   11 | template <unsigned long> struct d {};
+      |                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc: In function 'void foo(int (*)[10], int (*)[8], int (*)[10], int (*)[9], int (*)[10], int (*)[8], int (*)[10], int (*)[9])':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc:42:31: error: 'void bar()' is not a variable in 'depend' clause
+   42 |   #pragma omp task depend(in: bar[2:5]) /* { dg-error "is not a variable" } */
+      |                               ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc:46:34: error: low bound '5.0e-1' of array section does not have integral type
+   46 |   #pragma omp task depend(inout: k[0.5:]) /* { dg-error "low bound \[^\n\r]* of array section does not have integral type" } */
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc:48:31: error: length '7.5e+0f' of array section does not have integral type
+   48 |   #pragma omp task depend(in: l[:7.5f]) /* { dg-error "length \[^\n\r]* of array section does not have integral type" } */
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc:50:32: error: low bound 'p' of array section does not have integral type
+   50 |   #pragma omp task depend(out: m[p:]) /* { dg-error "low bound \[^\n\r]* of array section does not have integral type" } */
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc:52:34: error: length 'p' of array section does not have integral type
+   52 |   #pragma omp task depend(inout: n[:p]) /* { dg-error "length \[^\n\r]* of array section does not have integral type" } */
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc:54:31: error: 'o' does not have pointer or array type
+   54 |   #pragma omp task depend(in: o[2:5]) /* { dg-error "does not have pointer or array type" } */
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc:56:32: error: for unknown bound array type length expression must be specified
+   56 |   #pragma omp task depend(out: a[:][2:4]) /* { dg-error "array type length expression must be specified" } */
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc:58:34: error: negative low bound in array section in 'depend' clause
+   58 |   #pragma omp task depend(inout: b[-1:]) /* { dg-error "negative low bound in array section" } */
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc:60:44: internal compiler error: in build_omp_array_section, at cp/typeck.cc:5121
+   60 |   #pragma omp task depend(inout: c[:-3][1:1]) /* { dg-error "negative length in array section" } */
+      |                                            ^
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x892fbb build_omp_array_section(unsigned long, tree_node*, tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck.cc:5121
+0x11a1752 cp_parser_omp_var_list_no_open
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:42067
+0x11a34a9 cp_parser_omp_clause_depend
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:45304
+0x11a7cc4 cp_parser_omp_all_clauses
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:47326
+0x11781f2 cp_parser_omp_task
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:51497
+0x11781f2 cp_parser_omp_construct
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:56955
+0x117a96e cp_parser_pragma
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:57644
+0x117bca1 cp_parser_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14505
+0x117f598 cp_parser_statement_seq_opt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:15129
+0x117f838 cp_parser_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14976
+0x11b4a17 cp_parser_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:28999
+0x11b4a17 cp_parser_ctor_initializer_opt_and_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29050
+0x117fd9e cp_parser_function_definition_after_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36353
+0x11b01bb cp_parser_function_definition_from_specifiers_and_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36268
+0x11b01bb cp_parser_init_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:26179
+0x11b16fb cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18196
+0x11c12cf cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17733
+0x11c3d33 cp_parser_toplevel_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17837
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D_REENTRANT /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp5w__g84o/08d9e781.cc -quiet -dumpbase 08d9e781.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O2 -std=c++23 -fopenmp -o /tmp/ccDpXlKc.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

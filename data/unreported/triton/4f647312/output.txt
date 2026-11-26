@@ -1,0 +1,30 @@
+triton-opt: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-src/lib/Dialect/TritonNvidiaGPU/Transforms/HoistMBarrierLifecycle.cpp:395: void mlir::triton::nvidia_gpu::(anonymous namespace)::MBarrierLifecycleHoister::moveInitToFunctionEntry(mlir::triton::nvidia_gpu::(anonymous namespace)::BarrierLifecycle &, mlir::FunctionOpInterface): Assertion `!isInIsolatedPartition && "cannot hoist mbarrier lifecycle out of an isolated " "warp-specialization partition"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmp15z4xzaa/b90b88ee.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic -triton-nvidia-gpu-hoist-mbarrier-lifecycle
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x000063408d75548a
+1  triton-opt 0x000063408d75238e
+2  triton-opt 0x000063408d75638b
+3  libc.so.6  0x00007f774f641520
+4  libc.so.6  0x00007f774f6959bc pthread_kill + 300
+5  libc.so.6  0x00007f774f641476 raise + 22
+6  libc.so.6  0x00007f774f6277f3 abort + 211
+7  libc.so.6  0x00007f774f62771b
+8  libc.so.6  0x00007f774f638e96
+9  triton-opt 0x0000634085d451eb
+10 triton-opt 0x000063408612389b
+11 triton-opt 0x0000634086124419
+12 triton-opt 0x000063408612b432
+13 triton-opt 0x000063408612aca2
+14 triton-opt 0x0000634086115d37
+15 triton-opt 0x0000634086114fcc
+16 triton-opt 0x000063408d3736b1
+17 triton-opt 0x000063408610b332
+18 triton-opt 0x000063408610b731
+19 triton-opt 0x000063408610b96d
+20 triton-opt 0x00006340860f692c
+21 libc.so.6  0x00007f774f628d90
+22 libc.so.6  0x00007f774f628e40 __libc_start_main + 128
+23 triton-opt 0x000063408569ddf5
+Aborted (core dumped)

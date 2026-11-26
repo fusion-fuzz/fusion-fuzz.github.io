@@ -1,0 +1,77 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl_84tgj7/cc97f0e2.swift:6:5: warning: constant 't' inferred to have type '()', which may be unexpected
+  4 | let s = "x"
+  5 | let f: () -> Void = {}
+  6 | let t = ()
+    |     |- warning: constant 't' inferred to have type '()', which may be unexpected
+    |     `- note: add an explicit type annotation to silence this warning
+  7 | _ = (s, f, t)
+  8 | // --- Seed B ---
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl_84tgj7/cc97f0e2.swift:50:37: warning: converting a value of type '(sending NonSendableKlass) -> ()' to type '(NonSendableKlass) -> ()' risks causing data races; this is an error in the Swift 6 language mode
+ 48 | 
+ 49 | func testFunctionMatching() {
+ 50 |   let _: (NonSendableKlass) -> () = functionWithSendingParameter
+    |                                     |- warning: converting a value of type '(sending NonSendableKlass) -> ()' to type '(NonSendableKlass) -> ()' risks causing data races; this is an error in the Swift 6 language mode
+    |                                     `- note: converting a function typed value with a sending parameter to one without risks allowing actor-isolated values to escape their isolation domain as an argument to an invocation of value
+ 51 |   // expected-error @-1 {{converting a value of type '@Sendable (sending NonSendableKlass) -> ()' to type '(NonSendableKlass) -> ()' risks causing data races}}
+ 52 |   // expected-note @-2 {{converting a function typed value with a sending parameter to one without risks allowing actor-isolated values to escape their isolation domain as an argument to an invocation of value}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl_84tgj7/cc97f0e2.swift:59:29: warning: converting a value of type '(sending NonSendableKlass) -> ()' to type '(NonSendableKlass) -> ()' risks causing data races; this is an error in the Swift 6 language mode
+ 57 | 
+ 58 |   takeFnWithSendingParam(functionWithSendingParameter)
+ 59 |   takeFnWithoutSendingParam(functionWithSendingParameter)
+    |                             |- warning: converting a value of type '(sending NonSendableKlass) -> ()' to type '(NonSendableKlass) -> ()' risks causing data races; this is an error in the Swift 6 language mode
+    |                             `- note: converting a function typed value with a sending parameter to one without risks allowing actor-isolated values to escape their isolation domain as an argument to an invocation of value
+ 60 |   // expected-error @-1 {{converting a value of type '@Sendable (sending NonSendableKlass) -> ()' to type '(NonSendableKlass) -> ()' risks causing data races}}
+ 61 |   // expected-note @-2 {{converting a function typed value with a sending parameter to one without risks allowing actor-isolated values to escape their isolation domain as an argument to an invocation of value}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl_84tgj7/cc97f0e2.swift:68:43: warning: converting a value of type '() -> Void' to type '() -> sending NonSendableKlass' risks causing data races; this is an error in the Swift 6 language mode
+ 66 | func testReturnValueMatching() {
+ 67 |   let _: () -> NonSendableKlass = functionWithSendingResult
+ 68 |   let _: () -> sending NonSendableKlass = f
+    |                                           |- warning: converting a value of type '() -> Void' to type '() -> sending NonSendableKlass' risks causing data races; this is an error in the Swift 6 language mode
+    |                                           `- note: converting a function typed value without a sending result as one with risks allowing actor-isolated values to escape their isolation domain through a result of an invocation of value
+ 69 |   let _: () -> NonSendableKlass = functionWithoutSendingResult
+ 70 |   let _: () -> sending NonSendableKlass = functionWithoutSendingResult
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl_84tgj7/cc97f0e2.swift:70:43: warning: converting a value of type '() -> NonSendableKlass' to type '() -> sending NonSendableKlass' risks causing data races; this is an error in the Swift 6 language mode
+ 68 |   let _: () -> sending NonSendableKlass = f
+ 69 |   let _: () -> NonSendableKlass = functionWithoutSendingResult
+ 70 |   let _: () -> sending NonSendableKlass = functionWithoutSendingResult
+    |                                           |- warning: converting a value of type '() -> NonSendableKlass' to type '() -> sending NonSendableKlass' risks causing data races; this is an error in the Swift 6 language mode
+    |                                           `- note: converting a function typed value without a sending result as one with risks allowing actor-isolated values to escape their isolation domain through a result of an invocation of value
+ 71 |   // expected-error @-1 {{converting a value of type '@Sendable () -> NonSendableKlass' to type '() -> sending NonSendableKlass' risks causing data races}}
+ 72 |   // expected-note @-2 {{converting a function typed value without a sending result as one with risks allowing actor-isolated values to escape their isolation domain through a result of an invocation of value}}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl_84tgj7/cc97f0e2.swift:75:27: warning: converting a value of type '() -> NonSendableKlass' to type '() -> sending NonSendableKlass' risks causing data races; this is an error in the Swift 6 language mode
+ 73 | 
+ 74 |   takeFnWithSendingResult(functionWithSendingResult)
+ 75 |   takeFnWithSendingResult(functionWithoutSendingResult)
+    |                           |- warning: converting a value of type '() -> NonSendableKlass' to type '() -> sending NonSendableKlass' risks causing data races; this is an error in the Swift 6 language mode
+    |                           `- note: converting a function typed value without a sending result as one with risks allowing actor-isolated values to escape their isolation domain through a result of an invocation of value
+ 76 |   // expected-error @-1 {{converting a value of type '@Sendable () -> NonSendableKlass' to type '() -> sending NonSendableKlass' risks causing data races}}
+ 77 |   // expected-note @-2 {{converting a function typed value without a sending result as one with risks allowing actor-isolated values to escape their isolation domain through a result of an invocation of value}}
+
+swift-frontend: /home/build-user/swift/lib/SILGen/SILGenPoly.cpp:3712: void (anonymous namespace)::ExpanderBase<(anonymous namespace)::ResultPlanner, (anonymous namespace)::IndirectSlot>::expand(AbstractionPattern, CanType, AbstractionPattern, CanType) [Impl = (anonymous namespace)::ResultPlanner, InnerSlotType = (anonymous namespace)::IndirectSlot]: Assertion `outerSubstType->isAny() || outerSubstType->getOptionalObjectType()' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-sil -wmo -sil-verify-all -enable-library-evolution /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl_84tgj7/cc97f0e2.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module cc97f0e2)
+4.	While silgen visitDecl 'testReturnValueMatching()' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl_84tgj7/cc97f0e2.swift:66:1)
+5.	While silgen emitFunction SIL function "@$s8cc97f0e223testReturnValueMatchingyyF".
+ for 'testReturnValueMatching()' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpl_84tgj7/cc97f0e2.swift:66:1)
+6.	While emitting reabstraction thunk in SIL function "@$sIeg_8cc97f0e216NonSendableKlassCIegTo_TR".
+ for <<debugloc at "<compiler-generated>":0:0>> #0 0x000055b487a30bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055b487a2e2e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055b487a318c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f67e3303330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f67e335cc0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f67e330327e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f67e32e68ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007f67e32e681b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007f67e32f9517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x000055b4802991f5 (anonymous namespace)::ExpanderBase<(anonymous namespace)::ResultPlanner, (anonymous namespace)::IndirectSlot>::expand(swift::Lowering::AbstractionPattern, swift::CanType, swift::Lowering::AbstractionPattern, swift::CanType) SILGenPoly.cpp:0:0
+#10 0x000055b480282054 (anonymous namespace)::ResultPlanner::plan(swift::Lowering::AbstractionPattern, swift::CanType, swift::Lowering::AbstractionPattern, swift::CanType, swift::CanTypeWrapper<swift::SILFunctionType>, swift::CanTypeWrapper<swift::SILFunctionType>) SIL
+[... truncated ...]

@@ -1,0 +1,44 @@
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3010, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 2824, in main_app(int, char**)
+    return emit_cpp(opts.arg_file, compiler_options);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 873, in (anonymous namespace)::emit_cpp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::CompilerOptions&)
+    LCompilers::Result<std::string> cpp = fe.get_cpp(input, lm, diagnostics, 1);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 535, in LCompilers::FortranEvaluator::get_cpp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&, long)
+    return get_cpp2(*asr.result, diagnostics, default_lower_bound);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 547, in LCompilers::FortranEvaluator::get_cpp2[abi:cxx11](LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, long)
+    default_lower_bound);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp", line 719, in LCompilers::asr_to_cpp[abi:cxx11](Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions&, long)
+    v.visit_asr((ASR::asr_t &)asr);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 375, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_asr(LCompilers::ASR::asr_t const&)
+    void visit_asr(const asr_t &b) { visit_asr_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 349, in void LCompilers::ASR::visit_asr_t<LCompilers::ASRToCPPVisitor>(LCompilers::ASR::asr_t const&, LCompilers::ASRToCPPVisitor&)
+    case asrType::unit: { v.visit_unit((const unit_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 376, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_unit(LCompilers::ASR::unit_t const&)
+    void visit_unit(const unit_t &b) { visit_unit_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 22, in void LCompilers::ASR::visit_unit_t<LCompilers::ASRToCPPVisitor>(LCompilers::ASR::unit_t const&, LCompilers::ASRToCPPVisitor&)
+    case unitType::TranslationUnit: { v.visit_TranslationUnit((const TranslationUnit_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp", line 422, in LCompilers::ASRToCPPVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&)
+    visit_symbol(*item.second);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 378, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&)
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 30, in void LCompilers::ASR::visit_symbol_t<LCompilers::ASRToCPPVisitor>(LCompilers::ASR::symbol_t const&, LCompilers::ASRToCPPVisitor&)
+    case symbolType::Program: { v.visit_Program((const Program_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp", line 456, in LCompilers::ASRToCPPVisitor::visit_Program(LCompilers::ASR::Program_t const&)
+    this->visit_stmt(*x.m_body[i]);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 396, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_stmt(LCompilers::ASR::stmt_t const&)
+    void visit_stmt(const stmt_t &b) { visit_stmt_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 74, in void LCompilers::ASR::visit_stmt_t<LCompilers::ASRToCPPVisitor>(LCompilers::ASR::stmt_t const&, LCompilers::ASRToCPPVisitor&)
+    case stmtType::Print: { v.visit_Print((const Print_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp", line 620, in LCompilers::ASRToCPPVisitor::visit_Print(LCompilers::ASR::Print_t const&)
+    this->visit_expr(*(str_fmt->m_args[i]));
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 459, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_expr(LCompilers::ASR::expr_t const&)
+    void visit_expr(const expr_t &b) { visit_expr_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 127, in void LCompilers::ASR::visit_expr_t<LCompilers::ASRToCPPVisitor>(LCompilers::ASR::expr_t const&, LCompilers::ASRToCPPVisitor&)
+    case exprType::IntrinsicElementalFunction: { v.visit_IntrinsicElementalFunction((const IntrinsicElementalFunction_t &)x); return; }
+LCompilersException: IntrinsicElementalFunction: `Ior` is not implemented

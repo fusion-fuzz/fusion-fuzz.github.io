@@ -1,0 +1,88 @@
+[... 8 lines omitted ...]
+      |                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:127:51: warning: implicit truncation from 'int' to bit-field changes value from 467 to -45 [-Wbitfield-constant-conversion]
+  127 | struct_6 test_struct_6 = { 12, 21355796, 0, 20.0, 467, 20.0 };
+      |                                                   ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:129:33: warning: implicit truncation from 'int' to bit-field changes value from 1821 to -227 [-Wbitfield-constant-conversion]
+  129 | struct_8 test_struct_8 = { 126, 1821, 22, 125, 6, 0, 2432638 };
+      |                                 ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:129:39: warning: implicit truncation from 'int' to bit-field changes value from 22 to -10 [-Wbitfield-constant-conversion]
+  129 | struct_8 test_struct_8 = { 126, 1821, 22, 125, 6, 0, 2432638 };
+      |                                       ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:217:17: error: static assertion expression is not an integral constant expression
+  217 |   static_assert(A<int>::f<int>() == 0); // expected-error {{static assertion expression is not an integral constant expression}}
+      |                 ^~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:217:17: note: undefined function 'f<int>' cannot be used in a constant expression
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:150:26: note: declared here
+  150 |     static constexpr int f(); // expected-note {{declared here}}
+      |                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:219:17: error: static assertion expression is not an integral constant expression
+  219 |   static_assert(A<int>::x<int> == 0); // expected-error {{static assertion expression is not an integral constant expression}}
+      |                 ^~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:219:17: note: initializer of 'x<int>' is unknown
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:153:22: note: declared here
+  153 |     static const int x; // expected-note {{declared here}}
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:221:17: error: static assertion expression is not an integral constant expression
+  221 |   static_assert(A<int>::x<int*> == 0); // expected-error {{static assertion expression is not an integral constant expression}}
+      |                 ^~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:221:17: note: initializer of 'x<int *>' is unknown
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:156:22: note: declared here
+  156 |     static const int x<U*>; // expected-note {{declared here}}
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:223:17: error: implicit instantiation of undefined template 'Undefined::A<int>::B<int>'
+  223 |   static_assert(A<int>::B<int>::y == 0); // expected-error {{implicit instantiation of undefined template 'Undefined::A<int>::B<int>'}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:159:12: note: template is declared here
+  159 |     struct B; // expected-note {{template is declared here}}
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:224:17: error: implicit instantiation of undefined template 'Undefined::A<int>::B<int *>'
+  224 |   static_assert(A<int>::B<int*>::y == 0); // expected-error {{implicit instantiation of undefined template 'Undefined::A<int>::B<int *>'}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:162:12: note: template is declared here
+  162 |     struct B<U*>; // expected-note {{template is declared here}}
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:354:27: error: out-of-line definition of 'f' does not match any declaration in 'Constrained::A<short>'
+  354 |   constexpr int A<short>::f() {
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:327:10: note: A defined here
+  327 |   struct A {
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:360:41: error: requires clause differs in template redeclaration
+  360 |   template<typename U, bool V> requires V
+      |                                         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:333:43: note: previous template declaration is here
+  333 |     template<typename U, bool V> requires V
+      |                                           ^
+not a non-type template argument
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaTemplate.cpp:8229!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -Os -std=gnu++20 -fblocks -fno-strict-aliasing -ffp-contract=fast -target x86_64-apple-darwin9 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:378:22: current parser token '{'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmprhdaz156/a2e248d3.cpp:325:1: parsing namespace 'Constrained'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005e39ff11166b __interceptor_backtrace + 91
+1  clang++   0x00005e3a04d6c027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005e3a04d65cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005e3a04d6a9c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005e3a04bb8cc5
+5  clang++   0x00005e3a04bb94d3
+6  libc.so.6 0x00007bc37879a520
+7  libc.so.6 0x00007bc3787ee9bc pthread_kill + 300
+8  libc.so.6 0x00007bc37879a476 raise + 22
+9  libc.so.6 0x00007bc3787807f3 abort + 211
+10 clang++   0x00005e3a04bd82e8 llvm::llvm_unreachable_internal(char const*, char const*, unsigned int) + 216
+11 clang++   0x00005e3a0ce098ca clang::Sema::BuildExpressionFromNonTypeTemplateArgument(clang::TemplateArgument const&, clang::SourceLocation) + 730
+12 clang++   0x00005e3a0ce09390 clang::Sema::BuildSubstNonTypeTemplateParmExpr(clang::Decl*, unsigned int, clang::QualType, clang::SourceLocation, clang::TemplateArgument, clang::OptionalUnsigned<unsigned int>, bool) + 320
+13 clang++   0x00005e3a0d2cb59b
+14 clang++   0x00005e3a0d1c449b
+15 clang++   0x00005e3a0d1c515e clang::Sema::SubstConstraintExprWithoutSatisfaction(clang::Expr*, clang::MultiLevelTemplateArgumentList const&) + 318
+16 clang++   0x00005e3a0ba3783f
+17 clang++   0x00005e3a0ba36b13 clang::Sema::AreConstraintExpressionsEqual(clang::NamedDecl const*, clang::Expr const*, clang::Sema::TemplateCompareNewDeclInfo const&, clang::Expr const*) + 691
+18 clang++   0x00005e3a0ce21f98 clang::Sema::TemplateParameterListsAreEqual(clang::Sema::TemplateCompareNewDeclInfo const&, clang::TemplateParameterList*, clang::NamedDecl const*, clang::TemplateParameterList*, bool, clang::Sema::TemplateParameterListEqualKind, clang::SourceLocation) + 7032
+19 clang++   0x00005e3a0ce1ce59 clang::Sema::CheckClassTemplate(clang::Scope*, unsigned int, clang::TagUseKind, clang::SourceLocation, clang::CXXScopeSpec&, clang::IdentifierInfo*, clang::SourceLocation, clang::ParsedAttributesView const&, clang::TemplateParameterList*, clang::AccessSpecifier, clang::SourceLocation, clang::SourceLocation, unsigned int, clang::TemplateParameterList**, bool, clang::SkipBodyInfo*) + 6009
+20 clang++   0x00005e3a0bd23ba9 clang::Sema::ActOnTag(clang::Scope*, unsigned int, clang::TagUseKind, clang::SourceLocation, clang::CXXScopeSpec&, clang::IdentifierInfo*, clang::SourceLocation, clang::ParsedAttributesView const&, clang::AccessSpecifier, clang::SourceLocation, llvm::MutableArrayRef<clang::TemplateParameterList*>, bool&, bool&, clang::SourceLocation, bool, clang::ActionResult<clang::OpaquePtr<clang::QualType>, false>, bool, bool, clang::OffsetOfKind, clang::SkipBodyInfo*) + 6633
+21 clang++   0x00005e3a0b37be7b clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 13739
+22 clang++   0x00005e3a0b322c65 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, 
+[... truncated ...]

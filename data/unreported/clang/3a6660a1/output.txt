@@ -1,0 +1,92 @@
+[... 5 lines omitted ...]
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:56:6: warning: function previously declared with an explicit exception specification redeclared with an implicit exception specification [-Wimplicit-exception-spec-mismatch]
+   56 | void operator delete[](void*, std::align_val_t);
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:58:6: warning: function previously declared with an explicit exception specification redeclared with an implicit exception specification [-Wimplicit-exception-spec-mismatch]
+   58 | void operator delete(void *, size_t); // expected-note 1+ {{candidate}}
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:62:6: warning: function previously declared with an explicit exception specification redeclared with an implicit exception specification [-Wimplicit-exception-spec-mismatch]
+   62 | void operator delete[](void*, size_t);
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:71:26: error: use of undeclared identifier 'DNE'
+   71 |   __builtin_operator_new(DNE);          // expected-error {{undeclared identifier 'DNE'}}
+      |                          ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:72:26: error: use of undeclared identifier 'DNE'
+   72 |   __builtin_operator_new(DNE, DNE2);    // expected-error {{undeclared identifier 'DNE'}} expected-error {{'DNE2'}}
+      |                          ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:72:31: error: use of undeclared identifier 'DNE2'
+   72 |   __builtin_operator_new(DNE, DNE2);    // expected-error {{undeclared identifier 'DNE'}} expected-error {{'DNE2'}}
+      |                               ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:73:29: error: use of undeclared identifier 'DNE'
+   73 |   __builtin_operator_delete(DNE);       // expected-error {{'DNE'}}
+      |                             ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:74:29: error: use of undeclared identifier 'DNE'
+   74 |   __builtin_operator_delete(DNE, DNE2); // expected-error {{'DNE'}} expected-error {{'DNE2'}}
+      |                             ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:74:34: error: use of undeclared identifier 'DNE2'
+   74 |   __builtin_operator_delete(DNE, DNE2); // expected-error {{'DNE'}} expected-error {{'DNE2'}}
+      |                                  ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:78:3: error: no matching function for call to 'operator new'
+   78 |   __builtin_operator_new(NP);                      // expected-error {{no matching function for call to 'operator new'}}
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:33:7: note: candidate function not viable: cannot convert argument of incomplete type 'void *' to 'size_t' (aka 'unsigned long') for 1st argument
+   33 | void *operator new(size_t); // expected-note 1+ {{candidate function}}
+      |       ^            ~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:49:7: note: candidate function not viable: requires 2 arguments, but 1 was provided
+   49 | void* operator new  ( size_t count, std::align_val_t al); // expected-note 1+ {{candidate function}}
+      |       ^               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:37:7: note: candidate function not viable: requires 2 arguments, but 1 was provided
+   37 | void *operator new(size_t, void*) throw(); // expected-note 1+ {{candidate function}}
+      |       ^            ~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:43:7: note: candidate function not viable: requires 2 arguments, but 1 was provided
+   43 | void *operator new(size_t, const std::nothrow_t &) throw(); // expected-note 1+ {{candidate function}}
+      |       ^            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:65:7: note: candidate function not viable: requires 3 arguments, but 1 was provided
+   65 | void *operator new(size_t, void*, bool) throw(); // expected-note 1+ {{candidate function}}
+      |       ^            ~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:79:3: error: no matching function for call to 'operator new'
+   79 |   __builtin_operator_new(NP, std::align_val_t(0)); // expected-error {{no matching function for call to 'operator new'}}
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:49:7: note: candidate function not viable: cannot convert argument of incomplete type 'void *' to 'size_t' (aka 'unsigned long') for 1st argument
+   49 | void* operator new  ( size_t count, std::align_val_t al); // expected-note 1+ {{candidate function}}
+      |       ^               ~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:37:7: note: candidate function not viable: cannot convert argument of incomplete type 'void *' to 'size_t' (aka 'unsigned long') for 1st argument
+   37 | void *operator new(size_t, void*) throw(); // expected-note 1+ {{candidate function}}
+      |       ^            ~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:43:7: note: candidate function not viable: cannot convert argument of incomplete type 'void *' to 'size_t' (aka 'unsigned long') for 1st argument
+   43 | void *operator new(size_t, const std::nothrow_t &) throw(); // expected-note 1+ {{candidate function}}
+      |       ^            ~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:33:7: note: candidate function not viable: requires 1 argument, but 2 were provided
+   33 | void *operator new(size_t); // expected-note 1+ {{candidate function}}
+      |       ^            ~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:65:7: note: candidate function not viable: requires 3 arguments, but 2 were provided
+   65 | void *operator new(size_t, void*, bool) throw(); // expected-note 1+ {{candidate function}}
+      |       ^            ~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:82:7: error: cannot initialize a variable of type 'int' with an rvalue of type 'void *'
+   82 |   int w = __builtin_operator_new(42);        // expected-error {{cannot initialize a variable of type 'int' with an rvalue of type 'void *'}}
+      |       ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:83:7: error: cannot initialize a variable of type 'int' with an rvalue of type 'void'
+   83 |   int y = __builtin_operator_delete(NP);     // expected-error {{cannot initialize a variable of type 'int' with an rvalue of type 'void'}}
+      |       ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:114:3: error: call to '__builtin_operator_new' selects non-usual allocation function
+  114 |   __builtin_operator_new(42, true);     // expected-error {{call to '__builtin_operator_new' selects non-usual allocation function}}
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:108:7: note: non-usual 'operator new' declared here
+  108 | void *operator new(size_t, bool);   // expected-note 1+ {{candidate}}
+      | ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:115:3: error: call to '__builtin_operator_delete' selects non-usual deallocation function
+  115 |   __builtin_operator_delete(NP, false); // expected-error {{call to '__builtin_operator_delete' selects non-usual deallocation function}}
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:110:6: note: non-usual 'operator delete' declared here
+  110 | void operator delete(void *, bool); // expected-note 1+ {{candidate}}
+      | ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:131:3: error: call to 'operator new' is ambiguous
+  131 |   __builtin_operator_new(42, cvt);    // expected-error {{call to 'operator new' is ambiguous}}
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:49:7: note: candidate function
+   49 | void* operator new  ( size_t count, std::align_val_t al); // expected-note 1+ {{candidate function}}
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpc96kcmoy/0f2f0874.cpp:125:7: note: candidate function
+  125 | void *operator new(size_t, Tag<0>);   // expected-note 0+ {{candidate}}
+[... truncated ...]

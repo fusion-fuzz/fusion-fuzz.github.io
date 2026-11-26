@@ -1,0 +1,18 @@
+HloModule module
+
+ENTRY %entry {
+  %param = f32[4] parameter(0), sharding={devices=[2]<=[2]}
+  %reverse = f32[4] reverse(param), dimensions={0}, sharding={devices=[2]<=[2]}
+  %pa = f32[4,4] parameter(1)
+  %pb = f32[4,4] parameter(2)
+  %zero.d = f32[] constant(0)
+  %a.d = f32[4,10] pad(%pa, %zero.d), padding=0_0x0_6
+  %b.d = f32[4,10] pad(%pa, %zero.d), padding=0_0x2_4
+  %out.d = f32[4,10] add(%a.d, %b.d)
+  %zero = f32[] constant(0)
+  %a = f32[4,10] pad(%reverse, %zero), padding=0_0x0_6
+  %b = f32[4,10] pad(%pb, %zero), padding=0_0x2_4
+  %out = f32[4,10] add(%a, %b)
+  %ffl.root = (f32[4], f32[4,10]) tuple(%reverse, %out)
+  ROOT %ffl.root.1 = (f32[4], f32[4,10], f32[4,10]) tuple(%reverse, %out, %out.d)
+}

@@ -1,0 +1,82 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphv_fnzlk/7c3e422f.m:8:24: error: instance variables cannot have __autoreleasing ownership
+    8 |     id __autoreleasing z; // expected-error {{instance variables cannot have __autoreleasing ownership}}
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphv_fnzlk/7c3e422f.m:6:28: error: existing instance variable 'x' for strong property 'x' may not be __unsafe_unretained
+    6 |     id __unsafe_unretained x; // expected-error {{existing instance variable 'x' for strong property 'x' may not be __unsafe_unretained}}
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphv_fnzlk/7c3e422f.m:10:22: note: property declared here
+   10 | @property(strong) id x; // expected-note {{property declared here}}
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphv_fnzlk/7c3e422f.m:16:13: note: property synthesized here
+   16 | @synthesize x; // expected-note {{property synthesized here}}
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphv_fnzlk/7c3e422f.m:7:15: error: existing instance variable 'y' for strong property 'y' may not be __weak
+    7 |     id __weak y; // expected-error {{existing instance variable 'y' for strong property 'y' may not be __weak}}
+      |               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphv_fnzlk/7c3e422f.m:11:22: note: property declared here
+   11 | @property(strong) id y; // expected-note {{property declared here}}
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphv_fnzlk/7c3e422f.m:17:13: note: property synthesized here
+   17 | @synthesize y; // expected-note {{property synthesized here}}
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphv_fnzlk/7c3e422f.m:4:12: warning: class 'Foo' defined without specifying a base class [-Wobjc-root-class]
+    4 | @interface Foo {
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphv_fnzlk/7c3e422f.m:4:15: note: add a super class to fix this problem
+    4 | @interface Foo {
+      |               ^
+clang: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGObjCGNU.cpp:1319: int32_t {anonymous}::CGObjCGNUstep2::FlagsForOwnership(clang::Qualifiers::ObjCLifetime): Assertion `Ownership != Qualifiers::OCL_Autoreleasing' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -S -o /dev/null -O2 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -fobjc-runtime=gnustep-2.0 -fobjc-arc -fno-inline -Wall -target aarch64 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphv_fnzlk/7c3e422f.m
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphv_fnzlk/7c3e422f.m:21:1: current parser token '@'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmphv_fnzlk/7c3e422f.m:15:17: LLVM IR generation of declaration 'Foo'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x00005b8399b45329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x00005b8399b41fec llvm::sys::RunSignalHandlers() + 76
+2  clang     0x00005b8399b428a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x00005b8399a84218
+4  libc.so.6 0x00007c430d784520
+5  libc.so.6 0x00007c430d7d89bc pthread_kill + 300
+6  libc.so.6 0x00007c430d784476 raise + 22
+7  libc.so.6 0x00007c430d76a7f3 abort + 211
+8  libc.so.6 0x00007c430d76a71b
+9  libc.so.6 0x00007c430d77be96
+10 clang     0x00005b839a60806a
+11 clang     0x00005b839a2cbfa0
+12 clang     0x00005b839a66eef1
+13 clang     0x00005b839a65e0f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+14 clang     0x00005b839c33b61c clang::ParseAST(clang::Sema&, bool, bool) + 508
+15 clang     0x00005b839a9dc061 clang::FrontendAction::Execute() + 65
+16 clang     0x00005b839a965e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+17 clang     0x00005b839aab3de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+18 clang     0x00005b839790f33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+19 clang     0x00005b839790513a
+20 clang     0x00005b83979052cf
+21 clang     0x00005b839a6eacfd
+22 clang     0x00005b8399a84630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+23 clang     0x00005b839a6ebb53
+24 clang     0x00005b839a6a0607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+25 clang     0x00005b839a6a4ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+26 clang     0x00005b839a6b3004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+27 clang     0x00005b839790a923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+28 clang     0x00005b83978467f1 main + 113
+29 libc.so.6 0x00007c430d76bd90
+30 libc.so.6 0x00007c430d76be40 __libc_start_main + 128
+31 clang     0x00005b8397904765 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: aarch64
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang: note: diagnostic msg: /tmp/7c3e422f-7496bc.m
+clang: note: diagnostic msg: /tmp/7c3e422f-7496bc.sh
+clang: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

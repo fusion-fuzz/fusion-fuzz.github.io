@@ -1,0 +1,137 @@
+HloModule module
+
+%add {
+  %lhs = bf16[] parameter(0)
+  %rhs = bf16[] parameter(1)
+  ROOT %add = bf16[] add(lhs, rhs)
+}
+
+%while_cond {
+  %param = (s32[], bf16[3,8,128], bf16[3,16,128]) parameter(0)
+  %gte = s32[] get-tuple-element(param), index=0
+  %constant.1 = s32[] constant(3)
+  ROOT %cmp = pred[] compare(gte, constant.1), direction=LT
+}
+
+%while_body {
+  %param = (s32[], bf16[3,8,128], bf16[3,16,128]) parameter(0)
+  %get-tuple-element.394 = s32[] get-tuple-element(param), index=0
+  %get-tuple-element.395 = bf16[3,8,128] get-tuple-element(param), index=1
+  %get-tuple-element.396 = bf16[3,16,128] get-tuple-element(param), index=2
+  %constant.2557 = s32[] constant(2)
+  %add.230 = s32[] add(get-tuple-element.394, constant.2557)
+  %constant.2559 = s32[] constant(3)
+  %subtract.139 = s32[] subtract(constant.2559, get-tuple-element.394)
+  %constant.2560 = s32[] constant(-1)
+  %add.231 = s32[] add(subtract.139, constant.2560)
+  %constant.2561 = s32[] constant(0)
+  %compare.747 = pred[] compare(add.231, constant.2561), direction=LT
+  %constant.2562 = s32[] constant(2)
+  %add.232 = s32[] add(subtract.139, constant.2562)
+  %select.1348 = s32[] select(compare.747, add.232, add.231)
+  %dynamic-slice.99 = bf16[1,16,128] dynamic-slice(get-tuple-element.396, select.1348, constant.2561, constant.2561), dynamic_slice_sizes={1,16,128}
+  %mul = bf16[1,16,128] multiply(dynamic-slice.99, dynamic-slice.99)
+  %ar.1 = bf16[1,16,128] all-reduce(mul), replica_groups={}, to_apply=add, channel_id=1
+  %ds.1 = bf16[1,8,128] dynamic-slice(ar.1, constant.2561, constant.2561, constant.2561), dynamic_slice_sizes={1,8,128}
+  %dynamic-update-slice.35 = bf16[3,8,128] dynamic-update-slice(get-tuple-element.395, ds.1, select.1348, constant.2561, constant.2561)
+  ROOT %tuple = (s32[], bf16[3,8,128], bf16[3,16,128]) tuple(add.230, dynamic-update-slice.35, get-tuple-element.396)
+}
+
+%while_condition {
+  %tuple = (s32[2,8]{1,0}, u32[], pred[]) parameter(0)
+  %i = u32[] get-tuple-element(tuple), index=1
+  %n = u32[] constant(8)
+  ROOT %predicate = pred[] compare(i, n), direction=LT
+}
+
+%branch_true {
+  %arg = (s32[2,8]{1,0}, s32[2,8]{1,0}) parameter(0)
+  %a = s32[2,8]{1,0} get-tuple-element(arg), index=0
+  %b = s32[2,8]{1,0} get-tuple-element(arg), index=1
+  %c = s32[2,8] add(a, b)
+  %d = s32[2,8] multiply(c, b)
+  ROOT %custom = s32[2,8]{0,1} custom-call(d), custom_call_target="baz", operand_layout_constraints={s32[2,8]{0,1}}
+}
+
+%branch_false {
+  %arg = (s32[2,8]{1,0}, s32[2,8]{1,0}) parameter(0)
+  %a = s32[2,8]{1,0} get-tuple-element(arg), index=0
+  %b = s32[2,8]{1,0} get-tuple-element(arg), index=1
+  ROOT %sub = s32[2,8] subtract(a, b)
+}
+
+%while_body.d {
+  %tuple = (s32[2,8]{1,0}, u32[], pred[]) parameter(0)
+  %input = s32[2,8]{1,0} get-tuple-element(tuple), index=0
+  %i = u32[] get-tuple-element(tuple), index=1
+  %p = pred[] get-tuple-element(tuple), index=2
+  %c1 = u32[] constant(1) i_ = add(i, c1)
+  %c2 = s32[] constant(2)
+  %bcast = s32[2,8] broadcast(c2), dimensions={}
+  %input_mul = s32[2,8] multiply(input, bcast)
+  %branch_arg = (s32[2,8], s32[2,8]) tuple(input, input_mul)
+  %cond = s32[2,8]{0,1} conditional(p, branch_arg, branch_arg), true_computation=branch_true, false_computation=branch_false
+  %cond_add = s32[2,8] add(cond, bcast)
+  ROOT %tuple1 = (s32[2,8]{0,1}, u32[], pred[]) tuple(cond_add, i_, p)
+}
+
+%while_condition.d {
+  %tuple = (s32[2,8]{1,0}, u32[], pred[]) parameter(0)
+  %i = u32[] get-tuple-element(tuple), index=1
+  %n = u32[] constant(8)
+  ROOT %predicate = pred[] compare(i, n), direction=LT
+}
+
+%branch_true.d {
+  %arg = (s32[2,8]{1,0}, s32[2,8]{1,0}) parameter(0)
+  %a = s32[2,8]{1,0} get-tuple-element(arg), index=0
+  %b = s32[2,8]{1,0} get-tuple-element(arg), index=1
+  %c = s32[2,8] add(a, b)
+  %d = s32[2,8] multiply(c, b)
+  ROOT %custom = s32[2,8]{0,1} custom-call(d), custom_call_target="baz", operand_layout_constraints={s32[2,8]{0,1}}
+}
+
+%branch_false.d {
+  %arg = (s32[2,8]{1,0}, s32[2,8]{1,0}) parameter(0)
+  %a = s32[2,8]{1,0} get-tuple-element(arg), index=0
+  %b = s32[2,8]{1,0} get-tuple-element(arg), index=1
+  ROOT %sub = s32[2,8] subtract(a, b)
+}
+
+%while_body.d.1 {
+  %tuple = (s32[2,8]{1,0}, u32[], pred[]) parameter(0)
+  %input = s32[2,8]{1,0} get-tuple-element(tuple), index=0
+  %i = u32[] get-tuple-element(tuple), index=1
+  %p = pred[] get-tuple-element(tuple), index=2
+  %c1 = u32[] constant(1) i_ = add(i, c1)
+  %c2 = s32[] constant(2)
+  %bcast = s32[2,8] broadcast(c2), dimensions={}
+  %input_mul = s32[2,8] multiply(input, bcast)
+  %branch_arg = (s32[2,8], s32[2,8]) tuple(input, input_mul)
+  %cond = s32[2,8]{0,1} conditional(p, branch_arg, branch_arg), true_computation=branch_true, false_computation=branch_false
+  %cond_add = s32[2,8] add(cond, bcast)
+  ROOT %tuple1 = (s32[2,8]{0,1}, u32[], pred[]) tuple(cond_add, i_, p)
+}
+
+ENTRY %entry {
+  %c0 = s32[] constant(0)
+  %p0 = bf16[3,16,128] parameter(0)
+  %c1 = bf16[] constant(0)
+  %b1 = bf16[3,8,128] broadcast(c1), dimensions={}
+  %input = s32[2,8]{1,0} parameter(1)
+  %c0.d = u32[] constant(0)
+  %p0.d = pred[] constant(true)
+  %tuple.d = (s32[2,8]{1,0}, u32[], pred[]) tuple(%input, %c0.d, %p0.d)
+  %tuple_ = (s32[2,8]{1,0}, u32[], pred[]) while(%tuple.d), condition=%while_condition, body=%while_body.d, frontend_attributes={xla_disable_while_loop_copies="true"}
+  %output_ = s32[2,8]{1,0} get-tuple-element(%tuple_), index=0
+  %tuple = (s32[], bf16[3,8,128], bf16[3,16,128]) tuple(c0, b1, p0)
+  %while = (s32[], bf16[3,8,128], bf16[3,16,128]) while(tuple), condition=while_cond, body=while_body
+  %gte1 = bf16[3,8,128] get-tuple-element(while), index=1
+  %ffl.root = (bf16[3,8,128], s32[2,8]{1,0}) tuple(%gte1, %output_)
+  %c0.d.1 = u32[] constant(0)
+  %p0.d.1 = pred[] constant(true)
+  %tuple.d.1 = (s32[2,8]{1,0}, u32[], pred[]) tuple(%output_, %c0.d.1, %p0.d.1)
+  %tuple_.d = (s32[2,8]{1,0}, u32[], pred[]) while(%tuple.d.1), condition=%while_condition.d, body=%while_body.d.1, frontend_attributes={xla_disable_while_loop_copies="true"}
+  %output_.d = s32[2,8]{1,0} get-tuple-element(%tuple_.d), index=0
+  ROOT %ffl.root.1 = (bf16[3,8,128], s32[2,8]{1,0}, s32[2,8]{1,0}) tuple(%gte1, %output_, %output_.d)
+}

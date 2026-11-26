@@ -1,0 +1,100 @@
+SIL verification failed: global_addr/value inside fragile function cannot reference a private or hidden symbol: RefG->isSerialized() || hasPublicOrPackageVisibility(RefG->getLinkage(), true)
+Verifying instruction:
+->   %0 = global_addr @$s8f35bf1f63maxSivp : $*Int // user: %1
+     %1 = load [trivial] %0 : $*Int               // user: %2
+In function:
+// variable initialization expression of FixedStruct_bbac19b.storedProperty
+// Isolation: unspecified
+sil non_abi [transparent] [serialized] [ossa] @$s8f35bf1f619FixedStruct_bbac19bV14storedPropertySivpfi : $@convention(thin) () -> Int {
+bb0:
+  %0 = global_addr @$s8f35bf1f63maxSivp : $*Int   // user: %1
+  %1 = load [trivial] %0                          // user: %2
+  return %1                                       // id: %2
+} // end sil function '$s8f35bf1f619FixedStruct_bbac19bV14storedPropertySivpfi'
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -wmo -sil-verify-all -disable-availability-checking /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9lxdp4t4/f35bf1f6.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module f35bf1f6)
+4.	While silgen visitDecl 'FixedStruct_bbac19b' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9lxdp4t4/f35bf1f6.swift:171:8)
+5.	While silgen emitStoredPropertyInitialization SIL function "@$s8f35bf1f619FixedStruct_bbac19bV14storedPropertySivpfi".
+ for expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9lxdp4t4/f35bf1f6.swift:172:31 - line:172:31] RangeText=""
+6.	While verifying SIL function "@$s8f35bf1f619FixedStruct_bbac19bV14storedPropertySivpfi".
+ for expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmp9lxdp4t4/f35bf1f6.swift:172:31 - line:172:31] RangeText=""
+ #0 0x000060e08c514658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x000060e08c511e75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x000060e08c515411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x000070880fe8f330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x000070880fee8c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x000070880fe8f27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x000070880fe728ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000060e08519ee65 (/usr/bin/swift-frontend+0x18d9e65)
+ #8 0x000060e0851cdefc (anonymous namespace)::SILVerifier::checkGlobalAccessInst(swift::GlobalAccessInst*) SILVerifier.cpp:0:0
+ #9 0x000060e0851aafe3 (anonymous namespace)::SILVerifierBase<(anonymous namespace)::SILVerifier>::visitGlobalAddrInst(swift::GlobalAddrInst*) SILVerifier.cpp:0:0
+#10 0x000060e0851a7f0b (anonymous namespace)::SILVerifier::visitSILBasicBlock(swift::SILBasicBlock*) SILVerifier.cpp:0:0
+#11 0x000060e0851a1f2b swift::SILFunction::verify(swift::CalleeCache*, swift::DominanceInfo*, bool, bool, bool) const (/usr/bin/swift-frontend+0x18dcf2b)
+#12 0x000060e0849abb9a swift::Lowering::SILGenModule::postEmitFunction(swift::SILDeclRef, swift::SILFunction*) crtstuff.c:0:0
+#13 0x000060e0849ab130 swift::Lowering::SILGenModule::emitFunctionDefinition(swift::SILDeclRef, swift::SILFunction*) crtstuff.c:0:0
+#14 0x000060e0849ac7f8 swift::Lowering::SILGenModule::emitOrDelayFunction(swift::SILDeclRef) crtstuff.c:0:0
+#15 0x000060e0849ae94b swift::Lowering::SILGenModule::emitStoredPropertyInitialization(swift::PatternBindingDecl*, unsigned int) crtstuff.c:0:0
+#16 0x000060e084aebda5 (anonymous namespace)::SILGenType::emitType() SILGenType.cpp:0:0
+#17 0x000060e084aebb98 swift::Lowering::SILGenModule::visitNominalTypeDecl(swift::NominalTypeDecl*) crtstuff.c:0:0
+#18 0x000060e0849afd5f swift::Lowering::SILGenModule::emitSourceFile(swift::SourceFile*) crtstuff.c:0:0
+#19 0x000060e0849b05b4 swift::ASTLoweringRequest::evaluate(swift::Evaluator&, swift::ASTLoweringDescriptor) const (/usr/bin/swift-frontend+0x10eb5b4)
+#20 0x000060e084acfa56 swift::SimpleRequest<swift::ASTLoweringRequest, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>> (swift::ASTLoweringDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::ASTLoweringRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#21 0x000060e0849b5e45 swift::ASTLoweringRequest::OutputType swift::Evaluator::getResultUncached<swift::ASTLoweringRequest, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()>(swift::ASTLoweringRequest const&, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()) crtstuff.c:0:0
+#22 0x000060e0849b0bf3 swift::performASTLowering(swift::ModuleDecl*, swift::Lowering::TypeConverter&, swift::SILOptions const&, swift::IRGenOptions const*) (/usr/bin/swift-frontend+0x10ebbf3)
+#23 0x000060e0842f793f swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xa3293f)
+#24 0x000060e08431088a withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#25 0x000060e0842fd595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#26 0x000060e0842fa21e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#27 0x000060e084001b21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#28 0x000070880fe741ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#29 0x000070880fe7428b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#30 0x000060e084000a15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x70880ff7138d... done ***
+
+*** Program crashed: Aborted at 0x000070880ff7138d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x000070880ff7138d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x000070880ff7138d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x0000000000308999  3180953
+rdi 0x0000000000308999  3180953
+rbp 0x0000000000308999  3180953
+rsp 0x000060e0a017a2e8  3b 54 51 8c e0 60 00 00 70 a5 17 a0 e0 60 00 00  ;TQ·à`··p¥· à`··
+ r8 0x000060e0a017a570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x000060e0a017a570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x000060e0a017a570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x000060e0a0fda2c0  f8 e0 ff a0 e0 60 00 00 e0 8f fd a0 e0 60 00 00  øàÿ à`··à·ý à`··
+r14 0x0000000000000000  0
+r15 0x000060e0a017a388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x000070880ff7138d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (31 omitted):
+
+0x000070880fe4a000–0x000070880fff9eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.01s
+
+Aborted (core dumped)

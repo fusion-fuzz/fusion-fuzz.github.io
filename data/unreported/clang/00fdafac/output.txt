@@ -1,0 +1,92 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmplahz6z3e/4a949081.cpp:6:35: error: declaration of 'A' shadows template parameter [-Wstrict-primary-template-shadow]
+    6 | template <class A> struct alignas(A) foo {};
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmplahz6z3e/4a949081.cpp:6:17: note: template parameter is declared here
+    6 | template <class A> struct alignas(A) foo {};
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmplahz6z3e/4a949081.cpp:6:35: warning: variable templates are a C++14 extension [-Wc++14-extensions]
+    6 | template <class A> struct alignas(A) foo {};
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmplahz6z3e/4a949081.cpp:6:35: error: variable has incomplete type 'struct alignas'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmplahz6z3e/4a949081.cpp:6:27: note: forward declaration of 'alignas'
+    6 | template <class A> struct alignas(A) foo {};
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmplahz6z3e/4a949081.cpp:6:37: error: expected ';' after top level declarator
+    6 | template <class A> struct alignas(A) foo {};
+      |                                     ^
+      |                                     ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmplahz6z3e/4a949081.cpp:7:35: error: declaration of 'A' shadows template parameter [-Wstrict-primary-template-shadow]
+    7 | template <class A> struct alignas(A) bar {};
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmplahz6z3e/4a949081.cpp:7:17: note: template parameter is declared here
+    7 | template <class A> struct alignas(A) bar {};
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmplahz6z3e/4a949081.cpp:7:35: warning: variable templates are a C++14 extension [-Wc++14-extensions]
+    7 | template <class A> struct alignas(A) bar {};
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmplahz6z3e/4a949081.cpp:7:35: error: variable has incomplete type 'struct alignas'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmplahz6z3e/4a949081.cpp:6:27: note: forward declaration of 'alignas'
+    6 | template <class A> struct alignas(A) foo {};
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmplahz6z3e/4a949081.cpp:7:37: error: expected ';' after top level declarator
+    7 | template <class A> struct alignas(A) bar {};
+      |                                     ^
+      |                                     ;
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/include/clang/Sema/Lookup.h:570: clang::NamedDecl* clang::LookupResult::getFoundDecl() const: Assertion `getResultKind() == LookupResultKind::Found && "getFoundDecl called on non-unique result"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Os -std=c++03 -fblocks -ffp-contract=fast -Wall /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmplahz6z3e/4a949081.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmplahz6z3e/4a949081.cpp:8:10: current parser token 'baz'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055ec9b7f7409 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055ec9b7f40cc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055ec9b7f4988 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055ec9b736368
+4  libc.so.6 0x00007fbdb20da520
+5  libc.so.6 0x00007fbdb212e9bc pthread_kill + 300
+6  libc.so.6 0x00007fbdb20da476 raise + 22
+7  libc.so.6 0x00007fbdb20c07f3 abort + 211
+8  libc.so.6 0x00007fbdb20c071b
+9  libc.so.6 0x00007fbdb20d1e96
+10 clang++   0x000055ec9e25e244
+11 clang++   0x000055ec9e40e97d clang::Sema::ActOnTag(clang::Scope*, unsigned int, clang::TagUseKind, clang::SourceLocation, clang::CXXScopeSpec&, clang::IdentifierInfo*, clang::SourceLocation, clang::ParsedAttributesView const&, clang::AccessSpecifier, clang::SourceLocation, llvm::MutableArrayRef<clang::TemplateParameterList*>, bool&, bool&, clang::SourceLocation, bool, clang::ActionResult<clang::OpaquePtr<clang::QualType>, false>, bool, bool, clang::OffsetOfKind, clang::SkipBodyInfo*) + 3373
+12 clang++   0x000055ec9e07023b clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 4523
+13 clang++   0x000055ec9e040205 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2821
+14 clang++   0x000055ec9dffba38 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 200
+15 clang++   0x000055ec9dffc4ef clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+16 clang++   0x000055ec9e0083a6 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+17 clang++   0x000055ec9e00945f clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+18 clang++   0x000055ec9dfe6392 clang::ParseAST(clang::Sema&, bool, bool) + 530
+19 clang++   0x000055ec9c68fad1 clang::FrontendAction::Execute() + 65
+20 clang++   0x000055ec9c619a75 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+21 clang++   0x000055ec9c767713 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+22 clang++   0x000055ec995c227e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+23 clang++   0x000055ec995b7f8a
+24 clang++   0x000055ec995b811f
+25 clang++   0x000055ec9c39e51d
+26 clang++   0x000055ec9b736780 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+27 clang++   0x000055ec9c39f373
+28 clang++   0x000055ec9c353e07 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+29 clang++   0x000055ec9c3586f0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+30 clang++   0x000055ec9c366804 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+31 clang++   0x000055ec995bd863 clang_main(int, char**, llvm::ToolContext const&) + 7315
+32 clang++   0x000055ec994f97c1 main + 113
+33 libc.so.6 0x00007fbdb20c1d90
+34 libc.so.6 0x00007fbdb20c1e40 __libc_start_main + 128
+35 clang++   0x000055ec995b75b5 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/4a949081-712144.cpp
+clang++: note: diagnostic msg: /tmp/4a949081-712144.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

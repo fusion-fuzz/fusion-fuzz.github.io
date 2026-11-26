@@ -1,0 +1,13 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/haskell/tmps1d44cpz/f5a6cdf1.hs:20:9: error: [GHC-76329]
+    • GHC internal error: ‘BinaryTree’ is not in scope during type checking, but it passed the renamer
+      tcl_env of environment: [a2wc :-> Identifier[test::a0, NotLetBound]]
+    • In the pattern: BinaryTree
+      In a stmt of a 'do' block: BinaryTree <- reify ''S
+      In the expression:
+        do test <- [d| type family T :: (Type -> (Type -> Type -> Type))
+                                        -> (Type -> Type) -> Type |]
+           BinaryTree <- reify ''S
+           return (LitE (StringL (pprint test ++ "\n" ++ pprint blah)))
+   |
+20 |         BinaryTree <- reify ''S
+   |         ^^^^^^^^^^

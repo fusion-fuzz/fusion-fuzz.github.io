@@ -1,0 +1,121 @@
+error[E0658]: attributes on expressions are experimental
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpcat0ordc/9964ddef.rs:16:13
+   |
+16 |     let _ = #[deny(warnings)] if true { //~ ERROR attributes on expressions
+   |             ^^^^^^^^^^^^^^^^^
+   |
+   = note: see issue #15701 <https://github.com/rust-lang/rust/issues/15701> for more information
+   = help: add `#![feature(stmt_expr_attributes)]` to the crate attributes to enable
+
+error[E0658]: attributes on expressions are experimental
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpcat0ordc/9964ddef.rs:73:13
+   |
+73 |     let _ = #[deny(warnings)] if true { //~ ERROR attributes on expressions
+   |             ^^^^^^^^^^^^^^^^^
+   |
+   = note: see issue #15701 <https://github.com/rust-lang/rust/issues/15701> for more information
+   = help: add `#![feature(stmt_expr_attributes)]` to the crate attributes to enable
+
+warning: the feature `repr_simd` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpcat0ordc/9964ddef.rs:1:12
+  |
+1 | #![feature(repr_simd)]
+  |            ^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+  = note: `#[warn(internal_features)]` on by default
+
+warning: the feature `intrinsics` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpcat0ordc/9964ddef.rs:2:12
+  |
+2 | #![feature(intrinsics, core_intrinsics, rustc_attrs)]
+  |            ^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+
+warning: the feature `rustc_attrs` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpcat0ordc/9964ddef.rs:2:41
+  |
+2 | #![feature(intrinsics, core_intrinsics, rustc_attrs)]
+  |                                         ^^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+
+warning: the feature `staged_api` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpcat0ordc/9964ddef.rs:3:12
+  |
+3 | #![feature(staged_api)]
+  |            ^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+
+warning: the feature `core_intrinsics` is internal to the compiler or standard library
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpcat0ordc/9964ddef.rs:2:24
+  |
+2 | #![feature(intrinsics, core_intrinsics, rustc_attrs)]
+  |                        ^^^^^^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+
+error: the `repr(simd)` attribute cannot be used on functions
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpcat0ordc/9964ddef.rs:14:3
+   |
+14 | #[repr(simd)]
+   |   ^^^^^^^^^^
+   |
+   = help: the `repr(simd)` attribute can only be applied to structs
+
+
+thread 'rustc' (106760) panicked at compiler/rustc_const_eval/src/interpret/projection.rs:287:9:
+assertion failed: base.layout().ty.ty_adt_def().unwrap().repr().simd()
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panicking.rs:80:14
+   2: core::panicking::panic
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panicking.rs:150:5
+   3: <rustc_const_eval::interpret::eval_context::InterpCx<rustc_const_eval::const_eval::machine::CompileTimeMachine>>::project_to_simd::<rustc_const_eval::interpret::operand::OpTy>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/projection.rs:287:9
+   4: <rustc_const_eval::interpret::eval_context::InterpCx<rustc_const_eval::const_eval::machine::CompileTimeMachine>>::eval_simd_intrinsic
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/intrinsics/simd.rs:35:47
+   5: <rustc_const_eval::interpret::eval_context::InterpCx<rustc_const_eval::const_eval::machine::CompileTimeMachine>>::eval_intrinsic
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/intrinsics.rs:185:25
+   6: <rustc_const_eval::const_eval::machine::CompileTimeMachine as rustc_const_eval::interpret::machine::Machine>::call_intrinsic
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/machine.rs:478:16
+   7: <rustc_const_eval::interpret::eval_context::InterpCx<rustc_const_eval::const_eval::machine::CompileTimeMachine>>::init_fn_call
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/call.rs:715:41
+   8: <rustc_const_eval::interpret::eval_context::InterpCx<rustc_const_eval::const_eval::machine::CompileTimeMachine>>::eval_terminator
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/step.rs:579:22
+   9: <rustc_const_eval::interpret::eval_context::InterpCx<rustc_const_eval::const_eval::machine::CompileTimeMachine>>::step
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/step.rs:68:14
+  10: rustc_const_eval::const_eval::eval_queries::eval_body_using_ecx::<rustc_middle::mir::consts::ConstAlloc>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:123:15
+  11: rustc_const_eval::const_eval::eval_queries::eval_in_interpreter::<rustc_middle::mir::consts::ConstAlloc>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:462:30
+  12: <rustc_middle::mir::interpret::error::InterpResult<&rustc_middle::mir::Body>>::and_then::<rustc_middle::mir::consts::ConstAlloc, rustc_const_eval::const_eval::eval_queries::eval_in_interpreter<rustc_middle::mir::consts::ConstAlloc>::{closure#0}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/interpret/error.rs:1079:54
+  13: <core::result::Result<&rustc_middle::mir::Body, rustc_middle::mir::interpret::error::InterpErrorInfo>>::and_then::<rustc_middle::mir::consts::ConstAlloc, <rustc_middle::mir::interpret::error::InterpResult<&rustc_middle::mir::Body>>::and_then<rustc_middle::mir::consts::ConstAlloc, rustc_const_eval::const_eval::eval_queries::eval_in_interpreter<rustc_middle::mir::consts::ConstAlloc>::{closure#0}>::{closure#0}>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/result.rs:1492:22
+  14: <rustc_middle::mir::interpret::error::InterpResult<&rustc_middle::mir::Body>>::and_then::<rustc_middle::mir::consts::ConstAlloc, rustc_const_eval::const_eval::eval_queries::eval_in_interpreter<rustc_middle::mir::consts::ConstAlloc>::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/interpret/error.rs:1079:41
+  15: rustc_const_eval::const_eval::eval_queries::eval_in_interpreter::<rustc_middle::mir::consts::ConstAlloc>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:462:14
+  16: rustc_const_eval::const_eval::eval_queries::eval_to_allocation_raw_provider
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:434:5
+      [... omitted 13 frames ...]
+  17: rustc_middle::query::calls::query_get_at::<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::mir::interpret::GlobalId>, rustc_middle::query::erase::ErasedData<[u8; 24]>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:154:17
+  18: <rustc_middle::query::calls::TyCtxtAt>::eval_to_allocation_raw
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:287:61
+  19: <rustc_middle::ty::context::TyCtxt>::eval_to_allocation_raw
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:277:39
+  20: rustc_const_eval::const_eval::eval_queries::eval_to_const_value_raw_provider
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:374:9
+      [... omitted 13 frames ...]
+  21: rustc_middle::query::calls::query_get_at::<rustc_middle::query::caches::DefaultCache<rustc_middle::ty::PseudoCanonicalInput<rustc_middle::mir::interpret::GlobalId>, rustc_middle::query::erase::ErasedData<[u8; 24]>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:154:17
+  22: <rustc_middle::query::calls::TyCtxtAt>::eval_to_const_value_raw
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:287:61
+  23: <rustc_middle::ty::context
+[... truncated ...]

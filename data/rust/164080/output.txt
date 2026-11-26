@@ -1,0 +1,71 @@
+warning: the feature `rustc_attrs` is internal to the compiler or standard library
+ --> <source>:1:12
+  |
+1 | #![feature(rustc_attrs)]
+  |            ^^^^^^^^^^^
+  |
+  = note: using it is strongly discouraged
+  = note: `#[warn(internal_features)]` on by default
+
+
+thread 'rustc' (4) panicked at /rustc-dev/a30aa9064df6a504b6a323c6884a2f4cfbfff666/compiler/rustc_mir_transform/src/inline.rs:781:85:
+DefId::expect_local: `DefId(2:4890 ~ core[a063]::ops::function::Fn::call)` isn't local
+stack backtrace:
+   0:     0x7fbd4e403096 - <<std[e288b72792185629]::sys::backtrace::BacktraceLock>::print::DisplayBacktrace as core[a063281680748b10]::fmt::Display>::fmt
+   1:     0x7fbd4ea06ddf - core[a063281680748b10]::fmt::write
+   2:     0x7fbd4e41968c - <std[e288b72792185629]::sys::stdio::unix::Stderr as core[a063281680748b10]::io::write::Write>::write_fmt
+   3:     0x7fbd4e3d435a - std[e288b72792185629]::panicking::default_hook::{closure#0}
+   4:     0x7fbd4e3f68d3 - std[e288b72792185629]::panicking::default_hook
+   5:     0x7fbd4d1747a5 - std[e288b72792185629]::panicking::update_hook::<alloc[77438ef1c3b7900a]::boxed::Box<rustc_driver_impl[8c2651cfa3d6fa01]::install_ice_hook::{closure#1}>>::{closure#0}
+   6:     0x7fbd4e3f6d72 - std[e288b72792185629]::panicking::panic_with_hook
+   7:     0x7fbd4e3d4412 - std[e288b72792185629]::panicking::panic_handler::{closure#0}
+   8:     0x7fbd4e3ccbf9 - std[e288b72792185629]::sys::backtrace::__rust_end_short_backtrace::<std[e288b72792185629]::panicking::panic_handler::{closure#0}, !>
+   9:     0x7fbd4e3d5fed - __rustc[7ffd2e8fb34e992e]::rust_begin_unwind
+  10:     0x7fbd4ae4b65c - core[a063281680748b10]::panicking::panic_fmt
+  11:     0x7fbd4f47957c - <rustc_mir_transform[7008b8bff545d967]::inline::ForceInline as rustc_mir_transform[7008b8bff545d967]::pass_manager::MirPass>::run_pass
+  12:     0x7fbd4ea053ea - rustc_mir_transform[7008b8bff545d967]::pass_manager::run_passes_inner
+  13:     0x7fbd4fad230d - rustc_mir_transform[7008b8bff545d967]::shim::make_shim
+  14:     0x7fbd4fad21bf - <rustc_mir_transform[7008b8bff545d967]::shim::provide::{closure#0} as core[a063281680748b10]::ops::function::FnOnce<(rustc_middle[39ec4cad1eb5b355]::ty::context::TyCtxt, rustc_middle[39ec4cad1eb5b355]::ty::instance::ShimKind)>>::call_once
+  15:     0x7fbd4fac6f9c - rustc_query_impl[8f5f5b4f2b53d832]::execution::try_execute_query::<rustc_middle[39ec4cad1eb5b355]::query::caches::DefaultCache<rustc_middle[39ec4cad1eb5b355]::ty::instance::ShimKind, rustc_middle[39ec4cad1eb5b355]::query::erase::ErasedData<[u8; 8usize]>>, false>
+  16:     0x7fbd4fac6ca7 - rustc_query_impl[8f5f5b4f2b53d832]::query_vtables::mir_shims::execute_query_non_incr::__rust_end_short_backtrace
+  17:     0x7fbd4f26715a - <rustc_middle[39ec4cad1eb5b355]::ty::context::TyCtxt>::instance_mir
+  18:     0x7fbd4f25274b - rustc_monomorphize[a66f533e620990e9]::collector::items_of_instance
+  19:     0x7fbd4f2526d9 - rustc_query_impl[8f5f5b4f2b53d832]::query_vtables::items_of_instance::invoke_provider_fn::__rust_begin_short_backtrace
+  20:     0x7fbd4f238ca8 - rustc_query_impl[8f5f5b4f2b53d832]::execution::try_execute_query::<rustc_middle[39ec4cad1eb5b355]::query::caches::DefaultCache<(rustc_middle[39ec4cad1eb5b355]::ty::instance::Instance, rustc_middle[39ec4cad1eb5b355]::mono::CollectionMode), rustc_middle[39ec4cad1eb5b355]::query::erase::ErasedData<[u8; 32usize]>>, false>
+  21:     0x7fbd4f238922 - rustc_query_impl[8f5f5b4f2b53d832]::query_vtables::items_of_instance::execute_query_non_incr::__rust_end_short_backtrace
+  22:     0x7fbd4f234406 - rustc_monomorphize[a66f533e620990e9]::collector::collect_items_rec
+  23:     0x7fbd4f235375 - rustc_monomorphize[a66f533e620990e9]::collector::collect_items_rec
+  24:     0x7fbd4f235375 - rustc_monomorphize[a66f533e620990e9]::collector::collect_items_rec
+  25:     0x7fbd4f23312a - rustc_monomorphize[a66f533e620990e9]::collector::collect_crate_mono_items::{closure#1}::{closure#0}
+  26:     0x7fbd4fb15ee3 - rustc_monomorphize[a66f533e620990e9]::partitioning::collect_and_partition_mono_items
+  27:     0x7fbd4fc7b026 - rustc_query_impl[8f5f5b4f2b53d832]::query_vtables::collect_and_partition_mono_items::invoke_provider_fn::__rust_begin_short_backtrace
+  28:     0x7fbd4fc7a973 - rustc_query_impl[8f5f5b4f2b53d832]::execution::try_execute_query::<rustc_middle[39ec4cad1eb5b355]::query::caches::SingleCache<rustc_middle[39ec4cad1eb5b355]::query::erase::ErasedData<[u8; 24usize]>>, false>
+  29:     0x7fbd4fc7a6e4 - rustc_query_impl[8f5f5b4f2b53d832]::query_vtables::collect_and_partition_mono_items::execute_query_non_incr::__rust_end_short_backtrace
+  30:     0x7fbd4ff5d9ac - rustc_codegen_ssa[1c1f646050ba0cf4]::base::codegen_crate::<rustc_codegen_llvm[c15d7a79b4f38ecb]::back::llvm_backend::LlvmCodegenBackend, rustc_codegen_llvm[c15d7a79b4f38ecb]::back::llvm_backend::ModuleLlvm>
+  31:     0x7fbd4ff5d731 - <rustc_codegen_llvm[c15d7a79b4f38ecb]::back::llvm_backend::LlvmCodegenBackend as rustc_codegen_ssa[1c1f646050ba0cf4]::traits::backend::CodegenBackend>::codegen_crate
+  32:     0x7fbd4ff5ceae - <rustc_interface[b8114f63a28e0dd5]::queries::Linker>::codegen_and_build_linker
+  33:     0x7fbd4fd1a131 - rustc_interface[b8114f63a28e0dd5]::interface::run_compiler::<(), rustc_driver_impl[8c2651cfa3d6fa01]::compiler_entrypoint::{closure#0}>::{closure#2}
+  34:     0x7fbd4fd5cf42 - std[e288b72792185629]::sys::backtrace::__rust_begin_short_backtrace::<rustc_interface[b8114f63a28e0dd5]::util::run_in_thread_with_globals<rustc_interface[b8114f63a28e0dd5]::util::run_in_thread_pool_with_globals<rustc_interface[b8114f63a28e0dd5]::interface::run_compiler<(), rustc_driver_impl[8c2651cfa3d6fa01]::compiler_entrypoint::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}, ()>
+  35:     0x7fbd4fd5cced - <std[e288b72792185629]::thread::lifecycle::spawn_unchecked<rustc_interface[b8114f63a28e0dd5]::util::run_in_thread_with_globals<rustc_interface[b8114f63a28e0dd5]::util::run_in_thread_pool_with_globals<rustc_interface[b8114f63a28e0dd5]::interface::run_compiler<(), rustc_driver_impl[8c2651cfa3d6fa01]::compiler_entrypoint::{closure#0}>::{closure#2}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}, ()>::{closure#1} as core[a063281680748b10]::ops::function::FnOnce<()>>::call_once::{shim:vtable#0}
+  36:     0x7fbd4fd5b29b - <std[e288b72792185629]::sys::thread::unix::Thread>::new::thread_start
+  37:     0x7fbd48c9cb84 - <unknown>
+  38:     0x7fbd48d29ecc - <unknown>
+  39:                0x0 - <unknown>
+
+error: the compiler unexpectedly panicked. This is a bug
+
+note: using internal features is not supported and expected to cause internal compiler errors when used incorrectly
+
+note: please attach the file at `/app/rustc-ice-2026-10-10T11_41_35-2.txt` to your bug report
+
+note: rustc 1.101.0-nightly (a30aa9064 2026-10-08) running on x86_64-unknown-linux-gnu
+
+note: compiler flags: -C debuginfo=2 --crate-type bin -C linker=/opt/compiler-explorer/gcc-16.2.0/bin/gcc
+
+query stack during panic:
+#0 [mir_shims] generating MIR shim for `core::ops::function::Fn::call`, kind=FnPtr(DefId(2:4890 ~ core[a063]::ops::function::Fn::call), FnDef(DefId(0:3 ~ example[087e]::three), Binder { value: [], bound_vars: [] }))
+#1 [items_of_instance] collecting items used by `<three as core::ops::function::Fn<()>>::call - shim(three)`
+... and 1 other queries... use `env RUST_BACKTRACE=1` to see the full query stack
+warning: 1 warning emitted
+
+rustc nightly - 1080ms

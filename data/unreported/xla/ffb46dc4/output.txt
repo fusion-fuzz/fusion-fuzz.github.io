@@ -1,0 +1,23 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791812960.219303 1132697 shape_util.cc:1295] Check failed: return_shape->IsTuple() 
+*** Check failure stack trace: ***
+    @     0x5f008d95da84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5f008d95da06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5f008cd55268  xla::ShapeUtil::GetMutableSubshape()
+    @     0x5f00843a8a8d  xla::BFloat16Propagation::OutputTypeAfterChange()
+    @     0x5f00843b82ac  absl::lts_20260526::functional_internal::InvokeObject<>()
+    @     0x5f008cd5cf03  xla::ShapeUtil::ForEachSubshapeHelper<>()
+    @     0x5f008cd4df13  xla::ShapeUtil::ForEachSubshape()
+    @     0x5f00843a7d8e  xla::BFloat16Propagation::DetermineScanComputationPrecision()
+    @     0x5f00843b9833  xla::BFloat16Propagation::DetermineInstructionPrecision()::$_0::operator()()
+    @     0x5f00843a6c62  xla::BFloat16Propagation::DetermineInstructionPrecision()
+    @     0x5f00843af00b  xla::BFloat16Propagation::RunImpl()
+    @     0x5f008cae1007  xla::HloPassInterface::Run()
+    @     0x5f008c317a3c  xla::HloPassPipeline::RunHelper<>()
+    @     0x5f008c312e4d  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5f008c312265  xla::HloPassPipeline::RunImpl()
+    @     0x5f008cae1007  xla::HloPassInterface::Run()
+    @     0x5f008436fd9d  xla::OptProvider::BuildAndRunTransformPipeline()
+    @     0x5f008d9a3af8  main
+    @     0x701574a4dd90  (unknown)
+Aborted (core dumped)

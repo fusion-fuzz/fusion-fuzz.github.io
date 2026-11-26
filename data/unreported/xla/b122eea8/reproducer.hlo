@@ -1,0 +1,15 @@
+HloModule m
+
+%add {
+  %lhs = f64[] parameter(0)
+  %rhs = f64[] parameter(1)
+  ROOT %add = f64[] add(lhs, rhs)
+}
+
+ENTRY %e {
+  %_ = f16[] constant(3.14)
+  %param_0 = f64[100,128] parameter(0)
+  %zero = f64[] constant(0.0)
+  %reduce = f64[100] reduce(%param_0, %_), dimensions={1}, to_apply=%add
+  ROOT %ffl.root = (f16[], f64[100]) tuple(%_, %reduce)
+}

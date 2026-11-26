@@ -1,0 +1,15 @@
+HloModule m
+
+ENTRY %main {
+  %param = f32[1024,1024]{1,0:T(8,128)S(5)} parameter(0)
+  %param0 = f32[8,8] parameter(1)
+  %copy.d = f32[8,8] copy(%param0), sharding={devices=[2,2,2]<=[8] last_tile_dim_replicate}
+  %copy0 = f32[8,8] copy(%copy.d), sharding={devices=[2,1,4]<=[8] last_tile_dim_replicate}
+  %copy = bf16[1024,1024]{1,0:T(8,128)} copy(param)
+  %dot = f32[1024,1024]{1,0:T(8,128)} dot(copy, copy), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %ffl.root = (f32[1024,1024]{1,0:T(8,128)}, f32[8,8]) tuple(%dot, %copy0)
+  %param0.d = f32[8,8] parameter(2)
+  %copy.d.1 = f32[8,8] copy(%param0.d), sharding={devices=[2,2,2]<=[8] last_tile_dim_replicate}
+  %copy0.d = f32[8,8] copy(%copy0), sharding={devices=[2,1,4]<=[8] last_tile_dim_replicate}
+  ROOT %ffl.root.1 = (f32[1024,1024]{1,0:T(8,128)}, f32[8,8], f32[8,8]) tuple(%dot, %copy0, %copy0.d)
+}

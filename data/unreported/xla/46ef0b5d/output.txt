@@ -1,0 +1,31 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1792010686.285719 3934242 hlo_creation_utils.cc:692] Check failed: n > 0 (-1 vs. 0) 
+*** Check failure stack trace: ***
+    @     0x633255489a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x6332554899e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x63324ea0414b  xla::CollapseFirstNDims()
+    @     0x63324cede352  xla::CanonicalizeScatterIndices()
+    @     0x63324cedc964  xla::ScatterExpander::ExpandInstruction()
+    @     0x63324cf02391  xla::OpExpanderPass::RunImpl()
+    @     0x633251540be7  xla::HloPassInterface::Run()
+    @     0x63324d0be3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x63324d0b97bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x63324d0b8bd5  xla::HloPassPipeline::RunImpl()
+    @     0x63324a00988a  xla::HloPassFix<>::RunOnChangedComputationsOnce()
+    @     0x63324a0090e8  xla::HloPassFix<>::RunToFixPoint()
+    @     0x63324a008df4  xla::HloPassFix<>::RunImpl()
+    @     0x633251540be7  xla::HloPassInterface::Run()
+    @     0x63324d0be3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x63324d0b97bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x63324d0b8bd5  xla::HloPassPipeline::RunImpl()
+    @     0x633251540be7  xla::HloPassInterface::Run()
+    @     0x63324a00cfd2  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x63324a01a06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x633249f4e934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x633249f42e5e  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x633249f40dc7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x6332554da466  main
+    @     0x74b2a3fd4d90  (unknown)
+Aborted (core dumped)

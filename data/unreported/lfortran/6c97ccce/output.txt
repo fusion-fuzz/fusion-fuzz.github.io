@@ -1,0 +1,40 @@
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3149, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 2914, in main_app(int, char**)
+    return emit_llvm(opts.arg_file, lfortran_pass_manager,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 1240, in (anonymous namespace)::emit_llvm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::PassManager&, LCompilers::CompilerOptions&, bool)
+    nullptr);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 782, in LCompilers::FortranEvaluator::get_llvm3(LCompilers::ASR::TranslationUnit_t&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&, LCompilers::LocationManager&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int*)
+    compiler_options, run_fn, "", infile, lm);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_llvm.cpp", line 26589, in LCompilers::asr_to_llvm(LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, llvm::LLVMContext&, LCompilers::LLVMTargetConfig const&, Allocator&, LCompilers::PassManager&, LCompilers::CompilerOptions&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&)
+    pass_manager.apply_passes(al, &asr, co.po, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/pass_manager.h", line 384, in LCompilers::PassManager::apply_passes(Allocator&, LCompilers::ASR::TranslationUnit_t*, LCompilers::PassOptions&, LCompilers::diag::Diagnostics&)
+    apply_passes(al, asr, _passes, pass_options, diagnostics, cummulative_time_taken_by_passes_in_microseconds);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/pass_manager.h", line 208, in LCompilers::PassManager::apply_passes(Allocator&, LCompilers::ASR::TranslationUnit_t*, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >&, LCompilers::PassOptions&, LCompilers::diag::Diagnostics&, double&)
+    _passes_db[passes[i]](al, *asr, pass_options);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/array_struct_temporary.cpp", line 3512, in LCompilers::pass_array_struct_temporary(Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::PassOptions const&)
+    e.visit_TranslationUnit(unit);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_walk_visitor.h", line 30, in LCompilers::ASR::BaseWalkVisitor<LCompilers::VerifySimplifierASROutput>::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&)
+    this->visit_symbol(*a.second);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 380, in LCompilers::ASR::BaseVisitor<LCompilers::VerifySimplifierASROutput>::visit_symbol(LCompilers::ASR::symbol_t const&)
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 30, in void LCompilers::ASR::visit_symbol_t<LCompilers::VerifySimplifierASROutput>(LCompilers::ASR::symbol_t const&, LCompilers::VerifySimplifierASROutput&)
+    case symbolType::Program: { v.visit_Program((const Program_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_walk_visitor.h", line 38, in LCompilers::ASR::BaseWalkVisitor<LCompilers::VerifySimplifierASROutput>::visit_Program(LCompilers::ASR::Program_t const&)
+    self().visit_stmt(*x.m_body[i]);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 397, in LCompilers::ASR::BaseVisitor<LCompilers::VerifySimplifierASROutput>::visit_stmt(LCompilers::ASR::stmt_t const&)
+    void visit_stmt(const stmt_t &b) { visit_stmt_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 87, in void LCompilers::ASR::visit_stmt_t<LCompilers::VerifySimplifierASROutput>(LCompilers::ASR::stmt_t const&, LCompilers::VerifySimplifierASROutput&)
+    case stmtType::IntrinsicImpureSubroutine: { v.visit_IntrinsicImpureSubroutine((const IntrinsicImpureSubroutine_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/array_struct_temporary.cpp", line 3267, in LCompilers::VerifySimplifierASROutput::visit_IntrinsicImpureSubroutine(LCompilers::ASR::IntrinsicImpureSubroutine_t const&)
+    visit_IntrinsicCall(x);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/array_struct_temporary.cpp", line 3263, in void LCompilers::VerifySimplifierASROutput::visit_IntrinsicCall<LCompilers::ASR::IntrinsicImpureSubroutine_t>(LCompilers::ASR::IntrinsicImpureSubroutine_t const&)
+    traverse_args(x.m_args, x.n_args);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/pass/array_struct_temporary.cpp", line 3244, in LCompilers::VerifySimplifierASROutput::traverse_args(LCompilers::ASR::expr_t**, unsigned long)
+    check_for_var_if_array(m_args[i]);
+AssertFailed: ASR::is_a<ASR::Var_t>(*stripped_expr) || ASR::is_a<ASR::StructInstanceMember_t>(*stripped_expr) || ASR::is_a<ASR::UnionInstanceMember_t>(*stripped_expr)

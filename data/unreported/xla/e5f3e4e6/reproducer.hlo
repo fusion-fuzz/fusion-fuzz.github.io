@@ -1,0 +1,46 @@
+HloModule simple
+
+%apply_op {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  ROOT %apply_op = f32[] add(%x, %y)
+}
+
+%wrapped_all-reduce {
+  %param = f32[65536]{0} parameter(0)
+  ROOT %all-reduce = f32[65536]{0} all-reduce(%param), replica_groups={{0,1}}, to_apply=%apply_op
+}
+
+%apply_op.d {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  ROOT %apply_op = f32[] add(%x, %y)
+}
+
+%wrapped_all-reduce.d {
+  %param = f32[65536]{0} parameter(0)
+  ROOT %all-reduce = f32[65536]{0} all-reduce(%param), replica_groups={{0,1}}, to_apply=%apply_op.d
+}
+
+%apply_op.d.1 {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  ROOT %apply_op = f32[] add(%x, %y)
+}
+
+%wrapped_all-reduce.d.1 {
+  %param = f32[65536]{0} parameter(0)
+  ROOT %all-reduce = f32[65536]{0} all-reduce(%param), replica_groups={{0,1}}, to_apply=%apply_op.d.1
+}
+
+ENTRY %main {
+  %p = f32[10]{0} parameter(0)
+  %param = f32[65536]{0} parameter(1)
+  %fusion = f32[65536]{0} fusion(%param), kind=kLoop, calls=%wrapped_all-reduce, backend_config={"fusion_backend_config":{"kind":"__triton_collective","block_level_fusion_config":{"num_warps":"16","output_tiles":[{"sizes":["4096"]}],"num_ctas":1,"num_stages":1,"is_tma_allowed":false,"is_warp_specialization_allowed":false}}}
+  %neg = f32[10]{0} negate(p)
+  %ffl.root = (f32[10]{0}, f32[65536]{0}) tuple(%neg, %fusion)
+  %fusion.d = f32[65536]{0} fusion(%fusion), kind=kLoop, calls=%wrapped_all-reduce.d, backend_config={"fusion_backend_config":{"kind":"__triton_collective","block_level_fusion_config":{"num_warps":"16","output_tiles":[{"sizes":["4096"]}],"num_ctas":1,"num_stages":1,"is_tma_allowed":false,"is_warp_specialization_allowed":false}}}
+  %ffl.root.1 = (f32[10]{0}, f32[65536]{0}, f32[65536]{0}) tuple(%neg, %fusion, %fusion.d)
+  %ffl.call = f32[65536]{0} call(%fusion.d), to_apply=%wrapped_all-reduce.d.1
+  ROOT %ffl.root.2 = (f32[10]{0}, f32[65536]{0}, f32[65536]{0}, f32[65536]{0}) tuple(%neg, %fusion, %fusion.d, %ffl.call)
+}

@@ -1,0 +1,93 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0pkfa4if/8da8a23d.mm:49:30: error: unsafe_unretained property 'p2' may not also be declared __weak
+   49 | @property (assign) __weak id p2;
+      |                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0pkfa4if/8da8a23d.mm:24:11: error: cannot create __weak reference in file using manual reference counting
+   24 | __weak B *f2;
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0pkfa4if/8da8a23d.mm:59:18: error: cannot create __weak reference in file using manual reference counting
+   59 | @synthesize p2 = _p2;
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0pkfa4if/8da8a23d.mm:18:12: warning: class 'A' defined without specifying a base class [-Wobjc-root-class]
+   18 | @interface A {
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0pkfa4if/8da8a23d.mm:18:13: note: add a super class to fix this problem
+   18 | @interface A {
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0pkfa4if/8da8a23d.mm:80:12: warning: class 'NSFileLocationComponent' defined without specifying a base class [-Wobjc-root-class]
+   80 | @interface NSFileLocationComponent {
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0pkfa4if/8da8a23d.mm:80:35: note: add a super class to fix this problem
+   80 | @interface NSFileLocationComponent {
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0pkfa4if/8da8a23d.mm:153:7: error: cannot create __weak reference in file using manual reference counting
+  153 |       __weak id _weakref;
+      |       ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/include/llvm/IR/DataLayout.h:775: llvm::TypeSize llvm::StructLayout::getElementOffset(unsigned int) const: Assertion `Idx < NumElements && "Invalid element idx!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O3 -std=c++03 -fblocks -fobjc-runtime=ios-7 -fno-objc-arc -fno-elide-constructors -fno-strict-aliasing -Wextra -target x86_64-apple-darwin10 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0pkfa4if/8da8a23d.mm
+1.	<eof> parser at end of file
+2.	Per-file LLVM IR generation
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0pkfa4if/8da8a23d.mm:150:3: Generating code for declaration '(unnamed struct)::(unnamed struct at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0pkfa4if/8da8a23d.mm:150:3)'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000062b7215cd329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000062b7215c9fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000062b7215ca8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000062b72150c218
+4  libc.so.6 0x00007a0cdeadf520
+5  libc.so.6 0x00007a0cdeb339bc pthread_kill + 300
+6  libc.so.6 0x00007a0cdeadf476 raise + 22
+7  libc.so.6 0x00007a0cdeac57f3 abort + 211
+8  libc.so.6 0x00007a0cdeac571b
+9  libc.so.6 0x00007a0cdead6e96
+10 clang++   0x000062b721a77a77
+11 clang++   0x000062b721a886d1
+12 clang++   0x000062b721aa27a6 clang::CodeGen::CodeGenFunction::EmitLValueForField(clang::CodeGen::LValue, clang::FieldDecl const*, bool) + 1350
+13 clang++   0x000062b721aa797e clang::CodeGen::CodeGenFunction::EmitLValueForFieldInitialization(clang::CodeGen::LValue, clang::FieldDecl const*) + 254
+14 clang++   0x000062b72200013f
+15 clang++   0x000062b722004f7d
+16 clang++   0x000062b722010e34 clang::CodeGen::CodeGenFunction::EmitCtorPrologue(clang::CXXConstructorDecl const*, clang::CXXCtorType, clang::CodeGen::FunctionArgList&) + 3172
+17 clang++   0x000062b722015490 clang::CodeGen::CodeGenFunction::EmitConstructorBody(clang::CodeGen::FunctionArgList&) + 320
+18 clang++   0x000062b721ce419d clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 3389
+19 clang++   0x000062b721fc24b4 clang::CodeGen::CodeGenModule::codegenCXXStructor(clang::GlobalDecl) + 436
+20 clang++   0x000062b721dd17b6
+21 clang++   0x000062b721d46e8e clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 366
+22 clang++   0x000062b721d554c7 clang::CodeGen::CodeGenModule::EmitDeferred() + 423
+23 clang++   0x000062b721d553e8 clang::CodeGen::CodeGenModule::EmitDeferred() + 200
+24 clang++   0x000062b721d582f4 clang::CodeGen::CodeGenModule::Release() + 116
+25 clang++   0x000062b7220f6afe
+26 clang++   0x000062b7220f4065 clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 997
+27 clang++   0x000062b723dc384c clang::ParseAST(clang::Sema&, bool, bool) + 1068
+28 clang++   0x000062b722464061 clang::FrontendAction::Execute() + 65
+29 clang++   0x000062b7223ede65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+30 clang++   0x000062b72253bde3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+31 clang++   0x000062b71f39733e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+32 clang++   0x000062b71f38d13a
+33 clang++   0x000062b71f38d2cf
+34 clang++   0x000062b722172cfd
+35 clang++   0x000062b72150c630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+36 clang++   0x000062b722173b53
+37 clang++   0x000062b722128607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+38 clang++   0x000062b72212cef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+39 clang++   0x000062b72213b004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+40 clang++   0x000062b71f392923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+41 clang++   0x000062b71f2ce7f1 main + 113
+42 libc.so.6 0x00007a0cdeac6d90
+43 libc.so.6 0x00007a0cdeac6e40 __libc_start_main + 128
+44 clang++   0x000062b71f38c765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-apple-darwin10
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/8da8a23d-7182dc.mm
+clang++: note: diagnostic msg: /tmp/8da8a23d-7182dc.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

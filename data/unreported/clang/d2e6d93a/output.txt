@@ -1,0 +1,103 @@
+[... 70 lines omitted ...]
+    8 | #define __device__ __attribute__((device))
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm:244:1: warning: 'device' attribute ignored [-Wignored-attributes]
+  244 | __device__ _BitInt(55) Int55 = 31;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm:8:35: note: expanded from macro '__device__'
+    8 | #define __device__ __attribute__((device))
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm:245:1: warning: 'device' attribute ignored [-Wignored-attributes]
+  245 | __device__ _BitInt(44) Int44 = 312;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm:8:35: note: expanded from macro '__device__'
+    8 | #define __device__ __attribute__((device))
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm:246:1: warning: 'device' attribute ignored [-Wignored-attributes]
+  246 | __device__ _BitInt(128) Int128 = 45637;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm:8:35: note: expanded from macro '__device__'
+    8 | #define __device__ __attribute__((device))
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm:391:1: warning: 'device' attribute ignored [-Wignored-attributes]
+  391 | __device__ const
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm:275:35: note: expanded from macro '__device__'
+  275 | #define __device__ __attribute__((device))
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm:500:1: warning: 'device' attribute ignored [-Wignored-attributes]
+  500 | __device__ int foo3() {
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm:275:35: note: expanded from macro '__device__'
+  275 | #define __device__ __attribute__((device))
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm:501:3: warning: 'shared' attribute ignored [-Wignored-attributes]
+  501 |   __shared__ int s;
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm:276:35: note: expanded from macro '__shared__'
+  276 | #define __shared__ __attribute__((shared))
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm:593:1: warning: 'device' attribute ignored [-Wignored-attributes]
+  593 | __device__ int foo4() {
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm:275:35: note: expanded from macro '__device__'
+  275 | #define __device__ __attribute__((device))
+      |                                   ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/CodeGen/SelectionDAG/SelectionDAG.cpp:7319: llvm::SDValue llvm::SelectionDAG::getNode(unsigned int, const llvm::SDLoc &, llvm::EVT, llvm::SDValue, const llvm::SDNodeFlags): Assertion `VT.isInteger() && N1.getValueType().isInteger() && "Invalid ANY_EXTEND!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O3 -fblocks -fobjc-runtime=macosx-10.14 -fno-objc-arc -target aarch64-pc-windows -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm
+1.	<eof> parser at end of file
+2.	Code generation
+3.	Running pass 'Function Pass Manager' on module '/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzqcunv7k/c5d8fc5c.mm'.
+4.	Running pass 'AArch64 Instruction Selection' on function '@"?foo3@@YA?BHXZ"'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00006405dd6078cb __interceptor_backtrace + 91
+1  clang++   0x00006405e32b5037 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00006405e32aed03 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00006405e32b39d4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00006405e30ff0d5
+5  clang++   0x00006405e30ff8e3
+6  libc.so.6 0x00007bb0e783e520
+7  libc.so.6 0x00007bb0e78929bc pthread_kill + 300
+8  libc.so.6 0x00007bb0e783e476 raise + 22
+9  libc.so.6 0x00007bb0e78247f3 abort + 211
+10 libc.so.6 0x00007bb0e782471b
+11 libc.so.6 0x00007bb0e7835e96
+12 clang++   0x00006405e6e0d63a llvm::SelectionDAG::getNode(unsigned int, llvm::SDLoc const&, llvm::EVT, llvm::SDValue, llvm::SDNodeFlags) + 23306
+13 clang++   0x00006405e6daf221 llvm::SelectionDAG::getNode(unsigned int, llvm::SDLoc const&, llvm::EVT, llvm::SDValue) + 337
+14 clang++   0x00006405debe3b96
+15 clang++   0x00006405e6ceb082 llvm::TargetLowering::LowerCallTo(llvm::TargetLowering::CallLoweringInfo&) const + 21042
+16 clang++   0x00006405e6d4beb8 llvm::SelectionDAGBuilder::lowerInvokable(llvm::TargetLowering::CallLoweringInfo&, llvm::BasicBlock const*) + 488
+17 clang++   0x00006405e6cfe62b llvm::SelectionDAGBuilder::LowerCallTo(llvm::CallBase const&, llvm::SDValue, bool, bool, llvm::BasicBlock const*, llvm::TargetLowering::PtrAuthInfo const*) + 5035
+18 clang++   0x00006405e6cbe14d llvm::SelectionDAGBuilder::visitCall(llvm::CallInst const&) + 2301
+19 clang++   0x00006405e6c9b530 llvm::SelectionDAGBuilder::visit(llvm::Instruction const&) + 1040
+20 clang++   0x00006405e6ef21db llvm::SelectionDAGISel::SelectBasicBlock(llvm::ilist_iterator_w_bits<llvm::ilist_detail::node_options<llvm::Instruction, true, false, void, true, llvm::BasicBlock>, false, true>, llvm::ilist_iterator_w_bits<llvm::ilist_detail::node_options<llvm::Instruction, true, false, void, true, llvm::BasicBlock>, false, true>, bool&) + 603
+21 clang++   0x00006405e6eef958 llvm::SelectionDAGISel::SelectAllBasicBlocks(llvm::Function const&) + 17096
+22 clang++   0x00006405e6ee7d77 llvm::SelectionDAGISel::runOnMachineFunction(llvm::MachineFunction&) + 2359
+23 clang++   0x00006405e6ee2e33 llvm::SelectionDAGISelLegacy::runOnMachineFunction(llvm::MachineFunction&) + 835
+24 clang++   0x00006405e1122235 llvm::MachineFunctionPass::runOnFunction(llvm::Function&) + 1333
+25 clang++   0x00006405e22c659e llvm::FPPassManager::runOnFunction(llvm::Function&) + 2030
+26 clang++   0x00006405e22dbb84 llvm::FPPassManager::runOnModule(llvm::Module&) + 276
+27 clang++   0x00006405e22c89e3 llvm::legacy::PassManagerImpl::run(llvm::Module&) + 6291
+28 clang++   0x00006405e61de24f llvm::runCodeGenPipeline(llvm::TargetMachine&, llvm::Module&, llvm::raw_pwrite_stream&, std::unique_ptr<llvm::ToolOutputFile, std::default_delete<llvm::ToolOutputFile>>&, llvm::CodeGenFileType, bool, bool, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) + 3231
+29 clang++   0x00006405e3e31c67
+30 clang++   0x00006405e3e2cd78 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 6936
+31 clang++   0x00006405e5000c28 clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 4744
+32 clang++   0x00006405e980ff74 clang::ParseAST(clang::Sema&, bool, bool) + 1716
+33 clang++   0x00006405e50082ab clang::CodeGenAction::ExecuteAction() + 1771
+34 clang++   0x00006405e56c652e clang::FrontendAction::Execute() + 222
+35 clang++   0x00006405e5557900 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+36 clang++   0x00006405e58ab2df clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 751
+37 clang++   0x00006405dd69d3e6 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4390
+38 clang++   0x00006405dd691349
+39 clang++   0x00006405dd69b887
+40 clang++   0x00006405e512ed37
+41 clang++   0x00006405e30fee8d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+42 clang++   0x00006405e512c23a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+43 clang++   0x00006405e507cbbc clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+44 clang++   0x00006405e507e34b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+45 clang++   0x00006405e50cd940 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+46 clang++   0x00006405dd68f777 clang_main(int, char**, llvm::ToolContext const&) + 12295
+47 clang++   0x00006405dd6bf0f7 main 
+[... truncated ...]

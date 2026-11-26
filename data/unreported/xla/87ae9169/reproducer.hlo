@@ -1,0 +1,51 @@
+HloModule module, num_partitions=2
+
+%apply_op {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  ROOT %apply_op = f32[] add(x, y)
+}
+
+%apply_op.d {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  ROOT %apply_op = f32[] add(x, y)
+}
+
+%apply_op.d.1 {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  ROOT %apply_op = f32[] add(x, y)
+}
+
+ENTRY %entry {
+  %lhs = f8e4m3fn[16,128]{1,0} parameter(0), sharding={devices=[1,2]<=[2]}
+  %lhs_scale = f8e8m0fnu[16,4]{1,0} parameter(1), sharding={devices=[1,2]<=[2]}
+  %rhs = f8e4m3fn[4,128]{1,0} parameter(2), sharding={replicated}
+  %rhs_scale = f8e8m0fnu[4,4]{1,0} parameter(3), sharding={replicated}
+  %block_scaled_dot = f32[16,4]{1,0} custom-call(lhs, rhs, lhs_scale, rhs_scale), custom_call_target="__op$block_scaled_dot", sharding={devices=[2,1]<=[2]}
+  %p0 = f32[32] parameter(4)
+  %p1 = f32[32, 32] parameter(5)
+  %p2 = f32[32, 32] parameter(6)
+  %p3 = f32[32] parameter(7)
+  %dot0 = f32[32,32]{1,0} custom-call(%p1, %p2), custom_call_target="__cublas$gemm"
+  %dot1 = f32[32,32]{1,0} custom-call(%p1, %p2), custom_call_target="__cublas$gemm"
+  %add0 = f32[32,32] add(%dot0, %dot1)
+  %ar-start = f32[32] all-reduce-start(%p0), to_apply=%apply_op
+  %ar-done = f32[32] all-reduce-done(%ar-start)
+  %ar-start1 = f32[32] all-reduce-start(%rhs_scale), to_apply=%apply_op
+  %ar-done1 = f32[32] all-reduce-done(%ar-start1)
+  %t = (f32[32], f32[32], f32[32,32]) tuple(%ar-done, %ar-done1, %add0)
+  %ffl.root = (f32[16,4]{1,0}, (f32[32], f32[32], f32[32,32])) tuple(%block_scaled_dot, %t)
+  %dot0.d = f32[32,32]{1,0} custom-call(%add0, %add0), custom_call_target="__cublas$gemm"
+  %dot1.d = f32[32,32]{1,0} custom-call(%add0, %add0), custom_call_target="__cublas$gemm"
+  %add0.d = f32[32,32] add(%dot0.d, %dot1.d)
+  %ar-start.d = f32[32] all-reduce-start(%p0), to_apply=%apply_op.d
+  %ar-done.d = f32[32] all-reduce-done(%ar-start.d)
+  %ar-start1.d = f32[32] all-reduce-start(%ar-start), to_apply=%apply_op.d
+  %ar-done1.d = f32[32] all-reduce-done(%ar-start1.d)
+  %t.d = (f32[32], f32[32], f32[32,32]) tuple(%ar-done.d, %ar-done1.d, %add0.d)
+  %ffl.root.1 = (f32[16,4]{1,0}, (f32[32], f32[32], f32[32,32]), (f32[32], f32[32], f32[32,32])) tuple(%block_scaled_dot, %t, %t.d)
+  %ffl.call = f32[] call(%t, %ffl.root.1), to_apply=%apply_op.d.1
+  ROOT %ffl.root.2 = (f32[16,4]{1,0}, (f32[32], f32[32], f32[32,32]), (f32[32], f32[32], f32[32,32]), f32[]) tuple(%block_scaled_dot, %t, %t.d, %ffl.call)
+}

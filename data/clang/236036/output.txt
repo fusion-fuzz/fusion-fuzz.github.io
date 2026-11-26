@@ -1,0 +1,39 @@
+clang++: warning: argument unused during compilation: '--gcc-toolchain=/opt/compiler-explorer/gcc-snapshot' [-Wunused-command-line-argument]
+clang-24: /root/llvm-project/llvm/tools/clang/lib/CodeGen/CodeGenModule.cpp:5262: clang::CodeGen::CodeGenModule::emitMultiVersionFunctions()::<lambda(const clang::FunctionDecl*)>: Assertion `getTarget().getTriple().isX86() && "Unsupported target"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24 -cc1 -triple powerpc64-ibm-aix -emit-obj -dumpdir /app/output.s- -disable-free -clear-ast-before-backend -main-file-name example.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -fno-verbose-asm -mconstructor-aliases -fxl-pragma-pack -fno-sized-deallocation -target-cpu pwr7 -target-feature +modern-aix-as -mfloat-abi hard -gstrict-dwarf -gno-column-info -debug-info-kind=constructor -dwarf-version=3 -fdebug-compilation-dir=/app -fdata-sections -fcoverage-compilation-dir=/app -resource-dir /cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/lib/clang/24 -internal-isystem /opt/IBM/openxlCSDK/include/c++/v1 -D__LIBC_NO_CPP_MATH_OVERLOADS__ -internal-isystem /cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/lib/clang/24/include/ppc_wrappers -internal-isystem /cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/lib/clang/24/include -internal-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fno-signed-char -fno-use-cxa-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fcolor-diagnostics -o /tmp/example-c2244f.o -x c++ <source>
+1.	<eof> parser at end of file
+2.	Per-file LLVM IR generation
+ #0 0x0000000004eb08c8 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x4eb08c8)
+ #1 0x0000000004eadb24 llvm::sys::RunSignalHandlers() (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x4eadb24)
+ #2 0x0000000004eadc9e SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x0000000004eadd48 SignalHandlerTerminate(int, siginfo_t*, void*) Signals.cpp:0:0
+ #4 0x0000725425a45330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x0000725425a9ec0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #6 0x0000725425a4527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x0000725425a288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x0000725425a2881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x0000725425a3b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x000000000562c52f clang::CodeGen::CodeGenModule::emitMultiVersionFunctions()::'lambda0'(clang::FunctionDecl const*)::operator()(clang::FunctionDecl const*) const CodeGenModule.cpp:0:0
+#11 0x0000000009f47fdd clang::ASTContext::forEachMultiversionedFunctionVersion(clang::FunctionDecl const*, llvm::function_ref<void (clang::FunctionDecl*)>) const (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x9f47fdd)
+#12 0x0000000005633df0 clang::CodeGen::CodeGenModule::emitMultiVersionFunctions() (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x5633df0)
+#13 0x0000000005637190 clang::CodeGen::CodeGenModule::Release() (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x5637190)
+#14 0x00000000059a92de (anonymous namespace)::CodeGeneratorImpl::HandleTranslationUnit(clang::ASTContext&) ModuleBuilder.cpp:0:0
+#15 0x00000000059a5855 clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x59a5855)
+#16 0x0000000008ec725c clang::ParseAST(clang::Sema&, bool, bool) (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x8ec725c)
+#17 0x00000000059a5f98 clang::CodeGenAction::ExecuteAction() (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x59a5f98)
+#18 0x0000000005ccdbe8 clang::FrontendAction::Execute() (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x5ccdbe8)
+#19 0x0000000005c5a9ed clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x5c5a9ed)
+#20 0x0000000005da4123 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x5da4123)
+#21 0x0000000001719648 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x1719648)
+#22 0x000000000171052a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#23 0x00000000017148ce clang_main(int, char**, llvm::ToolContext const&) (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x17148ce)
+#24 0x0000000001683853 main (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x1683853)
+#25 0x0000725425a2a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#26 0x0000725425a2a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#27 0x000000000170fed5 _start (/cefs/78/783da2444acfa3fc350a1144_clang-assertions-trunk-20261026/bin/clang-24+0x170fed5)
+clang++: error: unable to execute command: Aborted (core dumped)
+clang++: error: clang frontend command failed with exit code -2 (use -v to see invocation)
+Program terminated with signal SIGABRT (6)
+x86-64 clang (assertions trunk) - 399ms

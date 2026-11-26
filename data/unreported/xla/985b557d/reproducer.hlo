@@ -1,0 +1,33 @@
+HloModule m
+
+max2 {
+  a = f32[] parameter(0)
+  b = f32[] parameter(1)
+  ROOT m = f32[] maximum(a, b)
+}
+
+ENTRY e {
+  input = f8e4m3fn[1,128,6,6] parameter(0)
+  filter = f8e4m3fn[3,3,128,16] parameter(1)
+  input_f32 = f32[1,128,6,6] convert(input)
+  filter_f32 = f32[3,3,128,16] convert(filter)
+  conv_a = f32[1,16,6,6] convolution(input_f32, filter_f32), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_01io->bf01
+  z = f32[] parameter(2)
+  z_bcast = f32[1,16,6,6] broadcast(z), dimensions={}
+  scaled_a = f32[1,16,6,6] multiply(conv_a, z_bcast)
+  lo = f32[] constant(-448)
+  lo_bcast = f32[1,16,6,6] broadcast(lo), dimensions={}
+  hi = f32[] constant(448)
+  hi_bcast = f32[1,16,6,6] broadcast(hi), dimensions={}
+  clamped_a = f32[1,16,6,6] clamp(lo_bcast, scaled_a, hi_bcast)
+  out_a = f8e4m3fn[1,16,6,6] convert(clamped_a)
+  ninf = f32[] constant(-inf)
+  input_b = f8e4m3fn[1,128,6,6] parameter(3)
+  filter_b = f8e4m3fn[3,3,128,16] parameter(4)
+  input_b_f32 = f32[1,128,6,6] convert(input_b)
+  filter_b_f32 = f32[3,3,128,16] convert(filter_b)
+  conv_b = f32[1,16,6,6] convolution(input_b_f32, filter_b_f32), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_01io->bf01
+  abs_b = f32[1,16,6,6] abs(conv_b)
+  amax_b = f32[] reduce(abs_b, ninf), dimensions={0,1,2,3}, to_apply=max2
+  ROOT r = (f8e4m3fn[1,16,6,6], f32[1,16,6,6], f32[]) tuple(out_a, clamped_a, amax_b)
+}

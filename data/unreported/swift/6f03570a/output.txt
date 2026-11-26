@@ -1,0 +1,78 @@
+Abort: function verify at Mangler.cpp:190
+Remangling failed:
+original     = $s4main1AVyxGRi_zRi0_zlyxIsgy_Iegg_xRi_zRi0_zlyACyxGIsgn_Iegg_SiRVzlTR
+remangled    = $s4main1AVyxGRi_zRi0_zlyxIsgy_Iegg_xRi_zRi0_zlyADIsgn_Iegg_SiRVzlTR
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -c -Onone -sil-verify-all /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpsqz3zfy8/261b6abe.swift
+1.	Swift version 6.5-dev (LLVM 449e14042c067af, Swift 3c721e148da715b)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module main)
+4.	While silgen visitDecl 'A' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpsqz3zfy8/261b6abe.swift:25:1)
+5.	While generating SIL witness table protocol conformance A<N>: P at 'A' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpsqz3zfy8/261b6abe.swift:25:1)
+6.	While generating protocol witness thunk SIL function "@$s4main1AVyxGAA1PA2aEP24covariantSelfPropClosureyyyxXEcvgTW".
+ for getter for covariantSelfPropClosure (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpsqz3zfy8/261b6abe.swift:26:9)
+7.	Abort: function verify at Mangler.cpp:190
+| 	Remangling failed:
+| 	original     = $s4main1AVyxGRi_zRi0_zlyxIsgy_Iegg_xRi_zRi0_zlyACyxGIsgn_Iegg_SiRVzlTR
+| 	remangled    = $s4main1AVyxGRi_zRi0_zlyxIsgy_Iegg_xRi_zRi0_zlyADIsgn_Iegg_SiRVzlTR
+ #0 0x000055bbc000b8bb llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x92388bb)
+ #1 0x000055bbc00087a1 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x92357a1)
+ #2 0x000055bbc000c66b SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007401f7893330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007401f78ecc0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007401f789327e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007401f78768ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000055bbb9f3e572 (/usr/bin/swift-frontend+0x316b572)
+ #8 0x000055bbb9f3e65c (/usr/bin/swift-frontend+0x316b65c)
+ #9 0x000055bbb9f5419b swift::Mangle::Mangler::verify(llvm::StringRef, swift::Mangle::ManglingFlavor) (/usr/bin/swift-frontend+0x318119b)
+#10 0x000055bbb9f53d77 swift::Mangle::Mangler::finalize[abi:cxx11]() (/usr/bin/swift-frontend+0x3180d77)
+#11 0x000055bbb99ac07f swift::Mangle::ASTMangler::mangleReabstractionThunkHelper[abi:cxx11](swift::CanTypeWrapper<swift::SILFunctionType>, swift::Type, swift::Type, swift::Type, swift::Type, swift::ModuleDecl*) (/usr/bin/swift-frontend+0x2bd907f)
+#12 0x000055bbb82c08e5 swift::Lowering::SILGenModule::getOrCreateReabstractionThunk(swift::CanTypeWrapper<swift::SILFunctionType>, swift::CanTypeWrapper<swift::SILFunctionType>, swift::CanTypeWrapper<swift::SILFunctionType>, swift::CanType, swift::CanType) crtstuff.c:0:0
+#13 0x000055bbb828f540 createThunk(swift::Lowering::SILGenFunction&, swift::SILLocation, swift::Lowering::ManagedValue, swift::Lowering::AbstractionPattern, swift::CanTypeWrapper<swift::AnyFunctionType>, swift::Lowering::AbstractionPattern, swift::CanTypeWrapper<swift::AnyFunctionType>, swift::Lowering::TypeLowering const&) SILGenPoly.cpp:0:0
+#14 0x000055bbb8281b07 (anonymous namespace)::Transform::transform(swift::Lowering::ManagedValue, swift::Lowering::AbstractionPattern, swift::CanType, swift::Lowering::AbstractionPattern, swift::CanType, swift::SILType, swift::Lowering::SGFContext) SILGenPoly.cpp:0:0
+#15 0x000055bbb82a6109 (anonymous namespace)::ResultPlanner::execute(llvm::SmallVectorImpl<swift::SILValue>&, llvm::SmallVectorImpl<swift::SILValue>&)::$_2::operator()((anonymous namespace)::ResultPlanner::Operation&, bool, bool) const SILGenPoly.cpp:0:0
+#16 0x000055bbb8287d54 (anonymous namespace)::ResultPlanner::execute(swift::SILValue, swift::CanTypeWrapper<swift::SILFunctionType>) SILGenPoly.cpp:0:0
+#17 0x000055bbb828b6f4 swift::Lowering::SILGenFunction::emitProtocolWitness(swift::Lowering::AbstractionPattern, swift::CanTypeWrapper<swift::AnyFunctionType>, swift::SILDeclRef, swift::SubstitutionMap, swift::SILDeclRef, swift::SubstitutionMap, swift::Lowering::IsFreeFunctionWitness_t, bool, bool, std::optional<swift::ActorIsolation>) crtstuff.c:0:0
+#18 0x000055bbb82ca893 swift::Lowering::SILGenModule::emitProtocolWitness(swift::ProtocolConformanceRef, swift::SILLinkage, swift::SerializedKind_t, swift::SILDeclRef, swift::SILDeclRef, swift::Lowering::IsFreeFunctionWitness_t, swift::Witness) crtstuff.c:0:0
+#19 0x000055bbb82cf431 (anonymous namespace)::SILGenWitnessTable<(anonymous namespace)::SILGenConformance>::addMethodImplementation(swift::SILDeclRef, swift::SILDeclRef, swift::Witness) SILGenType.cpp:0:0
+#20 0x000055bbb82cecf3 (anonymous namespace)::SILGenWitnessTable<(anonymous namespace)::SILGenConformance>::addMethod(swift::SILDeclRef) SILGenType.cpp:0:0
+#21 0x000055bbb82ce895 void llvm::function_ref<void (swift::AccessorDecl*)>::callback_fn<swift::SILWitnessVisitor<(anonymous namespace)::SILGenConformance>::visitAbstractStorageDecl(swift::AbstractStorageDecl*)::'lambda'(swift::AccessorDecl*)>(long, swift::AccessorDecl*) SILGenType.cpp:0:0
+#22 0x000055bbb9ab813b swift::AbstractStorageDecl::visitExpectedOpaqueAccessors(llvm::function_ref<void (swift::AccessorKind)>) const (/usr/bin/swift-frontend+0x2ce513b)
+#23 0x000055bbb9ab7f9e swift::AbstractStorageDecl::visitOpaqueAccessors(llvm::function_ref<void (swift::AccessorDecl*)>) const (/usr/bin/swift-frontend+0x2ce4f9e)
+#24 0x000055bbb82ce233 swift::SILWitnessVisitor<(anonymous namespace)::SILGenConformance>::visitProtocolDecl(swift::ProtocolDecl*) SILGenType.cpp:0:0
+#25 0x000055bbb82c8c4e swift::Lowering::SILGenModule::getWitnessTable(swift::RootProtocolConformance*) crtstuff.c:0:0
+#26 0x000055bbb82cd800 (anonymous namespace)::SILGenType::emitType() SILGenType.cpp:0:0
+#27 0x000055bbb82ccff8 swift::Lowering::SILGenModule::visitNominalTypeDecl(swift::NominalTypeDecl*) crtstuff.c:0:0
+#28 0x000055bbb818f2c1 swift::Lowering::SILGenModule::emitSourceFile(swift::SourceFile*) crtstuff.c:0:0
+#29 0x000055bbb818f9d4 swift::ASTLoweringRequest::evaluate(swift::Evaluator&, swift::ASTLoweringDescriptor) const (/usr/bin/swift-frontend+0x13bc9d4)
+#30 0x000055bbb82b1027 swift::SimpleRequest<swift::ASTLoweringRequest, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>> (swift::ASTLoweringDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::ASTLoweringRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#31 0x000055bbb819548d swift::ASTLoweringRequest::OutputType swift::Evaluator::getResultUncached<swift::ASTLoweringRequest, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()>(swift::ASTLoweringRequest const&, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#32 0x000055bbb819520c swift::ASTLoweringRequest::OutputType swift::Evaluator::getResultUncached<swift::ASTLoweringRequest, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()>(swift::ASTLoweringRequest const&, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()) crtstuff.c:0:0
+#33 0x000055bbb8190124 swift::performASTLowering(swift::ModuleDecl*, swift::Lowering::TypeConverter&, swift::SILOptions const&, swift::IRGenOptions const*) (/usr/bin/swift-frontend+0x13bd124)
+#34 0x000055bbb7acebaf swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xcfbbaf)
+#35 0x000055bbb7aecb61 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#36 0x000055bbb7ad61ed performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#37 0x000055bbb7ad1468 swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcfe468)
+#38 0x000055bbb7778aab swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9a5aab)
+#39 0x00007401f78781ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#40 0x00007401f787828b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#41 0x000055bbb7777b35 _start (/usr/bin/swift-frontend+0x9a4b35)
+
+*** Signal 6: Backtracing from 0x7401f797552d... done ***
+
+*** Program crashed: Aborted at 0x00007401f797552d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.5 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007401f797552d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007401f797552d  48 3d 01 f0 ff ff 73 01 c
+[... truncated ...]

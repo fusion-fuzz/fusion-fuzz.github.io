@@ -1,0 +1,43 @@
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /usr/lib/llvm-22/bin/flang -fc1 -triple x86_64-pc-linux-gnu -S -ffree-form -mrelocation-model pic -pic-level 2 -pic-is-pie -target-cpu x86-64 -std=f2018 -resource-dir /usr/lib/llvm-22/lib/clang/22 -mframe-pointer=all -O0 -o /dev/null -x f95 /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpmly41ign/802f1d99.f90
+ #0 0x00007f66e1438d5f llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc7d5f)
+ #1 0x00007f66e14365d7 llvm::sys::RunSignalHandlers() (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc55d7)
+ #2 0x00007f66e1439b2a (/usr/lib/llvm-22/lib/libLLVM.so.22.1+0x4dc8b2a)
+ #3 0x00007f66dc10d330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00005594dfd43e92 Fortran::semantics::ModFileReader::Read(Fortran::parser::CharBlock, std::optional<bool>, Fortran::semantics::Scope*, bool) (/usr/lib/llvm-22/bin/flang+0x13e5e92)
+ #5 0x00005594dfcbfb40 Fortran::semantics::ModuleVisitor::FindModule(Fortran::parser::Name const&, std::optional<bool>, Fortran::semantics::Scope*) (/usr/lib/llvm-22/bin/flang+0x1361b40)
+ #6 0x00005594dfcbfa5f Fortran::semantics::ModuleVisitor::Pre(Fortran::parser::UseStmt const&) (/usr/lib/llvm-22/bin/flang+0x1361a5f)
+ #7 0x00005594dfd24c60 (/usr/lib/llvm-22/bin/flang+0x13c6c60)
+ #8 0x00005594dfce60aa Fortran::semantics::ResolveNamesVisitor::Pre(Fortran::parser::SpecificationPart const&) (/usr/lib/llvm-22/bin/flang+0x13880aa)
+ #9 0x00005594dfce9b14 Fortran::semantics::ResolveNamesVisitor::ResolveSpecificationParts(Fortran::semantics::ProgramTree&) (/usr/lib/llvm-22/bin/flang+0x138bb14)
+#10 0x00005594dfce9989 Fortran::semantics::ResolveNamesVisitor::Pre(Fortran::parser::ProgramUnit const&) (/usr/lib/llvm-22/bin/flang+0x138b989)
+#11 0x00005594dfd38dd8 (/usr/lib/llvm-22/bin/flang+0x13dadd8)
+#12 0x00005594dfcebb33 Fortran::semantics::ResolveNames(Fortran::semantics::SemanticsContext&, Fortran::parser::Program const&, Fortran::semantics::Scope&) (/usr/lib/llvm-22/bin/flang+0x138db33)
+#13 0x00005594dfdd900f Fortran::semantics::Semantics::Perform() (/usr/lib/llvm-22/bin/flang+0x147b00f)
+#14 0x00005594df52891e Fortran::frontend::FrontendAction::runSemanticChecks() (/usr/lib/llvm-22/bin/flang+0xbca91e)
+#15 0x00005594df52d7da Fortran::frontend::CodeGenAction::beginSourceFileAction() (/usr/lib/llvm-22/bin/flang+0xbcf7da)
+#16 0x00005594df527f9e Fortran::frontend::FrontendAction::beginSourceFile(Fortran::frontend::CompilerInstance&, Fortran::frontend::FrontendInputFile const&) (/usr/lib/llvm-22/bin/flang+0xbc9f9e)
+#17 0x00005594df50fe7f Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) (/usr/lib/llvm-22/bin/flang+0xbb1e7f)
+#18 0x00005594df52cba0 Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) (/usr/lib/llvm-22/bin/flang+0xbceba0)
+#19 0x00005594df50dd34 fc1_main(llvm::ArrayRef<char const*>, char const*) (/usr/lib/llvm-22/bin/flang+0xbafd34)
+#20 0x00005594df50cfa4 main (/usr/lib/llvm-22/bin/flang+0xbaefa4)
+#21 0x00007f66dc0f21ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#22 0x00007f66dc0f228b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#23 0x00005594df50bf45 _start (/usr/lib/llvm-22/bin/flang+0xbadf45)
+flang-22: error: unable to execute command: Segmentation fault (core dumped)
+flang-22: error: flang frontend command failed due to signal (use -v to see invocation)
+Ubuntu flang version 22.1.8 (++20260613092238+e80beda6e255-1~exp1~20260613092253.78)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/llvm-22/bin
+flang-22: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING FILES TO THE BUG REPORT:
+Preprocessed source(s) and associated run script(s) are located at:
+flang-22: note: diagnostic msg: /tmp/802f1d99-91007b
+flang-22: note: diagnostic msg: /tmp/802f1d99-91007b.sh
+flang-22: note: diagnostic msg: 
+
+********************

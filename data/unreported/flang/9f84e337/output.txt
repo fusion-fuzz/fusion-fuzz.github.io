@@ -1,0 +1,38 @@
+
+fatal internal error: CHECK(currStmt_.has_value()) failed at /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-project/flang/lib/Semantics/unparse-with-symbols.cpp(137)
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/flang/llvm-flang-build/bin/flang -fc1 -fdebug-unparse-with-symbols -O0 -ffree-form -fopenacc -falternative-parameter-statement /home/fuzz/WorkSpace/fusion-fuzz/.fused/flang/tmpaoq0m5en/5a5a274b.f90
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  flang     0x000057ca5624333a ___interceptor_backtrace + 74
+1  flang     0x000057ca5875d833 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 323
+2  flang     0x000057ca58757677 llvm::sys::RunSignalHandlers() + 455
+3  flang     0x000057ca5876019f
+4  libc.so.6 0x0000789bf82fe330
+5  libc.so.6 0x0000789bf8357c0c pthread_kill + 284
+6  libc.so.6 0x0000789bf82fe27e gsignal + 30
+7  libc.so.6 0x0000789bf82e18ff abort + 223
+8  flang     0x000057ca639429f2 Fortran::common::die(char const*, ...) + 402
+9  flang     0x000057ca5c21977f Fortran::semantics::SymbolDumpVisitor::Post(Fortran::parser::Name const&) + 527
+10 flang     0x000057ca5c23ffd3
+11 flang     0x000057ca5c23fb02
+12 flang     0x000057ca5c224720
+13 flang     0x000057ca5c222d99
+14 flang     0x000057ca5c24793e
+15 flang     0x000057ca5c24743d
+16 flang     0x000057ca5c246f87
+17 flang     0x000057ca5c2455e8
+18 flang     0x000057ca5c22489e
+19 flang     0x000057ca5c222d99
+20 flang     0x000057ca5c24e0c8
+21 flang     0x000057ca5c2199de Fortran::semantics::UnparseWithSymbols(llvm::raw_ostream&, Fortran::parser::Program const&, Fortran::common::LangOptions const&, Fortran::parser::Encoding) + 526
+22 flang     0x000057ca58846413 Fortran::frontend::DebugUnparseWithSymbolsAction::executeAction() + 51
+23 flang     0x000057ca5882f4b1 Fortran::frontend::FrontendAction::execute() + 49
+24 flang     0x000057ca587f5387 Fortran::frontend::CompilerInstance::executeAction(Fortran::frontend::FrontendAction&) + 2471
+25 flang     0x000057ca5883d3c3 Fortran::frontend::executeCompilerInvocation(Fortran::frontend::CompilerInstance*) + 10211
+26 flang     0x000057ca562e415b fc1_main(llvm::ArrayRef<char const*>, char const*) + 1355
+27 flang     0x000057ca562dbd87 main + 3031
+28 libc.so.6 0x0000789bf82e31ca
+29 libc.so.6 0x0000789bf82e328b __libc_start_main + 139
+30 flang     0x000057ca561fb0e5 _start + 37
+Aborted

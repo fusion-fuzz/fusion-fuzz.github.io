@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c: In function 'main':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:19:27: error: 'sink' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   19 | #pragma omp ordered depend(sink:i,j-1)
+      |                           ^
+      |                     ------
+      |                     doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:21:27: error: 'sink' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   21 | #pragma omp ordered depend(sink:i-1,j+2)
+      |                           ^
+      |                     ------
+      |                     doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:26:24: error: 'sink' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   26 | #pragma omp task depend(sink:i+3) /* { dg-error "only allowed in 'omp ordered'" } */
+      |                        ^
+      |                  ------
+      |                  doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:29:27: error: 'source' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   29 | #pragma omp ordered depend(source) /* { dg-error "'depend' clause must be closely nested" } */
+      |                           ^
+      |                     ------
+      |                     doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:36:27: error: 'source' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   36 | #pragma omp ordered depend(source)
+      |                           ^
+      |                     ------
+      |                     doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:37:27: error: 'source' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   37 | #pragma omp ordered depend(source)
+      |                           ^
+      |                     ------
+      |                     doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:44:27: error: 'sink' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   44 | #pragma omp ordered depend(sink:i-2,j-2,k+2) /* { dg-error "does not match number of iteration var" } */
+      |                           ^
+      |                     ------
+      |                     doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:52:27: error: 'sink' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   52 | #pragma omp ordered depend(sink:i-2) /* { dg-error "does not match number of iteration variables" } */
+      |                           ^
+      |                     ------
+      |                     doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:60:27: error: 'sink' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   60 | #pragma omp ordered depend(sink:k,i) /* { dg-error "is not an iteration" } */
+      |                           ^
+      |                     ------
+      |                     doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c: In function 'foo':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:77:27: error: 'sink' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   77 | #pragma omp ordered depend(sink: i-1,j,k) depend(sink: i,j-1,k-1) depend(sink: i-1,j-1,k+1)
+      |                           ^
+      |                     ------
+      |                     doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:77:49: error: 'sink' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   77 | #pragma omp ordered depend(sink: i-1,j,k) depend(sink: i,j-1,k-1) depend(sink: i-1,j-1,k+1)
+      |                                                 ^
+      |                                           ------
+      |                                           doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:77:73: error: 'sink' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   77 | #pragma omp ordered depend(sink: i-1,j,k) depend(sink: i,j-1,k-1) depend(sink: i-1,j-1,k+1)
+      |                                                                         ^
+      |                                                                   ------
+      |                                                                   doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:79:27: error: 'source' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   79 | #pragma omp ordered depend(source)
+      |                           ^
+      |                     ------
+      |                     doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c: In function 'baz':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:92:27: error: 'sink' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   92 | #pragma omp ordered depend(sink:i-1,j-3)
+      |                           ^
+      |                     ------
+      |                     doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:94:27: error: 'source' modifier with 'depend' clause deprecated since OpenMP 5.2, use with 'doacross' [-Werror=deprecated-openmp]
+   94 | #pragma omp ordered depend(source)
+      |                           ^
+      |                     ------
+      |                     doacross
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c: At top level:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:112:13: error: 'i' redeclared as different kind of symbol
+  112 | extern void i(void);
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:5:5: note: previous declaration of 'i' with type 'int'
+    5 | int i,j,k;
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c: In function 'main':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp7nmfyz95/40a4c578.c:11:9: internal compiler error: in gimplify_omp_for, at gimplify.cc:17501
+   11 | #pragma omp parallel for ordered(2)
+      |         ^~~
+cc1: all warnings being treated as errors
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x8491df gimplify_omp_for
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:17501
+0x12e87b2 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:21042
+0x12ec27a gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x12ed8e4 gimplify_bind_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:1561
+0x12e94e0 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20717
+0x12ec27a gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x12eb4b7 gimplify_and_add(tree_node*, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:558
+0x12eb4b7 gimplify_and_return_first
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:570
+0x12eb4b7 gimplify_omp_parallel
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:16787
+0x12eb4b7 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:21015
+0x12ec27a gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x12e900b gimplify_statement_list
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:2166
+0x12e900b gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20967
+[... 14 more lines ...]

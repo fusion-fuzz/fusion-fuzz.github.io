@@ -1,0 +1,52 @@
+HloModule module
+
+%reducer1 {
+  %p0 = f32[] parameter(0)
+  %p1 = f32[] parameter(1)
+  ROOT %add = f32[] add(p0, p1)
+}
+
+%reducer2 {
+  %p0 = f32[] parameter(0)
+  %p1 = f32[] parameter(1)
+  %p2 = f32[] parameter(2)
+  %p3 = f32[] parameter(3)
+  %add0 = f32[] add(p0, p2)
+  %add1 = f32[] add(p1, p3)
+  ROOT %tuple = (f32[], f32[]) tuple(add0, add1)
+}
+
+%reducer1.d {
+  %p0 = f32[] parameter(0)
+  %p1 = f32[] parameter(1)
+  ROOT %add = f32[] add(p0, p1)
+}
+
+%reducer2.d {
+  %p0 = f32[] parameter(0)
+  %p1 = f32[] parameter(1)
+  %p2 = f32[] parameter(2)
+  %p3 = f32[] parameter(3)
+  %add0 = f32[] add(p0, p2)
+  %add1 = f32[] add(p1, p3)
+  ROOT %tuple = (f32[], f32[]) tuple(add0, add1)
+}
+
+ENTRY %fusion {
+  %p0 = f32[8,8] parameter(0)
+  %c0 = f32[] constant(0)
+  %neg = f32[8,8] negate(%p0)
+  %reduce1 = f32[] reduce(%neg, %c0), dimensions={0,1}, to_apply=%reducer1
+  %reduce2 = (f32[], f32[]) reduce(%p0, %p0, %c0, %c0), dimensions={0,1}, to_apply=%reducer2
+  %tuple = (f32[], (f32[], f32[]), f32[8,8]) tuple(%reduce1, %reduce2, %neg)
+  %lhs = f32[1,1,4,4] constant({{{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}}}})
+  %c0.d = f32[] constant(0)
+  %neg.d = f32[8,8] negate(%p0)
+  %reduce1.d = f32[] reduce(%neg.d, %c0.d), dimensions={0,1}, to_apply=%reducer1.d
+  %reduce2.d = (f32[], f32[]) reduce(%p0, %p0, %c0.d, %c0.d), dimensions={0,1}, to_apply=%reducer2.d
+  %tuple.d = (f32[], (f32[], f32[]), f32[8,8]) tuple(%reduce1.d, %reduce2.d, %neg.d)
+  %rhs = f32[1,1,2,2] constant({{{{5, 6}, {7, 8}}}})
+  %conv = f32[1,1,4,4] convolution(%lhs, %rhs), window={size=2x2 pad=0_1x0_1}, dim_labels=bf01_oi01->bf01
+  %ffl.root = (f32[1,1,4,4], (f32[], (f32[], f32[]), f32[8,8])) tuple(%conv, %tuple.d)
+  ROOT %ffl.root.1 = ((f32[], (f32[], f32[]), f32[8,8]), f32[1,1,4,4], (f32[], (f32[], f32[]), f32[8,8])) tuple(%tuple, %conv, %tuple.d)
+}

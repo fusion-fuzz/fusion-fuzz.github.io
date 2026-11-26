@@ -1,0 +1,37 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+W0000 00:00:1792016217.783731  195591 sharding_propagation.cc:3202] GSPMD sharding propagation is going to be deprecated and not supported in the future. Please consider migrating to Shardy (https://openxla.org/shardy). For reference, Shardy is already the default partitioner in JAX.
+F0000 00:00:1792016217.784664  195591 convolution_handler.cc:986] Check failed: old_output_batch_size * old_batch_group_count == old_input_batch_size (256 vs. 8) 
+*** Check failure stack trace: ***
+    @     0x581541659a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5815416599e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x58153914690c  xla::spmd::CreateShardedConvolution()
+    @     0x58153914ec2f  xla::spmd::CreateShardedConvolutionFunctor::CreateSharded()
+    @     0x581539169fd5  xla::spmd::(anonymous namespace)::PartitionDot<>()
+    @     0x5815391685a4  xla::spmd::SpmdPartitioningVisitor::HandleDotHelper<>()
+    @     0x58153914b9fd  xla::spmd::SpmdPartitioningVisitor::HandleConvolution()
+    @     0x581540f8e84a  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x581540f8def7  xla::HloInstruction::Visit<>()
+    @     0x581540f9046e  xla::PostOrderDFS<>()
+    @     0x581540f8ccf8  xla::HloInstruction::Accept<>()
+    @     0x5815360eef07  xla::HloComputation::Accept<>()
+    @     0x58153923b31c  xla::spmd::SpmdPartitioningVisitor::DoPartition()
+    @     0x58153923f992  xla::spmd::SpmdPartitioner::PartitionComputation()
+    @     0x58153925c7a6  absl::lts_20260526::functional_internal::InvokeObject<>()
+    @     0x581540d0221b  xla::CallGraph::VisitNodesInternal()
+    @     0x581540d025b0  xla::CallGraph::VisitNodes()
+    @     0x581539240eda  xla::spmd::SpmdPartitioner::RunImpl()
+    @     0x58153d710be7  xla::HloPassInterface::Run()
+    @     0x58153928e3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5815392897bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x581539288bd5  xla::HloPassPipeline::RunImpl()
+    @     0x58153d710be7  xla::HloPassInterface::Run()
+    @     0x5815361dcfd2  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5815361ea06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x58153611e934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x58153611e373  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x581536110d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5815416aa466  main
+    @     0x75e14cfd4d90  (unknown)
+Aborted (core dumped)

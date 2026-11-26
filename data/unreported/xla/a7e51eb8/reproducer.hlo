@@ -1,0 +1,23 @@
+HloModule module, num_partitions=8
+
+ENTRY %entry {
+  %param = bf16[8,4,8,128] parameter(0)
+  %all-gather = bf16[8,32,8,128] all-gather(param), dimensions={1}, replica_groups={{0,1,2,3,4,5,6,7}}, channel_id=1, use_global_device_ids=true
+  %reshape = bf16[8,32,1024] reshape(all-gather)
+  %slice = bf16[8,32,512] slice(reshape), slice={[0:8], [0:32], [256:768]}
+  %scale = bf16[] parameter(1), sharding={replicated}
+  %scale_bcast = bf16[8,32,512] broadcast(scale), dimensions={}
+  %divide = bf16[8,32,512] divide(slice, scale_bcast)
+  %clamp_lower = bf16[] constant(-448.0)
+  %clamp_lower_bcast = bf16[8,32,512] broadcast(clamp_lower), dimensions={}
+  %clamp_upper = bf16[] constant(448.0)
+  %clamp_upper_bcast = bf16[8,32,512] broadcast(clamp_upper), dimensions={}
+  %clamp = bf16[8,32,512] clamp(clamp_lower_bcast, divide, clamp_upper_bcast)
+  %convert = f8e4m3fn[8,32,512] convert(clamp)
+  %param0 = f32[14,257] parameter(2)
+  %param0.copy = f32[14,257] copy(%param0), sharding={devices=[2,1]<=[2]}
+  %param1 = f32[14,116] parameter(3)
+  %param1.copy = f32[14,116] copy(%param1), sharding={devices=[2,1]<=[2]}
+  %concatenate = f32[14,373] concatenate(%param0.copy, %reshape), dimensions={1}, sharding={devices=[2,1]<=[2]}
+  ROOT %ffl.root = (f8e4m3fn[8,32,512], f32[14,373]) tuple(%convert, %concatenate)
+}

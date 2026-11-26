@@ -1,0 +1,14 @@
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace, preprocessed source, and associated run script.
+Stack dump:
+0. Program arguments: clang -cc1 ... -x objective-c++ reproduce.mm
+1. reproduce.mm:XX:1: current parser token '{'
+2. reproduce.mm:XX:1: parsing Objective-C method 'ISDPropertyChangeGroup::lastModifiedGeneration:'
+ #0 llvm::sys::PrintStackTrace(...)
+ #4 clang::Parser::StashAwayMethodOrFunctionBodyTokens(clang::Decl*)
+ #5 clang::Parser::ParseObjCMethodDefinition()
+ #6 clang::Parser::ParseExternalDeclaration(...)
+ #7 clang::Parser::ParseObjCAtImplementationDeclaration(...)
+...
+clang++: error: unable to execute command: Segmentation fault (core dumped)
+clang++: error: clang frontend command failed due to signal

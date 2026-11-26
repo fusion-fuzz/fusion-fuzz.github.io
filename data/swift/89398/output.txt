@@ -1,0 +1,102 @@
+Assertion failed: (inserted), function addFix at ConstraintSystem.cpp:298.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -frontend -interpret min.swift -disable-objc-interop -color-diagnostics -Xcc -fcolor-diagnostics -empty-abi-descriptor -no-auto-bridging-header-chaining -module-name min -in-process-plugin-server-path /usr/lib/swift/host/libSwiftInProcPluginServer.so -plugin-path /usr/lib/swift/host/plugins -plugin-path /usr/local/lib/swift/host/plugins
+1.	Swift version 6.5-dev (LLVM d61b42392ef8b48, Swift 233c2bc947487c0)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "min.swift")
+4.	While evaluating request TypeCheckFunctionBodyRequest(min.(file).test_compatibility_coercions@min.swift:22:6)
+5.	While type-checking statement at [min.swift:22:149 - line:59:1] RangeText="{
+    _ = arr as [Any]?
+    _ = dict as [String: Int]?
+    _ = set as Set<Int>
+    _ = arr as [String]
+    _ = dict as [String: String]
+    _ = dict as [String: String]?
+    _ = (dict as [String: Int]?) as [String: Int]
+    _ = set as Set<String>
+    _ = id(arr) as [String]
+    _ = (arr ?? []) as [String]
+    _ = (arr ?? [] ?? []) as [String]
+    _ = (optArr ?? []) as [String]
+    _ = (arr ?? []) as [String]?
+    _ = (arr ?? []) as [String?]?
+    _ = (arr ?? []) as [String??]??
+    _ = (dict ?? [:]) as [String: String?]?
+    _ = (set ?? []) as Set<String>??
+    _ = ohno(ohno(ohno(arr))) as [String]
+    _ = ohno(ohno(ohno(arr))) as [Int]
+    _ = ohno(ohno(ohno(Set<Int>()))) as Set<String>
+    _ = ohno(ohno(ohno(["": ""]))) as [Int: String]
+    _ = ohno(ohno(ohno(dict))) as [String: Int]
+    _ = ([] ?? []) as [String]
+    _ = (([] as Optional) ?? []) as [String]
+    _ = ([] ?? []) as Array
+    typealias Magic<T> = T
+    _ = [i] as [String]
+    _ = [i] as Magic as [String]
+    _ = ([i]) as Magic as [String]
+    _ = [i: i] as [String: Any]
+    _ = ([i: i]) as [String: Any]
+    _ = [i: stringAnyDict] as [String: Any]
+    _ = [i].self as Magic as [String]
+    _ = (try [i]) as Magic as [String]
+    _ = [i: i] as! [String: Any]
+    _ = [i: stringAnyDict] as! [String: Any]
+"
+6.	While type-checking expression at [min.swift:43:5 - line:43:51] RangeText="_ = ohno(ohno(ohno(["": ""]))) as [Int: String"
+7.	While type-checking-target starting at min.swift:43:5
+8.	Assertion failed: (inserted), function addFix at ConstraintSystem.cpp:298.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+ #0 0x00006454255835d8 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8bc65d8)
+ #1 0x0000645425580df5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8bc3df5)
+ #2 0x0000645425584391 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x000077a8f55d4330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x000077a8f562db2c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9eb2c)
+ #5 0x000077a8f55d427e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x000077a8f55b78ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000064541f6a55e2 (/usr/bin/swift-frontend+0x2ce85e2)
+ #8 0x000064541f6a5594 (/usr/bin/swift-frontend+0x2ce8594)
+ #9 0x000064541e9fd50f swift::constraints::ConstraintSystem::addFix(swift::constraints::ConstraintFix*) (/usr/bin/swift-frontend+0x204050f)
+#10 0x000064541e906e89 swift::constraints::ConstraintSystem::recordFix(swift::constraints::ConstraintFix*, unsigned int, swift::constraints::PreparedOverloadBuilder*) (/usr/bin/swift-frontend+0x1f49e89)
+#11 0x000064541e91d67d swift::constraints::ConstraintSystem::simplifyFixConstraint(swift::constraints::ConstraintFix*, swift::Type, swift::Type, swift::constraints::ConstraintKind, swift::optionset::OptionSet<swift::constraints::ConstraintSystem::TypeMatchFlags, unsigned int>, swift::constraints::ConstraintLocatorBuilder) (/usr/bin/swift-frontend+0x1f6067d)
+#12 0x000064541e93c021 swift::constraints::ConstraintSystem::simplifyConstraint(swift::constraints::Constraint const&) (/usr/bin/swift-frontend+0x1f7f021)
+#13 0x000064541e93d8bf swift::constraints::ConstraintSystem::simplifyDisjunctionChoice(swift::constraints::Constraint*) (/usr/bin/swift-frontend+0x1f808bf)
+#14 0x000064541e95bf16 swift::constraints::DisjunctionChoice::attempt(swift::constraints::ConstraintSystem&) const (/usr/bin/swift-frontend+0x1f9ef16)
+#15 0x000064541e96cb47 swift::constraints::BindingStep<swift::constraints::DisjunctionChoiceProducer>::take(bool) crtstuff.c:0:0
+#16 0x000064541e96c893 swift::constraints::DisjunctionStep::resume(bool) (/usr/bin/swift-frontend+0x1faf893)
+#17 0x000064541e957dbd swift::constraints::ConstraintSystem::solveImpl(llvm::SmallVectorImpl<swift::constraints::Solution>&) (/usr/bin/swift-frontend+0x1f9adbd)
+#18 0x000064541e958f9f swift::constraints::ConstraintSystem::solve(llvm::SmallVectorImpl<swift::constraints::Solution>&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x1f9bf9f)
+#19 0x000064541e958b8b swift::constraints::ConstraintSystem::solveImpl(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x1f9bb8b)
+#20 0x000064541e958456 swift::constraints::ConstraintSystem::solve(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x1f9b456)
+#21 0x000064541eb1ecd5 swift::TypeChecker::typeCheckTarget(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x2161cd5)
+#22 0x000064541eb1eb51 swift::TypeChecker::typeCheckExpression(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x2161b51)
+#23 0x000064541eb1ea26 swift::TypeChecker::typeCheckExpression(swift::Expr*&, swift::DeclContext*, swift::constraints::ContextualTypeInfo, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>) (/usr/bin/swift-frontend+0x2161a26)
+#24 0x000064541ec24d8b (anonymous namespace)::StmtChecker::typeCheckASTNode(swift::ASTNode&) TypeCheckStmt.cpp:0:0
+#25 0x000064541ec2b9cc swift::ASTVisitor<(anonymous namespace)::StmtChecker, void, swift::Stmt*, void, void, void, void>::visit(swift::Stmt*) TypeCheckStmt.cpp:0:0
+#26 0x000064541ec2e21c bool (anonymous namespace)::StmtChecker::typeCheckStmt<swift::BraceStmt>(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#27 0x000064541ec26564 (anonymous namespace)::StmtChecker::typeCheckBody(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#28 0x000064541ec26197 swift::TypeCheckFunctionBodyRequest::evaluate(swift::Evaluator&, swift::AbstractFunctionDecl*) const (/usr/bin/swift-frontend+0x2269197)
+#29 0x000064541f30fede swift::TypeCheckFunctionBodyRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()>(swift::TypeCheckFunctionBodyRequest const&, swift::TypeCheckFunctionBodyRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckFunctionBodyRequest>(swift::Evaluator&, swift::TypeCheckFunctionBodyRequest, swift::TypeCheckFunctionBodyRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#30 0x000064541f25d3d9 swift::AbstractFunctionDecl::getTypecheckedBody() const (/usr/bin/swift-frontend+0x28a03d9)
+#31 0x000064541f3f5858 swift::SourceFile::typeCheckDelayedFunctions() (/usr/bin/swift-frontend+0x2a38858)
+#32 0x000064541eca6bdd swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x22e9bdd)
+#33 0x000064541ecab4bb swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#34 0x000064541eca6a28 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x22e9a28)
+#35 0x000064541d78c449 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_10>(long, swift::SourceFile&) Frontend.cpp:0:0
+#36 0x000064541d77ff1e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xdc2f1e)
+#37 0x000064541d77fc9b swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xdc2c9b)
+#38 0x000064541d3e94e2 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#39 0x000064541d3d6ea5 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#40 0x000064541d3d3b2e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa16b2e)
+#41 0x000064541d0f3101 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x736101)
+#42 0x000077a8f55b91ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#43 0x000077a8f55b928b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#44 0x000064541d0f1ff5 _start (/usr/bin/swift-frontend+0x734ff5)
+
+💣 Program crashed: Aborted at 0x000077a8f56b628d
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed

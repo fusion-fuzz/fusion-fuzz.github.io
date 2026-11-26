@@ -1,0 +1,26 @@
+cc1: note: disable pass tree-vect for functions in the range of [0, 4294967295]
+during RTL pass: expand
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpwjeenufj/404e644c.c: In function 'e':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpwjeenufj/404e644c.c:28:6: internal compiler error: in expand_LOOP_VECTORIZED, at internal-fn.cc:3065
+   28 | void e(signed f, int g, char h, char i, char j) {
+      |      ^
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x84e7f4 expand_LOOP_VECTORIZED
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/internal-fn.cc:3065
+0x105f287 expand_call_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:3147
+0x105f287 expand_gimple_stmt_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:4280
+0x105f287 expand_gimple_stmt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:4427
+0x1065727 expand_gimple_basic_block
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:6544
+0x1067577 execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:7295
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpwjeenufj/404e644c.c -quiet -dumpbase 404e644c.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O1 -O2 -fno-inline -ftree-loop-vectorize -fdump-tree-pcom-details -fdisable-tree-vect -o /tmp/ccHe4lNf.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

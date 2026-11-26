@@ -1,0 +1,10 @@
+F0000 spmd_partitioner.h:652] Check failed: operand.sharding() == scale.sharding() ({devices=[1,2]<=[2]} vs. {replicated}) Operand and scale must be identically sharded.
+*** Check failure stack trace: ***
+    @ xla::spmd::PartitionedHloMX::PartitionedHloMX()
+    @ xla::spmd::SpmdPartitioningVisitor::HandleDotHelper<>()
+    @ xla::spmd::SpmdPartitioningVisitor::HandleCustomCall()
+    @ xla::HloInstruction::Visit<>()
+    @ xla::PostOrderDFS<>()
+    @ xla::spmd::SpmdPartitioningVisitor::DoPartition()
+    @ xla::spmd::SpmdPartitioner::PartitionComputation()
+    @ xla::spmd::SpmdPartitioner::RunImpl()

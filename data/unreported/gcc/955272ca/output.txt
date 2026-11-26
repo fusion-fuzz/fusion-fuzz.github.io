@@ -1,0 +1,48 @@
+when processing group:
+map(iterator(int i3=0:10:1, int j3=0:20:1, loop_label=<D.2394>, elems=omp_iter_data.7, index=D.2393):to:*(z + (sizetype) ((long unsigned int) (i3 + j3) * 8)) [len: 8]) map(iterator(int i3=0:10:1, int j3=0:20:1, loop_label=<D.2394>, elems=omp_iter_data.8, index=D.2393):firstprivate:z [pointer assign, bias: (long int) ((long unsigned int) (i3 + j3) * 8)])
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprixbxcfv/a710b80f.cc: In function 'void f(int*, float*, double*)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprixbxcfv/a710b80f.cc:20:11: internal compiler error: base pointer cycle detected
+   20 |   #pragma omp target map(iterator(i3=0:10, j3=0:20, k3=0:30), to: z[i3+j3], y[j3+k3], z[k3+i3])
+      |           ^~~
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0x1664b73 omp_tsort_mapping_groups_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:11471
+0x166489d omp_tsort_mapping_groups_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:11514
+0x168543e omp_tsort_mapping_groups
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:11560
+0x168543e gimplify_adjust_omp_clauses
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:15715
+0x16973b3 gimplify_omp_workshare
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:18975
+0x16720fa gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:21070
+0x1675c8a gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x1672a1b gimplify_statement_list
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:2166
+0x1672a1b gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20967
+0x1675c8a gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x16772f4 gimplify_bind_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:1561
+0x1672ef0 gimplify_expr(tree_node**, gimple**, gimple**, bool (*)(tree_node*), int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:20717
+0x167eea6 gimplify_stmt(tree_node**, gimple**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:8577
+0x167eea6 gimplify_body(tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:21823
+0x167f36c gimplify_function_tree(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimplify.cc:22032
+0x1435727 cgraph_node::analyze()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:691
+0x1437e17 analyze_functions
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:1270
+0x1438bf6 symbol_table::finalize_compilation_unit()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2593
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE -D_REENTRANT /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprixbxcfv/a710b80f.cc -quiet -dumpbase a710b80f.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Og -std=c++98 -fopenmp -fdump-tree-gimple -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

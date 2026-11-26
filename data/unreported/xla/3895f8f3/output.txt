@@ -1,0 +1,34 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1791989804.996109 2210308 indexing_analysis.cc:536] Check failed: GatherSimplifier::IsSimplifiedGather(gather) Non-simplified HLO Gather is not supported.
+*** Check failure stack trace: ***
+    @     0x5d6f2cf29a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5d6f2cf299e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5d6f238c4396  xla::(anonymous namespace)::ComputeOutputToInputGatherOpIndexing()
+    @     0x5d6f238bcb66  xla::ComputeOutputToInputIndexing()
+    @     0x5d6f238bb9a3  xla::ComputeGroupedOutputToInputIndexing()
+    @     0x5d6f238c33c7  xla::(anonymous namespace)::ComputeOutputToInputFusionOpIndexing()
+    @     0x5d6f238bcae4  xla::ComputeOutputToInputIndexing()
+    @     0x5d6f238827e8  xla::emitters::PartitionedComputation::PartitionedComputation()
+    @     0x5d6f238856c8  xla::emitters::PartitionedComputations::PartitionedComputations()
+    @     0x5d6f231e8a6d  xla::emitters::LoopFusionKernelEmitter::EmitKernelDefinition()
+    @     0x5d6f222e55b0  xla::gpu::LoopFusion::CreateMLIRModule()
+    @     0x5d6f22319576  xla::gpu::MlirKernelEmitter::Emit()
+    @     0x5d6f2231b008  xla::gpu::MlirKernelFusion::CreateLLVMModule()
+    @     0x5d6f22319d0f  xla::gpu::MlirKernelFusion::EmitLlvmModule()
+    @     0x5d6f22323acb  absl::lts_20260526::functional_internal::InvokeObject<>()
+    @     0x5d6f22f18629  xla::gpu::KernelReuseCache::GetWithStatus()
+    @     0x5d6f22f1841a  xla::gpu::KernelReuseCache::GetWithStatus()
+    @     0x5d6f2231b5f7  xla::gpu::MlirKernelFusion::Emit()
+    @     0x5d6f21b23cf9  xla::gpu::ThunkEmitter::EmitFusion()
+    @     0x5d6f21b268ca  xla::gpu::ThunkEmitter::EmitHloInstruction()
+    @     0x5d6f21b1da02  xla::gpu::ThunkEmitter::EmitHloComputation()
+    @     0x5d6f21b33a02  xla::gpu::ThunkEmitter::EmitHloEntryComputation()
+    @     0x5d6f21aea087  xla::gpu::CompileModuleToLlvmIr()
+    @     0x5d6f21ac018b  xla::gpu::GpuCompiler::CompileToBackendResult()
+    @     0x5d6f21ac4ac3  xla::gpu::GpuCompiler::RunBackend()
+    @     0x5d6f219e11d8  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5d6f2cf7a466  main
+    @     0x79b5673d4d90  (unknown)
+Aborted (core dumped)

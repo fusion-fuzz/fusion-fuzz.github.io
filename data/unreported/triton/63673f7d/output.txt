@@ -1,0 +1,38 @@
+LLVM ERROR: can't create Attribute 'mlir::triton::gpu::SharedMemorySpaceAttr' because storage uniquer isn't initialized: the dialect was likely not loaded, or the attribute wasn't added with addAttributes<...>() in the Dialect::initialize() method.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmp17skw87v/5ff5f295.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic --convert-triton-amdgpu-to-llvm=gfx-arch=gfx1250
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x0000559e6fb83d8a
+1  triton-opt 0x0000559e6fb80c8e
+2  triton-opt 0x0000559e6fb84c8b
+3  libc.so.6  0x00007f8221258520
+4  libc.so.6  0x00007f82212ac9bc pthread_kill + 300
+5  libc.so.6  0x00007f8221258476 raise + 22
+6  libc.so.6  0x00007f822123e7f3 abort + 211
+7  triton-opt 0x0000559e6fad5a04
+8  triton-opt 0x0000559e67b3e64c
+9  triton-opt 0x0000559e67b2fa37
+10 triton-opt 0x0000559e67b43743
+11 triton-opt 0x0000559e67b42bb4
+12 triton-opt 0x0000559e67b4ac71
+13 triton-opt 0x0000559e67b49f2c
+14 triton-opt 0x0000559e67b486c9
+15 triton-opt 0x0000559e67b48588
+16 triton-opt 0x0000559e67b455ae
+17 triton-opt 0x0000559e68417f17
+18 triton-opt 0x0000559e68551b3b
+19 triton-opt 0x0000559e685526b9
+20 triton-opt 0x0000559e685596d2
+21 triton-opt 0x0000559e68558f42
+22 triton-opt 0x0000559e68543fd7
+23 triton-opt 0x0000559e6854326c
+24 triton-opt 0x0000559e6f7a19d1
+25 triton-opt 0x0000559e685395d2
+26 triton-opt 0x0000559e685399d1
+27 triton-opt 0x0000559e68539c0d
+28 triton-opt 0x0000559e68524cfc
+29 libc.so.6  0x00007f822123fd90
+30 libc.so.6  0x00007f822123fe40 __libc_start_main + 128
+31 triton-opt 0x0000559e67af8e65
+Aborted (core dumped)

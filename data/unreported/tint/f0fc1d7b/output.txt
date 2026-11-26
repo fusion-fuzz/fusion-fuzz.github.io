@@ -1,0 +1,31 @@
+/home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/core/type/resource_type.cc:218 internal compiler error: Switch() matched no cases. Type: tint::core::type::StorageTexture
+
+********************************************************************
+*  The tint shader compiler has encountered an unexpected error.   *
+*                                                                  *
+*  Please help us fix this issue by submitting a bug report at     *
+*  crbug.com/tint with the source program that triggered the bug.  *
+********************************************************************
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==336979==ERROR: AddressSanitizer: ILL on unknown address 0x56233d10c9c3 (pc 0x56233d10c9c3 bp 0x7ffcc1e30a80 sp 0x7ffcc1e30790 T0)
+    #0 0x56233d10c9c3 in tint::InternalCompilerError::~InternalCompilerError() /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/ice/ice.cc:71
+    #1 0x56233d10dcf3 in tint::detail::ICENoSwitchCasesMatched(char const*, unsigned int, char const*) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.cc:39
+    #2 0x56233cecfaaa in operator()<tint::SwitchMustMatchCase> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:331
+    #3 0x56233ced00fb in Switch<> /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/rtti/switch.h:358
+    #4 0x56233ced0461 in tint::core::type::DefaultResourceTypeFor(tint::core::type::Type const*) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/core/type/resource_type.cc:124
+    #5 0x56233ce838aa in tint::core::ir::transform::GenerateResourceTableConfig(tint::core::ir::Module&, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/lang/core/ir/transform/resource_table_helper.cc:102
+    #6 0x56233ca1f0ae in GenerateSpirv /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd/tint/main.cc:1035
+    #7 0x56233ca2b494 in Generate /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd/tint/main.cc:1576
+    #8 0x56233ca2f18c in Run /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd/tint/main.cc:1727
+    #9 0x56233ca2ff12 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/cmd/tint/main.cc:1791
+    #10 0x7b730bb681c9  (/lib/x86_64-linux-gnu/libc.so.6+0x2a1c9) (BuildId: 328820b908de8ea1ef79afa8995e302e819163d7)
+    #11 0x7b730bb6828a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28a) (BuildId: 328820b908de8ea1ef79afa8995e302e819163d7)
+    #12 0x56233ca05664 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/out/fuzz/tint+0xa132664) (BuildId: 61f8842b624cda73281b295b81b2dbccbaf89d49)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: ILL /home/fuzz/WorkSpace/fusion-fuzz/projects/tint/dawn-src/dawn/src/tint/utils/ice/ice.cc:71 in tint::InternalCompilerError::~InternalCompilerError()
+==336979==ABORTING
+//
+// fs
+//

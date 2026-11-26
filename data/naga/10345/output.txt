@@ -1,0 +1,108 @@
+
+thread 'main' (102666) panicked at naga/src/proc/constant_evaluator.rs:3630:88:
+called `Option::unwrap()` on a `None` value
+stack backtrace:
+   0:     0x59ce5db6bf43 - std::backtrace_rs::backtrace::libunwind::trace::h73aabaf37ceb5073
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/../../backtrace/src/backtrace/libunwind.rs:117:9
+   1:     0x59ce5db6bf43 - std::backtrace_rs::backtrace::trace_unsynchronized::h30862f246760437f
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/../../backtrace/src/backtrace/mod.rs:66:14
+   2:     0x59ce5db6bf43 - std::sys::backtrace::_print_fmt::h2d1afd8848eb5d7a
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/sys/backtrace.rs:68:9
+   3:     0x59ce5db6bf43 - <std::sys::backtrace::BacktraceLock::print::DisplayBacktrace as core::fmt::Display>::fmt::h1851ca2a850bd9a9
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/sys/backtrace.rs:38:26
+   4:     0x59ce5d715ec7 - core::fmt::rt::Argument::fmt::he8640bda190d4d38
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/core/src/fmt/rt.rs:152:76
+   5:     0x59ce5d715ec7 - core::fmt::write::h22467d3ad5dd5554
+   6:     0x59ce5db45d56 - std::io::default_write_fmt::h351a88ae8ee5bcc5
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/io/mod.rs:639:11
+   7:     0x59ce5db45d56 - std::io::Write::write_fmt::h5e3b6a876f7a20bf
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/io/mod.rs:1994:13
+   8:     0x59ce5db4e529 - std::sys::backtrace::BacktraceLock::print::hc25d10722ea4032d
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/sys/backtrace.rs:41:9
+   9:     0x59ce5db4e529 - std::panicking::default_hook::{{closure}}::he43c3ac33dfa4b50
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/panicking.rs:292:27
+  10:     0x59ce5db4e35f - std::panicking::default_hook::hd124da54acf1152f
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/panicking.rs:319:9
+  11:     0x59ce5db4e76b - std::panicking::panic_with_hook::h9b5f1f19954f65a8
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/panicking.rs:825:13
+  12:     0x59ce5db4e61a - std::panicking::panic_handler::{{closure}}::hf431df8c849ee0d6
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/panicking.rs:691:13
+  13:     0x59ce5db4b9a9 - std::sys::backtrace::__rust_end_short_backtrace::hf97362b31a346cc0
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/sys/backtrace.rs:176:18
+  14:     0x59ce5db3aacd - __rustc[9e6a08e89e4b9111]::rust_begin_unwind
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/panicking.rs:689:5
+  15:     0x59ce5d71f8dc - core::panicking::panic_fmt::ha4414e4328fe24a0
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/core/src/panicking.rs:80:14
+  16:     0x59ce5d71f8a2 - core::panicking::panic::ha2e20a73227bb72e
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/core/src/panicking.rs:150:5
+  17:     0x59ce5d71eb29 - core::option::unwrap_failed::hef2534b77b89c04f
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/core/src/option.rs:2175:5
+  18:     0x59ce5d829d9b - core::option::Option<T>::unwrap::hcb63c5f7f47a14c8
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/core/src/option.rs:1016:21
+  19:     0x59ce5d829d9b - naga::proc::constant_evaluator::ConstantEvaluator::select::{{closure}}::h90420fe4e41cb15c
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/proc/constant_evaluator.rs:3630:88
+  20:     0x59ce5d829836 - naga::proc::constant_evaluator::ConstantEvaluator::select::h1af45c2f0496d359
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/proc/constant_evaluator.rs:3655:70
+  21:     0x59ce5d8220d8 - naga::proc::constant_evaluator::ConstantEvaluator::try_eval_and_append_impl::hcb489c4a6a4f2168
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/proc/constant_evaluator.rs:1318:22
+  22:     0x59ce5d8220d8 - naga::proc::constant_evaluator::ConstantEvaluator::try_eval_and_append::h8a9ff4bb82b10ef1
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/proc/constant_evaluator.rs:1152:40
+  23:     0x59ce5d862df7 - naga::front::wgsl::lower::ExpressionContext::append_expression::hd09dcb58f52831c0
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/front/wgsl/lower/mod.rs:535:14
+  24:     0x59ce5d869ae9 - naga::front::wgsl::lower::Lowerer::call_builtin::hdc0a84eb60b4d49b
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/front/wgsl/lower/mod.rs:3939:24
+  25:     0x59ce5d870b14 - naga::front::wgsl::lower::Lowerer::call::h3ee821275ac93c45
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/front/wgsl/lower/mod.rs:4096:39
+  26:     0x59ce5d86f22b - naga::front::wgsl::lower::Lowerer::expression_for_reference::hf2d53cb075750d9d
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/front/wgsl/lower/mod.rs:2509:22
+  27:     0x59ce5d86d598 - naga::front::wgsl::lower::Lowerer::expression_for_abstract::h9d5bd1aec25e89c3
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/front/wgsl/lower/mod.rs:2379:25
+  28:     0x59ce5d86d598 - naga::front::wgsl::lower::Lowerer::type_and_init::hf772ad9f6a6254a0
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/front/wgsl/lower/mod.rs:1519:33
+  29:     0x59ce5d872745 - naga::front::wgsl::lower::Lowerer::statement::h2e9c1437e1050b10
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/front/wgsl/lower/mod.rs:1822:50
+  30:     0x59ce5d872745 - naga::front::wgsl::lower::Lowerer::block::h3bf58d0052fbf194
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/front/wgsl/lower/mod.rs:1791:18
+  31:     0x59ce5d878e6d - naga::front::wgsl::lower::Lowerer::function::h6a748226b44150c6
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/front/wgsl/lower/mod.rs:1632:29
+  32:     0x59ce5d878e6d - naga::front::wgsl::lower::Lowerer::lower::h33d2a12f289d4f74
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/front/wgsl/lower/mod.rs:1300:45
+  33:     0x59ce5d8d5b15 - naga::front::wgsl::Frontend::inner::he7e86a8a27d6b8e8
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/front/wgsl/mod.rs:69:43
+  34:     0x59ce5d8d5b15 - naga::front::wgsl::Frontend::parse::h73a958f699915e59
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga/src/front/wgsl/mod.rs:63:14
+  35:     0x59ce5dab0e1c - naga::parse_input::h89ec17bed37be885
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga-cli/src/bin/naga.rs:766:35
+  36:     0x59ce5dab57e2 - naga::run::he723c3b98f4f3f80
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga-cli/src/bin/naga.rs:609:9
+  37:     0x59ce5dab57e2 - naga::main::he47c72ec84c51991
+                               at /home/fuzz/WorkSpace/fusion-fuzz/projects/naga/wgpu/naga-cli/src/bin/naga.rs:468:21
+  38:     0x59ce5dae1483 - core::ops::function::FnOnce::call_once::h9cea0b605c22fb31
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/core/src/ops/function.rs:250:5
+  39:     0x59ce5dae1483 - std::sys::backtrace::__rust_begin_short_backtrace::h372336805a2b63c2
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/sys/backtrace.rs:160:18
+  40:     0x59ce5dae1479 - std::rt::lang_start::{{closure}}::h2421784fd22a8af5
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/rt.rs:206:18
+  41:     0x59ce5db4773f - core::ops::function::impls::<impl core::ops::function::FnOnce<A> for &F>::call_once::hc0aeb12e6a265870
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/core/src/ops/function.rs:287:21
+  42:     0x59ce5db4773f - std::panicking::catch_unwind::do_call::h424648a3b5b895eb
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/panicking.rs:581:40
+  43:     0x59ce5db4773f - std::panicking::catch_unwind::h2eaac0b2decbb2a4
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/panicking.rs:544:19
+  44:     0x59ce5db4773f - std::panic::catch_unwind::h36307fcdee1da3b0
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/panic.rs:359:14
+  45:     0x59ce5db4773f - std::rt::lang_start_internal::{{closure}}::h1cd37a923f6e6476
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/rt.rs:175:24
+  46:     0x59ce5db4773f - std::panicking::catch_unwind::do_call::hba0faa7802db347f
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/panicking.rs:581:40
+  47:     0x59ce5db4773f - std::panicking::catch_unwind::h243e60656f4dd3fd
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/panicking.rs:544:19
+  48:     0x59ce5db4773f - std::panic::catch_unwind::h70c7977416bc65d9
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/panic.rs:359:14
+  49:     0x59ce5db4773f - std::rt::lang_start_internal::hb84cc625940d332a
+                               at /rustc/01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf/library/std/src/rt.rs:171:5
+  50:     0x59ce5dab7aec - main
+  51:     0x77189fb5724a - <unknown>
+  52:     0x77189fb57305 - __libc_start_main
+  53:     0x59ce5d704191 - _start
+  54:                0x0 - <unknown>

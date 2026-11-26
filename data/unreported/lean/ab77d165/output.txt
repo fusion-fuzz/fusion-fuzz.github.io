@@ -1,0 +1,61 @@
+2 * (2 + 1 + 1) * 2 : Nat
+2 * (2 + 2 + 1 + 1) * 2 : Nat
+2 * (2 + 2 + 1 + 1) * 2 : Nat
+2 * (2 * (3 + 1 + 1) * 2 + 1 + 1) * 2 : Nat
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpm4ob8uj0/6c224c29.lean:59:20: error: Application type mismatch: The argument
+  f
+has type
+  (a : Option Nat) → a ≠ none → Nat
+but is expected to have type
+  Option Nat
+in the application
+  f_ffl f
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpm4ob8uj0/6c224c29.lean:56:4: error: (kernel) declaration has metavariables 'g_ffl'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmpm4ob8uj0/6c224c29.lean:61:25: error: unknown metavariable `?_uniq.10149`
+PANIC at Lean.MetavarContext.getDecl Lean.MetavarContext:521:17: unknown metavariable _uniq.10149
+backtrace:
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(+0x9b66cc5) [0x784feb366cc5]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(+0x9b58353) [0x784feb358353]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(lean_panic_fn+0x2a) [0x784feb35842a]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.elimMVar [private]+0x45) [0x784fe5628dd5]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.elimApp [private]+0x6c8) [0x784fe562b368]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.visit [private]+0xbb) [0x784fe56270eb]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Array.mapMUnsafe.map [private] spec at Lean.MetavarContext.MkBinding.elimApp+0x6d) [0x784fe5628afd]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.elimApp [private]+0x770) [0x784fe562b410]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.visit [private]+0xbb) [0x784fe56270eb]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Array.mapMUnsafe.map [private] spec at Lean.MetavarContext.MkBinding.elimApp+0x6d) [0x784fe5628afd]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.elimApp [private]+0x770) [0x784fe562b410]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.elimMVarDeps+0x140) [0x784fe562e060]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.mkBinding+0x40) [0x784fe56302d0]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.mkBinding+0x128) [0x784fe5630c88]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.mkLambdaFVars+0x1d3) [0x784fe5860783]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.transformWithCache.visit.visitLambda [private] spec at Lean.Meta.transformWithCache.visit spec at Lean.Meta.transform spec at Lean.Meta.Sym.unfoldReducible+0x49e) [0x784fe867c6ce]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.transformWithCache.visit.visitLambda [boxed, λ, private] spec at Lean.Meta.transformWithCache.visit spec at Lean.Meta.transform spec at Lean.Meta.Sym.unfoldReducible+0x6c) [0x784fe867cb2c]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(<apply/7>+0xfc8) [0x784feb398348]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.withLocalDecl [λ, arity↓] spec at Lean.Meta.transformWithCache.visit.visitForall spec at Lean.Meta.transformWithCache.visit spec at Lean.Meta.transform spec at Lean.Meta.Sym.unfoldReducible+0x61) [0x784fe867ba41]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.withLocalDecl [boxed, λ, arity↓] spec at Lean.Meta.transformWithCache.visit.visitForall spec at Lean.Meta.transformWithCache.visit spec at Lean.Meta.transform spec at Lean.Meta.Sym.unfoldReducible+0x27) [0x784fe867bab7]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(<apply/6>+0xc28) [0x784feb3929b8]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.withNewFVar [arity↓, private]+0x321) [0x784fe587e381]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.withLocalDeclImp [arity↓, private]+0x2fe) [0x784fe587e8ce]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.withLocalDeclImp [private]+0x32) [0x784fe587ed12]
+[... 83 lines / 17,079 bytes of output truncated — no crash signature found; head and tail kept ...]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.visit [private]+0xbb) [0x784fe56270eb]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Array.mapMUnsafe.map [private] spec at Lean.MetavarContext.MkBinding.elimApp+0x6d) [0x784fe5628afd]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.elimApp [private]+0x770) [0x784fe562b410]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.visit [private]+0xbb) [0x784fe56270eb]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Array.mapMUnsafe.map [private] spec at Lean.MetavarContext.MkBinding.elimApp+0x6d) [0x784fe5628afd]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.elimApp [private]+0x770) [0x784fe562b410]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.visit [private]+0xbb) [0x784fe56270eb]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Array.mapMUnsafe.map [private] spec at Lean.MetavarContext.MkBinding.elimApp+0x6d) [0x784fe5628afd]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.elimApp [private]+0x770) [0x784fe562b410]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.elimMVarDeps+0x140) [0x784fe562e060]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.MkBinding.mkBinding+0x40) [0x784fe56302d0]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.MetavarContext.mkBinding+0x128) [0x784fe5630c88]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.mkLambdaFVars+0x1d3) [0x784fe5860783]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Simp.Result.addLambdas+0xe6) [0x784fe6c72386]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Simp.simpLambda [boxed, λ]+0x35) [0x784fe6d0ba75]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(<apply/8>+0x4eb) [0x784feb39c25b]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Simp.withNewLemmas [arity↓]+0x217) [0x784fe6d052f7]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(Lean.Meta.Simp.simpLambda [boxed, λ]+0x8c) [0x784fe6d0bd3c]
+/home/fuzz/WorkSpace/fusion-fuzz/projects/lean/lean4/build/relwithassert/stage1/bin/../lib/lean/libleanshared.so(<apply/10>+0x28c) [0x
+[... truncated ...]

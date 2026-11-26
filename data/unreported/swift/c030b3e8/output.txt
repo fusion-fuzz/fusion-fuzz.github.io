@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx0ppybd_/44648bb0.swift:24:3: error: expected 'func' keyword in instance method declaration
+22 | @available(macOS 75, *)
+23 | public protocol BorrowSeq<Element> {
+24 |   x Element
+   |   `- error: expected 'func' keyword in instance method declaration
+25 | }
+26 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx0ppybd_/44648bb0.swift:24:5: error: found an unexpected second identifier in function declaration; is there an accidental break?
+22 | @available(macOS 75, *)
+23 | public protocol BorrowSeq<Element> {
+24 |   x Element
+   |     |- error: found an unexpected second identifier in function declaration; is there an accidental break?
+   |     `- note: join the identifiers together
+25 | }
+26 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx0ppybd_/44648bb0.swift:24:12: error: expected '(' in argument list of function declaration
+22 | @available(macOS 75, *)
+23 | public protocol BorrowSeq<Element> {
+24 |   x Element
+   |            `- error: expected '(' in argument list of function declaration
+25 | }
+26 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx0ppybd_/44648bb0.swift:21:1: error: '@reparentable' is an experimental feature; use '-enable-experimental-feature Reparenting'
+19 | 
+20 | 
+21 | @reparentable
+   | `- error: '@reparentable' is an experimental feature; use '-enable-experimental-feature Reparenting'
+22 | @available(macOS 75, *)
+23 | public protocol BorrowSeq<Element> {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx0ppybd_/44648bb0.swift:23:27: error: an associated type named 'Element' must be declared in the protocol 'BorrowSeq' or a protocol it inherits
+21 | @reparentable
+22 | @available(macOS 75, *)
+23 | public protocol BorrowSeq<Element> {
+   |                           `- error: an associated type named 'Element' must be declared in the protocol 'BorrowSeq' or a protocol it inherits
+24 |   x Element
+25 | }
+
+swift-frontend: /home/build-user/swift/lib/AST/ASTPrinter.cpp:476: swift::TypeTransformContext::TypeTransformContext(Type): Assertion `T->mayHaveMembers()' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -O -sil-verify-all -disable-availability-checking /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx0ppybd_/44648bb0.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx0ppybd_/44648bb0.swift")
+4.	While type-checking 'Seq' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx0ppybd_/44648bb0.swift:27:8)
+ #0 0x000055d164cbfbab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055d164cbd2e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055d164cc08c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007efeaa582330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007efeaa5dbc0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007efeaa58227e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007efeaa5658ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007efeaa56581b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007efeaa578517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x000055d15ebc310d (/usr/bin/swift-frontend+0x2b1b10d)
+#10 0x000055d15ebc28d5 swift::PrintOptions::setBaseType(swift::Type) (/usr/bin/swift-frontend+0x2b1a8d5)
+#11 0x000055d15e6436fa swift::printRequirementStub(swift::ValueDecl*, swift::DeclContext*, swift::Type, swift::SourceLoc, llvm::raw_ostream&, bool) (/usr/bin/swift-frontend+0x259b6fa)
+#12 0x000055d15e660511 std::_Function_handler<void (swift::NormalProtocolConformance*), diagnoseProtocolStubFixit(swift::ASTContext&, swift::NormalProtocolConformance*, llvm::ArrayRef<swift::ASTContext::MissingWitness>)::$_0>::_M_invoke(std::_Any_data const&, swift::NormalProtocolConformance*&&) TypeCheckProtocol.cpp:0:0
+#13 0x000055d15e64b24d swift::TypeChecker::checkConformancesInContext(swift::IterableDeclContext*) (/usr/bin/swift-frontend+0x25a324d)
+#14 0x000055d15e5bd5a4 (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#15 0x000055d15e5bb172 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x2513172)
+#16 0x000055d15e6f7e15 swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x264fe15)
+#17 0x000055d15e6fc3a4 swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#18 0x000055d15e6f7d45 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x264fd45)
+#19 0x000055d15cf2a639 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_0>(long, swift::SourceFile&) Frontend.cpp:0:0
+#20 0x000055d15cf1e35e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xe7635e)
+#21 0x000055d15cf1e0eb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xe760eb)
+#22 0x000055d15cd9b51e withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#23 0x000055d15cd870cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#24 0x000055d15cd83fef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcdbfef)
+#25 0x000055d15ca5324b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9ab24b)
+#26 0x00007efeaa5671ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#27 0x00007efeaa56728b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#28 0x000055d15ca522a5 _start (/usr/bin/swift-frontend+0x9aa2a5)
+
+*** Signal 6: Backtracing from 0x7efeaa66438d... done ***
+
+*** Program crashed: Aborted at 0x00007efeaa66438d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007efeaa66438d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007efeaa66438d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x000000000022ba5e  2275934
+rdi 0x000000000022ba5e  2275934
+rbp 0x000000000022ba5e  2275934
+rsp 0x000055d16bddb4e8  eb 08 cc 64 d1 55 00 00 70 b7 dd 6b d1 55 00 00  ë·ÌdÑU··p·ÝkÑU··
+ r8 0x000055d16bddb770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x000055d16bddb770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x000055d16bddb770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x000055d166b7a8d5  2f 68 6f 6d 65 2f 62 75 69 6c 64 2d 75 73 65 72  /home/build-user
+r14 0x0000000000000000  0
+r15 0x000055d16bddb588  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007efeaa66438d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x00007efeaa53d000–0x00007efeaa6eceb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+[... 2 more lines ...]

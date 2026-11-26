@@ -1,0 +1,49 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp0hmjjebh/2177e6a7.c:3:1: error: C++ style comments are not allowed in ISO C90
+    3 | // { dg-do compile }
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp0hmjjebh/2177e6a7.c:3:1: note: (this will be reported only once per input file)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp0hmjjebh/2177e6a7.c: In function '_1454':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp0hmjjebh/2177e6a7.c:46:5: error: 'for' loop initial declarations are only allowed in C99 or C11 mode
+   46 |     for (int i = 0; i < 7; i++) {
+      |     ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp0hmjjebh/2177e6a7.c:46:5: note: use option '-std=c99', '-std=gnu99', '-std=c11' or '-std=gnu11' to compile your code
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp0hmjjebh/2177e6a7.c: In function 'foo':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp0hmjjebh/2177e6a7.c:111:1: error: SSA name '<unknown>' with version 1454 has no definition
+  111 | }
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp0hmjjebh/2177e6a7.c:111:1: error: invalid conversion in gimple call
+int <T8e> (void)
+
+int
+
+# .MEM_1518 = VDEF <.MEM_1517>
+_1454 = random ();
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp0hmjjebh/2177e6a7.c:111:1: error: invalid operands in gimple comparison
+if (_1454 > 0)
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp0hmjjebh/2177e6a7.c:111:1: internal compiler error: in vec_safe_grow_cleared, at vec.h:773
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x8f17a4 void vec_safe_grow_cleared<basic_block_def*, va_gc>(vec<basic_block_def*, va_gc, vl_embed>*&, unsigned int, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/vec.h:773
+0x8f17a4 void vec_safe_grow_cleared<basic_block_def*, va_gc>(vec<basic_block_def*, va_gc, vl_embed>*&, unsigned int, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/vec.h:769
+0x8f17a4 init_empty_tree_cfg_for_function(function*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree-cfg.cc:153
+0xf4e24b c_parser_parse_gimple_body(c_parser*, char*, c_declspec_il, profile_count)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:425
+0xf3625e c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3348
+0xf43529 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2256
+0xf44470 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xf44470 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xfc9e09 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp0hmjjebh/2177e6a7.c -quiet -dumpbase 2177e6a7.c -dumpbase-ext .c -mtune=generic -march=x86-64 -g -Ofast -O2 -Wextra -std=c90 -fgimple -fdump-tree-thread1-details -o /tmp/ccCRBTsW.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

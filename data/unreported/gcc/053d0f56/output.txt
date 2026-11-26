@@ -1,0 +1,38 @@
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp3durgw0m/29cafe8b.c:55:1: error: two or more data types in declaration specifiers
+   55 | int __GIMPLE (ssa,startwith("lim"))
+      | ^~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp3durgw0m/29cafe8b.c:55:5: error: '__GIMPLE' only valid with '-fgimple'
+   55 | int __GIMPLE (ssa,startwith("lim"))
+      |     ^~~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp3durgw0m/29cafe8b.c:56:1: error: 'foo' redeclared as different kind of symbol
+   56 | foo (int x, int n)
+      | ^~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp3durgw0m/29cafe8b.c:41:12: note: previous declaration of 'foo' with type 'struct foo'
+   41 | struct foo foo __attribute__((used));
+      |            ^~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp3durgw0m/29cafe8b.c:102:1: error: return type defaults to 'int' [-Wimplicit-int]
+  102 | f (const char *progname, volatile struct foo *dummy, const score s)
+      | ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp3durgw0m/29cafe8b.c:149:22: error: expected ')' before '(' token
+  149 | int as (ssa,startwith("lim"))
+      |                      ^
+      |                      )
+cc1: internal compiler error: in release_function_body, at cgraph.cc:2206
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7de9a0 release_function_body(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraph.cc:2206
+0x10a2f47 cgraph_node::release_body(bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraph.cc:2245
+0x10a4c43 cgraph_node::remove()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraph.cc:2355
+0x10b04ae analyze_functions
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:1417
+0x10b0cd6 symbol_table::finalize_compilation_unit()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2593
+/home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu -iprefix /home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../lib/gcc/x86_64-pc-linux-gnu/17.0.0/ /home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp3durgw0m/29cafe8b.c -quiet -dumpbase 29cafe8b.c -dumpbase-ext .c -mtune=generic -march=x86-64 -g -O2 -std=gnu99 -funroll-loops -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

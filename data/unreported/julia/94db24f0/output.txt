@@ -1,0 +1,22 @@
+Fault at memory address: 0x76327ca00000
+
+[705537] signal 11 (1): Segmentation fault
+in expression starting at /home/fuzz/WorkSpace/fusion-fuzz/.fused/julia/tmp_f0i7wn7/6ccd7417.jl:13
+julia: /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/ircode.c:1562: jl_cdi_file: Assertion `0 && "unexpected type for debuginfo.def"' failed.
+
+[705537] signal 6 (-6): Aborted
+in expression starting at /home/fuzz/WorkSpace/fusion-fuzz/.fused/julia/tmp_f0i7wn7/6ccd7417.jl:13
+pthread_kill at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+gsignal at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+abort at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+unknown function (ip: 0x76329002d81a) at /lib/x86_64-linux-gnu/libc.so.6
+__assert_fail at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+jl_cdi_file at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/ircode.c:1562:9
+jl_fprint_debugloc at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/stackwalk.c:1009:28
+jl_fprint_debugloc at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/stackwalk.c:999:9
+jl_fprint_native_codeloc at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/stackwalk.c:936:9
+jl_fprint_critical_error at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/signal-handling.c:1086:9
+sigdie_handler at /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/signals-unix.c:377:5
+unknown function (ip: 0x76329004a32f) at /lib/x86_64-linux-gnu/libc.so.6
+julia: /home/fuzz/WorkSpace/fusion-fuzz/projects/julia/julia-src/src/ircode.c:1562: jl_cdi_file: Assertion `0 && "unexpected type for debuginfo.def"' failed.
+Aborted (core dumped)

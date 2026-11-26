@@ -1,0 +1,68 @@
+cc1: error: attribute 'target' argument '+nosve' is unknown
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c: In function 'add':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c:26:3: error: 'for' loop initial declarations are only allowed in C99 or C11 mode
+   26 |   for (size_t i = 0; i < N; i++)
+      |   ^~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c:26:3: note: use option '-std=c99', '-std=gnu99', '-std=c11' or '-std=gnu11' to compile your code
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c: In function 'subtract':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c:35:3: error: 'for' loop initial declarations are only allowed in C99 or C11 mode
+   35 |   for (size_t i = 0; i < N; i++)
+      |   ^~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c: In function 'uadd':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c:44:3: error: 'for' loop initial declarations are only allowed in C99 or C11 mode
+   44 |   for (size_t i = 0; i < N; i++)
+      |   ^~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c:45:5: error: 'ud' undeclared (first use in this function); did you mean 'uc'?
+   45 |     ud[i] = ua[i] + uc[i];
+      |     ^~
+      |     uc
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c:45:5: note: each undeclared identifier is reported only once for each function it appears in
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c: At top level:
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c:55:13: error: '__gcc_host_wide_int__' redeclared as different kind of symbol
+   55 | typedef int __gcc_host_wide_int__;
+      |             ^~~~~~~~~~~~~~~~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c:21:10: note: previous declaration of '__gcc_host_wide_int__' with type 'uint64_t[1024]' {aka 'long unsigned int[1024]'}
+   21 | uint64_t __gcc_host_wide_int__[N];
+      |          ^~~~~~~~~~~~~~~~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c: In function 'usubtract':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c:62:3: error: 'for' loop initial declarations are only allowed in C99 or C11 mode
+   62 |   for (size_t i = 0; i < N; i++)
+      |   ^~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c:63:5: error: 'ud' undeclared (first use in this function); did you mean 'uc'?
+   63 |     ud[i] = uc[i] - ua[i];
+      |     ^~
+      |     uc
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c: At top level:
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c:67:1: internal compiler error: in get_init_dynamic_hwi, at c-family/c-format.cc:5047
+   67 | void bar (const char *, ...) __attribute__ ((__format__ (__gcc_diag__, 1, 2))); /* { dg-error "'__gcc_host_wide_int__' is not defined as 'long' or 'long long'" } */
+      | ^~~~
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7ad390 get_init_dynamic_hwi
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-format.cc:5047
+0xfa9669 init_dynamic_diag_info
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-format.cc:5242
+0xfa9669 handle_format_attribute(tree_node**, tree_node*, tree_node*, int, bool*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-format.cc:5441
+0xe8c976 decl_attributes(tree_node**, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/attribs.cc:905
+0xe9a4b5 c_decl_attributes
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-decl.cc:5747
+0xeafea9 start_decl(c_declarator*, c_declspecs*, bool, tree_node*, bool, unsigned long*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-decl.cc:5902
+0xf341da c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3063
+0xf43529 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2256
+0xf44470 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xf44470 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xfc9e09 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu -iprefix /home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../lib/gcc/x86_64-pc-linux-gnu/17.0.0/ /home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmptzpvkfv5/b49012bf.c -quiet -dumpdir a- -dumpbase b49012bf.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Ofast -O3 -Wall -std=gnu90 -fsyntax-only -fstrict-aliasing -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

@@ -1,0 +1,35 @@
+HloModule main
+
+%reduction {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  ROOT %add = f32[] add(f32[] %x, f32[] %y)
+}
+
+%update_computation {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  %abs_b = f32[] abs(b)
+  %sum = f32[] add(abs_b, abs_b)
+  ROOT %add = f32[] add(a, sum)
+}
+
+%update_computation.d {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  %abs_b = f32[] abs(b)
+  %sum = f32[] add(abs_b, abs_b)
+  ROOT %add = f32[] add(a, sum)
+}
+
+ENTRY %main {
+  %arg.0 = f32[4,4] parameter(0)
+  %operand = f32[8]{0} parameter(1)
+  %indices = s32[3,1]{1,0} parameter(2)
+  %updates = f32[3]{0} parameter(3)
+  %scattered = f32[8]{0} scatter(%operand, %indices, %updates), update_window_dims={}, inserted_window_dims={0}, scatter_dims_to_operand_dims={0}, index_vector_dim=1, to_apply=%update_computation
+  %reduce_scatter.0 = f32[2,4] reduce-scatter(arg.0), dimensions={0}, replica_groups={{0,1}}, to_apply=%update_computation.d
+  %convert.0 = s32[2,4] convert(reduce_scatter.0)
+  %transpose.0 = s32[4,2] transpose(convert.0), dimensions={1,0}
+  ROOT %ffl.root = (s32[4,2], f32[8]{0}) tuple(%transpose.0, %scattered)
+}

@@ -1,0 +1,25 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1791995697.716711 2700162 layout_assignment.cc:165] Check failed: ShapeUtil::CompatibleKind(shape_layout.shape(), instruction->operand(operand_no)->shape(), true) f8e4m3fn[2,1,378,128]{3,2,1,0} is not compatible with f32[128,32]{0,1} (for operand 3 of instruction %cudnn-conv.3.0 = (f8e4m3fn[2,1,378,128]{3,2,1,0}, f32[], u8[0]{0}) custom-call(%input.1, %filter.1, %input_scale.1, %input, %z_scale.1), window={size=1x5 pad=0_0x2_2}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convForwardGraph", backend_config={"cudnn_conv_backend_config":{"conv_result_scale":1,"serialized_graph":"28:[f32]conv();30:[f32]scale(28);32:[f32]scale(30);16:[f8e4m3fn]scale(32);25:[f32]amax(32);"}})
+*** Check failure stack trace: ***
+    @     0x57c042e71a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x57c042e719e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x57c03a885bce  xla::OperandLayoutConstraint::OperandLayoutConstraint()
+    @     0x57c03a8886ca  xla::LayoutAssignment::SetOperandLayout()
+    @     0x57c037bc72ca  xla::gpu::GpuLayoutAssignment::AddBackendConstraintsToDnnConvCustomCall()
+    @     0x57c037bca834  xla::gpu::GpuLayoutAssignment::AddBackendConstraints()
+    @     0x57c03a8a083e  xla::LayoutAssignment::RunImpl()
+    @     0x57c03ef28be7  xla::HloPassInterface::Run()
+    @     0x57c03aaa63ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x57c03aaa17bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x57c03aaa0bd5  xla::HloPassPipeline::RunImpl()
+    @     0x57c03ef28be7  xla::HloPassInterface::Run()
+    @     0x57c0379f758b  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x57c037a0206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x57c037936934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x57c03792ae5e  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x57c037928dc7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x57c042ec2466  main
+    @     0x786530fd4d90  (unknown)
+Aborted (core dumped)

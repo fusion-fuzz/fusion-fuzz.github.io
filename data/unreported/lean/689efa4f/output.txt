@@ -1,0 +1,103 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp3kp1bqie/56cf11f1.lean:6:3: error(lean.redundantMatchAlt): Redundant alternative: Any expression matching
+  @OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))
+will match one of the preceding alternatives
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp3kp1bqie/56cf11f1.lean:8:3: error(lean.redundantMatchAlt): Redundant alternative: Any expression matching
+  @OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))
+will match one of the preceding alternatives
+@[reducible] def Term.var.noConfusion.{u} : {L : Nat → Type} →
+  {n : Nat} →
+    {P : Sort u} →
+      {k k' : Fin n} →
+        (eq_2 :
+            @Eq.{1} (Term L n (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))) (@Term.var L n k)
+              (@Term.var L n k')) →
+          (k : (k_eq : @HEq.{1} (Fin n) k (Fin n) k') → P) → P
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp3kp1bqie/56cf11f1.lean:32:65: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HAdd.{0, 0, 0} ((x : Nat) → Nat) Nat Nat
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp3kp1bqie/56cf11f1.lean:32:78: error: unsolved goals
+n : Nat
+ts : List.{v + 1} (Type v)
+p : @Eq.{1} Nat (@List.length.{v + 1} (Type v) ts) n
+t : Type v
+x : t
+⊢ @Eq.{1} Nat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+    (@HAdd.hAdd.{0, 0, 0} ((x : Nat) → Nat) Nat Nat (?m.27 t x) f
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp3kp1bqie/56cf11f1.lean:30:0: error: (kernel) declaration has free variables 'HVect.Cons', expression: 
+  {x : (t : Type v) → (x : t) → HAdd.{0, 0, 0} ((x : Nat) → Nat) Nat Nat} →
+    {x_1 :
+        ∀ (t : Type v) (x_1 : t),
+          @Eq.{1} Nat (@List.length.{v + 1} (Type v) (@List.cons.{v + 1} (Type v) t _fvar.3920))
+            (@HAdd.hAdd.{0, 0, 0} ((x : Nat) → Nat) Nat Nat (x t x_1) f
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))} →
+      {n : Nat} →
+        {ts : List.{v + 1} (Type v)} →
+          {p : @Eq.{1} Nat (@List.length.{v + 1} (Type v) ts) n} →
+            (t : Type v) →
+              (x_2 : t) →
+                @HVect.{v} n
+                    (@Subtype.mk.{v + 2} (List.{v + 1} (Type v))
+                      (fun (l : List.{v + 1} (Type v)) => @Eq.{1} Nat (@List.length.{v + 1} (Type v) l) n) ts p) →
+                  @HVect.{v}
+                    (@HAdd.hAdd.{0, 0, 0} ((x : Nat) → Nat) Nat Nat (x t x_2) f
+                      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+                    (@Subtype.mk.{v + 2} (List.{v + 1} (Type v))
+                      (fun (l : List.{v + 1} (Type v)) =>
+                        @Eq.{1} Nat (@List.length.{v + 1} (Type v) l)
+                          (@HAdd.hAdd.{0, 0, 0} ((x : Nat) → Nat) Nat Nat (x t x_2) f
+                            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                      (@List.cons.{v + 1} (Type v) t ts) (x_1 t x_2))
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/lean/tmp3kp1bqie/56cf11f1.lean:34:11: error(lean.unknownIdentifier): Unknown constant `HVect.Nil.noConfusion`
+Vec.cons.noConfusion.{u_1, u} {α : Type u} {P : Sort u_1} {n : Nat} {x : α} {xs : Vec.{u} α n} {n' : Nat} {x' : α}
+  {xs' : Vec.{u} α n'}
+  (eq_1 :
+    @Eq.{1} Nat
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n'
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+  (eq_2 :
+    @HEq.{u + 1}
+      (Vec.{u} α
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (@Vec.cons.{u} α n x xs)
+      (Vec.{u} α
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n'
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (@Vec.cons.{u} α n' x' xs'))
+  (k :
+    (n_eq : @Eq.{1} Nat n n') →
+      (x_eq : @HEq.{u + 1} α x α x') → (xs_eq : @HEq.{u + 1} (Vec.{u} α n) xs (Vec.{u} α n') xs') → P) :
+  P
+Vec.cons.inj.{u} {α : Type u} {n : Nat} {x : α} {xs : Vec.{u} α n} {x✝ : α} {xs✝ : Vec.{u} α n} :
+  @Eq.{u + 1}
+      (Vec.{u} α
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (@Vec.cons.{u} α n x xs) (@Vec.cons.{u} α n x✝ xs✝) →
+    And (@Eq.{u + 1} α x x✝) (@Eq.{u + 1} (Vec.{u} α n) xs xs✝)
+Vec.cons.hinj.{u} {α : Type u} {n : Nat} {x : α} {xs : Vec.{u} α n} {α✝ : Type u} {n✝ : Nat} {x✝ : α✝}
+  {xs✝ : Vec.{u} α✝ n✝} :
+  @Eq.{u + 2} (Type u) α α✝ →
+    @Eq.{1} Nat
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n✝
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) →
+      @HEq.{u + 1}
+          (Vec.{u} α
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+          (@Vec.cons.{u} α n x xs)
+          (Vec.{u} α✝
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n✝
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+          (@Vec.cons.{u} α✝ n✝ x✝ xs✝) →
+        And (@Eq.{u + 2} (Type u) α α✝)
+          (And (@Eq.{1} Nat n n✝) (And (@HEq.{u + 1} α x α✝ x✝) (@HEq.{u + 1} (Vec.{u} α n) xs (Vec.{u} α✝ n✝) xs✝)))
+'f' depends on axioms: [propext]

@@ -1,0 +1,55 @@
+/tmp/test.c:2:3: warning: data definition has no type or storage class
+    2 |   t = t1 - _Literal(char *) & ptr[0];
+      |   ^
+/tmp/test.c:2:3: error: type defaults to 'int' in declaration of 't' [-Wimplicit-int]
+/tmp/test.c:2:7: error: 't1' undeclared here (not in a function); did you mean 't'?
+    2 |   t = t1 - _Literal(char *) & ptr[0];
+      |       ^~
+      |       t
+/tmp/test.c:2:12: error: implicit declaration of function '_Literal' [-Wimplicit-function-declaration]
+    2 |   t = t1 - _Literal(char *) & ptr[0];
+      |            ^~~~~~~~
+/tmp/test.c:2:21: error: expected expression before 'char'
+    2 |   t = t1 - _Literal(char *) & ptr[0];
+      |                     ^~~~
+/tmp/test.c:3:1: error: '__GIMPLE' only valid with '-fgimple'
+    3 | __GIMPLE ptrdiff_t lresult (int a)
+      | ^~~~~~~~
+/tmp/test.c:3:10: error: unknown type name 'ptrdiff_t'
+    3 | __GIMPLE ptrdiff_t lresult (int a)
+      |          ^~~~~~~~~
+/tmp/test.c:1:1: note: 'ptrdiff_t' is defined in header '<stddef.h>'; this is probably fixable by adding '#include <stddef.h>'
+  +++ |+#include <stddef.h>
+    1 | char *ptr[12];
+/tmp/test.c: In function 'lresult':
+/tmp/test.c:5:3: internal compiler error: in gimple_build_call_from_tree, at gimple.cc:390
+    5 |   t = _Literal(char *) & ptr[1] - t1;
+      |   ^
+0x2cb9bab internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xcdc9e4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x828657 gimple_build_call_from_tree(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/gimple.cc:390
+0xdab7e2 c_parser_gimple_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:947
+0xdab7e2 c_parser_gimple_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:729
+0xdac85e c_parser_gimple_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:453
+0xdac85e c_parser_parse_gimple_body(c_parser*, char*, c_declspec_il, profile_count)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:297
+0xd94e6e c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3348
+0xda2139 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2256
+0xda3080 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xda3080 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xe28b99 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu -D_REENTRANT /tmp/test.c -quiet -dumpdir a- -dumpbase test.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O1 -std=c99 -fsyntax-only -fstack-protector-all -fopenmp -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

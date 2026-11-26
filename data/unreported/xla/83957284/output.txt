@@ -1,0 +1,29 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1792021333.273794  659945 primitive_util.h:567] Not an integral data type 12
+*** Check failure stack trace: ***
+    @     0x55619d229a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x55619d2299e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5561947e3af5  xla::primitive_util::IntegralTypeSwitch<>()
+    @     0x55619479b44a  xla::AlgebraicSimplifierVisitor::HandleDynamicSlice()
+    @     0x55619cb5e68b  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x55619cb5def7  xla::HloInstruction::Visit<>()
+    @     0x55619cb6046e  xla::PostOrderDFS<>()
+    @     0x55619cb5ccf8  xla::HloInstruction::Accept<>()
+    @     0x556191cbef07  xla::HloComputation::Accept<>()
+    @     0x55619475face  xla::AlgebraicSimplifierVisitor::Run()
+    @     0x556192296e4a  xla::gpu::GpuAlgebraicSimplifier::RunImpl()
+    @     0x5561992e0be7  xla::HloPassInterface::Run()
+    @     0x556194e5e3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x556194e597bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x556194e58bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5561992e0be7  xla::HloPassInterface::Run()
+    @     0x556191dace11  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x556191dba06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x556191cee934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x556191cee373  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x556191ce0d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x55619d27a466  main
+    @     0x747a035d4d90  (unknown)
+Aborted (core dumped)

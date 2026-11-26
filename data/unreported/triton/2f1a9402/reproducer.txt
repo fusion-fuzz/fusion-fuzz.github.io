@@ -1,0 +1,7 @@
+module {
+tt.func @relaxed_atomic_has_no_cluster_sync(%ptr: !tt.ptr<i32>) {
+    %one = arith.constant 1 : i32
+    %relaxed = tt.atomic_rmw add, relaxed, gpu, %ptr, %one : (!tt.ptr<i32>, i32) -> i32
+    tt.return
+  }
+}

@@ -1,0 +1,238 @@
+HloModule module
+
+%add.1 {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  ROOT %add = f32[] add(x, y)
+}
+
+%relu.9 {
+  %x.10 = f32[] parameter(0)
+  %constant.11 = f32[] constant(0)
+  ROOT %maximum.12 = f32[] maximum(x.10, constant.11)
+}
+
+%max_F32.17 {
+  %lhs.18 = f32[] parameter(0)
+  %rhs.19 = f32[] parameter(1)
+  ROOT %maximum.20 = f32[] maximum(lhs.18, rhs.19)
+}
+
+%add_F32.1 {
+  %lhs.22 = f32[] parameter(0)
+  %rhs.23 = f32[] parameter(1)
+  ROOT %add.24 = f32[] add(lhs.22, rhs.23)
+}
+
+%relu_gradients.29 {
+  %activation.30 = f32[] parameter(0)
+  %constant.32 = f32[] constant(0)
+  %compare.33 = pred[] compare(activation.30, constant.32), direction=GT
+  %backprop.31 = f32[] parameter(1)
+  ROOT %select.34 = f32[] select(compare.33, backprop.31, constant.32)
+}
+
+%body.49 {
+  %after-all.51 = token[] after-all()
+  %infeed.52 = ((f32[100,784]{1,0}, f32[100,10]{1,0}, pred[]), token[]) infeed(after-all.51)
+  %get.53 = (f32[100,784]{1,0}, f32[100,10]{1,0}, pred[]) get-tuple-element(infeed.52), index=0
+  %get.54 = f32[100,784]{1,0} get-tuple-element(get.53), index=0
+  %prev.50 = (f32[784,128]{1,0}, f32[128]{0}, f32[128,32]{1,0}, f32[32]{0}, f32[32,10]{1,0}, /*index=5*/f32[10]{0}, pred[]) parameter(0)
+  %get.57 = f32[784,128]{1,0} get-tuple-element(prev.50), index=0
+  %dot.63 = f32[100,128]{1,0} dot(get.54, get.57), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %get.58 = f32[128]{0} get-tuple-element(prev.50), index=1
+  %broadcast.64 = f32[100,128]{1,0} broadcast(get.58), dimensions={1}
+  %add.65 = f32[100,128]{1,0} add(dot.63, broadcast.64)
+  %map.66 = f32[100,128]{1,0} map(add.65), dimensions={0,1}, to_apply=%relu.9
+  %get.59 = f32[128,32]{1,0} get-tuple-element(prev.50), index=2
+  %dot.67 = f32[100,32]{1,0} dot(map.66, get.59), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %get.60 = f32[32]{0} get-tuple-element(prev.50), index=3
+  %broadcast.68 = f32[100,32]{1,0} broadcast(get.60), dimensions={1}
+  %add.69 = f32[100,32]{1,0} add(dot.67, broadcast.68)
+  %map.70 = f32[100,32]{1,0} map(add.69), dimensions={0,1}, to_apply=%relu.9
+  %get.61 = f32[32,10]{1,0} get-tuple-element(prev.50), index=4
+  %dot.71 = f32[100,10]{1,0} dot(map.70, get.61), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %get.62 = f32[10]{0} get-tuple-element(prev.50), index=5
+  %broadcast.72 = f32[100,10]{1,0} broadcast(get.62), dimensions={1}
+  %add.73 = f32[100,10]{1,0} add(dot.71, broadcast.72)
+  %constant.74 = f32[] constant(-inf)
+  %reduce.75 = f32[100]{0} reduce(add.73, constant.74), dimensions={1}, to_apply=%max_F32.17
+  %broadcast.76 = f32[100,10]{1,0} broadcast(reduce.75), dimensions={0}
+  %subtract.77 = f32[100,10]{1,0} subtract(add.73, broadcast.76)
+  %exponential.78 = f32[100,10]{1,0} exponential(subtract.77)
+  %constant.79 = f32[] constant(0)
+  %reduce.80 = f32[100]{0} reduce(exponential.78, constant.79), dimensions={1}, to_apply=%add_F32.1
+  %broadcast.81 = f32[100,10]{1,0} broadcast(reduce.80), dimensions={0}
+  %divide.82 = f32[100,10]{1,0} divide(exponential.78, broadcast.81)
+  %get.55 = f32[100,10]{1,0} get-tuple-element(get.53), index=1
+  %subtract.83 = f32[100,10]{1,0} subtract(divide.82, get.55)
+  %transpose.88 = f32[10,32]{0,1} transpose(get.61), dimensions={1,0}
+  %dot.89 = f32[100,32]{1,0} dot(subtract.83, transpose.88), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %map.90 = f32[100,32]{1,0} map(map.70, dot.89), dimensions={0,1}, to_apply=%relu_gradients.29
+  %transpose.95 = f32[32,128]{0,1} transpose(get.59), dimensions={1,0}
+  %dot.96 = f32[100,128]{1,0} dot(map.90, transpose.95), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %map.97 = f32[100,128]{1,0} map(map.66, dot.96), dimensions={0,1}, to_apply=%relu_gradients.29
+  %transpose.98 = f32[784,100]{0,1} transpose(get.54), dimensions={1,0}
+  %dot.99 = f32[784,128]{1,0} dot(transpose.98, map.97), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %constant.104 = f32[] constant(0.01)
+  %broadcast.105 = f32[784,128]{1,0} broadcast(constant.104), dimensions={}
+  %multiply.106 = f32[784,128]{1,0} multiply(dot.99, broadcast.105)
+  %subtract.107 = f32[784,128]{1,0} subtract(get.57, multiply.106)
+  %reduce.101 = f32[128]{0} reduce(map.97, constant.79), dimensions={0}, to_apply=%add_F32.1
+  %broadcast.109 = f32[128]{0} broadcast(constant.104), dimensions={}
+  %multiply.110 = f32[128]{0} multiply(reduce.101, broadcast.109)
+  %subtract.111 = f32[128]{0} subtract(get.58, multiply.110)
+  %transpose.91 = f32[128,100]{0,1} transpose(map.66), dimensions={1,0}
+  %dot.92 = f32[128,32]{1,0} dot(transpose.91, map.90), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %broadcast.113 = f32[128,32]{1,0} broadcast(constant.104), dimensions={}
+  %multiply.114 = f32[128,32]{1,0} multiply(dot.92, broadcast.113)
+  %subtract.115 = f32[128,32]{1,0} subtract(get.59, multiply.114)
+  %reduce.94 = f32[32]{0} reduce(map.90, constant.79), dimensions={0}, to_apply=%add_F32.1
+  %broadcast.117 = f32[32]{0} broadcast(constant.104), dimensions={}
+  %multiply.118 = f32[32]{0} multiply(reduce.94, broadcast.117)
+  %subtract.119 = f32[32]{0} subtract(get.60, multiply.118)
+  %transpose.84 = f32[32,100]{0,1} transpose(map.70), dimensions={1,0}
+  %dot.85 = f32[32,10]{1,0} dot(transpose.84, subtract.83), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %broadcast.121 = f32[32,10]{1,0} broadcast(constant.104), dimensions={}
+  %multiply.122 = f32[32,10]{1,0} multiply(dot.85, broadcast.121)
+  %subtract.123 = f32[32,10]{1,0} subtract(get.61, multiply.122)
+  %reduce.87 = f32[10]{0} reduce(subtract.83, constant.79), dimensions={0}, to_apply=%add_F32.1
+  %broadcast.125 = f32[10]{0} broadcast(constant.104), dimensions={}
+  %multiply.126 = f32[10]{0} multiply(reduce.87, broadcast.125)
+  %subtract.127 = f32[10]{0} subtract(get.62, multiply.126)
+  %get.56 = pred[] get-tuple-element(get.53), index=2
+  ROOT %tuple.128 = (f32[784,128]{1,0}, f32[128]{0}, f32[128,32]{1,0}, f32[32]{0}, f32[32,10]{1,0}, /*index=5*/f32[10]{0}, pred[]) tuple(subtract.107, subtract.111, subtract.115, subtract.119, subtract.123, subtract.127, get.56)
+}
+
+%condition.129 {
+  %prev.130 = (f32[784,128]{1,0}, f32[128]{0}, f32[128,32]{1,0}, f32[32]{0}, f32[32,10]{1,0}, /*index=5*/f32[10]{0}, pred[]) parameter(0)
+  ROOT %get.131 = pred[] get-tuple-element(prev.130), index=6
+}
+
+%relu.9.d {
+  %x.10 = f32[] parameter(0)
+  %constant.11 = f32[] constant(0)
+  ROOT %maximum.12 = f32[] maximum(x.10, constant.11)
+}
+
+%max_F32.17.d {
+  %lhs.18 = f32[] parameter(0)
+  %rhs.19 = f32[] parameter(1)
+  ROOT %maximum.20 = f32[] maximum(lhs.18, rhs.19)
+}
+
+%add_F32.1.d {
+  %lhs.22 = f32[] parameter(0)
+  %rhs.23 = f32[] parameter(1)
+  ROOT %add.24 = f32[] add(lhs.22, rhs.23)
+}
+
+%relu_gradients.29.d {
+  %activation.30 = f32[] parameter(0)
+  %constant.32 = f32[] constant(0)
+  %compare.33 = pred[] compare(activation.30, constant.32), direction=GT
+  %backprop.31 = f32[] parameter(1)
+  ROOT %select.34 = f32[] select(compare.33, backprop.31, constant.32)
+}
+
+%body.49.d {
+  %after-all.51 = token[] after-all()
+  %infeed.52 = ((f32[100,784]{1,0}, f32[100,10]{1,0}, pred[]), token[]) infeed(after-all.51)
+  %get.53 = (f32[100,784]{1,0}, f32[100,10]{1,0}, pred[]) get-tuple-element(infeed.52), index=0
+  %get.54 = f32[100,784]{1,0} get-tuple-element(get.53), index=0
+  %prev.50 = (f32[784,128]{1,0}, f32[128]{0}, f32[128,32]{1,0}, f32[32]{0}, f32[32,10]{1,0}, /*index=5*/f32[10]{0}, pred[]) parameter(0)
+  %get.57 = f32[784,128]{1,0} get-tuple-element(prev.50), index=0
+  %dot.63 = f32[100,128]{1,0} dot(get.54, get.57), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %get.58 = f32[128]{0} get-tuple-element(prev.50), index=1
+  %broadcast.64 = f32[100,128]{1,0} broadcast(get.58), dimensions={1}
+  %add.65 = f32[100,128]{1,0} add(dot.63, broadcast.64)
+  %map.66 = f32[100,128]{1,0} map(add.65), dimensions={0,1}, to_apply=%relu.9.d
+  %get.59 = f32[128,32]{1,0} get-tuple-element(prev.50), index=2
+  %dot.67 = f32[100,32]{1,0} dot(map.66, get.59), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %get.60 = f32[32]{0} get-tuple-element(prev.50), index=3
+  %broadcast.68 = f32[100,32]{1,0} broadcast(get.60), dimensions={1}
+  %add.69 = f32[100,32]{1,0} add(dot.67, broadcast.68)
+  %map.70 = f32[100,32]{1,0} map(add.69), dimensions={0,1}, to_apply=%relu.9.d
+  %get.61 = f32[32,10]{1,0} get-tuple-element(prev.50), index=4
+  %dot.71 = f32[100,10]{1,0} dot(map.70, get.61), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %get.62 = f32[10]{0} get-tuple-element(prev.50), index=5
+  %broadcast.72 = f32[100,10]{1,0} broadcast(get.62), dimensions={1}
+  %add.73 = f32[100,10]{1,0} add(dot.71, broadcast.72)
+  %constant.74 = f32[] constant(-inf)
+  %reduce.75 = f32[100]{0} reduce(add.73, constant.74), dimensions={1}, to_apply=%max_F32.17.d
+  %broadcast.76 = f32[100,10]{1,0} broadcast(reduce.75), dimensions={0}
+  %subtract.77 = f32[100,10]{1,0} subtract(add.73, broadcast.76)
+  %exponential.78 = f32[100,10]{1,0} exponential(subtract.77)
+  %constant.79 = f32[] constant(0)
+  %reduce.80 = f32[100]{0} reduce(exponential.78, constant.79), dimensions={1}, to_apply=%add_F32.1.d
+  %broadcast.81 = f32[100,10]{1,0} broadcast(reduce.80), dimensions={0}
+  %divide.82 = f32[100,10]{1,0} divide(exponential.78, broadcast.81)
+  %get.55 = f32[100,10]{1,0} get-tuple-element(get.53), index=1
+  %subtract.83 = f32[100,10]{1,0} subtract(divide.82, get.55)
+  %transpose.88 = f32[10,32]{0,1} transpose(get.61), dimensions={1,0}
+  %dot.89 = f32[100,32]{1,0} dot(subtract.83, transpose.88), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %map.90 = f32[100,32]{1,0} map(map.70, dot.89), dimensions={0,1}, to_apply=%relu_gradients.29.d
+  %transpose.95 = f32[32,128]{0,1} transpose(get.59), dimensions={1,0}
+  %dot.96 = f32[100,128]{1,0} dot(map.90, transpose.95), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %map.97 = f32[100,128]{1,0} map(map.66, dot.96), dimensions={0,1}, to_apply=%relu_gradients.29.d
+  %transpose.98 = f32[784,100]{0,1} transpose(get.54), dimensions={1,0}
+  %dot.99 = f32[784,128]{1,0} dot(transpose.98, map.97), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %constant.104 = f32[] constant(0.01)
+  %broadcast.105 = f32[784,128]{1,0} broadcast(constant.104), dimensions={}
+  %multiply.106 = f32[784,128]{1,0} multiply(dot.99, broadcast.105)
+  %subtract.107 = f32[784,128]{1,0} subtract(get.57, multiply.106)
+  %reduce.101 = f32[128]{0} reduce(map.97, constant.79), dimensions={0}, to_apply=%add_F32.1.d
+  %broadcast.109 = f32[128]{0} broadcast(constant.104), dimensions={}
+  %multiply.110 = f32[128]{0} multiply(reduce.101, broadcast.109)
+  %subtract.111 = f32[128]{0} subtract(get.58, multiply.110)
+  %transpose.91 = f32[128,100]{0,1} transpose(map.66), dimensions={1,0}
+  %dot.92 = f32[128,32]{1,0} dot(transpose.91, map.90), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %broadcast.113 = f32[128,32]{1,0} broadcast(constant.104), dimensions={}
+  %multiply.114 = f32[128,32]{1,0} multiply(dot.92, broadcast.113)
+  %subtract.115 = f32[128,32]{1,0} subtract(get.59, multiply.114)
+  %reduce.94 = f32[32]{0} reduce(map.90, constant.79), dimensions={0}, to_apply=%add_F32.1.d
+  %broadcast.117 = f32[32]{0} broadcast(constant.104), dimensions={}
+  %multiply.118 = f32[32]{0} multiply(reduce.94, broadcast.117)
+  %subtract.119 = f32[32]{0} subtract(get.60, multiply.118)
+  %transpose.84 = f32[32,100]{0,1} transpose(map.70), dimensions={1,0}
+  %dot.85 = f32[32,10]{1,0} dot(transpose.84, subtract.83), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %broadcast.121 = f32[32,10]{1,0} broadcast(constant.104), dimensions={}
+  %multiply.122 = f32[32,10]{1,0} multiply(dot.85, broadcast.121)
+  %subtract.123 = f32[32,10]{1,0} subtract(get.61, multiply.122)
+  %reduce.87 = f32[10]{0} reduce(subtract.83, constant.79), dimensions={0}, to_apply=%add_F32.1.d
+  %broadcast.125 = f32[10]{0} broadcast(constant.104), dimensions={}
+  %multiply.126 = f32[10]{0} multiply(reduce.87, broadcast.125)
+  %subtract.127 = f32[10]{0} subtract(get.62, multiply.126)
+  %get.56 = pred[] get-tuple-element(get.53), index=2
+  ROOT %tuple.128 = (f32[784,128]{1,0}, f32[128]{0}, f32[128,32]{1,0}, f32[32]{0}, f32[32,10]{1,0}, /*index=5*/f32[10]{0}, pred[]) tuple(subtract.107, subtract.111, subtract.115, subtract.119, subtract.123, subtract.127, get.56)
+}
+
+%condition.129.d {
+  %prev.130 = (f32[784,128]{1,0}, f32[128]{0}, f32[128,32]{1,0}, f32[32]{0}, f32[32,10]{1,0}, /*index=5*/f32[10]{0}, pred[]) parameter(0)
+  ROOT %get.131 = pred[] get-tuple-element(prev.130), index=6
+}
+
+ENTRY %entry {
+  %p0 = f32[16,64,256]{2,1,0} parameter(0)
+  %p1 = f32[16,64,256]{2,1,0} parameter(1)
+  %reduce-scatter-start = ((f32[16,64,256]{2,1,0}, f32[16,64,256]{2,1,0}), (f32[4,64,256]{2,1,0}, f32[4,64,256]{2,1,0})) reduce-scatter-start(p0, p1), channel_id=1, replica_groups={}, dimensions={0}, to_apply=%relu_gradients.29
+  %reduce-scatter-done = (f32[4,64,256]{2,1,0}, f32[4,64,256]{2,1,0}) reduce-scatter-done(reduce-scatter-start)
+  %layer1_weights.1 = f32[784,128]{1,0} parameter(2)
+  %layer1_biases.2 = f32[128]{0} parameter(3)
+  %layer2_weights.3 = f32[128,32]{1,0} parameter(4)
+  %layer2_biases.4 = f32[32]{0} parameter(5)
+  %layer3_weights.5 = f32[32,10]{1,0} parameter(6)
+  %layer3_biases.6 = f32[10]{0} parameter(7)
+  %constant.7 = pred[] constant(true)
+  %tuple.8 = (f32[784,128]{1,0}, f32[128]{0}, f32[128,32]{1,0}, f32[32]{0}, f32[32,10]{1,0}, /*index=5*/f32[10]{0}, pred[]) tuple(%layer1_weights.1, %layer1_biases.2, %layer2_weights.3, %layer2_biases.4, %layer3_weights.5, %layer3_biases.6, %constant.7)
+  %while.132 = (f32[784,128]{1,0}, f32[128]{0}, f32[128,32]{1,0}, f32[32]{0}, f32[32,10]{1,0}, /*index=5*/f32[10]{0}, pred[]) while(%tuple.8), condition=%condition.129.d, body=%body.49.d
+  %get.133 = f32[784,128]{1,0} get-tuple-element(%while.132), index=0
+  %get.134 = f32[128]{0} get-tuple-element(%while.132), index=1
+  %get.135 = f32[128,32]{1,0} get-tuple-element(%while.132), index=2
+  %get.136 = f32[32]{0} get-tuple-element(%while.132), index=3
+  %get.137 = f32[32,10]{1,0} get-tuple-element(%while.132), index=4
+  %get.138 = f32[10]{0} get-tuple-element(%while.132), index=5
+  %tuple.139 = (f32[784,128]{1,0}, f32[128]{0}, f32[128,32]{1,0}, f32[32]{0}, f32[32,10]{1,0}, /*index=5*/f32[10]{0}) tuple(%get.133, %get.134, %get.135, %get.136, %get.137, %get.138)
+  %gte = f32[4,64,256]{2,1,0} get-tuple-element(reduce-scatter-done), index=0
+  ROOT %ffl.root = (f32[4,64,256]{2,1,0}, (f32[784,128]{1,0}, f32[128]{0}, f32[128,32]{1,0}, f32[32]{0}, f32[32,10]{1,0}, /*index=5*/f32[10]{0})) tuple(%gte, %tuple.139)
+}

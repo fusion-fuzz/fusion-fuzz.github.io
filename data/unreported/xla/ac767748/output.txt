@@ -1,0 +1,24 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1791992588.274105 2443304 shape.h:397] Check failed: has_layout() token[]
+*** Check failure stack trace: ***
+    @     0x5fdc87fa9a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5fdc87fa99e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5fdc7ca6a9ec  xla::Shape::layout()
+    @     0x5fdc7cd03a31  xla::gpu::GpuLayoutAssignment::AddBackendConstraints()
+    @     0x5fdc7f9d883e  xla::LayoutAssignment::RunImpl()
+    @     0x5fdc84060be7  xla::HloPassInterface::Run()
+    @     0x5fdc7fbde3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5fdc7fbd97bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5fdc7fbd8bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5fdc84060be7  xla::HloPassInterface::Run()
+    @     0x5fdc7cb2f58b  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5fdc7cb3a06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5fdc7ca6e934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5fdc7ca6ee85  xla::CompiledOptProvider::GetExecutable()
+    @     0x5fdc7ca6e245  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5fdc7ca60d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5fdc87ffa466  main
+    @     0x7249561d4d90  (unknown)
+Aborted (core dumped)

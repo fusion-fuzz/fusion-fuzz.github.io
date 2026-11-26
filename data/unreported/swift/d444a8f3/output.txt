@@ -1,0 +1,68 @@
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -Onone -sil-verify-all -disable-availability-checking /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpcrlo7i3a/6767748d.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+ #0 0x000055954e454bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055954e4522e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055954e4558c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f8f8b237330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x0000559547de674d void std::__invoke_impl<void, swift::evaluator::PerRequestCache swift::evaluator::PerRequestCache::makeEmpty<swift::PotentialMacroExpansionsInContextRequest>()::'lambda'(void*)&, void*>(std::__invoke_other, swift::evaluator::PerRequestCache swift::evaluator::PerRequestCache::makeEmpty<swift::PotentialMacroExpansionsInContextRequest>()::'lambda'(void*)&, void*&&) crtstuff.c:0:0
+ #5 0x00005595482ce971 swift::evaluator::RequestCache::~RequestCache() crtstuff.c:0:0
+ #6 0x000055954829c007 swift::Evaluator::~Evaluator() crtstuff.c:0:0
+ #7 0x000055954829be4b swift::ASTContext::~ASTContext() (/usr/bin/swift-frontend+0x2a5ee4b)
+ #8 0x00005595466b3652 swift::CompilerInstance::freeASTContext() (/usr/bin/swift-frontend+0xe76652)
+ #9 0x000055954651fabb generateCode(swift::CompilerInstance&, llvm::StringRef, llvm::Module*, llvm::GlobalVariable*) FrontendTool.cpp:0:0
+#10 0x0000559546518211 performCompileStepsPostSILGen(swift::CompilerInstance&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, swift::PrimarySpecificPaths const&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>, llvm::ArrayRef<swift::PrimarySpecificPaths>) FrontendTool.cpp:0:0
+#11 0x000055954651677b swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xcd977b)
+#12 0x0000559546530581 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#13 0x000055954651c0cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#14 0x0000559546518fef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcdbfef)
+#15 0x00005595461e824b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9ab24b)
+#16 0x00007f8f8b21c1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#17 0x00007f8f8b21c28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#18 0x00005595461e72a5 _start (/usr/bin/swift-frontend+0x9aa2a5)
+
+*** Signal 11: Backtracing from 0x7f8f8b31938d... done ***
+
+*** Program crashed: Bad pointer dereference at 0x000000000040001c ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007f8f8b31938d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x000000000000000b  11
+rcx 0x00007f8f8b31938d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x000000000000000b  11
+rsi 0x00000000002597e5  2463717
+rdi 0x00000000002597e5  2463717
+rbp 0x00000000002597e5  2463717
+rsp 0x0000559553ff94e8  eb 58 45 4e 95 55 00 00 70 97 ff 53 95 55 00 00  ëXEN·U··p·ÿS·U··
+ r8 0x0000559553ff9770  0b 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00  ················
+ r9 0x0000559553ff9770  0b 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00  ················
+r10 0x0000559553ff9770  0b 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00  ················
+r11 0x0000000000000246  582
+r12 0x0000000000006000  24576
+r13 0x0000000000003bb8  15288
+r14 0x0000000000000000  0
+r15 0x0000559553ff9588  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007f8f8b31938d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (27 omitted):
+
+0x00007f8f8b1f2000–0x00007f8f8b3a1eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+Segmentation fault (core dumped)

@@ -1,0 +1,10 @@
+parser-op-failure-after-region.mlir:5:2: error: expected ':'
+}
+ ^
+LLVM ERROR: operation destroyed but still has uses
+ #10 mlir::Operation::~Operation()                      mlir/lib/IR/Operation.cpp:185
+ #11 mlir::Operation::destroy()                         mlir/lib/IR/Operation.cpp:210
+ #23 mlir::Block::~Block()                              mlir/lib/IR/Block.cpp:22
+ #30 mlir::tensor::GenerateOp::parse(mlir::OpAsmParser&, mlir::OperationState&)   TensorOps.cpp.inc
+ #33 (anonymous namespace)::CustomOpAsmParser::parseOperation(mlir::OperationState&)  mlir/lib/AsmParser/Parser.cpp:1666
+ #35 (anonymous namespace)::OperationParser::parseOperation()                        mlir/lib/AsmParser/Parser.cpp:1319

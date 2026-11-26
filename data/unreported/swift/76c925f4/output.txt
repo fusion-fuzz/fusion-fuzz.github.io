@@ -1,0 +1,56 @@
+Abort: function matchTypes at CSSimplify.cpp:7676
+Bad type in matchTypes():
+(unowned_storage_type
+  (class_type decl="main.(file).Derived@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmptudpa07d/70608ff6.swift:12:7"))
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -Onone -sil-verify-all -enable-experimental-feature NonescapableTypes -g -debug-info-format=dwarf /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmptudpa07d/70608ff6.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmptudpa07d/70608ff6.swift")
+4.	While type-checking statement at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmptudpa07d/70608ff6.swift:38:1 - line:38:8] RangeText="print(y"
+5.	While type-checking expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmptudpa07d/70608ff6.swift:38:1 - line:38:8] RangeText="print(y"
+6.	While type-checking-target starting at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmptudpa07d/70608ff6.swift:38:1
+7.	While evaluating request CompareDeclSpecializationRequest(0x563687164de8 TopLevelCodeDecl line=38, main.(file).y@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmptudpa07d/70608ff6.swift:50:13, main.(file).y@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmptudpa07d/70608ff6.swift:36:13, 0, 0, 0)
+8.	Abort: function matchTypes at CSSimplify.cpp:7676
+| 	Bad type in matchTypes():
+| 	(unowned_storage_type
+| 	  (class_type decl="main.(file).Derived@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmptudpa07d/70608ff6.swift:12:7"))
+ #0 0x00005636804b2bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x00005636804b02e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x00005636804b38c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f4f80030330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f4f80089c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f4f8003027e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f4f800138ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000056367a8f0622 (/usr/bin/swift-frontend+0x3055622)
+ #8 0x000056367a8f070c (/usr/bin/swift-frontend+0x305570c)
+ #9 0x0000563679b43871 swift::constraints::ConstraintSystem::matchTypes(swift::Type, swift::Type, swift::constraints::ConstraintKind, swift::optionset::OptionSet<swift::constraints::ConstraintSystem::TypeMatchFlags, unsigned int>, swift::constraints::ConstraintLocatorBuilder) (/usr/bin/swift-frontend+0x22a8871)
+#10 0x0000563679b4584a swift::constraints::ConstraintSystem::addConstraint(swift::constraints::ConstraintKind, swift::Type, swift::Type, swift::constraints::ConstraintLocatorBuilder, bool, swift::constraints::PreparedOverloadBuilder*) (/usr/bin/swift-frontend+0x22aa84a)
+#11 0x0000563679b31e41 swift::CompareDeclSpecializationRequest::evaluate(swift::Evaluator&, swift::DeclContext*, swift::ValueDecl*, swift::ValueDecl*, bool, bool, bool) const (/usr/bin/swift-frontend+0x2296e41)
+#12 0x0000563679e62382 swift::SimpleRequest<swift::CompareDeclSpecializationRequest, bool (swift::DeclContext*, swift::ValueDecl*, swift::ValueDecl*, bool, bool, bool), (swift::RequestFlags)2>::evaluateRequest(swift::CompareDeclSpecializationRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#13 0x0000563679b39436 swift::CompareDeclSpecializationRequest::OutputType swift::Evaluator::getResultUncached<swift::CompareDeclSpecializationRequest, swift::CompareDeclSpecializationRequest::OutputType swift::evaluateOrDefault<swift::CompareDeclSpecializationRequest>(swift::Evaluator&, swift::CompareDeclSpecializationRequest, swift::CompareDeclSpecializationRequest::OutputType)::'lambda'()>(swift::CompareDeclSpecializationRequest const&, swift::CompareDeclSpecializationRequest::OutputType swift::evaluateOrDefault<swift::CompareDeclSpecializationRequest>(swift::Evaluator&, swift::CompareDeclSpecializationRequest, swift::CompareDeclSpecializationRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#14 0x0000563679b3927f swift::CompareDeclSpecializationRequest::OutputType swift::Evaluator::getResultCached<swift::CompareDeclSpecializationRequest, swift::CompareDeclSpecializationRequest::OutputType swift::evaluateOrDefault<swift::CompareDeclSpecializationRequest>(swift::Evaluator&, swift::CompareDeclSpecializationRequest, swift::CompareDeclSpecializationRequest::OutputType)::'lambda'(), (void*)0>(swift::CompareDeclSpecializationRequest const&, swift::CompareDeclSpecializationRequest::OutputType swift::evaluateOrDefault<swift::CompareDeclSpecializationRequest>(swift::Evaluator&, swift::CompareDeclSpecializationRequest, swift::CompareDeclSpecializationRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#15 0x0000563679b33fd7 swift::constraints::ConstraintSystem::compareSolutions(swift::constraints::ConstraintSystem&, llvm::ArrayRef<swift::constraints::Solution>, swift::constraints::SolutionDiff const&, unsigned int, unsigned int) (/usr/bin/swift-frontend+0x2298fd7)
+#16 0x0000563679b36b28 swift::constraints::ConstraintSystem::findBestSolution(llvm::SmallVectorImpl<swift::constraints::Solution>&, bool) (/usr/bin/swift-frontend+0x229bb28)
+#17 0x0000563679b97071 swift::constraints::ConstraintSystem::solve(llvm::SmallVectorImpl<swift::constraints::Solution>&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x22fc071)
+#18 0x0000563679b9691b swift::constraints::ConstraintSystem::solveImpl(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x22fb91b)
+#19 0x0000563679b9621d swift::constraints::ConstraintSystem::solve(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x22fb21d)
+#20 0x0000563679d5c9e5 swift::TypeChecker::typeCheckTarget(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x24c19e5)
+#21 0x0000563679d5c86d swift::TypeChecker::typeCheckExpression(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x24c186d)
+#22 0x0000563679d5c741 swift::TypeChecker::typeCheckExpression(swift::Expr*&, swift::DeclContext*, swift::constraints::ContextualTypeInfo, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>) (/usr/bin/swift-frontend+0x24c1741)
+#23 0x0000563679e67be7 (anonymous namespace)::StmtChecker::typeCheckASTNode(swift::ASTNode&) TypeCheckStmt.cpp:0:0
+#24 0x0000563679e6e4ac swift::ASTVisitor<(anonymous namespace)::StmtChecker, void, swift::Stmt*, void, void, void, void>::visit(swift::Stmt*) TypeCheckStmt.cpp:0:0
+#25 0x0000563679e71a8c bool (anonymous namespace)::StmtChecker::typeCheckStmt<swift::BraceStmt>(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#26 0x0000563679e69aeb swift::TypeChecker::typeCheckTopLevelCodeDecl(swift::TopLevelCodeDecl*) (/usr/bin/swift-frontend+0x25ceaeb)
+#27 0x0000563679eeae3a swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x264fe3a)
+#28 0x0000563679eef3a4 swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#29 0x0000563679eead45 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x264fd45)
+#30 0x000056367871d639 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_0>(long, swift::SourceFile&) Frontend.cpp:0:0
+#31 0x000056367871135e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xe7635e)
+#32 0x00005636787110eb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xe760eb)
+#33 0x000056367858e51e withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#34 0x000056367857a0cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#35 0x0000563678576fef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (
+[... truncated ...]

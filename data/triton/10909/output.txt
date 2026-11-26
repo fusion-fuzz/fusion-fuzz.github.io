@@ -1,0 +1,50 @@
+python3: /root/.triton/llvm/llvm-850a2b1b-ubuntu-x64-1/include/mlir/Analysis/DataFlow/SparseAnalysis.h:120: mlir::ChangeResult mlir::dataflow::Lattice<ValueT>::join(const ValueT&) [with ValueT = mlir::triton::AxisInfo]: Assertion `ValueT::join(newValue, rhs) == newValue && "expected `join` to be monotonic"' failed.
+module {
+  tt.func public @kernel(%arg0: !tt.ptr<f32> {tt.divisibility = 16 : i32}, %arg1: !tt.ptr<f32> {tt.divisibility = 16 : i32}, %arg2: i32 {tt.divisibility = 16 : i32}) attributes {noinline = false} {
+    %c1024_i32 = arith.constant 1024 : i32
+    %0 = tt.get_program_id x : i32
+    %1 = arith.muli %0, %c1024_i32 : i32
+    %2 = tt.make_range {end = 1024 : i32, start = 0 : i32} : tensor<1024xi32>
+    %3 = tt.splat %1 : i32 -> tensor<1024xi32>
+    %4 = arith.addi %3, %2 {tt.contiguity = dense<-7> : tensor<1xi32>} : tensor<1024xi32>
+    %5 = tt.splat %arg2 : i32 -> tensor<1024xi32>
+    %6 = arith.cmpi slt, %4, %5 : tensor<1024xi32>
+    %7 = tt.splat %arg1 : !tt.ptr<f32> -> tensor<1024x!tt.ptr<f32>>
+    %8 = tt.addptr %7, %4 : tensor<1024x!tt.ptr<f32>>, tensor<1024xi32>
+    %9 = tt.load %8, %6 : tensor<1024x!tt.ptr<f32>>
+    %10 = tt.splat %arg0 : !tt.ptr<f32> -> tensor<1024x!tt.ptr<f32>>
+    %11 = tt.addptr %10, %4 : tensor<1024x!tt.ptr<f32>>, tensor<1024xi32>
+    tt.store %11, %9, %6 : tensor<1024x!tt.ptr<f32>>
+    tt.return
+  }
+}
+
+{-#
+  external_resources: {
+    mlir_reproducer: {
+      pipeline: "builtin.module(convert-triton-to-tritongpu{enable-source-remat=false num-ctas=1 num-warps=4 target=cuda:75 threads-per-warp=32}, tritongpu-coalesce, tritongpu-F32DotTC{emu-tf32=false}, triton-nvidia-gpu-plan-cta, tritongpu-remove-layout-conversions{disable-remat-splitting=false}, tritongpu-optimize-thread-locality, tritongpu-accelerate-matmul, tritongpu-remove-layout-conversions{disable-remat-splitting=false}, tritongpu-optimize-dot-operands{hoist-layout-conversion=false}, triton-nvidia-optimize-descriptor-encoding, triton-loop-aware-cse, triton-licm, canonicalize{cse-between-iterations=false    max-iterations=10 max-num-rewrites=-1 region-simplify=normal test-convergence=false top-down=true}, triton-loop-aware-cse, tritongpu-optimize-dot-operands{hoist-layout-conversion=false}, tritongpu-coalesce-async-copy, triton-nvidia-optimize-tmem-layouts, triton-nvidia-tmem-load-reduce, tritongpu-remove-layout-conversions{disable-remat-splitting=false}, triton-nvidia-interleave-tmem, tritongpu-reduce-data-duplication, tritongpu-reorder-instructions, triton-loop-aware-cse, symbol-dce, triton-nvidia-gpu-fence-insertion{compute-capability=75}, triton-nvidia-mma-lowering, sccp, cse, canonicalize{cse-between-iterations=false    max-iterations=10 max-num-rewrites=-1 region-simplify=normal test-convergence=false top-down=true})",
+      disable_threading: true,
+      verify_each: true
+    }
+  }
+#-}
+/root/poc.py:4:1: error: Failures have been detected while processing an MLIR pass pipeline
+def kernel(dst, src, N, BLOCK: tl.constexpr):
+^
+/root/poc.py:4:1: note: Pipeline failed while executing [`TritonGPUCoalesce` on 'builtin.module' operation]: reproducer generated at `std::errs, please share the reproducer above with Triton project.`
+Traceback (most recent call last):
+  File "/root/poc.py", line 15, in <module>
+    kernel[(triton.cdiv(N, 1024),)](dst, src, N, BLOCK=1024)  # process aborts here
+  File "/workspace/triton/python/triton/runtime/jit.py", line 374, in <lambda>
+    return lambda *args, **kwargs: self.run(grid=grid, warmup=False, *args, **kwargs)
+  File "/workspace/triton/python/triton/runtime/jit.py", line 757, in run
+    kernel = self._do_compile(key, signature, device, constexprs, options, attrs, warmup)
+  File "/workspace/triton/python/triton/runtime/jit.py", line 902, in _do_compile
+    kernel = self.compile(src, target=target, options=options.__dict__)
+  File "/workspace/triton/python/triton/compiler/compiler.py", line 327, in compile
+    next_module = compile_ir(module, metadata)
+  File "/workspace/triton/python/triton/backends/nvidia/compiler.py", line 584, in <lambda>
+    stages["ttgir"] = lambda src, metadata: self.make_ttgir(src, metadata, options, capability)
+  File "/workspace/triton/python/triton/backends/nvidia/compiler.py", line 337, in make_ttgir
+    pm.run(mod, 'make_ttgir')
+RuntimeError: PassManager::run failed

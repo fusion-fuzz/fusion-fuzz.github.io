@@ -1,0 +1,25 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1791997891.438708 2882497 hlo_reachability.cc:204] Check failed: input_index < index (13 vs. 9) post order puts inputs first
+*** Check failure stack trace: ***
+    @     0x5809f37d1a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5809f37d19e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5809f2d728a1  xla::HloReachabilityMap::Build()::$_0::operator()()
+    @     0x5809f2d724dc  xla::HloReachabilityMap::Build()
+    @     0x5809e88b888c  xla::gpu::(anonymous namespace)::F8GraphConv()
+    @     0x5809e88b25d1  xla::gpu::CudnnFusedConvRewriter::RunImpl()
+    @     0x5809ef888be7  xla::HloPassInterface::Run()
+    @     0x5809eb4063ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5809eb4017bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5809eb400bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5809ef888be7  xla::HloPassInterface::Run()
+    @     0x5809e8342e03  xla::gpu::NVPTXCompiler::OptimizeHloConvolutionCanonicalization()
+    @     0x5809e83572ec  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5809e836206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5809e8296934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5809e8296373  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5809e8288d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5809f3822466  main
+    @     0x772c5e9d4d90  (unknown)
+Aborted (core dumped)

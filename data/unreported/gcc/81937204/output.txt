@@ -1,0 +1,40 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpofz7sim1/4df82773.c: In function 'test_1':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpofz7sim1/4df82773.c:124:1: internal compiler error: in put, at hash-map.h:177
+  124 | }
+      | ^
+0x2cdd1bb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xd038e4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x8bbd1b hash_map<function_reader::uid_hash, rtx_insn*, simple_hashmap_traits<default_hash_traits<function_reader::uid_hash>, rtx_insn*> >::put(int const&, rtx_insn* const&)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/hash-map.h:177
+0x8bbd1b hash_map<function_reader::uid_hash, rtx_insn*, simple_hashmap_traits<default_hash_traits<function_reader::uid_hash>, rtx_insn*> >::put(int const&, rtx_insn* const&)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/hash-map.h:168
+0x8bbd1b function_reader::handle_insn_uids()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/read-rtl-function.cc:1602
+0x1444c6a function_reader::parse_function()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/read-rtl-function.cc:454
+0x2bc64bf md_reader::handle_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/read-md.cc:1165
+0x2bc6795 md_reader::handle_toplevel_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/read-md.cc:1187
+0x2bc6795 md_reader::read_file_fragment(char const*, int, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/read-md.cc:1352
+0x1443a12 read_rtl_function_body_from_file_range(unsigned long, unsigned long)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/read-rtl-function.cc:1678
+0xdbc399 c_parser_parse_rtl_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31673
+0xdbc399 c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3350
+0xdc9439 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2276
+0xdca380 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2115
+0xdca380 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31603
+0xe50659 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1442
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpofz7sim1/4df82773.c -quiet -dumpdir a- -dumpbase 4df82773.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Og -Wall -std=c90 -fsyntax-only -fno-tree-vectorize -fdwarf2-cfi-asm -fdump-rtl-final -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

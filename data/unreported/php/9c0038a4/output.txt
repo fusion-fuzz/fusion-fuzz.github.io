@@ -1,0 +1,121 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==948750==ERROR: AddressSanitizer: SEGV on unknown address 0x000040ddb270 (pc 0x00000476688d bp 0x7fffa6e0c4b0 sp 0x7fffa6e0c360 T0)
+==948750==The signal is caused by a WRITE memory access.
+    #0 0x476688d in zif_zend_terminate_string /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/zend_test/test.c:179:31
+    #1 0x5e13ece in ZEND_DO_ICALL_SPEC_RETVAL_UNUSED_HANDLER /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:1322:2
+    #2 0x59a525b in execute_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:110198:12
+    #3 0x59a77ec in zend_execute /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend_vm_execute.h:115616:2
+    #4 0x66a0bc9 in zend_execute_script /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/Zend/zend.c:1972:3
+    #5 0x4efc09a in php_execute_script_ex /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:2655:13
+    #6 0x4efd5d8 in php_execute_script /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/main/main.c:2695:9
+    #7 0x66b4fa9 in do_cli /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:947:5
+    #8 0x66af47f in main /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php_cli.c:1370:18
+    #9 0x7fc523a88d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #10 0x7fc523a88e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #11 0x6058b4 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/sapi/cli/php+0x6058b4)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /home/fuzz/WorkSpace/fusion-fuzz/projects/php/php-src/ext/zend_test/test.c:179:31 in zif_zend_terminate_string
+==948750==ABORTING
+--- Set to 1 ---
+--- Set to -1 ---
+XSLTProcessor::$maxTemplateDepth must be greater than or equal to 0
+--- Get reference ---
+Indirect modification of XSLTProcessor::$maxTemplateDepth is not allowed
+--- Unset ---
+Cannot unset XSLTProcessor::$maxTemplateDepth
+--- Dump ---
+object(XSLTProcessor)#1 (4) {
+  ["doXInclude"]=>
+  bool(false)
+  ["cloneDocument"]=>
+  bool(false)
+  ["maxTemplateDepth"]=>
+  int(1)
+  ["maxTemplateVars"]=>
+  int(15000)
+}
+int(0)
+int(1)
+int(2)
+array(12) {
+  ["argv"]=>
+  array(1) {
+    [0]=>
+    string(68) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/a3fc82b5.php"
+  }
+  ["argc"]=>
+  int(1)
+  ["_GET"]=>
+  array(0) {
+  }
+  ["_POST"]=>
+  array(0) {
+  }
+  ["_COOKIE"]=>
+  array(0) {
+  }
+  ["_FILES"]=>
+  array(0) {
+  }
+  ["_SERVER"]=>
+  array(26) {
+    ["LESSOPEN"]=>
+    string(22) "| /usr/bin/lesspipe %s"
+    ["TMUX"]=>
+    string(27) "/tmp/tmux-1000/default,30,0"
+    ["HOSTNAME"]=>
+    string(12) "70555911fcb1"
+    ["SHLVL"]=>
+    string(1) "2"
+    ["HOME"]=>
+    string(10) "/home/fuzz"
+    ["OLDPWD"]=>
+    string(20) "/home/fuzz/WorkSpace"
+    ["TERM_PROGRAM_VERSION"]=>
+    string(4) "3.2a"
+    ["LC_CTYPE"]=>
+    string(7) "C.UTF-8"
+    ["_"]=>
+    string(16) "/usr/bin/python3"
+    ["TERM"]=>
+    string(6) "screen"
+    ["PATH"]=>
+    string(60) "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    ["LS_COLORS"]=>
+    string(1508) "rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:"
+    ["TERM_PROGRAM"]=>
+    string(4) "tmux"
+    ["SHELL"]=>
+    string(7) "/bin/sh"
+    ["LESSCLOSE"]=>
+    string(23) "/usr/bin/lesspipe %s %s"
+    ["PWD"]=>
+    string(55) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared"
+    ["TMUX_PANE"]=>
+    string(2) "%0"
+    ["PHP_SELF"]=>
+    string(68) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/a3fc82b5.php"
+    ["SCRIPT_NAME"]=>
+    string(68) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/a3fc82b5.php"
+    ["SCRIPT_FILENAME"]=>
+    string(68) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/a3fc82b5.php"
+    ["PATH_TRANSLATED"]=>
+    string(68) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/a3fc82b5.php"
+    ["DOCUMENT_ROOT"]=>
+    string(0) ""
+    ["REQUEST_TIME_FLOAT"]=>
+    float(1781149447.367904)
+    ["REQUEST_TIME"]=>
+    int(1781149447)
+    ["argv"]=>
+    array(1) {
+      [0]=>
+      string(68) "/home/fuzz/WorkSpace/fusion-fuzz/.fused/php_exec_shared/a3fc82b5.php"
+    }
+    ["argc"]=>
+    int(1)
+  }
+  ["proc"]=>
+[... 38 more lines ...]

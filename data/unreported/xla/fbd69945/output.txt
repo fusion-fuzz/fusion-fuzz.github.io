@@ -1,0 +1,21 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791797618.170154  184721 utils.cc:505] Check failed: hloSharding.IsReplicated() Expected HloShardingV3 during Shardy import when 'xla_enable_hlo_sharding_v3' flag is enabled, but got non-replicated HloShardingV2 <<{devices=[4]<=[4]}. Please contact OpenXLA/Shardy team if you encounter this error.
+*** Check failure stack trace: ***
+    @     0x64634f61da84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x64634f61da06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x64634651797e  xla::sdy::convertToSdyShardingAttr()
+    @     0x6463464e85fd  xla::sdy::(anonymous namespace)::SdyRoundTripImportShardyAttrsPass::runOnOperation()
+    @     0x64634e3c86eb  mlir::detail::OpToOpPassAdaptor::run()
+    @     0x64634e3c9113  mlir::detail::OpToOpPassAdaptor::runPipeline()
+    @     0x64634e3d06a2  mlir::PassManager::runPasses()
+    @     0x64634e3cfa2a  mlir::PassManager::run()
+    @     0x646346425434  xla::sdy::ShardyXLA::RunImpl()
+    @     0x64634e7a1007  xla::HloPassInterface::Run()
+    @     0x64634dfd7a3c  xla::HloPassPipeline::RunHelper<>()
+    @     0x64634dfd2e4d  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x64634dfd2265  xla::HloPassPipeline::RunImpl()
+    @     0x64634e7a1007  xla::HloPassInterface::Run()
+    @     0x64634602fd9d  xla::OptProvider::BuildAndRunTransformPipeline()
+    @     0x64634f663af8  main
+    @     0x745c90b59d90  (unknown)
+Aborted (core dumped)

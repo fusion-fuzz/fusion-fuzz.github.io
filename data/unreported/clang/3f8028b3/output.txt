@@ -1,0 +1,108 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:77:17: error: redefinition of 'pr7859_a'
+   77 | extern "C" void pr7859_a(int) {} // expected-error {{redefinition}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:76:17: note: previous definition is here
+   76 | extern "C" void pr7859_a(int) {} // expected-note {{previous definition}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:80:17: error: conflicting types for 'pr7859_b'
+   80 | extern "C" void pr7859_b(int) {} // expected-error {{conflicting}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:79:17: note: previous definition is here
+   79 | extern "C" void pr7859_b() {} // expected-note {{previous definition}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:83:17: error: conflicting types for 'pr7859_c'
+   83 | extern "C" void pr7859_c(int) {} // expected-error {{conflicting}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:82:17: note: previous definition is here
+   82 | extern "C" void pr7859_c(short) {} // expected-note {{previous definition}}
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:127:33: error: use of undeclared identifier 'NSObject'
+  127 |     typedef PC1Specialization1 <NSObject> PC1Specialization2;
+      |                                 ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:128:6: error: #else without #if
+  128 |     #else
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:130:24: error: unknown type name 'NSObject'
+  130 |     @interface PC1<T : NSObject *, // expected-error{{type bound 'NSObject *' for type parameter 'T' conflicts with implicit bound 'id}}
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:130:16: error: cannot find interface declaration for 'PC1'
+  130 |     @interface PC1<T : NSObject *, // expected-error{{type bound 'NSObject *' for type parameter 'T' conflicts with implicit bound 'id}}
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:136:36: error: use of undeclared identifier 'NSObject'
+  136 |     typedef PC1Specialization1<id, NSObject *> PC1Specialization3; // expected-error{{type arguments cannot be applied to already-specialized class type 'PC1Specialization1' (aka 'PC1<id,NSObject *>')}}
+      |                                    ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:136:46: error: expected expression
+  136 |     typedef PC1Specialization1<id, NSObject *> PC1Specialization3; // expected-error{{type arguments cannot be applied to already-specialized class type 'PC1Specialization1' (aka 'PC1<id,NSObject *>')}}
+      |                                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:138:36: error: unknown type name 'NSObject'
+  138 |     typedef PC1Specialization2<id, NSObject *> PC1Specialization4; // expected-error{{already-specialized class type 'PC1Specialization2' (aka 'PC1Specialization1<NSObject>')}}
+      |                                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:140:27: error: cannot find interface declaration for 'NSObject', superclass of 'NSString'
+  140 |     @interface NSString : NSObject
+      |     ~~~~~~~~~~~~~~~~~~~   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:140:16: error: Objective-C declarations may only appear in global scope
+  140 |     @interface NSString : NSObject
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:143:29: error: use of undeclared identifier 'NSObject'
+  143 |     void testCovariance(PC1<NSObject *, NSObject *> *pc1a,
+      |                             ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:143:39: error: expected expression
+  143 |     void testCovariance(PC1<NSObject *, NSObject *> *pc1a,
+      |                                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:144:21: error: use of undeclared identifier 'NSObject'
+  144 |     PC1<NSString *, NSObject *> *pc1b) {
+      |                     ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:144:31: error: expected expression
+  144 |     PC1<NSString *, NSObject *> *pc1b) {
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:148:6: error: #endif without #if
+  148 |     #endif
+      |      ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/IdentifierResolver.cpp:233: void clang::IdentifierResolver::RemoveDecl(clang::NamedDecl*): Assertion `Ptr && "Didn't find this decl on its identifier's chain!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O3 -fblocks -fobjc-runtime=macosx-10.14 -fobjc-arc -g /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:153:1: current parser token 'extern'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp4anz5g4x/fe9080dc.mm:122:1: parsing namespace 'pr14958'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000593fc1223329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000593fc121ffec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000593fc12208a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000593fc1162218
+4  libc.so.6 0x00007a45b5bb3520
+5  libc.so.6 0x00007a45b5c079bc pthread_kill + 300
+6  libc.so.6 0x00007a45b5bb3476 raise + 22
+7  libc.so.6 0x00007a45b5b997f3 abort + 211
+8  libc.so.6 0x00007a45b5b9971b
+9  libc.so.6 0x00007a45b5baae96
+10 clang++   0x0000593fc3b894fa clang::IdentifierResolver::RemoveDecl(clang::NamedDecl*) + 410
+11 clang++   0x0000593fc3e055c9 clang::Sema::ActOnPopScope(clang::SourceLocation, clang::Scope*) + 425
+12 clang++   0x0000593fc3a2db49 clang::Parser::ExitScope() + 41
+13 clang++   0x0000593fc3a9a42c clang::Parser::ParseNamespace(clang::DeclaratorContext, clang::SourceLocation&, clang::SourceLocation) + 3196
+14 clang++   0x0000593fc3a82c6b clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 827
+15 clang++   0x0000593fc3a3b66e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+16 clang++   0x0000593fc3a3c6ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+17 clang++   0x0000593fc3a19632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+18 clang++   0x0000593fc20ba061 clang::FrontendAction::Execute() + 65
+19 clang++   0x0000593fc2043e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+20 clang++   0x0000593fc2191de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+21 clang++   0x0000593fbefed33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+22 clang++   0x0000593fbefe313a
+23 clang++   0x0000593fbefe32cf
+24 clang++   0x0000593fc1dc8cfd
+25 clang++   0x0000593fc1162630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+26 clang++   0x0000593fc1dc9b53
+27 clang++   0x0000593fc1d7e607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+28 clang++   0x0000593fc1d82ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+29 clang++   0x0000593fc1d91004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+30 clang++   0x0000593fbefe8923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+31 clang++   0x0000593fbef247f1 main + 113
+32 libc.so.6 0x00007a45b5b9ad90
+33 libc.so.6 0x00007a45b5b9ae40 __libc_start_main + 128
+34 clang++   0x0000593fbefe2765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/cl
+[... truncated ...]

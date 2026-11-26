@@ -1,0 +1,105 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjyxasjag/c3d8d469.swift:11:5: error: expected 'func' keyword in instance method declaration
+ 9 | 
+10 | extension Intent where Self == Intents.List {
+11 |     bar
+   |     `- error: expected 'func' keyword in instance method declaration
+12 |         .fooooooooooo(first: 3,
+13 |                       second)[x: 10] {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjyxasjag/c3d8d469.swift:11:8: error: expected '(' in argument list of function declaration
+ 9 | 
+10 | extension Intent where Self == Intents.List {
+11 |     bar
+   |        `- error: expected '(' in argument list of function declaration
+12 |         .fooooooooooo(first: 3,
+13 |                       second)[x: 10] {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjyxasjag/c3d8d469.swift:12:9: error: expected declaration
+ 8 | protocol Intent {}
+ 9 | 
+10 | extension Intent where Self == Intents.List {
+   | `- note: in extension of 'Intent'
+11 |     bar
+12 |         .fooooooooooo(first: 3,
+   |         `- error: expected declaration
+13 |                       second)[x: 10] {
+14 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjyxasjag/c3d8d469.swift:60:1: error: expected '}' at end of closure
+31 |     bar
+32 |         .fooooooooooo(first: 3,
+33 |                       second)[x: 10] {
+   |                                      `- note: to match this opening '{'
+34 | 
+35 | // RUN: %sourcekitd-test -req=format -line=5 -length=1 %s | %FileCheck --strict-whitespace %s
+   :
+58 | }
+59 | 
+60 | 
+   | `- error: expected '}' at end of closure
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjyxasjag/c3d8d469.swift:60:1: error: expected '}' at end of brace statement
+28 | let rdar75978086: some Intent = .orderedList() // Ok
+29 | // --- Seed B ---
+30 | func foo() {
+   |            `- note: to match this opening '{'
+31 |     bar
+32 |         .fooooooooooo(first: 3,
+   :
+58 | }
+59 | 
+60 | 
+   | `- error: expected '}' at end of brace statement
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjyxasjag/c3d8d469.swift:60:1: error: expected '}' at end of extension
+ 8 | protocol Intent {}
+ 9 | 
+10 | extension Intent where Self == Intents.List {
+   |                                             `- note: to match this opening '{'
+11 |     bar
+12 |         .fooooooooooo(first: 3,
+   :
+58 | }
+59 | 
+60 | 
+   | `- error: expected '}' at end of extension
+
+swift-frontend: /home/build-user/swift/include/swift/AST/Decl.h:3296: void swift::ValueDecl::setAccess(AccessLevel): Assertion `!hasAccess() && "access already set"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -O -sil-verify-all /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjyxasjag/c3d8d469.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjyxasjag/c3d8d469.swift")
+4.	While type-checking extension of Intent (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjyxasjag/c3d8d469.swift:10:1)
+5.	While evaluating request GenericSignatureRequest(extension of Intent@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjyxasjag/c3d8d469.swift:10:1)
+6.	While evaluating request InferredGenericSignatureRequest(<Self where Self : Intent>, (null), extension of Intent@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjyxasjag/c3d8d469.swift:10:1, {}, {}, , extension of Intent@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjyxasjag/c3d8d469.swift:10:1, DefaultRequirementOptions(expandingDefaults=1, inferOutOfScopeImpliedInverses=0))
+7.	While evaluating request RequirementRequest(extension of Intent@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjyxasjag/c3d8d469.swift:10:1, 0, structural)
+8.	While evaluating request ResolveTypeRequest(while resolving type , Intents.List)
+9.	While evaluating request UnqualifiedLookupRequest(looking up 'Intents' from 0x557070451330 ExtensionDecl line=10 base=Intent with options { TypeLookup })
+10.	While evaluating request QualifiedLookupRequest(0x557070451330 ExtensionDecl line=10 base=Intent, {c3d8d469.(file).Intent@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpjyxasjag/c3d8d469.swift:8:10}, 'Intents', { NLFlags::RemoveNonVisible, NLFlags::RemoveOverridden, NLFlags::OnlyTypes })
+ #0 0x000055706a522bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055706a5202e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055706a5238c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007fa29c448330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007fa29c4a1c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007fa29c44827e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007fa29c42b8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007fa29c42b81b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x00007fa29c43e517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x000055706487bad4 swift::AccessLevelRequest::cacheResult(swift::AccessLevel) const (/usr/bin/swift-frontend+0x2f70ad4)
+#10 0x000055706451ad2e swift::ValueDecl::getFormalAccess() const (/usr/bin/swift-frontend+0x2c0fd2e)
+#11 0x000055706451ba6f checkAccess(swift::DeclContext const*, swift::ValueDecl const*, bool, bool, llvm::function_ref<swift::AccessLevel ()>) Decl.cpp:0:0
+#12 0x000055706451b98d swift::ValueDecl::isAccessibleFrom(swift::DeclContext const*, bool, bool) const (/usr/bin/swift-frontend+0x2c1098d)
+#13 0x000055706470bf92 isAcceptableLookupResult(swift::DeclContext const*, swift::optionset::OptionSet<swift::NLFlags, unsigned int>, swift::ValueDecl*, bool, bool) NameLookup.cpp:0:0
+#14 0x000055706470b73e swift::QualifiedLookupRequest::evaluate(swift::Evaluator&, swift::DeclContext const*, llvm::SmallVector<swift::NominalTypeDecl*, 4u>, swift::DeclNameRef, swift::optionset::OptionSet<swift::NLFlags, unsigned int>) const (/usr/bin/swift-frontend+0x2e0073e)
+#15 0x000055706472e219 swift::SimpleRequest<swift::QualifiedLookupRequest, llvm::SmallVector<swift::ValueDecl*, 4u> (swift::DeclContext const*, llvm::SmallVector<swift::NominalTypeDecl*, 4u>, swift::DeclNameRef, swift::optionset::OptionSet<swift::NLFlags, unsigned int>), (swift::RequestFlags)1>::evaluateRequest(swift::QualifiedLookupRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#16 0x0000557064725409 swift::QualifiedLookupRequest::OutputType swift::Evaluator::getResultUncached<swift::QualifiedLookupRequest, swift::QualifiedLookupRequest::OutputType swift::evaluateOrDefault<swift::QualifiedLookupRequest>(swift::Evaluator&, swift::QualifiedLookupRequest, swift::QualifiedLookupRequest::OutputType)::'lambda'()>(swift::QualifiedLookupRequest const&, swift::QualifiedLookupRequest::OutputType swift::evaluateOrDefault<swift::QualifiedLookupRequest>(swift::Evaluator&, swift::QualifiedLookupRequest, swift::QualifiedLookupRequest::OutputType)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#17 0x000055706472535a swift::QualifiedLookupRequest::OutputType swift::Evaluator::getResultUncached<swift::QualifiedLookupRequest, swift::QualifiedLookupRequest::OutputType swift::evaluateOrDefault<swift::QualifiedLookupRequest>(swift::Evaluator&, swift::QualifiedLookupRequest, swift::QualifiedLookupRequest::OutputType)::'lambda'()>(swift::QualifiedLookupRequest const&, swift::QualifiedLookupRequest::OutputType swift::evaluateOrDefault<swift::QualifiedLookupRequest>(swift::Evaluator&, swift::QualifiedLookupRequest, swift::QualifiedLookupRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#18 0x000055706470b07c swift::QualifiedLookupRequest::OutputType swift::evaluateOrDefault<swift::QualifiedLookupRequest>(swift::Evaluator&, swift::QualifiedLookupRequest, swift::QualifiedLookupRequest::OutputType) (/usr/bin/swift-frontend+0x2e0007c)
+#19 0x000055706470af0f swift::DeclContext::lookupQualified(llvm::ArrayRef<swift::NominalTypeDecl*>, swift::DeclNameRef, swift::SourceLoc, swift::optionset::OptionSet<swift::NLFlags, unsigned int>, llvm::SmallVectorImpl<swift::ValueDecl*>&) const (/usr/bin/swift-frontend+0x2dfff0f)
+#20 0x00005570648652e2 (anonymous namespace)::ASTScopeDeclConsumerForUnqualifiedLookup::lookInMembers(swift::DeclContext const*) const UnqualifiedLookup.cpp:0:0
+#21 0x000055706445bb65 swift::ast_scope::ASTScopeImpl::lookup(swift::NullablePtr<swift::ast_scope::ASTScopeImpl const>, swift::NullablePtr<swift::GenericParamList const>, swift::namelookup::AbstractASTScopeDeclConsumer&) const (/usr/bin/swift-frontend+0x2b50b65)
+#22 0x0000557064863a8a swift::UnqualifiedLookupRequest::evaluate(swift::Evaluator&, swift::UnqualifiedLookupDescriptor) const (/usr/bin/swift-frontend+0x2f58a8a)
+#23 0x000055706472e2fe swift::SimpleRequest<swift::UnqualifiedLookupRequest, swift::LookupResult (swift::UnqualifiedLookupDescriptor), (swift::RequestFlags)33>::ev
+[... truncated ...]

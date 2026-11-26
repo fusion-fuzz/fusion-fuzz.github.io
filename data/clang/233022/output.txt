@@ -1,0 +1,64 @@
+clang++: warning: -Wl,-rpath,./lib: 'linker' input unused when '-c' is present [-Wunused-command-line-argument]
+clang++: warning: -Wl,-rpath,/opt/compiler-explorer/gcc-snapshot/lib64: 'linker' input unused when '-c' is present [-Wunused-command-line-argument]
+clang++: warning: -Wl,-rpath,/opt/compiler-explorer/gcc-snapshot/lib32: 'linker' input unused when '-c' is present [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '--gcc-toolchain=/opt/compiler-explorer/gcc-snapshot' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L./lib' [-Wunused-command-line-argument]
+<source>:4:12: warning: variable length arrays in C++ are a Clang extension [-Wvla-cxx-extension]
+    4 |   char buf[n];
+      |            ^
+<source>:4:12: note: function parameter 'n' with unknown value cannot be used in a constant expression
+<source>:2:15: note: declared here
+    2 | void test(int n) {
+      |               ^
+clang++: /root/llvm-project/llvm/lib/Target/ARM/ARMFrameLowering.cpp:1254: virtual void llvm::ARMFrameLowering::emitPrologue(llvm::MachineFunction&, llvm::MachineBasicBlock&) const: Assertion `FPOffsetAfterPush == 0' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /opt/compiler-explorer/clang-assertions-trunk/bin/clang++ -g -o /app/output.s -fno-verbose-asm --gcc-toolchain=/opt/compiler-explorer/gcc-snapshot -fcolor-diagnostics -fno-crash-diagnostics -c -Oz -target thumbv7-windows <source> -L./lib -Wl,-rpath,./lib -Wl,-rpath,/opt/compiler-explorer/gcc-snapshot/lib64 -Wl,-rpath,/opt/compiler-explorer/gcc-snapshot/lib32
+1.	<eof> parser at end of file
+2.	Code generation
+3.	Running pass 'Function Pass Manager' on module '<source>'.
+4.	Running pass 'Prologue/Epilogue Insertion & Frame Finalization' on function '@"?test@@YAXH@Z"'
+ #0 0x00000000045074a8 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x45074a8)
+ #1 0x0000000004504704 llvm::sys::RunSignalHandlers() (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x4504704)
+ #2 0x0000000004504d3c llvm::sys::CleanupOnSignal(unsigned long) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x4504d3c)
+ #3 0x000000000443ecb8 CrashRecoverySignalHandler(int) CrashRecoveryContext.cpp:0:0
+ #4 0x000072104f845330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x000072104f89ec0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #6 0x000072104f84527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x000072104f8288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x000072104f82881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x000072104f83b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x0000000001c0f144 llvm::ARMFrameLowering::emitPrologue(llvm::MachineFunction&, llvm::MachineBasicBlock&) const (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x1c0f144)
+#11 0x00000000038e2b8d (anonymous namespace)::PEIImpl::run(llvm::MachineFunction&) (.constprop.0) PrologEpilogInserter.cpp:0:0
+#12 0x00000000038e5250 (anonymous namespace)::PEILegacy::runOnMachineFunction(llvm::MachineFunction&) PrologEpilogInserter.cpp:0:0
+#13 0x000000000376cb9d llvm::MachineFunctionPass::runOnFunction(llvm::Function&) (.part.0) MachineFunctionPass.cpp:0:0
+#14 0x0000000003dc29a3 llvm::FPPassManager::runOnFunction(llvm::Function&) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x3dc29a3)
+#15 0x0000000003dc2de1 llvm::FPPassManager::runOnModule(llvm::Module&) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x3dc2de1)
+#16 0x0000000003dc37a9 llvm::legacy::PassManagerImpl::run(llvm::Module&) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x3dc37a9)
+#17 0x00000000058ab755 runCodeGenPipelineLegacy(llvm::TargetMachine&, llvm::Module&, llvm::raw_pwrite_stream&, std::unique_ptr<llvm::ToolOutputFile, std::default_delete<llvm::ToolOutputFile>>&, llvm::CodeGenFileType, bool, bool) RunCodeGen.cpp:0:0
+#18 0x00000000058ab85c llvm::runCodeGenPipeline(llvm::TargetMachine&, llvm::Module&, llvm::raw_pwrite_stream&, std::unique_ptr<llvm::ToolOutputFile, std::default_delete<llvm::ToolOutputFile>>&, llvm::CodeGenFileType, bool, bool, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x58ab85c)
+#19 0x000000000492cf9d (anonymous namespace)::EmitAssemblyHelper::emitAssembly(clang::BackendAction, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) BackendUtil.cpp:0:0
+#20 0x000000000492d42f clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x492d42f)
+#21 0x0000000004ff3de5 clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x4ff3de5)
+#22 0x0000000006e570dc clang::ParseAST(clang::Sema&, bool, bool) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x6e570dc)
+#23 0x0000000004ff4148 clang::CodeGenAction::ExecuteAction() (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x4ff4148)
+#24 0x0000000005317a68 clang::FrontendAction::Execute() (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x5317a68)
+#25 0x00000000052a4a2d clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x52a4a2d)
+#26 0x00000000053ed6f3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x53ed6f3)
+#27 0x0000000000d6f788 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0xd6f788)
+#28 0x0000000000d6662a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#29 0x0000000000d667b3 int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::'lambda'(llvm::SmallVectorImpl<char const*>&)>(long, llvm::SmallVectorImpl<char const*>&) driver.cpp:0:0
+#30 0x000000000506b189 void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const::'lambda'()>(long) Job.cpp:0:0
+#31 0x000000000443f0b4 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x443f0b4)
+#32 0x000000000506bcf5 clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const (.part.0) Job.cpp:0:0
+#33 0x0000000005029dd2 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x5029dd2)
+#34 0x000000000502e6e7 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x502e6e7)
+#35 0x0000000005038ba5 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0x5038ba5)
+#36 0x0000000000d6bd7a clang_main(int, char**, llvm::ToolContext const&) (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0xd6bd7a)
+#37 0x0000000000cd69a3 main (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0xcd69a3)
+#38 0x000072104f82a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#39 0x000072104f82a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#40 0x0000000000d65fd5 _start (/opt/compiler-explorer/clang-assertions-trunk/bin/clang+++0xd65fd5)
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+Program terminated with signal SIGABRT (6)
+x86-64 clang (assertions trunk) - 838ms

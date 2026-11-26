@@ -1,0 +1,47 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfxeiycfk/d79c6bba.cc: In function 'int main()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfxeiycfk/d79c6bba.cc:90:3: warning: 'template for' only available with '-std=c++2c' or '-std=gnu++2c' [-Wc++26-extensions]
+   90 |   template for (auto [...e] : A ())
+      |   ^~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfxeiycfk/d79c6bba.cc:90:23: warning: structured binding packs only available with '-std=c++2c' or '-std=gnu++2c' [-Wc++26-extensions]
+   90 |   template for (auto [...e] : A ())
+      |                       ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfxeiycfk/d79c6bba.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfxeiycfk/d79c6bba.cc:94:1: error: Two symbols with same comdat_group are not linked by the same_comdat_group list.
+   94 | }
+      | ^
+__builtin_abort/16 (int __builtin_abort(T ...) [with T = {char, char, char, char, char, char, char}])
+  Type: function definition analyzed
+  Visibility: semantic_interposition public weak comdat comdat_group:__builtin_abort one_only
+  previous sharing asm name: 8
+  References: 
+  Referring: 
+  Function flags: body
+  Called by: main/5 
+  Calls: 
+__builtin_abort/8 (int __builtin_abort(T ...) [with T = {int, int, int}])
+  Type: function definition analyzed
+  Visibility: semantic_interposition public weak comdat comdat_group:__builtin_abort one_only
+  next sharing asm name: 16
+  previous sharing asm name: 7
+  References: 
+  Referring: 
+  Function flags: body
+  Called by: main/5 
+  Calls: 
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfxeiycfk/d79c6bba.cc:94:1: internal compiler error: symtab_node::verify failed
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0x141d7ed symtab_node::verify_symtab_nodes()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/symtab.cc:1521
+0x1436689 symtab_node::checking_verify_symtab_nodes()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraph.h:730
+0x1436689 symbol_table::compile()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2348
+0x1438c36 symbol_table::compile()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2345
+0x1438c36 symbol_table::finalize_compilation_unit()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cgraphunit.cc:2626
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfxeiycfk/d79c6bba.cc -quiet -dumpbase d79c6bba.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O1 -O2 -std=gnu++17 -ftree-vectorize -fno-rounding-math -fno-trapping-math -fdump-tree-optimized -o /tmp/ccX9VSXN.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

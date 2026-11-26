@@ -1,0 +1,64 @@
+=================================================================
+==99447==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x504000025134 at pc 0x55d8a70cdcd9 bp 0x7ffdd03c51a0 sp 0x7ffdd03c5190
+READ of size 1 at 0x504000025134 thread T0
+    #0 0x55d8a70cdcd8 in LCompilers::trim_dims(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp:56
+    #1 0x55d8a71b20ef in LCompilers::ASRToCPPVisitor::get_array_type(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, unsigned long, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp:131
+    #2 0x55d8a71b44c8 in LCompilers::ASRToCPPVisitor::generate_array_decl(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, LCompilers::ASR::dimension_t*, int, unsigned long, bool, bool, bool, bool, bool) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp:155
+    #3 0x55d8a71bd758 in LCompilers::ASRToCPPVisitor::convert_variable_decl[abi:cxx11](LCompilers::ASR::Variable_t const&, LCompilers::DeclarationOptions*) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp:279
+    #4 0x55d8a71e87e5 in LCompilers::BaseCCPPVisitor<LCompilers::ASRToCPPVisitor>::visit_Function(LCompilers::ASR::Function_t const&) (/opt/lfortran/bin/lfortran+0x2f0747e5)
+    #5 0x55d8a70f9311 in visit_symbol_t<LCompilers::ASRToCPPVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:32
+    #6 0x55d8a71de6c2 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&) (/opt/lfortran/bin/lfortran+0x2f06a6c2)
+    #7 0x55d8a71c67cd in LCompilers::ASRToCPPVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp:408
+    #8 0x55d8a710888a in visit_unit_t<LCompilers::ASRToCPPVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:22
+    #9 0x55d8a728c1e4 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_unit(LCompilers::ASR::unit_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:378
+    #10 0x55d8a70fbdd9 in visit_asr_t<LCompilers::ASRToCPPVisitor> /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:351
+    #11 0x55d8a71f4bc8 in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCPPVisitor>::visit_asr(LCompilers::ASR::asr_t const&) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h:377
+    #12 0x55d8a70ce187 in LCompilers::asr_to_cpp[abi:cxx11](Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp:726
+    #13 0x55d8a5222953 in LCompilers::FortranEvaluator::get_cpp2[abi:cxx11](LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:886
+    #14 0x55d8a522253c in LCompilers::FortranEvaluator::get_cpp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&, long) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp:874
+    #15 0x55d8a49fd0b4 in emit_cpp /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:913
+    #16 0x55d8a4a34bca in main_app(int, char**) /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:2943
+    #17 0x55d8a4a3be60 in main /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp:3149
+    #18 0x7f1747517d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #19 0x7f1747517e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #20 0x55d8a44f39b4 in _start (/opt/lfortran/bin/lfortran+0x2c37f9b4)
+
+0x504000025134 is located 0 bytes to the right of 36-byte region [0x504000025110,0x504000025134)
+allocated by thread T0 here:
+    #0 0x7f17481841e7 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:99
+    #1 0x7f1747fa10bd in std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (/lib/x86_64-linux-gnu/libstdc++.so.6+0x14c0bd)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_cpp.cpp:56 in LCompilers::trim_dims(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&)
+Shadow bytes around the buggy address:
+  0x0a087fffc9d0: fa fa fd fd fd fd fd fa fa fa fd fd fd fd fd fa
+  0x0a087fffc9e0: fa fa fd fd fd fd fd fa fa fa fd fd fd fd fd fa
+  0x0a087fffc9f0: fa fa 00 00 00 00 00 00 fa fa fd fd fd fd fd fd
+  0x0a087fffca00: fa fa fd fd fd fd fd fa fa fa fd fd fd fd fd fd
+  0x0a087fffca10: fa fa fd fd fd fd fd fd fa fa fd fd fd fd fd fd
+=>0x0a087fffca20: fa fa 00 00 00 00[04]fa fa fa fa fa fa fa fa fa
+  0x0a087fffca30: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0a087fffca40: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0a087fffca50: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0a087fffca60: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0a087fffca70: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==99447==ABORTING

@@ -1,0 +1,47 @@
+[... 26 lines / 1,335 bytes of output truncated — no crash signature found; showing tail ...]
+
+
+thread 'rustc' (1990809) panicked at compiler/rustc_borrowck/src/type_check/relate_tys.rs:413:17:
+Box<dyn Any>
+stack backtrace:
+   0: std::panicking::begin_panic::<rustc_errors::ExplicitBug>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:751:5
+   1: std::panic::panic_any::<rustc_errors::ExplicitBug>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panic.rs:260:5
+   2: <rustc_errors::diagnostic::BugAbort as rustc_errors::diagnostic::EmissionGuarantee>::emit_producing_guarantee
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:58:9
+   3: <rustc_errors::diagnostic::Diag<rustc_errors::diagnostic::BugAbort>>::emit
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1319:9
+   4: <rustc_errors::DiagCtxtHandle>::span_bug::<rustc_span::span_encoding::Span, alloc::string::String>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:982:48
+   5: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:38:54
+   6: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:109:23
+   7: rustc_middle::ty::context::tls::with_context_opt::<rustc_middle::ty::context::tls::with_opt<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}, !>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:75:18
+   8: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:107:5
+   9: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:33:5
+  10: rustc_middle::util::bug::span_bug_fmt::<rustc_span::span_encoding::Span>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:24:5
+  11: <rustc_borrowck::type_check::relate_tys::NllTypeRelating as rustc_type_ir::relate::TypeRelation<rustc_middle::ty::context::TyCtxt>>::tys
+  12: <rustc_middle::ty::Ty as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate::<rustc_borrowck::type_check::relate_tys::NllTypeRelating>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/relate.rs:17:18
+  13: <rustc_borrowck::type_check::relate_tys::NllTypeRelating as rustc_type_ir::relate::TypeRelation<rustc_middle::ty::context::TyCtxt>>::relate::<rustc_middle::ty::Ty>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/relate.rs:61:9
+  14: <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate::<rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/relate.rs:175:30
+  15: <&mut <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#1} as core::ops::function::FnOnce<(((rustc_middle::ty::Ty, rustc_middle::ty::Ty), bool),)>>::call_once
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/ops/function.rs:310:21
+  16: <core::option::Option<((rustc_middle::ty::Ty, rustc_middle::ty::Ty), bool)>>::map::<core::result::Result<rustc_middle::ty::Ty, rustc_type_ir::error::TypeError<rustc_middle::ty::context::TyCtxt>>, &mut <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#1}>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/option.rs:1163:29
+  17: <core::iter::adapters::map::Map<core::iter::adapters::chain::Chain<core::iter::adapters::map::Map<core::iter::adapters::zip::Zip<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>, core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#0}>, core::iter::sources::once::Once<((rustc_middle::ty::Ty, rustc_middle::ty::Ty), bool)>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#1}> as core::iter::traits::iterator::Iterator>::next
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/iter/adapters/map.rs:107:26
+  18: <core::iter::adapters::enumerate::Enumerate<core::iter::adapters::map::Map<core::iter::adapters::chain::Chain<core::iter::adapters::map::Map<core::iter::adapters::zip::Zip<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>, core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#0}>, core::iter::sources::once::Once<((rustc_middle::ty::Ty, rustc_middle::ty::Ty), bool)>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#1}>> as core::iter::traits::iterator::Iterator>::next
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/iter/adapters/enumerate.rs:80:27
+  19: <core::iter::adapters::map::Map<core::iter::adapters::enumerate::Enumerate<core::iter::adapters::map::Map<core::iter::adapters::chain::Chain<core::iter::adapters::map::Map<core::iter::adapters::zip::Zip<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>, core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#0}>, core::iter::sources::once::Once<((rustc_middle::ty::Ty, rustc_middle::ty::Ty), bool)>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#1}>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#2}> as core::iter::traits::iterator::Iterator>::next
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/iter/adapters/map.rs:107:19
+  20: <core::result::Result<rustc_middle::ty::Ty, rustc_type_ir::error::TypeError<rustc_middle::ty::context::TyCtxt>> as rustc_type_ir::interner::CollectAndApply<rustc_middle::ty::Ty, &rustc_middle::ty::list::RawList<(), rustc_middle::ty::Ty>>>::collect_and_apply::<core::iter::adapters::map::Map<core::iter::adapters::enumerate::Enumerate<core::iter::adapters::map::Map<core::iter::adapters::chain::Chain<core::iter::adapters::map::Map<core::iter::adapters::zip::Zip<core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>, core::iter::adapters::copied::Copied<core::slice::iter::Iter<rustc_middle::ty::Ty>>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::context::TyCtxt>>::relate<rustc_borrowck::type_check::relate_tys::NllTypeRelating>::{closure#0}>, core::iter::sources::once::Once<((rustc_middle::ty::Ty, rustc_middle::ty::Ty), bool)>>, <rustc_type_ir::ty_kind::FnSig<rustc_middle::ty::context::TyCtxt> as rustc_type_ir::relate::Relate<rustc_middle::ty::cont
+[... truncated ...]

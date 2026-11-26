@@ -1,0 +1,58 @@
+[... 128 lines omitted ...]
+        79: rustc_query_impl::query_vtables::early_lint_checks::execute_query_non_incr::__rust_end_short_backtrace
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/query_vtables.rs:94:30
+        80: rustc_middle::query::calls::query_ensure_ok::<rustc_middle::query::caches::SingleCache<rustc_middle::query::erase::ErasedData<[u8; 0]>>>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:170:13
+        81: <rustc_middle::query::calls::TyCtxtEnsureOk>::early_lint_checks
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:302:21
+        82: rustc_driver_impl::run_compiler::{closure#0}::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_driver_impl/src/lib.rs:275:37
+        83: rustc_interface::passes::create_and_enter_global_ctxt::<(), rustc_driver_impl::run_compiler::{closure#0}::{closure#0}>::{closure#2}::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1045:80
+        84: <core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::passes::create_and_enter_global_ctxt<(), rustc_driver_impl::run_compiler::{closure#0}::{closure#0}>::{closure#2}::{closure#0}> as core::ops::function::FnOnce<()>>::call_once
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panic/unwind_safe.rs:275:9
+        85: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::passes::create_and_enter_global_ctxt<(), rustc_driver_impl::run_compiler::{closure#0}::{closure#0}>::{closure#2}::{closure#0}>, ()>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:576:43
+        86: std::panicking::catch_unwind::<(), core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::passes::create_and_enter_global_ctxt<(), rustc_driver_impl::run_compiler::{closure#0}::{closure#0}>::{closure#2}::{closure#0}>>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:544:19
+        87: std::panic::catch_unwind::<core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::passes::create_and_enter_global_ctxt<(), rustc_driver_impl::run_compiler::{closure#0}::{closure#0}>::{closure#2}::{closure#0}>, ()>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panic.rs:359:14
+        88: rustc_interface::passes::create_and_enter_global_ctxt::<(), rustc_driver_impl::run_compiler::{closure#0}::{closure#0}>::{closure#2}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1045:23
+        89: <rustc_middle::ty::context::GlobalCtxt>::enter::<rustc_interface::passes::create_and_enter_global_ctxt<(), rustc_driver_impl::run_compiler::{closure#0}::{closure#0}>::{closure#2}, ()>::{closure#1}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context.rs:804:37
+        90: rustc_middle::ty::context::tls::enter_context::<<rustc_middle::ty::context::GlobalCtxt>::enter<rustc_interface::passes::create_and_enter_global_ctxt<(), rustc_driver_impl::run_compiler::{closure#0}::{closure#0}>::{closure#2}, ()>::{closure#1}, ()>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:56:9
+        91: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::try_with::<rustc_middle::ty::context::tls::enter_context<<rustc_middle::ty::context::GlobalCtxt>::enter<rustc_interface::passes::create_and_enter_global_ctxt<(), rustc_driver_impl::run_compiler::{closure#0}::{closure#0}>::{closure#2}, ()>::{closure#1}, ()>::{closure#0}, ()>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:464:12
+        92: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::with::<rustc_middle::ty::context::tls::enter_context<<rustc_middle::ty::context::GlobalCtxt>::enter<rustc_interface::passes::create_and_enter_global_ctxt<(), rustc_driver_impl::run_compiler::{closure#0}::{closure#0}>::{closure#2}, ()>::{closure#1}, ()>::{closure#0}, ()>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/thread/local.rs:428:20
+        93: rustc_middle::ty::context::tls::enter_context::<<rustc_middle::ty::context::GlobalCtxt>::enter<rustc_interface::passes::create_and_enter_global_ctxt<(), rustc_driver_impl::run_compiler::{closure#0}::{closure#0}>::{closure#2}, ()>::{closure#1}, ()>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:53:9
+        94: <rustc_middle::ty::context::GlobalCtxt>::enter::<rustc_interface::passes::create_and_enter_global_ctxt<(), rustc_driver_impl::run_compiler::{closure#0}::{closure#0}>::{closure#2}, ()>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context.rs:804:9
+        95: <rustc_middle::ty::context::TyCtxt>::create_global_ctxt::<(), rustc_interface::passes::create_and_enter_global_ctxt<(), rustc_driver_impl::run_compiler::{closure#0}::{closure#0}>::{closure#2}>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context.rs:988:13
+        96: rustc_interface::passes::create_and_enter_global_ctxt::<(), rustc_driver_impl::run_compiler::{closure#0}::{closure#0}>
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1005:15
+        97: rustc_driver_impl::run_compiler::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_driver_impl/src/lib.rs:274:17
+        98: rustc_interface::interface::run_compiler::<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/interface.rs:504:80
+        99: <core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}::{closure#0}> as core::ops::function::FnOnce<()>>::call_once
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panic/unwind_safe.rs:275:9
+       100: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}::{closure#0}>, ()>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:576:43
+       101: std::panicking::catch_unwind::<(), core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}::{closure#0}>>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:544:19
+       102: std::panic::catch_unwind::<core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}::{closure#0}>, ()>
+                   at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panic.rs:359:14
+       103: rustc_interface::interface::run_compiler::<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/interface.rs:504:23
+       104: rustc_interface::util::run_in_thread_pool_with_globals::<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#5}::{closure#0}::{closure#1}::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/util.rs:309:41
+       105: <rustc_thread_pool::thread_pool::ThreadPool>::install::<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#5}::{closure#0}::{closure#1}::{closure#0}, ()>::{closure#0}
+                   at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_thread_pool/src/thread_pool/mod.rs:146:40
+       106: <rustc_thread_pool::registry::Registry>::in_worker_cold::<<rustc_thread_pool::thread_pool::ThreadPool>::install<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#5}::{closure#0}::{closure#1}::{closure#0}, ()>::{closure#0}, ()>::{closure#0}::{closure#0}
+                   at /home/fuzz/Work
+[... truncated ...]

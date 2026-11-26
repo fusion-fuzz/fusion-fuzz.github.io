@@ -1,0 +1,110 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx3txux3e/08741e2f.swift:1762:3: error: found an unexpected second identifier in associatedtype declaration; is there an accidental break?
+1760 |   associatedtype A1
+1761 |   associatedtype A2
+1762 |   globalLoadableSubscriptGetModifyTesterNonCopyableStructParent A3
+     |   |- error: found an unexpected second identifier in associatedtype declaration; is there an accidental break?
+     |   |- note: join the identifiers together
+     |   `- note: join the identifiers together with camel-case
+1763 | }
+1764 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx3txux3e/08741e2f.swift:1762:64: error: consecutive declarations on a line must be separated by ';'
+1760 |   associatedtype A1
+1761 |   associatedtype A2
+1762 |   globalLoadableSubscriptGetModifyTesterNonCopyableStructParent A3
+     |                                                                `- error: consecutive declarations on a line must be separated by ';'
+1763 | }
+1764 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx3txux3e/08741e2f.swift:1762:65: error: expected declaration
+1755 | // CHECK-SAME: Self.[PcQa_b96ab61]T : Pc_b96ab61>
+1756 | 
+1757 | protocol PcQa_b96ab61 {
+     |          `- note: in declaration of 'PcQa_b96ab61'
+1758 |   associatedtype T : Pc_b96ab61 where T.T : A_b96ab61<A1, A2, A3>
+1759 | 
+1760 |   associatedtype A1
+1761 |   associatedtype A2
+1762 |   globalLoadableSubscriptGetModifyTesterNonCopyableStructParent A3
+     |                                                                 `- error: expected declaration
+1763 | }
+1764 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx3txux3e/08741e2f.swift:827:67: error: multiple inheritance from classes 'LoadableSubscriptGetModifyTesterClassParent' and 'A<X, (Y) -> Z, Int>' [#MultipleInheritance]
+ 825 | class A<T, U, V> {}
+ 826 | 
+ 827 | class B<X, Y, Z, W>: LoadableSubscriptGetModifyTesterClassParent, A<X, (Y) -> Z, Int> {}
+     |                                                                   `- error: multiple inheritance from classes 'LoadableSubscriptGetModifyTesterClassParent' and 'A<X, (Y) -> Z, Int>' [#MultipleInheritance]
+ 828 | 
+ 829 | class C<I, J : Sequence, K> : B<String, I, [J.Element], K> {}
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx3txux3e/08741e2f.swift:845:10: error: no type for 'Self.T' can satisfy both 'Self.T : B<Self.B1, Self.B2, Self.B3, Self.B4>' and 'Self.T : A<Self.A1, Self.A2, Self.A3>'
+ 843 | // CHECK-SAME: Self.[Pab]T : B<Self.[Pab]A1, Self.[Pab]B2, Self.[Pab]B3, Self.[Pab]B4>>
+ 844 | 
+ 845 | protocol Pab {
+     |          `- error: no type for 'Self.T' can satisfy both 'Self.T : B<Self.B1, Self.B2, Self.B3, Self.B4>' and 'Self.T : A<Self.A1, Self.A2, Self.A3>'
+ 846 |   associatedtype T where T : A<A1, A2, A3>, T : B<B1, B2, B3, B4>
+ 847 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx3txux3e/08741e2f.swift:867:10: error: no type for 'Self.T' can satisfy both 'Self.T : A<Self.A1, Self.A2, Self.A3>' and 'Self.T : B<Self.B1, Self.B2, Self.B3, Self.B4>'
+ 865 | // CHECK-SAME: Self.[Pba]T : B<Self.[Pba]A1, Self.[Pba]B2, Self.[Pba]B3, Self.[Pba]B4>>
+ 866 | 
+ 867 | protocol Pba {
+     |          `- error: no type for 'Self.T' can satisfy both 'Self.T : A<Self.A1, Self.A2, Self.A3>' and 'Self.T : B<Self.B1, Self.B2, Self.B3, Self.B4>'
+ 868 |   associatedtype T where T : B<B1, B2, B3, B4>, T : A<A1, A2, A3>
+ 869 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx3txux3e/08741e2f.swift:891:10: error: no type for 'Self.T' can satisfy both 'Self.T : C<Self.C1, Self.C2, Self.C3>' and 'Self.T : A<Self.A1, Self.A2, Self.A3>'
+ 889 | // CHECK-SAME: Self.[Pac]T : C<Self.[Pac]C1, Self.[Pac]C2, Self.[Pac]C3>>
+ 890 | 
+ 891 | protocol Pac {
+     |          `- error: no type for 'Self.T' can satisfy both 'Self.T : C<Self.C1, Self.C2, Self.C3>' and 'Self.T : A<Self.A1, Self.A2, Self.A3>'
+ 892 |   associatedtype T where T : A<A1, A2, A3>, T : C<C1, C2, C3>
+ 893 | 
+
+Abort: function compare at Requirement.cpp:257
+Unordered generic requirements
+LHS: (requirement "Self.[Pabc]T" subclass_of "B<Self.[Pabc]B1, Self.[Pabc]B2, Self.[Pabc]B3, Self.[Pabc]B4>")
+RHS: (requirement "Self.[Pabc]T" subclass_of "C<Self.[Pabc]C1, Self.[Pabc]C2, Self.[Pabc]C3>")
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -wmo -sil-verify-all -enable-experimental-feature MoveOnly /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx3txux3e/08741e2f.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx3txux3e/08741e2f.swift")
+4.	While type-checking 'Pabc' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx3txux3e/08741e2f.swift:997:1)
+5.	While evaluating request RequirementSignatureRequest(main.(file).Pabc@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpx3txux3e/08741e2f.swift:997:10)
+6.	Abort: function compare at Requirement.cpp:257
+| 	Unordered generic requirements
+| 	LHS: (requirement "Self.[Pabc]T" subclass_of "B<Self.[Pabc]B1, Self.[Pabc]B2, Self.[Pabc]B3, Self.[Pabc]B4>")
+| 	RHS: (requirement "Self.[Pabc]T" subclass_of "C<Self.[Pabc]C1, Self.[Pabc]C2, Self.[Pabc]C3>")
+ #0 0x000062fcbe1f5658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x000062fcbe1f2e75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x000062fcbe1f6411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007fc155bac330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007fc155c05c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007fc155bac27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007fc155b8f8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000062fcb83205c2 (/usr/bin/swift-frontend+0x2d7a5c2)
+ #8 0x000062fcb83206ac (/usr/bin/swift-frontend+0x2d7a6ac)
+ #9 0x000062fcb811502e (/usr/bin/swift-frontend+0x2b6f02e)
+#10 0x00007fc155bb07c3 (/lib/x86_64-linux-gnu/libc.so.6+0x497c3)
+#11 0x00007fc155bb0741 (/lib/x86_64-linux-gnu/libc.so.6+0x49741)
+#12 0x00007fc155bb0741 (/lib/x86_64-linux-gnu/libc.so.6+0x49741)
+#13 0x00007fc155bb0741 (/lib/x86_64-linux-gnu/libc.so.6+0x49741)
+#14 0x00007fc155bb0741 (/lib/x86_64-linux-gnu/libc.so.6+0x49741)
+#15 0x00007fc155bb0c1d qsort_r (/lib/x86_64-linux-gnu/libc.so.6+0x49c1d)
+#16 0x000062fcb825020e swift::rewriting::RequirementMachine::buildRequirementsFromRules(llvm::ArrayRef<unsigned int>, llvm::ArrayRef<unsigned int>, llvm::ArrayRef<swift::GenericTypeParamType*>, bool, std::vector<swift::Requirement, std::allocator<swift::Requirement>>&, std::vector<swift::ProtocolTypeAlias, std::allocator<swift::ProtocolTypeAlias>>&) const (/usr/bin/swift-frontend+0x2caa20e)
+#17 0x000062fcb815dffb swift::rewriting::RequirementMachine::computeMinimalProtocolRequirements() (/usr/bin/swift-frontend+0x2bb7ffb)
+#18 0x000062fcb815edd2 swift::RequirementSignatureRequest::evaluate(swift::Evaluator&, swift::ProtocolDecl*) const (/usr/bin/swift-frontend+0x2bb8dd2)
+#19 0x000062fcb7880ddc swift::SimpleRequest<swift::RequirementSignatureRequest, swift::RequirementSignature (swift::ProtocolDecl*), (swift::RequestFlags)4>::evaluateRequest(swift::RequirementSignatureRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#20 0x000062fcb7ec9da4 swift::ProtocolDecl::getRequirementSignature() const (/usr/bin/swift-frontend+0x2923da4)
+#21 0x000062fcb77cdb8b (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#22 0x000062fcb77cd864 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x2227864)
+#23 0x000062fcb7908885 swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x2362885)
+#24 0x000062fcb790d23b swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#25 0x000062fcb79087b8 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x23627b8)
+#26 0x000062fcb6186fd9 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_10>(long, swift::SourceFile&) Frontend.cpp:0:0
+#27 0x000062fcb617a73e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xbd473e)
+#28 0x000062fcb617a4
+[... truncated ...]

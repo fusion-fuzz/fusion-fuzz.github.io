@@ -1,0 +1,16 @@
+HloModule module
+
+ENTRY %entry {
+  %param0 = f32[10,20] parameter(0)
+  %ag = f32[10,80] all-gather(param0), replica_groups={{2,1,0,3}, {4,6,7,5}}, dimensions={1}, channel_id=1, use_global_device_ids=true
+  %param = f8e4m3fn[8,4,8,128] parameter(1)
+  %convert = bf16[8,4,8,128] convert(%param)
+  %scale = bf16[] parameter(2), sharding={replicated}
+  %scale_bcast = bf16[8,4,8,128] broadcast(%scale), dimensions={}
+  %multiply = bf16[8,4,8,128] multiply(%convert, %scale_bcast)
+  %param0.d = f32[10,20] parameter(3)
+  %ag.d = f32[10,80] all-gather(%param0), replica_groups={{2,1,0,3}, {4,6,7,5}}, dimensions={1}, channel_id=1, use_global_device_ids=true
+  %all-gather = bf16[8,32,8,128] all-gather(%multiply), dimensions={1}, replica_groups={{0,1,2,3,4,5,6,7}}, channel_id=1, use_global_device_ids=true
+  %ffl.root = (bf16[8,32,8,128], f32[10,80]) tuple(%all-gather, %ag.d)
+  ROOT %ffl.root.1 = (f32[10,80], bf16[8,32,8,128], f32[10,80]) tuple(%ag, %all-gather, %ag.d)
+}

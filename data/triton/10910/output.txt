@@ -1,0 +1,46 @@
+root@d306a6352cb4:~# /workspace/triton/build/cmake.linux-x86_64-cpython-3.10/bin/triton-opt ./test.ttgir -convert-triton-gpu-to-llvm
+triton-opt: /workspace/triton/lib/Tools/LinearLayout.cpp:1331: llvm::SmallVector<mlir::Value> mlir::triton::ColumnAction::apply(mlir::ValueRange) const: Assertion `values.size() == (1 << inSizeLog2) && "Values have a different size than the ColumnAction"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /workspace/triton/build/cmake.linux-x86_64-cpython-3.10/bin/triton-opt ./test.ttgir -convert-triton-gpu-to-llvm
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x000055e5a1459de7
+1  triton-opt 0x000055e5a1456dce
+2  triton-opt 0x000055e5a145acd5
+3  libc.so.6  0x00007f55e0ab7520
+4  libc.so.6  0x00007f55e0b0b9fc pthread_kill + 300
+5  libc.so.6  0x00007f55e0ab7476 raise + 22
+6  libc.so.6  0x00007f55e0a9d7f3 abort + 211
+7  libc.so.6  0x00007f55e0a9d71b
+8  libc.so.6  0x00007f55e0aaee96
+9  triton-opt 0x000055e59961cf64
+10 triton-opt 0x000055e5997fcb25
+11 triton-opt 0x000055e5997fdffd
+12 triton-opt 0x000055e599b397f6
+13 triton-opt 0x000055e599b47cb5
+14 triton-opt 0x000055e599b47e1f
+15 triton-opt 0x000055e5a0786b54
+16 triton-opt 0x000055e5a07e2382
+17 triton-opt 0x000055e5a07dea54
+18 triton-opt 0x000055e5a0788a09
+19 triton-opt 0x000055e5a07881c5
+20 triton-opt 0x000055e5a07895be
+21 triton-opt 0x000055e5a0798858
+22 triton-opt 0x000055e5a078f035
+23 triton-opt 0x000055e5a078f10b
+24 triton-opt 0x000055e599b57679
+25 triton-opt 0x000055e599e75e3b
+26 triton-opt 0x000055e599e76a39
+27 triton-opt 0x000055e599e7dba2
+28 triton-opt 0x000055e599e7d3c2
+29 triton-opt 0x000055e599e67507
+30 triton-opt 0x000055e599e6679e
+31 triton-opt 0x000055e5a107c778
+32 triton-opt 0x000055e599e5c632
+33 triton-opt 0x000055e599e5ca2c
+34 triton-opt 0x000055e599e5cc6d
+35 triton-opt 0x000055e599359283
+36 libc.so.6  0x00007f55e0a9ed90
+37 libc.so.6  0x00007f55e0a9ee40 __libc_start_main + 128
+38 triton-opt 0x000055e5993ddef5
+Aborted (core dumped)

@@ -1,0 +1,62 @@
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/Target/X86/X86FloatingPoint.cpp:326: unsigned int getFPReg(const llvm::MachineOperand &): Assertion `Reg >= X86::FP0 && Reg <= X86::FP6 && "Expected FP register!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -Os -fblocks -fno-objc-arc -target i686-apple-darwin9 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmps3aay_q4/2f5a5151.mm
+1.	<eof> parser at end of file
+2.	Code generation
+3.	Running pass 'Function Pass Manager' on module '/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmps3aay_q4/2f5a5151.mm'.
+4.	Running pass 'X86 FP Stackifier' on function '@_Z22vectorcall_receive_vecdddDv4_fS_S_S_iS_10NonTrivial'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000577ca7b728cb __interceptor_backtrace + 91
+1  clang++   0x0000577cad820037 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x0000577cad819d03 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x0000577cad81e9d4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x0000577cad66a0d5
+5  clang++   0x0000577cad66a8e3
+6  libc.so.6 0x000077a9bca5c520
+7  libc.so.6 0x000077a9bcab09bc pthread_kill + 300
+8  libc.so.6 0x000077a9bca5c476 raise + 22
+9  libc.so.6 0x000077a9bca427f3 abort + 211
+10 libc.so.6 0x000077a9bca4271b
+11 libc.so.6 0x000077a9bca53e96
+12 clang++   0x0000577ca7f165e1
+13 clang++   0x0000577ca7f189a9
+14 clang++   0x0000577ca7f12d5d
+15 clang++   0x0000577ca7f0e58e
+16 clang++   0x0000577ca7f0fbc4
+17 clang++   0x0000577cab68d235 llvm::MachineFunctionPass::runOnFunction(llvm::Function&) + 1333
+18 clang++   0x0000577cac83159e llvm::FPPassManager::runOnFunction(llvm::Function&) + 2030
+19 clang++   0x0000577cac846b84 llvm::FPPassManager::runOnModule(llvm::Module&) + 276
+20 clang++   0x0000577cac8339e3 llvm::legacy::PassManagerImpl::run(llvm::Module&) + 6291
+21 clang++   0x0000577cb074924f llvm::runCodeGenPipeline(llvm::TargetMachine&, llvm::Module&, llvm::raw_pwrite_stream&, std::unique_ptr<llvm::ToolOutputFile, std::default_delete<llvm::ToolOutputFile>>&, llvm::CodeGenFileType, bool, bool, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) + 3231
+22 clang++   0x0000577cae39cc67
+23 clang++   0x0000577cae397d78 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 6936
+24 clang++   0x0000577caf56bc28 clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 4744
+25 clang++   0x0000577cb3d7af74 clang::ParseAST(clang::Sema&, bool, bool) + 1716
+26 clang++   0x0000577caf5732ab clang::CodeGenAction::ExecuteAction() + 1771
+27 clang++   0x0000577cafc3152e clang::FrontendAction::Execute() + 222
+28 clang++   0x0000577cafac2900 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+29 clang++   0x0000577cafe162df clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 751
+30 clang++   0x0000577ca7c083e6 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4390
+31 clang++   0x0000577ca7bfc349
+32 clang++   0x0000577ca7c06887
+33 clang++   0x0000577caf699d37
+34 clang++   0x0000577cad669e8d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+35 clang++   0x0000577caf69723a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+36 clang++   0x0000577caf5e7bbc clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+37 clang++   0x0000577caf5e934b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+38 clang++   0x0000577caf638940 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+39 clang++   0x0000577ca7bfa777 clang_main(int, char**, llvm::ToolContext const&) + 12295
+40 clang++   0x0000577ca7c2a0f7 main + 567
+41 libc.so.6 0x000077a9bca43d90
+42 libc.so.6 0x000077a9bca43e40 __libc_start_main + 128
+43 clang++   0x0000577ca7b36d95 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git cd9c8d090c1a87ebc619e7aba9a036f06466be5e)
+Target: i686-apple-darwin9
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: error: unable to execute command: Segmentation fault (core dumped)
+clang++: note: diagnostic msg: Error generating preprocessed source(s).
+Aborted (core dumped)

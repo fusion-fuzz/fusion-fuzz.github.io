@@ -1,0 +1,99 @@
+[... 4 lines omitted ...]
+   |          ^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `RegisterDd78525`
+   |
+   = note: `#[warn(non_camel_case_types)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: type `Register_bd78525` should have an upper camel case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp7cja_t5u/20ed8fec.rs:53:10
+   |
+53 | pub enum Register_bd78525<const N: u16> {
+   |          ^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `RegisterBd78525`
+
+error: internal compiler error: compiler/rustc_middle/src/ty/context.rs:2309:13: args not compatible with generics for Register::Field0::{constant#0}: args=[
+                                    0_u16,
+                                ], generics=[]
+
+
+thread 'rustc' (701423) panicked at compiler/rustc_middle/src/ty/context.rs:2309:13:
+Box<dyn Any>
+stack backtrace:
+   0: std::panicking::begin_panic::<rustc_errors::ExplicitBug>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:751:5
+   1: std::panic::panic_any::<rustc_errors::ExplicitBug>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panic.rs:260:5
+   2: <rustc_errors::diagnostic::BugAbort as rustc_errors::diagnostic::EmissionGuarantee>::emit_producing_guarantee
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:59:9
+   3: <rustc_errors::diagnostic::Diag<rustc_errors::diagnostic::BugAbort>>::emit
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1316:9
+   4: <rustc_errors::DiagCtxtHandle>::bug::<alloc::string::String>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:966:30
+   5: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:39:48
+   6: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:109:23
+   7: rustc_middle::ty::context::tls::with_context_opt::<rustc_middle::ty::context::tls::with_opt<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}, !>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:75:18
+   8: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:107:5
+   9: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:33:5
+  10: rustc_middle::util::bug::bug_fmt
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:16:5
+  11: <rustc_middle::ty::context::TyCtxt>::emit_bug_args_compatible
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/macros.rs:18:9
+  12: <rustc_middle::ty::context::TyCtxt>::debug_assert_alias_term_args_compatible
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context.rs:2236:22
+  13: <rustc_type_ir::ty::alias::Alias<rustc_middle::ty::context::TyCtxt, rustc_type_ir::const_kind::AliasConstKind<rustc_middle::ty::context::TyCtxt>>>::new
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/const_kind.rs:76:22
+  14: rustc_mir_build::builder::expr::as_constant::as_constant_inner::<<rustc_mir_build::builder::Builder>::as_constant::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/as_constant.rs:84:30
+  15: <rustc_mir_build::builder::Builder>::as_constant
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/as_constant.rs:30:18
+  16: <rustc_mir_build::builder::Builder>::as_operand
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/as_operand.rs:142:37
+  17: <rustc_mir_build::builder::Builder>::as_rvalue
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/as_rvalue.rs:83:34
+  18: <rustc_mir_build::builder::Builder>::as_local_rvalue
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/as_rvalue.rs:35:14
+  19: <rustc_mir_build::builder::Builder>::expr_into_dest
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/into.rs:909:51
+  20: <rustc_mir_build::builder::Builder>::as_temp
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/as_temp.rs:117:22
+  21: <rustc_mir_build::builder::Builder>::as_operand
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/as_operand.rs:146:52
+  22: <rustc_mir_build::builder::Builder>::as_rvalue
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/as_rvalue.rs:148:38
+  23: <rustc_mir_build::builder::Builder>::as_local_rvalue
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/as_rvalue.rs:35:14
+  24: <rustc_mir_build::builder::Builder>::expr_into_dest
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/into.rs:909:51
+  25: <rustc_mir_build::builder::Builder>::expr_into_dest::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/into.rs:52:26
+  26: <rustc_mir_build::builder::Builder>::in_scope::<<rustc_mir_build::builder::Builder>::expr_into_dest::{closure#0}, ()>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/scope.rs:700:34
+  27: <rustc_mir_build::builder::Builder>::expr_into_dest
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/into.rs:50:22
+  28: <rustc_mir_build::builder::Builder>::expr_into_pattern
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/matches/mod.rs:571:30
+  29: <rustc_mir_build::builder::Builder>::ast_block_stmts::{closure#2}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/block.rs:280:38
+  30: <rustc_mir_build::builder::Builder>::in_scope::<<rustc_mir_build::builder::Builder>::ast_block_stmts::{closure#2}, ()>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/scope.rs:700:34
+  31: <rustc_mir_build::builder::Builder>::ast_block_stmts
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/block.rs:272:30
+  32: <rustc_mir_build::builder::Builder>::ast_block::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/block.rs:29:22
+  33: <rustc_mir_build::builder::Builder>::in_scope::<<rustc_mir_build::builder::Builder>::ast_block::{closure#0}, ()>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/scope.rs:700:34
+  34: <rustc_mir_build::builder::Builder>::ast_block
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/block.rs:23:14
+  35: <rustc_mir_build::builder::Builder>::expr_into_dest
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/into.rs:56:22
+  36: <rustc_mir_build::builder::Builder>::expr_into_dest::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/into.rs:52:26
+  37: <rustc_mir_build::builder::Builder>::in_scope::<<rustc_mir_build::builder::Builder>::expr_into_dest::{closure#0}, ()>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/scope.rs:700:34
+  38: <rustc_mir_build::builder::Builder>::expr_into_dest
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_build/src/builder/expr/into.rs:50:22
+  39: <rustc_mir_build::builder::Builder>::arg
+[... truncated ...]

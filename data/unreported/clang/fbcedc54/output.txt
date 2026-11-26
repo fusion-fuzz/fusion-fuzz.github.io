@@ -1,0 +1,91 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_8h01mls/265830df.mm:163:31: warning: cannot find protocol definition for 'P'
+  163 | @interface TestObjCClass : A <P>
+      |                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_8h01mls/265830df.mm:114:11: note: protocol 'P' has no definition
+  114 | @protocol P
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_8h01mls/265830df.mm:172:17: warning: class implementation may not have super class
+  172 | @implementation TestObjCClass : A {
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_8h01mls/265830df.mm:184:50: warning: cannot find protocol definition for 'P'
+  184 | @interface TestObjCClass (TestObjCCategoryDecl) <P>
+      |                                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_8h01mls/265830df.mm:114:11: note: protocol 'P' has no definition
+  114 | @protocol P
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_8h01mls/265830df.mm:193:40: warning: cannot find protocol definition for 'P'
+  193 | @interface TestGenericInterface<T> : A<P> {
+      |                                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_8h01mls/265830df.mm:114:11: note: protocol 'P' has no definition
+  114 | @protocol P
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGObjCGNU.cpp:1226:44: runtime error: member call on null pointer of type 'clang::ObjCCategoryDecl'
+==3617539==WARNING: invalid path to external symbolizer!
+==3617539==WARNING: Failed to use and restart external symbolizer!
+    #0 0x5c46423c5c33  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1049ec33) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #1 0x5c46423b437e  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1048d37e) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #2 0x5c4641b9af10  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xfc73f10) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #3 0x5c46424dfae2  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x105b8ae2) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #4 0x5c46424cb664  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x105a4664) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #5 0x5c4646cdd24c  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x14db624c) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #6 0x5c46424d52aa  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x105ae2aa) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #7 0x5c4642b9352d  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x10c6c52d) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #8 0x5c4642a248ff  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x10afd8ff) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #9 0x5c4642d782de  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x10e512de) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #10 0x5c463ab6a3e5  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c433e5) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #11 0x5c463ab5e348  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c37348) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #12 0x5c463ab68886  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c41886) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #13 0x5c46425fbd36  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x106d4d36) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #14 0x5c46405cbe8c  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0xe6a4e8c) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #15 0x5c46425f9239  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x106d2239) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #16 0x5c4642549bbb  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x10622bbb) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #17 0x5c464254b34a  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1062434a) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #18 0x5c464259a93f  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1067393f) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #19 0x5c463ab5c776  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c35776) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #20 0x5c463ab8c0f6  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8c650f6) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+    #21 0x7b88dce0bd8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f) (BuildId: 6a6cb5a80fd5e5bb5bf3aeaa111add98e88843a5)
+    #22 0x7b88dce0be3f  (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f) (BuildId: 6a6cb5a80fd5e5bb5bf3aeaa111add98e88843a5)
+    #23 0x5c463aa98d94  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x8b71d94) (BuildId: 11abc0be2a84e1efbd16b9ca5a50f8ae25dd1ceb)
+
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGObjCGNU.cpp:1226:44 in 
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O3 -std=gnu++20 -fblocks -fobjc-runtime=gnustep-2.0 -fno-objc-arc -fno-inline -fno-elide-constructors -Wall /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_8h01mls/265830df.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_8h01mls/265830df.mm:210:1: current parser token '@'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp_8h01mls/265830df.mm:202:1: LLVM IR generation of declaration 'TestObjCClass::bar'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005c463aad48cb __interceptor_backtrace + 91
+1  clang++   0x00005c4640782037 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005c464077bd03 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005c46407809d4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005c46405cc0d5
+5  clang++   0x00005c46405cc8e3
+6  libc.so.6 0x00007b88dce24520
+7  libc.so.6 0x00007b88dce789bc pthread_kill + 300
+8  libc.so.6 0x00007b88dce24476 raise + 22
+9  libc.so.6 0x00007b88dce0a7f3 abort + 211
+10 clang++   0x00005c463ab3ff37
+11 clang++   0x00005c463ab3ddd1
+12 clang++   0x00005c463ab51b1c
+13 clang++   0x00005c463ab5268c
+14 clang++   0x00005c463ab5271e __ubsan_handle_type_mismatch_v1_abort + 46
+15 clang++   0x00005c46423c5c34
+16 clang++   0x00005c46423b437f
+17 clang++   0x00005c4641b9af11 clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) + 3729
+18 clang++   0x00005c46424dfae3
+19 clang++   0x00005c46424cb665 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 837
+20 clang++   0x00005c4646cdd24d clang::ParseAST(clang::Sema&, bool, bool) + 2445
+21 clang++   0x00005c46424d52ab clang::CodeGenAction::ExecuteAction() + 1771
+22 clang++   0x00005c4642b9352e clang::FrontendAction::Execute() + 222
+23 clang++   0x00005c4642a24900 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+24 clang++   0x00005c4642d782df clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 751
+25 clang++   0x00005c463ab6a3e6 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4390
+26 clang++   0x00005c463ab5e349
+27 clang++   0x00005c463ab68887
+28 clang++   0x00005c46425fbd37
+29 clang++   0x00005c46405cbe8d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+30 clang++   0x00005c46425f923a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+31 clang++   0x00005c4642549bbc clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+32 clang++   0x00005c464254b34b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+33 clang++   0x00005c464259a940 clang::driver::Driver::ExecuteCompilation(clang::driver::Com
+[... truncated ...]

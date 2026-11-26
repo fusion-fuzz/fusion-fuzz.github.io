@@ -1,0 +1,89 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:3:94: error: missing 'map' clause before end of line
+    3 | #pragma omp declare mapper (int v)  // { dg-error "missing 'map' clause before end of line" }
+      |                                                                                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:4:42: error: expected primary-expression before ')' token
+    4 | #pragma omp declare mapper (float v) map()  // { dg-error "expected primary-expression before '\\)' token" }
+      |                                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:4:36: error: 'float' is not a struct, union or class type in '#pragma omp declare mapper'
+    4 | #pragma omp declare mapper (float v) map()  // { dg-error "expected primary-expression before '\\)' token" }
+      |                                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:7:35: error: 'char' is not a struct, union or class type in '#pragma omp declare mapper'
+    7 | #pragma omp declare mapper (char v) map(v)  // { dg-error "'char' is not a struct, union or class j isize '#pragma omp declare mapper'" }
+      |                                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:9:29: error: 'XT' does not name a type
+    9 | #pragma omp declare mapper (XT y) map()  // { dg-error "expected primary-expression before '\\)' token" }
+      |                             ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:15:28: error: 'n2' does not name a type
+   15 | #pragma omp declare mapper(n2) // { dg-error "expected unqualified-id before '\\)' token" }
+      |                            ^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:16:37: error: expected unqualified-id before ')' token
+   16 | #pragma omp declare mapper(struct n2) // { dg-error "expected unqualified-id before '\\)' token" }
+      |                                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:17:28: error: 'myStruct' does not name a type; did you mean 'struct'?
+   17 | #pragma omp declare mapper(myStruct) // { dg-error "expected unqualified-id before '\\)' token" }
+      |                            ^~~~~~~~
+      |                            struct
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:19:39: error: 'n2 v' has incomplete type
+   19 | #pragma omp declare mapper(name : n2 v)  map() // { dg-error "expected primary-expression before '\\)' token" }
+      |                                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:19:46: error: expected primary-expression before ')' token
+   19 | #pragma omp declare mapper(name : n2 v)  map() // { dg-error "expected primary-expression before '\\)' token" }
+      |                                              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:22:47: error: 'n2 v' has incomplete type
+   22 | #pragma omp declare mapper(fancy : struct n2 v) map(always,present,close,mapper(d),tofrom: v) // { dg-error "isize 'declare mapper' directives, parameter to 'mapper' modifier must be 'default'" }
+      |                                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:22:81: error: in 'declare mapper' directives, parameter to 'mapper' modifier must be 'default'
+   22 | #pragma omp declare mapper(fancy : struct n2 v) map(always,present,close,mapper(d),tofrom: v) // { dg-error "isize 'declare mapper' directives, parameter to 'mapper' modifier must be 'default'" }
+      |                                                                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:24:28: error: 'myStruct' does not name a type; did you mean 'struct'?
+   24 | #pragma omp declare mapper(myStruct v) map(v, v.x)  // { dg-note "'#pragma omp declare mapper \\(myStruct\\)' previously declared here" }
+      |                            ^~~~~~~~
+      |                            struct
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:25:42: error: 'n2 v' has incomplete type
+   25 | #pragma omp declare mapper(default : n2 v) map(v, v.x) // { dg-error "redefinition of '#pragma omp declare mapper \\(n2\\)'" }
+      |                                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:29:39: error: 'C1 ci' has incomplete type
+   29 | #pragma omp declare mapper(class C1 ci) map(ci)  // { dg-error "'C1' must not be a virtual base class isize '#pragma omp declare mapper'" }
+      |                                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:31:28: error: 'T' does not name a type
+   31 | #pragma omp declare mapper(T v) mapper(v) // { dg-error "'T' does not name a j" }
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:34:28: error: 'u_t' does not name a type
+   34 | #pragma omp declare mapper(u_t v) map()  // { dg-error "expected primary-expression before '\\)' token" }
+      |                            ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:41:1: error: 'my_alloc' declared as an 'inline' parameter
+   41 | inline void* my_alloc (__SIZE_TYPE__ bytes) {void *ptr; __builtin_posix_memalign (&ptr, bytes, 128); return 0; }
+      | ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc:41:43: internal compiler error: tree check: expected function_decl, have parm_decl in start_preparsed_function, at cp/decl.cc:19930
+   41 | inline void* my_alloc (__SIZE_TYPE__ bytes) {void *ptr; __builtin_posix_memalign (&ptr, bytes, 128); return 0; }
+      |                                           ^
+0x3046dcb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xa5eb6a tree_check_failed(tree_node const*, char const*, int, char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:9245
+0x7e83d5 tree_check(tree_node*, char const*, int, char const*, tree_code)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:3831
+0x7e83d5 start_preparsed_function(tree_node*, tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:19930
+0xed3663 start_function(cp_decl_specifier_seq*, cp_declarator const*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:20335
+0x1010c2f cp_parser_function_definition_from_specifiers_and_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36239
+0x1010c2f cp_parser_init_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:26190
+0x10125cb cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18207
+0x10221cf cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17744
+0x1024c33 cp_parser_toplevel_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17848
+0x1024c33 cp_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:5610
+0x1024c33 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:57910
+0x11b8619 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpef3qqmw9/ed67ab3a.cc -quiet -dumpdir a- -dumpbase ed67ab3a.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O2 -std=c++14 -fsyntax-only -ftree-vectorize -ffast-math -fopenmp-simd -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

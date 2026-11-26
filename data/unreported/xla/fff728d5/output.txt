@@ -1,0 +1,36 @@
+Running HLO module with runner HloRunner...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1790064915.634808   46245 indexing_analysis.cc:1761] ComputeOutputToInputIndexing is not implemented for opcode call
+F0000 00:00:1790064915.634872   46245 computation_partitioner.cc:269] Check failed: operand_maps.size() == 1 (0 vs. 1) 
+*** Check failure stack trace: ***
+    @     0x55f328216e84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x55f328216e06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x55f32088773f  xla::emitters::PartitionedComputation::PartitionedComputation()
+    @     0x55f320889388  xla::emitters::PartitionedComputations::PartitionedComputations()
+    @     0x55f31eb00fcd  xla::emitters::LoopFusionKernelEmitter::EmitKernelDefinition()
+    @     0x55f31ea9c39a  xla::cpu::EmitFusionKernel()
+    @     0x55f31ea6c9e1  xla::cpu::ParallelFusionEmitter::AddFusion()
+    @     0x55f31ea4f8cd  xla::cpu::ThunkEmitter::EmitFusionKernelThunk()
+    @     0x55f31ea4969d  xla::cpu::ThunkEmitter::EmitHloInstruction()
+    @     0x55f31ea47ea3  xla::cpu::ThunkEmitter::EmitHloComputation()
+    @     0x55f31ea47c1e  xla::cpu::ThunkEmitter::EmitEntryComputation()
+    @     0x55f31e32bf3b  xla::cpu::CpuCompiler::CompileCpuExecutable()
+    @     0x55f31e3328d8  xla::cpu::CpuCompiler::RunBackend()
+    @     0x55f31e1492b4  xla::CompileCpuExecutableInternal()
+    @     0x55f31e14807f  xla::PjRtCpuRawClient::CompileInternal()
+    @     0x55f31e147cef  xla::PjRtCpuRawClient::Compile()
+    @     0x55f31e164565  xla::cpu::CpuPjRtCompiler::Compile()
+    @     0x55f3266dbb6b  xla::PjRtCompile()
+    @     0x55f31e260a68  xla::CommonPjRtClient::Compile()
+    @     0x55f3266c12ca  xla::HloRunner::CreateExecutable()
+    @     0x55f3266bf24c  xla::HloRunner::Execute()
+    @     0x55f3266c974e  xla::HloRunnerInterface::Execute()
+    @     0x55f31e0fc057  xla::(anonymous namespace)::ExecuteWithRunner()
+    @     0x55f31e0f6927  xla::(anonymous namespace)::RunAndCompareInternal()
+    @     0x55f31e0f48a7  xla::RunAndCompare()
+    @     0x55f31e0f7e8e  xla::RunAndCompare()
+    @     0x55f31e0f1a8f  main
+    @     0x72789e387d90  (unknown)
+Aborted (core dumped)
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmpj6t_iq6j/b16ed601.hlo**

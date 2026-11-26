@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpra_dvq3s/12281fc5.swift:37:29: error: consecutive statements on a line must be separated by ';'
+35 | //--- malformed-output-file-map.json
+36 | {
+37 |   "/path/to/some/file.swift": {
+   |                             `- error: consecutive statements on a line must be separated by ';'
+38 |     "dependencies": "
+39 | var _ffl_sentinel: Int = 0
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpra_dvq3s/12281fc5.swift:37:29: error: expected expression
+35 | //--- malformed-output-file-map.json
+36 | {
+37 |   "/path/to/some/file.swift": {
+   |                             `- error: expected expression
+38 |     "dependencies": "
+39 | var _ffl_sentinel: Int = 0
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpra_dvq3s/12281fc5.swift:38:21: error: unterminated string literal
+36 | {
+37 |   "/path/to/some/file.swift": {
+38 |     "dependencies": "
+   |                     `- error: unterminated string literal
+39 | var _ffl_sentinel: Int = 0
+40 | // --- Bug Primitive ---
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpra_dvq3s/12281fc5.swift:62:1: error: expected '}' at end of closure
+34 | 
+35 | //--- malformed-output-file-map.json
+36 | {
+   | `- note: to match this opening '{'
+37 |   "/path/to/some/file.swift": {
+38 |     "dependencies": "
+   :
+60 | }
+61 | 
+62 | 
+   | `- error: expected '}' at end of closure
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpra_dvq3s/12281fc5.swift:36:1: warning: braces here form a trailing closure separated from its callee by multiple newlines
+15 | macro Empty<T>(_ x: T) = #externalMacro(module: "MacroDefinition", type: "EmptyDeclarationMacro")
+16 | 
+17 | #Empty {
+   | `- note: callee is here
+18 |     struct S {
+19 |         static var foo: Int { 0 }
+   :
+34 | 
+35 | //--- malformed-output-file-map.json
+36 | {
+   | |- warning: braces here form a trailing closure separated from its callee by multiple newlines
+   | `- note: did you mean to use a 'do' statement?
+37 |   "/path/to/some/file.swift": {
+38 |     "dependencies": "
+
+Assertion failed: (inserted), function recordArgumentList at ConstraintSystem.cpp:4110.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -Onone -sil-verify-all -enable-experimental-feature VariadicGenerics -enable-experimental-feature Macros /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpra_dvq3s/12281fc5.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpra_dvq3s/12281fc5.swift")
+4.	While type-checking statement at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpra_dvq3s/12281fc5.swift:17:1 - line:60:1] RangeText="#Empty {
+    struct S {
+        static var foo: Int { 0 }
+    }
+    _ = S.foo
+}
+
+// --- Seed B ---
+// Ensure that an incomplete output-file-map path does not crash the driver,
+// but instead outputs a nice diagnostic.
+//
+// RUN: %empty-directory(%t)
+// RUN: split-file %s %t
+// RUN: not %swiftc_driver -c %S/../Inputs/empty.swift -output-file-map %t/malformed-output-file-map.json 2>&1 | %FileCheck %s
+//
+// CHECK: error: Expected quote at end of scalar
+// CHECK-NOT: Assertion failed
+
+//--- malformed-output-file-map.json
+{
+  "/path/to/some/file.swift": {
+    "dependencies": "
+var _ffl_sentinel: Int = 0
+// --- Bug Primitive ---
+
+// P4: Closure capture / @escaping / ownership stress
+func _ffl_p4_apply<T>(_ f: () -> T) -> T { f() }
+func _ffl_p4_escape<T>(_ f: @escaping () -> T) -> () -> T { f }
+do {
+    var _ffl_cap = _ffl_sentinel
+    // noescape: bridge captured by reference on the stack
+    let _ffl_local = _ffl_p4_apply { _ffl_cap }
+    // @escaping: bridge promoted to heap box
+    let _ffl_esc   = _ffl_p4_escape { _ffl_cap }
+    // nested closure capturing both outer and inner captures
+    let _ffl_nest: () -> String = {
+        let inner = _ffl_esc()
+        return "\(inner) \(_ffl_local)"
+    }
+    _ = _ffl_nest()
+    // mutation after escape — probes copy-on-write / exclusive-access
+    _ffl_cap = _ffl_sentinel
+    _ = _ffl_esc()
+"
+5.	While type-checking expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpra_dvq3s/12281fc5.swift:17:1 - line:60:1] RangeText="#Empty {
+    struct S {
+        static var foo: Int { 0 }
+    }
+    _ = S.foo
+}
+
+// --- Seed B ---
+// Ensure that an incomplete output-file-map path does not crash the driver,
+// but instead outputs a nice diagnostic.
+//
+// RUN: %empty-directory(%t)
+// RUN: split-file %s %t
+// RUN: not %swiftc_driver -c %S/../Inputs/empty.swift -output-file-map %t/malformed-output-file-map.json 2>&1 | %FileCheck %s
+[... 115 more lines ...]

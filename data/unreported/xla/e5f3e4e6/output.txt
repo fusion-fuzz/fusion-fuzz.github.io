@@ -1,0 +1,27 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1792881251.198262 2000802 fusion.cc:389] Check failed: analysis->fusion_root_count() == block_level_parameters.output_tile_sizes.size() (2 vs. 1) 
+*** Check failure stack trace: ***
+    @     0x59d195ed6a24  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x59d195ed69a6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x59d18b7d6b63  xla::gpu::TritonFusion::GetLaunchConfig()
+    @     0x59d18aef19e7  xla::gpu::GpuPerformanceModelBase::EstimateFusionLaunchDimensions()
+    @     0x59d18aee4dd5  xla::gpu::GpuPerformanceModel::EstimateRunTimeForFusionImpl()
+    @     0x59d18aee5a0c  xla::gpu::GpuPerformanceModel::EstimateRunTimesForMultiOutputFusion()
+    @     0x59d18a930ca9  xla::gpu::MultiOutputFusion::DoMultiOutputFusion()
+    @     0x59d18a9323c2  xla::gpu::MultiOutputFusion::RunImpl()
+    @     0x59d19280aa01  xla::HloPassInterface::Run()
+    @     0x59d18dfe3cdc  xla::HloPassPipeline::RunHelper()
+    @     0x59d18dfe4820  xla::HloPassPipeline::RunPassesInternal()
+    @     0x59d18dfe67f5  xla::HloPassPipeline::RunImpl()
+    @     0x59d19280aa01  xla::HloPassInterface::Run()
+    @     0x59d18a6ff52f  xla::gpu::(anonymous namespace)::RunFusionPasses()
+    @     0x59d18a6fcf21  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x59d18a7051ab  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x59d18a639744  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x59d18a62dc8e  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x59d18a62bbe7  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x59d195f271d6  main
+    @     0x77f7e4dd4d90  (unknown)
+Aborted (core dumped)

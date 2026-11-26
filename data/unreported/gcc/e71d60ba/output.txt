@@ -1,0 +1,38 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfw7j9zle/703d8e0b.c: In function 'copy':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfw7j9zle/703d8e0b.c:51:1: note: the ABI for passing parameters with 32-byte alignment has changed in GCC 4.6
+   51 | copy(D a, B b, D c, F d)
+      | ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfw7j9zle/703d8e0b.c:51:1: warning: AVX vector argument without AVX enabled changes the ABI [-Wpsabi]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfw7j9zle/703d8e0b.c: In function 'main':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfw7j9zle/703d8e0b.c:69:1: error: frame pointer required, but reserved
+   69 | main ()
+      | ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfw7j9zle/703d8e0b.c:20:15: note: for 'data_0'
+   20 | REGISTER long data_0 REG1;
+      |               ^~~~~~
+during RTL pass: dwarf2
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfw7j9zle/703d8e0b.c:75:1: internal compiler error: in dwarf2out_frame_debug_expr, at dwarf2cfi.cc:1852
+   75 | }
+      | ^
+0x2cdd1bb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xd038e4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7fa80b dwarf2out_frame_debug_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dwarf2cfi.cc:1852
+0xf85402 dwarf2out_frame_debug
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dwarf2cfi.cc:2375
+0xf85402 scan_insn_after
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dwarf2cfi.cc:2733
+0xf86d6f scan_trace
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dwarf2cfi.cc:2900
+0xf874df create_cfi_notes
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dwarf2cfi.cc:2940
+0xf874df execute_dwarf2_frame
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dwarf2cfi.cc:3316
+0xf874df execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/dwarf2cfi.cc:3798
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpfw7j9zle/703d8e0b.c -quiet -dumpbase 703d8e0b.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O2 -O2 -std=gnu23 -funroll-loops -fdump-tree-optimized -o /tmp/cc632hSJ.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

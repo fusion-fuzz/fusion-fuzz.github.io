@@ -1,0 +1,37 @@
+triton-opt: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-src/include/triton/Analysis/AxisInfo.h:38: mlir::triton::AxisInfo::AxisInfo(ArrayRef<int64_t>, ArrayRef<int64_t>, ArrayRef<int64_t>, std::optional<APInt>): Assertion `divisibility.size() == contiguity.size()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmp1zc9o8ab/deaa1403.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic -tritongpu-assign-latencies
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x0000649ea59f148a
+1  triton-opt 0x0000649ea59ee38e
+2  triton-opt 0x0000649ea59f238b
+3  libc.so.6  0x0000703fd634f520
+4  libc.so.6  0x0000703fd63a39bc pthread_kill + 300
+5  libc.so.6  0x0000703fd634f476 raise + 22
+6  libc.so.6  0x0000703fd63357f3 abort + 211
+7  libc.so.6  0x0000703fd633571b
+8  libc.so.6  0x0000703fd6346e96
+9  triton-opt 0x0000649e9d952025
+10 triton-opt 0x0000649e9d93e466
+11 triton-opt 0x0000649e9d93da95
+12 triton-opt 0x0000649ea4e4f5ba
+13 triton-opt 0x0000649ea4e1583f
+14 triton-opt 0x0000649e9d9437cc
+15 triton-opt 0x0000649e9ddec068
+16 triton-opt 0x0000649e9de2247c
+17 triton-opt 0x0000649e9e3bf89b
+18 triton-opt 0x0000649e9e3c0419
+19 triton-opt 0x0000649e9e3c7432
+20 triton-opt 0x0000649e9e3c6ca2
+21 triton-opt 0x0000649e9e3b1d37
+22 triton-opt 0x0000649e9e3b0fcc
+23 triton-opt 0x0000649ea560f6b1
+24 triton-opt 0x0000649e9e3a7332
+25 triton-opt 0x0000649e9e3a7731
+26 triton-opt 0x0000649e9e3a796d
+27 triton-opt 0x0000649e9e39292c
+28 libc.so.6  0x0000703fd6336d90
+29 libc.so.6  0x0000703fd6336e40 __libc_start_main + 128
+30 triton-opt 0x0000649e9d939df5
+Aborted (core dumped)

@@ -1,0 +1,77 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0oe6cz65/7d1e4244.cpp:23:47: warning: value size does not match register size specified by the constraint and modifier [-Wasm-operand-widths]
+   23 |     __asm__ volatile ("ld64b %0,[%1]" : "=r" (*output) : "r" (addr) : "memory");
+      |                                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0oe6cz65/7d1e4244.cpp:23:30: note: use constraint modifier "w"
+   23 |     __asm__ volatile ("ld64b %0,[%1]" : "=r" (*output) : "r" (addr) : "memory");
+      |                              ^~
+      |                              %w0
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0oe6cz65/7d1e4244.cpp:23:47: error: output size should not be zero
+   23 |     __asm__ volatile ("ld64b %0,[%1]" : "=r" (*output) : "r" (addr) : "memory");
+      |                                               ^
+Failure value returned from cantFail wrapped call
+inline asm with one output cannot return struct
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/include/llvm/Support/Error.h:779!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O1 -fblocks -funroll-loops -target aarch64 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0oe6cz65/7d1e4244.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0oe6cz65/7d1e4244.cpp:39:1: current parser token 'void'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0oe6cz65/7d1e4244.cpp:22:6: LLVM IR generation of declaration 'load'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp0oe6cz65/7d1e4244.cpp:22:6: Generating code for declaration 'load'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000653e51e98329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000653e51e94fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000653e51e958a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000653e51dd7218
+4  libc.so.6 0x0000707f6b177520
+5  libc.so.6 0x0000707f6b1cb9bc pthread_kill + 300
+6  libc.so.6 0x0000707f6b177476 raise + 22
+7  libc.so.6 0x0000707f6b15d7f3 abort + 211
+8  clang++   0x0000653e51de211e
+9  clang++   0x0000653e5194abca llvm::InlineAsm::InlineAsm(llvm::FunctionType*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> const&, bool, bool, llvm::InlineAsm::AsmDialect, bool) + 442
+10 clang++   0x0000653e5194b445
+11 clang++   0x0000653e5194b991 llvm::InlineAsm::get(llvm::FunctionType*, llvm::StringRef, llvm::StringRef, bool, bool, llvm::InlineAsm::AsmDialect, bool) + 129
+12 clang++   0x0000653e525225f9 clang::AsmConstraintsInfo::EmitAsmStmt() + 393
+13 clang++   0x0000653e52523f7e clang::CodeGen::CodeGenFunction::EmitAsmStmt(clang::AsmStmt const&) + 590
+14 clang++   0x0000653e5252df3c clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 92
+15 clang++   0x0000653e52597901 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) + 177
+16 clang++   0x0000653e525ae9d4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 1396
+17 clang++   0x0000653e52618ce8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 2152
+18 clang++   0x0000653e52611f64 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 580
+19 clang++   0x0000653e52612e60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+20 clang++   0x0000653e5261e335
+21 clang++   0x0000653e529c1ef1
+22 clang++   0x0000653e529b10f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+23 clang++   0x0000653e5468e61c clang::ParseAST(clang::Sema&, bool, bool) + 508
+24 clang++   0x0000653e52d2f061 clang::FrontendAction::Execute() + 65
+25 clang++   0x0000653e52cb8e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+26 clang++   0x0000653e52e06de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+27 clang++   0x0000653e4fc6233e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+28 clang++   0x0000653e4fc5813a
+29 clang++   0x0000653e4fc582cf
+30 clang++   0x0000653e52a3dcfd
+31 clang++   0x0000653e51dd7630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+32 clang++   0x0000653e52a3eb53
+33 clang++   0x0000653e529f3607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+34 clang++   0x0000653e529f7ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+35 clang++   0x0000653e52a06004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+36 clang++   0x0000653e4fc5d923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+37 clang++   0x0000653e4fb997f1 main + 113
+38 libc.so.6 0x0000707f6b15ed90
+39 libc.so.6 0x0000707f6b15ee40 __libc_start_main + 128
+40 clang++   0x0000653e4fc57765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: aarch64
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/7d1e4244-e8219e.cpp
+clang++: note: diagnostic msg: /tmp/7d1e4244-e8219e.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

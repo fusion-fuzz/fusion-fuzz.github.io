@@ -1,0 +1,94 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgnffyz7v/7f4a3dd0.swift:112:40: error: unknown parameter name 'blah'
+110 |   }
+111 | 
+112 |   @differentiable(reverse, wrt: (self, blah))
+    |                                        `- error: unknown parameter name 'blah'
+113 |   @differentiable(reverse, wrt: input)
+114 |   public func callAsFunction(_ input: Input) -> Output {
+
+swift-frontend: /home/build-user/llvm-project/llvm/include/llvm/ADT/ArrayRef.h:253: const T &llvm::ArrayRef<swift::GenericTypeParamType *>::operator[](size_t) const [T = swift::GenericTypeParamType *]: Assertion `Index < Length && "Invalid index!"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -O -sil-verify-all /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgnffyz7v/7f4a3dd0.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgnffyz7v/7f4a3dd0.swift")
+4.	While type-checking 'Function1_bd5a5c1' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgnffyz7v/7f4a3dd0.swift:105:8)
+ #0 0x00006186f131b658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x00006186f1318e75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x00006186f131c411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x000070397af2f330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x000070397af88c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x000070397af2f27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x000070397af128ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000070397af1281b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x000070397af25517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x00006186eb15796d swift::GenericEnvironment::getMappingIfPresent(swift::CanType) const (/usr/bin/swift-frontend+0x2a8b96d)
+#10 0x00006186eb157de6 swift::GenericEnvironment::getOrCreateArchetypeFromInterfaceType(swift::Type) (/usr/bin/swift-frontend+0x2a8bde6)
+#11 0x00006186eb159db3 swift::TypeTransform<(anonymous namespace)::MapTypeIntoContext>::doIt(swift::Type, swift::TypePosition) GenericEnvironment.cpp:0:0
+#12 0x00006186eb157c33 swift::GenericEnvironment::mapTypeIntoEnvironment(swift::Type) const (/usr/bin/swift-frontend+0x2a8bc33)
+#13 0x00006186ea824c7b swift::TypeChecker::inferDifferentiabilityParameters(swift::AbstractFunctionDecl*, swift::GenericEnvironment*) (/usr/bin/swift-frontend+0x2158c7b)
+#14 0x00006186ea994495 diagnoseMatch(swift::ModuleDecl*, swift::NormalProtocolConformance*, swift::ValueDecl*, swift::RequirementMatch const&) TypeCheckProtocol.cpp:0:0
+#15 0x00006186ea992f9a std::_Function_handler<void (swift::NormalProtocolConformance*), (anonymous namespace)::MultiConformanceChecker::checkAllConformances()::$_13>::_M_invoke(std::_Any_data const&, swift::NormalProtocolConformance*&&) TypeCheckProtocol.cpp:0:0
+#16 0x00006186ea98911a (anonymous namespace)::MultiConformanceChecker::checkAllConformances() TypeCheckProtocol.cpp:0:0
+#17 0x00006186ea9801c7 swift::TypeChecker::checkConformancesInContext(swift::IterableDeclContext*) (/usr/bin/swift-frontend+0x22b41c7)
+#18 0x00006186ea8fa0b3 (anonymous namespace)::DeclChecker::visitClassDecl(swift::ClassDecl*) TypeCheckDeclPrimary.cpp:0:0
+#19 0x00006186ea8f45ab (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#20 0x00006186ea8f3864 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x2227864)
+#21 0x00006186eaa2e885 swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x2362885)
+#22 0x00006186eaa3323b swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#23 0x00006186eaa2e7b8 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x23627b8)
+#24 0x00006186e92acfd9 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_10>(long, swift::SourceFile&) Frontend.cpp:0:0
+#25 0x00006186e92a073e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xbd473e)
+#26 0x00006186e92a04bb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xbd44bb)
+#27 0x00006186e9117822 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#28 0x00006186e9104595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#29 0x00006186e910121e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#30 0x00006186e8e08b21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#31 0x000070397af141ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#32 0x000070397af1428b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#33 0x00006186e8e07a15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x70397b01138d... done ***
+
+*** Program crashed: Aborted at 0x000070397b01138d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x000070397b01138d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x000070397b01138d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x000000000002848c  165004
+rdi 0x000000000002848c  165004
+rbp 0x000000000002848c  165004
+rsp 0x00006187357412e8  3b c4 31 f1 86 61 00 00 70 15 74 35 87 61 00 00  ;Ä1ñ·a··p·t5·a··
+ r8 0x0000618735741570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x0000618735741570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x0000618735741570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x00006186f27b848b  2f 68 6f 6d 65 2f 62 75 69 6c 64 2d 75 73 65 72  /home/build-user
+r14 0x0000000000000000  0
+r15 0x0000618735741388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x000070397b01138d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (32 omitted):
+
+0x000070397aeea000–0x000070397b099eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.01s
+
+Aborted (core dumped)

@@ -1,0 +1,97 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+E0000 00:00:1792024924.101567 1048774 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/hlo/evaluator/hlo_evaluator.cc:3729) ShapeUtil::SameDimensions(operand->shape(), convert->shape()) 
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+E0000 00:00:1792024924.101760 1048774 status_macros.cc:58] INTERNAL: RET_CHECK failure (xla/hlo/evaluator/hlo_evaluator.cc:3729) ShapeUtil::SameDimensions(operand->shape(), convert->shape()) 
+=== Source Location Trace: === 
+xla/status_macros.cc:81
+
+*** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	__libc_start_main
+	
+*** End stack trace ***
+
+W0000 00:00:1792024924.101795 1048774 sharding_propagation.cc:3202] GSPMD sharding propagation is going to be deprecated and not supported in the future. Please consider migrating to Shardy (https://openxla.org/shardy). For reference, Shardy is already the default partitioner in JAX.
+INTERNAL: during context [hlo verifier]: Expected instruction to have shape equal to f8e4m3fn[1], actual shape is f8e4m3fn[8,32,8,128]:
+%convert.d.1 = f8e4m3fn[8,32,8,128]{3,2,1,0} convert(%constant.1.clone)
+
+Failed after pipeline-start
+=== Source Location Trace: === 
+xla/service/hlo_verifier.cc:4814
+./xla/hlo/pass/hlo_pass_pipeline.h:142
+xla/hlo/pass/hlo_pass_pipeline.cc:164
+xla/service/gpu/gpu_compiler.cc:1941
+xla/service/gpu/gpu_compiler.cc:2391
+xla/tools/hlo_opt/compiled_opt_lib.cc:127
+xla/tools/hlo_opt/compiled_opt_lib.cc:84
+xla/tools/hlo_opt/gpu_opt.cc:125
+xla/hlo/tools/hlo_opt/opt_main.cc:202
+xla/hlo/tools/hlo_opt/opt_main.cc:214

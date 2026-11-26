@@ -1,0 +1,60 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpyytu18yi/70587694.cc:30:20: error: redefinition of 'template<auto <anonymous> > int x'
+   30 | template<auto> int x;
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpyytu18yi/70587694.cc:25:20: note: 'template<auto <anonymous> > int x<<anonymous> >' previously declared here
+   25 | template<auto> int x;
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpyytu18yi/70587694.cc:32:5: error: redefinition of 'int main()'
+   32 | int main() {
+      |     ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpyytu18yi/70587694.cc:27:5: note: 'int main()' previously defined here
+   27 | int main() {
+      |     ^~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpyytu18yi/70587694.cc: In function 'int main()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpyytu18yi/70587694.cc:33:22: internal compiler error: in convert_nontype_argument, at cp/pt.cc:8227
+   33 |         x<[](auto) {}>;
+      |                      ^
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x8531aa convert_nontype_argument
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:8227
+0x11f8ed5 convert_nontype_argument_maybe_dependent
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:8910
+0x121217c convert_template_argument
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:9210
+0x120fff3 coerce_template_parms(tree_node*, tree_node*, tree_node*, int, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:9697
+0x1212f2b lookup_template_variable(tree_node*, tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:10906
+0x119cdcf cp_parser_template_id
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:21434
+0x119e023 cp_parser_class_name
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29721
+0x118922f cp_parser_qualifying_entity
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:8320
+0x118922f cp_parser_nested_name_specifier_opt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:7988
+0x118460a cp_parser_simple_type_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:22940
+0x118190d cp_parser_type_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:22581
+0x119e744 cp_parser_decl_specifier_seq
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18975
+0x11b15df cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18075
+0x11b489d cp_parser_declaration_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17052
+0x117bf5a cp_parser_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14559
+0x117f598 cp_parser_statement_seq_opt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:15129
+0x117f838 cp_parser_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14976
+0x11b4a17 cp_parser_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:28999
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpyytu18yi/70587694.cc -quiet -dumpdir a- -dumpbase 70587694.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O3 -std=c++23 -fsyntax-only -fstrub=strict -fdump-ipa-strub -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

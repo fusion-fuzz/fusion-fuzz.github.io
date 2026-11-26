@@ -1,0 +1,45 @@
+warning: Passed-object dummy argument 'this' of procedure 'f' that is an INTENT(IN) POINTER is not standard
+ --> /tmp/test.f90:4:5
+  |
+4 |     procedure :: tbp => f
+  |     ^^^^^^^^^^^^^^^^^^^^^^ 
+
+
+Note: Please report unclear, confusing or incorrect messages as bugs at
+https://github.com/lfortran/lfortran/issues.
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3000, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 2817, in main_app(int, char**)
+    return emit_c(opts.arg_file, lfortran_pass_manager, compiler_options);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 899, in (anonymous namespace)::emit_c(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::PassManager&, LCompilers::CompilerOptions&)
+    pass_manager, 1);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 578, in LCompilers::FortranEvaluator::get_c3[abi:cxx11](LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::PassManager&, long)
+    return asr_to_c(al, asr, diagnostics, compiler_options, default_lower_bound);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp", line 1955, in LCompilers::asr_to_c[abi:cxx11](Allocator&, LCompilers::ASR::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions&, long)
+    v.visit_asr((ASR::asr_t &)asr);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 372, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_asr(LCompilers::ASR::asr_t const&)
+    void visit_asr(const asr_t &b) { visit_asr_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 346, in void LCompilers::ASR::visit_asr_t<LCompilers::ASRToCVisitor>(LCompilers::ASR::asr_t const&, LCompilers::ASRToCVisitor&)
+    case asrType::unit: { v.visit_unit((const unit_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 373, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_unit(LCompilers::ASR::unit_t const&)
+    void visit_unit(const unit_t &b) { visit_unit_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 22, in void LCompilers::ASR::visit_unit_t<LCompilers::ASRToCVisitor>(LCompilers::ASR::unit_t const&, LCompilers::ASRToCVisitor&)
+    case unitType::TranslationUnit: { v.visit_TranslationUnit((const TranslationUnit_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp", line 731, in LCompilers::ASRToCVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&)
+    visit_symbol(*item.second);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 375, in LCompilers::ASR::BaseVisitor<LCompilers::ASRToCVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&)
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 30, in void LCompilers::ASR::visit_symbol_t<LCompilers::ASRToCVisitor>(LCompilers::ASR::symbol_t const&, LCompilers::ASRToCVisitor&)
+    case symbolType::Program: { v.visit_Program((const Program_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp", line 846, in LCompilers::ASRToCVisitor::visit_Program(LCompilers::ASR::Program_t const&)
+    decl_tmp = convert_variable_decl(*v);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp", line 483, in LCompilers::ASRToCVisitor::convert_variable_decl[abi:cxx11](LCompilers::ASR::Variable_t const&, LCompilers::DeclarationOptions*)
+    allocate_array_members_of_struct(der_type_t, sub, indent, std::string(v.m_name));
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/codegen/asr_to_c.cpp", line 170, in LCompilers::ASRToCVisitor::allocate_array_members_of_struct(LCompilers::ASR::Struct_t*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+    ASR::ttype_t* mem_type = ASRUtils::symbol_type(sym);
+LCompilersException: Cannot return type of, 10 symbol.

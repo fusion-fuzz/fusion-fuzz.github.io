@@ -1,0 +1,17 @@
+swift-frontend: swift/include/swift/Parse/ParserResult.h:79: T *swift::ParserResult<swift::TypeRepr>::get() const [T = swift::TypeRepr]: Assertion `getPtrOrNull() && "not checked for nullptr"' failed.
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: swift-frontend -typecheck repro.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+3.	While evaluating request ParseTopLevelDeclsRequest(source_file "repro.swift")
+4.	While evaluating request ParseSourceFileRequest(source_file "repro.swift")
+5.	With parser at source location: repro.swift:1:57
+ #9 swift::Parser::parseTypeSimple(swift::Diag<>, swift::Parser::ParseTypeReason)
+#10 swift::Parser::parseTypeSimpleOrComposition(swift::Diag<>, swift::Parser::ParseTypeReason)
+#11 swift::Parser::parseTypeScalar(swift::Diag<>, swift::Parser::ParseTypeReason)
+#12 swift::Parser::parseType(swift::Diag<>, swift::Parser::ParseTypeReason)
+#13 swift::Parser::parseTypeWithOpaqueParams(swift::Diag<>)
+#14 swift::Parser::parseDeclResultType(swift::Diag<>)
+#15 swift::Parser::parseFunctionSignature(...)
+#16 swift::Parser::parseDeclFunc(...)

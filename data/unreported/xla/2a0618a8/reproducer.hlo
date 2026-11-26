@@ -1,0 +1,15 @@
+HloModule m
+
+ENTRY %main {
+  %constant_f32_0 = f32[] constant(0)
+  %custom-call = f32[2,2048,2048]{2,1,0:S(5)} custom-call(), custom_call_target="AllocateBuffer"
+  %data_param = f32[1,2048,2048]{2,1,0} parameter(0)
+  %index_param = s32[] parameter(1)
+  %constant_s32_0 = s32[] constant(0)
+  %dynamic_update_slice = f32[2,2048,2048]{2,1,0:S(5)} dynamic-update-slice(custom-call, data_param, index_param, constant_s32_0, constant_s32_0)
+  %dynamic_slice = f32[1,2048,2048]{2,1,0} dynamic-slice(f32[2,2048,2048]{2,1,0:S(5)} dynamic_update_slice, index_param, constant_s32_0, constant_s32_0), dynamic_slice_sizes={1,2048,2048}
+  %input = f16[10,20,30,3] parameter(2)
+  %filter = f16[2,2,3,32] parameter(3)
+  %result = (f16[10,20,30,32], u8[0]) custom-call(%input, %data_param), window={size=2x2}, dim_labels=b01f_01io->b01f, custom_call_target="__cudnn$convForward"
+  ROOT %ffl.root = (f32[1,2048,2048]{2,1,0}, (f16[10,20,30,32], u8[0])) tuple(%dynamic_slice, %result)
+}

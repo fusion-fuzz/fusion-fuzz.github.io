@@ -1,0 +1,32 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1793144741.260945 2538209 array.h:397] Check failed: dims < sizes_[i++] (1 vs. 1) 
+*** Check failure stack trace: ***
+    @     0x5ed659941a24  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5ed6599419a6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5ed64e14c303  xla::Array<>::operator()<>()
+    @     0x5ed6583322b3  xla::GetParticipatingDevicesGroups()
+    @     0x5ed658333066  xla::GetParticipatingDevicesGroups()
+    @     0x5ed64fdc2d39  xla::gpu::(anonymous namespace)::GetParticipatingDevicesGroupsForAsyncStart()
+    @     0x5ed64fdc1cdc  xla::gpu::GpuScheduleCrossesOverlapLimit()
+    @     0x5ed64fdd881f  xla::DefaultSchedulerCore::FindAndExtractBestNodeAvailable()
+    @     0x5ed64fde9781  xla::DefaultSchedulerCore::SchedulingStep()
+    @     0x5ed64fded49d  xla::DefaultSchedulerCore::ScheduleComputation()
+    @     0x5ed64fdeb138  xla::DefaultSchedulerCore::ScheduleComputation()
+    @     0x5ed64fdf1837  xla::LatencyHidingScheduler::RunImpl()
+    @     0x5ed656275a01  xla::HloPassInterface::Run()
+    @     0x5ed651a4ecdc  xla::HloPassPipeline::RunHelper()
+    @     0x5ed651a4f820  xla::HloPassPipeline::RunPassesInternal()
+    @     0x5ed651a517f5  xla::HloPassPipeline::RunImpl()
+    @     0x5ed656275a01  xla::HloPassInterface::Run()
+    @     0x5ed64e5ad40c  xla::gpu::(anonymous namespace)::RunLatencyHidingSchedulerPasses()
+    @     0x5ed64e5ab30e  xla::gpu::ScheduleGpuModule()
+    @     0x5ed64e1741cf  xla::gpu::GpuCompiler::CompileToBackendResult()
+    @     0x5ed64e179589  xla::gpu::GpuCompiler::RunBackend()
+    @     0x5ed64e0a4d58  xla::CompiledOptProvider::GetExecutable()
+    @     0x5ed64e0a4055  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5ed64e096b38  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5ed6599921d6  main
+    @     0x79da705d4d90  (unknown)
+Aborted (core dumped)

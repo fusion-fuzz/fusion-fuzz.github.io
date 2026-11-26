@@ -1,0 +1,72 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptl_l9kge/f11efa5a.cpp:16:23: error: no member named 'foo' in 'SS'
+   16 | constexpr int x = ss->foo;
+      |                   ~~  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptl_l9kge/f11efa5a.cpp:16:19: error: call to consteval function 'SS::operator->' is not a constant expression
+   16 | constexpr int x = ss->foo;
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptl_l9kge/f11efa5a.cpp:16:19: note: read of non-constexpr variable 'ss' is not allowed in a constant expression
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptl_l9kge/f11efa5a.cpp:14:12: note: declared here
+   14 | _Atomic SS ss;
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptl_l9kge/f11efa5a.cpp:17:22: error: no member named 'foo' in 'SS'
+   17 | constexpr int y = ss.foo();
+      |                   ~~ ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaOverload.cpp:16921: clang::ExprResult clang::Sema::BuildOverloadedArrowExpr(clang::Scope*, clang::Expr*, clang::SourceLocation, bool*): Assertion `Base->getType()->isRecordType() && "left-hand side must have class type"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -Os -std=c++23 -fblocks -funroll-loops -Wextra -fsanitize=address /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptl_l9kge/f11efa5a.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmptl_l9kge/f11efa5a.cpp:17:27: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055a0122fc4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055a0122f91bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055a0122f9a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055a01223be88
+4  libc.so.6 0x00007f21b7881520
+5  libc.so.6 0x00007f21b78d59bc pthread_kill + 300
+6  libc.so.6 0x00007f21b7881476 raise + 22
+7  libc.so.6 0x00007f21b78677f3 abort + 211
+8  libc.so.6 0x00007f21b786771b
+9  libc.so.6 0x00007f21b7878e96
+10 clang++   0x000055a0154a4d58 clang::Sema::BuildOverloadedArrowExpr(clang::Scope*, clang::Expr*, clang::SourceLocation, bool*) + 3224
+11 clang++   0x000055a01510bc7a
+12 clang++   0x000055a0150ae49a clang::Sema::PopExpressionEvaluationContext() + 746
+13 clang++   0x000055a014b2ee9b clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 3323
+14 clang++   0x000055a014b48a2c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+15 clang++   0x000055a014af866c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+16 clang++   0x000055a014af8e4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+17 clang++   0x000055a014b04d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+18 clang++   0x000055a014b05dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+19 clang++   0x000055a014ae2cf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+20 clang++   0x000055a012feae51 clang::FrontendAction::Execute() + 65
+21 clang++   0x000055a012f74df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+22 clang++   0x000055a0130c2c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+23 clang++   0x000055a010d0bd3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+24 clang++   0x000055a010d01ada
+25 clang++   0x000055a010d01c6f
+26 clang++   0x000055a012cf942d
+27 clang++   0x000055a01223c2a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+28 clang++   0x000055a012cfa283
+29 clang++   0x000055a012caed17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+30 clang++   0x000055a012cb3600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+31 clang++   0x000055a012cc1714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+32 clang++   0x000055a010d07383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+33 clang++   0x000055a010c57901 main + 113
+34 libc.so.6 0x00007f21b7868d90
+35 libc.so.6 0x00007f21b7868e40 __libc_start_main + 128
+36 clang++   0x000055a010d01105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/f11efa5a-ee92d5.cpp
+clang++: note: diagnostic msg: /tmp/f11efa5a-ee92d5.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

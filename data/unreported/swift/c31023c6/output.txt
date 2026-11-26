@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpntik4r98/543ba8c6.swift:120:12: error: protocol initializers must not have bodies
+118 |   init()
+119 | 
+120 |     init() { fatalError() }
+    |            `- error: protocol initializers must not have bodies
+121 | }
+122 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpntik4r98/543ba8c6.swift:52:1: error: type 'String' does not conform to protocol 'InitAny_d81a39e'
+ 41 | 
+ 42 | protocol InitAny_d81a39e {
+ 43 |   init()
+    |   `- note: multiple matching initializers named 'init()' with type '()'
+ 44 | }
+ 45 | 
+    :
+ 50 | }
+ 51 | 
+ 52 | extension String: InitAny_d81a39e {
+    | `- error: type 'String' does not conform to protocol 'InitAny_d81a39e'
+ 53 |   init() {
+    |   `- note: candidate exactly matches
+ 54 |     self = "bar"
+ 55 |   }
+    :
+128 | 
+129 | extension String: InitAny {
+130 |   init() {
+    |   `- note: candidate exactly matches
+131 |     self = "bar"
+132 |   }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpntik4r98/543ba8c6.swift:104:5: error: cannot assign to value: '__d81a39e' is a 'let' constant
+ 70 | }
+ 71 | 
+ 72 | let __d81a39e: [String] = Foo_b797c85().foo(of: String.self)
+    | `- note: change 'let' to 'var' to make it mutable
+ 73 | // --- Bug Primitive ---
+ 74 | 
+    :
+102 |     _ffl_s.volume = String(describing: bar).count % 200  // may exceed hi → clamped
+103 |     _ffl_s.name   = String(describing: bar)
+104 |     __d81a39e = _ffl_s.$name
+    |     `- error: cannot assign to value: '__d81a39e' is a 'let' constant
+105 |     __d81a39e = _ffl_s.$volume
+106 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpntik4r98/543ba8c6.swift:104:24: error: cannot assign value of type 'String' to type '[String]'
+102 |     _ffl_s.volume = String(describing: bar).count % 200  // may exceed hi → clamped
+103 |     _ffl_s.name   = String(describing: bar)
+104 |     __d81a39e = _ffl_s.$name
+    |                        `- error: cannot assign value of type 'String' to type '[String]'
+105 |     __d81a39e = _ffl_s.$volume
+106 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpntik4r98/543ba8c6.swift:105:5: error: cannot assign to value: '__d81a39e' is a 'let' constant
+ 70 | }
+ 71 | 
+ 72 | let __d81a39e: [String] = Foo_b797c85().foo(of: String.self)
+    | `- note: change 'let' to 'var' to make it mutable
+ 73 | // --- Bug Primitive ---
+ 74 | 
+    :
+103 |     _ffl_s.name   = String(describing: bar)
+104 |     __d81a39e = _ffl_s.$name
+105 |     __d81a39e = _ffl_s.$volume
+    |     `- error: cannot assign to value: '__d81a39e' is a 'let' constant
+106 | }
+107 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpntik4r98/543ba8c6.swift:105:24: error: cannot assign value of type '(Int, Int)' to type '[String]'
+103 |     _ffl_s.name   = String(describing: bar)
+104 |     __d81a39e = _ffl_s.$name
+105 |     __d81a39e = _ffl_s.$volume
+    |                        `- error: cannot assign value of type '(Int, Int)' to type '[String]'
+106 | }
+107 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpntik4r98/543ba8c6.swift:120:5: error: 'init()' has already been overridden
+116 | 
+117 | protocol InitAny: InitAny_d81a39e {
+118 |   init()
+    |   `- note: 'init()' previously overridden here
+119 | 
+120 |     init() { fatalError() }
+    |     `- error: 'init()' has already been overridden
+121 | }
+122 | 
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpntik4r98/543ba8c6.swift:130:3: error: invalid redeclaration of 'init()'
+ 51 | 
+ 52 | extension String: InitAny_d81a39e {
+ 53 |   init() {
+    |   `- note: 'init()' previously declared here
+ 54 |     self = "bar"
+ 55 |   }
+    :
+128 | 
+129 | extension String: InitAny {
+130 |   init() {
+    |   `- error: invalid redeclaration of 'init()'
+131 |     self = "bar"
+132 |   }
+
+swift-frontend: /home/build-user/llvm-project/llvm/include/llvm/Support/Casting.h:578: decltype(auto) llvm::cast(From *) [To = swift::FunctionType, From = swift::TypeBase]: Assertion `isa<To>(Val) && "cast<Ty>() argument of incompatible type!"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -Onone -sil-verify-all -enforce-exclusivity=checked -strict-concurrency=complete /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpntik4r98/543ba8c6.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpntik4r98/543ba8c6.swift")
+4.	While type-checking extension of String (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpntik4r98/543ba8c6.swift:129:1)
+ #0 0x00005f0fcbbf0658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x00005f0fcbbede75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x00005f0fcbbf1411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f8fca3f8330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007f8fca451c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007f8fca3f827e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007f8fca3db8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00007f8fca3db81b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+[... 66 more lines ...]

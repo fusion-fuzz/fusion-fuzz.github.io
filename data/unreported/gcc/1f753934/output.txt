@@ -1,0 +1,41 @@
+cc1plus: warning: command-line option '-std=gnu17' is valid for C/ObjC but not for C++
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpo424sns_/db77de4e.cc:22:32: warning: 'callback_only' attribute can only be used on functions [-Wattributes]
+   22 | char const volatile S::* const p01 = &S::k;
+      |                                ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpo424sns_/db77de4e.cc:22:32: internal compiler error: tree check: expected function_type or method_type, have offset_type in prototype_p, at tree.cc:12235
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xa5c1c8 tree_check_failed(tree_node const*, char const*, int, char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:9241
+0xa6166b tree_check2(tree_node const*, char const*, int, char const*, tree_code, tree_code)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:4138
+0xa6166b prototype_p(tree_node const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:12235
+0x137a757 positional_argument(tree_node const*, tree_node const*, tree_node*&, tree_code, int, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-attribs.cc:856
+0x137b119 handle_callback_only_attribute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-attribs.cc:4695
+0x12dc136 decl_attributes(tree_node**, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/attribs.cc:905
+0x108a5ee cplus_decl_attributes(tree_node**, tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl2.cc:2209
+0x1071b88 start_decl(cp_declarator const*, cp_decl_specifier_seq*, int, tree_node*, tree_node*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:6652
+0x11af73a cp_parser_init_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:26372
+0x11b16fb cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18196
+0x11c12cf cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17733
+0x11c3d33 cp_parser_toplevel_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17837
+0x11c3d33 cp_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:5599
+0x11c3d33 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:57899
+0x1357329 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpo424sns_/db77de4e.cc -quiet -dumpdir a- -dumpbase db77de4e.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O1 -Wattributes -std=gnu17 -fsyntax-only -fwrapv -fexceptions -fno-omit-frame-pointer -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

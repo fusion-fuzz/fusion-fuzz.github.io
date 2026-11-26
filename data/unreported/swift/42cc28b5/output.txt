@@ -1,0 +1,108 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpoim0ihn4/3bb4863d.swift:57:38: warning: expression of type 'any Boopable & ~Copyable' is unused [#NoUsage]
+55 |     var _ffl_cap = s
+56 |     // noescape: bridge captured by reference on the stack
+57 |     let _ffl_local = _ffl_p4_apply { _ffl_cap }
+   |                                      `- warning: expression of type 'any Boopable & ~Copyable' is unused [#NoUsage]
+58 |     // @escaping: bridge promoted to heap box
+59 |     let _ffl_esc   = _ffl_p4_escape { _ffl_cap }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpoim0ihn4/3bb4863d.swift:57:9: warning: constant '_ffl_local' inferred to have type '()', which may be unexpected
+55 |     var _ffl_cap = s
+56 |     // noescape: bridge captured by reference on the stack
+57 |     let _ffl_local = _ffl_p4_apply { _ffl_cap }
+   |         |- warning: constant '_ffl_local' inferred to have type '()', which may be unexpected
+   |         `- note: add an explicit type annotation to silence this warning
+58 |     // @escaping: bridge promoted to heap box
+59 |     let _ffl_esc   = _ffl_p4_escape { _ffl_cap }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpoim0ihn4/3bb4863d.swift:59:39: warning: expression of type 'any Boopable & ~Copyable' is unused [#NoUsage]
+57 |     let _ffl_local = _ffl_p4_apply { _ffl_cap }
+58 |     // @escaping: bridge promoted to heap box
+59 |     let _ffl_esc   = _ffl_p4_escape { _ffl_cap }
+   |                                       `- warning: expression of type 'any Boopable & ~Copyable' is unused [#NoUsage]
+60 |     // nested closure capturing both outer and inner captures
+61 |     let _ffl_nest: () -> String = {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpoim0ihn4/3bb4863d.swift:62:13: warning: constant 'inner' inferred to have type '()', which may be unexpected
+60 |     // nested closure capturing both outer and inner captures
+61 |     let _ffl_nest: () -> String = {
+62 |         let inner = _ffl_esc()
+   |             |- warning: constant 'inner' inferred to have type '()', which may be unexpected
+   |             `- note: add an explicit type annotation to silence this warning
+63 |         return "\(inner) \(_ffl_local)"
+64 |     }
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-silgen -wmo -sil-verify-all -strict-concurrency=complete -disable-availability-checking /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpoim0ihn4/3bb4863d.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module main)
+4.	While silgen emitFunction SIL function "@$s4main2C2C1fyyF5localL_yyFyycfU_5LocalL_C1aAA8Boopable_pRi_s_XPvr".
+ for read for a (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpoim0ihn4/3bb4863d.swift:40:20)
+ #0 0x000056342251dbab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000056342251b2e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000056342251e8c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007f09dd0d1330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x000056341c52e9bb swift::FuncDecl::getSelfAccessKind() const (/usr/bin/swift-frontend+0x2c289bb)
+ #5 0x000056341ad3c259 getBaseAccessKind(swift::Lowering::SILGenModule&, swift::AbstractStorageDecl*, swift::Lowering::SGFAccessKind, swift::AccessStrategy, swift::CanType, bool) SILGenLValue.cpp:0:0
+ #6 0x000056341ad3bdf3 SILGenLValue::visitMemberRefExpr(swift::MemberRefExpr*, swift::Lowering::SGFAccessKind, swift::Lowering::LValueOptions) crtstuff.c:0:0
+ #7 0x000056341ad35f69 swift::ASTVisitor<SILGenLValue, swift::Lowering::LValue, void, void, void, void, void, swift::Lowering::SGFAccessKind, swift::Lowering::LValueOptions>::visit(swift::Expr*, swift::Lowering::SGFAccessKind, swift::Lowering::LValueOptions) crtstuff.c:0:0
+ #8 0x000056341ad359fb swift::Lowering::SILGenFunction::emitLValue(swift::Expr*, swift::Lowering::SGFAccessKind, swift::Lowering::LValueOptions) crtstuff.c:0:0
+ #9 0x000056341adfaa07 (anonymous namespace)::ArgEmitter::emitBorrowed(swift::Expr*, swift::SILType, swift::SILType, swift::Lowering::AbstractionPattern, (anonymous namespace)::ClaimedParamsRef) SILGenApply.cpp:0:0
+#10 0x000056341adf8aca (anonymous namespace)::ArgEmitter::emit(swift::Lowering::ArgumentSource&&, swift::Lowering::AbstractionPattern, bool, std::optional<swift::AnyFunctionType::Param>) SILGenApply.cpp:0:0
+#11 0x000056341ade2040 (anonymous namespace)::ArgEmitter::emitSingleArg(swift::Lowering::ArgumentSource&&, swift::Lowering::AbstractionPattern, bool, std::optional<swift::AnyFunctionType::Param>) SILGenApply.cpp:0:0
+#12 0x000056341ade1c3e swift::Lowering::SILGenFunction::emitYield(swift::SILLocation, llvm::MutableArrayRef<swift::Lowering::ArgumentSource>, llvm::ArrayRef<swift::Lowering::AbstractionPattern>, swift::Lowering::JumpDest) crtstuff.c:0:0
+#13 0x000056341ad995af swift::ASTVisitor<(anonymous namespace)::StmtEmitter, void, void, void, void, void, void>::visit(swift::Stmt*) SILGenStmt.cpp:0:0
+#14 0x000056341ada1902 (anonymous namespace)::StmtEmitter::visitBraceStmt(swift::BraceStmt*) SILGenStmt.cpp:0:0
+#15 0x000056341ad98ffd swift::Lowering::SILGenFunction::emitStmt(swift::Stmt*) crtstuff.c:0:0
+#16 0x000056341ad0cf43 swift::Lowering::SILGenFunction::emitFunction(swift::FuncDecl*) crtstuff.c:0:0
+#17 0x000056341ac745d9 swift::Lowering::SILGenModule::emitFunctionDefinition(swift::SILDeclRef, swift::SILFunction*) crtstuff.c:0:0
+#18 0x000056341ac7a000 swift::ASTLoweringRequest::evaluate(swift::Evaluator&, swift::ASTLoweringDescriptor) const (/usr/bin/swift-frontend+0x1374000)
+#19 0x000056341ad98927 swift::SimpleRequest<swift::ASTLoweringRequest, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>> (swift::ASTLoweringDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::ASTLoweringRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#20 0x000056341ac7ef26 swift::ASTLoweringRequest::OutputType swift::Evaluator::getResultUncached<swift::ASTLoweringRequest, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()>(swift::ASTLoweringRequest const&, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()) crtstuff.c:0:0
+#21 0x000056341ac7a23b swift::performASTLowering(swift::ModuleDecl*, swift::Lowering::TypeConverter&, swift::SILOptions const&, swift::IRGenOptions const*) (/usr/bin/swift-frontend+0x137423b)
+#22 0x000056341a5df6ef swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xcd96ef)
+#23 0x000056341a5f9581 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#24 0x000056341a5e50cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#25 0x000056341a5e1fef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcdbfef)
+#26 0x000056341a2b124b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9ab24b)
+#27 0x00007f09dd0b61ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#28 0x00007f09dd0b628b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#29 0x000056341a2b02a5 _start (/usr/bin/swift-frontend+0x9aa2a5)
+
+*** Signal 11: Backtracing from 0x7f09dd1b338d... done ***
+
+*** Program crashed: Bad pointer dereference at 0x0000000000000048 ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007f09dd1b338d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x000000000000000b  11
+rcx 0x00007f09dd1b338d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x000000000000000b  11
+rsi 0x0000000000038ef8  233208
+rdi 0x0000000000038ef8  233208
+rbp 0x0000000000038ef8  233208
+rsp 0x00005634285364e8  eb e8 51 22 34 56 00 00 70 67 53 28 34 56 00 00  ëèQ"4V··pgS(4V··
+ r8 0x0000563428536770  0b 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00  ················
+ r9 0x0000563428536770  0b 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00  ················
+r10 0x0000563428536770  0b 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00  ················
+r11 0x0000000000000246  582
+r12 0x0000000000000000  0
+r13 0x0000563428b03b28  12 11 00 00 00 00 00 00 28 6f 8e 28 34 56 00 00  ········(o·(4V··
+r14 0x0000000000000000  0
+r15 0x0000563428536588  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007f09dd1b338d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs
+[... truncated ...]

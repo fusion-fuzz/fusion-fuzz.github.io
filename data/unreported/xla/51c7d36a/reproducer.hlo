@@ -1,0 +1,51 @@
+HloModule module, num_partitions=8
+
+%fusion1 {
+  %p0 = s8[16,16] parameter(0)
+  %p1 = s8[16,16] parameter(1)
+  %d = s32[16,16] dot(p0, p1), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %p2 = s32[16,16] parameter(2)
+  ROOT %a = s32[16,16] add(d, p2)
+}
+
+%fusion1.d {
+  %p0 = s8[16,16] parameter(0)
+  %p1 = s8[16,16] parameter(1)
+  %d = s32[16,16] dot(p0, p1), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %p2 = s32[16,16] parameter(2)
+  ROOT %a = s32[16,16] add(d, p2)
+}
+
+%fusion1.d.1 {
+  %p0 = s8[16,16] parameter(0)
+  %p1 = s8[16,16] parameter(1)
+  %d = s32[16,16] dot(p0, p1), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %p2 = s32[16,16] parameter(2)
+  ROOT %a = s32[16,16] add(d, p2)
+}
+
+ENTRY %entry {
+  %p1 = bf16[2,24,24,32]{3,2,1,0} parameter(0), sharding={replicated}
+  %p2 = bf16[2,4,4,32]{3,2,1,0} parameter(1), sharding={replicated}
+  %p0 = s8[16,16] parameter(2)
+  %p1.d = s8[16,16] parameter(3)
+  %p2.d = s32[16,16] parameter(4)
+  %r = s32[16,16] fusion(%p0, %p1.d, %p2.d), kind=kCustom, calls=%fusion1.d, backend_config={"fusion_backend_config": {"kind":"__cudnn$fusion"}}
+  %c1 = bf16[2,24,24,32]{3,2,1,0} copy(p1), sharding={devices=[2,2,2,1]<=[8]}
+  %c2 = bf16[2,4,4,32]{3,2,1,0} copy(p2), sharding={devices=[2,2,2,1]<=[8]}
+  %constant.1163 = bf16[] constant(0), sharding={replicated}
+  %constant.1165 = s32[] constant(0), sharding={replicated}
+  %pad.179 = bf16[2,56,56,32]{3,2,1,0} pad(c1, constant.1163), padding=0_0x16_16x16_16x0_0, sharding={devices=[2,2,2,1]<=[8]}
+  %add.439 = bf16[2,4,4,32]{3,2,1,0} add(c2, c2), sharding={devices=[2,2,2,1]<=[8]}
+  %constant.1070 = s32[] constant(48), sharding={replicated}
+  %dynamic-update-slice.128 = bf16[2,56,56,32]{3,2,1,0} dynamic-update-slice(pad.179, add.439, constant.1165, constant.1070, constant.1070, /*index=5*/constant.1165), sharding={devices=[2,2,2,1]<=[8]}
+  %c = bf16[2,56,56,32]{3,2,1,0} copy(dynamic-update-slice.128), sharding={devices=[2,2,2,1]<=[8]}
+  %ffl.call = s32[16,16] call(%add.439, %pad.179, %dynamic-update-slice.128), to_apply=%fusion1
+  %ffl.root = (bf16[2,56,56,32]{3,2,1,0}, s32[16,16]) tuple(%c, %ffl.call)
+  %ffl.root.1 = (bf16[2,56,56,32]{3,2,1,0}, s32[16,16], s32[16,16]) tuple(%c, %ffl.call, %r)
+  %p0.d = s8[16,16] parameter(5)
+  %p1.d.1 = s8[16,16] parameter(6)
+  %p2.d.1 = s32[16,16] parameter(7)
+  %r.d = s32[16,16] fusion(%p0.d, %p1.d, %p2.d.1), kind=kCustom, calls=%fusion1.d.1, backend_config={"fusion_backend_config": {"kind":"__cudnn$fusion"}}
+  ROOT %ffl.root.2 = (bf16[2,56,56,32]{3,2,1,0}, s32[16,16], s32[16,16], s32[16,16]) tuple(%c, %ffl.call, %r, %r.d)
+}

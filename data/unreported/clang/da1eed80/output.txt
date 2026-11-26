@@ -1,0 +1,98 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:6:3: warning: 'noderef' can only be used on an array or pointer type [-Wignored-attributes]
+    6 |   int NODEREF i; // expected-warning{{'noderef' can only be used on an array or pointer type}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:11:3: warning: 'noderef' can only be used on an array or pointer type [-Wignored-attributes]
+   11 |   auto __attribute__((noderef)) auto_i = i; // expected-warning{{'noderef' can only be used on an array or pointer type}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:14:3: warning: 'noderef' can only be used on an array or pointer type [-Wignored-attributes]
+   14 |   auto NODEREF auto_i2 = i; // expected-warning{{'noderef' can only be used on an array or pointer type}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:10:34: warning: unused variable 'auto_i_ptr' [-Wunused-variable]
+   10 |   auto __attribute__((noderef)) *auto_i_ptr = i_ptr;
+      |                                  ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:11:33: warning: unused variable 'auto_i' [-Wunused-variable]
+   11 |   auto __attribute__((noderef)) auto_i = i; // expected-warning{{'noderef' can only be used on an array or pointer type}}
+      |                                 ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:13:17: warning: unused variable 'auto_i_ptr2' [-Wunused-variable]
+   13 |   auto NODEREF *auto_i_ptr2 = i_ptr;
+      |                 ^~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:14:16: warning: unused variable 'auto_i2' [-Wunused-variable]
+   14 |   auto NODEREF auto_i2 = i; // expected-warning{{'noderef' can only be used on an array or pointer type}}
+      |                ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:10:47: warning: variable 'i_ptr' is uninitialized when used here [-Wuninitialized]
+   10 |   auto __attribute__((noderef)) *auto_i_ptr = i_ptr;
+      |                                               ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:7:21: note: initialize the variable 'i_ptr' to silence this warning
+    7 |   int NODEREF *i_ptr;
+      |                     ^
+      |                      = nullptr
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:11:42: warning: variable 'i' is uninitialized when used here [-Wuninitialized]
+   11 |   auto __attribute__((noderef)) auto_i = i; // expected-warning{{'noderef' can only be used on an array or pointer type}}
+      |                                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:6:16: note: initialize the variable 'i' to silence this warning
+    6 |   int NODEREF i; // expected-warning{{'noderef' can only be used on an array or pointer type}}
+      |                ^
+      |                 = 0
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:20:3: warning: 'pcs' calling convention is not supported for this target [-Wignored-attributes]
+   20 |   _LIBCPP_FLOAT_ABI int operator()() throw(); // expected-warning{{'pcs' calling convention is not supported for this target}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:18:42: note: expanded from macro '_LIBCPP_FLOAT_ABI'
+   18 | #define _LIBCPP_FLOAT_ABI __attribute__((pcs("aapcs")))
+      |                                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:38:12: error: cannot find interface declaration for 'NSString'
+   38 | @interface NSString (NSStringExtensionMethods)
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:39:37: error: unknown type name 'NSString'
+   39 | - (void)_LIBCPP_FLOAT_ABI:(void (^)(NSString *line, BOOL *stop))block;
+      |                                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:39:53: error: unknown type name 'BOOL'
+   39 | - (void)_LIBCPP_FLOAT_ABI:(void (^)(NSString *line, BOOL *stop))block;
+      |                                                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:39:9: warning: 'pcs' calling convention is not supported for this target [-Wignored-attributes]
+   39 | - (void)_LIBCPP_FLOAT_ABI:(void (^)(NSString *line, BOOL *stop))block;
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:18:42: note: expanded from macro '_LIBCPP_FLOAT_ABI'
+   18 | #define _LIBCPP_FLOAT_ABI __attribute__((pcs("aapcs")))
+      |                                          ^
+unexpected calling convention in pcs attribute
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaDeclAttr.cpp:5589!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O0 -fblocks -fno-objc-arc -Wall -target x86_64-apple-darwin10 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpnf3kl07o/b11125a0.mm:39:70: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005ffe4e53866b __interceptor_backtrace + 91
+1  clang++   0x00005ffe54193027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005ffe5418ccf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005ffe541919c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005ffe53fdfcc5
+5  clang++   0x00005ffe53fe04d3
+6  libc.so.6 0x00007dafed0d5520
+7  libc.so.6 0x00007dafed1299bc pthread_kill + 300
+8  libc.so.6 0x00007dafed0d5476 raise + 22
+9  libc.so.6 0x00007dafed0bb7f3 abort + 211
+10 clang++   0x00005ffe53fff2e8 llvm::llvm_unreachable_internal(char const*, char const*, unsigned int) + 216
+11 clang++   0x00005ffe5b249689
+12 clang++   0x00005ffe5b205bbd
+13 clang++   0x00005ffe5b203017 clang::Sema::ProcessDeclAttributeList(clang::Scope*, clang::Decl*, clang::ParsedAttributesView const&, clang::Sema::ProcessDeclAttributeOptions const&) + 1399
+14 clang++   0x00005ffe5b413519 clang::SemaObjC::ActOnMethodDeclaration(clang::Scope*, clang::SourceLocation, clang::SourceLocation, clang::tok::TokenKind, clang::ObjCDeclSpec&, clang::OpaquePtr<clang::QualType>, llvm::ArrayRef<clang::SourceLocation>, clang::Selector, clang::ParmVarDecl**, clang::DeclaratorChunk::ParamInfo*, unsigned int, clang::ParsedAttributesView const&, clang::tok::ObjCKeywordKind, bool, bool) + 3849
+15 clang++   0x00005ffe5a83c975 clang::Parser::ParseObjCMethodDecl(clang::SourceLocation, clang::tok::TokenKind, clang::tok::ObjCKeywordKind, bool) + 9813
+16 clang++   0x00005ffe5a836321 clang::Parser::ParseObjCInterfaceDeclList(clang::tok::ObjCKeywordKind, clang::Decl*) + 2129
+17 clang++   0x00005ffe5a82d733 clang::Parser::ParseObjCAtInterfaceDeclaration(clang::SourceLocation, clang::ParsedAttributes&) + 5603
+18 clang++   0x00005ffe5a82b4df clang::Parser::ParseObjCAtDirectives(clang::ParsedAttributes&, clang::ParsedAttributes&) + 1183
+19 clang++   0x00005ffe5a6dfca0 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2064
+20 clang++   0x00005ffe5a6dbfe5 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1765
+21 clang++   0x00005ffe5a6b4a7f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+22 clang++   0x00005ffe55ed89bc clang::CodeGenAction::ExecuteAction() + 4124
+23 clang++   0x00005ffe565932fe clang::FrontendAction::Execute() + 222
+24 clang++   0x00005ffe564255f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+25 clang++   0x00005ffe56777989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+26 clang++   0x00005ffe4e5ce1a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+27 clang++   0x00005ffe4e5c20f9
+28 clang++   0x00005ffe4e5cc637
+29 clang++   0x00005ffe55ffc317
+30 clang++   0x00005ffe53fdfa7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+31 clang++   0x00005ffe55ff981a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+32 clang++   0x00005ffe55f4a29c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+33 clang++   0x00005ffe55f4ba2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::S
+[... truncated ...]

@@ -1,0 +1,44 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+E0000 00:00:1791991047.876814 2313269 xtile_compiler.cc:576] LLVM Fatal Error while compiling Triton kernel: Conversion from/to f8e4m3nv is only supported on compute capability >= 89
+ Context: Fusion: fusion = bf16[128,128]{1,0} fusion(lhs, rhs, lhs_scale, rhs_scale), kind=kCustom, calls=fusion__, backend_config={"fusion_backend_config":{ "kind":"__triton_nested_gemm_fusion", "block_level_fusion_config":{ "output_tiles":[{"sizes":["128","16"]}], "num_warps":"4","num_ctas":"1","num_stages":"1"}}}Computation: fusion__ {
+  parameter_0 = f8e4m3fn[128,256]{1,0} parameter(0)
+  parameter_1 = f8e4m3fn[256,128]{1,0} parameter(1)
+  parameter_2 = f8e8m0fnu[128,8]{1,0} parameter(2)
+  parameter_3 = f8e8m0fnu[8,128]{1,0} parameter(3)
+  ROOT _.1 = bf16[128,128]{1,0} scaled-dot(parameter_0, parameter_1, parameter_2, parameter_3), lhs_contracting_dims={1}, rhs_contracting_dims={0}, backend_config={"sizes":["64"]}
+}
+F0000 00:00:1791991047.876833 2313269 error_handler.cc:44] *** Begin stack trace ***
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	clone
+*** End stack trace ***

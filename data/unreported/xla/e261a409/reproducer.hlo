@@ -1,0 +1,19 @@
+HloModule sparse_conv_block8_module
+
+ENTRY %entry {
+  %p0 = f32[1, 8] parameter(0)
+  %p1 = f32[1, 1] parameter(1)
+  %p2 = s32[1, 1] parameter(2)
+  %convolution.1 = f32[1, 1] convolution(%p0, %p1, %p2), dim_labels=bf_io->bf, sparsity_config={ rhs={sparsity=1x8 dimension=0 stride=1 idx=2} }
+  %p0.d = f32[10,10] parameter(3)
+  %p1.d = f32[2,2] parameter(4)
+  %p0.d.d = f32[1, 8] parameter(5)
+  %p1.d.d = f32[1, 1] parameter(6)
+  %p2.d = s32[1, 1] parameter(7)
+  %convolution.1.d = f32[1, 1] convolution(%p0.d.d, %p1.d.d, %p1), dim_labels=bf_io->bf, sparsity_config={ rhs={sparsity=1x8 dimension=0 stride=1 idx=2} }
+  %i0 = s32[] constant(0)
+  %i1 = s32[] constant(0)
+  %dus = f32[10,10] dynamic-update-slice(%p0.d, %p1.d, %i0, %i1)
+  %ffl.root = (f32[10,10], f32[1, 1]) tuple(%dus, %convolution.1.d)
+  ROOT %ffl.root.1 = (f32[1, 1], f32[10,10], f32[1, 1]) tuple(%convolution.1, %dus, %convolution.1.d)
+}

@@ -1,0 +1,57 @@
+clang-24: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp:1099: std::unique_ptr<clang::CodeGen::CGRecordLayout> clang::CodeGen::CodeGenTypes::ComputeRecordLayout(const clang::RecordDecl*, llvm::StructType*): Assertion `Builder.Packed == BaseBuilder.Packed && "Non-virtual and complete types must agree on packedness"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24 -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -dumpdir a- -disable-free -clear-ast-before-backend -main-file-name test.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -fcoverage-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -resource-dir /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/x86_64-linux-gnu/c++/11 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/backward -internal-isystem /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24/include -internal-isystem /usr/local/include -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -faddrsig -fdwarf2-cfi-asm -o /tmp/test-78f69d.o -x c++ /tmp/test.cpp
+1.	<eof> parser at end of file
+2.	/tmp/test.cpp:15:8: LLVM IR generation of declaration 'D'
+3.	/tmp/test.cpp:20:1: Generating code for declaration 'd'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang-24  0x000055d4ba0dd0f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang-24  0x000055d4ba0d9dcc llvm::sys::RunSignalHandlers() + 76
+2  clang-24  0x000055d4ba0d9f32
+3  clang-24  0x000055d4ba0d9fec
+4  libc.so.6 0x00007f93627c9520
+5  libc.so.6 0x00007f936281d9fc pthread_kill + 300
+6  libc.so.6 0x00007f93627c9476 raise + 22
+7  libc.so.6 0x00007f93627af7f3 abort + 211
+8  libc.so.6 0x00007f93627af71b
+9  libc.so.6 0x00007f93627c0e96
+10 clang-24  0x000055d4ba5b9e9d clang::CodeGen::CodeGenTypes::ComputeRecordLayout(clang::RecordDecl const*, llvm::StructType*) + 3533
+11 clang-24  0x000055d4ba712014 clang::CodeGen::CodeGenTypes::ConvertRecordDeclType(clang::RecordDecl const*) + 1124
+12 clang-24  0x000055d4ba712a30 clang::CodeGen::CodeGenTypes::getCGRecordLayout(clang::RecordDecl const*) + 128
+13 clang-24  0x000055d4ba712d1d clang::CodeGen::CodeGenTypes::isZeroInitializable(clang::QualType) + 429
+14 clang-24  0x000055d4ba46f015 clang::CodeGen::CodeGenModule::EmitNullConstant(clang::QualType) + 309
+15 clang-24  0x000055d4ba69d06d clang::CodeGen::CodeGenModule::EmitGlobalVarDefinition(clang::VarDecl const*, bool) + 5773
+16 clang-24  0x000055d4ba6b98e1 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 481
+17 clang-24  0x000055d4ba6ba343 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 2403
+18 clang-24  0x000055d4ba6c66ab
+19 clang-24  0x000055d4baa69cb1
+20 clang-24  0x000055d4baa59481 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+21 clang-24  0x000055d4bc85a6f4 clang::ParseAST(clang::Sema&, bool, bool) + 564
+22 clang-24  0x000055d4badd3071 clang::FrontendAction::Execute() + 65
+23 clang-24  0x000055d4bad5cc65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+24 clang-24  0x000055d4baeaeea3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+25 clang-24  0x000055d4b8ab1c96 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7046
+26 clang-24  0x000055d4b8aa7a2a
+27 clang-24  0x000055d4b8aabdd5 clang_main(int, char**, llvm::ToolContext const&) + 1893
+28 clang-24  0x000055d4b89ff7a1 main + 113
+29 libc.so.6 0x00007f93627b0d90
+30 libc.so.6 0x00007f93627b0e40 __libc_start_main + 128
+31 clang-24  0x000055d4b8aa7055 _start + 37
+clang++: error: unable to execute command: Aborted (core dumped)
+clang++: error: clang frontend command failed with exit code -2 (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git aefba88f46a6e55645c848f58f6ba56944d5ae62)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/test-c1a434.cpp
+clang++: note: diagnostic msg: /tmp/test-c1a434.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

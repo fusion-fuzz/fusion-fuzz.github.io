@@ -1,0 +1,40 @@
+cc1: error: attribute 'target' argument '+cmpbr' is unknown
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphrjr7svu/95434a53.c:11:9: error: two or more data types in declaration specifiers
+   11 | typedef int v4si __attribute__((vector_size(4 * sizeof (int))));
+      |         ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphrjr7svu/95434a53.c: In function 'foo':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphrjr7svu/95434a53.c:22:3: internal compiler error: in build_vector_from_ctor, at tree.cc:2212
+   22 |   __MEM <v4si> ((int *)&a + _Literal (int *) 16) = _Literal (v4si) { 0, 0, 0, 0 };
+      |   ^~~~~
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x96d7b9 build_vector_from_ctor(tree_node*, vec<constructor_elt, va_gc, vl_embed> const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:2212
+0xf4a891 c_parser_gimple_postfix_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:1818
+0xf4aa4a c_parser_gimple_binary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:1026
+0xf4bb4f c_parser_gimple_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:938
+0xf4bb4f c_parser_gimple_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:728
+0xf4e0e3 c_parser_gimple_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:452
+0xf4e0e3 c_parser_parse_gimple_body(c_parser*, char*, c_declspec_il, profile_count)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/gimple-parser.cc:296
+0xf3625e c_parser_declaration_or_fndef
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:3348
+0xf43529 c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2256
+0xf44470 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xf44470 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xfc9e09 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphrjr7svu/95434a53.c -quiet -dumpbase 95434a53.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Ofast -O1 -std=gnu90 -floop-nest-optimize -fno-strict-aliasing -fgimple -o /tmp/ccu1VTgL.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

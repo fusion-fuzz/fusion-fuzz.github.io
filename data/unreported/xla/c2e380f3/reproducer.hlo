@@ -1,0 +1,13 @@
+HloModule m
+
+ENTRY %e {
+  %p0 = f32[64,32]{0,1} parameter(0)
+  %p1 = f32[64,32]{0,1} parameter(1)
+  %c = f32[128,32]{1,0} concatenate(p0, p1), dimensions={0}
+  %lhs = f8e4m3fn[16,64]{1,0} parameter(2), sharding={devices=[1,2]<=[2]}
+  %lhs_scale = f8e8m0fnu[16,2]{1,0} parameter(3), sharding={devices=[1,2]<=[2]}
+  %rhs = f8e4m3fn[4,64]{1,0} parameter(4), sharding={devices=[1,2]<=[2]}
+  %rhs_scale = f8e8m0fnu[4,2]{1,0} parameter(5), sharding={devices=[1,2]<=[2]}
+  %block_scaled_dot = f32[16,4]{1,0} custom-call(%lhs, %rhs, %lhs_scale, %p0), custom_call_target="__op$block_scaled_dot", sharding={devices=[2,1]<=[2]}
+  ROOT %ffl.root = (f32[128,32]{1,0}, f32[16,4]{1,0}) tuple(%c, %block_scaled_dot)
+}

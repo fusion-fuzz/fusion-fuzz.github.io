@@ -1,0 +1,58 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpf990h73j/e04eb12e.cc:20:24: error: invalid conversion from 'signed char (*)()' to 'int (*)()' [-fpermissive]
+   20 | bar (int (*fn) () = foo)
+      |                        ^
+      |                        |
+      |                        signed char (*)()
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpf990h73j/e04eb12e.cc:25:20: error: invalid conversion from 'signed char (*)()' to 'int (*)()' [-fpermissive]
+   25 | static_assert (bar () == 42);
+      |                ~~~~^~
+      |                    |
+      |                    signed char (*)()
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpf990h73j/e04eb12e.cc:25:20:   in 'constexpr' expansion of 'bar(((int (*)())foo))'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpf990h73j/e04eb12e.cc:22:14: internal compiler error: in cxx_eval_store_expression, at cp/constexpr.cc:8881
+   22 |   return fn ();
+      |              ^
+0x305a98b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00d26 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7d328c cxx_eval_store_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:8881
+0xe60f7f cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10199
+0xe62822 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10212
+0xe6211f cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10296
+0xe5e903 cxx_eval_call_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:5055
+0xe622a1 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10018
+0xe73cac cxx_eval_outermost_constant_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11677
+0xe7ccd0 maybe_constant_value(tree_node*, tree_node*, mce_value)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:12107
+0xeaced0 cp_fully_fold
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/cp-gimplify.cc:3269
+0x1146add cp_build_binary_op(op_location_t const&, tree_code, tree_node*, tree_node*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck.cc:7038
+0xe2f9f4 build_new_op(op_location_t const&, tree_code, int, tree_node*, tree_node*, tree_node*, tree_node*, tree_node**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:7783
+0x1137602 build_x_binary_op(op_location_t const&, tree_code, tree_node*, tree_code, tree_node*, tree_code, tree_node*, tree_node**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/typeck.cc:5041
+0xff1f85 cp_parser_binary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12009
+0xff2b62 cp_parser_assignment_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12170
+0xff8e43 cp_parser_constant_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:12490
+0xffb350 cp_parser_static_assert
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:19408
+0x104ad6f cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17819
+0x104d7d3 cp_parser_toplevel_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17923
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpf990h73j/e04eb12e.cc -quiet -dumpdir a- -dumpbase e04eb12e.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O0 -std=c++20 -fsyntax-only -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

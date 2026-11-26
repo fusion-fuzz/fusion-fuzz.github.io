@@ -1,0 +1,84 @@
+/tmp/test.cpp:7:3: error: unknown type name 'foo'
+    7 |   foo(D<Q>::secret);
+      |   ^
+/tmp/test.cpp:3:17: error: no type named 'ffl_fusion' in 'Q::S'
+    3 |   friend T::S::~ffl_fusion();
+      |          ~~~~~~~^~~~~~~~~~
+/tmp/test.cpp:7:7: note: in instantiation of template class 'D<Q>' requested here
+    7 |   foo(D<Q>::secret);
+      |       ^
+clang-24: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/DeclCXX.cpp:3197: static clang::CXXDestructorDecl* clang::CXXDestructorDecl::Create(clang::ASTContext&, clang::CXXRecordDecl*, clang::SourceLocation, const clang::DeclarationNameInfo&, clang::QualType, clang::TypeSourceInfo*, bool, bool, bool, clang::ConstexprSpecKind, const clang::AssociatedConstraint&): Assertion `NameInfo.getName().getNameKind() == DeclarationName::CXXDestructorName && "Name must refer to a destructor"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24 -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -dumpdir a- -disable-free -clear-ast-before-backend -main-file-name test.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -fcoverage-compilation-dir=/home/fuzz/WorkSpace/fusion-fuzz/projects/clang -resource-dir /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/x86_64-linux-gnu/c++/11 -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/backward -internal-isystem /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/lib/clang/24/include -internal-isystem /usr/local/include -internal-isystem /usr/lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -faddrsig -fdwarf2-cfi-asm -o /tmp/test-7818b9.o -x c++ /tmp/test.cpp
+1.	/tmp/test.cpp:7:13: current parser token 'secret'
+2.	/tmp/test.cpp:5:1: parsing struct/union/class body 'Q'
+3.	/tmp/test.cpp:2:8: instantiating class definition 'D<Q>'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang-24  0x0000562a9493e0f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang-24  0x0000562a9493adcc llvm::sys::RunSignalHandlers() + 76
+2  clang-24  0x0000562a9493af32
+3  clang-24  0x0000562a9493afec
+4  libc.so.6 0x00007f082e0e9520
+5  libc.so.6 0x00007f082e13d9fc pthread_kill + 300
+6  libc.so.6 0x00007f082e0e9476 raise + 22
+7  libc.so.6 0x00007f082e0cf7f3 abort + 211
+8  libc.so.6 0x00007f082e0cf71b
+9  libc.so.6 0x00007f082e0e0e96
+10 clang-24  0x0000562a9836938b clang::CXXDestructorDecl::Create(clang::ASTContext&, clang::CXXRecordDecl*, clang::SourceLocation, clang::DeclarationNameInfo const&, clang::QualType, clang::TypeSourceInfo*, bool, bool, bool, clang::ConstexprSpecKind, clang::AssociatedConstraint const&) + 75
+11 clang-24  0x0000562a97d82d58 clang::TemplateDeclInstantiator::VisitCXXMethodDecl(clang::CXXMethodDecl*, clang::TemplateParameterList*, clang::TemplateDeclInstantiator::RewriteKind) + 4872
+12 clang-24  0x0000562a97d83af0 clang::TemplateDeclInstantiator::VisitFriendDecl(clang::FriendDecl*) + 720
+13 clang-24  0x0000562a97cdda16 clang::Sema::InstantiateClassImpl(clang::SourceLocation, clang::CXXRecordDecl*, clang::CXXRecordDecl*, clang::MultiLevelTemplateArgumentList const&, clang::TemplateSpecializationKind, bool) + 1558
+14 clang-24  0x0000562a97d0a174 clang::Sema::InstantiateClassTemplateSpecialization(clang::SourceLocation, clang::ClassTemplateSpecializationDecl*, clang::TemplateSpecializationKind, bool, bool) + 500
+15 clang-24  0x0000562a97d93402
+16 clang-24  0x0000562a98c8ece5 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+17 clang-24  0x0000562a97da42e9 clang::Sema::RequireCompleteTypeImpl(clang::SourceLocation, clang::QualType, clang::Sema::CompleteTypeKind, clang::Sema::TypeDiagnoser*) + 1753
+18 clang-24  0x0000562a97da4673 clang::Sema::RequireCompleteType(clang::SourceLocation, clang::QualType, clang::Sema::CompleteTypeKind, clang::Sema::TypeDiagnoser&) + 19
+19 clang-24  0x0000562a972ebce9 clang::Sema::RequireCompleteDeclContext(clang::CXXScopeSpec&, clang::DeclContext*) + 249
+20 clang-24  0x0000562a972ebe12 clang::Sema::ActOnCXXEnterDeclaratorScope(clang::Scope*, clang::CXXScopeSpec&) + 82
+21 clang-24  0x0000562a970fd93e
+22 clang-24  0x0000562a97128f8b clang::Parser::ParseDirectDeclarator(clang::Declarator&) + 5883
+23 clang-24  0x0000562a9710efbd clang::Parser::ParseDeclaratorInternal(clang::Declarator&, void (clang::Parser::*)(clang::Declarator&)) + 1213
+24 clang-24  0x0000562a971276bc clang::Parser::ParseParenDeclarator(clang::Declarator&) + 764
+25 clang-24  0x0000562a97127cea clang::Parser::ParseDirectDeclarator(clang::Declarator&) + 1114
+26 clang-24  0x0000562a9710f02f clang::Parser::ParseDeclaratorInternal(clang::Declarator&, void (clang::Parser::*)(clang::Declarator&)) + 1327
+27 clang-24  0x0000562a98c8ece5 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+28 clang-24  0x0000562a970feb33 clang::Parser::ParseDeclarator(clang::Declarator&) + 67
+29 clang-24  0x0000562a97137755 clang::Parser::ParseCXXMemberDeclaratorBeforeInitializer(clang::Declarator&, clang::VirtSpecifiers&, clang::ActionResult<clang::Expr*, true>&, clang::LateParsedAttrList&) + 629
+30 clang-24  0x0000562a9714164b clang::Parser::ParseCXXClassMemberDeclaration(clang::AccessSpecifier, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject*) + 5339
+31 clang-24  0x0000562a97143230 clang::Parser::ParseCXXClassMemberDeclarationWithPragmas(clang::AccessSpecifier&, clang::ParsedAttributes&, clang::TypeSpecifierType, clang::Decl*) + 1296
+32 clang-24  0x0000562a971438f8 clang::Parser::ParseCXXMemberSpecification(clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributes&, unsigned int, clang::Decl*) + 1144
+33 clang-24  0x0000562a971464ff clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 8191
+34 clang-24  0x0000562a97115732 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2994
+35 clang-24  0x0000562a970d0e88 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 200
+36 clang-24  0x0000562a970d192f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 959
+37 clang-24  0x0000562a970dd7a1 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 977
+38 clang-24  0x0000562a970de7df clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+39 clang-24  0x0000562a970bb70a clang::ParseAST(clang::Sema&, bool, bool) + 586
+40 clang-24  0x0000562a95634071 clang::FrontendAction::Execute() + 65
+41 clang-24  0x0000562a955bdc65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+42 clang-24  0x0000562a9570fea3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+43 clang-24  0x0000562a93312c96 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7046
+44 clang-24  0x0000562a93308a2a
+45 clang-24  0x0000562a9330cdd5 clang_main(int, char**, llvm::ToolContext const&) + 1893
+46 clang-24  0x0000562a932607a1 main + 113
+47 libc.so.6 0x00007f082e0d0d90
+48 libc.so.6 0x00007f082e0d0e40 __libc_start_main + 128
+49 clang-24  0x0000562a93308055 _start + 37
+clang++: error: unable to execute command: Aborted (core dumped)
+clang++: error: clang frontend command failed with exit code -2 (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git aefba88f46a6e55645c848f58f6ba56944d5ae62)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/test-5cd40e.cpp
+clang++: note: diagnostic msg: /tmp/test-5cd40e.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

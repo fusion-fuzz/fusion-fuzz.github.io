@@ -1,0 +1,74 @@
+[... 5 lines omitted ...]
+ 167: <scoped_tls::ScopedKey<rustc_span::SessionGlobals>>::set::<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#5}::{closure#0}::{closure#0}::{closure#0}, ()>
+             at /home/fuzz/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/scoped-tls-1.0.1/src/lib.rs:137:9
+ 168: rustc_span::set_session_globals_then::<(), rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#5}::{closure#0}::{closure#0}::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_span/src/lib.rs:165:21
+ 169: rustc_interface::util::run_in_thread_pool_with_globals::<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#5}::{closure#0}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/util.rs:303:25
+ 170: <rustc_thread_pool::ThreadPoolBuilder>::build_scoped::<rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#5}::{closure#0}::{closure#0}, rustc_interface::util::run_in_thread_pool_with_globals<rustc_interface::interface::run_compiler<(), rustc_driver_impl::run_compiler::{closure#0}>::{closure#2}, ()>::{closure#5}::{closure#0}::{closure#1}, ()>::{closure#0}::{closure#0}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_thread_pool/src/lib.rs:357:52
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+
+note: using internal features is not supported and expected to cause internal compiler errors when used incorrectly
+
+note: please attach the file at `/home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpd8z11ng_/rustc-ice-2026-09-05T14_01_12-3427902.txt` to your bug report
+
+note: rustc 1.100.0-dev running on x86_64-unknown-linux-gnu
+
+note: compiler flags: -C opt-level=s -C codegen-units=1 -Z validate-mir -Z threads=2 -Z share-generics=no -C lto=fat -C overflow-checks=yes -Z sanitizer=address
+
+query stack during panic:
+#0 [needs_async_drop_raw] computing whether `Box<&mut Struct>` needs async drop
+#1 [mir_built] building MIR for `<impl at /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpd8z11ng_/3cbe28ed.rs:42:1: 42:12>::box_ref_Struct::{closure#0}`
+#2 [has_ffi_unwind_calls] checking if `<impl at /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpd8z11ng_/3cbe28ed.rs:42:1: 42:12>::box_ref_Struct::{closure#0}` contains FFI-unwind calls
+#3 [mir_promoted] promoting constants in MIR for `<impl at /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpd8z11ng_/3cbe28ed.rs:42:1: 42:12>::box_ref_Struct::{closure#0}`
+#4 [mir_borrowck] borrow-checking `<impl at /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpd8z11ng_/3cbe28ed.rs:42:1: 42:12>::box_ref_Struct`
+#5 [type_of_opaque] computing type of opaque `<impl at /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpd8z11ng_/3cbe28ed.rs:42:1: 42:12>::box_ref_Struct::{opaque#0}`
+#6 [type_of] computing type of `<impl at /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpd8z11ng_/3cbe28ed.rs:42:1: 42:12>::box_ref_Struct::{opaque#0}`
+#7 [check_well_formed] checking that `<impl at /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpd8z11ng_/3cbe28ed.rs:42:1: 42:12>::box_ref_Struct::{opaque#0}` is well-formed
+#8 [check_type_wf] checking that types are well-formed
+#9 [analysis] running analysis passes on crate `3cbe28ed`
+end of query stack
+error: internal compiler error: compiler/rustc_ty_utils/src/needs_drop.rs:406:21: drop_tys_helper: `Box` has unexpected generic args: [Box<&'{erased} mut Struct>]
+
+
+thread 'rustc' (3427929) panicked at compiler/rustc_ty_utils/src/needs_drop.rs:406:21:
+Box<dyn Any>
+stack backtrace:
+   0: std::panicking::begin_panic::<rustc_errors::ExplicitBug>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:751:5
+   1: std::panic::panic_any::<rustc_errors::ExplicitBug>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panic.rs:260:5
+   2: <rustc_errors::diagnostic::BugAbort as rustc_errors::diagnostic::EmissionGuarantee>::emit_producing_guarantee
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:58:9
+   3: <rustc_errors::diagnostic::Diag<rustc_errors::diagnostic::BugAbort>>::emit
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1319:9
+   4: <rustc_errors::DiagCtxtHandle>::bug::<alloc::string::String>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:968:30
+   5: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:39:48
+   6: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:109:23
+   7: rustc_middle::ty::context::tls::with_context_opt::<rustc_middle::ty::context::tls::with_opt<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>::{closure#0}, !>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:75:18
+   8: rustc_middle::ty::context::tls::with_opt::<rustc_middle::util::bug::opt_span_bug_fmt<rustc_span::span_encoding::Span>::{closure#0}, !>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:107:5
+   9: rustc_middle::util::bug::opt_span_bug_fmt::<rustc_span::span_encoding::Span>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:33:5
+  10: rustc_middle::util::bug::bug_fmt
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/util/bug.rs:16:5
+  11: rustc_ty_utils::needs_drop::drop_tys_helper::<rustc_ty_utils::needs_drop::needs_async_drop_raw::{closure#0}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_ty_utils/src/needs_drop.rs:406:21
+  12: <rustc_ty_utils::needs_drop::NeedsDropTypes<rustc_ty_utils::needs_drop::drop_tys_helper<rustc_ty_utils::needs_drop::needs_async_drop_raw::{closure#0}>::{closure#0}> as core::iter::traits::iterator::Iterator>::next::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_ty_utils/src/needs_drop.rs:262:41
+  13: <rustc_ty_utils::needs_drop::NeedsDropTypes<rustc_ty_utils::needs_drop::drop_tys_helper<rustc_ty_utils::needs_drop::needs_async_drop_raw::{closure#0}>::{closure#0}> as core::iter::traits::iterator::Iterator>::next
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_ty_utils/src/needs_drop.rs:175:5
+  14: <rustc_ty_utils::needs_drop::NeedsDropTypes<rustc_ty_utils::needs_drop::drop_tys_helper<rustc_ty_utils::needs_drop::needs_async_drop_raw::{closure#0}>::{closure#0}> as core::iter::traits::iterator::Iterator>::try_fold::<(), core::iter::traits::iterator::Iterator::find::check<core::result::Result<rustc_middle::ty::Ty, rustc_middle::ty::util::AlwaysRequiresDrop>, &mut rustc_ty_utils::needs_drop::filter_array_elements_async::{closure#0}>::{closure#0}, core::ops::control_flow::ControlFlow<core::result::Result<rustc_middle::ty::Ty, rustc_middle::ty::util::AlwaysRequiresDrop>>>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/iter/traits/iterator.rs:2489:34
+  15: <rustc_ty_utils::needs_drop::NeedsDropTypes<rustc_ty_utils::needs_drop::drop_tys_helper<rustc_ty_utils::needs_drop::needs_async_drop_raw::{closure#0}>::{closure#0}> as core::iter::traits::iterator::Iterator>::find::<&mut rustc_ty_utils::needs_drop::filter_array_elements_async::{closure#0}>
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/iter/traits/iterator.rs:2967:14
+  16: <core::iter::adapters::filter::Filter<rustc_ty_utils::needs_drop::NeedsDropTypes<rustc_ty_utils::needs_drop::drop_tys_helper<rustc_ty_utils::needs_drop::needs_async_drop_raw::{closure#0}>::{closure#0}>, rustc_ty_utils::needs_drop::filter_array_elements_async::{closure#0}> as core::iter::traits::iterator::Iterator>::next
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/iter/adapters/filter.rs:98:19
+  17: rustc_ty_utils::needs_drop::needs_async_drop_raw
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_ty_u
+[... truncated ...]

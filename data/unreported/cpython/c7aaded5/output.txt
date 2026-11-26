@@ -1,0 +1,8 @@
+Exception ignored while closing generator <generator object <genexpr> at 0x7ab76f31f7a0>:
+Traceback (most recent call last):
+  File "/home/fuzz/WorkSpace/fusion-fuzz/.fused/cpython/tmphosafjs4/d76bb59d.py", line 61, in <genexpr>
+    powerset = chain.from_iterable((combinations(powerset, r) for r in range(len(s) + 1)))
+                                    ~~~~~~~~~~~~^^^^^^^^^^^^^
+ValueError: generator already executing
+python: ../Python/frame.c:122: void _PyFrame_ClearExceptCode(_PyInterpreterFrame *): Assertion `_PyThreadState_GET()->current_frame != frame' failed.
+Aborted (core dumped)

@@ -1,0 +1,23 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791965773.015916 1921116 ir_array.cc:514] Check failed: index.size() == shape_.dimensions().size() (1 vs. 2) 
+*** Check failure stack trace: ***
+    @     0x61221534da84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x61221534da06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x6122139cdc1e  xla::llvm_ir::IrArray::EmitArrayElementAddress()
+    @     0x6122139ce6e2  xla::llvm_ir::IrArray::EmitReadArrayElement()
+    @     0x61220c75bf5f  std::_Function_handler<>::_M_invoke()
+    @     0x6122139c73f8  xla::llvm_ir::LoopEmitter::EmitLoop()
+    @     0x61220c747e1e  xla::cpu::IrEmitter::EmitSliceToDynamic()
+    @     0x61220c69513d  xla::cpu::IrEmitter2::EmitSliceToDynamicHostKernel()
+    @     0x61220c68ba7d  xla::cpu::ThunkEmitter::EmitSliceToDynamicThunk()
+    @     0x61220c683844  xla::cpu::ThunkEmitter::EmitCustomCallThunk()
+    @     0x61220c6799b9  xla::cpu::ThunkEmitter::EmitHloInstruction()
+    @     0x61220c6786e3  xla::cpu::ThunkEmitter::EmitHloComputation()
+    @     0x61220c67845e  xla::cpu::ThunkEmitter::EmitEntryComputation()
+    @     0x61220be6c993  xla::cpu::CpuCompiler::CompileCpuExecutable()
+    @     0x61220be73058  xla::cpu::CpuCompiler::RunBackend()
+    @     0x61220bcf87e8  xla::CompiledOptProvider::GetExecutable()
+    @     0x61220bcdf0da  xla::(anonymous namespace)::CpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x612215393bc6  main
+    @     0x75364cd4bd90  (unknown)
+Aborted (core dumped)

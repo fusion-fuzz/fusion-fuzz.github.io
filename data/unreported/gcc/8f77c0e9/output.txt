@@ -1,0 +1,26 @@
+In file included from /home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/lib/gcc/x86_64-pc-linux-gnu/17.0.0/include/x86gprintrin.h:33,
+                 from /home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/lib/gcc/x86_64-pc-linux-gnu/17.0.0/include/immintrin.h:27,
+                 from /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpyuwp3k8n/fe23b950.c:102:
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/lib/gcc/x86_64-pc-linux-gnu/17.0.0/include/ia32intrin.h:84:9: internal compiler error: 'global_options' are modified in local context
+   84 | #pragma GCC pop_options
+      |         ^~~
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0x152e6ab cl_optimization_compare(gcc_options*, gcc_options*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-build/gcc/options-save.cc:14970
+0xfcc6ee handle_pragma_pop_options
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-pragma.cc:1322
+0xf05d89 c_parser_pragma
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:16386
+0xf437ba c_parser_external_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2237
+0xf44470 c_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:2095
+0xf44470 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:31491
+0xfc9e09 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpyuwp3k8n/fe23b950.c -quiet -dumpdir a- -dumpbase fe23b950.c -dumpbase-ext .c -mtune=generic -march=x86-64 -g -O3 -O2 -std=gnu99 -fsyntax-only -fno-inline -ftree-vectorize -fno-fuse-ops-with-volatile-access -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

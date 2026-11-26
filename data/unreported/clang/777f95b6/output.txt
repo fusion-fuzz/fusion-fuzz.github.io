@@ -1,0 +1,91 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpq7p6g_id/a750dc13.cpp:8:27: error: unexpected extra argument 'top' to '#pragma clang optimize'
+    8 | #pragma clang optimize on top of spaghetti  // expected-error {{unexpected extra argument 'top' to '#pragma clang optimize'}}
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpq7p6g_id/a750dc13.cpp:11:24: error: unexpected argument 'something_wrong' to '#pragma clang optimize'; expected 'on' or 'off'
+   11 | #pragma clang optimize something_wrong  // expected-error {{unexpected argument 'something_wrong' to '#pragma clang optimize'; expected 'on' or 'off'}}
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpq7p6g_id/a750dc13.cpp:14:114: error: missing argument to '#pragma clang optimize'; expected 'on' or 'off'
+   14 | #pragma clang optimize // expected-error {{missing argument to '#pragma clang optimize'; expected 'on' or 'off'}}
+      |                                                                                                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpq7p6g_id/a750dc13.cpp:24:27: error: unexpected extra argument 'top' to '#pragma clang optimize'
+   24 | #pragma clang optimize on top of spaghetti  // expected-error {{unexpected extra argument 'top' to '#pragma clang optimize'}}
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpq7p6g_id/a750dc13.cpp:27:24: error: unexpected argument 'something_wrong' to '#pragma clang optimize'; expected 'on' or 'off'
+   27 | #pragma clang optimize something_wrong  // expected-error {{unexpected argument 'something_wrong' to '#pragma clang optimize'; expected 'on' or 'off'}}
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpq7p6g_id/a750dc13.cpp:30:114: error: missing argument to '#pragma clang optimize'; expected 'on' or 'off'
+   30 | #pragma clang optimize // expected-error {{missing argument to '#pragma clang optimize'; expected 'on' or 'off'}}
+      |                                                                                                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpq7p6g_id/a750dc13.cpp:60:8: error: module declaration must occur at the start of the translation unit
+   60 | export module foo:bar;
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpq7p6g_id/a750dc13.cpp:3:1: note: add 'module;' to the start of the file to introduce a global module fragment
+    3 | #pragma clang optimize off
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpq7p6g_id/a750dc13.cpp:61:9: fatal error: module 'foo:off' not found
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Basic/SourceManager.cpp:914: clang::FileID clang::SourceManager::getFileIDLoaded(SourceLocation::UIntTy) const: Assertion `0 && "Invalid SLocOffset or bad function choice"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O3 -std=c++20 -fblocks -fsanitize=undefined -funroll-loops /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpq7p6g_id/a750dc13.cpp
+1.	<eof> parser at end of file
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000585b1a02466b __interceptor_backtrace + 91
+1  clang++   0x0000585b1fc7f027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x0000585b1fc78cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x0000585b1fc7d9c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x0000585b1facbcc5
+5  clang++   0x0000585b1facc4d3
+6  libc.so.6 0x0000785383bf8520
+7  libc.so.6 0x0000785383c4c9bc pthread_kill + 300
+8  libc.so.6 0x0000785383bf8476 raise + 22
+9  libc.so.6 0x0000785383bde7f3 abort + 211
+10 libc.so.6 0x0000785383bde71b
+11 libc.so.6 0x0000785383befe96
+12 clang++   0x0000585b206e635f clang::SourceManager::getFileIDLoaded(unsigned int) const + 175
+13 clang++   0x0000585b2222fb58
+14 clang++   0x0000585b2222badb clang::DiagnosticRenderer::emitDiagnostic(clang::FullSourceLoc, clang::DiagnosticsEngine::Level, llvm::StringRef, llvm::ArrayRef<clang::CharSourceRange>, llvm::ArrayRef<clang::FixItHint>, llvm::PointerUnion<clang::Diagnostic const*, clang::StoredDiagnostic const*>) + 2283
+15 clang++   0x0000585b2214ffa7 clang::TextDiagnosticPrinter::HandleDiagnostic(clang::DiagnosticsEngine::Level, clang::Diagnostic const&) + 2087
+16 clang++   0x0000585b206a2b6a clang::DiagnosticsEngine::Report(clang::DiagnosticsEngine::Level, clang::Diagnostic const&) + 234
+17 clang++   0x0000585b206a33e4 clang::DiagnosticsEngine::ProcessDiag(clang::DiagnosticBuilder const&) + 1780
+18 clang++   0x0000585b206a38b9 clang::DiagnosticsEngine::EmitDiagnostic(clang::DiagnosticBuilder const&, bool) + 537
+19 clang++   0x0000585b1a0b59ce
+20 clang++   0x0000585b1a0b2f9f
+21 clang++   0x0000585b21f1c0ce clang::CompilerInstance::findOrCompileModuleAndReadAST(llvm::StringRef, clang::SourceLocation, clang::SourceRange, bool) + 1422
+22 clang++   0x0000585b21f21835 clang::CompilerInstance::loadModule(clang::SourceLocation, llvm::ArrayRef<clang::IdentifierLoc>, clang::Module::NameVisibilityKind, bool) + 3893
+23 clang++   0x0000585b275d5293 clang::Sema::ActOnModuleImport(clang::SourceLocation, clang::SourceLocation, clang::SourceLocation, llvm::ArrayRef<clang::IdentifierLoc>, bool) + 2467
+24 clang++   0x0000585b261ca9d7 clang::Parser::ParseModuleImport(clang::SourceLocation, clang::Sema::ModuleImportState&) + 3015
+25 clang++   0x0000585b261c7ec0 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1472
+26 clang++   0x0000585b261a0a7f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+27 clang++   0x0000585b2207f2fe clang::FrontendAction::Execute() + 222
+28 clang++   0x0000585b21f115f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+29 clang++   0x0000585b22263989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+30 clang++   0x0000585b1a0ba1a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+31 clang++   0x0000585b1a0ae0f9
+32 clang++   0x0000585b1a0b8637
+33 clang++   0x0000585b21ae8317
+34 clang++   0x0000585b1facba7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+35 clang++   0x0000585b21ae581a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+36 clang++   0x0000585b21a3629c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+37 clang++   0x0000585b21a37a2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+38 clang++   0x0000585b21a87060 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+39 clang++   0x0000585b1a0ac517 clang_main(int, char**, llvm::ToolContext const&) + 12295
+40 clang++   0x0000585b1a0dbe27 main + 567
+41 libc.so.6 0x0000785383bdfd90
+42 libc.so.6 0x0000785383bdfe40 __libc_start_main + 128
+43 clang++   0x0000585b19fe8b35 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git e996ce0d9ad6443a7ea3f88ccb0a8e114b0e840e)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/a750dc13-bf1376.cpp
+clang++: note: diagnostic msg: /tmp/a750dc13-bf1376.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

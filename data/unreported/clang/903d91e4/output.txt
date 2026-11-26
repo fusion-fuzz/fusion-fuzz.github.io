@@ -1,0 +1,62 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcxgu8tjr/ba955206.mm:1:10: fatal error: 'std-compare.h' file not found
+    1 | #include "std-compare.h"
+      |          ^~~~~~~~~~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaDeclCXX.cpp:8520: {anonymous}::DefaultedComparisonAnalyzer::Result {anonymous}::DefaultedComparisonAnalyzer::visitBinaryOperator(clang::OverloadedOperatorKind, llvm::ArrayRef<clang::Expr*>, {anonymous}::DefaultedComparisonAnalyzer::Subobject, clang::OverloadCandidateSet*): Assertion `Cat && "no category for builtin comparison?"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O2 -std=gnu++20 -fblocks -fobjc-runtime=gnustep-2.0 -fobjc-arc -fsanitize=address -fno-elide-constructors -funroll-loops /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcxgu8tjr/ba955206.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcxgu8tjr/ba955206.mm:8:2: current parser token ';'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcxgu8tjr/ba955206.mm:4:1: parsing struct/union/class body 'A'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000589aa06f3329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x0000589aa06effec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x0000589aa06f08a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x0000589aa0632218
+4  libc.so.6 0x00007887e24ad520
+5  libc.so.6 0x00007887e25019bc pthread_kill + 300
+6  libc.so.6 0x00007887e24ad476 raise + 22
+7  libc.so.6 0x00007887e24937f3 abort + 211
+8  libc.so.6 0x00007887e249371b
+9  libc.so.6 0x00007887e24a4e96
+10 clang++   0x0000589aa33ce7e9
+11 clang++   0x0000589aa33d093d
+12 clang++   0x0000589aa33d10bd
+13 clang++   0x0000589aa33d154e
+14 clang++   0x0000589aa33de4f8 clang::Sema::CheckExplicitlyDefaultedComparison(clang::Scope*, clang::FunctionDecl*, clang::DefaultedComparisonKind) + 904
+15 clang++   0x0000589aa33ffd93 clang::Sema::CheckExplicitlyDefaultedFunction(clang::Scope*, clang::FunctionDecl*) + 643
+16 clang++   0x0000589aa3407291
+17 clang++   0x0000589aa3408f65 clang::Sema::CheckCompletedCXXClass(clang::Scope*, clang::CXXRecordDecl*) + 2149
+18 clang++   0x0000589aa340aab3 clang::Sema::ActOnFinishCXXMemberSpecification(clang::Scope*, clang::SourceLocation, clang::Decl*, clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributesView const&) + 355
+19 clang++   0x0000589aa2f71823 clang::Parser::ParseCXXMemberSpecification(clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributes&, unsigned int, clang::Decl*) + 1395
+20 clang++   0x0000589aa2f7428c clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 8028
+21 clang++   0x0000589aa2f434a5 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2821
+22 clang++   0x0000589aa2efecd8 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 200
+23 clang++   0x0000589aa2eff78f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+24 clang++   0x0000589aa2f0b646 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+25 clang++   0x0000589aa2f0c6ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+26 clang++   0x0000589aa2ee9632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+27 clang++   0x0000589aa158a061 clang::FrontendAction::Execute() + 65
+28 clang++   0x0000589aa1513e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+29 clang++   0x0000589aa1661de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+30 clang++   0x0000589a9e4bd33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+31 clang++   0x0000589a9e4b313a
+32 clang++   0x0000589a9e4b32cf
+33 clang++   0x0000589aa1298cfd
+34 clang++   0x0000589aa0632630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+35 clang++   0x0000589aa1299b53
+36 clang++   0x0000589aa124e607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+37 clang++   0x0000589aa1252ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+38 clang++   0x0000589aa1261004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+39 clang++   0x0000589a9e4b8923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+40 clang++   0x0000589a9e3f47f1 main + 113
+41 libc.so.6 0x00007887e2494d90
+42 libc.so.6 0x00007887e2494e40 __libc_start_main + 128
+43 clang++   0x0000589a9e4b2765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: Error generating preprocessed source(s).
+Aborted (core dumped)

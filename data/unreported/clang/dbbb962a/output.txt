@@ -1,0 +1,94 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppl84mai_/573aa595.cpp:12:32: error: builtin functions must be directly called
+   12 | static long ffl_fusion = (long)(__builtin_operator_new);
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppl84mai_/573aa595.cpp:43:15: error: consteval function never produces a constant expression [-Winvalid-constexpr]
+   43 | consteval int aConstevalFunction() { // both-error {{consteval function never produces a constant expression}}
+      |               ^~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppl84mai_/573aa595.cpp:44:8: note: non-constexpr constructor 'S' cannot be used in a constant expression
+   44 |   S<2> s4; // both-note {{non-constexpr constructor 'S' cannot be used in a constant expression}}
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppl84mai_/573aa595.cpp:39:3: note: declared here
+   39 |   S() requires (N==2) {} // both-note {{declared here}}
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppl84mai_/573aa595.cpp:77:18: error: expected class name
+   77 |   struct D :  B, ffl_fusion {
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppl84mai_/573aa595.cpp:93:32: error: return type of virtual function 'f' is not covariant with the return type of the function it overrides ('const D *' is not derived from 'const Covariant2::C *')
+   93 |     constexpr virtual const D *f() const { return &this->d; }
+      |                             ~~~^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppl84mai_/573aa595.cpp:96:34: note: in instantiation of template class 'Covariant2::Covariant3<Covariant2::C>' requested here
+   96 |   constexpr       Covariant3<C>  cc;
+      |                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppl84mai_/573aa595.cpp:88:22: note: overridden virtual function is here
+   88 |     virtual const T *f() const;
+      |                   ~~~^
+Class must be derived from the passed in base class!
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/ExprConstant.cpp:3265!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O0 -std=c++20 -fblocks -g -fsanitize=address -target x86_64-linux-gnu -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppl84mai_/573aa595.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppl84mai_/573aa595.cpp:101:1: current parser token '}'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmppl84mai_/573aa595.cpp:70:1: parsing namespace 'Covariant2'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005845d6bf9329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005845d6bf5fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005845d6bf68a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005845d6b38218
+4  libc.so.6 0x00007720cb90c520
+5  libc.so.6 0x00007720cb9609bc pthread_kill + 300
+6  libc.so.6 0x00007720cb90c476 raise + 22
+7  libc.so.6 0x00007720cb8f27f3 abort + 211
+8  clang++   0x00005845d6b4311e
+9  clang++   0x00005845da83e9e9
+10 clang++   0x00005845da8eee6a
+11 clang++   0x00005845da853908
+12 clang++   0x00005845da8e65e0
+13 clang++   0x00005845da8ea797
+14 clang++   0x00005845da889ad0
+15 clang++   0x00005845da88a6fe
+16 clang++   0x00005845da89258e clang::Expr::EvaluateAsRValue(clang::Expr::EvalResult&, clang::ASTContext const&, bool) const + 1006
+17 clang++   0x00005845d99d15df clang::Sema::VerifyIntegerConstantExpression(clang::Expr*, llvm::APSInt*, clang::Sema::VerifyICEDiagnoser&, clang::AllowFoldKind) + 607
+18 clang++   0x00005845d99d1fd6 clang::Sema::VerifyIntegerConstantExpression(clang::Expr*, llvm::APSInt*, unsigned int, clang::AllowFoldKind) + 54
+19 clang++   0x00005845d98c9e7a clang::Sema::BuildStaticAssertDeclaration(clang::SourceLocation, clang::Expr*, clang::Expr*, clang::SourceLocation, bool) + 474
+20 clang++   0x00005845d946583e clang::Parser::ParseStaticAssertDeclaration(clang::SourceLocation&) + 606
+21 clang++   0x00005845d9458c1a clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 746
+22 clang++   0x00005845d941166e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+23 clang++   0x00005845d946f67b clang::Parser::ParseInnerNamespace(llvm::SmallVector<clang::Parser::InnerNamespaceInfo, 4u> const&, unsigned int, clang::SourceLocation&, clang::ParsedAttributes&, clang::BalancedDelimiterTracker&) + 507
+24 clang++   0x00005845d9470424 clang::Parser::ParseNamespace(clang::DeclaratorContext, clang::SourceLocation&, clang::SourceLocation) + 3188
+25 clang++   0x00005845d9458c6b clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 827
+26 clang++   0x00005845d941166e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+27 clang++   0x00005845d94126ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+28 clang++   0x00005845d93ef632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+29 clang++   0x00005845d7a90061 clang::FrontendAction::Execute() + 65
+30 clang++   0x00005845d7a19e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+31 clang++   0x00005845d7b67de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+32 clang++   0x00005845d49c333e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+33 clang++   0x00005845d49b913a
+34 clang++   0x00005845d49b92cf
+35 clang++   0x00005845d779ecfd
+36 clang++   0x00005845d6b38630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+37 clang++   0x00005845d779fb53
+38 clang++   0x00005845d7754607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+39 clang++   0x00005845d7758ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+40 clang++   0x00005845d7767004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+41 clang++   0x00005845d49be923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+42 clang++   0x00005845d48fa7f1 main + 113
+43 libc.so.6 0x00007720cb8f3d90
+44 libc.so.6 0x00007720cb8f3e40 __libc_start_main + 128
+45 clang++   0x00005845d49b8765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/573aa595-4bd469.cpp
+clang++: note: diagnostic msg: /tmp/573aa595-4bd469.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

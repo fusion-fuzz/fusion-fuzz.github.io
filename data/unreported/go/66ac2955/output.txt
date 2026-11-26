@@ -1,0 +1,28 @@
+# fflfuzz
+./main.go:33:3: go:embed requires import "embed" (or import _ "embed", if package is not used)
+./main.go:45:3: go:embed requires import "embed" (or import _ "embed", if package is not used)
+./main.go:35:8: internal compiler error: assertion failed
+
+goroutine 1 [running]:
+runtime/debug.Stack()
+	../../../projects/go/go-src/src/runtime/debug/stack.go:26 +0x5e
+cmd/compile/internal/base.FatalfAt({0x27a5cdc0?, 0x190b?}, {0x1044e60, 0x10}, {0x0, 0x0, 0x0})
+	../../../projects/go/go-src/src/cmd/compile/internal/base/print.go:232 +0x18b
+cmd/compile/internal/base.Fatalf(...)
+	../../../projects/go/go-src/src/cmd/compile/internal/base/print.go:197
+cmd/compile/internal/base.Assert(...)
+	../../../projects/go/go-src/src/cmd/compile/internal/base/print.go:244
+cmd/compile/internal/noder.assert(...)
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/writer.go:64
+cmd/compile/internal/noder.(*reader).pkgDecls(0x190b27a5cdc0, 0x190b27c46240)
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/reader.go:3663 +0x21c
+cmd/compile/internal/noder.(*reader).pkgInit(0x190b27a5cdc0, 0x190b27c4f860?, 0x190b27c46240)
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/reader.go:3537 +0xee
+cmd/compile/internal/noder.unified({0x0?, {0x0?, 0x0?}}, {0x190b27f82008?, 0x1949380?, 0x1b26338?})
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/unified.go:206 +0x1f9
+cmd/compile/internal/noder.LoadPackage({0x190b27c32160, 0x1, 0x2})
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/noder.go:76 +0x525
+cmd/compile/internal/gc.Main(0x1a46b60)
+	../../../projects/go/go-src/src/cmd/compile/internal/gc/main.go:219 +0xd05
+main.main()
+	../../../projects/go/go-src/src/cmd/compile/main.go:57 +0x105

@@ -1,0 +1,121 @@
+Assertion failed: (isLoadableOrOpaque(LV->getType())), function createLoad at SILBuilder.h:800.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /opt/swift-coverage/bin/swift -frontend -emit-silgen -Osize -sil-verify-all -enable-library-evolution /fusion-fuzz/.fused/swift/tmpwhglhkcy/202c9844.swift
+1.	Swift version 6.3.3 (swift-6.3.3-RELEASE)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module main)
+4.	While silgen emitFunction SIL function "@$s4main22passSingleParamClosureyyF".
+ for 'passSingleParamClosure()' (at /fusion-fuzz/.fused/swift/tmpwhglhkcy/202c9844.swift:109:8)
+5.	While silgen closureexpr SIL function "@$s4main22passSingleParamClosureyyFS2icfU_".
+ for expression at [/fusion-fuzz/.fused/swift/tmpwhglhkcy/202c9844.swift:110:49 - line:110:69] RangeText="{ (num: Int) in num "
+6.	Assertion failed: (isLoadableOrOpaque(LV->getType())), function createLoad at SILBuilder.h:800.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  swift     0x00005600b00dd2f8
+1  swift     0x00005600b00dad45
+2  swift     0x00005600b00ddf61
+3  libc.so.6 0x00007b83e6e8c330
+4  libc.so.6 0x00007b83e6ee5c0c pthread_kill + 284
+5  libc.so.6 0x00007b83e6e8c27e gsignal + 30
+6  libc.so.6 0x00007b83e6e6f8ff abort + 223
+7  swift     0x00005600a88ed407
+8  swift     0x00005600a88ed521
+9  swift     0x00005600abda4b52
+10 swift     0x00005600a8be7689
+11 swift     0x00005600a96e28b4
+12 swift     0x00005600a96e3bf8
+13 swift     0x00005600a983510c
+14 swift     0x00005600a983742f
+15 swift     0x00005600a98346c1
+16 swift     0x00005600a98313f7
+17 swift     0x00005600a982f184
+18 swift     0x00005600a982b5b3
+19 swift     0x00005600a97829ca
+20 swift     0x00005600a96b242f
+21 swift     0x00005600a96c3b47
+22 swift     0x00005600a9dd2795
+23 swift     0x00005600a96b6947
+24 swift     0x00005600a976ef47
+25 swift     0x00005600a976ec82
+26 swift     0x00005600a974cb65
+27 swift     0x00005600a973a0ee
+28 swift     0x00005600a97076ac
+29 swift     0x00005600a986b848
+30 swift     0x00005600a98b0b2e
+31 swift     0x00005600a9898f87
+32 swift     0x00005600a98ae59b
+33 swift     0x00005600a98c5fc8
+34 swift     0x00005600a98c508c
+35 swift     0x00005600a989da15
+36 swift     0x00005600a989ca67
+37 swift     0x00005600a974cd93
+38 swift     0x00005600a973afde
+39 swift     0x00005600a983dbcb
+40 swift     0x00005600a983b17b
+41 swift     0x00005600a978274e
+42 swift     0x00005600a96b3825
+43 swift     0x00005600a96b4d09
+44 swift     0x00005600a96b16bf
+45 swift     0x00005600a96b904e
+46 swift     0x00005600a96b9bd2
+47 swift     0x00005600a983a73e
+48 swift     0x00005600a983a640
+49 swift     0x00005600a96c4b1b
+50 swift     0x00005600a96ba9b5
+51 swift     0x00005600a8c903ca
+52 swift     0x00005600a8ca9294
+53 swift     0x00005600a8c9781d
+54 swift     0x00005600a8c932ea
+55 swift     0x00005600a89d353d
+56 swift     0x00005600a89d2173
+57 libc.so.6 0x00007b83e6e711ca
+58 libc.so.6 0x00007b83e6e7128b __libc_start_main + 139
+59 swift     0x00005600a89d18a5
+
+*** Signal 6: Backtracing from 0x7b83e6f6e38d... done ***
+
+*** Program crashed: Aborted at 0x000000000006213f ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift" crashed:
+
+  0  0x00007b83e6f6e38d <unknown> in libc.so.6
+...
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007b83e6f6e38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x000000000006213f  401727
+rdi 0x000000000006213f  401727
+rbp 0x000000000006213f  401727
+rsp 0x00005600c49088a8  8b df 0d b0 00 56 00 00 30 8b 90 c4 00 56 00 00  ·ß·°·V··0··Ä·V··
+ r8 0x00005600c4908b30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x00005600c4908b30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x00005600c4908b30  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x00007fff3eca0c00  f8 d8 69 bf 00 56 00 00 02 00 00 00 00 56 00 00  øØi¿·V·······V··
+r14 0x0000000000000000  0
+r15 0x00005600c4908948  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x00007b83e6f6e38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (28 omitted):
+
+0x00007b83e6e47000–0x00007b83e6ff6eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.00s
+
+[... 1 more lines ...]

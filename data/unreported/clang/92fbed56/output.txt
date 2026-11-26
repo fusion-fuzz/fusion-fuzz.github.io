@@ -1,0 +1,75 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2dso3r1f/3dcc0430.cpp:14:17: warning: non-void function does not return a value [-Wreturn-type]
+   14 | int main(void) {}
+      |                 ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/RecordLayoutBuilder.cpp:2222: void {anonymous}::ItaniumRecordLayoutBuilder::UpdateAlignment(clang::CharUnits, clang::CharUnits, clang::CharUnits): Assertion `llvm::isPowerOf2_64(NewAlignment.getQuantity()) && "Alignment not a power of 2"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O3 -std=gnu++17 -fblocks -fsanitize=address -fsanitize=undefined /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2dso3r1f/3dcc0430.cpp
+1.	<eof> parser at end of file
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005645bc6c74f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005645bc6c41bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005645bc6c4a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005645bc606e88
+4  libc.so.6 0x00007f57d8f54520
+5  libc.so.6 0x00007f57d8fa89bc pthread_kill + 300
+6  libc.so.6 0x00007f57d8f54476 raise + 22
+7  libc.so.6 0x00007f57d8f3a7f3 abort + 211
+8  libc.so.6 0x00007f57d8f3a71b
+9  libc.so.6 0x00007f57d8f4be96
+10 clang++   0x00005645c07167df
+11 clang++   0x00005645c0725b9a
+12 clang++   0x00005645c071f858 clang::ASTContext::getASTRecordLayout(clang::RecordDecl const*) const + 1528
+13 clang++   0x00005645bff0fc1a clang::ASTContext::getTypeInfoImpl(clang::Type const*) const + 794
+14 clang++   0x00005645bff0dc39 clang::ASTContext::getTypeInfo(clang::Type const*) const + 105
+15 clang++   0x00005645bff0f0db clang::ASTContext::getTypeInfoInChars(clang::Type const*) const + 331
+16 clang++   0x00005645bff0f2f4 clang::ASTContext::getTypeSizeInChars(clang::QualType) const + 52
+17 clang++   0x00005645c02d49b5
+18 clang++   0x00005645c0353133
+19 clang++   0x00005645c0348320
+20 clang++   0x00005645c0354967
+21 clang++   0x00005645c03a3474
+22 clang++   0x00005645c0348320
+23 clang++   0x00005645c0348f4e
+24 clang++   0x00005645c0350dde clang::Expr::EvaluateAsRValue(clang::Expr::EvalResult&, clang::ASTContext const&, bool) const + 1006
+25 clang++   0x00005645bf48fa0f clang::Sema::VerifyIntegerConstantExpression(clang::Expr*, llvm::APSInt*, clang::Sema::VerifyICEDiagnoser&, clang::AllowFoldKind) + 607
+26 clang++   0x00005645bf4903f6 clang::Sema::VerifyIntegerConstantExpression(clang::Expr*, llvm::APSInt*, unsigned int, clang::AllowFoldKind) + 54
+27 clang++   0x00005645bf38848a clang::Sema::BuildStaticAssertDeclaration(clang::SourceLocation, clang::Expr*, clang::Expr*, clang::SourceLocation, bool) + 474
+28 clang++   0x00005645bef23efe clang::Parser::ParseStaticAssertDeclaration(clang::SourceLocation&) + 606
+29 clang++   0x00005645bef172da clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 746
+30 clang++   0x00005645beecfd2e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+31 clang++   0x00005645beed0dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+32 clang++   0x00005645beeadcf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+33 clang++   0x00005645bd3b5e51 clang::FrontendAction::Execute() + 65
+34 clang++   0x00005645bd33fdf5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+35 clang++   0x00005645bd48dc03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+36 clang++   0x00005645bb0d6d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+37 clang++   0x00005645bb0ccada
+38 clang++   0x00005645bb0ccc6f
+39 clang++   0x00005645bd0c442d
+40 clang++   0x00005645bc6072a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+41 clang++   0x00005645bd0c5283
+42 clang++   0x00005645bd079d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+43 clang++   0x00005645bd07e600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+44 clang++   0x00005645bd08c714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+45 clang++   0x00005645bb0d2383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+46 clang++   0x00005645bb022901 main + 113
+47 libc.so.6 0x00007f57d8f3bd90
+48 libc.so.6 0x00007f57d8f3be40 __libc_start_main + 128
+49 clang++   0x00005645bb0cc105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/3dcc0430-178953.cpp
+clang++: note: diagnostic msg: /tmp/3dcc0430-178953.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

@@ -1,0 +1,23 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+F0000 00:00:1791997984.425422 2890801 cudnn_pad_for_convolutions.cc:73] Check failed: new_shape.dimensions(dim) > shape.dimensions(dim) (4 vs. 2048) 
+*** Check failure stack trace: ***
+    @     0x5d42b2a31a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5d42b2a319e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5d42a7c363c2  xla::gpu::ResolveAndPad()
+    @     0x5d42a7c3506d  xla::gpu::CudnnPadForConvolutions::RunImpl()
+    @     0x5d42aeae8be7  xla::HloPassInterface::Run()
+    @     0x5d42aa6663ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5d42aa6617bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5d42aa660bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5d42aeae8be7  xla::HloPassInterface::Run()
+    @     0x5d42a75a2e03  xla::gpu::NVPTXCompiler::OptimizeHloConvolutionCanonicalization()
+    @     0x5d42a75b72ec  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5d42a75c206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5d42a74f6934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5d42a74f6373  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5d42a74e8d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5d42b2a82466  main
+    @     0x73a4befd4d90  (unknown)
+Aborted (core dumped)

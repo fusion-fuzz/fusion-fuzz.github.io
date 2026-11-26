@@ -1,0 +1,120 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:39:49: error: field 'int N::b::b' with same name as class [-fpermissive]
+   39 |   struct b { constexpr b (int n) : b (n) {} int b; };
+      |                                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc: In function 'constexpr A N::begin(const b&)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:40:46: error: no matching function for call to 'A::A(int)'
+   40 |   constexpr A begin (const b &) { return A (0); }
+      |                                              ^
+  • there are 2 candidates
+    • candidate 1: 'constexpr A::A()'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:15:8:
+         15 | struct A
+            |        ^
+      • candidate expects 0 arguments, 1 provided
+    • candidate 2: 'constexpr A::A(const A&)'
+      • no known conversion for argument 1 from 'int' to 'const A&'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc: In function 'constexpr A N::end(const b&)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:41:47: error: no matching function for call to 'A::A(const int&)'
+   41 |   constexpr A end (const b &x) { return A (x.b); }      // { dg-error "is not usable in a constant expression" }
+      |                                               ^
+  • there are 2 candidates
+    • candidate 1: 'constexpr A::A()'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:15:8:
+         15 | struct A
+            |        ^
+      • candidate expects 0 arguments, 1 provided
+    • candidate 2: 'constexpr A::A(const A&)'
+      • no known conversion for argument 1 from 'const int' to 'const A&'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc: In function 'constexpr A N::begin(const C&)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:43:46: error: no matching function for call to 'A::A(int)'
+   43 |   constexpr A begin (const C &) { return A (0); }
+      |                                              ^
+  • there are 2 candidates
+    • candidate 1: 'constexpr A::A()'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:15:8:
+         15 | struct A
+            |        ^
+      • candidate expects 0 arguments, 1 provided
+    • candidate 2: 'constexpr A::A(const A&)'
+      • no known conversion for argument 1 from 'int' to 'const A&'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc: In function 'constexpr A N::end(const C&)':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:44:45: error: no matching function for call to 'A::A(int)'
+   44 |   constexpr A end (const C &x) { return A (6); }
+      |                                             ^
+  • there are 2 candidates
+    • candidate 1: 'constexpr A::A()'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:15:8:
+         15 | struct A
+            |        ^
+      • candidate expects 0 arguments, 1 provided
+    • candidate 2: 'constexpr A::A(const A&)'
+      • no known conversion for argument 1 from 'int' to 'const A&'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc: In function 'int foo()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:50:39: error: 'B' is not a member of 'N'; did you mean 'B'?
+   50 |   template for (constexpr auto m : N::B (3))    // { dg-warning "'template for' only available with" "" { target c++23_down } }
+      |                                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:20:8: note: 'B' declared here
+   20 | struct B: A
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc: In function 'int bar()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:58:29: error: 'B' is not a member of 'N'; did you mean 'B'?
+   58 |   template for (auto m : N::B (3))              // { dg-warning "'template for' only available with" "" { target c++23_down } }
+      |                             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:20:8: note: 'B' declared here
+   20 | struct B: A
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc: In function 'int baz()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:66:32: error: the type 'const A' of 'constexpr' variable '__for_begin ' is not literal
+   66 |   template for (constexpr auto m : N::C ())     // { dg-warning "'template for' only available with" "" { target c++23_down } }
+      |                                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:15:8: note: 'A' is not literal because:
+   15 | struct A
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:15:8: note:   'A' does not have 'constexpr' destructor
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc:67:11: internal compiler error: in copy_linkage, at cp/decl2.cc:4075
+   67 |     r += m;
+      |           ^
+0x305a98b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00d26 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x804ed7 copy_linkage(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl2.cc:4075
+0xf1609c get_guard(tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl2.cc:4102
+0xf0a947 expand_static_init
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:11938
+0xf087ef cp_finish_decl(tree_node*, tree_node*, bool, tree_node*, int, cp_decomp*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl.cc:10385
+0xfecd83 cp_build_range_for_decls(unsigned long, tree_node*, tree_node**, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:16280
+0x10aee20 finish_expansion_stmt(tree_node*, tree_node*, int, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:33821
+0x1042928 cp_parser_expansion_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:16934
+0x1005453 cp_parser_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:14479
+0x10084e8 cp_parser_statement_seq_opt
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:15215
+0x1008788 cp_parser_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:15062
+0x103e2a5 cp_parser_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29103
+0x103e2a5 cp_parser_ctor_initializer_opt_and_function_body
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:29154
+0x1008cee cp_parser_function_definition_after_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36476
+0x103a249 cp_parser_function_definition_from_specifiers_and_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36391
+0x103a249 cp_parser_init_declarator
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:26283
+0x103d29b cp_parser_simple_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:18282
+0x104ad6f cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17819
+0x104d7d3 cp_parser_toplevel_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17923
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmprww8piqp/515994d9.cc -quiet -dumpdir a- -dumpbase 515994d9.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O1 -Wextra -std=gnu++26 -fsyntax-only -fno-tree-vectorize -fwrapv -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

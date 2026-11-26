@@ -1,0 +1,77 @@
+[... 28 lines omitted ...]
+    |            `- warning: cannot find availability domain 'SwiftStdlib' [#AvailabilityUnrecognizedName]
+350 | public class NotFinalActorSystemForAdHocRequirementTest: DistributedActorSystem, @unchecked Sendable {
+351 |   public typealias ActorID = String
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpijl5g2zy/5d216034.swift:19:20: warning: using 'class' keyword to define a class-constrained protocol is deprecated; use 'AnyObject' instead [#deprecation]
+ 17 | // propagate type substitutions.
+ 18 | //===----------------------------------------------------------------------===//
+ 19 | public protocol P: class {}
+    |                    `- warning: using 'class' keyword to define a class-constrained protocol is deprecated; use 'AnyObject' instead [#deprecation]
+ 20 | 
+ 21 | extension P {
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpijl5g2zy/5d216034.swift:52:21: warning: using 'class' keyword to define a class-constrained protocol is deprecated; use 'AnyObject' instead [#deprecation]
+ 50 | // rewrite the witness_method. The devirtualizer then handles the first call.
+ 51 | //===----------------------------------------------------------------------===//
+ 52 | public protocol PP: class {
+    |                     `- warning: using 'class' keyword to define a class-constrained protocol is deprecated; use 'AnyObject' instead [#deprecation]
+ 53 |   func returnOptionalSelf() -> Self?
+ 54 | }
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpijl5g2zy/5d216034.swift:156:28: warning: using 'class' keyword to define a class-constrained protocol is deprecated; use 'AnyObject' instead [#deprecation]
+154 | // propagate type substitutions.
+155 | //===----------------------------------------------------------------------===//
+156 | public protocol P_d60031d: class {}
+    |                            `- warning: using 'class' keyword to define a class-constrained protocol is deprecated; use 'AnyObject' instead [#deprecation]
+157 | 
+158 | extension P_d60031d {
+
+swift-frontend: /home/build-user/swift/lib/SIL/Verifier/SILVerifier.cpp:754: bool (anonymous namespace)::ImmutableAddressUseVerifier::isConsumingOrMutatingArgumentConvention(SILArgumentConvention): Assertion `conv.isIndirectConvention() && "Expect an indirect convention"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-silgen -O -sil-verify-all /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpijl5g2zy/5d216034.swift
+1.	Swift version 6.5-dev (LLVM 9b3700c0bd7ce7a, Swift f62414fd1d17227)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module main)
+4.	While silgen visitDecl 'TheSpecificResultHandlerWhichIsANonFinalClass' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpijl5g2zy/5d216034.swift:289:8)
+5.	While generating SIL witness table protocol conformance TheSpecificResultHandlerWhichIsANonFinalClass: DistributedTargetInvocationResultHandler at 'TheSpecificResultHandlerWhichIsANonFinalClass' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpijl5g2zy/5d216034.swift:289:8)
+6.	While generating protocol witness thunk SIL function "@$s4main45TheSpecificResultHandlerWhichIsANonFinalClassC11Distributed0k16TargetInvocationdE0AadEP8onReturn5valueyqd___tYaKlFTW".
+ for 'onReturn(value:)' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpijl5g2zy/5d216034.swift:292:10)
+7.	While verifying SIL function "@$s4main45TheSpecificResultHandlerWhichIsANonFinalClassC11Distributed0k16TargetInvocationdE0AadEP8onReturn5valueyqd___tYaKlFTW".
+ for 'onReturn(value:)' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpijl5g2zy/5d216034.swift:292:10)
+ #0 0x00005c253447c78b llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x929e78b)
+ #1 0x00005c2534479671 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x929b671)
+ #2 0x00005c253447d53b SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x000078bd92bc9330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x000078bd92c22c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x000078bd92bc927e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x000078bd92bac8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000078bd92bac81b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x000078bd92bbf517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x00005c252cc9c5f0 (anonymous namespace)::ImmutableAddressUseVerifier::isConsumingOrMutatingApplyUse(swift::Operand*) SILVerifier.cpp:0:0
+#10 0x00005c252cc94f54 (anonymous namespace)::ImmutableAddressUseVerifier::isMutatingOrConsuming(swift::SILValue) SILVerifier.cpp:0:0
+#11 0x00005c252cc9d437 (anonymous namespace)::SILVerifier::visitSILBasicBlock(swift::SILBasicBlock*) SILVerifier.cpp:0:0
+#12 0x00005c252cc96d5b swift::SILFunction::verify(swift::CalleeCache*, swift::DominanceInfo*, bool, bool, bool) const (/usr/bin/swift-frontend+0x1ab8d5b)
+#13 0x00005c252cdf65d0 swift::Lowering::SILGenFunction::emitProtocolWitness(swift::Lowering::AbstractionPattern, swift::CanTypeWrapper<swift::AnyFunctionType>, swift::SILDeclRef, swift::SubstitutionMap, swift::SILDeclRef, swift::SubstitutionMap, swift::Lowering::IsFreeFunctionWitness_t, bool, bool, std::optional<swift::ActorIsolation>) crtstuff.c:0:0
+#14 0x00005c252ce34317 swift::Lowering::SILGenModule::emitProtocolWitness(swift::ProtocolConformanceRef, swift::SILLinkage, swift::SerializedKind_t, swift::SILDeclRef, swift::SILDeclRef, swift::Lowering::IsFreeFunctionWitness_t, swift::Witness) crtstuff.c:0:0
+#15 0x00005c252ce38d61 (anonymous namespace)::SILGenWitnessTable<(anonymous namespace)::SILGenConformance>::addMethodImplementation(swift::SILDeclRef, swift::SILDeclRef, swift::Witness) SILGenType.cpp:0:0
+#16 0x00005c252ce38623 (anonymous namespace)::SILGenWitnessTable<(anonymous namespace)::SILGenConformance>::addMethod(swift::SILDeclRef) SILGenType.cpp:0:0
+#17 0x00005c252ce37d3b swift::SILWitnessVisitor<(anonymous namespace)::SILGenConformance>::visitProtocolDecl(swift::ProtocolDecl*) SILGenType.cpp:0:0
+#18 0x00005c252ce326ce swift::Lowering::SILGenModule::getWitnessTable(swift::RootProtocolConformance*) crtstuff.c:0:0
+#19 0x00005c252ce37130 (anonymous namespace)::SILGenType::emitType() SILGenType.cpp:0:0
+#20 0x00005c252ce36928 swift::Lowering::SILGenModule::visitNominalTypeDecl(swift::NominalTypeDecl*) crtstuff.c:0:0
+#21 0x00005c252ccfaf51 swift::Lowering::SILGenModule::emitSourceFile(swift::SourceFile*) crtstuff.c:0:0
+#22 0x00005c252ccfb664 swift::ASTLoweringRequest::evaluate(swift::Evaluator&, swift::ASTLoweringDescriptor) const (/usr/bin/swift-frontend+0x1b1d664)
+#23 0x00005c252ce1b7a7 swift::SimpleRequest<swift::ASTLoweringRequest, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>> (swift::ASTLoweringDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::ASTLoweringRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#24 0x00005c252cd00f8d swift::ASTLoweringRequest::OutputType swift::Evaluator::getResultUncached<swift::ASTLoweringRequest, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()>(swift::ASTLoweringRequest const&, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'())::'lambda'()::operator()() const crtstuff.c:0:0
+#25 0x00005c252cd00d0c swift::ASTLoweringRequest::OutputType swift::Evaluator::getResultUncached<swift::ASTLoweringRequest, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()>(swift::ASTLoweringRequest const&, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()) crtstuff.c:0:0
+#26 0x00005c252ccfbdb4 swift::performASTLowering(swift::ModuleDecl*, swift::Lowering::TypeConverter&, swift::SILOptions const&, swift::IRGenOptions const*) (/usr/bin/swift-frontend+0x1b1ddb4)
+#27 0x00005c252bee42cf swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xd062cf)
+#28 0x00005c252bf01ef1 withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#29 0x00005c252beeb97d performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#30 0x00005c252bee6b97 swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xd08b97)
+#31 0x00005c252bb7451b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x99651b)
+#32 0x000078bd92bae1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#33 0x000078bd92bae28b __lib
+[... truncated ...]

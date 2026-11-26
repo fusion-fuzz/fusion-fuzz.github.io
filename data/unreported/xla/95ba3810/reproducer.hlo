@@ -1,0 +1,86 @@
+HloModule Test
+
+%apply {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  ROOT %c = f32[] maximum(a, b)
+}
+
+%fd0 {
+  %p0 = f32[64,64] parameter(0)
+  %p1 = f32[64,64] parameter(1)
+  %d = f32[64,64] dot(p0, p1), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %c0 = f32[] constant(2.5)
+  %b0 = f32[64,64] broadcast(c0), dimensions={}
+  ROOT %add = f32[64,64] add(d, b0)
+}
+
+%apply.d {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  ROOT %c = f32[] maximum(a, b)
+}
+
+%apply.d.d {
+  %a = f32[] parameter(0)
+  %b = f32[] parameter(1)
+  ROOT %c = f32[] maximum(a, b)
+}
+
+ENTRY %Test {
+  %input = f8e4m3fn[1,128,6,6] parameter(0)
+  %filter = f8e4m3fn[3,3,128,16] parameter(1)
+  %input_scale = f32[] parameter(2)
+  %input_scale_bcast = f32[1,16,6,6] broadcast(input_scale), dimensions={}
+  %filter_scale = f32[] parameter(3)
+  %filter_scale_bcast = f32[1,16,6,6] broadcast(filter_scale), dimensions={}
+  %input_f32 = f32[1,128,6,6] convert(input)
+  %filter_f32 = f32[3,3,128,16] convert(filter)
+  %conv_a = f32[1,16,6,6] convolution(input_f32, filter_f32), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_01io->bf01, feature_group_count=1
+  %conv_a_input_scaled = f32[1,16,6,6] multiply(conv_a, input_scale_bcast)
+  %conv_a_filter_scaled = f32[1,16,6,6] multiply(conv_a_input_scaled, filter_scale_bcast)
+  %z_scale = f32[] parameter(4)
+  %z_scale_bcast = f32[1,16,6,6] broadcast(z_scale), dimensions={}
+  %conv_a_scaled = f32[1,16,6,6] multiply(conv_a_filter_scaled, z_scale_bcast)
+  %c1 = f32[] constant(-448.)
+  %c1_bcast = f32[1,16,6,6] broadcast(c1), dimensions={}
+  %c2 = f32[] constant(448.)
+  %c2_bcast = f32[1,16,6,6] broadcast(c2), dimensions={}
+  %conv_a_clamped = f32[1,16,6,6] clamp(c1_bcast, conv_a_scaled, c2_bcast)
+  %conv_a_clamped_f8 = f8e4m3fn[1,16,6,6] convert(conv_a_clamped)
+  %abs_conv_a = f32[1,16,6,6] abs(conv_a_filter_scaled)
+  %c0 = f32[] constant(-inf)
+  %amax = f32[] reduce(abs_conv_a, c0), dimensions={0,1,2,3}, to_apply=apply
+  %conv_f8 = (f8e4m3fn[1,16,6,6], f32[]) tuple(conv_a_clamped_f8, amax)
+  %p0 = f32[64,64] parameter(5)
+  %p1 = f32[64,64] parameter(6)
+  %a0 = f32[64,64] fusion(%p0, %p1), kind=kCustom, calls=%fd0, backend_config={"fusion_backend_config":{"kind":"__cudnn$fusion","cudnn_fusion_config":{"plan_id":"0"}}}
+  %input.d = f8e4m3fn[1,128,6,6] parameter(7)
+  %filter.d = f8e4m3fn[3,3,128,16] parameter(8)
+  %input_scale.d = f32[] parameter(9)
+  %input_scale_bcast.d = f32[1,16,6,6] broadcast(%input_scale.d), dimensions={}
+  %filter_scale.d = f32[] parameter(10)
+  %filter_scale_bcast.d = f32[1,16,6,6] broadcast(%filter_scale.d), dimensions={}
+  %input_f32.d = f32[1,128,6,6] convert(%input.d)
+  %filter_f32.d = f32[3,3,128,16] convert(%filter.d)
+  %conv_a.d = f32[1,16,6,6] convolution(%input_f32.d, %filter_f32.d), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_01io->bf01, feature_group_count=1
+  %conv_a_input_scaled.d = f32[1,16,6,6] multiply(%conv_a.d, %input_scale_bcast.d)
+  %conv_a_filter_scaled.d = f32[1,16,6,6] multiply(%conv_a_input_scaled.d, %filter_scale_bcast.d)
+  %z_scale.d = f32[] parameter(11)
+  %z_scale_bcast.d = f32[1,16,6,6] broadcast(%z_scale.d), dimensions={}
+  %conv_a_scaled.d = f32[1,16,6,6] multiply(%conv_a_input_scaled, %z_scale_bcast.d)
+  %c1.d = f32[] constant(-448.)
+  %c1_bcast.d = f32[1,16,6,6] broadcast(%c1.d), dimensions={}
+  %c2.d = f32[] constant(448.)
+  %c2_bcast.d = f32[1,16,6,6] broadcast(%c2.d), dimensions={}
+  %conv_a_clamped.d = f32[1,16,6,6] clamp(%c1_bcast.d, %conv_a_scaled.d, %c2_bcast.d)
+  %conv_a_clamped_f8.d = f8e4m3fn[1,16,6,6] convert(%conv_a_clamped.d)
+  %abs_conv_a.d = f32[1,16,6,6] abs(%conv_a_filter_scaled.d)
+  %c0.d = f32[] constant(-inf)
+  %amax.d = f32[] reduce(%abs_conv_a.d, %c0.d), dimensions={0,1,2,3}, to_apply=%apply.d
+  %conv_f8.d = (f8e4m3fn[1,16,6,6], f32[]) tuple(%conv_a_clamped_f8.d, %amax.d)
+  %ffl.root = (f32[64,64], (f8e4m3fn[1,16,6,6], f32[])) tuple(%a0, %conv_f8.d)
+  %ffl.call = f32[] call(%filter_scale.d, %filter_scale.d), to_apply=%apply.d.d
+  %ffl.root.1 = (f32[64,64], (f8e4m3fn[1,16,6,6], f32[]), f32[]) tuple(%a0, %conv_f8.d, %ffl.call)
+  ROOT %ffl.root.2 = ((f8e4m3fn[1,16,6,6], f32[]), f32[64,64], (f8e4m3fn[1,16,6,6], f32[]), f32[]) tuple(%conv_f8, %a0, %conv_f8.d, %ffl.call)
+}

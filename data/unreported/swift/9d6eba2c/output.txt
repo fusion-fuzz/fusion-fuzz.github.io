@@ -1,0 +1,92 @@
+swift-frontend: /home/build-user/llvm-project/llvm/include/llvm/Support/Casting.h:578: decltype(auto) llvm::cast(From *) [To = swift::ReferenceStorageType, From = swift::TypeBase]: Assertion `isa<To>(Val) && "cast<Ty>() argument of incompatible type!"' failed.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -c -Osize -sil-verify-all -enforce-exclusivity=checked /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpa8v_ujnf/fc74c996.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request ASTLoweringRequest(Lowering AST to SIL for module fc74c996)
+ #0 0x000064ab2e382658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x000064ab2e37fe75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x000064ab2e383411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x000072bb7a86e330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x000072bb7a8c7c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x000072bb7a86e27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x000072bb7a8518ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000072bb7a85181b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #8 0x000072bb7a864517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+ #9 0x000064ab267ae7e4 swift::CanTypeWrapperTraits<swift::ReferenceStorageType>::type swift::SILType::castTo<swift::ReferenceStorageType>() const crtstuff.c:0:0
+#10 0x000064ab268e60f4 swift::Lowering::SILGenFunction::emitSemanticStore(swift::SILLocation, swift::SILValue, swift::SILValue, swift::Lowering::TypeLowering const&, swift::IsInitialization_t) crtstuff.c:0:0
+#11 0x000064ab26968018 swift::Lowering::ManagedValue::forwardInto(swift::Lowering::SILGenFunction&, swift::SILLocation, swift::SILValue) (/usr/bin/swift-frontend+0x1235018)
+#12 0x000064ab2685c0a6 swift::Lowering::SingleBufferInitialization::copyOrInitValueIntoSingleBuffer(swift::Lowering::SILGenFunction&, swift::SILLocation, swift::Lowering::ManagedValue, bool, swift::SILValue) (/usr/bin/swift-frontend+0x11290a6)
+#13 0x000064ab2685a0f2 virtual thunk to swift::Lowering::SingleBufferInitialization::copyOrInitValueInto(swift::Lowering::SILGenFunction&, swift::SILLocation, swift::Lowering::ManagedValue, bool) crtstuff.c:0:0
+#14 0x000064ab2696d95a (anonymous namespace)::ScalarResultPlan::finish(swift::Lowering::SILGenFunction&, swift::SILLocation, swift::Lowering::ManagedValue, swift::Lowering::AbstractionPattern, swift::CanType, swift::Lowering::Initialization*, swift::SILFunctionTypeRepresentation) ResultPlan.cpp:0:0
+#15 0x000064ab2696d610 (anonymous namespace)::ScalarResultPlan::finish(swift::Lowering::SILGenFunction&, swift::SILLocation, llvm::ArrayRef<swift::Lowering::ManagedValue>&, swift::SILValue) ResultPlan.cpp:0:0
+#16 0x000064ab26985168 swift::Lowering::SILGenFunction::emitApply(std::unique_ptr<swift::Lowering::ResultPlan, std::default_delete<swift::Lowering::ResultPlan>>&&, swift::Lowering::ArgumentScope&&, swift::SILLocation, swift::Lowering::ManagedValue, swift::SubstitutionMap, llvm::ArrayRef<swift::Lowering::ManagedValue>, swift::Lowering::CalleeTypeInfo const&, swift::optionset::OptionSet<swift::ApplyFlags, unsigned char>, swift::Lowering::SGFContext, std::optional<swift::ActorIsolation>) crtstuff.c:0:0
+#17 0x000064ab2698d593 (anonymous namespace)::CallEmission::apply(swift::Lowering::SGFContext) SILGenApply.cpp:0:0
+#18 0x000064ab2697ec4e swift::Lowering::SILGenFunction::emitApplyAllocatingInitializer(swift::SILLocation, swift::ConcreteDeclRef, swift::Lowering::PreparedArguments&&, swift::Type, swift::Lowering::SGFContext) crtstuff.c:0:0
+#19 0x000064ab2699297b swift::Lowering::SILGenFunction::emitLiteral(swift::LiteralExpr*, swift::Lowering::SGFContext) crtstuff.c:0:0
+#20 0x000064ab26889e2d swift::ASTVisitor<(anonymous namespace)::RValueEmitter, swift::Lowering::RValue, void, void, void, void, void, swift::Lowering::SGFContext>::visit(swift::Expr*, swift::Lowering::SGFContext) SILGenExpr.cpp:0:0
+#21 0x000064ab26878b14 swift::Lowering::SILGenFunction::emitExprInto(swift::Expr*, swift::Lowering::Initialization*, std::optional<swift::SILLocation>) crtstuff.c:0:0
+#22 0x000064ab2685e119 swift::Lowering::SILGenFunction::emitPatternBinding(swift::PatternBindingDecl*, unsigned int, bool) crtstuff.c:0:0
+#23 0x000064ab26867e32 swift::ASTVisitor<swift::Lowering::SILGenFunction, void, void, void, void, void, void>::visit(swift::Decl*) crtstuff.c:0:0
+#24 0x000064ab26953f0c swift::Lowering::SILGenTopLevel::visitTopLevelCodeDecl(swift::TopLevelCodeDecl*) (/usr/bin/swift-frontend+0x1220f0c)
+#25 0x000064ab26951b8b swift::Lowering::SILGenTopLevel::visitSourceFile(swift::SourceFile*) (/usr/bin/swift-frontend+0x121eb8b)
+#26 0x000064ab26950f1c swift::Lowering::SILGenModule::emitEntryPoint(swift::SourceFile*, swift::SILFunction*) crtstuff.c:0:0
+#27 0x000064ab269534e5 swift::Lowering::SILGenModule::emitEntryPoint(swift::SourceFile*) crtstuff.c:0:0
+#28 0x000064ab2681e119 swift::Lowering::SILGenModule::emitSourceFile(swift::SourceFile*) crtstuff.c:0:0
+#29 0x000064ab2681e5b4 swift::ASTLoweringRequest::evaluate(swift::Evaluator&, swift::ASTLoweringDescriptor) const (/usr/bin/swift-frontend+0x10eb5b4)
+#30 0x000064ab2693da56 swift::SimpleRequest<swift::ASTLoweringRequest, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>> (swift::ASTLoweringDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::ASTLoweringRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#31 0x000064ab26823e45 swift::ASTLoweringRequest::OutputType swift::Evaluator::getResultUncached<swift::ASTLoweringRequest, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()>(swift::ASTLoweringRequest const&, swift::ASTLoweringRequest::OutputType swift::evaluateOrFatal<swift::ASTLoweringRequest>(swift::Evaluator&, swift::ASTLoweringRequest)::'lambda'()) crtstuff.c:0:0
+#32 0x000064ab2681ebf3 swift::performASTLowering(swift::ModuleDecl*, swift::Lowering::TypeConverter&, swift::SILOptions const&, swift::IRGenOptions const*) (/usr/bin/swift-frontend+0x10ebbf3)
+#33 0x000064ab2616593f swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xa3293f)
+#34 0x000064ab2617e88a withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#35 0x000064ab2616b595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#36 0x000064ab2616821e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#37 0x000064ab25e6fb21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#38 0x000072bb7a8531ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#39 0x000072bb7a85328b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#40 0x000064ab25e6ea15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x72bb7a95038d... done ***
+
+*** Program crashed: Aborted at 0x000072bb7a95038d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x000072bb7a95038d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x000072bb7a95038d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x0000000000036879  223353
+rdi 0x0000000000036879  223353
+rbp 0x0000000000036879  223353
+rsp 0x000064ab544692e8  3b 34 38 2e ab 64 00 00 70 95 46 54 ab 64 00 00  ;48.«d··p·FT«d··
+ r8 0x000064ab54469570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x000064ab54469570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x000064ab54469570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r11 0x0000000000000246  582
+r12 0x0000000000000006  6
+r13 0x000064ab2f826437  2f 68 6f 6d 65 2f 62 75 69 6c 64 2d 75 73 65 72  /home/build-user
+r14 0x0000000000000000  0
+r15 0x000064ab54469388  ff ff ff 7f fe ff ff ff 00 00 00 00 00 00 00 00  ÿÿÿ·þÿÿÿ········
+rip 0x000072bb7a95038d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+
+rflags 0x0000000000000246  ZF PF
+
+cs 0x0033  fs 0x0000  gs 0x0000
+
+
+Images (29 omitted):
+
+0x000072bb7a829000–0x000072bb7a9d8eb9 328820b908de8ea1ef79afa8995e302e819163d7 libc.so.6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+Backtrace took 0.01s
+
+Aborted (core dumped)

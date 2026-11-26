@@ -1,0 +1,75 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzjo3gn9c/169dd2a9.mm:12:17: warning: cannot find interface declaration for 'b'
+   12 | @implementation b
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzjo3gn9c/169dd2a9.mm:12:17: warning: class 'b' defined without specifying a base class [-Wobjc-root-class]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzjo3gn9c/169dd2a9.mm:12:18: note: add a super class to fix this problem
+   12 | @implementation b
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzjo3gn9c/169dd2a9.mm:15:12: warning: class 'NSArray_ffl' defined without specifying a base class [-Wobjc-root-class]
+   15 | @interface NSArray_ffl @end
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzjo3gn9c/169dd2a9.mm:15:23: note: add a super class to fix this problem
+   15 | @interface NSArray_ffl @end
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzjo3gn9c/169dd2a9.mm:22:23: warning: declaration does not declare anything [-Wmissing-declarations]
+   22 |   SS s{({ for (;;) {} S; }), S("bar")};
+      |                       ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaDecl.cpp:17307: clang::Decl* clang::Sema::ActOnFinishFunctionBody(clang::Decl*, clang::Stmt*, bool, bool): Assertion `!Cleanup.exprNeedsCleanups() && "Unaccounted cleanups in function"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O3 -std=c++14 -fblocks -fno-objc-arc /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzjo3gn9c/169dd2a9.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzjo3gn9c/169dd2a9.mm:27:1: current parser token '@'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzjo3gn9c/169dd2a9.mm:21:12: parsing function body 'foo'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055cf6523e4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055cf6523b1bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055cf6523ba78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055cf6517de88
+4  libc.so.6 0x00007f49e1549520
+5  libc.so.6 0x00007f49e159d9bc pthread_kill + 300
+6  libc.so.6 0x00007f49e1549476 raise + 22
+7  libc.so.6 0x00007f49e152f7f3 abort + 211
+8  libc.so.6 0x00007f49e152f71b
+9  libc.so.6 0x00007f49e1540e96
+10 clang++   0x000055cf67e67ff2 clang::Sema::ActOnFinishFunctionBody(clang::Decl*, clang::Stmt*, bool, bool) + 12098
+11 clang++   0x000055cf67b4f39d clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 269
+12 clang++   0x000055cf67a4072f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+13 clang++   0x000055cf67a8b324 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+14 clang++   0x000055cf67a3a66c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+15 clang++   0x000055cf67a3ae4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+16 clang++   0x000055cf67a46d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+17 clang++   0x000055cf67a47dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+18 clang++   0x000055cf67a24cf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+19 clang++   0x000055cf65f2ce51 clang::FrontendAction::Execute() + 65
+20 clang++   0x000055cf65eb6df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+21 clang++   0x000055cf66004c03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+22 clang++   0x000055cf63c4dd3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+23 clang++   0x000055cf63c43ada
+24 clang++   0x000055cf63c43c6f
+25 clang++   0x000055cf65c3b42d
+26 clang++   0x000055cf6517e2a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+27 clang++   0x000055cf65c3c283
+28 clang++   0x000055cf65bf0d17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+29 clang++   0x000055cf65bf5600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+30 clang++   0x000055cf65c03714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+31 clang++   0x000055cf63c49383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+32 clang++   0x000055cf63b99901 main + 113
+33 libc.so.6 0x00007f49e1530d90
+34 libc.so.6 0x00007f49e1530e40 __libc_start_main + 128
+35 clang++   0x000055cf63c43105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/169dd2a9-ea1f0c.mm
+clang++: note: diagnostic msg: /tmp/169dd2a9-ea1f0c.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

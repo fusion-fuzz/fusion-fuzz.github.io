@@ -1,0 +1,47 @@
+HloModule module
+
+%reducer {
+  %p0 = f32[] parameter(0)
+  %p1 = f32[] parameter(1)
+  ROOT %add = f32[] add(p0, p1)
+}
+
+%callee {
+  %p0 = f32[10] parameter(0)
+  %init = f32[] constant(0.0)
+  ROOT %reduce = f32[] reduce(p0, init), dimensions={0}, to_apply=%reducer
+}
+
+%reducer.d {
+  %p0 = f32[] parameter(0)
+  %p1 = f32[] parameter(1)
+  ROOT %add = f32[] add(p0, p1)
+}
+
+%callee.d {
+  %p0 = f32[10] parameter(0)
+  %init = f32[] constant(0.0)
+  ROOT %reduce = f32[] reduce(p0, init), dimensions={0}, to_apply=%reducer.d
+}
+
+%reducer.d.1 {
+  %p0 = f32[] parameter(0)
+  %p1 = f32[] parameter(1)
+  ROOT %add = f32[] add(p0, p1)
+}
+
+%callee.d.1 {
+  %p0 = f32[10] parameter(0)
+  %init = f32[] constant(0.0)
+  ROOT %reduce = f32[] reduce(p0, init), dimensions={0}, to_apply=%reducer.d.1
+}
+
+ENTRY %fusion {
+  %p0 = s4[24,2,24]{2,1,0:E(4)} parameter(0)
+  %t = s4[24,2,24]{2,1,0:E(4)} transpose(%p0), dimensions={2,1,0}
+  %p0.d = f32[10] parameter(1)
+  %call = f32[] call(%t), to_apply=%callee.d.1, frontend_attributes={compilation_unit="my_callee"}
+  %ffl.root = (s4[24,2,24]{2,1,0:E(4)}, f32[]) tuple(%t, %call)
+  %call.d = f32[] call(%p0.d), to_apply=%callee.d, frontend_attributes={compilation_unit="my_callee"}
+  ROOT %ffl.root.1 = (s4[24,2,24]{2,1,0:E(4)}, f32[], f32[]) tuple(%t, %call, %call.d)
+}

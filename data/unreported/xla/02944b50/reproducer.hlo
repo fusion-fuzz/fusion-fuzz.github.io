@@ -1,0 +1,14 @@
+HloModule m
+
+add {
+  a = f32[] parameter(0)
+  b = f32[] parameter(1)
+  ROOT s = f32[] add(a, b)
+}
+
+ENTRY e {
+  p = (f32[], f32[]) parameter(0)
+  init = f32[] get-tuple-element(p), index=0
+  x = f32[4] parameter(1)
+  ROOT r = f32[] reduce(x, init), dimensions={0}, to_apply=add
+}

@@ -1,0 +1,98 @@
+[... 16 lines omitted ...]
+   24 | void g(T... [1]); // cxx11-warning {{'T...[1]' is no longer a pack expansion but a pack indexing type; add a name to specify a pack expansion}} \
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:24:8: warning: 'T...[1]' is no longer a pack expansion but a pack indexing type; add a name to specify a pack expansion [-Wpre-c++26-compat]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:39:17: warning: pack indexing is a C++2c extension [-Wc++26-extensions]
+   39 | void h(typename T... [1]::type); // cxx11-warning {{pack indexing is a C++2c extension}} \
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:43:8: warning: pack indexing is a C++2c extension [-Wc++26-extensions]
+   43 | void x(T... [0]); // cxx11-warning {{'T...[0]' is no longer a pack expansion but a pack indexing type; add a name to specify a pack expansion}} \
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:43:8: warning: 'T...[0]' is no longer a pack expansion but a pack indexing type; add a name to specify a pack expansion [-Wpre-c++26-compat]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:48:3: error: no matching function for call to 'g'
+   48 |   g<int, double>(nullptr, nullptr); // cxx26-error {{no matching function for call to 'g'}} \
+      |   ^~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:24:6: note: candidate function template not viable: requires 1 argument, but 2 were provided
+   24 | void g(T... [1]); // cxx11-warning {{'T...[1]' is no longer a pack expansion but a pack indexing type; add a name to specify a pack expansion}} \
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:60:20: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+   60 |     char *tmpDir = "/tmp/test-bug77552";
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:70:18: error: unknown type name 'T'
+   70 |     using type = T;
+      |                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:73:1: error: templates can only be declared in namespace or class scope
+   73 | template <class T>
+      | ^~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:81:23: error: expected identifier
+   81 | template <typename... int>
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:82:18: error: type 'int' of function parameter pack does not contain any unexpanded parameter packs
+   82 | void junction(int... t) {
+      |               ~~~^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:82:6: error: no function template matches function template specialization 'junction'
+   82 | void junction(int... t) {
+      |      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:85:18: error: expected ';' after alias declaration
+   85 |     using a = int...[0];
+      |                  ^
+      |                  ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:89:24: error: expected a qualified name after 'typename'
+   89 |     using b = typename int...[0]::a;
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:89:23: error: expected ';' after alias declaration
+   89 |     using b = typename int...[0]::a;
+      |                       ^
+      |                       ;
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:93:5: error: 't' does not refer to the name of a parameter pack
+   93 |     t...[0].~int...[0]();
+      |     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:93:14: error: expected a class name after '~' to name a destructor
+   93 |     t...[0].~int...[0]();
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:97:16: error: brackets are not allowed here; to declare an array, place the brackets after the name
+   97 |     int...[0] c;
+      |           ~~~  ^
+      |                [0]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:97:8: error: only function and template parameters can be parameter packs
+   97 |     int...[0] c;
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:100:23: error: expected identifier
+  100 | template <typename... int>
+      |                       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:101:11: error: type 'int[1]' of function parameter pack does not contain any unexpanded parameter packs
+  101 | void g(int... [1]); // cxx11-warning {{'int...[1]' is no longer a pack expansion but a pack indexing type; add a name to specify a pack expansion}} \
+      |        ~~~^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:101:6: error: no function template matches function template specialization 'g'
+  101 | void g(int... [1]); // cxx11-warning {{'int...[1]' is no longer a pack expansion but a pack indexing type; add a name to specify a pack expansion}} \
+      |      ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaOverload.cpp:12452: void DiagnoseBadDeduction(clang::Sema&, clang::NamedDecl*, clang::Decl*, clang::DeductionFailureInfo&, unsigned int, bool, clang::TemplateSpecCandidateSetKind): Assertion `ParamD && "no parameter found for incomplete deduction result"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O0 -std=c++23 -fblocks -fstrict-enums -fno-strict-aliasing -ffp-contract=fast /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpznm0y8h2/f716a050.cpp:101:19: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005e8129385329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005e8129381fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005e81293828a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005e81292c4218
+4  libc.so.6 0x0000728d446a1520
+5  libc.so.6 0x0000728d446f59bc pthread_kill + 300
+6  libc.so.6 0x0000728d446a1476 raise + 22
+7  libc.so.6 0x0000728d446877f3 abort + 211
+8  libc.so.6 0x0000728d4468771b
+9  libc.so.6 0x0000728d44698e96
+10 clang++   0x00005e812c50fc71
+11 clang++   0x00005e812c50ff41 clang::TemplateSpecCandidateSet::NoteCandidates(clang::Sema&, clang::SourceLocation) + 449
+12 clang++   0x00005e812c6bd3f0 clang::Sema::getMostSpecialized(clang::UnresolvedSetIterator, clang::UnresolvedSetIterator, clang::TemplateSpecCandidateSet&, clang::SourceLocation, clang::PartialDiagnostic const&, clang::PartialDiagnostic const&, clang::PartialDiagnostic const&, bool, clang::QualType) + 2384
+13 clang++   0x00005e812c634b33 clang::Sema::CheckFunctionTemplateSpecialization(clang::FunctionDecl*, clang::TemplateArgumentListInfo*, clang::LookupResult&, bool) + 2355
+14 clang++   0x00005e812bfce653 clang::Sema::ActOnFunctionDeclarator(clang::Scope*, clang::Declarator&, clang::DeclContext*, clang::TypeSourceInfo*, clang::LookupResult&, llvm::MutableArrayRef<clang::TemplateParameterList*>, bool&) + 21219
+15 clang++   0x00005e812bfd0eab clang::Sema::HandleDeclarator(clang::Scope*, clang::Declarator&, llvm::MutableArrayRef<clang::TemplateParameterList*>) + 1387
+16 clang++   0x00005e812c613192 clang::Sema::ActOnTemplateDeclarator(clang::Scope*, llvm::MutableArrayRef<clang::TemplateParameterList*>, clang::Declarator&) + 34
+17 clang++   0x00005e812bbc6dd1 clang::Parser::ParseDeclarationAfterDeclaratorAndAttributes(clang::Declarator&, clang::Parser::ParsedTemplateInfo const&, clang::Parser::ForRangeInit*) + 753
+18 clang++   0x00005e812bbe136c clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 2844
+19 clang++   0x00005e812bcb3102 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2514
+20 clang++   0x00005e812bcbf338
+21 clang++   0x00005e812bcbf75a clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) + 250
+22 clang++   0x00005e812bbe4bb1 clang::Parser::ParseDeclaration(clang::DeclaratorContext, 
+[... truncated ...]

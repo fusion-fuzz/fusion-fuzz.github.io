@@ -1,0 +1,27 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1791991866.793166 2381555 ir_array.cc:460] Check failed: size() == dimensions.size() (1 vs. 2) 
+*** Check failure stack trace: ***
+    @     0x5a8325e59a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5a8325e599e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5a831f11dd41  xla::llvm_ir::IrArray::Index::Linearize()
+    @     0x5a831b208766  std::_Function_handler<>::_M_invoke()
+    @     0x5a831b20f1fd  xla::gpu::ParallelLoopEmitter::EmitSerialLoop()
+    @     0x5a831b20ff69  std::_Function_handler<>::_M_invoke()
+    @     0x5a831c15cc82  xla::KernelSupportLibrary::ForWithStatus()
+    @     0x5a831b20f6b7  xla::gpu::ParallelLoopEmitter::EmitLoop()
+    @     0x5a831b1fb2d5  xla::gpu::EmitSliceToDynamicLLVMIR()
+    @     0x5a831aa45d2a  xla::gpu::ThunkEmitter::EmitSliceToDynamic()
+    @     0x5a831aa37b64  xla::gpu::ThunkEmitter::DispatchCustomCall()
+    @     0x5a831aa566bc  xla::gpu::ThunkEmitter::EmitHloInstruction()
+    @     0x5a831aa4da02  xla::gpu::ThunkEmitter::EmitHloComputation()
+    @     0x5a831aa63a02  xla::gpu::ThunkEmitter::EmitHloEntryComputation()
+    @     0x5a831aa1a087  xla::gpu::CompileModuleToLlvmIr()
+    @     0x5a831a9f018b  xla::gpu::GpuCompiler::CompileToBackendResult()
+    @     0x5a831a9f4ac3  xla::gpu::GpuCompiler::RunBackend()
+    @     0x5a831a913028  xla::(anonymous namespace)::GpuOptProvider::LlvmIrFor[abi:cxx11]()
+    @     0x5a831a91127d  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5a8325eaa466  main
+    @     0x76248f5d4d90  (unknown)
+Aborted (core dumped)

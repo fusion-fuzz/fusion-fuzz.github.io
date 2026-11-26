@@ -1,0 +1,22 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791798683.636854  258316 bfloat16_propagation.cc:802] Check failed: operands.size() == callee->num_parameters() (0 vs. 2) 
+*** Check failure stack trace: ***
+    @     0x5c30be7cda84  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5c30be7cda06  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5c30b521af95  xla::BFloat16Propagation::AddPushableParams()
+    @     0x5c30b522e627  absl::lts_20260526::functional_internal::InvokeObject<>()
+    @     0x5c30bd245dc5  absl::lts_20260526::functional_internal::InvokeObject<>()
+    @     0x5c30bd2379b8  xla::HloDataflowPropagation::ForEachCallBoundaryWithStatus()
+    @     0x5c30bd238078  xla::HloDataflowPropagation::ForEachCallBoundary()
+    @     0x5c30b5219d8b  xla::BFloat16Propagation::BuildCallBoundaryPushIndex()
+    @     0x5c30b5219a39  xla::BFloat16Propagation::BuildF32ConstraintGraph()
+    @     0x5c30b521f068  xla::BFloat16Propagation::RunImpl()
+    @     0x5c30bd951007  xla::HloPassInterface::Run()
+    @     0x5c30bd187a3c  xla::HloPassPipeline::RunHelper<>()
+    @     0x5c30bd182e4d  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5c30bd182265  xla::HloPassPipeline::RunImpl()
+    @     0x5c30bd951007  xla::HloPassInterface::Run()
+    @     0x5c30b51dfd9d  xla::OptProvider::BuildAndRunTransformPipeline()
+    @     0x5c30be813af8  main
+    @     0x75e469a3dd90  (unknown)
+Aborted (core dumped)

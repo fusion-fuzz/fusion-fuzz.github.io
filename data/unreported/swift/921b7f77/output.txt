@@ -1,0 +1,82 @@
+Assertion failed: (nodePtr->TypeVar == typeVar && "Use-after-free"), function operator[] at ConstraintGraph.cpp:89.
+(to display assertion configuration options: -Xllvm -assert-help)
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -typecheck -O -sil-verify-all /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwn7a7xwo/d9a4d3c6.swift
+1.	Swift version 6.5-dev (LLVM 47afa53ea425e20, Swift 871a239941f3613)
+2.	Compiling with effective version 5.10
+3.	While evaluating request TypeCheckPrimaryFileRequest(source_file "/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwn7a7xwo/d9a4d3c6.swift")
+4.	While type-checking statement at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwn7a7xwo/d9a4d3c6.swift:1370:1 - line:1370:60] RangeText="let selfRecurse8 = SelfRecursiveLookup { \.[terminator: 0] "
+5.	While type-checking declaration 0x55d7217a20e8 (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwn7a7xwo/d9a4d3c6.swift:1370:1)
+6.	While evaluating request PatternBindingEntryRequest((unknown decl)@/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwn7a7xwo/d9a4d3c6.swift:1370:1, 0)
+7.	While type-checking expression at [/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwn7a7xwo/d9a4d3c6.swift:1370:20 - line:1370:60] RangeText="SelfRecursiveLookup { \.[terminator: 0] "
+8.	While type-checking-target starting at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpwn7a7xwo/d9a4d3c6.swift:1370:20
+9.	Assertion failed: (nodePtr->TypeVar == typeVar && "Use-after-free"), function operator[] at ConstraintGraph.cpp:89.
+| 	(to display assertion configuration options: -Xllvm -assert-help)
+ #0 0x000055d71a927bab llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c17bab)
+ #1 0x000055d71a9252e5 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c152e5)
+ #2 0x000055d71a9288c1 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007fbd18ff2330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007fbd1904bc0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007fbd18ff227e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007fbd18fd58ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000055d714d65622 (/usr/bin/swift-frontend+0x3055622)
+ #8 0x000055d714d655d7 (/usr/bin/swift-frontend+0x30555d7)
+ #9 0x000055d71409f54a swift::constraints::ConstraintGraph::removeConstraint(swift::TypeVariableType*, swift::constraints::Constraint*) (/usr/bin/swift-frontend+0x238f54a)
+#10 0x000055d714028f62 swift::constraints::SolverTrail::undo(unsigned int) (/usr/bin/swift-frontend+0x2318f62)
+#11 0x000055d71400a6b1 swift::constraints::ConstraintSystem::SolverScope::~SolverScope() (/usr/bin/swift-frontend+0x22fa6b1)
+#12 0x000055d71401b80c swift::constraints::DisjunctionStep::resume(bool) (/usr/bin/swift-frontend+0x230b80c)
+#13 0x000055d71400ab5a swift::constraints::ConstraintSystem::solveImpl(llvm::SmallVectorImpl<swift::constraints::Solution>&) (/usr/bin/swift-frontend+0x22fab5a)
+#14 0x000055d71400bd1d swift::constraints::ConstraintSystem::solve(llvm::SmallVectorImpl<swift::constraints::Solution>&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x22fbd1d)
+#15 0x000055d71400b91b swift::constraints::ConstraintSystem::solveImpl(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x22fb91b)
+#16 0x000055d71400b21d swift::constraints::ConstraintSystem::solve(swift::constraints::SyntacticElementTarget&, swift::FreeTypeVariableBinding) (/usr/bin/swift-frontend+0x22fb21d)
+#17 0x000055d7141d19e5 swift::TypeChecker::typeCheckTarget(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x24c19e5)
+#18 0x000055d7141d186d swift::TypeChecker::typeCheckExpression(swift::constraints::SyntacticElementTarget&, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>, swift::DiagnosticTransaction*) (/usr/bin/swift-frontend+0x24c186d)
+#19 0x000055d7141d36d5 swift::TypeChecker::typeCheckBinding(swift::Pattern*&, swift::Expr*&, swift::DeclContext*, swift::Type, swift::PatternBindingDecl*, unsigned int, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>) (/usr/bin/swift-frontend+0x24c36d5)
+#20 0x000055d7141d39ac swift::TypeChecker::typeCheckPatternBinding(swift::PatternBindingDecl*, unsigned int, swift::Type, swift::optionset::OptionSet<swift::TypeCheckExprFlags, unsigned int>) (/usr/bin/swift-frontend+0x24c39ac)
+#21 0x000055d7142efff9 swift::PatternBindingEntryRequest::evaluate(swift::Evaluator&, swift::PatternBindingDecl*, unsigned int) const (/usr/bin/swift-frontend+0x25dfff9)
+#22 0x000055d71495eed9 swift::PatternBindingEntryRequest::OutputType swift::Evaluator::getResultUncached<swift::PatternBindingEntryRequest, swift::PatternBindingEntryRequest::OutputType swift::evaluateOrDefault<swift::PatternBindingEntryRequest>(swift::Evaluator&, swift::PatternBindingEntryRequest, swift::PatternBindingEntryRequest::OutputType)::'lambda'()>(swift::PatternBindingEntryRequest const&, swift::PatternBindingEntryRequest::OutputType swift::evaluateOrDefault<swift::PatternBindingEntryRequest>(swift::Evaluator&, swift::PatternBindingEntryRequest, swift::PatternBindingEntryRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#23 0x000055d71491749d swift::PatternBindingDecl::getCheckedPatternBindingEntry(unsigned int) const (/usr/bin/swift-frontend+0x2c0749d)
+#24 0x000055d7142235bc (anonymous namespace)::DeclChecker::visit(swift::Decl*) TypeCheckDeclPrimary.cpp:0:0
+#25 0x000055d714223172 swift::TypeChecker::typeCheckDecl(swift::Decl*) (/usr/bin/swift-frontend+0x2513172)
+#26 0x000055d7142e34ac swift::ASTVisitor<(anonymous namespace)::StmtChecker, void, swift::Stmt*, void, void, void, void>::visit(swift::Stmt*) TypeCheckStmt.cpp:0:0
+#27 0x000055d7142e6a8c bool (anonymous namespace)::StmtChecker::typeCheckStmt<swift::BraceStmt>(swift::BraceStmt*&) TypeCheckStmt.cpp:0:0
+#28 0x000055d7142deaeb swift::TypeChecker::typeCheckTopLevelCodeDecl(swift::TopLevelCodeDecl*) (/usr/bin/swift-frontend+0x25ceaeb)
+#29 0x000055d71435fe3a swift::TypeCheckPrimaryFileRequest::evaluate(swift::Evaluator&, swift::SourceFile*) const (/usr/bin/swift-frontend+0x264fe3a)
+#30 0x000055d7143643a4 swift::TypeCheckPrimaryFileRequest::OutputType swift::Evaluator::getResultUncached<swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()>(swift::TypeCheckPrimaryFileRequest const&, swift::TypeCheckPrimaryFileRequest::OutputType swift::evaluateOrDefault<swift::TypeCheckPrimaryFileRequest>(swift::Evaluator&, swift::TypeCheckPrimaryFileRequest, swift::TypeCheckPrimaryFileRequest::OutputType)::'lambda'()) crtstuff.c:0:0
+#31 0x000055d71435fd45 swift::performTypeChecking(swift::SourceFile&) (/usr/bin/swift-frontend+0x264fd45)
+#32 0x000055d712b92639 bool llvm::function_ref<bool (swift::SourceFile&)>::callback_fn<swift::CompilerInstance::performSema()::$_0>(long, swift::SourceFile&) Frontend.cpp:0:0
+#33 0x000055d712b8635e swift::CompilerInstance::forEachFileToTypeCheck(llvm::function_ref<bool (swift::SourceFile&)>) (/usr/bin/swift-frontend+0xe7635e)
+#34 0x000055d712b860eb swift::CompilerInstance::performSema() (/usr/bin/swift-frontend+0xe760eb)
+#35 0x000055d712a0351e withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#36 0x000055d7129ef0cd performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#37 0x000055d7129ebfef swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xcdbfef)
+#38 0x000055d7126bb24b swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x9ab24b)
+#39 0x00007fbd18fd71ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#40 0x00007fbd18fd728b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#41 0x000055d7126ba2a5 _start (/usr/bin/swift-frontend+0x9aa2a5)
+
+*** Signal 6: Backtracing from 0x7fbd190d438d... done ***
+
+*** Program crashed: Aborted at 0x00007fbd190d438d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x00007fbd190d438d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x00007fbd190d438d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x000000000008c1ca  573898
+rdi 0x000000000008c1ca  573898
+rbp 0x000000000008c1ca  573898
+rsp 0x000055d72140d4e8  eb 88 92 1a d7 55 00 00 70 d7 40 21 d7 55 00 00  ë···×U··p×@!×U··
+ r8 0x000055d72140d770  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ·
+[... truncated ...]

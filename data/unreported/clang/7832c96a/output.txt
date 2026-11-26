@@ -1,0 +1,66 @@
+clang: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/Analysis/StackSafetyAnalysis.cpp:535: void {anonymous}::StackSafetyLocalAnalysis::analyzeAllUses(llvm::Value*, {anonymous}::UseInfo<llvm::GlobalValue>&, const llvm::StackLifetime&): Assertion `isa<Function>(Callee) || isa<GlobalAlias>(Callee)' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -emit-llvm -S -o /dev/null -O2 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -fsanitize=address -ffast-math -fno-elide-constructors /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkui13i2e/eb6b14b7.c
+1.	<eof> parser at end of file
+2.	Optimizer
+3.	Running pass "asan<use-after-scope>" on module "/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpkui13i2e/eb6b14b7.c"
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x000063395592a329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x0000633955926fec llvm::sys::RunSignalHandlers() + 76
+2  clang     0x00006339559278a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x0000633955869218
+4  libc.so.6 0x0000745a951e5520
+5  libc.so.6 0x0000745a952399bc pthread_kill + 300
+6  libc.so.6 0x0000745a951e5476 raise + 22
+7  libc.so.6 0x0000745a951cb7f3 abort + 211
+8  libc.so.6 0x0000745a951cb71b
+9  libc.so.6 0x0000745a951dce96
+10 clang     0x00006339549ed716
+11 clang     0x00006339549edbcf
+12 clang     0x00006339549ee49e llvm::StackSafetyInfo::getInfo() const + 190
+13 clang     0x00006339549f1697 llvm::StackSafetyGlobalInfo::getInfo() const + 263
+14 clang     0x00006339549f351d llvm::StackSafetyGlobalInfo::stackAccessIsSafe(llvm::Instruction const&) const + 13
+15 clang     0x00006339555847ae
+16 clang     0x000063395558484d
+17 clang     0x000063395558d3ef llvm::AddressSanitizerPass::run(llvm::Module&, llvm::AnalysisManager<llvm::Module>&) + 4383
+18 clang     0x0000633955d49966
+19 clang     0x00006339553664f6 llvm::PassManager<llvm::Module, llvm::AnalysisManager<llvm::Module>>::run(llvm::Module&, llvm::AnalysisManager<llvm::Module>&) + 934
+20 clang     0x0000633955d5d26e
+21 clang     0x0000633955d5f6fe
+22 clang     0x0000633955d622f3 clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::StringRef, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 483
+23 clang     0x00006339564513ca clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 1866
+24 clang     0x000063395812084c clang::ParseAST(clang::Sema&, bool, bool) + 1068
+25 clang     0x00006339567c1061 clang::FrontendAction::Execute() + 65
+26 clang     0x000063395674ae65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+27 clang     0x0000633956898de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+28 clang     0x00006339536f433e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+29 clang     0x00006339536ea13a
+30 clang     0x00006339536ea2cf
+31 clang     0x00006339564cfcfd
+32 clang     0x0000633955869630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+33 clang     0x00006339564d0b53
+34 clang     0x0000633956485607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+35 clang     0x0000633956489ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+36 clang     0x0000633956498004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+37 clang     0x00006339536ef923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+38 clang     0x000063395362b7f1 main + 113
+39 libc.so.6 0x0000745a951ccd90
+40 libc.so.6 0x0000745a951cce40 __libc_start_main + 128
+41 clang     0x00006339536e9765 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang: note: diagnostic msg: /tmp/eb6b14b7-546642.c
+clang: note: diagnostic msg: /tmp/eb6b14b7-546642.sh
+clang: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

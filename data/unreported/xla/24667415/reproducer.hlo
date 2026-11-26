@@ -1,0 +1,15 @@
+HloModule AllGatherWithSubgroups, replica_count=4
+
+ENTRY %AllGatherWithSubgroups {
+  %input = f32[128,32]{0,1} parameter(0)
+  %ag = f32[128,64]{0,1} all-gather(input), replica_groups={{0,1},{2,3}}, dimensions={1}
+  %input.1 = f8e4m3fn[2,1,378,128]{3,2,1,0} parameter(1)
+  %filter.1 = f8e4m3fn[128,1,5,128]{1,0,2,3} parameter(2)
+  %input_scale.1 = f32[] parameter(3)
+  %filter_scale.1 = f32[] parameter(4)
+  %z_scale.1 = f32[] parameter(5)
+  %cudnn-conv.3.0 = (f8e4m3fn[2,1,378,128]{3,2,1,0}, f32[], u8[0]{0}) custom-call(%input.1, %filter.1, %input_scale.1, %input, %z_scale.1), window={size=1x5 pad=0_0x2_2}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convForwardGraph", backend_config={"cudnn_conv_backend_config":{"conv_result_scale":1,"serialized_graph":"28:[f32]conv();30:[f32]scale(28);32:[f32]scale(30);16:[f8e4m3fn]scale(32);25:[f32]amax(32);"}}
+  %ffl.root = (f32[128,64]{0,1}, (f8e4m3fn[2,1,378,128]{3,2,1,0}, f32[], u8[0]{0})) tuple(%ag, %cudnn-conv.3.0)
+  %cudnn-conv.3.0.d = (f8e4m3fn[2,1,378,128]{3,2,1,0}, f32[], u8[0]{0}) custom-call(%input.1, %filter.1, %input_scale.1, %z_scale.1, %z_scale.1), window={size=1x5 pad=0_0x2_2}, dim_labels=b01f_o01i->b01f, custom_call_target="__cudnn$convForwardGraph", backend_config={"cudnn_conv_backend_config":{"conv_result_scale":1,"serialized_graph":"28:[f32]conv();30:[f32]scale(28);32:[f32]scale(30);16:[f8e4m3fn]scale(32);25:[f32]amax(32);"}}
+  ROOT %ffl.root.1 = (f32[128,64]{0,1}, (f8e4m3fn[2,1,378,128]{3,2,1,0}, f32[], u8[0]{0}), (f8e4m3fn[2,1,378,128]{3,2,1,0}, f32[], u8[0]{0})) tuple(%ag, %cudnn-conv.3.0, %cudnn-conv.3.0.d)
+}

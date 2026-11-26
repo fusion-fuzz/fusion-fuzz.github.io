@@ -1,0 +1,30 @@
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3010, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 2795, in main_app(int, char**)
+    return emit_llvm(opts.arg_file, lfortran_pass_manager,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 1155, in (anonymous namespace)::emit_llvm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::PassManager&, LCompilers::CompilerOptions&)
+    = fe.get_llvm(input, lm, pass_manager, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 372, in LCompilers::FortranEvaluator::get_llvm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&)
+    Result<std::unique_ptr<LLVMModule>> res = get_llvm2(code, lm, pass_manager, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 389, in LCompilers::FortranEvaluator::get_llvm2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::PassManager&, LCompilers::diag::Diagnostics&)
+    Result<ASR::TranslationUnit_t*> asr = get_asr2(code, lm, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 324, in LCompilers::FortranEvaluator::get_asr2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&)
+    res = get_ast2(code_orig, lm, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 281, in LCompilers::FortranEvaluator::get_ast2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&)
+    res = LFortran::parse(al, *code, diagnostics, compiler_options);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/parser/parser.cpp", line 290, in LCompilers::LFortran::parse(Allocator&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::diag::Diagnostics&, LCompilers::CompilerOptions const&)
+    if (!p.parse(s)) {
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/parser/parser.cpp", line 333, in LCompilers::LFortran::Parser::parse(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+    if (yyparse(*this) == 0) {
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc", line 22904, in yyparse(LCompilers::LFortran::Parser&)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc", line 22118, in yyglrReduce(yyGLRStack*, long, int, bool, LCompilers::LFortran::Parser&)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.tab.cc", line 22072, in yydoAction(yyGLRStack*, long, int, LCompilers::LFortran::YYSTYPE*, LCompilers::Location*, LCompilers::LFortran::Parser&)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/build/parser.yy", line 1851, in yyuserAction(int, int, yyGLRStackItem*, yyGLRStack*, long, LCompilers::LFortran::YYSTYPE*, LCompilers::Location*, LCompilers::LFortran::Parser&)
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/parser/semantics.h", line 1467, in LCompilers::LFortran::AST::ast_t* builtin1<LCompilers::LFortran::AST::ast_t* (*)(Allocator&, LCompilers::Location const&, long, LCompilers::LFortran::AST::expr_t**, unsigned long, LCompilers::LFortran::AST::keyword_t*, unsigned long, LCompilers::LFortran::AST::trivia_t*)>(Allocator&, LCompilers::Vec<LCompilers::LFortran::ArgStarKw> const&, LCompilers::Location&, LCompilers::LFortran::AST::ast_t* (*)(Allocator&, LCompilers::Location const&, long, LCompilers::LFortran::AST::expr_t**, unsigned long, LCompilers::LFortran::AST::keyword_t*, unsigned long, LCompilers::LFortran::AST::trivia_t*))
+    extract_args1(al, v, v2, args0);
+AssertFailed: item.kw.m_value != nullptr

@@ -1,0 +1,38 @@
+Running HLO module with runner HloRunner...
+... compiled and ran in 0.0927894s.
+Running HLO module with runner HloRunner...
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+F0000 00:00:1791807830.654595  815114 hlo_evaluator.h:710] Check failed: literal != nullptr could not find evaluated value for: %get-tuple-element.3 = s32[] get-tuple-element(%wide.stack.1), index=1
+*** Check failure stack trace: ***
+    @     0x60a5c66fa8a4  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x60a5c66fa826  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x60a5c52fbe93  xla::HloEvaluator::GetEvaluatedLiteralFor()
+    @     0x60a5c53004bb  xla::HloEvaluator::HandleGetDimensionSize()
+    @     0x60a5c60461be  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x60a5c6044ac7  xla::HloInstruction::Visit<>()
+    @     0x60a5c6043c90  xla::HloInstruction::Accept<>()
+    @     0x60a5bcdd8665  xla::HloComputation::Accept<>()
+    @     0x60a5c52fb1fb  xla::HloEvaluator::Evaluate()
+    @     0x60a5c5312a3a  xla::HloEvaluator::HandleWhile()
+    @     0x60a5c60465ba  xla::HloInstruction::Visit<>()::{lambda()#1}::operator()()
+    @     0x60a5c6044ac7  xla::HloInstruction::Visit<>()
+    @     0x60a5c6043c90  xla::HloInstruction::Accept<>()
+    @     0x60a5bcdd8665  xla::HloComputation::Accept<>()
+    @     0x60a5c52fb1fb  xla::HloEvaluator::Evaluate()
+    @     0x60a5c52fc382  xla::HloEvaluator::Evaluate()
+    @     0x60a5bce09c8b  xla::InterpreterLoadedExecutable::Evaluate()
+    @     0x60a5bce08914  xla::InterpreterLoadedExecutable::ExecuteSharded()
+    @     0x60a5c51f8184  xla::HloRunner::ExecuteWithDeviceBuffers()
+    @     0x60a5c51f9076  xla::HloRunner::ExecuteWithExecutable()
+    @     0x60a5c5201b50  xla::HloRunnerInterface::ExecuteWithExecutable()
+    @     0x60a5c51f7d7d  xla::HloRunner::Execute()
+    @     0x60a5c520182e  xla::HloRunnerInterface::Execute()
+    @     0x60a5bcde45e7  xla::(anonymous namespace)::ExecuteWithRunner()
+    @     0x60a5bcddf2f1  xla::(anonymous namespace)::RunAndCompareInternal()
+    @     0x60a5bcddce67  xla::RunAndCompare()
+    @     0x60a5bcde044e  xla::RunAndCompare()
+    @     0x60a5bcdda04f  main
+    @     0x7790a5971d90  (unknown)
+Aborted (core dumped)
+
+ ** Running /home/fuzz/WorkSpace/fusion-fuzz/.fused/xla/tmpd_xefxfq/a72f7534.hlo**

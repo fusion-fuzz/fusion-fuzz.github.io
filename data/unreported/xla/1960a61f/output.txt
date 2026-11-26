@@ -1,0 +1,32 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+W0000 00:00:1792000963.093387 3135013 sharding_propagation.cc:3202] GSPMD sharding propagation is going to be deprecated and not supported in the future. Please consider migrating to Shardy (https://openxla.org/shardy). For reference, Shardy is already the default partitioner in JAX.
+F0000 00:00:1792000963.093705 3135013 array.h:543] Check failed: new_num_elements == num_elements() (4 vs. 8) 
+*** Check failure stack trace: ***
+    @     0x5ea508da1a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5ea508da19e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5ea5008d04b5  xla::Array<>::Reshape()
+    @     0x5ea5088be6ef  xla::TileAssignment::Reshape()
+    @     0x5ea500b9d388  xla::hlo_sharding_util::TransposeShardingWithCollapsedDims()
+    @     0x5ea500b9c91c  xla::hlo_sharding_util::TransposeShardingWithCollapsedDims()
+    @     0x5ea500ba90d4  xla::hlo_sharding_util::InferDotOperandSharding()
+    @     0x5ea500ba94bc  xla::hlo_sharding_util::InferDotOperandSharding()
+    @     0x5ea5009f16fc  xla::ShardingPropagation::GetShardingFromUser()
+    @     0x5ea5009f92d8  xla::ShardingPropagation::InferShardingFromUsers()
+    @     0x5ea5009fb5b7  xla::ShardingPropagation::RunToFixPoint()
+    @     0x5ea500a00dc3  xla::ShardingPropagation::RunImpl()
+    @     0x5ea504e58be7  xla::HloPassInterface::Run()
+    @     0x5ea5009d63ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5ea5009d17bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5ea5009d0bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5ea504e58be7  xla::HloPassInterface::Run()
+    @     0x5ea4fd924fd2  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5ea4fd93206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5ea4fd866934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5ea4fd866e85  xla::CompiledOptProvider::GetExecutable()
+    @     0x5ea4fd866245  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5ea4fd858d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5ea508df2466  main
+    @     0x7565bafd4d90  (unknown)
+Aborted (core dumped)

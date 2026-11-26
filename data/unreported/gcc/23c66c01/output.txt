@@ -1,0 +1,17 @@
+during RTL pass: expand
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp074ohexe/5643d9eb.c: In function 'main':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp074ohexe/5643d9eb.c:30:1: internal compiler error: in expand_stack_alignment, at cfgexpand.cc:6920
+   30 | }
+      | ^
+0x2cdd1bb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xd038e4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x7e41cd expand_stack_alignment
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:6920
+0x7e41cd execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cfgexpand.cc:7435
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp074ohexe/5643d9eb.c -quiet -dumpbase 5643d9eb.c -dumpbase-ext .c -mtune=generic -march=x86-64 -O1 -O1 -Wno-psabi -std=gnu23 -fgraphite-identity -o /tmp/ccHSlJQZ.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

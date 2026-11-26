@@ -1,0 +1,84 @@
+[... 106 lines omitted ...]
+  835 |   int& ref; // expected-note{{reference member declared here}}
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:956:13: warning: address of stack memory associated with local variable 'x' returned [-Wreturn-stack-address]
+  956 |   return &*&x; // expected-warning {{Address of stack memory associated with local variable 'x' returned to caller}} expected-warning {{address of stack memory associated with local variable 'x' returned}}
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:961:16: warning: address of stack memory associated with local variable 'x' returned [-Wreturn-stack-address]
+  961 |   return (&(*(&x))); // expected-warning {{Address of stack memory associated with local variable 'x' returned to caller}} expected-warning {{address of stack memory associated with local variable 'x' returned}}
+      |                ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:966:14: warning: address of stack memory associated with local variable 'x' returned [-Wreturn-stack-address]
+  966 |   return &*(&x+1); // expected-warning {{Address of stack memory associated with local variable 'x' returned to caller}} expected-warning {{address of stack memory associated with local variable 'x' returned}}
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:971:14: warning: address of stack memory associated with local variable 'x' returned [-Wreturn-stack-address]
+  971 |   return &*(&x+1); // expected-warning {{Address of stack memory associated with local variable 'x' returned to caller}} expected-warning {{address of stack memory associated with local variable 'x' returned}}
+      |              ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:976:11: warning: address of stack memory associated with local variable 'a' returned [-Wreturn-stack-address]
+  976 |   return &a.x; // expected-warning {{Address of stack memory associated with local variable 'a' returned to caller}} expected-warning {{address of stack memory associated with local variable 'a' returned}}
+      |           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:981:10: warning: reference to stack memory associated with local variable 'a' returned [-Wreturn-stack-address]
+  981 |   return a.x; // expected-warning {{Address of stack memory associated with local variable 'a' returned to caller}} expected-warning {{reference to stack memory associated with local variable 'a' returned}}
+      |          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:1078:24: warning: address of stack memory associated with local variable 'x' returned [-Wreturn-stack-address]
+ 1078 |   return true ? arg : &x; // expected-warning {{address of stack memory associated with local variable 'x' returned}}
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:1085:19: warning: address of stack memory associated with local variable 'x' returned [-Wreturn-stack-address]
+ 1085 |   return false ? &x : arg; // expected-warning {{address of stack memory associated with local variable 'x' returned}}
+      |                   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:1090:21: warning: address of stack memory associated with local variable 'x' returned [-Wreturn-stack-address]
+ 1090 |   return b ? arg : &x; // expected-warning {{Address of stack memory associated with local variable 'x' returned to caller}} expected-warning {{address of stack memory associated with local variable 'x' returned}} -Wreturn-stack-address
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:1122:138: warning: multi-line // comment [-Wcomment]
+ 1122 |   [[clang::musttail]] return TakesIntAndPtr(0, &c); // expected-warning {{address of stack memory associated with local variable 'c' pass\
+      |                                                                                                                                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:1122:49: warning: address of stack memory associated with local variable 'c' passed to musttail function [-Wreturn-stack-address]
+ 1122 |   [[clang::musttail]] return TakesIntAndPtr(0, &c); // expected-warning {{address of stack memory associated with local variable 'c' pass\
+      |                                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:1126:138: warning: multi-line // comment [-Wcomment]
+ 1126 |   [[clang::musttail]] return TakesIntAndPtr(0, &a); // expected-warning {{address of stack memory associated with parameter 'a' passed to\
+      |                                                                                                                                          ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:1126:49: warning: address of stack memory associated with parameter 'a' passed to musttail function [-Wreturn-stack-address]
+ 1126 |   [[clang::musttail]] return TakesIntAndPtr(0, &a); // expected-warning {{address of stack memory associated with parameter 'a' passed to\
+      |                                                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:1134:21: warning: unknown attribute 'global_nat' ignored [-Wunknown-attributes]
+ 1134 | void __attribute__((global_nat)) foo(int a, ...) {
+      |                     ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp:835:8: warning: private field 'ref' is not used [-Wunused-private-field]
+  835 |   int& ref; // expected-note{{reference member declared here}}
+      |        ^
+TLS not implemented for this target.
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/lib/Target/X86/X86ISelLowering.cpp:20226!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -Oz -std=c++20 -fblocks -fno-inline -Wall -ffast-math -target x86_64-uefi -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp
+1.	<eof> parser at end of file
+2.	Code generation
+3.	Running pass 'Function Pass Manager' on module '/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp9vld888d/51e77db9.cpp'.
+4.	Running pass 'X86 DAG->DAG Instruction Selection' on function '@"?static_direct_pointer_top@leaking_via_direct_pointer@@YAXXZ"'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x0000585a12dbd66b __interceptor_backtrace + 91
+1  clang++   0x0000585a18a18027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x0000585a18a11cf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x0000585a18a169c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x0000585a18864cc5
+5  clang++   0x0000585a188654d3
+6  libc.so.6 0x00007a925ffd6520
+7  libc.so.6 0x00007a926002a9bc pthread_kill + 300
+8  libc.so.6 0x00007a925ffd6476 raise + 22
+9  libc.so.6 0x00007a925ffbc7f3 abort + 211
+10 clang++   0x0000585a188842e8 llvm::llvm_unreachable_internal(char const*, char const*, unsigned int) + 216
+11 clang++   0x0000585a132b839a
+12 clang++   0x0000585a13358bd8
+13 clang++   0x0000585a1c332eae
+14 clang++   0x0000585a1c3317c6 llvm::SelectionDAG::Legalize() + 1606
+15 clang++   0x0000585a1c631236 llvm::SelectionDAGISel::CodeGenAndEmitDAG() + 10854
+16 clang++   0x0000585a1c62e63b llvm::SelectionDAGISel::SelectBasicBlock(llvm::ilist_iterator_w_bits<llvm::ilist_detail::node_options<llvm::Instruction, true, false, void, true, llvm::BasicBlock>, false, true>, llvm::ilist_iterator_w_bits<llvm::ilist_detail::node_options<llvm::Instruction, true, false, void, true, llvm::BasicBlock>, false, true>, bool&) + 971
+17 clang++   0x0000585a1c62bc48 llvm::SelectionDAGISel::SelectAllBasicBlocks(llvm::Function const&) + 17096
+18 clang++   0x0000585a1c624067 llvm::SelectionDAGISel::runOnMachineFunction(llvm::MachineFunction&) + 2359
+19 clang++   0x0000585a1c61f123 llvm::SelectionDAGISelLegacy::runOnMachineFunction(llvm::MachineFunction&) + 835
+20 clang++   0x0000585a168b3c25 llvm::MachineFunctionPass::runOnFunction(llvm::Function&) + 1333
+21 clang++   0x0000585a17a43e1e llvm::FPPassManager::runOnFunction(llvm::Function&) + 2030
+22 clang++   0x0000585a17a59404 llvm::FPPassManager::runOnModule(llvm::Module&) + 276
+23 clang++   0x0000585a17a46263 llvm::legacy::PassManagerImpl::run(llvm::Module&) + 6291
+24 clang++   0x0000585a1b92652b llvm::runCodeGenPipeline(llvm::TargetMachine&, llvm::Module&, llvm::raw_pwrite_stream&, std::
+[... truncated ...]

@@ -1,0 +1,21 @@
+gcc-contract-condition-whitespace-only-line.cc:3:5: internal compiler error: in subspan, at file-cache.h:52
+    3 |   > 0);
+      |     ^
+0x3046dcb internal_error(char const*, ...)
+	gcc/diagnostic-global-context.cc:787
+0xdd9a1e fancy_abort(char const*, int, char const*)
+	gcc/diagnostics/context.cc:1813
+0xddca85 diagnostics::char_span::subspan(int, int) const
+	gcc/diagnostics/file-cache.h:52
+0xddca85 get_source_text_between(diagnostics::file_cache&, unsigned long, unsigned long)
+	gcc/input.cc:181
+0xe9226b build_comment
+	gcc/cp/contracts.cc:2061
+0xe9469e grok_contract(tree_node*, tree_node*, tree_node*, cp_expr, unsigned long)
+	gcc/cp/contracts.cc:2136
+0xff25d3 cp_parser_function_contract_specifier
+	gcc/cp/parser.cc:34112
+0xff25d3 cp_parser_function_contract_specifier_seq
+	gcc/cp/parser.cc:34156
+0xfed726 cp_parser_direct_declarator
+	gcc/cp/parser.cc:26926

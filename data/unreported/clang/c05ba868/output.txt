@@ -1,0 +1,69 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpd5bmv1at/4c032a86.c:7:8: warning: declaration of 'enum (unnamed at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpd5bmv1at/4c032a86.c:7:8)' will not be visible outside of this function [-Wvisibility]
+    7 | int f1(enum {AA,BB} E) {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpd5bmv1at/4c032a86.c:7:21: warning: unused parameter 'E' [-Wunused-parameter]
+    7 | int f1(enum {AA,BB} E) {
+      |                     ^
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang -S -o /dev/null -O3 -std=c99 -Wno-implicit-function-declaration -Wno-implicit-int -fblocks -fsanitize=undefined -Wextra -ffp-contract=fast -target x86_64-windows-msvc -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpd5bmv1at/4c032a86.c
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpd5bmv1at/4c032a86.c:13:1: current parser token 'int'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpd5bmv1at/4c032a86.c:7:5: LLVM IR generation of declaration 'f1'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpd5bmv1at/4c032a86.c:7:5: Generating code for declaration 'f1'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang     0x0000615c36405329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang     0x0000615c36401fec llvm::sys::RunSignalHandlers() + 76
+2  clang     0x0000615c364028a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang     0x0000615c36344218
+4  libc.so.6 0x000079462b57d520
+5  clang     0x0000615c39c42b8b clang::ASTContext::getDeclaratorForUnnamedTagDecl(clang::TagDecl const*) + 11
+6  clang     0x0000615c3a3f815d
+7  clang     0x0000615c3a3f8bd1
+8  clang     0x0000615c3a3fbc51
+9  clang     0x0000615c3a3fcd7f
+10 clang     0x0000615c3a3fda9d
+11 clang     0x0000615c3a3fbb0d
+12 clang     0x0000615c3a405118
+13 clang     0x0000615c36b043c1 clang::CodeGen::CodeGenFunction::getUBSanFunctionTypeHash(clang::QualType) const + 241
+14 clang     0x0000615c36b1624a clang::CodeGen::CodeGenFunction::StartFunction(clang::GlobalDecl, clang::QualType, llvm::Function*, clang::CodeGen::CGFunctionInfo const&, clang::CodeGen::FunctionArgList const&, clang::SourceLocation, clang::SourceLocation) + 14538
+15 clang     0x0000615c36b1b654 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 500
+16 clang     0x0000615c36b85ce8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 2152
+17 clang     0x0000615c36b7ef64 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 580
+18 clang     0x0000615c36b7fe60 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 3680
+19 clang     0x0000615c36b8b335
+20 clang     0x0000615c36f2eef1
+21 clang     0x0000615c36f1e0f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+22 clang     0x0000615c38bfb61c clang::ParseAST(clang::Sema&, bool, bool) + 508
+23 clang     0x0000615c3729c061 clang::FrontendAction::Execute() + 65
+24 clang     0x0000615c37225e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+25 clang     0x0000615c37373de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+26 clang     0x0000615c341cf33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+27 clang     0x0000615c341c513a
+28 clang     0x0000615c341c52cf
+29 clang     0x0000615c36faacfd
+30 clang     0x0000615c36344630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+31 clang     0x0000615c36fabb53
+32 clang     0x0000615c36f60607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+33 clang     0x0000615c36f64ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+34 clang     0x0000615c36f73004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+35 clang     0x0000615c341ca923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+36 clang     0x0000615c341067f1 main + 113
+37 libc.so.6 0x000079462b564d90
+38 libc.so.6 0x000079462b564e40 __libc_start_main + 128
+39 clang     0x0000615c341c4765 _start + 37
+clang: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-windows-msvc
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang: note: diagnostic msg: /tmp/4c032a86-9f9855.c
+clang: note: diagnostic msg: /tmp/4c032a86-9f9855.sh
+clang: note: diagnostic msg: 
+
+********************
+Segmentation fault (core dumped)

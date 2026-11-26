@@ -1,0 +1,34 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: ===
+
+W0000 00:00:1791993274.152263 2491001 sharding_propagation.cc:3202] GSPMD sharding propagation is going to be deprecated and not supported in the future. Please consider migrating to Shardy (https://openxla.org/shardy). For reference, Shardy is already the default partitioner in JAX.
+F0000 00:00:1791993274.152397 2491001 tile_assignment.cc:347] Check failed: num_elements() == Product(reshape_dims) (2 vs. 4) 
+*** Check failure stack trace: ***
+    @     0x5b0ec6111a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5b0ec61119e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5b0ec5c2ad0c  xla::IotaTileAssignment::IotaTileAssignment()
+    @     0x5b0ec5c2a60e  xla::IotaTileAssignment::Create()
+    @     0x5b0ec5c2affd  xla::IotaTileAssignment::Transpose()
+    @     0x5b0ec5c2e8f4  xla::TileAssignment::Transpose()
+    @     0x5b0ebdeff4aa  xla::hlo_sharding_util::TransposeSharding()
+    @     0x5b0ebdf0d25d  xla::hlo_sharding_util::TransposeShardingWithCollapsedDims()
+    @     0x5b0ebdf0c91c  xla::hlo_sharding_util::TransposeShardingWithCollapsedDims()
+    @     0x5b0ebdf190d4  xla::hlo_sharding_util::InferDotOperandSharding()
+    @     0x5b0ebdf194bc  xla::hlo_sharding_util::InferDotOperandSharding()
+    @     0x5b0ebdd616fc  xla::ShardingPropagation::GetShardingFromUser()
+    @     0x5b0ebdd692d8  xla::ShardingPropagation::InferShardingFromUsers()
+    @     0x5b0ebdd6b5b7  xla::ShardingPropagation::RunToFixPoint()
+    @     0x5b0ebdd70dc3  xla::ShardingPropagation::RunImpl()
+    @     0x5b0ec21c8be7  xla::HloPassInterface::Run()
+    @     0x5b0ebdd463ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5b0ebdd417bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5b0ebdd40bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5b0ec21c8be7  xla::HloPassInterface::Run()
+    @     0x5b0ebac94fd2  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5b0ebaca206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5b0ebabd6934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5b0ebabd6373  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5b0ebabc8d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5b0ec6162466  main
+    @     0x7c79c9dd4d90  (unknown)
+Aborted (core dumped)

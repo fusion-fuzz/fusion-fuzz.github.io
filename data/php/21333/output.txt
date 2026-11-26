@@ -1,0 +1,33 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==2165222==ERROR: AddressSanitizer: SEGV on unknown address 0x00000000812c (pc 0x0000033a035d bp 0x7ffed3dc8f50 sp 0x7ffed3dc8c60 T0)
+==2165222==The signal is caused by a READ memory access.
+    #0 0x33a035d in phar_archive_delref /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/ext/phar/phar.c:248:12
+    #1 0x335a9ea in zim_PharFileInfo___destruct /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/ext/phar/phar_object.c:4492:3
+    #2 0x58c31ac in zend_call_function /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/Zend/zend_execute_API.c:1019:4
+    #3 0x58c8c2e in zend_call_known_function /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/Zend/zend_execute_API.c:1100:23
+    #4 0x64de684 in zend_call_known_instance_method /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/Zend/zend_API.h:860:2
+    #5 0x64d6f1b in zend_call_known_instance_method_with_0_params /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/Zend/zend_API.h:866:2
+    #6 0x64d5570 in zend_objects_destroy_object /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/Zend/zend_objects.c:172:3
+    #7 0x3c9fe04 in spl_filesystem_object_destroy_object /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/ext/spl/spl_directory.c:109:2
+    #8 0x64cd65a in zend_objects_store_del /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/Zend/zend_objects_API.c:181:4
+    #9 0x65e4c67 in rc_dtor_func /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/Zend/zend_variables.c:57:2
+    #10 0x5fb9192 in zend_assign_to_variable /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/Zend/zend_execute.h:183:4
+    #11 0x5ff71ac in zend_fe_fetch_object_helper_SPEC /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/Zend/zend_vm_execute.h:3107:3
+    #12 0x5c2519e in ZEND_FE_FETCH_R_SPEC_TMP_HANDLER /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/Zend/zend_vm_execute.h:17724:3
+    #13 0x2968414 in zend_jit_trace_counter_helper /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/ext/opcache/jit/zend_jit_vm_helpers.c:495:3
+    #14 0x296970a in zend_jit_loop_trace_helper /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/ext/opcache/jit/zend_jit_vm_helpers.c:532:2
+    #15 0x59324eb in execute_ex /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/Zend/zend_vm_execute.h:110065:12
+    #16 0x5934a7c in zend_execute /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/Zend/zend_vm_execute.h:115483:2
+    #17 0x6640859 in zend_execute_script /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/Zend/zend.c:1979:3
+    #18 0x4e7b78a in php_execute_script_ex /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/main/main.c:2648:13
+    #19 0x4e7c8c8 in php_execute_script /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/main/main.c:2688:9
+    #20 0x665576a in do_cli /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/sapi/cli/php_cli.c:949:5
+    #21 0x664fb4f in main /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/sapi/cli/php_cli.c:1360:18
+    #22 0x7f8acb0e1d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #23 0x7f8acb0e1e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #24 0x606254 in _start (/home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/sapi/cli/php+0x606254)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /home/phpfuzz/WorkSpace/FusionFuzzLoop/projects/php/php-src/ext/phar/phar.c:248:12 in phar_archive_delref
+==2165222==ABORTING

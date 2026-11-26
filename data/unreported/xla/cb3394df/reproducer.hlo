@@ -1,0 +1,9 @@
+HloModule Test
+
+ENTRY %LargeLoop {
+  %C = bf16[] constant(0)
+  %B = bf16[80,7,8192,8192]{3,2,1,0} broadcast(C), dimensions={}
+  %x = f32[8,2048]{0,1} parameter(0)
+  %topk = (f32[8,24]{0,1}, s32[8,24]{0,1}) topk(%C), k=24, largest=true, is_stable=false
+  ROOT %ffl.root = (bf16[80,7,8192,8192]{3,2,1,0}, (f32[8,24]{0,1}, s32[8,24]{0,1})) tuple(%B, %topk)
+}

@@ -1,0 +1,79 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpzqobwabw/bea5dd39.cc:29:7: error: cannot derive from 'final' base 'C' in derived type 'A'
+   29 | class A : public C {
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpzqobwabw/bea5dd39.cc: In function 'int main()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpzqobwabw/bea5dd39.cc:48:11: error: no matching function for call to 'g<&B::f>()'
+   48 |   g<&B::f>(); // { dg-error "" }
+      |   ~~~~~~~~^~
+  • there is 1 candidate
+    • candidate 1: 'template<void (A::* <anonymous>)()> void g()'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpzqobwabw/bea5dd39.cc:42:6:
+         42 | void g() {}
+            |      ^
+      • template argument deduction/substitution failed:
+        • error: could not convert template argument '&B::f' from 'void (B::*)()' to 'void (A::*)()'
+          /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpzqobwabw/bea5dd39.cc:48:5:
+             48 |   g<&B::f>(); // { dg-error "" }
+                |     ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpzqobwabw/bea5dd39.cc:49:11: error: no matching function for call to 'h<&B::j>()'
+   49 |   h<&B::j>(); // { dg-error "" }
+      |   ~~~~~~~~^~
+  • there is 1 candidate
+    • candidate 1: 'template<int A::* <anonymous> > void h()'
+      /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpzqobwabw/bea5dd39.cc:44:6:
+         44 | void h() {}
+            |      ^
+      • template argument deduction/substitution failed:
+        • error: '&B::j' is not a valid template argument for type 'int A::*'
+          /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpzqobwabw/bea5dd39.cc:49:5:
+             49 |   h<&B::j>(); // { dg-error "" }
+                |     ^~~~~
+        • because it is a member of 'B'
+
+tree check: expected constructor, have record_type in dump_expr, at cp/error.cc:2968
+   52 |   g<(void (A::*)()) &B::f>(); // { dg-error "" "" { xfail { c++11 && { aarch64*-*-* arm*-*-* mips*-*-* loongarch*-*-* } } } }
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~^~
+0x306c5cb internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xa68714 tree_check_failed(tree_node const*, char const*, int, char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:9246
+0x80abdc tree_check(tree_node*, char const*, int, char const*, tree_code)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:3837
+0x80abdc dump_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/error.cc:2968
+0xf2b465 dump_template_argument_list
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/error.cc:455
+0xf26736 dump_decl
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/error.cc:1644
+0xf2eb70 decl_to_string
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/error.cc:3748
+0xf2eb70 cp_printer
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/error.cc:5078
+0x30dcf53 format_phase_2
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/pretty-print.cc:2303
+0x30dcf53 pretty_printer::format(text_info&)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/pretty-print.cc:1846
+0x3077233 pp_format(pretty_printer*, text_info*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/pretty-print.h:599
+0x3077233 diagnostics::context::report_diagnostic(diagnostics::diagnostic_info*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1530
+0x307794d diagnostics::context::diagnostic_impl(rich_location*, diagnostics::metadata const*, diagnostics::option_id, char const*, __va_list_tag (*) [1], diagnostics::kind)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1689
+0x306b9ad error_at(unsigned long, char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:655
+0xe14f8c print_error_for_call_failure
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:5237
+0xe2cd81 build_new_function_call(tree_node*, vec<tree_node*, va_gc, vl_embed>**, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/call.cc:5319
+0x10f1aa2 finish_call_expr(tree_node*, vec<tree_node*, va_gc, vl_embed>**, bool, bool, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/semantics.cc:3605
+0x100fa28 cp_parser_postfix_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:9281
+0x100c146 cp_parser_unary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:10799
+0xff191a cp_parser_cast_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:11714
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpzqobwabw/bea5dd39.cc -quiet -dumpbase bea5dd39.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O2 -std=c++26 -floop-nest-optimize -fdump-tree-original -o /tmp/ccUg2LYy.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

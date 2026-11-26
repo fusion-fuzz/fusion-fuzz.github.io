@@ -1,0 +1,31 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+F0000 00:00:1793141533.453182 2240371 index_util.h:97] Check failed: multi_index[i] < dims[i] (12 vs. 8) indexing beyond extent in dimension 0:
+	index: 12
+	shape: s32[8]
+*** Check failure stack trace: ***
+    @     0x606271a3ca24  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x606271a3c9a6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x606269b5f19e  xla::IndexUtil::MultidimensionalIndexToLinearIndex()
+    @     0x606266247c99  xla::LiteralBase::Piece::Get<>()
+    @     0x606271450c5b  xla::LiteralBase::GetIntegralAsS64()
+    @     0x606267f1afc1  xla::(anonymous namespace)::EvaluateOffset()
+    @     0x606267f1b232  xla::(anonymous namespace)::IsPerIdOffset()
+    @     0x606267f17c3a  xla::MatchWithDynamicSlice()
+    @     0x606267f18b0b  xla::AllGatherDynamicSliceCancellation()
+    @     0x6062664deac2  xla::AllGatherDynamicSliceSimplifier::InstructionMatchesPattern()
+    @     0x606269991947  xla::OpExpanderPass::RunImpl()
+    @     0x60626e370a01  xla::HloPassInterface::Run()
+    @     0x606269b49cdc  xla::HloPassPipeline::RunHelper()
+    @     0x606269b4a820  xla::HloPassPipeline::RunPassesInternal()
+    @     0x606269b4c7f5  xla::HloPassPipeline::RunImpl()
+    @     0x60626e370a01  xla::HloPassInterface::Run()
+    @     0x606266261bbb  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x60626626b1ab  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x60626619f744  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x60626619f183  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x606266191b38  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x606271a8d1d6  main
+    @     0x7a8144fd4d90  (unknown)
+Aborted (core dumped)

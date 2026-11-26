@@ -1,0 +1,80 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpf_m5ddi4/47c56962.cpp:38:22: error: out-of-line definition of 'ReqCacheHint' does not match any declaration in 'CBdVfsImpl_ffl'; did you mean 'ReqCacheHint_ffl'?
+   38 | BOOL CBdVfsImpl_ffl::ReqCacheHint( CMsgAgent_ffl* p_ma, CACHE_HINT hint, ... ) {
+      |                      ^~~~~~~~~~~~
+      |                      ReqCacheHint_ffl
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpf_m5ddi4/47c56962.cpp:35:8: note: 'ReqCacheHint_ffl' declared here
+   35 |   BOOL ReqCacheHint_ffl( CMsgAgent_ffl* p_ma, CACHE_HINT hint, ... );
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpf_m5ddi4/47c56962.cpp:62:13: error: ISO C++ forbids forward references to 'enum' types
+   62 | extern enum Values x;
+      |             ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaExprCXX.cpp:5050: clang::ExprResult clang::Sema::PerformImplicitConversion(clang::Expr*, clang::QualType, const clang::StandardConversionSequence&, clang::AssignmentAction, clang::CheckedConversionKind): Assertion `FromType->castAsEnumDecl()->isFixed() && SCS.Second == ICK_Integral_Promotion && "only enums with fixed underlying type can promote to bool"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O3 -std=c++20 -ffast-math -fsanitize=undefined /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpf_m5ddi4/47c56962.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpf_m5ddi4/47c56962.cpp:64:8: current parser token ')'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpf_m5ddi4/47c56962.cpp:63:12: parsing function body 'foo'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpf_m5ddi4/47c56962.cpp:63:12: in compound statement ('{}')
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055c165f084f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055c165f051bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055c165f05a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055c165e47e88
+4  libc.so.6 0x00007f60f5d56520
+5  libc.so.6 0x00007f60f5daa9bc pthread_kill + 300
+6  libc.so.6 0x00007f60f5d56476 raise + 22
+7  libc.so.6 0x00007f60f5d3c7f3 abort + 211
+8  libc.so.6 0x00007f60f5d3c71b
+9  libc.so.6 0x00007f60f5d4de96
+10 clang++   0x000055c168da0ed1 clang::Sema::PerformImplicitConversion(clang::Expr*, clang::QualType, clang::StandardConversionSequence const&, clang::AssignmentAction, clang::CheckedConversionKind) + 9409
+11 clang++   0x000055c168da14ca clang::Sema::PerformImplicitConversion(clang::Expr*, clang::QualType, clang::ImplicitConversionSequence const&, clang::AssignmentAction, clang::CheckedConversionKind) + 1242
+12 clang++   0x000055c1690a9bff clang::Sema::PerformContextuallyConvertToBool(clang::Expr*) + 255
+13 clang++   0x000055c168da2ce6 clang::Sema::CheckCXXBooleanCondition(clang::Expr*, bool) + 38
+14 clang++   0x000055c168ce5a00 clang::Sema::ActOnCondition(clang::Scope*, clang::SourceLocation, clang::Expr*, clang::Sema::ConditionKind, bool) + 208
+15 clang++   0x000055c16879643a clang::Parser::ParseCondition(clang::ActionResult<clang::Stmt*, true>*, clang::SourceLocation, clang::Sema::ConditionKind, bool, clang::Parser::ForRangeInfo*) + 1242
+16 clang++   0x000055c16880ce79 clang::Parser::ParseParenExprOrCondition(clang::ActionResult<clang::Stmt*, true>*, clang::Sema::ConditionResult&, clang::SourceLocation, clang::Sema::ConditionKind, clang::SourceLocation&, clang::SourceLocation&) + 217
+17 clang++   0x000055c16880e67e clang::Parser::ParseIfStatement(clang::SourceLocation*) + 1214
+18 clang++   0x000055c16880f4ef clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 1871
+19 clang++   0x000055c168810bfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+20 clang++   0x000055c168818b07 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+21 clang++   0x000055c16881935f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+22 clang++   0x000055c16870a72f clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) + 2559
+23 clang++   0x000055c168755324 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 5140
+24 clang++   0x000055c16870466c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 924
+25 clang++   0x000055c168704e4f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+26 clang++   0x000055c168710d06 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+27 clang++   0x000055c168711dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+28 clang++   0x000055c1686eecf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+29 clang++   0x000055c166bf6e51 clang::FrontendAction::Execute() + 65
+30 clang++   0x000055c166b80df5 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+31 clang++   0x000055c166ccec03 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+32 clang++   0x000055c164917d3e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7070
+33 clang++   0x000055c16490dada
+34 clang++   0x000055c16490dc6f
+35 clang++   0x000055c16690542d
+36 clang++   0x000055c165e482a0 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+37 clang++   0x000055c166906283
+38 clang++   0x000055c1668bad17 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+39 clang++   0x000055c1668bf600 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+40 clang++   0x000055c1668cd714 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+41 clang++   0x000055c164913383 clang_main(int, char**, llvm::ToolContext const&) + 7267
+42 clang++   0x000055c164863901 main + 113
+43 libc.so.6 0x00007f60f5d3dd90
+44 libc.so.6 0x00007f60f5d3de40 __libc_start_main + 128
+45 clang++   0x000055c16490d105 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 505bb64833c0b69270baacfb98c2f4429e98075f)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/47c56962-969322.cpp
+clang++: note: diagnostic msg: /tmp/47c56962-969322.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

@@ -1,0 +1,82 @@
+error[E0658]: use of an internal attribute
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpdwe1vjhf/ec3abfe4.rs:2:3
+  |
+2 | #[rustc_do_not_const_check]
+  |   ^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: add `#![feature(rustc_attrs)]` to the crate attributes to enable
+  = note: the `rustc_do_not_const_check` attribute is an internal implementation detail that will never be stable
+  = note: the `rustc_do_not_const_check` attribute skips const-check for this function's body
+
+error: the `rustc_do_not_const_check` attribute cannot be used on statics
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpdwe1vjhf/ec3abfe4.rs:2:3
+  |
+2 | #[rustc_do_not_const_check]
+  |   ^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: the `rustc_do_not_const_check` attribute can only be applied to functions
+
+error[E0764]: mutable borrows of temporaries that have their lifetime extended until the end of the program are not allowed
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpdwe1vjhf/ec3abfe4.rs:32:34
+   |
+32 | static OH_NO_b9c7459: &mut i32 = &mut 42; //~ ERROR mutable borrows of temporaries
+   |                                  ^^^^^^^ this mutable borrow refers to such a temporary
+   |
+   = note: temporaries in constants and statics can have their lifetime extended until the end of the program
+   = note: to avoid accidentally creating global mutable state, such temporaries must be immutable
+   = help: if you really want global mutable state, try replacing the temporary by an interior mutable `static` or a `static mut`
+
+error: internal compiler error: compiler/rustc_const_eval/src/interpret/intern.rs:350:13: the static const safety checks accepted a mutable pointer they should not have accepted
+ --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpdwe1vjhf/ec3abfe4.rs:6:1
+  |
+6 | static OH_NO: &mut i32 = &mut 42;
+  | ^^^^^^^^^^^^^^^^^^^^^^
+
+
+thread 'rustc' (1954016) panicked at compiler/rustc_const_eval/src/interpret/intern.rs:350:13:
+Box<dyn Any>
+stack backtrace:
+   0: std::panicking::begin_panic::<rustc_span::macros::ExplicitBug>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:751:5
+   1: std::panic::panic_any::<rustc_span::macros::ExplicitBug>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panic.rs:260:5
+   2: rustc_span::macros::bug_impl
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_span/src/macros.rs:62:9
+   3: rustc_const_eval::interpret::intern::intern_const_alloc_recursive::<rustc_const_eval::const_eval::machine::CompileTimeMachine>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/intern.rs:350:13
+   4: rustc_const_eval::const_eval::eval_queries::intern_and_validate::<rustc_middle::mir::interpret::allocation::ConstAllocation>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:155:25
+   5: rustc_const_eval::const_eval::eval_queries::eval_body_using_ecx::<rustc_middle::mir::interpret::allocation::ConstAllocation>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:129:5
+   6: rustc_const_eval::const_eval::eval_queries::eval_in_interpreter::<rustc_middle::mir::interpret::allocation::ConstAllocation>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:467:30
+   7: <rustc_middle::mir::interpret::error::InterpResult<&rustc_middle::mir::Body>>::and_then::<rustc_middle::mir::interpret::allocation::ConstAllocation, rustc_const_eval::const_eval::eval_queries::eval_in_interpreter<rustc_middle::mir::interpret::allocation::ConstAllocation>::{closure#0}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/interpret/error.rs:1079:54
+   8: <core::result::Result<&rustc_middle::mir::Body, rustc_middle::mir::interpret::error::InterpErrorInfo>>::and_then::<rustc_middle::mir::interpret::allocation::ConstAllocation, <rustc_middle::mir::interpret::error::InterpResult<&rustc_middle::mir::Body>>::and_then<rustc_middle::mir::interpret::allocation::ConstAllocation, rustc_const_eval::const_eval::eval_queries::eval_in_interpreter<rustc_middle::mir::interpret::allocation::ConstAllocation>::{closure#0}>::{closure#0}>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/result.rs:1492:22
+   9: <rustc_middle::mir::interpret::error::InterpResult<&rustc_middle::mir::Body>>::and_then::<rustc_middle::mir::interpret::allocation::ConstAllocation, rustc_const_eval::const_eval::eval_queries::eval_in_interpreter<rustc_middle::mir::interpret::allocation::ConstAllocation>::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/interpret/error.rs:1079:41
+  10: rustc_const_eval::const_eval::eval_queries::eval_in_interpreter::<rustc_middle::mir::interpret::allocation::ConstAllocation>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:467:14
+  11: rustc_const_eval::const_eval::eval_queries::eval_static_initializer_provider
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/const_eval/eval_queries.rs:386:5
+      [... omitted 13 frames ...]
+  12: rustc_middle::query::calls::query_ensure_ok::<rustc_middle::query::caches::DefIdCache<rustc_middle::query::erase::ErasedData<[u8; 16]>>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:170:13
+  13: <rustc_middle::query::calls::TyCtxtEnsureOk>::eval_static_initializer::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:304:21
+  14: rustc_hir_analysis::check_crate::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/lib.rs:170:33
+  15: <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners::<rustc_hir_analysis::check_crate::{closure#1}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/hir/map.rs:378:79
+  16: rustc_data_structures::sync::parallel::par_for_each_in::<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_hir_analysis::check_crate::{closure#1}>::{closure#0}>::{closure#0}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:179:46
+  17: rustc_data_structures::sync::parallel::par_slice::<&rustc_span::def_id::LocalDefId, rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_hir_analysis::check_crate::{closure#1}>::{closure#0}>::{closure#0}::{closure#0}>::{closure#1}::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:167:26
+  18: <core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_slice<&rustc_span::def_id::LocalDefId, rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_hir_analysis::check_crate::{closure#1}>::{closure#0}>::{closure#0}::{closure#0}>::{closure#1}::{closure#1}> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/core/src/panic/unwind_safe.rs:275:9
+  19: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_slice<&rustc_span::def_id::LocalDefId, rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_hir_analysis::check_crate::{closure#1}>::{closure#0}>::{closure#0}::{closure#0}>::{closure#1}::{closure#1}>, ()>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:576:43
+  20: std::panicking::catch_unwind::<(), core::panic::unwind_safe::AssertUnwindSafe<rustc_data_structures::sync::parallel::par_slice<&rustc_span::def_id::LocalDefId, rustc_data_structures::sync::parallel::par_for_each_in<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_hir_analysis::check_crate::{closure#1}>::{closure#0}>::{closure#0}::{closure#0}>::{closure#1}::{closure#1}>>
+             at /rustc/cbae9b4cae2b108f6a3d18cfe6075714bb739463/library/std/src/panicking.rs:
+[... truncated ...]

@@ -1,0 +1,28 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+=== Source Location Trace: === 
+
+W0000 00:00:1792610791.421698 1230984 sharding_propagation.cc:3202] GSPMD sharding propagation is going to be deprecated and not supported in the future. Please consider migrating to Shardy (https://openxla.org/shardy). For reference, Shardy is already the default partitioner in JAX.
+F0000 00:00:1792610791.421816 1230984 hlo_sharding_util.cc:3381] Check failed: lhs.IsTuple() == rhs.IsTuple() (0 vs. 1) {devices=[1,2]0,1} <> {{devices=[1,2]0,1}}
+*** Check failure stack trace: ***
+    @     0x5cf1b79a1a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5cf1b79a19e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5cf1af7a8383  xla::hlo_sharding_util::IsShardingStrictlyBetter()
+    @     0x5cf1af7a83e5  xla::hlo_sharding_util::ReturnImprovedShardingImpl()
+    @     0x5cf1af5eba84  xla::(anonymous namespace)::ReturnImprovedSharding()
+    @     0x5cf1af5ec326  xla::(anonymous namespace)::MaybeImproveInstructionSharding()
+    @     0x5cf1af5f967e  xla::ShardingPropagation::InferShardingFromUsers()
+    @     0x5cf1af5fb5b7  xla::ShardingPropagation::RunToFixPoint()
+    @     0x5cf1af600dc3  xla::ShardingPropagation::RunImpl()
+    @     0x5cf1b3a58be7  xla::HloPassInterface::Run()
+    @     0x5cf1af5d63ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5cf1af5d17bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5cf1af5d0bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5cf1b3a58be7  xla::HloPassInterface::Run()
+    @     0x5cf1ac524fd2  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5cf1ac53206b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5cf1ac466934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5cf1ac466373  xla::CompiledOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5cf1ac458d18  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5cf1b79f2466  main
+    @     0x75ebc05d4d90  (unknown)
+Aborted (core dumped)

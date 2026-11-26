@@ -1,0 +1,7 @@
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGExprConstant.cpp:1092: clang::CodeGen::ConstantAddress {anonymous}::tryEmitGlobalCompoundLiteral(clang::CodeGen::ConstantEmitter&, const clang::CompoundLiteralExpr*): Assertion `!E->isFileScope() && "file-scope compound literal did not have constant initializer!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O3 -std=c++20 /tmp/test.cpp
+1.	<eof> parser at end of file
+2.	/tmp/test.cpp:4:3: LLVM IR generation of declaration 'z2'
+3.	/tmp/test.cpp:4:3: Generating code for declaration 'z2'

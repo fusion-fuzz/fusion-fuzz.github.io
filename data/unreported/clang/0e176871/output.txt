@@ -1,0 +1,76 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:28:3: warning: ISO C++ does not allow an attribute list to appear here [-Wcxx-attribute-extension]
+   28 | [[clang::annotate("foo")]] using NS::x;
+      |   ^~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:32:3: warning: ISO C++ does not allow an attribute list to appear here [-Wcxx-attribute-extension]
+   32 | [[deprecated]] using NS::x;
+      |   ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:32:3: warning: 'deprecated' currently has no effect on a using declaration [-Wignored-attributes]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:34:15: warning: ISO C++ does not allow an attribute list to appear here [-Wcxx-attribute-extension]
+   34 | using NS::x [[deprecated]];
+      |               ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:34:15: warning: 'deprecated' currently has no effect on a using declaration [-Wignored-attributes]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:36:28: warning: 'deprecated' currently has no effect on a using declaration [-Wignored-attributes]
+   36 | using NS::x __attribute__((deprecated));
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:38:28: warning: 'availability' currently has no effect on a using declaration [-Wignored-attributes]
+   38 | using NS::x __attribute__((availability(macos,introduced=1)));
+      |                            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:41:10: warning: ISO C++ does not allow an attribute list to appear here [-Wcxx-attribute-extension]
+   41 | [[clang::availability(macos,introduced=1)]] using NS::x;
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:41:10: warning: 'clang::availability' currently has no effect on a using declaration [-Wignored-attributes]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:45:3: warning: ISO C++ does not allow an attribute list to appear here [-Wcxx-attribute-extension]
+   45 | [[clang::annotate("A")]] using NS::x [[clang::annotate("Y")]], NS::x [[clang::annotate("Z")]];
+      |   ^~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:45:40: warning: ISO C++ does not allow an attribute list to appear here [-Wcxx-attribute-extension]
+   45 | [[clang::annotate("A")]] using NS::x [[clang::annotate("Y")]], NS::x [[clang::annotate("Z")]];
+      |                                        ^~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:45:72: warning: ISO C++ does not allow an attribute list to appear here [-Wcxx-attribute-extension]
+   45 | [[clang::annotate("A")]] using NS::x [[clang::annotate("Y")]], NS::x [[clang::annotate("Z")]];
+      |                                                                        ^~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:48:5: warning: ISO C++ does not allow an attribute list to appear here [-Wcxx-attribute-extension]
+   48 |   [[deprecated]] using typename T::x; // expected-warning{{ISO C++ does not allow}} expected-warning {{'deprecated' currently has no effect on a using declaration}}
+      |     ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:48:5: warning: 'deprecated' currently has no effect on a using declaration [-Wignored-attributes]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:49:5: warning: ISO C++ does not allow an attribute list to appear here [-Wcxx-attribute-extension]
+   49 |   [[deprecated]] using T::y;          // expected-warning{{ISO C++ does not allow}} expected-warning {{'deprecated' currently has no effect on a using declaration}}
+      |     ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:49:5: warning: 'deprecated' currently has no effect on a using declaration [-Wignored-attributes]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:51:25: warning: ISO C++ does not allow an attribute list to appear here [-Wcxx-attribute-extension]
+   51 |   using typename T::z [[deprecated]]; // expected-warning{{ISO C++ does not allow}} expected-warning {{'deprecated' currently has no effect on a using declaration}}
+      |                         ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:51:25: warning: 'deprecated' currently has no effect on a using declaration [-Wignored-attributes]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:52:16: warning: ISO C++ does not allow an attribute list to appear here [-Wcxx-attribute-extension]
+   52 |   using T::a [[deprecated]];          // expected-warning{{ISO C++ does not allow}} expected-warning {{'deprecated' currently has no effect on a using declaration}}
+      |                ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:52:16: warning: 'deprecated' currently has no effect on a using declaration [-Wignored-attributes]
+not a direct base class
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaDeclCXX.cpp:13041!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Os -std=c++23 -fblocks -Wextra -g -ffp-contract=fast -target x86_64-unknown-linux-gnu -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:59:18: current parser token ';'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpwx50tscb/189149e5.cpp:58:1: parsing struct/union/class body 'DepBase1'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00006443c0fa5329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00006443c0fa1fec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00006443c0fa28a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00006443c0ee4218
+4  libc.so.6 0x0000738d061af520
+5  libc.so.6 0x0000738d062039bc pthread_kill + 300
+6  libc.so.6 0x0000738d061af476 raise + 22
+7  libc.so.6 0x0000738d061957f3 abort + 211
+8  clang++   0x00006443c0eef11e
+9  clang++   0x00006443c3c57b94 clang::Sema::BuildUsingShadowDecl(clang::Scope*, clang::BaseUsingDecl*, clang::NamedDecl*, clang::UsingShadowDecl*) + 1028
+10 clang++   0x00006443c3c9a2b7 clang::Sema::BuildUsingDeclaration(clang::Scope*, clang::AccessSpecifier, clang::SourceLocation, bool, clang::SourceLocation, clang::CXXScopeSpec&, clang::DeclarationNameInfo, clang::SourceLocation, clang::ParsedAttributesView const&, bool, bool) + 2711
+11 clang++   0x00006443c3c9ac9b clang::Sema::ActOnUsingDeclaration(clang::Scope*, clang::AccessSpecifier, clang::SourceLocation, clang::SourceLocation, clang::CXXScopeSpec&, clang::UnqualifiedId&, clang::SourceLocation, clang::ParsedAttributesView const&) + 875
+12 clang++   0x00006443c381e9d2 clang::Parser::ParseUsingDeclaration(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo const&, clang::SourceLocation, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 1682
+13 clang++   0x00006443c382131e clang::Parser::ParseCXXClassMemberDeclaration(clang::AccessSpecifier, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject*) + 5006
+14 clang++   0x00006443c3823060 clang::Parser::ParseCXXClassMemberDeclarationWithPragmas(clang::AccessSpecifier&, clang::ParsedAttributes&, clang::TypeSpecifierType, clang::Decl*) + 1296
+15 clang++   0x00006443c3823728 clang::Parser::ParseCXXMemberSpecification(clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributes&, unsigned int, clang::Decl*) + 1144
+16 clang++   0x00006443c382628c clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 8028
+17 clang++   0x00006443c37f54a5 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2821
+18 clang++   0x00006443c38d3069 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2361
+19 clang++   0x00006443c38df338
+20 clang++   0x000
+[... truncated ...]

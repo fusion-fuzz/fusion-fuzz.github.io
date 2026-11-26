@@ -1,0 +1,90 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk6g59ja8/2d19e6f5.cpp:50:36: error: expected expression
+   50 | static long ffl_fusion = (long)(F1);
+      |                                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk6g59ja8/2d19e6f5.cpp:59:1: error: declaration of anonymous struct must be a definition
+   59 | struct operator {
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk6g59ja8/2d19e6f5.cpp:59:1: warning: declaration does not declare anything [-Wmissing-declarations]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk6g59ja8/2d19e6f5.cpp:64:3: error: must use 'struct' tag to refer to type 'b' in this scope
+   64 |   b a;
+      |   ^
+      |   struct 
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk6g59ja8/2d19e6f5.cpp:19:3: note: struct 'b' is hidden by a non-type declaration of 'b' here
+   19 |   b = 1
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk6g59ja8/2d19e6f5.cpp:65:12: error: must use 'struct' tag to refer to type 'b' in this scope
+   65 |   operator b;
+      |            ^
+      |            struct 
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk6g59ja8/2d19e6f5.cpp:19:3: note: struct 'b' is hidden by a non-type declaration of 'b' here
+   19 |   b = 1
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk6g59ja8/2d19e6f5.cpp:65:3: error: 'operator b' cannot be the name of a variable or data member
+   65 |   operator b;
+      |   ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaAccess.cpp:1306: AccessResult HasAccess(clang::Sema&, const {anonymous}::EffectiveContext&, const clang::CXXRecordDecl*, clang::AccessSpecifier, const {anonymous}::AccessTarget&, clang::TemplateSpecCandidateSet*): Assertion `Access == AS_private || Access == AS_protected' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -S -o /dev/null -O2 -std=c++20 -fblocks -fno-strict-aliasing -fstrict-enums -g /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk6g59ja8/2d19e6f5.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk6g59ja8/2d19e6f5.cpp:67:16: current parser token ';'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpk6g59ja8/2d19e6f5.cpp:63:1: parsing struct/union/class body 'i'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000064b71bb12329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000064b71bb0efec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000064b71bb0f8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000064b71ba51218
+4  libc.so.6 0x00007a9883ad4520
+5  libc.so.6 0x00007a9883b289bc pthread_kill + 300
+6  libc.so.6 0x00007a9883ad4476 raise + 22
+7  libc.so.6 0x00007a9883aba7f3 abort + 211
+8  libc.so.6 0x00007a9883aba71b
+9  libc.so.6 0x00007a9883acbe96
+10 clang++   0x000064b71e516778
+11 clang++   0x000064b71e517776
+12 clang++   0x000064b71e5179b7
+13 clang++   0x000064b71e518a78
+14 clang++   0x000064b71e51d14d clang::Sema::HandleDelayedAccessCheck(clang::sema::DelayedDiagnostic&, clang::Decl*) + 861
+15 clang++   0x000064b71e78b120 clang::Sema::PopParsingDeclaration(clang::Sema::DelayedDiagnosticsState, clang::Decl*) + 480
+16 clang++   0x000064b71e38e842 clang::Parser::ParseCXXClassMemberDeclaration(clang::AccessSpecifier, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject*) + 6322
+17 clang++   0x000064b71e390060 clang::Parser::ParseCXXClassMemberDeclarationWithPragmas(clang::AccessSpecifier&, clang::ParsedAttributes&, clang::TypeSpecifierType, clang::Decl*) + 1296
+18 clang++   0x000064b71e390728 clang::Parser::ParseCXXMemberSpecification(clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributes&, unsigned int, clang::Decl*) + 1144
+19 clang++   0x000064b71e39328c clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 8028
+20 clang++   0x000064b71e3624a5 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2821
+21 clang++   0x000064b71e31dcd8 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 200
+22 clang++   0x000064b71e31e78f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 975
+23 clang++   0x000064b71e32a646 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 598
+24 clang++   0x000064b71e32b6ff clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+25 clang++   0x000064b71e308632 clang::ParseAST(clang::Sema&, bool, bool) + 530
+26 clang++   0x000064b71c9a9061 clang::FrontendAction::Execute() + 65
+27 clang++   0x000064b71c932e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+28 clang++   0x000064b71ca80de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+29 clang++   0x000064b7198dc33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+30 clang++   0x000064b7198d213a
+31 clang++   0x000064b7198d22cf
+32 clang++   0x000064b71c6b7cfd
+33 clang++   0x000064b71ba51630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+34 clang++   0x000064b71c6b8b53
+35 clang++   0x000064b71c66d607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+36 clang++   0x000064b71c671ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+37 clang++   0x000064b71c680004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+38 clang++   0x000064b7198d7923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+39 clang++   0x000064b7198137f1 main + 113
+40 libc.so.6 0x00007a9883abbd90
+41 libc.so.6 0x00007a9883abbe40 __libc_start_main + 128
+42 clang++   0x000064b7198d1765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/2d19e6f5-414111.cpp
+clang++: note: diagnostic msg: /tmp/2d19e6f5-414111.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

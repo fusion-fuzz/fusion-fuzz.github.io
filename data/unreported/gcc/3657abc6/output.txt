@@ -1,0 +1,72 @@
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:53:8: error: redefinition of 'struct A<N>'
+   53 | struct A {
+      |        ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:5:8: note: previous definition of 'struct A<N>'
+    5 | struct A {
+      |        ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:57:17: error: duplicate explicit instantiation of 'struct A<0>' [-fpermissive]
+   57 | template struct A<0>;
+      |                 ^~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:58:17: error: duplicate explicit instantiation of 'struct A<1>' [-fpermissive]
+   58 | template struct A<1>;
+      |                 ^~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:59:5: error: redefinition of 'int main()'
+   59 | int main() {
+      |     ^~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:12:5: note: 'int main()' previously defined here
+   12 | int main() {
+      |     ^~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:76:8: error: redefinition of 'struct B<N>'
+   76 | struct B {
+      |        ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:20:8: note: previous definition of 'struct B<N>'
+   20 | struct B {
+      |        ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:80:17: error: duplicate explicit instantiation of 'struct B<0>' [-fpermissive]
+   80 | template struct B<0>;
+      |                 ^~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:81:17: error: duplicate explicit instantiation of 'struct B<1>' [-fpermissive]
+   81 | template struct B<1>;
+      |                 ^~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc: In function 'int v2()':
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:94:4: error: no match for 'operator<' (operand types are 'x<0>' and 'int')
+   94 |   x<1> y;
+      |   ~^~
+      |   | |
+      |   | int
+      |   x<0>
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:94:8: error: 'y' was not declared in this scope
+   94 |   x<1> y;
+      |        ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc: At global scope:
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:99:8: error: 'template<int N> struct __builtin_abort' conflicts with a previous declaration
+   99 | struct __builtin_abort {
+      |        ^~~~~~~~~~~~~~~
+<built-in>: note: previous declaration 'void __builtin_abort()'
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:103:17: error: '__builtin_abort' is not a class template
+  103 | template struct __builtin_abort<0>;
+      |                 ^~~~~~~~~~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:103:17: error: explicit instantiation of non-template type '__builtin_abort'
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:104:17: error: '__builtin_abort' is not a class template
+  104 | template struct __builtin_abort<1>;
+      |                 ^~~~~~~~~~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:104:17: error: explicit instantiation of non-template type '__builtin_abort'
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc:16:8: internal compiler error: in instantiate_decl, at cp/pt.cc:29104
+   16 |   if (f(y, true) != 1) __builtin_abort();
+      |       ~^~~~~~~~~
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x86a01b instantiate_decl(tree_node*, bool, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:29104
+0x1232d3a instantiate_pending_templates(int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/pt.cc:29352
+0x1094a18 c_parse_final_cleanups()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/decl2.cc:5894
+0x1357358 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1455
+/home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -iprefix /home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../lib/gcc/x86_64-pc-linux-gnu/17.0.0/ -D_GNU_SOURCE /home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmp_e1bb8tz/597f92a0.cc -quiet -dumpbase 597f92a0.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Os -O2 -std=gnu++11 -fno-omit-frame-pointer -fno-tree-vectorize -fstrict-aliasing -fdump-tree-optimized -o /tmp/ccEkqBRM.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

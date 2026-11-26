@@ -1,0 +1,59 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjc2w87rf/b9e00ab8.mm:12:16: warning: 'objc_direct_members' attribute isn't implemented by this Objective-C runtime [-Wignored-attributes]
+   12 | __attribute__((objc_direct_members))
+      |                ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CGObjCGNU.cpp:3186: llvm::Constant* {anonymous}::CGObjCGNU::GenerateMethodList(llvm::StringRef, llvm::StringRef, llvm::ArrayRef<const clang::ObjCMethodDecl*>, bool): Assertion `FnPtr && "Can't generate metadata for method that doesn't exist"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -emit-llvm -S -o /dev/null -O2 -std=c++23 -fblocks -fobjc-runtime=gnustep-2.0 -fobjc-arc -Wall -target x86_64-unknown-linux-gnu -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjc2w87rf/b9e00ab8.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjc2w87rf/b9e00ab8.mm:46:1: current parser token '@'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpjc2w87rf/b9e00ab8.mm:9:8: LLVM IR generation of declaration
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005e4d90893329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005e4d9088ffec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005e4d908908a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005e4d907d2218
+4  libc.so.6 0x000072a8ae072520
+5  libc.so.6 0x000072a8ae0c69bc pthread_kill + 300
+6  libc.so.6 0x000072a8ae072476 raise + 22
+7  libc.so.6 0x000072a8ae0587f3 abort + 211
+8  libc.so.6 0x000072a8ae05871b
+9  libc.so.6 0x000072a8ae069e96
+10 clang++   0x00005e4d91341cdb
+11 clang++   0x00005e4d91351011
+12 clang++   0x00005e4d9101ad00 clang::CodeGen::CodeGenModule::EmitDeclContext(clang::DeclContext const*) + 144
+13 clang++   0x00005e4d913bcef1
+14 clang++   0x00005e4d913ac0f1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 209
+15 clang++   0x00005e4d9308961c clang::ParseAST(clang::Sema&, bool, bool) + 508
+16 clang++   0x00005e4d9172a061 clang::FrontendAction::Execute() + 65
+17 clang++   0x00005e4d916b3e65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+18 clang++   0x00005e4d91801de3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+19 clang++   0x00005e4d8e65d33e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+20 clang++   0x00005e4d8e65313a
+21 clang++   0x00005e4d8e6532cf
+22 clang++   0x00005e4d91438cfd
+23 clang++   0x00005e4d907d2630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+24 clang++   0x00005e4d91439b53
+25 clang++   0x00005e4d913ee607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+26 clang++   0x00005e4d913f2ef0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+27 clang++   0x00005e4d91401004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+28 clang++   0x00005e4d8e658923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+29 clang++   0x00005e4d8e5947f1 main + 113
+30 libc.so.6 0x000072a8ae059d90
+31 libc.so.6 0x000072a8ae059e40 __libc_start_main + 128
+32 clang++   0x00005e4d8e652765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/b9e00ab8-7e66de.mm
+clang++: note: diagnostic msg: /tmp/b9e00ab8-7e66de.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

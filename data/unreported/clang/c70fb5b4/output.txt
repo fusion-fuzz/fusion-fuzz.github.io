@@ -1,0 +1,70 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2ny6fgtg/fa12bbdb.cpp:22:16: error: cannot initialize a variable of type 'Exception *' (aka 'struct Exception *') with an rvalue of type 'void *'
+   22 |     Exception *e = malloc(sizeof(Exception));
+      |                ^   ~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2ny6fgtg/fa12bbdb.cpp:23:18: error: assigning to 'char *' from incompatible type 'void *'
+   23 |     e->message = malloc(strlen(msg) + 1);
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaTemplateInstantiateDecl.cpp:5434: clang::TypeSourceInfo* clang::TemplateDeclInstantiator::SubstFunctionType(clang::FunctionDecl*, llvm::SmallVectorImpl<clang::ParmVarDecl*>&): Assertion `OldTInfo && "substituting function without type source info"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -O0 -std=c++23 /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2ny6fgtg/fa12bbdb.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2ny6fgtg/fa12bbdb.cpp:72:35: at annotation token
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2ny6fgtg/fa12bbdb.cpp:65:20: parsing struct/union/class body 'S'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2ny6fgtg/fa12bbdb.cpp:72:14: parsing function body 'S::foo'
+4.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2ny6fgtg/fa12bbdb.cpp:72:14: in compound statement ('{}')
+5.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp2ny6fgtg/fa12bbdb.cpp:68:12: instantiating class definition 'B'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055c0ff01a4f9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x000055c0ff0171bc llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x000055c0ff017a78 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x000055c0fef59e88
+4  libc.so.6 0x00007f5bd2108520
+5  libc.so.6 0x00007f5bd215c9bc pthread_kill + 300
+6  libc.so.6 0x00007f5bd2108476 raise + 22
+7  libc.so.6 0x00007f5bd20ee7f3 abort + 211
+8  libc.so.6 0x00007f5bd20ee71b
+9  libc.so.6 0x00007f5bd20ffe96
+10 clang++   0x000055c102497c30 clang::TemplateDeclInstantiator::SubstFunctionType(clang::FunctionDecl*, llvm::SmallVectorImpl<clang::ParmVarDecl*>&) + 2096
+11 clang++   0x000055c10250072f clang::TemplateDeclInstantiator::VisitCXXMethodDecl(clang::CXXMethodDecl*, clang::TemplateParameterList*, clang::TemplateDeclInstantiator::RewriteKind) + 1039
+12 clang++   0x000055c10245a6de clang::Sema::InstantiateClassImpl(clang::SourceLocation, clang::CXXRecordDecl*, clang::CXXRecordDecl*, clang::MultiLevelTemplateArgumentList const&, clang::TemplateSpecializationKind, bool) + 1534
+13 clang++   0x000055c10245b4bf clang::Sema::InstantiateClass(clang::SourceLocation, clang::CXXRecordDecl*, clang::CXXRecordDecl*, clang::MultiLevelTemplateArgumentList const&, clang::TemplateSpecializationKind, bool) + 271
+14 clang++   0x000055c1024f2d5d clang::TemplateDeclInstantiator::VisitCXXRecordDecl(clang::CXXRecordDecl*) + 1565
+15 clang++   0x000055c102502228
+16 clang++   0x000055c103401fe5 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 69
+17 clang++   0x000055c10248e421 clang::Sema::SubstDecl(clang::Decl*, clang::DeclContext*, clang::MultiLevelTemplateArgumentList const&) + 225
+18 clang++   0x000055c1023e8264
+19 clang++   0x000055c102436051
+20 clang++   0x000055c102438566
+21 clang++   0x000055c10243a57d
+22 clang++   0x000055c10244f641
+23 clang++   0x000055c1024541f2
+24 clang++   0x000055c102454314
+25 clang++   0x000055c1024549e3 clang::Sema::SubstType(clang::QualType, clang::MultiLevelTemplateArgumentList const&, clang::SourceLocation, clang::DeclarationName, bool*) + 163
+26 clang++   0x000055c1022d17ae clang::Sema::CheckTemplateIdType(clang::ElaboratedTypeKeyword, clang::TemplateName, clang::SourceLocation, clang::TemplateArgumentListInfo&, clang::Scope*, bool) + 1742
+27 clang++   0x000055c1022d466b clang::Sema::ActOnTemplateIdType(clang::Scope*, clang::ElaboratedTypeKeyword, clang::SourceLocation, clang::CXXScopeSpec&, clang::SourceLocation, clang::OpaquePtr<clang::TemplateName>, clang::IdentifierInfo const*, clang::SourceLocation, clang::SourceLocation, llvm::MutableArrayRef<clang::ParsedTemplateArgument>, clang::SourceLocation, bool, bool, clang::ImplicitTypenameContext) + 283
+28 clang++   0x000055c101936a26 clang::Parser::AnnotateTemplateIdTokenAsType(clang::CXXScopeSpec&, clang::ImplicitTypenameContext, bool) + 310
+29 clang++   0x000055c10185d00e clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 12206
+30 clang++   0x000055c10185e199 clang::Parser::ParseSpecifierQualifierList(clang::DeclSpec&, clang::ImplicitTypenameContext, clang::AccessSpecifier, clang::Parser::DeclSpecContext) + 89
+31 clang++   0x000055c10185e6d9 clang::Parser::ParseTypeName(clang::SourceRange*, clang::DeclaratorContext, clang::AccessSpecifier, clang::Decl**, clang::ParsedAttributes*) + 521
+32 clang++   0x000055c101876953 clang::Parser::ParseAliasDeclarationAfterDeclarator(clang::Parser::ParsedTemplateInfo const&, clang::SourceLocation, clang::Parser::UsingDeclarator&, clang::SourceLocation&, clang::AccessSpecifier, clang::ParsedAttributes&, clang::Decl**) + 435
+33 clang++   0x000055c10188439a clang::Parser::ParseUsingDeclaration(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo const&, clang::SourceLocation, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2458
+34 clang++   0x000055c1018850f5 clang::Parser::ParseUsingDirectiveOrDeclaration(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo const&, clang::SourceLocation&, clang::ParsedAttributes&) + 1285
+35 clang++   0x000055c10186a371 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 897
+36 clang++   0x000055c1019222ec clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) + 5452
+37 clang++   0x000055c101922bfb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) + 363
+38 clang++   0x000055c10192ab07 clang::Parser::ParseCompoundStatementBody(bool) + 1655
+39 clang++   0x000055c10192b35f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) + 207
+40 clang++   0x000055c10183372c clang::Parser::ParseLexedMethodDef(clang::Parser::LexedMethod&) + 684
+41 clang++   0x000055c10183228d clang::Parser::ParseLexedMethodDefs(clang::Parser::ParsingClass&) + 125
+42 clang++   0x000055c101888f89 clang::Parser::ParseCXXMemberSpecification(clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributes&, unsigned int, clang::Decl*) + 1561
+43 clang++   0x000055c10188b94c clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 8028
+44 clang++   0x000055c10185ab65 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 2821
+45 clang++   0x000055c101938729 clang::Parser::ParseDeclarationAfterTemplate(clang::DeclaratorContext, clang::Parser::ParsedTemplateInfo&, clang::ParsingDeclRAIIObject&, clang::SourceLocation&, clang::ParsedAttributes&, clang::AccessSpecifier) + 2361
+46 clang++   0x000055c1019449f8
+47 clang++   0x000055c101944e1a clang::Parser::ParseDeclarationStartingWithTemplate(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&) + 250
+48 clang++   0x000055c10186a271 clang::Parser::ParseDeclaration(clang::DeclaratorContext, clang::SourceLocation&, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::SourceLocation*) + 641
+49 clang++   0x000055c101822d2e clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 638
+50 clang++   0x000055c101823dbf clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 575
+51 clang++   0x000055c101800cf2 clang::ParseAST(clang::Sema&, bool, bool) + 530
+52 clang++   0x000055c0ffd08e51 clan
+[... truncated ...]

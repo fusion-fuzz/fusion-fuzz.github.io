@@ -1,0 +1,121 @@
+[... 858 lines / 34,298 bytes of output truncated — no crash signature found; showing tail ...]
+
+error[E0277]: `dyn String` doesn't implement `Debug`
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6rqq1xsn/62e9c851.rs:61:5
+   |
+61 |     assert_eq!(fn_ptr(-1i8, 2u32, 3.5f64), "(-1, 2, 3.5)");
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Debug` is not implemented for `dyn String`
+   |
+help: the following other types implement trait `Debug`
+  --> library/core/src/any.rs:152:0
+   |
+   = note: `dyn Any`
+  ::: library/core/src/any.rs:162:0
+   |
+   = note: `dyn Any + Send`
+  ::: library/core/src/any.rs:169:0
+   |
+   = note: `dyn Any + Send + Sync`
+
+error[E0277]: the size for values of type `(dyn String + 'static)` cannot be known at compilation time
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6rqq1xsn/62e9c851.rs:22:11
+   |
+22 |         = generic as fn(#[rustc_splat] (u32, i8)) -> String;
+   |           ^^^^^^^ doesn't have a size known at compile-time
+   |
+   = help: the trait `Sized` is not implemented for `(dyn String + 'static)`
+   = note: the return type of a function must have a statically known size
+
+error[E0277]: the size for values of type `(dyn String + 'static)` cannot be known at compilation time
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6rqq1xsn/62e9c851.rs:27:11
+   |
+27 |         = generic::<(u32, i8)> as fn(#[rustc_splat] (u32, i8)) -> String;
+   |           ^^^^^^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+   |
+   = help: the trait `Sized` is not implemented for `(dyn String + 'static)`
+   = note: the return type of a function must have a statically known size
+
+error[E0277]: the size for values of type `(dyn String + 'static)` cannot be known at compilation time
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6rqq1xsn/62e9c851.rs:31:18
+   |
+31 |     let fn_ptr = generic as fn(#[rustc_splat] (u32, i8)) -> String;
+   |                  ^^^^^^^ doesn't have a size known at compile-time
+   |
+   = help: the trait `Sized` is not implemented for `(dyn String + 'static)`
+   = note: the return type of a function must have a statically known size
+
+error[E0277]: the size for values of type `(dyn String + 'static)` cannot be known at compilation time
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6rqq1xsn/62e9c851.rs:35:18
+   |
+35 |     let fn_ptr = generic::<(u32, i8)> as fn(#[rustc_splat] (u32, i8)) -> String;
+   |                  ^^^^^^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+   |
+   = help: the trait `Sized` is not implemented for `(dyn String + 'static)`
+   = note: the return type of a function must have a statically known size
+
+error[E0277]: the size for values of type `(dyn String + 'static)` cannot be known at compilation time
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6rqq1xsn/62e9c851.rs:39:58
+   |
+39 |     let fn_ptr: fn(#[rustc_splat] (u32, i8)) -> String = generic as _;
+   |                                                          ^^^^^^^ doesn't have a size known at compile-time
+   |
+   = help: the trait `Sized` is not implemented for `(dyn String + 'static)`
+   = note: the return type of a function must have a statically known size
+
+error[E0277]: the size for values of type `(dyn String + 'static)` cannot be known at compilation time
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6rqq1xsn/62e9c851.rs:43:58
+   |
+43 |     let fn_ptr: fn(#[rustc_splat] (u32, i8)) -> String = generic::<(u32, i8)> as _;
+   |                                                          ^^^^^^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+   |
+   = help: the trait `Sized` is not implemented for `(dyn String + 'static)`
+   = note: the return type of a function must have a statically known size
+
+error[E0277]: the size for values of type `(dyn String + 'static)` cannot be known at compilation time
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6rqq1xsn/62e9c851.rs:48:58
+   |
+48 |     let fn_ptr: fn(#[rustc_splat] (f64, i8)) -> String = generic::<(f64, i8)>;
+   |                                                          ^^^^^^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+   |
+   = help: the trait `Sized` is not implemented for `(dyn String + 'static)`
+   = note: the return type of a function must have a statically known size
+
+error[E0277]: the size for values of type `(dyn String + 'static)` cannot be known at compilation time
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6rqq1xsn/62e9c851.rs:54:18
+   |
+54 |     let fn_ptr = generic;
+   |                  ^^^^^^^ doesn't have a size known at compile-time
+   |
+   = help: the trait `Sized` is not implemented for `(dyn String + 'static)`
+   = note: the return type of a function must have a statically known size
+
+error[E0277]: the size for values of type `(dyn String + 'static)` cannot be known at compilation time
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6rqq1xsn/62e9c851.rs:55:16
+   |
+55 |     assert_eq!(fn_ptr(-1, 2, 3.5), "(-1, 2, 3.5)");
+   |                ^^^^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+   |
+   = help: the trait `Sized` is not implemented for `(dyn String + 'static)`
+   = note: the return type of a function must have a statically known size
+
+error[E0277]: the size for values of type `(dyn String + 'static)` cannot be known at compilation time
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6rqq1xsn/62e9c851.rs:56:16
+   |
+56 |     assert_eq!(fn_ptr(-1i8, 2u32, 3.5f64), "(-1, 2, 3.5)");
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+   |
+   = help: the trait `Sized` is not implemented for `(dyn String + 'static)`
+   = note: the return type of a function must have a statically known size
+
+error[E0277]: the size for values of type `(dyn String + 'static)` cannot be known at compilation time
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6rqq1xsn/62e9c851.rs:59:18
+   |
+59 |     let fn_ptr = generic::<(i8, u32, f64)>;
+   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+   |
+   = help: the trait `Sized` is not implemented for `(dyn String + 'static)`
+   = note: the return type of a function must have a statically known size
+
+error[E0277]: the size for values of type `(dyn String + 'static)` cannot be known at compilation time
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp6rqq1xsn/62e9c851.rs:60:16
+[... 181 more lines ...]

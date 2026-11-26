@@ -1,0 +1,18 @@
+HloModule pjit__unnamed_wrapped_function_, num_partitions=2
+
+ENTRY %entry {
+  %input = f32[2] constant({2., 4.})
+  %scale = f32[] constant(2.)
+  %scale_bcast = f32[2] broadcast(scale), dimensions={}
+  %input_scaled = f32[2] multiply(input, scale_bcast)
+  %all-to-all = f32[2] all-to-all(input_scaled), channel_id=1, replica_groups={{0,1}}, dimensions={0}
+  %a.d = c128[2] constant({(1, 2), (3, 4)})
+  %b.d = c128[2] constant({(5, 6), (7, 8)})
+  %lt.d = pred[2] compare(%a.d, %b.d), direction=LT
+  %convert = bf16[2] convert(all-to-all)
+  %a = c128[2] constant({(1, 2), (3, 4)})
+  %b = c128[2] constant({(5, 6), (7, 8)})
+  %lt = pred[2] compare(%a, %input), direction=LT
+  %ffl.root = (bf16[2], pred[2]) tuple(%convert, %lt)
+  ROOT %ffl.root.1 = (bf16[2], pred[2], pred[2]) tuple(%convert, %lt, %lt.d)
+}

@@ -1,0 +1,9 @@
+$ lfortran --cpp -c repro.F90 -o /dev/null
+==974591==ERROR: AddressSanitizer: unknown-crash on address 0x001800000203 ...
+READ of size 436207647 at 0x001800000203 thread T0
+    #0 in __interceptor_memcpy sanitizer_common_interceptors.inc:827
+    #1 in std::__cxx11::basic_string<char>::_M_mutate(...)
+    #2 in std::__cxx11::basic_string<char>::_M_append(char const*, unsigned long)
+    #3 in LCompilers::LFortran::function_like_macro_expansion(std::vector<std::string>&, std::string&, std::vector<std::string>&, std::vector<std::string>&) parser/preprocessor.re:958
+    #4 in LCompilers::LFortran::CPreprocessor::run(...) parser/preprocessor.re:751
+    #5 in LCompilers::FortranEvaluator::get_ast2(...) src/lfortran/fortran_evaluator.cpp:401

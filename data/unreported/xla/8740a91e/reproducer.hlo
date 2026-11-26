@@ -1,0 +1,41 @@
+HloModule m
+
+%primitive_computation__1.4 {
+  %parameter.5 = f32[] parameter(0)
+  %parameter.6 = f32[] parameter(1)
+  ROOT %add.7 = f32[] add(parameter.5, parameter.6)
+}
+
+%primitive_computation__1.4.d {
+  %parameter.5 = f32[] parameter(0)
+  %parameter.6 = f32[] parameter(1)
+  ROOT %add.7 = f32[] add(parameter.5, parameter.6)
+}
+
+%primitive_computation__1.4.d.1 {
+  %parameter.5 = f32[] parameter(0)
+  %parameter.6 = f32[] parameter(1)
+  ROOT %add.7 = f32[] add(parameter.5, parameter.6)
+}
+
+ENTRY %main {
+  %constant = bf16[] constant(0)
+  %broadcast = bf16[6,512]{1,0} broadcast(bf16[] %constant), dimensions={}
+  %exponential.11278 = bf16[6,512] exponential(%broadcast)
+  %parameter.11 = f32[2,64,64,53]{3,2,1,0} parameter(0)
+  %parameter.10 = f32[3,3,1,53]{3,2,1,0} parameter(1)
+  %convolution.12.d = f32[2,64,64,53]{3,2,1,0} convolution(%parameter.11, %parameter.10), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_01io->b01f, feature_group_count=53
+  %constant.13.d = f32[] constant(0)
+  %broadcast.14.d = f32[2,64,64,53]{3,2,1,0} broadcast(%constant.13.d), dimensions={}
+  %maximum.15.d = f32[2,64,64,53]{3,2,1,0} maximum(%convolution.12.d, %broadcast.14.d)
+  %reduce.17.d = f32[] reduce(%maximum.15.d, %constant.13.d), dimensions={0,1,2,3}, to_apply=%primitive_computation__1.4.d.1
+  %convolution.12 = f32[2,64,64,53]{3,2,1,0} convolution(%parameter.11, %parameter.10), window={size=3x3 pad=1_1x1_1}, dim_labels=b01f_01io->b01f, feature_group_count=53
+  %constant.13 = f32[] constant(0)
+  %broadcast.14 = f32[2,64,64,53]{3,2,1,0} broadcast(%constant), dimensions={}
+  %maximum.15 = f32[2,64,64,53]{3,2,1,0} maximum(%convolution.12, %broadcast.14)
+  %reduce.17 = f32[] reduce(%maximum.15, %constant.13), dimensions={0,1,2,3}, to_apply=%primitive_computation__1.4
+  %ffl.root = (bf16[6,512], f32[]) tuple(%exponential.11278, %reduce.17)
+  %ffl.call = f32[] call(%constant.13, %constant.13), to_apply=%primitive_computation__1.4.d
+  %ffl.root.1 = (bf16[6,512], f32[], f32[]) tuple(%exponential.11278, %reduce.17, %ffl.call)
+  ROOT %ffl.root.2 = (bf16[6,512], f32[], f32[], f32[]) tuple(%exponential.11278, %reduce.17, %ffl.call, %reduce.17.d)
+}

@@ -1,0 +1,56 @@
+<source>:4:3: error: cannot perform atomic operation on a pointer to type 'incompatible *__strong': type has non-trivial ownership
+    4 |   __sync_bool_compare_and_swap(&g, 0, o);
+      |   ^                            ~~
+<source>:4:3: error: cannot compile this l-value expression yet
+    4 |   __sync_bool_compare_and_swap(&g, 0, o);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Unexpected placeholder builtin type!
+UNREACHABLE executed at /root/llvm-project/llvm/tools/clang/lib/CodeGen/CodeGenTypes.cpp:602!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24 -cc1 -triple x86_64-unknown-linux-gnu -emit-obj -dumpdir /app/output.s- -disable-free -clear-ast-before-backend -main-file-name example.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -fno-verbose-asm -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debug-info-kind=constructor -dwarf-version=5 -debugger-tuning=gdb -fdebug-compilation-dir=/app -fcoverage-compilation-dir=/app -resource-dir /cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/lib/clang/24 -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0 -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0/x86_64-linux-gnu -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../include/c++/17.0.0/backward -internal-isystem /cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/lib/clang/24/include -internal-isystem /cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/../include/x86_64-unknown-linux-gnu -internal-isystem /usr/local/include -internal-isystem /opt/compiler-explorer/gcc-snapshot/lib/gcc/x86_64-linux-gnu/17.0.0/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fobjc-runtime=macosx-10.14 -fobjc-arc -fobjc-arc-cxxlib=libstdc++ -fobjc-arc-exceptions -fobjc-exceptions -fcxx-exceptions -fexceptions -fcolor-diagnostics -faddrsig -fdwarf2-cfi-asm -o /tmp/example-b88611.o -x objective-c++ <source>
+1.	<eof> parser at end of file
+2.	<source>:3:6: LLVM IR generation of declaration 'integer'
+3.	<source>:3:6: Generating code for declaration 'integer'
+ #0 0x00000000044aca88 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x44aca88)
+ #1 0x00000000044a9ce4 llvm::sys::RunSignalHandlers() (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x44a9ce4)
+ #2 0x00000000044a9e5e SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00000000044a9f08 SignalHandlerTerminate(int, siginfo_t*, void*) Signals.cpp:0:0
+ #4 0x00007c3d87245330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x00007c3d8729ec0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #6 0x00007c3d8724527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x00007c3d872288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x00000000043f0e2a (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x43f0e2a)
+ #9 0x0000000004c8f126 clang::CodeGen::CodeGenTypes::ConvertType(clang::QualType) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x4c8f126)
+#10 0x00000000049737d0 clang::CodeGen::CodeGenFunction::EmitUnsupportedLValue(clang::Expr const*, char const*) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x49737d0)
+#11 0x00000000049ad775 clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x49ad775)
+#12 0x00000000049ae267 void llvm::function_ref<void ()>::callback_fn<clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t)::'lambda'()>(long) CGExpr.cpp:0:0
+#13 0x0000000008945871 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x8945871)
+#14 0x0000000004973b1c clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x4973b1c)
+#15 0x00000000049a703e clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x49a703e)
+#16 0x0000000004b4337f clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x4b4337f)
+#17 0x0000000004b4b69b clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x4b4b69b)
+#18 0x0000000004bb4a26 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x4bb4a26)
+#19 0x0000000004bc90c4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x4bc90c4)
+#20 0x0000000004c3a8ea clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x4c3a8ea)
+#21 0x0000000004c33ae4 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x4c33ae4)
+#22 0x0000000004c34ab0 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x4c34ab0)
+#23 0x0000000004c41a39 clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) (.part.0) CodeGenModule.cpp:0:0
+#24 0x0000000004fc2ab9 (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl(clang::DeclGroupRef) ModuleBuilder.cpp:0:0
+#25 0x0000000004fb3a94 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x4fb3a94)
+#26 0x0000000006dfbda4 clang::ParseAST(clang::Sema&, bool, bool) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x6dfbda4)
+#27 0x0000000004fc0788 clang::CodeGenAction::ExecuteAction() (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x4fc0788)
+#28 0x00000000052e0e28 clang::FrontendAction::Execute() (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x52e0e28)
+#29 0x000000000526e92d clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x526e92d)
+#30 0x00000000053b564d clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0x53b564d)
+#31 0x0000000000d8f6fc cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0xd8f6fc)
+#32 0x0000000000d863fa ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#33 0x0000000000d8a80b clang_main(int, char**, llvm::ToolContext const&) (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0xd8a80b)
+#34 0x0000000000cc977a main (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0xcc977a)
+#35 0x00007c3d8722a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#36 0x00007c3d8722a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#37 0x0000000000d85da5 _start (/cefs/b1/b10b0de7961408078727cdec_clang-assertions-trunk-20260909/bin/clang-24+0xd85da5)
+clang++: error: unable to execute command: Aborted (core dumped)
+clang++: error: clang frontend command failed with exit code -2 (use -v to see invocation)
+Program terminated with signal SIGABRT (6)
+x86-64 clang (assertions trunk) - 983ms

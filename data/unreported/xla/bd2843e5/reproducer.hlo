@@ -1,0 +1,12 @@
+HloModule m
+
+ENTRY %e {
+  %p0 = f32[1000, 10] parameter(0)
+  %a0 = f32[1000, 10] exponential(p0)
+  %p0.d = f32[<=512] parameter(1)
+  %c = (f32[512], s32[]) custom-call(%p0.d), custom_call_target="PadToStatic"
+  %gte0 = f32[512] get-tuple-element(%c), index=0
+  %gte1 = s32[] parameter(2)
+  %c2 = f32[<=512] custom-call(%p0, %gte1), custom_call_target="SliceToDynamic"
+  ROOT %ffl.root = (f32[1000, 10], f32[<=512]) tuple(%a0, %c2)
+}

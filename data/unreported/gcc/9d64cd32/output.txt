@@ -1,0 +1,97 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:9:7: error: 'bar' was not declared in this scope
+    9 |   baz<bar> m_bars;
+      |       ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:9:7: error: 'bar' was not declared in this scope
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:9:7: error: 'bar' was not declared in this scope
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:9:7: error: 'bar' was not declared in this scope
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:9:7: error: 'bar' was not declared in this scope
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:9:7: error: 'bar' was not declared in this scope
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:9:7: error: 'bar' was not declared in this scope
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:9:7: error: 'bar' was not declared in this scope
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:9:7: error: 'bar' was not declared in this scope
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:9:3: error: 'baz' does not name a type
+    9 |   baz<bar> m_bars;
+      |   ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:18:8: error: expected identifier before 'false'
+   18 | struct false;
+      |        ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:18:8: error: expected unqualified-id before 'false'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:21:8: error: expected identifier before 'false'
+   21 | struct false {
+      |        ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:21:8: error: expected unqualified-id before 'false'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:25:1: error: expected unqualified-id before 'false'
+   25 | false a;
+      | ^~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc: In function 'consteval bool foo()':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:135:20:   in 'constexpr' expansion of 'foo()'
+  135 | static_assert (foo ());
+      |                ~~~~^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:56:32: error: 'std::meta::data_member_options' must be a cv-unqualified structural type that is not a reference type
+   56 |   auto dmsa = data_member_spec (^^int, a);
+      |               ~~~~~~~~~~~~~~~~~^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc: At global scope:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:135:20:   in 'constexpr' expansion of 'foo()'
+  135 | static_assert (foo ());
+      |                ~~~~^~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc:60:7: internal compiler error: tree check: expected reflect_expr, have error_mark in compare_reflections, at cp/reflect.cc:9133
+   59 |   if (dmsa
+      |       ~~~~
+   60 |       != data_member_spec (^^int,
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+   61 |                            { .name = "_",
+      |                            ~~~~~~~~~~~~~~
+   62 |                              .annotations = { reflect_constant (2),
+      |                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   63 |                                               ^^fourtytwo,
+      |                                               ~~~~~~~~~~~~
+   64 |                                               reflect_constant (1),
+      |                                               ~~~~~~~~~~~~~~~~~~~~~
+   65 |                                               ^^fourtytwoandhalf,
+      |                                               ~~~~~~~~~~~~~~~~~~~
+   66 |                                               reflect_constant (S { 1, 2 }) } }))
+      |                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+0x305a98b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xa69e5a tree_check_failed(tree_node const*, char const*, int, char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.cc:9247
+0x87ed6a tree_check(tree_node*, char const*, int, char const*, tree_code)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/tree.h:3837
+0x87ed6a compare_reflections(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/reflect.cc:9133
+0x10c6fea compare_reflections(tree_node*, tree_node*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/reflect.cc:9175
+0xe6f346 cxx_eval_binary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:5787
+0xe60ccf cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10585
+0xe6211f cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10296
+0xe706a4 cxx_eval_conditional_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:5876
+0xe64544 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10670
+0xe626c4 cxx_eval_statement_list
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:9293
+0xe626c4 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11064
+0xe62e3a cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10416
+0xe626c4 cxx_eval_statement_list
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:9293
+0xe626c4 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11064
+0xe61cd8 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11073
+0xe5e903 cxx_eval_call_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:5055
+0xe622a1 cxx_eval_constant_expression(constexpr_ctx const*, tree_node*, value_cat, bool*, bool*, tree_node**)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:10018
+0xe73cac cxx_eval_outermost_constant_expr
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:11677
+0xe7cc49 maybe_constant_value(tree_node*, tree_node*, mce_value)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/constexpr.cc:12086
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpptvri_3v/08035456.cc -quiet -dumpdir a- -dumpbase 08035456.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O2 -std=c++26 -fsyntax-only -freflection -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

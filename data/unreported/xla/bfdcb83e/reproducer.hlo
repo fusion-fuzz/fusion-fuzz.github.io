@@ -1,0 +1,39 @@
+HloModule m, num_partitions=4
+
+%add {
+  %param_0 = f32[] parameter(0)
+  %param_1 = f32[] parameter(1)
+  ROOT %t = f32[] add(param_0, param_1)
+}
+
+%add.d (lhs: f32[], rhs: f32[]) -> f32[] {
+  %lhs = f32[] parameter(0)
+  %rhs = f32[] parameter(1)
+  ROOT %sum = f32[] add(lhs, rhs)
+}
+
+%add.d.1 (lhs: f32[], rhs: f32[]) -> f32[] {
+  %lhs = f32[] parameter(0)
+  %rhs = f32[] parameter(1)
+  ROOT %sum = f32[] add(lhs, rhs)
+}
+
+%add.d.2 (lhs: f32[], rhs: f32[]) -> f32[] {
+  %lhs = f32[] parameter(0)
+  %rhs = f32[] parameter(1)
+  ROOT %sum = f32[] add(lhs, rhs)
+}
+
+ENTRY %entry_computation {
+  %p = f32[4096] parameter(0)
+  %_ = f32[1024] reduce-scatter(p), dimensions={0}, to_apply=add, use_global_device_ids=true, replica_groups={{0,1,2,3}}, channel_id=1
+  %input = f32[2,9] parameter(1), sharding={replicated metadata={op_name="a"}}
+  %indices = s32[3] parameter(2), sharding={devices=[2,2]0,1,2,3 last_tile_dim_replicate metadata={op_name="b"}}
+  %p2 = f32[3,9] parameter(3), sharding={replicated metadata={op_name="c"}}
+  %updates = f32[3,9] copy(%p2)
+  %scatter = f32[2,9] scatter(%p, %indices, %updates), to_apply=%add.d.2, update_window_dims={1}, inserted_window_dims={0}, scatter_dims_to_operand_dims={0}, index_vector_dim=1, sharding={replicated metadata={op_name="d"}}
+  %ffl.root = (f32[1024], f32[2,9]) tuple(%_, %scatter)
+  %updates.d = f32[3,9] copy(%updates)
+  %scatter.d = f32[2,9] scatter(%input, %indices, %updates.d), to_apply=%add.d.1, update_window_dims={1}, inserted_window_dims={0}, scatter_dims_to_operand_dims={0}, index_vector_dim=1, sharding={replicated metadata={op_name="d"}}
+  ROOT %ffl.root.1 = (f32[1024], f32[2,9], f32[2,9]) tuple(%_, %scatter, %scatter.d)
+}

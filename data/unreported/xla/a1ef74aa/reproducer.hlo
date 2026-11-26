@@ -1,0 +1,17 @@
+HloModule m
+
+%fused_computation {
+  %p0 = f32[1000, 1000] parameter(0)
+  %t = f32[1000, 1000]{0, 1} transpose(p0), dimensions={1, 0}
+  %a0 = f32[1000000] bitcast(t)
+  ROOT %log = f32[1000000] log(a0)
+}
+
+ENTRY %main {
+  %p0 = f32[1024]{0} parameter(0)
+  %p1 = f32[1024]{0} parameter(1)
+  %p0.d = f32[1000, 1000] parameter(2)
+  %fusion = f32[1000000] fusion(%p0.d), kind=kLoop, calls=%fused_computation
+  %custom-call = f32[1024]{0} custom-call(p0, p1), custom_call_target="my_custom_call", frontend_attributes={operands_memory_spaces="{0:1}"}
+  ROOT %ffl.root = (f32[1024]{0}, f32[1000000]) tuple(%custom-call, %fusion)
+}

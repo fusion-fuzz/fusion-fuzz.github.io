@@ -1,0 +1,24 @@
+<source>:1:8: internal compiler error: in tree_node, at cp/module.cc:10363
+    1 | export module M;
+      |        ^~~~~~
+0x2c69d98 diagnostics::context::diagnostic_impl(rich_location*, diagnostics::metadata const*, diagnostics::option_id, char const*, __va_list_tag (*) [1], diagnostics::kind)
+	???:0
+0x2c5e9db internal_error(char const*, ...)
+	???:0
+0xb9c512 fancy_abort(char const*, int, char const*)
+	???:0
+0xd4f43b depset::hash::find_dependencies(module_state*)
+	???:0
+0xd4fb61 module_state::write_begin(elf_out*, cpp_reader*, module_state_config&, unsigned int&)
+	???:0
+0xd516a4 finish_module_processing(cpp_reader*)
+	???:0
+0xcc6f80 c_parse_final_cleanups()
+	???:0
+0xf8b608 c_common_parse_file()
+	???:0
+/cefs/b2/b23b881c7b2b30ba33960fa9_gcc-trunk-20261023/bin/../libexec/gcc/x86_64-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -iprefix /cefs/b2/b23b881c7b2b30ba33960fa9_gcc-trunk-20261023/bin/../lib/gcc/x86_64-linux-gnu/17.0.0/ -D_GNU_SOURCE <source> -quiet -dumpdir /app/output.s- -dumpbase example.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -g -std=c++20 -fdiagnostics-color=always -fno-verbose-asm -fmodules -o /tmp/ccdkS11e.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.
+x86-64 gcc (trunk) - 876ms

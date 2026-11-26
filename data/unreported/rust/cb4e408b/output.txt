@@ -1,0 +1,99 @@
+[... 6 lines omitted ...]
+125 | struct UniversalCoords_b17d81f;
+    |        ^^^^^^^^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `UniversalCoordsB17d81f`
+
+warning: type `AbsWorldCoords_b17d81f` should have an upper camel case name
+   --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpy7w2x2xl/a862cf3d.rs:127:8
+    |
+127 | struct AbsWorldCoords_b17d81f(f64, f64, f64);
+    |        ^^^^^^^^^^^^^^^^^^^^^^ help: convert the identifier to upper camel case: `AbsWorldCoordsB17d81f`
+
+
+thread 'rustc' (2978406) panicked at compiler/rustc_middle/src/ty/sty.rs:1443:63:
+index out of bounds: the len is 0 but the index is 0
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/std/src/panicking.rs:679:5
+   1: core::panicking::panic_fmt
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panicking.rs:80:14
+   2: core::panicking::panic_bounds_check
+             at /rustc/f47d5bb13648d5c859f5b438eb7dc834b9729961/library/core/src/panicking.rs:271:5
+   3: <rustc_middle::ty::list::RawList<(), rustc_middle::ty::generic_args::GenericArg>>::type_at
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/generic_args.rs:539:9
+   4: <rustc_middle::ty::Ty>::maybe_pinned_ref
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/sty.rs:1443:63
+   5: <rustc_hir_typeck::coercion::Coerce>::maybe_to_pin_ref
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/coercion.rs:892:52
+   6: <rustc_hir_typeck::coercion::Coerce>::coerce::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/coercion.rs:299:46
+   7: <rustc_hir_typeck::coercion::Coerce>::coerce
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/coercion.rs:242:5
+   8: <rustc_hir_typeck::fn_ctxt::FnCtxt>::try_find_coercion_lub::{closure#2}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/coercion.rs:1444:55
+   9: <rustc_infer::infer::InferCtxt>::commit_if_ok::<rustc_infer::infer::InferOk<(alloc::vec::Vec<rustc_middle::ty::adjustment::Adjustment>, rustc_middle::ty::Ty)>, rustc_type_ir::error::TypeError<rustc_middle::ty::context::TyCtxt>, <rustc_hir_typeck::fn_ctxt::FnCtxt>::try_find_coercion_lub::{closure#2}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_infer/src/infer/snapshot/mod.rs:86:17
+  10: <rustc_hir_typeck::fn_ctxt::FnCtxt>::coerce
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/coercion.rs:1154:23
+  11: <rustc_hir_typeck::fn_ctxt::FnCtxt>::demand_coerce_diag
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/demand.rs:266:28
+  12: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_struct_fields
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:1958:29
+  13: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_struct
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:1842:14
+  14: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_kind
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:392:22
+  15: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_expectation_and_args
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:272:23
+  16: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_expectation
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:212:14
+  17: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_hint
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:167:14
+  18: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_coercible_to_type_or_error::<<rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_coercible_to_type::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:143:23
+  19: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_coercible_to_type
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:133:14
+  20: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_decl_initializer
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1168:18
+  21: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_decl
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1178:32
+  22: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_decl_local
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1223:23
+  23: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_stmt
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1247:22
+  24: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_block::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1317:22
+  25: <rustc_hir_typeck::fn_ctxt::FnCtxt>::with_breakable_ctxt::<<rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_block::{closure#0}, ()>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/_impl.rs:1617:22
+  26: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_block
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/fn_ctxt/checks.rs:1315:31
+  27: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_kind
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:368:46
+  28: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_expectation_and_args
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:272:23
+  29: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_expectation
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:212:14
+  30: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_expr_with_hint
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:167:14
+  31: <rustc_hir_typeck::fn_ctxt::FnCtxt>::check_return_or_body_tail
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/expr.rs:959:35
+  32: rustc_hir_typeck::check::check_fn
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/check.rs:129:9
+  33: rustc_hir_typeck::typeck_with_inspect::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/lib.rs:179:9
+  34: rustc_hir_typeck::typeck_with_inspect
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_typeck/src/lib.rs:110:1
+      [... omitted 13 frames ...]
+  35: rustc_middle::query::calls::query_ensure_ok::<rustc_data_structures::vec_cache::VecCache<rustc_span::def_id::LocalDefId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:170:13
+  36: <rustc_middle::query::calls::TyCtxtEnsureOk>::typeck_root::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/query_api.rs:302:21
+  37: <rustc_middle::query::calls::TyCtxtEnsureOk>::typeck::<rustc_span::def_id::LocalDefId>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/query/calls.rs:49:14
+  38: rustc_hir_analysis::check_crate::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_hir_analysis/src/lib.rs:195:29
+  39: <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners::<rustc_hir_analysis::check_crate::{closure#1}>::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/hir/map.rs:378:79
+  40: rustc_data_structures::sync::parallel::par_for_each_in::<&rustc_span::def_id::LocalDefId, &[rustc_span::def_id::LocalDefId], <rustc_middle::ty::context::TyCtxt>::par_hir_body_owners<rustc_hir_analysis::check_crate::{closure#1}>::{closure#0}>::{closure#0}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_data_structures/src/sync/parallel.rs:179:46
+  41: rustc_da
+[... truncated ...]

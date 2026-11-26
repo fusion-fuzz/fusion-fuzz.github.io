@@ -1,0 +1,94 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzu651hmm/ab6500d9.cpp:10:9: error: use of undeclared identifier 'g'
+   10 |     x = g() + 1; // expected-note {{previous implicit declaration}}
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzu651hmm/ab6500d9.cpp:11:7: error: use of undeclared identifier 'g'
+   11 |   p = g;
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzu651hmm/ab6500d9.cpp:13:27: error: use of undeclared identifier 'h'
+   13 |     extern void u(int (*)[h()]);
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzu651hmm/ab6500d9.cpp:14:22: error: use of undeclared identifier 'h'
+   14 |     int (*q)(void) = h;
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzu651hmm/ab6500d9.cpp:16:7: error: use of undeclared identifier 'h'
+   16 |   p = h; /* expected-error {{use of undeclared identifier 'h'}} */
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzu651hmm/ab6500d9.cpp:20:3: error: no template named '__impl_'; did you mean '__impl_of'?
+   20 |   __impl_;                              // expected-error {{no template named '__impl_'; did you mean '__impl_of'?}} \
+      |   ^~~~~~~
+      |   __impl_of
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzu651hmm/ab6500d9.cpp:3:20: note: '__impl_of' declared here
+    3 | template <class a> using __impl_of = a; // expected-note {{'__impl_of' declared here}} \
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzu651hmm/ab6500d9.cpp:20:3: error: cannot specify deduction guide for alias template '__impl_of'
+   20 |   __impl_;                              // expected-error {{no template named '__impl_'; did you mean '__impl_of'?}} \
+      |   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzu651hmm/ab6500d9.cpp:3:20: note: template is declared here
+    3 | template <class a> using __impl_of = a; // expected-note {{'__impl_of' declared here}} \
+      |                    ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzu651hmm/ab6500d9.cpp:60:66: error: expected '}'
+   60 | float g(void); /* expected-error {{conflicting types for 'g'}} */
+      |                                                                  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzu651hmm/ab6500d9.cpp:18:8: note: to match this '{'
+   18 | struct {                                // expected-error {{anonymous structs and classes must be class members}} \
+      |        ^
+Unknown builtin type!
+UNREACHABLE executed at /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/AST/ASTContext.cpp:2222!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -Oz -std=gnu++20 -fblocks -fno-elide-constructors -g /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzu651hmm/ab6500d9.cpp
+1.	<eof> parser at end of file
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzu651hmm/ab6500d9.cpp:18:1: parsing struct/union/class body '(unnamed struct at /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpzu651hmm/ab6500d9.cpp:18:1)'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005a094214a66b __interceptor_backtrace + 91
+1  clang++   0x00005a0947da5027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005a0947d9ecf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005a0947da39c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005a0947bf1cc5
+5  clang++   0x00005a0947bf24d3
+6  libc.so.6 0x00007491ba413520
+7  libc.so.6 0x00007491ba4679bc pthread_kill + 300
+8  libc.so.6 0x00007491ba413476 raise + 22
+9  libc.so.6 0x00007491ba3f97f3 abort + 211
+10 clang++   0x00005a0947c112e8 llvm::llvm_unreachable_internal(char const*, char const*, unsigned int) + 216
+11 clang++   0x00005a0950dd9780 clang::ASTContext::getTypeInfoImpl(clang::Type const*) const + 16576
+12 clang++   0x00005a0950ddc474 clang::ASTContext::getTypeInfo(clang::Type const*) const + 500
+13 clang++   0x00005a0950ddbf22 clang::ASTContext::getTypeInfoInChars(clang::Type const*) const + 738
+14 clang++   0x00005a0950ddbbc3 clang::ASTContext::getTypeInfoInChars(clang::QualType) const + 227
+15 clang++   0x00005a09522769d4
+16 clang++   0x00005a095226e93b
+17 clang++   0x00005a095225274b clang::ASTContext::getASTRecordLayout(clang::RecordDecl const*) const + 9963
+18 clang++   0x00005a0950dd7637 clang::ASTContext::getTypeInfoImpl(clang::Type const*) const + 8055
+19 clang++   0x00005a0950ddc474 clang::ASTContext::getTypeInfo(clang::Type const*) const + 500
+20 clang++   0x00005a0950de029a clang::ASTContext::getTypeAlignInChars(clang::QualType) const + 234
+21 clang++   0x00005a094e8daf8f clang::Sema::CheckArgAlignment(clang::SourceLocation, clang::NamedDecl*, llvm::StringRef, clang::QualType, clang::QualType) + 2127
+22 clang++   0x00005a094e8e64ed clang::Sema::CheckFunctionCall(clang::FunctionDecl*, clang::CallExpr*, clang::FunctionProtoType const*) + 1789
+23 clang++   0x00005a094fc1c974 clang::Sema::BuildCallToMemberFunction(clang::Scope*, clang::Expr*, clang::SourceLocation, llvm::MutableArrayRef<clang::Expr*>, clang::SourceLocation, clang::Expr*, bool, bool) + 15188
+24 clang++   0x00005a094e687435 clang::Sema::tryExprAsCall(clang::Expr&, clang::QualType&, clang::UnresolvedSetImpl&) + 2181
+25 clang++   0x00005a094e68870f clang::Sema::tryToRecoverWithCall(clang::ActionResult<clang::Expr*, true>&, clang::PartialDiagnostic const&, bool, bool (*)(clang::QualType)) + 1119
+26 clang++   0x00005a094f0606d0 clang::Sema::CheckPlaceholderExpr(clang::Expr*) + 4912
+27 clang++   0x00005a094f58bc1c clang::InitializationSequence::InitializeFrom(clang::Sema&, clang::InitializedEntity const&, clang::InitializationKind const&, llvm::MutableArrayRef<clang::Expr*>, bool, bool) + 1212
+28 clang++   0x00005a094eec9e5a clang::Sema::ConvertMemberDefaultInitExpression(clang::FieldDecl*, clang::InitializedEntity const&, clang::Expr*, clang::SourceLocation) + 1034
+29 clang++   0x00005a094eeca4ea clang::Sema::ActOnFinishCXXInClassMemberInitializer(clang::Decl*, clang::SourceLocation, clang::ActionResult<clang::Expr*, true>) + 1114
+30 clang++   0x00005a094e32d4f3 clang::Parser::ParseLexedMemberInitializer(clang::Parser::LateParsedMemberInitializer&) + 963
+31 clang++   0x00005a094e3293c9 clang::Parser::ParseLexedMemberInitializers(clang::Parser::ParsingClass&) + 617
+32 clang++   0x00005a094e3bbae2 clang::Parser::ParseCXXMemberSpecification(clang::SourceLocation, clang::SourceLocation, clang::ParsedAttributes&, unsigned int, clang::Decl*) + 6802
+33 clang++   0x00005a094e3b52f5 clang::Parser::ParseClassSpecifier(clang::tok::TokenKind, clang::SourceLocation, clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, bool, clang::Parser::DeclSpecContext, clang::ParsedAttributes&) + 14885
+34 clang++   0x00005a094e35bc65 clang::Parser::ParseDeclarationSpecifiers(clang::DeclSpec&, clang::Parser::ParsedTemplateInfo&, clang::AccessSpecifier, clang::Parser::DeclSpecContext, clang::LateParsedAttrList*, clang::ImplicitTypenameContext) + 5669
+35 clang++   0x00005a094e2f500e clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 574
+36 clang++   0x00005a094e2f44f1 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 529
+37 clang++   0x00005a094e2f23d3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 3907
+38 clang++   0x00005a094e2edfe5 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1765
+39 clang++   0x00005a094e2c6a7f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+40 clang++   0x00005a0949aea9bc clang::CodeGenAction::ExecuteAction() + 4124
+41 clang++   0x00005a094a1a52fe clang::FrontendAction::Execute() + 222
+42 clang++   0x00005a094a0375f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+43 clang++   0x00005a094a389989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+44 clang++   0x00005a09421e01a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+45 clang++   0x00005a09421d40f9
+46 clang++   0x00005a09421de637
+47 clang++   0x00005a0949c0e317
+48 clang++   0x00005a0947bf1a7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+49 clang++   0x00005a0949c0b81a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+50 clang++   0x00005a0949b5c29c clang::driver::Compilation::Ex
+[... truncated ...]

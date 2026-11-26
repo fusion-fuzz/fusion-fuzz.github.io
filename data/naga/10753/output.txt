@@ -1,0 +1,14 @@
+thread 'main' panicked at naga/src/back/hlsl/storage.rs:635:39:
+attempt to multiply with overflow
+stack backtrace:
+   2: core::panicking::panic_const::panic_const_mul_overflow
+   3: naga::back::hlsl::storage::<impl naga::back::hlsl::Writer<W>>::fill_access_chain
+             at naga/src/back/hlsl/storage.rs:635:39
+   4: naga::back::hlsl::writer::<impl naga::back::hlsl::Writer<W>>::write_stmt
+             at naga/src/back/hlsl/writer.rs:2350:43
+   5: naga::back::hlsl::writer::<impl naga::back::hlsl::Writer<W>>::write_function
+             at naga/src/back/hlsl/writer.rs:1894:18
+   6: naga::back::hlsl::writer::<impl naga::back::hlsl::Writer<W>>::write
+             at naga/src/back/hlsl/writer.rs:565:18
+   7: naga::write_output
+             at naga-cli/src/bin/naga.rs:999:20

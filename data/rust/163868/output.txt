@@ -1,0 +1,15 @@
+error[E0747]: type provided when a constant was expected
+ --> repro.rs:8:24
+  |
+8 | impl<const C: usize> S<C> {
+  |                        ^
+
+thread 'rustc' (662515) panicked at compiler/rustc_type_ir/src/binder.rs:819:9:
+expected const for `C/#0` (C/#0/0) but found Type(Self/#0) when instantiating args=[Self/#0, 1_usize, T/#1]
+
+query stack during panic:
+#0 [explicit_clauses_of] computing explicit predicates of `Trait::foo_self_4`
+#1 [clauses_of] computing clauses of `Trait::foo_self_4`
+#2 [check_well_formed] checking that `Trait::foo_self_4` is well-formed
+#3 [check_type_wf] checking that types are well-formed
+#4 [analysis] running analysis passes on crate `repro`

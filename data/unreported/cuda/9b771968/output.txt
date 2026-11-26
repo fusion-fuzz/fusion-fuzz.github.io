@@ -1,0 +1,62 @@
+In file included from <built-in>:1:
+In file included from /usr/lib/llvm-14/lib/clang/14.0.0/include/__clang_cuda_runtime_wrapper.h:209:
+/usr/local/cuda/include/crt/math_functions.hpp:2994:40: error: expected function body after function declarator
+__func__(double rsqrt(const double a)) _NV_RSQRT_SPECIFIER
+                                       ^
+In file included from <built-in>:1:
+In file included from /usr/lib/llvm-14/lib/clang/14.0.0/include/__clang_cuda_runtime_wrapper.h:365:
+/usr/lib/llvm-14/lib/clang/14.0.0/include/__clang_cuda_texture_intrinsics.h:696:13: error: no template named 'texture'
+            texture<__DataT, __TexT, cudaReadModeNormalizedFloat> __handle,
+            ^
+/usr/lib/llvm-14/lib/clang/14.0.0/include/__clang_cuda_texture_intrinsics.h:709:13: error: no template named 'texture'
+            texture<__DataT, __TexT, cudaReadModeElementType> __handle,
+            ^
+In file included from <built-in>:1:
+/usr/lib/llvm-14/lib/clang/14.0.0/include/__clang_cuda_runtime_wrapper.h:387:10: fatal error: 'texture_fetch_functions.h' file not found
+#include "texture_fetch_functions.h"
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace, preprocessed source, and associated run script.
+Stack dump:
+0.	Program arguments: /usr/bin/clang++ -x cuda --cuda-path=/usr/local/cuda --cuda-gpu-arch=sm_86 -Wno-unknown-cuda-version -Wno-everything -ferror-limit=5 -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/libcudacxx/include -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/thrust -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/cub -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/thrust/testing -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/libcudacxx/test/support -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cccl/c2h/include -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cuda-samples/Common -I/home/fuzz/WorkSpace/fusion-fuzz/projects/cuda/cuda-samples/_ffl_inc --cuda-device-only -emit-llvm -S -o /dev/null -O0 -std=c++17 -fno-inline /home/fuzz/WorkSpace/fusion-fuzz/.fused/cuda/tmpovjrg8od/ec34f5b5.cu
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/cuda/tmpovjrg8od/ec34f5b5.cu:63:73: current parser token ';'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+/lib/x86_64-linux-gnu/libLLVM-14.so.1(_ZN4llvm3sys15PrintStackTraceERNS_11raw_ostreamEi+0x31)[0x7f61468aad01]
+/lib/x86_64-linux-gnu/libLLVM-14.so.1(_ZN4llvm3sys17RunSignalHandlersEv+0xee)[0x7f61468a8a3e]
+/lib/x86_64-linux-gnu/libLLVM-14.so.1(_ZN4llvm3sys15CleanupOnSignalEm+0xfb)[0x7f61468aa0ab]
+/lib/x86_64-linux-gnu/libLLVM-14.so.1(+0xd6bdff)[0x7f61467d6dff]
+/lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7f614554f520]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang4Sema15BuildVectorTypeENS_8QualTypeEPNS_4ExprENS_14SourceLocationE+0x315)[0x7f614db78985]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(+0x184c03d)[0x7f614db8903d]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(+0x18462da)[0x7f614db832da]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang4Sema20GetTypeForDeclaratorERNS_10DeclaratorEPNS_5ScopeE+0x28e)[0x7f614db7b37e]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang4Sema16HandleDeclaratorEPNS_5ScopeERNS_10DeclaratorEN4llvm15MutableArrayRefIPNS_21TemplateParameterListEEE+0x441)[0x7f614d5b5941]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang4Sema15ActOnDeclaratorEPNS_5ScopeERNS_10DeclaratorE+0x15)[0x7f614d5b54a5]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser44ParseDeclarationAfterDeclaratorAndAttributesERNS_10DeclaratorERKNS0_18ParsedTemplateInfoEPNS0_12ForRangeInitE+0x94)[0x7f614cd5ba54]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser14ParseDeclGroupERNS_15ParsingDeclSpecENS_17DeclaratorContextEPNS_14SourceLocationEPNS0_12ForRangeInitE+0x38f)[0x7f614cd59e2f]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser22ParseSimpleDeclarationENS_17DeclaratorContextERNS_14SourceLocationERNS_25ParsedAttributesWithRangeEbPNS0_12ForRangeInitEPS2_+0x2e8)[0x7f614cd54c58]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser16ParseDeclarationENS_17DeclaratorContextERNS_14SourceLocationERNS_25ParsedAttributesWithRangeEPS2_+0x1b4)[0x7f614cd54614]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser24ParseExternalDeclarationERNS_25ParsedAttributesWithRangeEPNS_15ParsingDeclSpecE+0xc4)[0x7f614cdffc64]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6Parser17ParseTopLevelDeclERNS_9OpaquePtrINS_12DeclGroupRefEEEb+0x3ad)[0x7f614cdfeb0d]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang8ParseASTERNS_4SemaEbb+0x2fd)[0x7f614cd418dd]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang13CodeGenAction13ExecuteActionEv+0xb1)[0x7f614deb5b71]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang14FrontendAction7ExecuteEv+0x67)[0x7f614e851b57]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang16CompilerInstance13ExecuteActionERNS_14FrontendActionE+0x336)[0x7f614e7a93a6]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang25ExecuteCompilerInvocationEPNS_16CompilerInstanceE+0x29b)[0x7f614e8cb45b]
+/usr/bin/clang++(_Z8cc1_mainN4llvm8ArrayRefIPKcEES2_Pv+0x99b)[0x41328b]
+/usr/bin/clang++[0x4114bc]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(+0x20eaed2)[0x7f614e427ed2]
+/lib/x86_64-linux-gnu/libLLVM-14.so.1(_ZN4llvm20CrashRecoveryContext9RunSafelyENS_12function_refIFvvEEE+0xdd)[0x7f61467d6b6d]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZNK5clang6driver10CC1Command7ExecuteEN4llvm8ArrayRefINS2_8OptionalINS2_9StringRefEEEEEPNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPb+0x140)[0x7f614e4279c0]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZNK5clang6driver11Compilation14ExecuteCommandERKNS0_7CommandERPS3_+0x3f3)[0x7f614e3f2183]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZNK5clang6driver11Compilation11ExecuteJobsERKNS0_7JobListERN4llvm15SmallVectorImplISt4pairIiPKNS0_7CommandEEEE+0x8a)[0x7f614e3f240a]
+/lib/x86_64-linux-gnu/libclang-cpp.so.14(_ZN5clang6driver6Driver18ExecuteCompilationERNS0_11CompilationERN4llvm15SmallVectorImplISt4pairIiPKNS0_7CommandEEEE+0x1a7)[0x7f614e40c507]
+/usr/bin/clang++(main+0x2816)[0x410f26]
+/lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7f6145536d90]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7f6145536e40]
+/usr/bin/clang++(_start+0x25)[0x40e3b5]
+clang: error: clang frontend command failed with exit code 136 (use -v to see invocation)
+Ubuntu clang version 14.0.0-1ubuntu1.1
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
+clang: note: diagnostic msg: Error generating preprocessed source(s).

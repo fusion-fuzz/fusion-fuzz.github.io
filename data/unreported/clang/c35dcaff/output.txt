@@ -1,0 +1,51 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcs3k03vz/494ad26e.cpp:315:2: error: invalid preprocessing directive
+  315 | #omp_pteam_mem_alloc CRASH
+      |  ^
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -fsyntax-only -Oz -std=c++20 -fblocks -fsanitize=address /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcs3k03vz/494ad26e.cpp
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpcs3k03vz/494ad26e.cpp:316:23: at annotation token
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005f376efba66b __interceptor_backtrace + 91
+1  clang++   0x00005f3774c15027 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005f3774c0ecf3 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005f3774c139c4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005f3774a61cc5
+5  clang++   0x00005f3774a624d3
+6  libc.so.6 0x000079493f5bf520
+7  clang++   0x00005f377b1f1977 clang::Parser::ParseDirectDeclarator(clang::Declarator&) + 14999
+8  clang++   0x00005f377b1ebb50 clang::Parser::ParseDeclaratorInternal(clang::Declarator&, void (clang::Parser::*)(clang::Declarator&)) + 5728
+9  clang++   0x00005f377f872872 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 274
+10 clang++   0x00005f377b1a2d29 clang::Parser::ParseDeclarator(clang::Declarator&) + 297
+11 clang++   0x00005f377b1c11ab clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 1179
+12 clang++   0x00005f377b165680 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 2224
+13 clang++   0x00005f377b1644f1 clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 529
+14 clang++   0x00005f377b1623d3 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 3907
+15 clang++   0x00005f377b15dfe5 clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 1765
+16 clang++   0x00005f377b136a7f clang::ParseAST(clang::Sema&, bool, bool) + 2351
+17 clang++   0x00005f37770152fe clang::FrontendAction::Execute() + 222
+18 clang++   0x00005f3776ea75f0 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+19 clang++   0x00005f37771f9989 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 1513
+20 clang++   0x00005f376f0501a1 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4401
+21 clang++   0x00005f376f0440f9
+22 clang++   0x00005f376f04e637
+23 clang++   0x00005f3776a7e317
+24 clang++   0x00005f3774a61a7d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+25 clang++   0x00005f3776a7b81a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+26 clang++   0x00005f37769cc29c clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+27 clang++   0x00005f37769cda2b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+28 clang++   0x00005f3776a1d060 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+29 clang++   0x00005f376f042517 clang_main(int, char**, llvm::ToolContext const&) + 12295
+30 clang++   0x00005f376f071e27 main + 567
+31 libc.so.6 0x000079493f5a6d90
+32 libc.so.6 0x000079493f5a6e40 __libc_start_main + 128
+33 clang++   0x00005f376ef7eb35 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git e996ce0d9ad6443a7ea3f88ccb0a8e114b0e840e)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: error: unable to execute command: Segmentation fault (core dumped)
+clang++: note: diagnostic msg: Error generating preprocessed source(s).
+Illegal instruction (core dumped)

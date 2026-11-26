@@ -1,0 +1,77 @@
+[... 31 lines omitted ...]
+  %17 = struct_element_addr %16, #_StringObject._object // user: %18
+  %18 = load %17                                  // user: %19
+  strong_release %18                              // id: %19
+  %20 = ref_element_addr %0, #Person.file         // user: %21
+  %21 = struct_element_addr %20, #String._guts    // user: %22
+  %22 = struct_element_addr %21, #_StringGuts._object // user: %23
+  %23 = struct_element_addr %22, #_StringObject._object // user: %24
+  %24 = load %23                                  // user: %25
+  strong_release %24                              // id: %25
+  %26 = ref_element_addr %0, #Person.location     // user: %27
+  %27 = load %26                                  // user: %28
+  strong_release %27                              // id: %28
+  %29 = ref_element_addr %0, #Person.secondLocation // user: %30
+  %30 = load %29                                  // user: %31
+  release_value %30                               // id: %31
+  %32 = ref_element_addr %0, #Person._wrapped     // user: %33
+  %33 = struct_element_addr %32, #MyWrapper.wrappedValue // user: %34
+  %34 = struct_element_addr %33, #String._guts    // user: %35
+  %35 = struct_element_addr %34, #_StringGuts._object // user: %36
+  %36 = struct_element_addr %35, #_StringObject._object // user: %37
+  %37 = load %36                                  // user: %38
+  strong_release %37                              // id: %38
+  %39 = ref_element_addr %0, #Person.didSet       // user: %40
+  %40 = struct_element_addr %39, #String._guts    // user: %41
+  %41 = struct_element_addr %40, #_StringGuts._object // user: %42
+  %42 = struct_element_addr %41, #_StringObject._object // user: %43
+  %43 = load %42                                  // user: %44
+  strong_release %43                              // id: %44
+  %45 = unchecked_ref_cast %0 to $Builtin.NativeObject // user: %46
+  return %45                                      // id: %46
+} // end sil function '$s4main6PersonCfd'
+
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -emit-ir -Osize -sil-verify-all -enable-experimental-feature VariadicGenerics -enable-experimental-feature ThenStatements /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgzudqy0a/9fdb6169.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request IRGenRequest(IR Generation for module main)
+4.	While evaluating request ExecuteSILPipelineRequest(Run pipelines { IRGen Preparation } on SIL for main)
+5.	While running pass #3 SILModuleTransform "LoadableByAddress".
+6.	While verifying SIL function "@$s4main6PersonCfd".
+ for 'deinit' (at /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmpgzudqy0a/9fdb6169.swift:3:7)
+ #0 0x000056c93fb24658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x000056c93fb21e75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x000056c93fb25411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x00007d2146d32330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x00007d2146d8bc0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x00007d2146d3227e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x00007d2146d158ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x000056c9387aee65 (/usr/bin/swift-frontend+0x18d9e65)
+ #8 0x000056c9387c32f9 (anonymous namespace)::SILVerifierBase<(anonymous namespace)::SILVerifier>::visitLoadInst(swift::LoadInst*) SILVerifier.cpp:0:0
+ #9 0x000056c9387b7f0b (anonymous namespace)::SILVerifier::visitSILBasicBlock(swift::SILBasicBlock*) SILVerifier.cpp:0:0
+#10 0x000056c9387b1f2b swift::SILFunction::verify(swift::CalleeCache*, swift::DominanceInfo*, bool, bool, bool) const (/usr/bin/swift-frontend+0x18dcf2b)
+#11 0x000056c9387b6518 swift::SILModule::verify(swift::CalleeCache*, bool, bool) const (/usr/bin/swift-frontend+0x18e1518)
+#12 0x000056c938875cb7 swift::SILPassManager::runModulePass(unsigned int) (/usr/bin/swift-frontend+0x19a0cb7)
+#13 0x000056c9388784cb swift::SILPassManager::execute() (/usr/bin/swift-frontend+0x19a34cb)
+#14 0x000056c938871068 swift::SILPassManager::executePassPipelinePlan(swift::SILPassPipelinePlan const&) (/usr/bin/swift-frontend+0x199c068)
+#15 0x000056c93887101d swift::ExecuteSILPipelineRequest::evaluate(swift::Evaluator&, swift::SILPipelineExecutionDescriptor) const (/usr/bin/swift-frontend+0x199c01d)
+#16 0x000056c938898e6a swift::SimpleRequest<swift::ExecuteSILPipelineRequest, std::tuple<> (swift::SILPipelineExecutionDescriptor), (swift::RequestFlags)1>::evaluateRequest(swift::ExecuteSILPipelineRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#17 0x000056c93887fdfa swift::ExecuteSILPipelineRequest::OutputType swift::Evaluator::getResultUncached<swift::ExecuteSILPipelineRequest, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()>(swift::ExecuteSILPipelineRequest const&, swift::ExecuteSILPipelineRequest::OutputType swift::evaluateOrFatal<swift::ExecuteSILPipelineRequest>(swift::Evaluator&, swift::ExecuteSILPipelineRequest)::'lambda'()) crtstuff.c:0:0
+#18 0x000056c93887125f swift::executePassPipelinePlan(swift::SILModule*, swift::SILPassPipelinePlan const&, bool, swift::irgen::IRGenModule*) (/usr/bin/swift-frontend+0x199c25f)
+#19 0x000056c937bfda5c swift::IRGenRequest::evaluate(swift::Evaluator&, swift::IRGenDescriptor) const (/usr/bin/swift-frontend+0xd28a5c)
+#20 0x000056c937c74982 swift::GeneratedModule swift::SimpleRequest<swift::IRGenRequest, swift::GeneratedModule (swift::IRGenDescriptor), (swift::RequestFlags)17>::callDerived<0ul>(swift::Evaluator&, std::integer_sequence<unsigned long, 0ul>) const crtstuff.c:0:0
+#21 0x000056c937c74859 swift::SimpleRequest<swift::IRGenRequest, swift::GeneratedModule (swift::IRGenDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::IRGenRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#22 0x000056c93763b78c swift::IRGenRequest::OutputType swift::Evaluator::getResultUncached<swift::IRGenRequest, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()>(swift::IRGenRequest const&, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()) crtstuff.c:0:0
+#23 0x000056c937bfebef swift::performIRGeneration(swift::ModuleDecl*, swift::IRGenOptions const&, swift::TBDGenOptions const&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::StringRef, swift::PrimarySpecificPaths const&, std::shared_ptr<llvm::cas::ObjectStore>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::GlobalVariable**, swift::cas::SwiftCASOutputBackend*, std::optional<llvm::cas::ObjectRef>) (/usr/bin/swift-frontend+0xd29bef)
+#24 0x000056c937910a47 generateIR(swift::IRGenOptions const&, swift::TBDGenOptions const&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, swift::PrimarySpecificPaths const&, std::shared_ptr<llvm::cas::ObjectStore>, swift::cas::SwiftCASOutputBackend*, llvm::StringRef, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, llvm::GlobalVariable*&, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, std::optional<llvm::cas::ObjectRef>) FrontendTool.cpp:0:0
+#25 0x000056c93790939e performCompileStepsPostSILGen(swift::CompilerInstance&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, swift::PrimarySpecificPaths const&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>, llvm::ArrayRef<swift::PrimarySpecificPaths>) FrontendTool.cpp:0:0
+#26 0x000056c9379079d3 swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xa329d3)
+#27 0x000056c93792088a withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#28 0x000056c93790d595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#29 0x000056c93790a21e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#30 0x000056c937611b21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#31 0x00007d2146d171ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#32 0x00007d2146d1728b __lib
+[... truncated ...]

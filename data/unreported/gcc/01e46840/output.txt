@@ -1,0 +1,44 @@
+In file included from /home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmphclptmyp/d7e9bae4.cc:4:
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmphclptmyp/d7e9bae4.cc:9:8: warning: null character(s) preserved in literal
+    9 | # 10 ""'test test'"-fnon-call-exceptions --param early-inlining-insns=100 -O2" }
+      |        ^
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmphclptmyp/d7e9bae4.cc:9:8: error: invalid flag ''test' in line directive
+    9 | # 10 ""'test test'"-fnon-call-exceptions --param early-inlining-insns=100 -O2" }
+      |        ^~~~~~~~~~~
+/home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmphclptmyp/d7e9bae4.cc:9:19: warning: extra tokens at end of '##' directive
+    9 | # 10 ""'test test'"-fnon-call-exceptions --param early-inlining-insns=100 -O2" }
+      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from :43:
+<stdin>:14:1: internal compiler error: in linemap_add, at libcpp/line-map.cc:652
+0x32ced0b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xf7a9c4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x33b9ceb linemap_add(line_maps*, lc_reason, unsigned int, char const*, unsigned int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/line-map.cc:652
+0x33a1730 _cpp_do_file_change
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/directives.cc:1741
+0x33a1961 do_linemarker
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/directives.cc:1708
+0x33a06c8 _cpp_handle_directive
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/directives.cc:589
+0x33b79b8 _cpp_lex_token
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/lex.cc:3806
+0x33bff27 cpp_get_token_1
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/libcpp/macro.cc:3032
+0x134163a get_token
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-lex.cc:316
+0x134163a c_lex_with_flags(tree_node**, unsigned long*, unsigned char*, int)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-lex.cc:597
+0x11547c6 cp_lexer_get_preprocessor_token
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:1130
+0x11c3b5a cp_lexer_new_main
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:897
+0x11c3b5a c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:57897
+0x1357329 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1437
+/home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -iprefix /home/jyc/Desktop/fusion-fuzz/projects/gcc/gcc-install/bin/../lib/gcc/x86_64-pc-linux-gnu/17.0.0/ -D_GNU_SOURCE /home/jyc/Desktop/fusion-fuzz/.fused/gcc/tmphclptmyp/d7e9bae4.cc -quiet -dumpdir a- -dumpbase d7e9bae4.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -O1 -std=c++98 -fsyntax-only -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

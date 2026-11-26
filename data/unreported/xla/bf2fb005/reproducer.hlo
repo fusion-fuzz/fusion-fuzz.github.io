@@ -1,0 +1,19 @@
+HloModule TestModule
+
+%compare {
+  %lhs = f32[] parameter(0)
+  %lhs_scaled = f32[] multiply(%lhs, f32[] constant(2))
+  %rhs = f32[] parameter(1)
+  ROOT %lt = pred[] compare(%lhs_scaled, %rhs), direction=LT
+}
+
+ENTRY %main {
+  %input = f32[1000] parameter(0)
+  %sort = f32[1000] sort(%input), dimensions={0}, to_apply=%compare
+  %p0 = f32[] parameter(1)
+  %p1 = f32[] parameter(2)
+  %b0 = f32[4] broadcast(%p0), dimensions={}
+  %b1 = f32[4] broadcast(%p1), dimensions={}
+  %multiply = f32[4] multiply(%b1, %b0)
+  ROOT %ffl.root = (f32[1000], f32[4]) tuple(%sort, %multiply)
+}

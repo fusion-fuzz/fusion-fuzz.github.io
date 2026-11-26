@@ -1,0 +1,49 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpeafqh4uc/8beaa4de.c: In function 'f1':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpeafqh4uc/8beaa4de.c:27:5: error: implicit declaration of function 'typeof' [-Wimplicit-function-declaration]
+   27 |     typeof(b) *t;
+      |     ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpeafqh4uc/8beaa4de.c:27:5: internal compiler error: in c_set_type_bits, at c/c-typeck.cc:459
+0x2f4401b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe7df14 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x786711 c_set_type_bits
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-typeck.cc:459
+0xecee0b build_unary_op(unsigned long, tree_code, tree_node*, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-typeck.cc:6353
+0xedcfdc function_to_pointer_conversion
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-typeck.cc:2377
+0xedd06e default_function_array_conversion(unsigned long, c_expr)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-typeck.cc:2531
+0xedf25e convert_lvalue_to_rvalue(unsigned long, c_expr, bool, bool, bool)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-typeck.cc:2672
+0xf1535a c_parser_expr_list
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:14458
+0xf1612c c_parser_postfix_expression_after_primary
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:14142
+0xefe01f c_parser_postfix_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:13737
+0xf0c932 c_parser_unary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:10856
+0xf0eb88 c_parser_cast_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:10656
+0xf0eea3 c_parser_binary_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:10420
+0xf10469 c_parser_conditional_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:10110
+0xf10d16 c_parser_expr_no_commas
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:10023
+0xf111c7 c_parser_expression
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:14329
+0xf11a3f c_parser_expression_conv
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:14388
+0xf38447 c_parser_statement_after_labels
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:8558
+0xf37df3 c_parser_compound_statement_nostart
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:7958
+0xf38068 c_parser_compound_statement
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c/c-parser.cc:7172
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpeafqh4uc/8beaa4de.c -quiet -dumpbase 8beaa4de.c -dumpbase-ext .c -mtune=generic -march=x86-64 -g -O3 -O2 -std=c11 -finline-functions -fdump-tree-optimized -o /dev/null
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

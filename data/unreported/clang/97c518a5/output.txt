@@ -1,0 +1,47 @@
+/fusion-fuzz/.fused/clang/tmpv9npheo0/cca099b9.cpp:2:10: fatal error: 'Inputs/pch-through1.h' file not found
+    2 | #include "Inputs/pch-through1.h"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace, preprocessed source, and associated run script.
+Stack dump:
+0.	Program arguments: /opt/clang-coverage/bin/clang++ -emit-llvm -S -o /dev/null -O3 -std=c++20 -funroll-loops /fusion-fuzz/.fused/clang/tmpv9npheo0/cca099b9.cpp
+1.	/fusion-fuzz/.fused/clang/tmpv9npheo0/cca099b9.cpp:5:23: at annotation token
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x000055a3402b3470 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 64
+1  clang++   0x000055a3402afa62 llvm::sys::RunSignalHandlers() + 210
+2  clang++   0x000055a3401bc664
+3  clang++   0x000055a3401bc90b
+4  libc.so.6 0x00007f8a33b65330
+5  clang++   0x000055a343d14c00 clang::Parser::ParseDirectDeclarator(clang::Declarator&) + 11728
+6  clang++   0x000055a343d10d9f clang::Parser::ParseDeclaratorInternal(clang::Declarator&, void (clang::Parser::*)(clang::Declarator&)) + 4111
+7  clang++   0x000055a3414e3bfb clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 75
+8  clang++   0x000055a343cf2bf0 clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) + 1376
+9  clang++   0x000055a343c2f530 clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) + 2448
+10 clang++   0x000055a343c2e6ff clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) + 463
+11 clang++   0x000055a343c2d027 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) + 2967
+12 clang++   0x000055a343c29c3d clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 2157
+13 clang++   0x000055a343c291b8 clang::Parser::ParseFirstTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) + 56
+14 clang++   0x000055a343c14400 clang::ParseAST(clang::Sema&, bool, bool) + 720
+15 clang++   0x000055a341a645a3 clang::FrontendAction::Execute() + 83
+16 clang++   0x000055a34196ea1b clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 2267
+17 clang++   0x000055a341c4aa2d clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 781
+18 clang++   0x000055a33dd78126 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 8294
+19 clang++   0x000055a33dd7197c
+20 clang++   0x000055a33dd75d8e
+21 clang++   0x000055a3416bd31e
+22 clang++   0x000055a3401bc549 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 217
+23 clang++   0x000055a3416bc35c clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 396
+24 clang++   0x000055a34164f4c2 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 850
+25 clang++   0x000055a34164fa46 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 246
+26 clang++   0x000055a3416812ec clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 652
+27 clang++   0x000055a33dd70b80 clang_main(int, char**, llvm::ToolContext const&) + 12128
+28 clang++   0x000055a33dd8c3b5 main + 101
+29 libc.so.6 0x00007f8a33b4a1ca
+30 libc.so.6 0x00007f8a33b4a28b __libc_start_main + 139
+31 clang++   0x000055a33dd6d2e5 _start + 37
+clang++: error: clang frontend command failed with exit code 132 (use -v to see invocation)
+clang version 22.1.8
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /opt/clang-coverage/bin
+Build config: +assertions
+clang++: note: diagnostic msg: Error generating preprocessed source(s).

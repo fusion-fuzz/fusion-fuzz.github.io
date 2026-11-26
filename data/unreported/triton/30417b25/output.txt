@@ -1,0 +1,44 @@
+triton-opt: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/deps/llvm-b010a18d-ubuntu-x64/include/llvm/ADT/SmallVector.h:300: llvm::SmallVectorTemplateCommon::reference llvm::SmallVectorTemplateCommon<mlir::Value>::operator[](llvm::SmallVectorTemplateCommon::size_type) [T = mlir::Value]: Assertion `idx < size()' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/triton/triton-build/bin/triton-opt /home/fuzz/WorkSpace/fusion-fuzz/.fused/triton/tmpwolnj7r8/aa207502.mlir -allow-unregistered-dialect --mlir-print-op-on-diagnostic --allocate-shared-memory --tritongpu-global-scratch-memory-allocation --convert-triton-amdgpu-to-llvm=gfx-arch=gfx1250
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  triton-opt 0x00005a31ba9a248a
+1  triton-opt 0x00005a31ba99f38e
+2  triton-opt 0x00005a31ba9a338b
+3  libc.so.6  0x00007c9cb9948520
+4  libc.so.6  0x00007c9cb999c9bc pthread_kill + 300
+5  libc.so.6  0x00007c9cb9948476 raise + 22
+6  libc.so.6  0x00007c9cb992e7f3 abort + 211
+7  libc.so.6  0x00007c9cb992e71b
+8  libc.so.6  0x00007c9cb993fe96
+9  triton-opt 0x00005a31b2c987fd
+10 triton-opt 0x00005a31b31d94e5
+11 triton-opt 0x00005a31b31e9dde
+12 triton-opt 0x00005a31b304543c
+13 triton-opt 0x00005a31b304530b
+14 triton-opt 0x00005a31b9d10d74
+15 triton-opt 0x00005a31b9d6c482
+16 triton-opt 0x00005a31b9d68af4
+17 triton-opt 0x00005a31b9d12b3e
+18 triton-opt 0x00005a31b9d12315
+19 triton-opt 0x00005a31b9d135ee
+20 triton-opt 0x00005a31b9d22df8
+21 triton-opt 0x00005a31b9d19475
+22 triton-opt 0x00005a31b9d1954b
+23 triton-opt 0x00005a31b32361fc
+24 triton-opt 0x00005a31b337089b
+25 triton-opt 0x00005a31b3371419
+26 triton-opt 0x00005a31b3378432
+27 triton-opt 0x00005a31b3377ca2
+28 triton-opt 0x00005a31b3362d37
+29 triton-opt 0x00005a31b3361fcc
+30 triton-opt 0x00005a31ba5c06b1
+31 triton-opt 0x00005a31b3358332
+32 triton-opt 0x00005a31b3358731
+33 triton-opt 0x00005a31b335896d
+34 triton-opt 0x00005a31b334392c
+35 libc.so.6  0x00007c9cb992fd90
+36 libc.so.6  0x00007c9cb992fe40 __libc_start_main + 128
+37 triton-opt 0x00005a31b28eadf5
+Aborted (core dumped)

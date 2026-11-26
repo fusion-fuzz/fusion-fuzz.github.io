@@ -1,0 +1,25 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1792434988.761057 3793915 hlo_parser.cc:8024] Found an empty leaf node in an original value
+=== Source Location Trace: ===
+
+F0000 00:00:1792434988.777893 3793915 shape.h:397] Check failed: has_layout() ((f32[], f32[3]), f32[2,3])
+*** Check failure stack trace: ***
+    @     0x5f2212d99a64  absl::lts_20260526::log_internal::LogMessage::SendToLog()
+    @     0x5f2212d999e6  absl::lts_20260526::log_internal::LogMessage::Flush()
+    @     0x5f220785a9ec  xla::Shape::layout()
+    @     0x5f220807f8c7  xla::gpu::(anonymous namespace)::GetCudnnMxType()
+    @     0x5f220807c256  xla::gpu::BlockScalingRewriter::ExpandInstruction()
+    @     0x5f220a812391  xla::OpExpanderPass::RunImpl()
+    @     0x5f220ee50be7  xla::HloPassInterface::Run()
+    @     0x5f220a9ce3ac  xla::HloPassPipeline::RunHelper<>()
+    @     0x5f220a9c97bd  xla::HloPassPipeline::RunPassesInternal<>()
+    @     0x5f220a9c8bd5  xla::HloPassPipeline::RunImpl()
+    @     0x5f220ee50be7  xla::HloPassInterface::Run()
+    @     0x5f220790b7e5  xla::gpu::NVPTXCompiler::OptimizeHloPostLayoutAssignment()
+    @     0x5f220791fe57  xla::gpu::GpuCompiler::OptimizeHloModule()
+    @     0x5f220792a06b  xla::gpu::GpuCompiler::RunHloPasses()
+    @     0x5f220785e934  xla::CompiledOptProvider::GetOptimizedHlo()
+    @     0x5f2207850fd1  xla::(anonymous namespace)::GpuOptProvider::GenerateStage[abi:cxx11]()
+    @     0x5f2212dea466  main
+    @     0x7440bbbd4d90  (unknown)
+Aborted (core dumped)

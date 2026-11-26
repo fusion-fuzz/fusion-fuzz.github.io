@@ -1,0 +1,79 @@
+[... 14 lines omitted ...]
+warning: constant `FOO_bb01e2b` should have an upper case name
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmp4lb4r_s7/bfd5711f.rs:68:7
+   |
+68 | const FOO_bb01e2b<const N: usize>: usize = gca!(const { N + 1 }); //~ ERROR generic parameters in const blocks are not allowed; use ...
+   |       ^^^^^^^^^^^ help: convert the identifier to upper case: `FOO_BB01E2B`
+   |
+   = note: `#[warn(non_upper_case_globals)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: 9 warnings emitted
+
+note: no errors encountered even though delayed bugs were created
+
+note: those delayed bugs will now be shown as internal compiler errors
+
+error: internal compiler error: Unevaluated `ty::Const` in MIR body
+  |
+  = note: delayed at compiler/rustc_middle/src/mir/consts.rs:337:35
+             0: <rustc_errors::DiagCtxtInner>::emit_diagnostic
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1248:41
+             1: <rustc_errors::DiagCtxtHandle>::emit_diagnostic
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:867:37
+             2: <rustc_errors::diagnostic::Diag>::emit_err
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/diagnostic.rs:1227:29
+             3: <rustc_errors::DiagCtxtHandle>::delayed_bug::<&str>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_errors/src/lib.rs:1072:49
+             4: <rustc_middle::mir::consts::Const>::eval
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/consts.rs:337:35
+             5: <rustc_const_eval::interpret::eval_context::InterpCx<rustc_const_eval::const_eval::dummy_machine::DummyMachine>>::eval_mir_constant
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_const_eval/src/interpret/eval_context.rs:597:29
+             6: <rustc_mir_transform::known_panics_lint::ConstPropagator>::eval_constant::{closure#0}
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:270:38
+             7: <rustc_mir_transform::known_panics_lint::ConstPropagator>::use_ecx::<<rustc_mir_transform::known_panics_lint::ConstPropagator>::eval_constant::{closure#0}, rustc_const_eval::interpret::operand::OpTy>
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:237:9
+             8: <rustc_mir_transform::known_panics_lint::ConstPropagator>::eval_constant
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:270:14
+             9: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::visit_const_operand
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:687:14
+            10: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::super_rvalue
+            11: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::visit_rvalue
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/visit.rs:144:22
+            12: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::super_assign
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/visit.rs:513:22
+            13: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::visit_assign
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:691:14
+            14: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::super_statement
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/visit.rs:425:30
+            15: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::visit_statement
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:727:14
+            16: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::super_basic_block_data
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/visit.rs:311:26
+            17: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::visit_basic_block_data
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:823:14
+            18: <rustc_mir_transform::known_panics_lint::ConstPropagator as rustc_middle::mir::visit::Visitor>::visit_body
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:676:18
+            19: <rustc_mir_transform::known_panics_lint::KnownPanicsLint as rustc_mir_transform::pass_manager::MirLint>::run_lint
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/known_panics_lint.rs:59:16
+            20: rustc_mir_transform::pass_manager::run_passes_inner
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/pass_manager.rs:368:22
+            21: rustc_mir_transform::pass_manager::run_passes_no_validate
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/pass_manager.rs:236:5
+            22: rustc_mir_transform::run_runtime_lowering_passes
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/lib.rs:676:5
+            23: rustc_mir_transform::run_analysis_to_runtime_passes
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/lib.rs:629:5
+            24: rustc_mir_transform::mir_drops_elaborated_and_const_checked
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_mir_transform/src/lib.rs:599:5
+            25: rustc_query_impl::query_vtables::mir_drops_elaborated_and_const_checked::invoke_provider_fn::__rust_begin_short_backtrace
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/query_vtables.rs:130:46
+            26: rustc_query_impl::execution::execute_job_non_incr::<rustc_data_structures::vec_cache::VecCache<rustc_hir_id::OwnerId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_query_impl/src/execution.rs:452:59
+            27: rustc_middle::ty::context::tls::enter_context::<rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_hir_id::OwnerId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}
+                       at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/context/tls.rs:56:9
+            28: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::try_with::<rustc_middle::ty::context::tls::enter_context<rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_hir_id::OwnerId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>
+                       at /rustc/e3feeb59cd1bdd011a2bfcc0747b55125d9b8527/library/std/src/thread/local.rs:463:12
+            29: <std::thread::local::LocalKey<core::cell::Cell<*const ()>>>::with::<rustc_middle::ty::context::tls::enter_context<rustc_query_impl::execution::execute_job_non_incr<rustc_data_structures::vec_cache::VecCache<rustc_hir_id::OwnerId, rustc_middle::query::erase::ErasedData<[u8; 8]>, rustc_middle::dep_graph::graph::DepNodeIndex>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>::{closure#0}, rustc_middle::query::erase::ErasedData<[u8; 8]>>
+                       at /rustc/e3feeb59cd1bdd011a2bfcc0747b55125d9b8527/library/std/src/thread/local.rs:427:20
+            30: rustc_middle::ty::con
+[... truncated ...]

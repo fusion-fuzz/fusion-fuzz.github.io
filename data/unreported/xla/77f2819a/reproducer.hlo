@@ -1,0 +1,19 @@
+HloModule module, num_partitions=8
+
+ENTRY %entry {
+  %param = bf16[8,32,8,128] parameter(0)
+  %collective-permute = bf16[8,32,8,128] collective-permute(param), source_target_pairs={{0,1},{2,3},{4,5},{6,7}}, channel_id=1
+  %scale = bf16[] parameter(1), sharding={replicated}
+  %scale_bcast = bf16[8,32,8,128] broadcast(scale), dimensions={}
+  %divide = bf16[8,32,8,128] divide(collective-permute, scale_bcast)
+  %clamp_lower = bf16[] constant(-448.0)
+  %clamp_lower_bcast = bf16[8,32,8,128] broadcast(clamp_lower), dimensions={}
+  %clamp_upper = bf16[] constant(448.0)
+  %clamp_upper_bcast = bf16[8,32,8,128] broadcast(clamp_upper), dimensions={}
+  %clamp = bf16[8,32,8,128] clamp(clamp_lower_bcast, divide, clamp_upper_bcast)
+  %convert = f8e4m3fn[8,32,8,128] convert(clamp)
+  %a = c128[2] constant({(1, 2), (3, 4)})
+  %b = c128[2] constant({(5, 6), (7, 8)})
+  %lt = pred[2] compare(%a, %clamp_upper), direction=LT
+  ROOT %ffl.root = (f8e4m3fn[8,32,8,128], pred[2]) tuple(%convert, %lt)
+}

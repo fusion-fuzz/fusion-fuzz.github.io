@@ -1,0 +1,30 @@
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and instructions to reproduce the bug.
+Stack dump:
+0.	Program arguments: /opt/compiler-explorer/mlir-trunk/bin/mlir-opt -o /app/example.out.mlir --verify-roundtrip <source>
+ #0 0x000000000211f158 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x211f158)
+ #1 0x000000000211c0bd SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #2 0x000071b4aa045330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #3 0x000000000acc8e43 mlir::StringAttr::getValue() const (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0xacc8e43)
+ #4 0x0000000009f2d5b8 (anonymous namespace)::LLVMDialectBytecodeInterface::writeAttribute(mlir::Attribute, mlir::DialectBytecodeWriter&) const LLVMDialectBytecode.cpp:0:0
+ #5 0x000000000473657b mlir::bytecode::detail::IRNumberingState::number(mlir::Attribute) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x473657b)
+ #6 0x000000000acf8055 (anonymous namespace)::BuiltinDialectBytecodeInterface::writeAttribute(mlir::Attribute, mlir::DialectBytecodeWriter&) const BuiltinDialectBytecode.cpp:0:0
+ #7 0x000000000473657b mlir::bytecode::detail::IRNumberingState::number(mlir::Attribute) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x473657b)
+ #8 0x0000000004736acd mlir::bytecode::detail::IRNumberingState::number(mlir::Operation&) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x4736acd)
+ #9 0x00000000047371cb mlir::bytecode::detail::IRNumberingState::number(mlir::Block&) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x47371cb)
+#10 0x0000000004737443 mlir::bytecode::detail::IRNumberingState::number(mlir::Region&) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x4737443)
+#11 0x000000000473a635 mlir::bytecode::detail::IRNumberingState::IRNumberingState(mlir::Operation*, mlir::BytecodeWriterConfig const&) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x473a635)
+#12 0x000000000472ea0b mlir::writeBytecodeToFile(mlir::Operation*, llvm::raw_ostream&, mlir::BytecodeWriterConfig const&) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x472ea0b)
+#13 0x00000000021cfe7d doVerifyRoundTrip(mlir::Operation*, mlir::MlirOptMainConfig const&, bool) MlirOptMain.cpp:0:0
+#14 0x00000000021d58f0 performActions(llvm::raw_ostream&, std::shared_ptr<llvm::SourceMgr> const&, mlir::MLIRContext*, mlir::MlirOptMainConfig const&) MlirOptMain.cpp:0:0
+#15 0x00000000021d8bf5 processBuffer(llvm::raw_ostream&, std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, llvm::MemoryBufferRef, mlir::MlirOptMainConfig const&, mlir::DialectRegistry&, mlir::SourceMgrDiagnosticVerifierHandler*, llvm::ThreadPoolInterface*) MlirOptMain.cpp:0:0
+#16 0x00000000021d8d47 llvm::LogicalResult llvm::function_ref<llvm::LogicalResult (std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, llvm::MemoryBufferRef const&, llvm::raw_ostream&)>::callback_fn<mlir::MlirOptMain(llvm::raw_ostream&, std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, mlir::DialectRegistry&, mlir::MlirOptMainConfig const&)::'lambda'(std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, llvm::MemoryBufferRef, llvm::raw_ostream&)>(long, std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, llvm::MemoryBufferRef const&, llvm::raw_ostream&) MlirOptMain.cpp:0:0
+#17 0x000000000adbdbce mlir::splitAndProcessBuffer(std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, llvm::function_ref<llvm::LogicalResult (std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, llvm::MemoryBufferRef const&, llvm::raw_ostream&)>, llvm::raw_ostream&, llvm::StringRef, llvm::StringRef) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0xadbdbce)
+#18 0x00000000021cf250 mlir::MlirOptMain(llvm::raw_ostream&, std::unique_ptr<llvm::MemoryBuffer, std::default_delete<llvm::MemoryBuffer>>, mlir::DialectRegistry&, mlir::MlirOptMainConfig const&) (.part.0) MlirOptMain.cpp:0:0
+#19 0x00000000021d927c mlir::MlirOptMain(int, char**, llvm::StringRef, llvm::StringRef, mlir::DialectRegistry&) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x21d927c)
+#20 0x00000000021d94ac mlir::MlirOptMain(int, char**, llvm::StringRef, mlir::DialectRegistry&) (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x21d94ac)
+#21 0x00000000020a5215 main (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x20a5215)
+#22 0x000071b4aa02a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#23 0x000071b4aa02a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#24 0x00000000020fe7f5 _start (/opt/compiler-explorer/mlir-trunk/bin/mlir-opt+0x20fe7f5)
+Program terminated with signal SIGSEGV (11)
+Compiler returned: 139

@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:91:8: error: unknown linkage language
+   91 | extern "f" Trivial ret_trivial() { return {}; }
+      |        ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:130:12: error: redefinition of 'Base' as different kind of symbol
+  130 | @interface Base
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:44:8: note: previous definition is here
+   44 | struct Base { int b; };
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:137:17: warning: cannot find interface declaration for 'Base'
+  137 | @implementation Base
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:137:17: warning: class 'Base' defined without specifying a base class [-Wobjc-root-class]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:137:21: note: add a super class to fix this problem
+  137 | @implementation Base
+      |                     ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:144:12: error: reference to 'Base' is ambiguous
+  144 | @interface Base (Cat)
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:137:17: note: candidate found by name lookup is 'Base'
+  137 | @implementation Base
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:130:12: note: candidate found by name lookup is 'Base'
+  130 | @interface Base
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:44:8: note: candidate found by name lookup is 'Base'
+   44 | struct Base { int b; };
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:144:12: error: cannot find interface declaration for 'Base'
+  144 | @interface Base (Cat)
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:149:17: error: reference to 'Base' is ambiguous
+  149 | @implementation Base (Cat)
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:137:17: note: candidate found by name lookup is 'Base'
+  137 | @implementation Base
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:130:12: note: candidate found by name lookup is 'Base'
+  130 | @interface Base
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:44:8: note: candidate found by name lookup is 'Base'
+   44 | struct Base { int b; };
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:149:17: error: cannot find interface declaration for 'Base'
+  149 | @implementation Base (Cat)
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:155:22: error: reference to 'Base' is ambiguous
+  155 | @interface Derived : Base
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:137:17: note: candidate found by name lookup is 'Base'
+  137 | @implementation Base
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:130:12: note: candidate found by name lookup is 'Base'
+  130 | @interface Base
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:44:8: note: candidate found by name lookup is 'Base'
+   44 | struct Base { int b; };
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:155:12: error: redefinition of 'Derived' as different kind of symbol
+  155 | @interface Derived : Base
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:45:8: note: previous definition is here
+   45 | struct Derived : Base { union PtrToIntUnion u; };
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:155:22: error: reference to 'Base' is ambiguous
+  155 | @interface Derived : Base
+      |                      ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:137:17: note: candidate found by name lookup is 'Base'
+  137 | @implementation Base
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:130:12: note: candidate found by name lookup is 'Base'
+  130 | @interface Base
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:44:8: note: candidate found by name lookup is 'Base'
+   44 | struct Base { int b; };
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:155:22: error: cannot find interface declaration for 'Base', superclass of 'Derived'
+  155 | @interface Derived : Base
+      | ~~~~~~~~~~~~~~~~~~   ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:162:17: warning: cannot find interface declaration for 'Derived'
+  162 | @implementation Derived
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:162:17: warning: class 'Derived' defined without specifying a base class [-Wobjc-root-class]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:162:24: note: add a super class to fix this problem
+  162 | @implementation Derived
+      |                        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:169:12: error: reference to 'Derived' is ambiguous
+  169 | @interface Derived (Cat)
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:162:17: note: candidate found by name lookup is 'Derived'
+  162 | @implementation Derived
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:155:12: note: candidate found by name lookup is 'Derived'
+  155 | @interface Derived : Base
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:45:8: note: candidate found by name lookup is 'Derived'
+   45 | struct Derived : Base { union PtrToIntUnion u; };
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:169:12: error: cannot find interface declaration for 'Derived'
+  169 | @interface Derived (Cat)
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:176:17: error: reference to 'Derived' is ambiguous
+  176 | @implementation Derived (Cat)
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:162:17: note: candidate found by name lookup is 'Derived'
+  162 | @implementation Derived
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:155:12: note: candidate found by name lookup is 'Derived'
+  155 | @interface Derived : Base
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:45:8: note: candidate found by name lookup is 'Derived'
+   45 | struct Derived : Base { union PtrToIntUnion u; };
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp1xbyfmuk/8476fb3b.mm:176:17: error: cannot find interface declaration for 'Derived'
+  176 | @implementation Derived (Cat)
+      |                 ^
+/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/Sema/SemaExprObjC.cpp:1445:35: runtime error: member call on null pointer of type 'clang::ObjCInterfaceDecl'
+==2979148==WARNING: invalid path to external symbolizer!
+==2979148==WARNING: Failed to use and restart external symbolizer!
+    #0 0x59ece0c37c6f  (/home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang-24+0x1bc64c6f) (BuildId: 46c9b12f1448c4cd09a9356a13f34f79d24a53fb)
+[... 121 more lines ...]

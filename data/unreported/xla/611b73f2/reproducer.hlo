@@ -1,0 +1,18 @@
+HloModule TwoSendRecvBothWayRecvFist_module
+
+ENTRY %TwoSendRecvBothWayRecvFist.v3 {
+  %token0 = token[] after-all()
+  %recv = (f32[], u32[], token[]) recv(token[] %token0), channel_id=15, sharding={{maximal device=1}, {replicated}, {replicated}}
+  %recv-done = (f32[], token[]) recv-done((f32[], u32[], token[]) %recv), channel_id=15, sharding={{maximal device=1}, {replicated}}
+  %constant = f32[] constant(2.1), sharding={maximal device=0}
+  %send = (f32[], u32[], token[]) send(f32[] %constant, token[] %token0), channel_id=16, sharding={{maximal device=1}, {replicated}, {replicated}}, control-predecessors={%recv}
+  %p0.d = f32[32,32] parameter(2)
+  %p1.d = f32[32,32] parameter(3)
+  %_.d = f32[32,32]{1,0} custom-call(%p0.d, %p1.d), custom_call_target="__cublas$gemm"
+  %send-done = token[] send-done((f32[], u32[], token[]) %send), channel_id=16, sharding={maximal device=0}
+  %p0 = f32[32,32] parameter(0)
+  %p1 = f32[32,32] parameter(1)
+  %_ = f32[32,32]{1,0} custom-call(%recv-done, %p1), custom_call_target="__cublas$gemm"
+  %ffl.root = ((f32[], token[]), f32[32,32]{1,0}) tuple(%recv-done, %_)
+  ROOT %ffl.root.1 = ((f32[], token[]), f32[32,32]{1,0}, f32[32,32]{1,0}) tuple(%recv-done, %_, %_.d)
+}

@@ -1,0 +1,44 @@
+# fflfuzz
+****** panic traversed funcBody of RaceMightPanic
+./main.go:47:8: invalid operation: i << 0 (shift count type float64, must be integer)
+./main.go:63:6: internal compiler error: panic: runtime error: invalid memory address or nil pointer dereference
+
+goroutine 1 [running]:
+runtime/debug.Stack()
+	../../../projects/go/go-src/src/runtime/debug/stack.go:26 +0x5e
+cmd/compile/internal/base.FatalfAt({0xf3973a?, 0x0?}, {0x10028ac, 0x9}, {0x185741f46a90, 0x1, 0x1})
+	../../../projects/go/go-src/src/cmd/compile/internal/base/print.go:232 +0x18b
+cmd/compile/internal/base.Fatalf(...)
+	../../../projects/go/go-src/src/cmd/compile/internal/base/print.go:197
+cmd/compile/internal/gc.handlePanic()
+	../../../projects/go/go-src/src/cmd/compile/internal/gc/main.go:60 +0x95
+panic({0x196ce90?, 0x1a6f490?})
+	../../../projects/go/go-src/src/runtime/panic.go:859 +0x11f
+cmd/compile/internal/types.(*Type).HasShape(...)
+	../../../projects/go/go-src/src/cmd/compile/internal/types/type.go:247
+cmd/compile/internal/noder.(*reader).expr(0x185741f72000)
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/reader.go:2574 +0x29a7
+cmd/compile/internal/noder.(*reader).multiExpr(0x185741f72000)
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/reader.go:3159 +0x1a5
+cmd/compile/internal/noder.(*reader).stmt1(0x185741f72000, 0x19d06a8?, 0x185741f474c0)
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/reader.go:1789 +0x350
+cmd/compile/internal/noder.(*reader).stmts(0x185741f72000)
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/reader.go:1768 +0x68
+cmd/compile/internal/noder.(*reader).funcBody.func1()
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/reader.go:1422 +0x66
+cmd/compile/internal/ir.WithPos(0xe2?, 0x13?)
+	../../../projects/go/go-src/src/cmd/compile/internal/ir/func.go:418 +0x53
+cmd/compile/internal/noder.(*reader).funcBody(0x185741f72000, 0x185741e568c0)
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/reader.go:1411 +0xe5
+cmd/compile/internal/noder.pkgReaderIndex.funcBody({0x185741ece1c0, 0x0, 0x185741f2a680, 0x0, 0x0}, 0x185741e568c0)
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/reader.go:1397 +0x146
+cmd/compile/internal/noder.readBodies(...)
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/unified.go:268
+cmd/compile/internal/noder.unified({0x0?, {0x0?, 0x0?}}, {0x185741a7a710?, 0x18cfc88?, 0x1ab48f8?})
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/unified.go:208 +0x30f
+cmd/compile/internal/noder.LoadPackage({0x185741a9a2f0, 0x1, 0x1})
+	../../../projects/go/go-src/src/cmd/compile/internal/noder/noder.go:76 +0x525
+cmd/compile/internal/gc.Main(0x19d2538)
+	../../../projects/go/go-src/src/cmd/compile/internal/gc/main.go:220 +0xd05
+main.main()
+	../../../projects/go/go-src/src/cmd/compile/main.go:57 +0x105

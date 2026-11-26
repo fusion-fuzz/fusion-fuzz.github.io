@@ -1,0 +1,121 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:56:3: error: redefinition of struct or union 'struct f'
+   56 |   int a[]; }; /* { dg-error "redefinition of struct or union" } */
+      |   ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:49:8: note: originally defined here
+   49 | struct f {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:62:3: error: redefinition of struct or union 'struct f'
+   62 |   int a[] __attribute__ ((counted_by (c))); }; /* { dg-error "redefinition of struct or union" } */
+      |   ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:53:8: note: originally defined here
+   53 | struct f {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c: In function 'test1':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:86:7: error: incompatible types when assigning to type 'struct h' from type 'struct h'
+   86 |   p = y;   /* { dg-error "incompatible types when assigning to type" } */
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c: At top level:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:120:1: error: redefinition of struct or union 'struct nested_f'
+  120 | };  /* { dg-error "redefinition of struct or union" } */
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:100:8: note: originally defined here
+  100 | struct nested_f {
+      |        ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c: In function 'test_3':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:164:13: error: incompatible types when assigning to type 'struct nested_h' from type 'struct nested_h'
+  164 |  nested_p = nested_y; /* { dg-error "incompatible types when assigning to type" } */
+      |             ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c: At top level:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:174:22: error: expected '(' before '{' token
+  174 | struct __attribute__ {
+      |                      ^
+      |                      (
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:177:3: warning: unnamed struct/union that defines no instances
+  177 |   int a[] __attribute__ ((counted_by (b))); };
+      |   ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:178:22: error: expected '(' before '{' token
+  178 | struct __attribute__ {
+      |                      ^
+      |                      (
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:181:3: warning: unnamed struct/union that defines no instances
+  181 |   int a[] __attribute__ ((counted_by (b))); };
+      |   ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:182:22: error: expected '(' before '{' token
+  182 | struct __attribute__ {
+      |                      ^
+      |                      (
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:185:3: warning: unnamed struct/union that defines no instances
+  185 |   int a[]; }; /* { dg-error "redefinition of struct or union" } */
+      |   ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:188:22: error: expected '(' before '{' token
+  188 | struct __attribute__ {
+      |                      ^
+      |                      (
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:191:3: warning: unnamed struct/union that defines no instances
+  191 |   int a[] __attribute__ ((counted_by (c))); }; /* { dg-error "redefinition of struct or union" } */
+      |   ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:196:47: error: conflicting types for 'p'; have 'struct p'
+  196 |   int a[] __attribute__ ((counted_by (b))); } p;
+      |                                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:67:47: note: previous declaration of 'p' with type 'struct h'
+   67 |   int a[] __attribute__ ((counted_by (b))); } p;
+      |                                               ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c: In function 'tag':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:215:7: error: incompatible types when assigning to type 'struct p' from type 'struct p'
+  215 |   p = y;   /* { dg-error "incompatible types when assigning to type" } */
+      |       ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c: At top level:
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:222:26: error: expected '(' before ';' token
+  222 |       float __attribute__;
+      |                          ^
+      |                          (
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:226:8: error: argument 'b' to the 'counted_by' attribute is not a field declaration in the same structure as 'c'
+  226 |   char c[] __attribute__ ((counted_by (b)));
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:233:26: error: expected '(' before ';' token
+  233 |       float __attribute__;
+      |                          ^
+      |                          (
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:238:1: error: redefinition of struct or union 'struct i'
+  238 | };
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:218:8: note: originally defined here
+  218 | struct i {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:237:8: error: argument 'b' to the 'counted_by' attribute is not a field declaration in the same structure as 'c'
+  237 |   char c[] __attribute__ ((counted_by (b)));
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:244:26: error: expected '(' before ';' token
+  244 |       float __attribute__;
+      |                          ^
+      |                          (
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:249:1: error: redefinition of struct or union 'struct i'
+  249 | };  /* { dg-error "redefinition of struct or union" } */
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:229:8: note: originally defined here
+  229 | struct i {
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:248:8: error: argument 'n' to the 'counted_by' attribute is not a field declaration in the same structure as 'c'
+  248 |   char c[] __attribute__ ((counted_by (n)));
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:255:26: error: expected '(' before ';' token
+  255 |       float __attribute__;
+      |                          ^
+      |                          (
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:259:8: error: argument 'b' to the 'counted_by' attribute is not a field declaration in the same structure as 'c'
+  259 |   char c[] __attribute__ ((counted_by (b)));
+      |        ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:260:3: error: conflicting types for 'nested_p'; have 'struct c'
+  260 | } nested_p;
+      |   ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:131:3: note: previous declaration of 'nested_p' with type 'struct nested_h'
+  131 | } nested_p;
+      |   ^~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:262:6: error: redefinition of 'test_2'
+  262 | void test_2 (void)
+      |      ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c:135:6: note: previous definition of 'test_2' with type 'void(void)'
+  135 | void test_2 (void)
+      |      ^~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmpnzg3efth/2a33588e.c: In function 'test_2':
+[... 48 more lines ...]

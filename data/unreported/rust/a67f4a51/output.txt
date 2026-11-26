@@ -1,0 +1,106 @@
+[... 42 lines omitted ...]
+   = note: `#[warn(unused_braces)]` (part of `#[warn(unused)]`) on by default
+help: remove these braces
+   |
+22 -     as_bytes: [u8; { size_of::<T>() }],
+22 +     as_bytes: [u8; size_of::<T>()],
+   |
+
+warning: struct `Bug` is never constructed
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpueb879t9/581dba87.rs:14:8
+   |
+14 | struct Bug([u8; panic!{"\t"}]);
+   |        ^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: union `AsBytes` is never used
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpueb879t9/581dba87.rs:20:7
+   |
+20 | union AsBytes<T> {
+   |       ^^^^^^^
+
+warning: function `main_0324ceed` is never used
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpueb879t9/581dba87.rs:27:4
+   |
+27 | fn main_0324ceed() {}
+   |    ^^^^^^^^^^^^^
+
+warning: function `main` is never used
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpueb879t9/581dba87.rs:31:4
+   |
+31 | fn main() {}
+   |    ^^^^
+
+error[E0080]: evaluation panicked:     
+  --> /home/fuzz/WorkSpace/fusion-fuzz/.fused/rust/tmpueb879t9/581dba87.rs:14:17
+   |
+14 | struct Bug([u8; panic!{"\t"}]);
+   |                 ^^^^^^^^^^^^ evaluation of `Bug::0::{constant#0}` failed here
+
+
+thread 'rustc' (3175626) panicked at compiler/rustc_span/src/lib.rs:2875:9:
+should never serialize an `ErrorGuaranteed`, as we do not write metadata or incremental caches in case errors occurred
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/e3feeb59cd1bdd011a2bfcc0747b55125d9b8527/library/std/src/panicking.rs:676:5
+   1: core::panicking::panic_fmt
+             at /rustc/e3feeb59cd1bdd011a2bfcc0747b55125d9b8527/library/core/src/panicking.rs:80:14
+   2: <rustc_span::ErrorGuaranteed as rustc_serialize::serialize::Encodable<rustc_metadata::rmeta::encoder::EncodeContext>>::encode
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_span/src/lib.rs:2875:9
+   3: <rustc_type_ir::const_kind::ConstKind<rustc_middle::ty::context::TyCtxt> as rustc_serialize::serialize::Encodable<rustc_metadata::rmeta::encoder::EncodeContext>>::encode
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/const_kind.rs:19:12
+   4: <rustc_type_ir::sty::consts::Const<rustc_middle::ty::context::TyCtxt> as rustc_serialize::serialize::Encodable<rustc_metadata::rmeta::encoder::EncodeContext>>::encode
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/serialize.rs:126:21
+   5: <rustc_type_ir::ty_kind::TyKind<rustc_middle::ty::context::TyCtxt> as rustc_serialize::serialize::Encodable<rustc_metadata::rmeta::encoder::EncodeContext>>::encode
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_type_ir/src/ty_kind.rs:155:12
+   6: rustc_middle::ty::codec::encode_with_shorthand::<rustc_metadata::rmeta::encoder::EncodeContext, rustc_middle::ty::Ty, <rustc_metadata::rmeta::encoder::EncodeContext as rustc_middle::ty::codec::TyEncoder>::type_shorthands>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/codec.rs:104:13
+   7: <rustc_middle::ty::Ty as rustc_serialize::serialize::Encodable<rustc_metadata::rmeta::encoder::EncodeContext>>::encode
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/ty/codec.rs:127:9
+   8: <rustc_middle::mir::LocalDecl as rustc_serialize::serialize::Encodable<rustc_metadata::rmeta::encoder::EncodeContext>>::encode
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/mod.rs:970:24
+   9: <[rustc_middle::mir::LocalDecl] as rustc_serialize::serialize::Encodable<rustc_metadata::rmeta::encoder::EncodeContext>>::encode
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_serialize/src/serialize.rs:315:15
+  10: <alloc::vec::Vec<rustc_middle::mir::LocalDecl> as rustc_serialize::serialize::Encodable<rustc_metadata::rmeta::encoder::EncodeContext>>::encode
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_serialize/src/serialize.rs:322:25
+  11: <rustc_index::vec::IndexVec<rustc_middle::mir::Local, rustc_middle::mir::LocalDecl> as rustc_serialize::serialize::Encodable<rustc_metadata::rmeta::encoder::EncodeContext>>::encode
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_index/src/vec.rs:373:9
+  12: <rustc_middle::mir::Body as rustc_serialize::serialize::Encodable<rustc_metadata::rmeta::encoder::EncodeContext>>::encode
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/mir/mod.rs:205:17
+  13: <rustc_metadata::rmeta::encoder::EncodeContext>::lazy::<rustc_middle::mir::Body, &rustc_middle::mir::Body>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_metadata/src/rmeta/encoder.rs:502:24
+  14: <rustc_metadata::rmeta::encoder::EncodeContext>::encode_mir
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_metadata/src/rmeta/encoder.rs:436:26
+  15: <rustc_metadata::rmeta::encoder::EncodeContext>::encode_crate_root::{closure#18}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_metadata/src/rmeta/encoder.rs:704:34
+  16: <rustc_metadata::rmeta::encoder::EncodeContext>::encode_crate_root
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_metadata/src/rmeta/encoder.rs:658:27
+  17: rustc_metadata::rmeta::encoder::encode_metadata::{closure#3}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_metadata/src/rmeta/encoder.rs:2631:44
+  18: rustc_metadata::rmeta::encoder::with_encode_metadata_header::<rustc_metadata::rmeta::encoder::encode_metadata::{closure#3}::{closure#0}>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_metadata/src/rmeta/encoder.rs:2742:46
+  19: rustc_metadata::rmeta::encoder::encode_metadata::{closure#3}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_metadata/src/rmeta/encoder.rs:2628:13
+  20: <rustc_middle::dep_graph::graph::DepGraph>::with_task::<rustc_metadata::rmeta::encoder::encode_metadata::{closure#3}, ()>
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_middle/src/dep_graph/graph.rs:342:22
+  21: rustc_metadata::rmeta::encoder::encode_metadata
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_metadata/src/rmeta/encoder.rs:2624:19
+  22: rustc_metadata::fs::encode_and_write_metadata
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_metadata/src/fs.rs:60:9
+  23: rustc_interface::passes::start_codegen
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1323:26
+  24: <rustc_interface::queries::Linker>::codegen_and_build_linker
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/queries.rs:33:55
+  25: rustc_driver_impl::compiler_entrypoint::{closure#0}::{closure#1}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_driver_impl/src/lib.rs:337:26
+  26: rustc_interface::passes::create_and_enter_global_ctxt::<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::compiler_entrypoint::{closure#0}::{closure#1}>::{closure#2}::{closure#0}
+             at /home/fuzz/WorkSpace/fusion-fuzz/projects/rust/rust-src/compiler/rustc_interface/src/passes.rs:1051:80
+  27: <core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::compiler_entrypoint::{closure#0}::{closure#1}>::{closure#2}::{closure#0}> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/e3feeb59cd1bdd011a2bfcc0747b55125d9b8527/library/core/src/panic/unwind_safe.rs:275:9
+  28: std::panicking::catch_unwind::do_call::<core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::compiler_entrypoint::{closure#0}::{closure#1}>::{closure#2}::{closure#0}>, core::option::Option<rustc_interface::queries::Linker>>
+             at /rustc/e3feeb59cd1bdd011a2bfcc0747b55125d9b8527/library/std/src/panicking.rs:573:43
+  29: std::panicking::catch_unwind::<core::option::Option<rustc_interface::queries::Linker>, core::panic::unwind_safe::AssertUnwindSafe<rustc_interface::passes::create_and_enter_global_ctxt<core::option::Option<rustc_interface::queries::Linker>, rustc_driver_impl::compiler_entrypoint::{closure#0}::{closure#1}>::{closure#2}::{closure#0}>>
+             at /rustc/e3feeb59cd1bdd011a2bfcc0747b55125d9b8527/library/std/src/panicking.rs:541:19
+  3
+[... truncated ...]

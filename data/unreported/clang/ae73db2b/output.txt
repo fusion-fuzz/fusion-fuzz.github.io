@@ -1,0 +1,56 @@
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/clang/lib/CodeGen/CodeGenFunction.cpp:3104: void clang::CodeGen::CodeGenFunction::EmitMultiVersionResolver(llvm::Function*, llvm::ArrayRef<clang::CodeGen::CodeGenFunction::FMVResolverOption>): Assertion `false && "Only implemented for x86, AArch64, RISC-V, and PowerPC AIX"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -O0 -std=c++17 -fblocks -g -funroll-loops -target arm64_32-apple-ios -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmp04_fk80_/78a22000.cpp
+1.	<eof> parser at end of file
+2.	Per-file LLVM IR generation
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005b72f943e329 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 121
+1  clang++   0x00005b72f943afec llvm::sys::RunSignalHandlers() + 76
+2  clang++   0x00005b72f943b8a8 llvm::sys::CleanupOnSignal(unsigned long) + 216
+3  clang++   0x00005b72f937d218
+4  libc.so.6 0x00007c97d0e57520
+5  libc.so.6 0x00007c97d0eab9bc pthread_kill + 300
+6  libc.so.6 0x00007c97d0e57476 raise + 22
+7  libc.so.6 0x00007c97d0e3d7f3 abort + 211
+8  libc.so.6 0x00007c97d0e3d71b
+9  libc.so.6 0x00007c97d0e4ee96
+10 clang++   0x00005b72f9b49095
+11 clang++   0x00005b72f9bc75d1 clang::CodeGen::CodeGenModule::emitMultiVersionFunctions() + 2609
+12 clang++   0x00005b72f9bc93f8 clang::CodeGen::CodeGenModule::Release() + 376
+13 clang++   0x00005b72f9f67afe
+14 clang++   0x00005b72f9f65065 clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 997
+15 clang++   0x00005b72fbc3484c clang::ParseAST(clang::Sema&, bool, bool) + 1068
+16 clang++   0x00005b72fa2d5061 clang::FrontendAction::Execute() + 65
+17 clang++   0x00005b72fa25ee65 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1589
+18 clang++   0x00005b72fa3acde3 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 467
+19 clang++   0x00005b72f720833e cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 7166
+20 clang++   0x00005b72f71fe13a
+21 clang++   0x00005b72f71fe2cf
+22 clang++   0x00005b72f9fe3cfd
+23 clang++   0x00005b72f937d630 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 160
+24 clang++   0x00005b72f9fe4b53
+25 clang++   0x00005b72f9f99607 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 167
+26 clang++   0x00005b72f9f9def0 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 304
+27 clang++   0x00005b72f9fac004 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 404
+28 clang++   0x00005b72f7203923 clang_main(int, char**, llvm::ToolContext const&) + 7315
+29 clang++   0x00005b72f713f7f1 main + 113
+30 libc.so.6 0x00007c97d0e3ed90
+31 libc.so.6 0x00007c97d0e3ee40 __libc_start_main + 128
+32 clang++   0x00005b72f71fd765 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git 0976d75180f482c1175ea1f204f9bfd56dd163b1)
+Target: arm64_32-apple-ios
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/78a22000-a9d879.cpp
+clang++: note: diagnostic msg: /tmp/78a22000-a9d879.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)

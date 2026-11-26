@@ -1,0 +1,38 @@
+HloModule module
+
+%async_computation {
+  %input = f32[8,128,1024]{2,1,0:T(8,128)} parameter(0)
+  %output = f32[8,128,1024]{2,1,0:T(8,128)} parameter(1)
+  %input_offsets = s32[8]{0} parameter(2)
+  %send_sizes = s32[8]{0} parameter(3)
+  %output_offsets = s32[8]{0} parameter(4)
+  %recv_sizes = s32[8]{0} parameter(5)
+  ROOT %ra2a = f32[8,128,1024]{2,1,0:T(8,128)} ragged-all-to-all(input, output, input_offsets, send_sizes, output_offsets, recv_sizes), replica_groups={{0,1,2,3,4,5,6,7}}
+}
+
+ENTRY %main {
+  %lhs1 = s4[4,1024]{1,0} parameter(0)
+  %lhs2 = s4[4,1024]{1,0} parameter(1)
+  %rhs = bf16[1024,4]{1,0} parameter(2)
+  %p0 = f32[8,128,1024]{2,1,0:T(8,128)} parameter(3)
+  %c0 = f32[] constant(0)
+  %output = f32[8,128,1024]{2,1,0:T(8,128)} broadcast(%c0), dimensions={}
+  %p1 = s32[8]{0} parameter(4)
+  %p2 = s32[8]{0} parameter(5)
+  %p3 = s32[8]{0} parameter(6)
+  %p4 = s32[8]{0} parameter(7)
+  %p5 = f32[1024, 1024]{1,0:T(8,128)} parameter(8)
+  %input = f32[8,128,1024]{2,1,0:T(8,128)} copy(%p0)
+  %input_offsets = s32[8]{0} copy(%p1)
+  %send_sizes = s32[8]{0} copy(%p2)
+  %output_offsets = s32[8]{0} copy(%p3)
+  %recv_sizes = s32[8]{0} copy(%p4)
+  %ra2a-start = ((f32[8,128,1024]{2,1,0:T(8,128)}, f32[8,128,1024]{2,1,0:T(8,128)}, s32[8]{0}, s32[8]{0}, s32[8]{0}, s32[8]{0}), f32[8,128,1024]{2,1,0:T(8,128)}, u32[]{:S(2)}, u32[]{:S(2)}) async-start(%input, %output, %input_offsets, %send_sizes, %output_offsets, %recv_sizes), calls=%async_computation
+  %ra2a-done = f32[8,128,1024]{2,1,0:T(8,128)} async-done(%ra2a-start), calls=%async_computation
+  %d = f32[1024,1024]{1,0:T(8,128)} dot(%p5, %p5), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  %tuple = (f32[8,128,1024]{2,1,0:T(8,128)}, f32[1024,1024]{1,0:T(8,128)}) tuple(%ra2a-done, %d)
+  %lhs_concat = s4[8,1024]{1,0} concatenate(lhs1, lhs2), dimensions={0}
+  %lhs_converted = bf16[8,1024]{1,0} convert(lhs_concat)
+  %dot = bf16[8,4]{1,0} dot(lhs_converted, rhs), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  ROOT %ffl.root = (bf16[8,4]{1,0}, (f32[8,128,1024]{2,1,0:T(8,128)}, f32[1024,1024]{1,0:T(8,128)})) tuple(%dot, %tuple)
+}

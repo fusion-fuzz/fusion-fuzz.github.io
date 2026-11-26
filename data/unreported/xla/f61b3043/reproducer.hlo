@@ -1,0 +1,7 @@
+HloModule m
+
+ENTRY e {
+  operand = s32[4,2] parameter(0)
+  indices = s32[4,40,1] parameter(1)
+  ROOT gather = s32[4,40,2] gather(operand, indices), offset_dims={2}, collapsed_slice_dims={}, start_index_map={0}, operand_batching_dims={0}, start_indices_batching_dims={0}, index_vector_dim=2, slice_sizes={1,2}
+}

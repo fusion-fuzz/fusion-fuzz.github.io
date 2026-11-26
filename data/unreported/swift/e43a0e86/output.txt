@@ -1,0 +1,103 @@
+[... 11 lines omitted ...]
+381 | @available(InlineArray 0.1, *)
+    |            `- warning: unrecognized platform name 'InlineArray' [#AvailabilityUnrecognizedName]
+382 | final class C {
+383 |     final var a: InlineArray<40, Int> = .init(repeating: 0)
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmplmqspezi/8334f3cc.swift:736:12: warning: unrecognized platform name 'InlineArray' [#AvailabilityUnrecognizedName]
+734 | 
+735 | // CHECK-LABEL: sil {{.*}} @$s{{.*}}6tupleF
+736 | @available(InlineArray 0.1, *)
+    |            `- warning: unrecognized platform name 'InlineArray' [#AvailabilityUnrecognizedName]
+737 | func tupleF(tuple: inout (Int, InlineArray<40, Int>), x: inout Int, y: Int) {
+738 |     // CHECK: bb0([[TUPLE:%.*]] : $*(Int, InlineArray<40, Int>)
+
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmplmqspezi/8334f3cc.swift:752:12: warning: unrecognized platform name 'InlineArray' [#AvailabilityUnrecognizedName]
+750 | }
+751 | 
+752 | @available(InlineArray 0.1, *)
+    |            `- warning: unrecognized platform name 'InlineArray' [#AvailabilityUnrecognizedName]
+753 | protocol P {
+754 |     var a: InlineArray<40, Int> { get set }
+
+Abort: function getMangledName at IRGenDebugInfo.cpp:1130
+Incorrect reconstructed type for $sypD
+Original type:
+(existential_type
+  (protocol_type decl="Swift.(file).Copyable"))
+Reconstructed type:
+(protocol_composition_type)
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Pass '-Xfrontend -disable-round-trip-debug-types' to disable this assertion.
+Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+Stack dump:
+0.	Program arguments: /usr/bin/swift-frontend -c -wmo -sil-verify-all -g -debug-info-format=dwarf /home/fuzz/WorkSpace/fusion-fuzz/.fused/swift/tmplmqspezi/8334f3cc.swift
+1.	Swift version 6.5-dev (LLVM 6f2057ffeafd4c6, Swift 83c32e02f71e4bb)
+2.	Compiling with effective version 5.10
+3.	While evaluating request IRGenRequest(IR Generation for module main)
+4.	Abort: function getMangledName at IRGenDebugInfo.cpp:1130
+| 	Incorrect reconstructed type for $sypD
+| 	Original type:
+| 	(existential_type
+| 	  (protocol_type decl="Swift.(file).Copyable"))
+| 	Reconstructed type:
+| 	(protocol_composition_type)
+| 	Please submit a bug report (https://swift.org/contributing/#reporting-bugs) and include the crash backtrace.
+| 	Pass '-Xfrontend -disable-round-trip-debug-types' to disable this assertion.
+ #0 0x00005ad26f550658 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/usr/bin/swift-frontend+0x8c4f658)
+ #1 0x00005ad26f54de75 llvm::sys::RunSignalHandlers() (/usr/bin/swift-frontend+0x8c4ce75)
+ #2 0x00005ad26f551411 SignalHandler(int, siginfo_t*, void*) Signals.cpp:0:0
+ #3 0x000075d8289fc330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #4 0x000075d828a55c0c pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ec0c)
+ #5 0x000075d8289fc27e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #6 0x000075d8289df8ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #7 0x00005ad26967b5c2 (/usr/bin/swift-frontend+0x2d7a5c2)
+ #8 0x00005ad26967b6ac (/usr/bin/swift-frontend+0x2d7a6ac)
+ #9 0x00005ad26793a008 (/usr/bin/swift-frontend+0x1039008)
+#10 0x00005ad267935721 (anonymous namespace)::IRGenDebugInfoImpl::getOrCreateType(swift::irgen::DebugTypeInfo, llvm::DIScope*) IRGenDebugInfo.cpp:0:0
+#11 0x00005ad26793019b swift::irgen::IRGenDebugInfo::emitGlobalVariableDeclaration(llvm::GlobalVariable*, llvm::StringRef, llvm::StringRef, swift::irgen::DebugTypeInfo, bool, std::optional<swift::SILLocation>) (/usr/bin/swift-frontend+0x102f19b)
+#12 0x00005ad2677e9acb swift::irgen::createVariable(swift::irgen::IRGenModule&, swift::irgen::LinkInfo&, llvm::Type*, swift::irgen::Alignment, swift::irgen::DebugTypeInfo, std::optional<swift::SILLocation>, llvm::StringRef) (/usr/bin/swift-frontend+0xee8acb)
+#13 0x00005ad2677ea752 swift::irgen::IRGenModule::getAddrOfSILGlobalVariable(swift::SILGlobalVariable*, swift::irgen::TypeInfo const&, swift::ForDefinition_t) (/usr/bin/swift-frontend+0xee9752)
+#14 0x00005ad26786a051 swift::irgen::IRGenModule::emitSILGlobalVariable(swift::SILGlobalVariable*) (/usr/bin/swift-frontend+0xf69051)
+#15 0x00005ad2677e0270 swift::irgen::IRGenerator::emitGlobalTopLevel(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>> const&) (/usr/bin/swift-frontend+0xedf270)
+#16 0x00005ad267629aef swift::IRGenRequest::evaluate(swift::Evaluator&, swift::IRGenDescriptor) const (/usr/bin/swift-frontend+0xd28aef)
+#17 0x00005ad2676a0982 swift::GeneratedModule swift::SimpleRequest<swift::IRGenRequest, swift::GeneratedModule (swift::IRGenDescriptor), (swift::RequestFlags)17>::callDerived<0ul>(swift::Evaluator&, std::integer_sequence<unsigned long, 0ul>) const crtstuff.c:0:0
+#18 0x00005ad2676a0859 swift::SimpleRequest<swift::IRGenRequest, swift::GeneratedModule (swift::IRGenDescriptor), (swift::RequestFlags)17>::evaluateRequest(swift::IRGenRequest const&, swift::Evaluator&) crtstuff.c:0:0
+#19 0x00005ad26706778c swift::IRGenRequest::OutputType swift::Evaluator::getResultUncached<swift::IRGenRequest, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()>(swift::IRGenRequest const&, swift::IRGenRequest::OutputType swift::evaluateOrFatal<swift::IRGenRequest>(swift::Evaluator&, swift::IRGenRequest)::'lambda'()) crtstuff.c:0:0
+#20 0x00005ad26762abef swift::performIRGeneration(swift::ModuleDecl*, swift::IRGenOptions const&, swift::TBDGenOptions const&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::StringRef, swift::PrimarySpecificPaths const&, std::shared_ptr<llvm::cas::ObjectStore>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::GlobalVariable**, swift::cas::SwiftCASOutputBackend*, std::optional<llvm::cas::ObjectRef>) (/usr/bin/swift-frontend+0xd29bef)
+#21 0x00005ad26733ca47 generateIR(swift::IRGenOptions const&, swift::TBDGenOptions const&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, swift::PrimarySpecificPaths const&, std::shared_ptr<llvm::cas::ObjectStore>, swift::cas::SwiftCASOutputBackend*, llvm::StringRef, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, llvm::GlobalVariable*&, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, llvm::ArrayRef<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>>, std::optional<llvm::cas::ObjectRef>) FrontendTool.cpp:0:0
+#22 0x00005ad26733539e performCompileStepsPostSILGen(swift::CompilerInstance&, std::unique_ptr<swift::SILModule, std::default_delete<swift::SILModule>>, llvm::PointerUnion<swift::ModuleDecl*, swift::SourceFile*>, swift::PrimarySpecificPaths const&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>, llvm::ArrayRef<swift::PrimarySpecificPaths>) FrontendTool.cpp:0:0
+#23 0x00005ad2673339d3 swift::performCompileStepsPostSema(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) (/usr/bin/swift-frontend+0xa329d3)
+#24 0x00005ad26734c88a withSemanticAnalysis(swift::CompilerInstance&, swift::FrontendObserver*, llvm::function_ref<bool (swift::CompilerInstance&)>, bool) FrontendTool.cpp:0:0
+#25 0x00005ad267339595 performCompile(swift::CompilerInstance&, int&, swift::FrontendObserver*, llvm::ArrayRef<char const*>) FrontendTool.cpp:0:0
+#26 0x00005ad26733621e swift::performFrontend(llvm::ArrayRef<char const*>, char const*, void*, swift::FrontendObserver*) (/usr/bin/swift-frontend+0xa3521e)
+#27 0x00005ad26703db21 swift::mainEntry(int, char const**) (/usr/bin/swift-frontend+0x73cb21)
+#28 0x000075d8289e11ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#29 0x000075d8289e128b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#30 0x00005ad26703ca15 _start (/usr/bin/swift-frontend+0x73ba15)
+
+*** Signal 6: Backtracing from 0x75d828ade38d... done ***
+
+*** Program crashed: Aborted at 0x000075d828ade38d ***
+
+Platform: x86_64 Linux (Ubuntu 24.04.4 LTS)
+
+Thread 0 "swift-frontend" crashed:
+
+0  0x000075d828ade38d <unknown> in libc.so.6
+
+
+Registers:
+
+rax 0x0000000000000000  0
+rdx 0x0000000000000006  6
+rcx 0x000075d828ade38d  48 3d 01 f0 ff ff 73 01 c3 48 8b 0d 5b ba 0d 00  H=·ðÿÿs·ÃH··[º··
+rbx 0x0000000000000006  6
+rsi 0x00000000003b8fb1  3903409
+rdi 0x00000000003b8fb1  3903409
+rbp 0x00000000003b8fb1  3903409
+rsp 0x00005ad28ed082e8  3b 14 55 6f d2 5a 00 00 70 85 d0 8e d2 5a 00 00  ;·UoÒZ··p·Ð·ÒZ··
+ r8 0x00005ad28ed08570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+ r9 0x00005ad28ed08570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿÿ····
+r10 0x00005ad28ed08570  06 00 00 00 00 00 00 00 fa ff ff ff 00 00 00 00  ········úÿÿ
+[... truncated ...]

@@ -1,0 +1,7 @@
+HloModule m
+ENTRY main {
+  lb = f32[] parameter(0)
+  in = f32[64,1,32]{1,0,2} parameter(1)
+  ub = f32[64,1,32]{1,0,2} parameter(2)
+  ROOT out = f32[64,1,32]{1,0,2} clamp(f32[] lb, f32[64,1,32]{1,0,2} in, f32[64,1,32]{1,0,2} ub)
+}

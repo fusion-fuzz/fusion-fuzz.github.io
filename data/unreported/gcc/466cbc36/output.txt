@@ -1,0 +1,19 @@
+during RTL pass: mode_sw
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphlbmp4b2/d2c247ec.c: In function 'ld_to_ll':
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphlbmp4b2/d2c247ec.c:14:1: internal compiler error: in create_pre_exit, at mode-switching.cc:450
+   14 | }
+      | ^
+0x2cb9bab internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xcdc9e4 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0xc9b3fc create_pre_exit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/mode-switching.cc:450
+0xc9b3fc optimize_mode_switching
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/mode-switching.cc:848
+0x2b191cc execute
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/mode-switching.cc:1332
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1 -quiet -imultiarch x86_64-linux-gnu /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmphlbmp4b2/d2c247ec.c -quiet -dumpbase d2c247ec.c -dumpbase-ext .c -mtune=generic -march=x86-64 -Os -O2 -ftree-vectorize -ffixed-rax -ffixed-rbx -ffixed-rcx -o /tmp/ccmnVD3y.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

@@ -1,0 +1,34 @@
+Internal Compiler Error: Unhandled exception
+Traceback (most recent call last):
+  Binary file "/opt/lfortran/bin/lfortran", in _start
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in __libc_start_main
+  Binary file "/lib/x86_64-linux-gnu/libc.so.6", in <invalid>
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 3000, in main
+    return main_app(argc, argv);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 2913, in main_app(int, char**)
+    err = compile_src_to_object_file(arg_file, tmp_o, compiler_options.time_report, false,
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/bin/lfortran.cpp", line 1222, in (anonymous namespace)::compile_src_to_object_file(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool, bool, LCompilers::CompilerOptions&, LCompilers::PassManager&, bool, bool*)
+    result = fe.get_asr2(input, lm, diagnostics);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 326, in LCompilers::FortranEvaluator::get_asr2(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, LCompilers::LocationManager&, LCompilers::diag::Diagnostics&)
+    Result<ASR::TranslationUnit_t*> res2 = get_asr3(*ast, diagnostics, lm);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/fortran_evaluator.cpp", line 348, in LCompilers::FortranEvaluator::get_asr3(LCompilers::LFortran::AST::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::LocationManager&)
+    compiler_options.symtab_only, compiler_options, lm);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/lfortran/semantics/ast_to_asr.cpp", line 139, in LCompilers::LFortran::ast_to_asr(Allocator&, LCompilers::LFortran::AST::TranslationUnit_t&, LCompilers::diag::Diagnostics&, LCompilers::SymbolTable*, bool, LCompilers::CompilerOptions&, LCompilers::LocationManager&)
+    if (!asr_verify(*tu, true, diagnostics)) {
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/asr_verify.cpp", line 1874, in LCompilers::asr_verify(LCompilers::ASR::TranslationUnit_t const&, bool, LCompilers::diag::Diagnostics&)
+    v.visit_TranslationUnit(unit);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/asr_verify.cpp", line 122, in LCompilers::ASR::VerifyVisitor::visit_TranslationUnit(LCompilers::ASR::TranslationUnit_t const&)
+    this->visit_symbol(*a.second);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 375, in LCompilers::ASR::BaseVisitor<LCompilers::ASR::VerifyVisitor>::visit_symbol(LCompilers::ASR::symbol_t const&)
+    void visit_symbol(const symbol_t &b) { visit_symbol_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 30, in void LCompilers::ASR::visit_symbol_t<LCompilers::ASR::VerifyVisitor>(LCompilers::ASR::symbol_t const&, LCompilers::ASR::VerifyVisitor&)
+    case symbolType::Program: { v.visit_Program((const Program_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/asr_verify.cpp", line 180, in LCompilers::ASR::VerifyVisitor::visit_Program(LCompilers::ASR::Program_t const&)
+    visit_stmt(*x.m_body[i]);
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 393, in LCompilers::ASR::BaseVisitor<LCompilers::ASR::VerifyVisitor>::visit_stmt(LCompilers::ASR::stmt_t const&)
+    void visit_stmt(const stmt_t &b) { visit_stmt_t(b, self()); }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/../libasr/asr_base_visitor.h", line 54, in void LCompilers::ASR::visit_stmt_t<LCompilers::ASR::VerifyVisitor>(LCompilers::ASR::stmt_t const&, LCompilers::ASR::VerifyVisitor&)
+    case stmtType::Allocate: { v.visit_Allocate((const Allocate_t &)x); return; }
+  File "/home/fuzz/WorkSpace/fusion-fuzz/projects/lfortran/lfortran-src/src/libasr/asr_verify.cpp", line 1753, in LCompilers::ASR::VerifyVisitor::visit_Allocate(LCompilers::ASR::Allocate_t const&)
+    require(ASR::is_a<ASR::Allocatable_t>(*ASRUtils::expr_type(x.m_args[i].m_a)) ||
+LCompilersException: Type encoding not implemented for Func[]->Pointer[str]

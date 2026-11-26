@@ -1,0 +1,19 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==932977==ERROR: AddressSanitizer: SEGV on unknown address 0x559456d1cf5f (pc 0x559435f97e99 bp 0x7ffe90af0bb0 sp 0x7ffe90aefb30 T0)
+==932977==The signal is caused by a READ memory access.
+    #0 0x559435f97e99 in __asan_register_globals (/home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-mlir-install/bin/mlir-opt+0x731be99) (BuildId: 384f31835e82c6a451c17a6ce01f3b1d24514389)
+    #1 0x559435f98a39 in __asan_register_elf_globals (/home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-mlir-install/bin/mlir-opt+0x731ca39) (BuildId: 384f31835e82c6a451c17a6ce01f3b1d24514389)
+    #2 0x55943606b0a7 in asan.module_ctor mlir-opt.cpp
+    #3 0x7f14310cceba in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29eba) (BuildId: 22ca0a83a4004122e30a69b597be96e134068616)
+    #4 0x559435f811b4 in _start (/home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-mlir-install/bin/mlir-opt+0x73051b4) (BuildId: 384f31835e82c6a451c17a6ce01f3b1d24514389)
+
+==932977==Register values:
+rax = 0x0000559456d1cf5f  rbx = 0x0000000000000008  rcx = 0x0000000000002252  rdx = 0x00007ffe90aefb38  
+rdi = 0x0000559455f265b8  rsi = 0x00007b142e542760  rbp = 0x00007ffe90af0bb0  rsp = 0x00007ffe90aefb30  
+ r8 = 0x0000000000000800   r9 = 0x000000000000c000  r10 = 0x0000000000000000  r11 = 0x0000000000000001  
+r12 = 0x000000000006e2bc  r13 = 0x0000559455efc200  r14 = 0x0000559455f264d0  r15 = 0x00007b142e542760  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV (/home/fuzz/WorkSpace/fusion-fuzz/projects/mlir/llvm-mlir-install/bin/mlir-opt+0x731be99) (BuildId: 384f31835e82c6a451c17a6ce01f3b1d24514389) in __asan_register_globals
+==932977==ABORTING
+Aborted

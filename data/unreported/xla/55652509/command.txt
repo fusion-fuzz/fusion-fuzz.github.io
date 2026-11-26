@@ -1,0 +1,1 @@
+ulimit -n 4096; ulimit -v 8388608; hlo-opt --platform=cpu --passes=spmd-partitioning,bitcast_dtypes_expander,batch-dot-simplification,instruction-hoister,all-reduce-contiguous,tree_reduction_rewriter --xla_cpu_fast_math_honor_nans=false --o=/dev/null ./reproducer.hlo

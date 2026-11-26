@@ -1,0 +1,60 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9jjey99y/f8ddfc2a.cc:10:1: error: types may not be defined in template arguments [-Wtemplate-body]
+   10 | {
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9jjey99y/f8ddfc2a.cc:14:1: error: expected template-argument before ';' token [-Wtemplate-body]
+   14 | ;
+      | ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9jjey99y/f8ddfc2a.cc:14:1: error: expected '>' before ';' token [-Wtemplate-body]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9jjey99y/f8ddfc2a.cc:14:1: error: type/value mismatch at argument 1 in template parameter list for 'template<int <anonymous> > struct S' [-Wtemplate-body]
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9jjey99y/f8ddfc2a.cc:14:1: note:   expected a constant of type 'int', got 'S<<anonymous> >::A'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9jjey99y/f8ddfc2a.cc:15:47: error: type/value mismatch at argument 1 in template parameter list for 'template<int <anonymous> > struct S' [-Wtemplate-body]
+   15 | template <typename Tp, typename _FflDeclT = S<int>>
+      |                                               ^~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9jjey99y/f8ddfc2a.cc:15:47: note:   expected a constant of type 'int', got 'int'
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9jjey99y/f8ddfc2a.cc:21:2: error: expected '}' at end of input [-Wtemplate-body]
+   21 | ;
+      |  ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9jjey99y/f8ddfc2a.cc:4:27: note: to match this '{'
+    4 | template < int > struct S { S < // { dg-error "" }
+      |                           ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9jjey99y/f8ddfc2a.cc:21:2: internal compiler error: in cp_lexer_new_from_tokens, at cp/parser.cc:978
+   21 | ;
+      |  ^
+0x305a98b internal_error(char const*, ...)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostic-global-context.cc:787
+0xe00d26 fancy_abort(char const*, int, char const*)
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/diagnostics/context.cc:1813
+0x83ca11 cp_lexer_new_from_tokens
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:978
+0x83ca11 cp_parser_push_lexer_for_tokens
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:4893
+0xffe45d cp_parser_late_parse_one_default_arg
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:37424
+0x100a009 cp_parser_late_parsing_default_args
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:37583
+0x100a009 cp_parser_class_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:30267
+0x100a94f cp_parser_type_specifier
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:22582
+0x1027b24 cp_parser_decl_specifier_seq
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:19061
+0x103a4c9 cp_parser_single_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36791
+0x103aaa2 cp_parser_template_declaration_after_parameters
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36548
+0x103aaa2 cp_parser_explicit_template_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:36722
+0x104adad cp_parser_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17813
+0x104d7d3 cp_parser_toplevel_declaration
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:17923
+0x104d7d3 cp_parser_translation_unit
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:5685
+0x104d7d3 c_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/cp/parser.cc:58096
+0x11e1879 c_common_parse_file()
+	/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-src/gcc/c-family/c-opts.cc:1442
+/home/fuzz/WorkSpace/fusion-fuzz/projects/gcc/gcc-install/libexec/gcc/x86_64-pc-linux-gnu/17.0.0/cc1plus -quiet -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /home/fuzz/WorkSpace/fusion-fuzz/.fused/gcc/tmp9jjey99y/f8ddfc2a.cc -quiet -dumpbase f8ddfc2a.cc -dumpbase-ext .cc -mtune=generic -march=x86-64 -Ofast -ftrapv -ffast-math -fexceptions -o /tmp/ccMzTZxQ.s
+Please submit a full bug report, with preprocessed source (by using -freport-bug).
+Please include the complete backtrace with any bug report.
+See <https://gcc.gnu.org/bugs/> for instructions.

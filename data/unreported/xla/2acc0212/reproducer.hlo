@@ -1,0 +1,20 @@
+HloModule m
+
+%add (x: f32[], y: f32[]) -> f32[] {
+  %x = f32[] parameter(0)
+  %y = f32[] parameter(1)
+  ROOT %add = f32[] add(%x, %y)
+}
+
+ENTRY %main {
+  %a = f32[4]{0} parameter(0)
+  %ar-start = (f32[4]{0}, f32[4]{0}) all-reduce-start(%a), to_apply=%add, replica_groups={}, frontend_attributes={_xla_stream_annotation="collective"}
+  %ar-done = f32[4]{0} all-reduce-done(%ar-start), frontend_attributes={_xla_stream_annotation="collective"}
+  %lhs = f32[200,100] parameter(1)
+  %rhs0 = f32[10, 100] parameter(2)
+  %rhs1 = f32[50, 100] parameter(3)
+  %dot0 = f32[200, 10] dot(%lhs, %rhs0), lhs_contracting_dims={1}, rhs_contracting_dims={1}
+  %dot1 = f32[200, 50] dot(%ar-start, %rhs1), lhs_contracting_dims={1}, rhs_contracting_dims={1}
+  %tuple = (f32[200,10], f32[200,50]) tuple(%dot0, %dot1)
+  ROOT %ffl.root = (f32[4]{0}, (f32[200,10], f32[200,50])) tuple(%ar-done, %tuple)
+}

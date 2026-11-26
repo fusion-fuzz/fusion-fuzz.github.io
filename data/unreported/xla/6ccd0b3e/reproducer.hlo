@@ -1,0 +1,13 @@
+HloModule m, num_partitions=8
+
+ENTRY %e {
+  %p = f32[128] parameter(0)
+  %param = (bf16[3]{0}, s32[12,5]{0,1}) parameter(1)
+  %after-all = token[] after-all()
+  %outfeed.23 = token[] outfeed(%param, %after-all)
+  %_ = f32[128] collective-permute(p), source_target_pairs={{0,7},{7,0}}
+  %ffl.root = (f32[128], token[]) tuple(%_, %outfeed.23)
+  %after-all.d = token[] after-all()
+  %outfeed.23.d = token[] outfeed(%param, %after-all.d)
+  ROOT %ffl.root.1 = (f32[128], token[], token[]) tuple(%_, %outfeed.23, %outfeed.23.d)
+}

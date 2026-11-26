@@ -1,0 +1,100 @@
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpczco2kf8/0c3b2b71.mm:22:10: warning: unused variable 'appendRect' [-Wunused-variable]
+   22 |   NSRect appendRect = NSZeroRect;
+      |          ^~~~~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpczco2kf8/0c3b2b71.mm:14:12: warning: class 'A' defined without specifying a base class [-Wobjc-root-class]
+   14 | @interface A{
+      |            ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpczco2kf8/0c3b2b71.mm:14:13: note: add a super class to fix this problem
+   14 | @interface A{
+      |             ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpczco2kf8/0c3b2b71.mm:71:9: warning: variable 'v2i64_r' set but not used [-Wunused-but-set-variable]
+   71 |   v2i64 v2i64_r;
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpczco2kf8/0c3b2b71.mm:93:9: warning: variable 'v2i64_r' set but not used [-Wunused-but-set-variable]
+   93 |   v2i64 v2i64_r;
+      |         ^
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpczco2kf8/0c3b2b71.mm:111:9: warning: unused variable 'v2i64_b' [-Wunused-variable]
+  111 |   v2i64 v2i64_b = (v2i64){2, 1}; // expected-warning {{compound literals are a C99-specific feature}}
+      |         ^~~~~~~
+/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpczco2kf8/0c3b2b71.mm:113:9: warning: variable 'v2i64_r' set but not used [-Wunused-but-set-variable]
+  113 |   v2i64 v2i64_r;
+      |         ^
+clang++: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-project/llvm/include/llvm/IR/Instructions.h:1786: void llvm::SelectInst::init(llvm::Value *, llvm::Value *, llvm::Value *): Assertion `!areInvalidOperands(C, S1, S2) && "Invalid operands for select"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin/clang++ -c -o /dev/null -Oz -std=gnu++17 -fblocks -fno-objc-arc -g -Wall -target x86_64-apple-darwin10 -ffreestanding /home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpczco2kf8/0c3b2b71.mm
+1.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpczco2kf8/0c3b2b71.mm:145:1: current parser token 'void'
+2.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpczco2kf8/0c3b2b71.mm:109:6: LLVM IR generation of declaration 'logicTest'
+3.	/home/fuzz/WorkSpace/fusion-fuzz/.fused/clang/tmpczco2kf8/0c3b2b71.mm:109:6: Generating code for declaration 'logicTest'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  clang++   0x00005a5b8b8d88cb __interceptor_backtrace + 91
+1  clang++   0x00005a5b91586037 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 327
+2  clang++   0x00005a5b9157fd03 llvm::sys::RunSignalHandlers() + 275
+3  clang++   0x00005a5b915849d4 llvm::sys::CleanupOnSignal(unsigned long) + 468
+4  clang++   0x00005a5b913d00d5
+5  clang++   0x00005a5b913d08e3
+6  libc.so.6 0x00007ed11351c520
+7  libc.so.6 0x00007ed1135709bc pthread_kill + 300
+8  libc.so.6 0x00007ed11351c476 raise + 22
+9  libc.so.6 0x00007ed1135027f3 abort + 211
+10 libc.so.6 0x00007ed11350271b
+11 libc.so.6 0x00007ed113513e96
+12 clang++   0x00005a5b8c36a559
+13 clang++   0x00005a5b8c36a2b1
+14 clang++   0x00005a5b9049c90b llvm::IRBuilderBase::CreateSelectFMF(llvm::Value*, llvm::Value*, llvm::Value*, llvm::FMFSource, llvm::Twine const&, llvm::Instruction*) + 651
+15 clang++   0x00005a5b9049ce7a llvm::IRBuilderBase::CreateSelect(llvm::Value*, llvm::Value*, llvm::Value*, llvm::Twine const&, llvm::Instruction*) + 26
+16 clang++   0x00005a5b924b15b3
+17 clang++   0x00005a5b9244d650
+18 clang++   0x00005a5b9244d1df clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) + 255
+19 clang++   0x00005a5b922b6ebc clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) + 364
+20 clang++   0x00005a5b922e284b clang::CodeGen::CodeGenFunction::EmitBinaryOperatorLValue(clang::BinaryOperator const*) + 3835
+21 clang++   0x00005a5b922e0f7f clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t) + 3439
+22 clang++   0x00005a5b9236eeac
+23 clang++   0x00005a5b9c267f12 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) + 274
+24 clang++   0x00005a5b922b8246 clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t) + 678
+25 clang++   0x00005a5b922b6a34 clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) + 628
+26 clang++   0x00005a5b927b358b clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) + 587
+27 clang++   0x00005a5b927c7f05 clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) + 469
+28 clang++   0x00005a5b92925282 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) + 578
+29 clang++   0x00005a5b92927d17 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) + 5927
+30 clang++   0x00005a5b929b9efa clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 1018
+31 clang++   0x00005a5b929a2421 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) + 1345
+32 clang++   0x00005a5b929b11ad clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) + 2989
+33 clang++   0x00005a5b9299e412 clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) + 914
+34 clang++   0x00005a5b932e3ae3
+35 clang++   0x00005a5b932cf665 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) + 837
+36 clang++   0x00005a5b97ae124d clang::ParseAST(clang::Sema&, bool, bool) + 2445
+37 clang++   0x00005a5b932d92ab clang::CodeGenAction::ExecuteAction() + 1771
+38 clang++   0x00005a5b9399752e clang::FrontendAction::Execute() + 222
+39 clang++   0x00005a5b93828900 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1936
+40 clang++   0x00005a5b93b7c2df clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 751
+41 clang++   0x00005a5b8b96e3e6 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4390
+42 clang++   0x00005a5b8b962349
+43 clang++   0x00005a5b8b96c887
+44 clang++   0x00005a5b933ffd37
+45 clang++   0x00005a5b913cfe8d llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 333
+46 clang++   0x00005a5b933fd23a clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 1050
+47 clang++   0x00005a5b9334dbbc clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 1996
+48 clang++   0x00005a5b9334f34b clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 4427
+49 clang++   0x00005a5b9339e940 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 1280
+50 clang++   0x00005a5b8b960777 clang_main(int, char**, llvm::ToolContext const&) + 12295
+51 clang++   0x00005a5b8b9900f7 main + 567
+52 libc.so.6 0x00007ed113503d90
+53 libc.so.6 0x00007ed113503e40 __libc_start_main + 128
+54 clang++   0x00005a5b8b89cd95 _start + 37
+clang++: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project.git cd9c8d090c1a87ebc619e7aba9a036f06466be5e)
+Target: x86_64-apple-darwin10
+Thread model: posix
+InstalledDir: /home/fuzz/WorkSpace/fusion-fuzz/projects/clang/llvm-clang-install/bin
+Build config: +assertions, +asan, +ubsan
+clang++: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang++: note: diagnostic msg: /tmp/0c3b2b71-096c78.mm
+clang++: note: diagnostic msg: /tmp/0c3b2b71-096c78.sh
+clang++: note: diagnostic msg: 
+
+********************
+Aborted (core dumped)
